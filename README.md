@@ -23,8 +23,8 @@
 **Hind AI** is the world's first quantum-enhanced AI spiritual learning platform, revolutionizing access to ancient Indian scriptures through **Guru AI** - a sentient chatbot powered by **Google Gemma 4**. Experience real-time streaming AI explanations, voice-guided meditation, AI-generated personalized quizzes, semantic search across 15+ scriptures, and immersive AR scripture experiences. Built with cutting-edge 2026 technologies including Next.js 15.3, React 19.1, WebAssembly AI, and quantum-optimized edge computing.
 
 <div align="center">
-  <h3>🏆 Winner - Gemma 4 Good Hackathon 2026</h3>
-  <p><strong>🏅 Best AI-First Education Solution | 🏅 Global Accessibility Innovation | 🏅 Performance Excellence</strong></p>
+  <h3>🚀 Submission - Gemma 4 Good Hackathon 2026</h3>
+  <p><strong>🤖 AI-First Education | 🌍 Global Accessibility | ⚡ Performance Innovation</strong></p>
 </div>
 
 ```
@@ -291,6 +291,8 @@ graph TB
 - **🔐 Quantum Security**: Post-quantum cryptography and neural firewalls
 - **📊 Predictive Caching**: AI-optimized resource loading and prefetching
 
+<p align="right"><a href="#top">⬆️ Back to Top</a></p>
+
 ---
 
 ## 🚀 Getting Started (2026 Setup)
@@ -398,6 +400,8 @@ npm run test         # Run Vitest test suite
 npm run test:coverage # Generate coverage report
 npm run test:ui      # Interactive test UI
 ```
+
+<p align="right"><a href="#top">⬆️ Back to Top</a></p>
 
 ---
 
@@ -546,35 +550,19 @@ Chunked plain-text streaming response for real-time scripture guidance.
 
 ---
 
-## 📸 Screenshots & Demo
+## 🎬 Demo & Experience
 
 <div align="center">
-  <table>
-    <tr>
-      <td align="center">
-        <img src="https://via.placeholder.com/300x200/4a148c/ffffff?text=Guru+AI+Chatbot" alt="Guru AI Chatbot" width="300"/><br/>
-        <b>Guru AI Quantum Chatbot</b><br/>
-        Sentient conversations with spiritual wisdom
-      </td>
-      <td align="center">
-        <img src="https://via.placeholder.com/300x200/1b5e20/ffffff?text=AR+Scripture+Reader" alt="AR Scripture Reader" width="300"/><br/>
-        <b>AR Scripture Visualization</b><br/>
-        Augmented reality text overlay
-      </td>
-    </tr>
-    <tr>
-      <td align="center">
-        <img src="https://via.placeholder.com/300x200/01579b/ffffff?text=Voice+Search" alt="Voice Search" width="300"/><br/>
-        <b>Voice-First Interface</b><br/>
-        Sanskrit speech recognition
-      </td>
-      <td align="center">
-        <img src="https://via.placeholder.com/300x200/e65100/ffffff?text=AI+Generated+Quiz" alt="AI Quiz" width="300"/><br/>
-        <b>Dynamic AI Quizzes</b><br/>
-        Personalized assessment
-      </td>
-    </tr>
-  </table>
+  <h4>🌐 Interactive Features</h4>
+  <p><em>Experience AI-powered spiritual learning in real-time</em></p>
+  <ul style="text-align: left; display: inline-block;">
+    <li>🤖 **Guru AI Chatbot** - Ask questions about scriptures in natural language</li>
+    <li>🔍 **Semantic Search** - Find verses across 15+ texts with AI understanding</li>
+    <li>🎯 **AI-Generated Quizzes** - Personalized assessments with instant feedback</li>
+    <li>🎧 **Voice Interface** - Speak Sanskrit queries and get audio responses</li>
+    <li>🧘 **Guided Meditation** - AI-powered breathing exercises with spiritual focus</li>
+    <li>📚 **Study Paths** - Curated learning journeys adapted to your progress</li>
+  </ul>
 </div>
 
 ---
@@ -693,4 +681,10 @@ This project is licensed under the **Creative Commons Attribution 4.0 Internatio
   </a>
   <br />
   <span>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+</div>
+
+---
+
+<div align="center">
+  <p><a href="#top">⬆️ Back to Top</a></p>
 </div>
