@@ -2,26 +2,27 @@ import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 /**
- * API Route for Google Gemini AI Generation
+ * API Route for Gemma 4 AI Generation
  *
- * This endpoint uses Google Gemini 2.5 Flash for AI-powered scripture analysis.
+ * This endpoint uses Gemma 4 models for AI-powered scripture analysis.
+ * Part of the Gemma 4 Good Hackathon submission.
  */
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const MODEL_NAME = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+const GEMMA_API_KEY = process.env.GEMMA_API_KEY || process.env.GEMINI_API_KEY; // Fallback for compatibility
+const MODEL_NAME = process.env.GEMMA_MODEL || "gemma-4-27b-it"; // Gemma 4 instruction-tuned model
 
-// Initialize Gemini AI
-const ai = GEMINI_API_KEY ? new GoogleGenerativeAI(GEMINI_API_KEY) : null;
+// Initialize Gemma 4 AI
+const ai = GEMMA_API_KEY ? new GoogleGenerativeAI(GEMMA_API_KEY) : null;
 
 export async function POST(request: NextRequest) {
   // Check if API key is configured
-  if (!GEMINI_API_KEY || !ai) {
+  if (!GEMMA_API_KEY || !ai) {
     console.warn("GEMINI_API_KEY not configured");
     return NextResponse.json(
       {
         response: getFallbackResponse(),
         mock: true,
-        error: "AI service not configured. Set GEMINI_API_KEY environment variable.",
+        error: "AI service not configured. Set GEMMA_API_KEY environment variable.",
       },
       { status: 200 }
     );
@@ -108,7 +109,7 @@ I'm here to help you explore ancient Indian scriptures. Currently, I'm running i
 - Learning about meditation and spiritual practices
 
 **To enable full AI features:**
-Set the GEMINI_API_KEY environment variable with your Google AI Studio API key.
+Set the GEMMA_API_KEY environment variable with your Gemma 4 API key.
 
 Get your key at: https://aistudio.google.com/app/apikey
 

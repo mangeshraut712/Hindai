@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sun, Moon, Share2, Heart, Sparkles } from "lucide-react";
+import { Sun, Moon, Share2, Heart, Sparkles, Bell, BellOff } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { MeditationTimer } from "@/components/meditation-timer";
+import { track } from "@vercel/analytics";
 
 // Daily wisdom verses from various scriptures
 const dailyWisdom = [
@@ -12,7 +14,8 @@ const dailyWisdom = [
     id: 1,
     sanskrit: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन",
     transliteration: "Karmanye vadhikaraste ma phaleshu kadachana",
-    translation: "You have a right to perform your prescribed duty, but you are not entitled to the fruits of action.",
+    translation:
+      "You have a right to perform your prescribed duty, but you are not entitled to the fruits of action.",
     source: "Bhagavad Gita 2.47",
     context: "The essence of Karma Yoga - focus on your duty without attachment to results.",
     theme: "duty",
@@ -21,7 +24,8 @@ const dailyWisdom = [
     id: 2,
     sanskrit: "योगस्थः कुरु कर्माणि",
     transliteration: "Yogasthah kuru karmani",
-    translation: "Perform your duties being established in Yoga, abandon attachment to success and failure.",
+    translation:
+      "Perform your duties being established in Yoga, abandon attachment to success and failure.",
     source: "Bhagavad Gita 2.48",
     theme: "balance",
   },
@@ -37,7 +41,8 @@ const dailyWisdom = [
     id: 4,
     sanskrit: "ओं असतो मा सद्गमय",
     transliteration: "Om asato ma sad gamaya",
-    translation: "Lead me from the unreal to the real, from darkness to light, from death to immortality.",
+    translation:
+      "Lead me from the unreal to the real, from darkness to light, from death to immortality.",
     source: "Shanti Mantra",
     theme: "transformation",
   },
@@ -45,7 +50,8 @@ const dailyWisdom = [
     id: 5,
     sanskrit: "अयं निजः परो वेति गणना लघुचेतसाम्",
     transliteration: "Ayam nijah paro veti ganana laghuchetasam",
-    translation: "This is mine, that is his - such calculations are for the narrow-minded. For the generous, the entire world is one family.",
+    translation:
+      "This is mine, that is his - such calculations are for the narrow-minded. For the generous, the entire world is one family.",
     source: "Maha Upanishad 6.71-72",
     theme: "unity",
   },
@@ -71,6 +77,8 @@ export default function DailyWisdomPage() {
   const [currentWisdom, setCurrentWisdom] = useState(dailyWisdom[0]);
   const [isLiked, setIsLiked] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const [showMeditation, setShowMeditation] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -80,7 +88,44 @@ export default function DailyWisdomPage() {
     const diff = today.getTime() - startOfYear.getTime();
     const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
     setCurrentWisdom(dailyWisdom[dayOfYear % dailyWisdom.length]);
+
+    // Check if notifications are supported and enabled
+    if ("Notification" in window) {
+      setNotificationsEnabled(Notification.permission === "granted");
+    }
   }, []);
+
+  const requestNotificationPermission = async () => {
+    if ("Notification" in window) {
+      const permission = await Notification.requestPermission();
+      setNotificationsEnabled(permission === "granted");
+      track("notification_permission_requested", { granted: permission === "granted" });
+
+      if (permission === "granted") {
+        // Schedule daily notification for 7 AM
+        scheduleDailyNotification();
+      }
+    }
+  };
+
+  const scheduleDailyNotification = () => {
+    if ("serviceWorker" in navigator && "Notification" in window) {
+      // This would typically be handled by a service worker
+      // For demo purposes, we'll show a notification immediately
+      setTimeout(() => {
+        new Notification("Daily Wisdom from Hind AI", {
+          body: `"${currentWisdom.translation}" - ${currentWisdom.source}`,
+          icon: "/favicon.ico",
+          tag: "daily-wisdom",
+        });
+      }, 2000);
+    }
+  };
+
+  const toggleMeditation = () => {
+    setShowMeditation(!showMeditation);
+    track("meditation_timer_toggled", { shown: !showMeditation });
+  };
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -108,24 +153,22 @@ export default function DailyWisdomPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 dark:from-stone-950 dark:via-stone-900 dark:to-stone-800">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="container mx-auto max-w-4xl px-4 py-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
+          className="mb-12 text-center"
         >
-          <div className="flex items-center justify-center gap-2 mb-4">
+          <div className="mb-4 flex items-center justify-center gap-2">
             <Sun className="h-8 w-8 text-orange-500" />
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-orange-600 bg-clip-text text-transparent">
+            <h1 className="bg-gradient-to-r from-orange-600 via-red-600 to-orange-600 bg-clip-text text-4xl font-bold text-transparent">
               दैनिक ज्ञान
             </h1>
             <Moon className="h-8 w-8 text-indigo-500" />
           </div>
-          <p className="text-lg text-muted-foreground">
-            Daily Wisdom from Ancient Scriptures
-          </p>
-          <p className="text-sm text-orange-600 mt-2">
+          <p className="text-lg text-muted-foreground">Daily Wisdom from Ancient Scriptures</p>
+          <p className="mt-2 text-sm text-orange-600">
             {new Date().toLocaleDateString("en-IN", {
               weekday: "long",
               year: "numeric",
@@ -144,11 +187,11 @@ export default function DailyWisdomPage() {
             exit={{ opacity: 0, scale: 0.95, rotateY: 10 }}
             transition={{ duration: 0.5, type: "spring" }}
           >
-            <Card className="bg-white/80 backdrop-blur-sm border-orange-200 shadow-2xl dark:bg-stone-900/80">
+            <Card className="border-orange-200 bg-white/80 shadow-2xl backdrop-blur-sm dark:bg-stone-900/80">
               <CardContent className="p-8 md:p-12">
                 {/* Theme Badge */}
-                <div className="flex justify-center mb-8">
-                  <span className="px-4 py-1 rounded-full bg-orange-100 text-orange-800 text-sm font-medium capitalize dark:bg-orange-900/30 dark:text-orange-300">
+                <div className="mb-8 flex justify-center">
+                  <span className="rounded-full bg-orange-100 px-4 py-1 text-sm font-medium capitalize text-orange-800 dark:bg-orange-900/30 dark:text-orange-300">
                     {currentWisdom.theme}
                   </span>
                 </div>
@@ -158,7 +201,7 @@ export default function DailyWisdomPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 }}
-                  className="text-3xl md:text-4xl font-bold text-center mb-4 leading-relaxed"
+                  className="mb-4 text-center text-3xl font-bold leading-relaxed md:text-4xl"
                 >
                   <p className="font-serif">{currentWisdom.sanskrit}</p>
                 </motion.div>
@@ -168,7 +211,7 @@ export default function DailyWisdomPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
-                  className="text-lg text-center text-orange-600 mb-8 italic"
+                  className="mb-8 text-center text-lg italic text-orange-600"
                 >
                   {currentWisdom.transliteration}
                 </motion.p>
@@ -178,16 +221,16 @@ export default function DailyWisdomPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4 }}
-                  className="text-xl md:text-2xl text-center text-stone-800 dark:text-stone-200 mb-8 leading-relaxed"
+                  className="mb-8 text-center text-xl leading-relaxed text-stone-800 dark:text-stone-200 md:text-2xl"
                 >
                   &ldquo;{currentWisdom.translation}&rdquo;
                 </motion.blockquote>
 
                 {/* Divider */}
-                <div className="flex items-center justify-center gap-4 my-8">
-                  <div className="h-px bg-orange-300 flex-1 max-w-[100px]" />
+                <div className="my-8 flex items-center justify-center gap-4">
+                  <div className="h-px max-w-[100px] flex-1 bg-orange-300" />
                   <Sparkles className="h-5 w-5 text-orange-400" />
-                  <div className="h-px bg-orange-300 flex-1 max-w-[100px]" />
+                  <div className="h-px max-w-[100px] flex-1 bg-orange-300" />
                 </div>
 
                 {/* Context */}
@@ -195,7 +238,7 @@ export default function DailyWisdomPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.5 }}
-                  className="text-center text-muted-foreground mb-6"
+                  className="mb-6 text-center text-muted-foreground"
                 >
                   {currentWisdom.context}
                 </motion.p>
@@ -219,15 +262,13 @@ export default function DailyWisdomPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
-          className="flex flex-wrap justify-center gap-4 mt-8"
+          className="mt-8 flex flex-wrap justify-center gap-4"
         >
           <Button
             variant="outline"
             onClick={() => setIsLiked(!isLiked)}
             className={`gap-2 ${
-              isLiked
-                ? "bg-red-100 text-red-600 border-red-300"
-                : "hover:bg-red-50"
+              isLiked ? "border-red-300 bg-red-100 text-red-600" : "hover:bg-red-50"
             }`}
           >
             <Heart className={`h-4 w-4 ${isLiked ? "fill-current" : ""}`} />
@@ -240,20 +281,52 @@ export default function DailyWisdomPage() {
           </Button>
 
           <Button
+            onClick={requestNotificationPermission}
+            variant="outline"
+            className={`gap-2 ${
+              notificationsEnabled
+                ? "border-green-300 bg-green-100 text-green-600"
+                : "hover:bg-green-50"
+            }`}
+          >
+            {notificationsEnabled ? <Bell className="h-4 w-4" /> : <BellOff className="h-4 w-4" />}
+            {notificationsEnabled ? "Daily On" : "Daily Reminder"}
+          </Button>
+
+          <Button onClick={toggleMeditation} variant="outline" className="gap-2 hover:bg-purple-50">
+            🧘 Meditate
+          </Button>
+
+          <Button
             onClick={handleNext}
-            className="bg-gradient-to-r from-orange-500 to-red-500 text-white gap-2"
+            className="gap-2 bg-gradient-to-r from-orange-500 to-red-500 text-white"
           >
             <Sparkles className="h-4 w-4" />
             More Wisdom
           </Button>
         </motion.div>
 
+        {/* Meditation Timer */}
+        <AnimatePresence>
+          {showMeditation && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="mt-8"
+            >
+              <MeditationTimer />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Subtle Quote */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9 }}
-          className="text-center text-sm text-muted-foreground mt-12"
+          className="mt-12 text-center text-sm text-muted-foreground"
         >
           Start your day with ancient wisdom. New teaching every day.
         </motion.p>

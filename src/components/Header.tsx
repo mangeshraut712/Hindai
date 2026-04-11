@@ -13,6 +13,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Sun, Moon, BookOpen, Search, Sparkles, Trophy } from "lucide-react";
 import { SearchDialog } from "./search";
+import { VoiceSearch } from "./voice-search";
 import { track } from "@vercel/analytics";
 
 const navItems = [
@@ -63,6 +64,14 @@ export function Header() {
 
   const handleNavigation = (href: string, label: string) => {
     track("navigation_click", { destination: href, label });
+  };
+
+  const handleVoiceSearch = (transcript: string) => {
+    // Use the transcript as search query
+    // This could be integrated with the search dialog
+    track("voice_search_used", { query: transcript });
+    setIsSearchOpen(true);
+    // The search dialog could be enhanced to accept initial query
   };
 
   return (
@@ -142,6 +151,8 @@ export function Header() {
               <span className="text-xs">⌘</span>K
             </kbd>
           </Button>
+
+          <VoiceSearch onResult={handleVoiceSearch} className="hidden sm:flex" />
 
           <Button
             variant="ghost"

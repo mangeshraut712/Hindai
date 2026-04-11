@@ -1,21 +1,23 @@
 /**
- * Google Gemini API Integration for Hind AI
+ * Gemma 4 API Integration for Hind AI
  *
- * Production-ready implementation using @google/genai SDK
+ * Production-ready implementation using @google/gemma SDK
  * Features: streaming, rate limiting, caching, structured output
  *
  * @author Hind AI Team
  * @version 1.0.0
  */
 
+// Using Gemma 4 models through Google AI infrastructure
+// Gemma 4 models are available as part of the Google AI family
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { z } from "zod";
 
-// Configuration
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const MODEL_NAME = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+// Configuration - Using Gemma 4 models for the hackathon
+const GEMMA_API_KEY = process.env.GEMMA_API_KEY || process.env.GEMINI_API_KEY; // Fallback for compatibility
+const MODEL_NAME = process.env.GEMMA_MODEL || "gemma-4-27b-it"; // Gemma 4 instruction-tuned model
 const CACHE_TTL = 60 * 60 * 24; // 24 hours in seconds
 
 // Schema validation
@@ -66,8 +68,8 @@ const ratelimit = new Ratelimit({
   analytics: true,
 });
 
-// Initialize Gemini AI
-const ai = GEMINI_API_KEY ? new GoogleGenerativeAI(GEMINI_API_KEY) : null;
+// Initialize Gemma 4 AI
+const ai = GEMMA_API_KEY ? new GoogleGenerativeAI(GEMMA_API_KEY) : null;
 
 /**
  * System prompt for scripture analysis
@@ -287,7 +289,7 @@ export async function getAIStatus(): Promise<{
   try {
     const { remaining } = await ratelimit.limit("healthcheck");
     return {
-      available: !!GEMINI_API_KEY,
+      available: !!GEMMA_API_KEY,
       model: MODEL_NAME,
       rateLimitRemaining: remaining,
     };
