@@ -72,45 +72,11 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("AI Generation Error:", error);
 
-    // Return fallback response
     return NextResponse.json(
       {
-        response: {
-          explanation: getFallbackResponse(),
-        },
-        mock: true,
-        model: GEMMA_MODEL,
-        error: error instanceof Error ? error.message : "AI service unavailable",
+        error: "AI service is currently unavailable. Please try again later.",
       },
-      { status: 200 }
+      { status: 503 }
     );
   }
-}
-
-/**
- * Fallback response when AI is unavailable
- */
-function getFallbackResponse(): string {
-  return `Welcome to Hind AI! 🙏
-
-I'm here to help you explore ancient Indian scriptures. Currently, I'm running in demo mode while the AI service is being configured.
-
-**What I can help with:**
-- Explaining verses from the Bhagavad Gita
-- Understanding concepts like Karma, Dharma, and Moksha
-- Exploring the Yoga Sutras of Patanjali
-- Learning about meditation and spiritual practices
-
-**Why this is still in demo mode:**
-Accepting Gemma access on Kaggle does not configure this app by itself.
-
-**To enable full AI features, choose one backend:**
-1. Hosted API: set the GEMMA_API_KEY environment variable with your Google AI Studio key.
-2. Local runtime: run Ollama locally with a Gemma model available at ${process.env.OLLAMA_URL || "http://localhost:11434"}.
-
-**Sample Questions to Try:**
-- "What is Karma Yoga?"
-- "Explain Bhagavad Gita 2.47"
-- "What are the four goals of life in Hinduism?"
-- "How do I start meditation?"`;
 }

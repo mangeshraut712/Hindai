@@ -54,15 +54,7 @@ export function AIChat({
   initialCompareScriptureIds = [],
   initialAudience = "general",
 }: AIChatProps) {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "welcome",
-      role: "assistant",
-      content:
-        "Namaste! 🙏 I'm your AI guide to ancient Indian scriptures. Ask me about any verse, concept, or teaching from the Vedas, Upanishads, Bhagavad Gita, or other sacred texts.",
-      timestamp: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState(initialPrompt);
   const [isLoading, setIsLoading] = useState(false);
   const [mode, setMode] = useState<"explain" | "compare">(initialMode);

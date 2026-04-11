@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle, XCircle, ArrowRight, Trophy, BookOpen } from "lucide-react";
+import { CheckCircle, XCircle, ArrowRight, Trophy, BookOpen, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -17,7 +17,7 @@ interface Question {
   difficulty: "easy" | "medium" | "hard";
 }
 
-const quizQuestions: Question[] = [
+const sampleQuizQuestions: Question[] = [
   {
     id: "1",
     question: "What is the main teaching of Bhagavad Gita Chapter 2, Verse 47?",
@@ -96,12 +96,70 @@ const quizQuestions: Question[] = [
 ];
 
 export function QuizSystem() {
+  const [quizQuestions, setQuizQuestions] = useState<Question[]>(sampleQuizQuestions);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
   const [answers, setAnswers] = useState<number[]>([]);
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const generateAIQuiz = async () => {
+    setIsGenerating(true);
+    try {
+      const response = await fetch("/api/ai/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt:
+            "Generate a multiple choice quiz question about ancient Indian scriptures. Format exactly as: Question: [question text] Options: 1. [option1] 2. [option2] 3. [option3] 4. [option4] Correct Answer: [number 0-3] Explanation: [detailed explanation with scripture reference]",
+        }),
+      });
+      const data = await response.json();
+      if (data.response?.explanation) {
+        // Parse the AI response
+        const content = data.response.explanation;
+        const questionMatch = content.match(/Question:\s*(.+?)(?=Options:|$)/s);
+        const optionsMatch = content.match(/Options:\s*(.+?)(?=Correct Answer:|$)/s);
+        const correctMatch = content.match(/Correct Answer:\s*(\d)/);
+        const explanationMatch = content.match(/Explanation:\s*(.+)$/s);
+
+        if (questionMatch && optionsMatch && correctMatch && explanationMatch) {
+          const questionText = questionMatch[1].trim();
+          const optionsText = optionsMatch[1].trim();
+          const options = optionsText
+            .split(/\d+\.\s*/)
+            .filter(Boolean)
+            .map((opt: string) => opt.trim());
+          const correctAnswer = parseInt(correctMatch[1]) - 1; // 0-based
+          const explanation = explanationMatch[1].trim();
+
+          const newQuestion: Question = {
+            id: Date.now().toString(),
+            question: questionText,
+            options,
+            correctAnswer,
+            explanation,
+            scripture: "AI Generated",
+            difficulty: "medium",
+          };
+
+          setQuizQuestions([newQuestion]);
+          setCurrentQuestion(0);
+          setSelectedAnswer(null);
+          setShowExplanation(false);
+          setScore(0);
+          setCompleted(false);
+          setAnswers([]);
+        }
+      }
+    } catch (error) {
+      console.error("Failed to generate quiz:", error);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   const question = quizQuestions[currentQuestion];
   const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
@@ -185,90 +243,100 @@ export function QuizSystem() {
   }
 
   return (
-    <Card className="mx-auto w-full max-w-2xl">
-      <CardHeader>
-        <div className="mb-2 flex items-center justify-between">
-          <span className="text-sm text-muted-foreground">
-            Question {currentQuestion + 1} of {quizQuestions.length}
-          </span>
-          <span
-            className={cn(
-              "rounded-full px-2 py-1 text-xs",
-              question.difficulty === "easy" && "bg-green-100 text-green-800",
-              question.difficulty === "medium" && "bg-yellow-100 text-yellow-800",
-              question.difficulty === "hard" && "bg-red-100 text-red-800"
-            )}
-          >
-            {question.difficulty}
-          </span>
-        </div>
-        <Progress value={progress} className="w-full" />
-        <CardTitle className="mt-4 text-xl">{question.question}</CardTitle>
-      </CardHeader>
-
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
-          {question.options.map((option, index) => (
-            <Button
-              key={index}
-              variant={selectedAnswer === index ? "default" : "outline"}
+    <>
+      <div className="mb-4 flex justify-center">
+        <Button onClick={generateAIQuiz} disabled={isGenerating} variant="outline">
+          <Sparkles className="mr-2 h-4 w-4" />
+          {isGenerating ? "Generating..." : "Generate AI Quiz Question"}
+        </Button>
+      </div>
+      <Card className="mx-auto w-full max-w-2xl">
+        <CardHeader>
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-sm text-muted-foreground">
+              Question {currentQuestion + 1} of {quizQuestions.length}
+            </span>
+            <span
               className={cn(
-                "h-auto w-full justify-start px-4 py-3 text-left",
-                showExplanation &&
-                  index === question.correctAnswer &&
-                  "border-green-500 bg-green-100 hover:bg-green-100",
-                showExplanation &&
-                  selectedAnswer === index &&
-                  index !== question.correctAnswer &&
-                  "border-red-500 bg-red-100 hover:bg-red-100"
+                "rounded-full px-2 py-1 text-xs",
+                question.difficulty === "easy" && "bg-green-100 text-green-800",
+                question.difficulty === "medium" && "bg-yellow-100 text-yellow-800",
+                question.difficulty === "hard" && "bg-red-100 text-red-800"
               )}
-              onClick={() => handleSelect(index)}
-              disabled={showExplanation}
             >
-              <span className="mr-3 font-medium">{String.fromCharCode(65 + index)}.</span>
-              {option}
-              {showExplanation && index === question.correctAnswer && (
-                <CheckCircle className="ml-auto h-5 w-5 text-green-600" />
-              )}
-              {showExplanation && selectedAnswer === index && index !== question.correctAnswer && (
-                <XCircle className="ml-auto h-5 w-5 text-red-600" />
-              )}
-            </Button>
-          ))}
-        </div>
-
-        {showExplanation && (
-          <div className="space-y-2 rounded-lg bg-muted p-4">
-            <div className="flex items-center gap-2 text-sm font-medium">
-              <BookOpen className="h-4 w-4" />
-              {question.scripture}
-            </div>
-            <p className="text-sm">{question.explanation}</p>
+              {question.difficulty}
+            </span>
           </div>
-        )}
+          <Progress value={progress} className="w-full" />
+          <CardTitle className="mt-4 text-xl">{question.question}</CardTitle>
+        </CardHeader>
 
-        <div className="flex gap-2 pt-2">
-          {!showExplanation ? (
-            <Button onClick={handleSubmit} disabled={selectedAnswer === null} className="flex-1">
-              Submit Answer
-            </Button>
-          ) : (
-            <Button onClick={handleNext} className="flex-1">
-              {currentQuestion < quizQuestions.length - 1 ? (
-                <>
-                  Next Question <ArrowRight className="ml-2 h-4 w-4" />
-                </>
-              ) : (
-                "See Results"
-              )}
-            </Button>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            {question.options.map((option, index) => (
+              <Button
+                key={index}
+                variant={selectedAnswer === index ? "default" : "outline"}
+                className={cn(
+                  "h-auto w-full justify-start px-4 py-3 text-left",
+                  showExplanation &&
+                    index === question.correctAnswer &&
+                    "border-green-500 bg-green-100 hover:bg-green-100",
+                  showExplanation &&
+                    selectedAnswer === index &&
+                    index !== question.correctAnswer &&
+                    "border-red-500 bg-red-100 hover:bg-red-100"
+                )}
+                onClick={() => handleSelect(index)}
+                disabled={showExplanation}
+              >
+                <span className="mr-3 font-medium">{String.fromCharCode(65 + index)}.</span>
+                {option}
+                {showExplanation && index === question.correctAnswer && (
+                  <CheckCircle className="ml-auto h-5 w-5 text-green-600" />
+                )}
+                {showExplanation &&
+                  selectedAnswer === index &&
+                  index !== question.correctAnswer && (
+                    <XCircle className="ml-auto h-5 w-5 text-red-600" />
+                  )}
+              </Button>
+            ))}
+          </div>
+
+          {showExplanation && (
+            <div className="space-y-2 rounded-lg bg-muted p-4">
+              <div className="flex items-center gap-2 text-sm font-medium">
+                <BookOpen className="h-4 w-4" />
+                {question.scripture}
+              </div>
+              <p className="text-sm">{question.explanation}</p>
+            </div>
           )}
-        </div>
 
-        <p className="text-center text-xs text-muted-foreground">
-          Score: {score} / {currentQuestion + (showExplanation ? 1 : 0)}
-        </p>
-      </CardContent>
-    </Card>
+          <div className="flex gap-2 pt-2">
+            {!showExplanation ? (
+              <Button onClick={handleSubmit} disabled={selectedAnswer === null} className="flex-1">
+                Submit Answer
+              </Button>
+            ) : (
+              <Button onClick={handleNext} className="flex-1">
+                {currentQuestion < quizQuestions.length - 1 ? (
+                  <>
+                    Next Question <ArrowRight className="ml-2 h-4 w-4" />
+                  </>
+                ) : (
+                  "See Results"
+                )}
+              </Button>
+            )}
+          </div>
+
+          <p className="text-center text-xs text-muted-foreground">
+            Score: {score} / {currentQuestion + (showExplanation ? 1 : 0)}
+          </p>
+        </CardContent>
+      </Card>
+    </>
   );
 }
