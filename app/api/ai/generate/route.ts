@@ -1,18 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
+import { GoogleGenAI } from "@google/genai";
 
 /**
- * API Route for Gemma 4 AI Generation
+ * API Route for Google Gemini AI Generation
  * 
- * This endpoint proxies requests to the local Ollama instance
- * running Gemma 4 for AI-powered scripture analysis.
+ * This endpoint uses Google Gemini 2.5 Flash for AI-powered scripture analysis.
  */
 
-const OLLAMA_URL = process.env.OLLAMA_URL || "http://localhost:11434";
-const MODEL_NAME = process.env.GEMMA_MODEL || "gemma-4-4b-it";
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const MODEL_NAME = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+
+// Initialize Gemini AI
+const ai = GEMINI_API_KEY ? new GoogleGenAI({ apiKey: GEMINI_API_KEY }) : null;
 
 export async function POST(request: NextRequest) {
+  // Check if API key is configured
+  if (!GEMINI_API_KEY || !ai) {
+    console.warn("GEMINI_API_KEY not configured");
+    return NextResponse.json({
+      response: getFallbackResponse(),
+      mock: true,
+      error: "AI service not configured. Set GEMINI_API_KEY environment variable."
+    }, { status: 200 });
+  }
+
   try {
-    const { prompt, type = "general" } = await request.json();
+    const { prompt } = await request.json();
 
     if (!prompt) {
       return NextResponse.json(
@@ -43,40 +56,20 @@ Guidelines:
 
 Response should be clear, educational, and accessible to modern readers.`;
 
-    // Call Ollama/Gemma 4
-    const response = await fetch(`${OLLAMA_URL}/api/generate`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    // Call Google Gemini API
+    const result = await ai.models.generateContent({
+      model: MODEL_NAME,
+      contents: `${systemPrompt}\n\nUser Query: ${prompt}\n\nResponse:`,
+      config: {
+        temperature: 0.7,
+        maxOutputTokens: 1024,
       },
-      body: JSON.stringify({
-        model: MODEL_NAME,
-        prompt: `${systemPrompt}\n\nUser Query: ${prompt}\n\nResponse:`,
-        stream: false,
-        options: {
-          temperature: 0.7,
-          num_predict: 1024,
-          top_k: 40,
-          top_p: 0.9,
-        },
-      }),
     });
 
-    if (!response.ok) {
-      const error = await response.text();
-      console.error("Ollama API error:", error);
-      
-      // Return mock response for demo purposes if AI is unavailable
-      return NextResponse.json({
-        response: generateMockResponse(prompt, type),
-        mock: true,
-      });
-    }
-
-    const data = await response.json();
+    const response = result.text || getFallbackResponse();
     
     return NextResponse.json({
-      response: data.response,
+      response: response,
       model: MODEL_NAME,
       mock: false,
     });
@@ -85,90 +78,35 @@ Response should be clear, educational, and accessible to modern readers.`;
     
     // Return fallback response
     return NextResponse.json({
-      response: "I apologize, but the AI service is currently unavailable. Please ensure Ollama is running locally with Gemma 4 installed.\n\nTo set up:\n1. Install Ollama from ollama.com\n2. Run: ollama pull gemma-4-4b-it\n3. Start Ollama server",
-      error: true,
-    });
+      response: getFallbackResponse(),
+      mock: true,
+      error: error instanceof Error ? error.message : "AI service unavailable"
+    }, { status: 200 });
   }
 }
 
 /**
- * Generate mock response for demo when AI is unavailable
+ * Fallback response when AI is unavailable
  */
-function generateMockResponse(prompt: string, _type: string): string {
-  const responses: Record<string, string> = {
-    "karma yoga": `**Karma Yoga** (कर्म योग) - The Yoga of Action
+function getFallbackResponse(): string {
+  return `Welcome to Hind AI! 🙏
 
-Karma Yoga is the path of selfless action described in the Bhagavad Gita (Chapter 3). It teaches performing one's duty without attachment to results.
+I'm here to help you explore ancient Indian scriptures. Currently, I'm running in demo mode while the AI service is being configured.
 
-**Key Teachings:**
-- "Karmanye vadhikaraste ma phaleshu kadachana" (BG 2.47)
-- You have a right to perform your prescribed duty, but not to the fruits of action
-- Act with dedication but without attachment
+**What I can help with:**
+- Explaining verses from the Bhagavad Gita
+- Understanding concepts like Karma, Dharma, and Moksha
+- Exploring the Yoga Sutras of Patanjali
+- Learning about meditation and spiritual practices
 
-**Modern Application:**
-This philosophy helps reduce anxiety about outcomes and focuses on doing one's best in any endeavor - work, relationships, or personal growth.`,
-    
-    "dharma": `**Dharma** (धर्म) - Righteous Duty
+**To enable full AI features:**
+Set the GEMINI_API_KEY environment variable with your Google AI Studio API key.
 
-Dharma is one of the four purusharthas (goals of human life) in Hindu philosophy. It refers to moral duty, righteousness, and cosmic order.
+Get your key at: https://aistudio.google.com/app/apikey
 
-**Types of Dharma:**
-1. Sanatana Dharma - Eternal duties (truth, non-violence)
-2. Varna Dharma - Duties according to one's nature
-3. Ashrama Dharma - Duties by life stage
-4. Svadharma - One's personal duty
-
-**From Bhagavad Gita:**
-"It is better to do one's own duty imperfectly than to do another's duty perfectly." (BG 3.35)
-
-Dharma is about living in harmony with the universe and fulfilling one's unique role.`,
-    
-    "meditation": `**Meditation in Indian Scriptures**
-
-The practice of meditation (Dhyana) is extensively covered in:
-
-**Yoga Sutras of Patanjali:**
-- "Yogas chitta vritti nirodha" (Yoga is the cessation of mind fluctuations)
-- Eight-limbed path includes Dharana (concentration) and Dhyana (meditation)
-
-**Bhagavad Gita:**
-- Krishna describes meditation as sitting in a clean place, with steady posture, focusing mind on a single point (BG 6.11-12)
-- Benefits include peace, self-realization, and liberation
-
-**Types:**
-1. Focused attention (Samatha)
-2. Open monitoring (Vipassana)
-3. Loving-kindness (Metta)
-4. Transcendental meditation
-
-**Benefits:** Reduced stress, improved concentration, spiritual growth.`,
-    
-    "default": `Based on ancient Indian scriptures, this concept represents profound wisdom that has guided seekers for millennia.
-
-**Sanskrit Term:** [Term with transliteration]
-
-**Scriptural Reference:**
-Found in the Vedas/Upanishads/Gita with specific philosophical context.
-
-**Core Meaning:**
-This teaching emphasizes the importance of self-discipline, knowledge, and righteous action as paths to fulfillment.
-
-**Modern Relevance:**
-In today's fast-paced world, this ancient wisdom offers timeless guidance for maintaining balance, peace, and purpose in life.
-
-For detailed study, refer to:
-- Bhagavad Gita (Chapters 2-6)
-- Upanishads (Katha, Chandogya)
-- Yoga Sutras of Patanjali`,
-  };
-
-  // Find matching keyword
-  const lowerPrompt = prompt.toLowerCase();
-  for (const [keyword, response] of Object.entries(responses)) {
-    if (lowerPrompt.includes(keyword)) {
-      return response + "\n\n*[Demo Mode - Connect Ollama for full AI responses]*";
-    }
-  }
-  
-  return responses.default + "\n\n*[Demo Mode - Connect Ollama for full AI responses]*";
+**Sample Questions to Try:**
+- "What is Karma Yoga?"
+- "Explain Bhagavad Gita 2.47"
+- "What are the four goals of life in Hinduism?"
+- "How do I start meditation?"`;
 }

@@ -99,7 +99,7 @@ export function Footer() {
             preserving ancient wisdom
           </p>
           <Link
-            href="https://github.com/hindai/hindai"
+            href="https://github.com/mangeshraut712/Hindai"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
