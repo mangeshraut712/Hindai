@@ -15,19 +15,19 @@ import { Menu, Sun, Moon, BookOpen, Search, Sparkles, Trophy } from "lucide-reac
 import { SearchDialog } from "./search";
 
 const navItems = [
-  { name: "Library", href: "/contents" },
-  { name: "AI Guide", href: "/ai-guide", icon: Sparkles },
-  { name: "Quiz", href: "/quiz", icon: Trophy },
-  { name: "Structure", href: "/structure" },
-  { name: "Preface", href: "/preface" },
+  { name: "Granthalaya", href: "/contents", subtitle: "Library" },
+  { name: "Guru AI", href: "/ai-guide", icon: Sparkles, subtitle: "AI Guide" },
+  { name: "Pariksha", href: "/quiz", icon: Trophy, subtitle: "Quiz" },
+  { name: "Vinyas", href: "/structure", subtitle: "Structure" },
+  { name: "Prastavana", href: "/preface", subtitle: "Preface" },
 ];
 
 const scriptures = [
-  { name: "Rigveda", href: "/rigveda" },
-  { name: "Mahabharata", href: "/mahabharata" },
-  { name: "Ramayana", href: "/ramayana" },
-  { name: "Bhagavad Gita", href: "/bhagavad-gita" },
-  { name: "Srimad Bhagavatam", href: "/srimad-bhagavatam" },
+  { name: "ऋग्वेद", subtitle: "Rigveda", href: "/rigveda" },
+  { name: "महाभारत", subtitle: "Mahabharata", href: "/mahabharata" },
+  { name: "रामायण", subtitle: "Ramayana", href: "/ramayana" },
+  { name: "श्रीमद्भगवद्गीता", subtitle: "Bhagavad Gita", href: "/bhagavad-gita" },
+  { name: "योगसूत्र", subtitle: "Yoga Sutras", href: "/yoga-sutras" },
 ];
 
 export function Header() {

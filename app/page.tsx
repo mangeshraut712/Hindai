@@ -2,13 +2,13 @@ import { Metadata } from "next";
 import HomePage from "./HomePage";
 
 export const metadata: Metadata = {
-  title: "Hind AI - AI-Powered Digital Library of Ancient Indian Scriptures",
+  title: "Hind AI - Your Digital Gurukul for Ancient Wisdom",
   description:
-    "Discover ancient Indian wisdom through AI-powered exploration. A modern digital library for Vedas, Upanishads, Epics, and Puranas with intelligent insights.",
+    "🕉️ Welcome to your AI-powered spiritual companion. Explore Vedas, Upanishads, Gita & more with intelligent guidance. From Knowledge (Jnana) to Liberation (Moksha).",
   openGraph: {
-    title: "Hind AI - AI-Powered Digital Library",
+    title: "Hind AI - Digital Gurukul of Sanatana Dharma",
     description:
-      "Discover ancient Indian wisdom through AI-powered exploration.",
+      "🕉️ Your personal AI Guru for ancient Indian wisdom. Interactive learning, guided paths, and spiritual insights.",
     url: "https://hindai.dev",
   },
 };

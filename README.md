@@ -1,14 +1,17 @@
-# Hind AI 🕉️
+# Hind AI 🕉️ - Your Digital Gurukul
 
-[![CI/CD](https://github.com/hindai/hindai/actions/workflows/ci.yml/badge.svg)](https://github.com/hindai/hindai/actions)
+[![CI/CD](https://github.com/mangeshraut712/Hindai/actions/workflows/ci.yml/badge.svg)](https://github.com/mangeshraut712/Hindai/actions)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.4-blue.svg)](https://www.typescriptlang.org/)
-[![Next.js](https://img.shields.io/badge/Next.js-14.2-black.svg)](https://nextjs.org/)
-[![Google Gemini](https://img.shields.io/badge/Google-Gemini%202.5%20Flash-blue.svg)](https://ai.google.dev/)
-[![Test Coverage](https://img.shields.io/badge/Coverage-70%25-brightgreen.svg)](https://github.com/hindai/hindai)
+[![Next.js](https://img.shields.io/badge/Next.js-14.2-saffron.svg)](https://nextjs.org/)
+[![Google Gemini](https://img.shields.io/badge/Google-Gemini%202.5%20Flash-gold.svg)](https://ai.google.dev/)
 
-> **AI-Powered Digital Library of Ancient Indian Scriptures**
+> **🧘 Your Personal AI Guru for Ancient Wisdom | From Knowledge (Jnana) to Liberation (Moksha)**
 
-Hind AI is a **production-ready** platform that democratizes access to 5,000 years of ancient Indian wisdom using **Google Gemini 2.5 Flash**. Built for the **Gemma 4 Good Hackathon** with enterprise-grade architecture, comprehensive testing, and real-world impact.
+**Hind AI** is not just a digital library—it's your **Digital Gurukul** 🏛️. Experience ancient Indian wisdom through an **AI-powered spiritual companion** that guides your journey from learning to enlightenment. Built with 🎨 **authentic Indian aesthetics** and 🤖 **Google Gemini intelligence**.
+
+```
+"सत्यमेव जयते" - Truth Alone Triumphs
+```
 
 🌐 **Live Demo**: [https://hindai.vercel.app](https://hindai.vercel.app)
 
