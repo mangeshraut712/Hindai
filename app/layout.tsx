@@ -1,26 +1,27 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Domine, Martel } from "next/font/google";
+import { Manrope, Cormorant_Garamond, Noto_Serif_Devanagari } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "./providers";
 import "@/index.css";
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-manrope",
   display: "swap",
 });
 
-const domine = Domine({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-domine",
+  variable: "--font-cormorant",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const martel = Martel({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-martel",
+const notoSerifDevanagari = Noto_Serif_Devanagari({
+  subsets: ["devanagari"],
+  weight: ["400", "500", "700"],
+  variable: "--font-devanagari",
   display: "swap",
 });
 
@@ -89,8 +90,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Hind AI - AI-Powered Digital Library",
-    description:
-      "Discover ancient Indian wisdom through AI-powered exploration.",
+    description: "Discover ancient Indian wisdom through AI-powered exploration.",
     images: ["/og_home.png"],
   },
   alternates: {
@@ -107,7 +107,7 @@ export const metadata: Metadata = {
     icon: [{ url: "/favicon.ico" }],
     apple: [{ url: "/logo.png", sizes: "180x180" }],
   },
-  manifest: "/site.webmanifest",
+  manifest: "/manifest.json",
 };
 
 export const viewport: Viewport = {
@@ -115,16 +115,12 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#faf9f6" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f1e8" },
+    { media: "(prefers-color-scheme: dark)", color: "#16110d" },
   ],
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -162,9 +158,7 @@ export default function RootLayout({
               name: "Hind AI",
               url: "https://hindai.dev",
               logo: "https://hindai.dev/logo.png",
-              sameAs: [
-                "https://github.com/hindai/hindai",
-              ],
+              sameAs: ["https://github.com/mangeshraut712/Hindai"],
               contactPoint: {
                 "@type": "ContactPoint",
                 contactType: "customer support",
@@ -174,7 +168,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${domine.variable} ${martel.variable} min-h-screen bg-background font-sans antialiased`}>
+      <body
+        className={`${manrope.variable} ${cormorant.variable} ${notoSerifDevanagari.variable} min-h-screen bg-background font-sans antialiased`}
+      >
         <Providers>{children}</Providers>
         <Analytics />
         <SpeedInsights />

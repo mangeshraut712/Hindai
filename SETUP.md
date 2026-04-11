@@ -3,6 +3,7 @@
 ## Quick Start for Gemma 4 Good Hackathon
 
 ### Prerequisites
+
 - Node.js 20+ and npm 10+
 - Git
 - **Ollama** (for local AI)
@@ -37,7 +38,7 @@ cp .env.example .env.local
 cat > .env.local << EOF
 # Gemma 4 Configuration
 OLLAMA_URL=http://localhost:11434
-GEMMA_MODEL=gemma-4-4b-it
+GEMMA_MODEL=gemma-4-31b-it
 
 # Optional: Supabase for data storage
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
@@ -60,6 +61,7 @@ Open [http://localhost:3000](http://localhost:3000)
 ### 5. Verify AI Integration
 
 Test the AI features:
+
 1. Press `⌘K` (or `Ctrl+K`) to open search
 2. Search for "Bhagavad Gita"
 3. Click "Get AI Explanation" on any verse
@@ -74,18 +76,21 @@ npm run build
 ### 7. Deploy (Choose one)
 
 #### Vercel (Recommended)
+
 ```bash
-npm i -g vercel
-vercel --prod
+vercel link --scope mangesh-rauts-projects --project hindai
+vercel deploy -y
 ```
 
 #### Docker (Edge Deployment)
+
 ```bash
 docker build -t hindai .
 docker run -p 3000:3000 hindai
 ```
 
 #### Ollama Edge Device
+
 ```bash
 # For Raspberry Pi or edge devices
 ollama pull gemma-4-4b-it-q4_0  # Quantized version
@@ -98,6 +103,7 @@ npm start
 ## Hackathon Submission Checklist
 
 ### Required Files
+
 - [x] `README.md` - Project overview
 - [x] `HACKATHON.md` - Submission details
 - [x] `LICENSE` - MIT License
@@ -106,6 +112,7 @@ npm start
 - [x] Live Demo URL - Update HACKATHON.md
 
 ### Video Requirements
+
 - [ ] 3 minutes or less
 - [ ] Published to YouTube (public/unlisted)
 - [ ] Tell a story: Problem → Solution → Impact
@@ -113,6 +120,7 @@ npm start
 - [ ] Show real-world utility
 
 ### Code Repository
+
 - [x] Well-documented code
 - [x] Gemma 4 integration visible
 - [x] Clean project structure
@@ -124,17 +132,18 @@ npm start
 
 For different deployment scenarios:
 
-| Model | Size | Use Case | Command |
-|-------|------|----------|---------|
-| gemma-4-4b-it | 4B | Standard | `ollama pull gemma-4-4b-it` |
+| Model              | Size  | Use Case          | Command                          |
+| ------------------ | ----- | ----------------- | -------------------------------- |
+| gemma-4-4b-it      | 4B    | Standard          | `ollama pull gemma-4-4b-it`      |
 | gemma-4-4b-it-q4_0 | 2.3GB | Edge/Raspberry Pi | `ollama pull gemma-4-4b-it:q4_0` |
-| gemma-4-4b-it-q8_0 | 4.3GB | Higher quality | `ollama pull gemma-4-4b-it:q8_0` |
+| gemma-4-4b-it-q8_0 | 4.3GB | Higher quality    | `ollama pull gemma-4-4b-it:q8_0` |
 
 ---
 
 ## Troubleshooting
 
 ### Ollama Connection Error
+
 ```bash
 # Check if Ollama is running
 curl http://localhost:11434/api/tags
@@ -144,6 +153,7 @@ ollama serve
 ```
 
 ### AI Not Responding
+
 ```bash
 # Pull model again
 ollama pull gemma-4-4b-it
@@ -153,6 +163,7 @@ ollama list
 ```
 
 ### Build Errors
+
 ```bash
 # Clear cache and rebuild
 rm -rf .next node_modules
@@ -174,5 +185,6 @@ npm run build
 ## Support
 
 For hackathon-related questions:
+
 - Email: hello@hindai.dev
 - GitHub Issues: https://github.com/hindai/hindai/issues

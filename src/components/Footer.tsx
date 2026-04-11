@@ -1,112 +1,88 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpen, Github, Heart } from "lucide-react";
+import { Github, Sparkles } from "lucide-react";
+import { headerScriptures } from "@/lib/scripture-catalog";
 
-const footerLinks = {
-  scriptures: [
-    { name: "Rigveda", href: "/rigveda" },
-    { name: "Mahabharata", href: "/mahabharata" },
-    { name: "Ramayana", href: "/ramayana" },
-    { name: "Bhagavad Gita", href: "/bhagavad-gita" },
-  ],
-  resources: [
-    { name: "Library", href: "/contents" },
-    { name: "Structure", href: "/structure" },
-    { name: "Preface", href: "/preface" },
-  ],
-  legal: [
-    { name: "License", href: "/license" },
-    { name: "Attributions", href: "/attributions" },
-  ],
-};
+const footerGroups = [
+  {
+    title: "Explore",
+    links: [
+      { label: "Library", href: "/contents/" },
+      { label: "Guru AI", href: "/ai-guide/" },
+      { label: "Study Paths", href: "/study-paths/" },
+      { label: "Quiz", href: "/quiz/" },
+      { label: "Structure", href: "/structure/" },
+    ],
+  },
+  {
+    title: "Scriptures",
+    links: headerScriptures.map((item) => ({
+      label: item.name,
+      href: item.href,
+    })),
+  },
+];
 
 export function Footer() {
   return (
-    <footer className="border-t bg-muted/30">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-4">
-          {/* Brand */}
-          <div className="md:col-span-1">
-            <Link href="/" className="flex items-center gap-2">
-              <BookOpen className="h-6 w-6 text-primary" />
-              <span className="text-lg font-bold">Hind AI</span>
-            </Link>
-            <p className="mt-4 text-sm text-muted-foreground">
-              AI-Powered Digital Library of Ancient Indian Scriptures
+    <footer className="relative overflow-hidden border-t border-border/60 bg-background/80">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,hsl(var(--accent)/0.12),transparent_35%)]" />
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
+        <div className="space-y-6">
+          <div>
+            <p className="font-devanagari text-sm tracking-[0.28em] text-primary">
+              ज्ञान • साधना • संवाद
             </p>
+            <h2 className="mt-4 font-serif text-4xl font-semibold tracking-[-0.04em] text-foreground">
+              A calmer way to study ancient Indian thought.
+            </h2>
           </div>
-
-          {/* Scriptures */}
-          <div>
-            <h3 className="text-sm font-semibold">Scriptures</h3>
-            <ul className="mt-4 space-y-2">
-              {footerLinks.scriptures.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div>
-            <h3 className="text-sm font-semibold">Resources</h3>
-            <ul className="mt-4 space-y-2">
-              {footerLinks.resources.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h3 className="text-sm font-semibold">Legal</h3>
-            <ul className="mt-4 space-y-2">
-              {footerLinks.legal.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <p className="max-w-xl text-sm leading-7 text-muted-foreground">
+            Hind AI brings scriptures, reflection, and AI-guided learning into one theme-aware
+            reading experience shaped for modern seekers.
+          </p>
+          <div className="flex items-center gap-3">
+            <Link
+              href="https://github.com/mangeshraut712/Hindai"
+              target="_blank"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-border/70 bg-background/70 text-foreground transition-colors hover:bg-secondary/80"
+            >
+              <Github className="size-5" />
+            </Link>
+            <span className="eyebrow">Gemma 4 powered</span>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 sm:flex-row">
-          <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} Hind AI. All rights reserved.
+        {footerGroups.map((group) => (
+          <div key={group.title} className="space-y-4">
+            <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+              {group.title}
+            </p>
+            <div className="grid gap-3">
+              {group.links.map((link) => (
+                <Link
+                  key={link.href + link.label}
+                  href={link.href}
+                  className="text-foreground/76 text-sm transition-colors hover:text-foreground"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="border-t border-border/60">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+          <p>
+            © {new Date().getFullYear()} Hind AI. Designed for reflection, reading, and inquiry.
           </p>
-          <p className="flex items-center gap-1 text-sm text-muted-foreground">
-            Made with <Heart className="h-4 w-4 text-red-500 fill-red-500" /> for
-            preserving ancient wisdom
-          </p>
-          <Link
-            href="https://github.com/mangeshraut712/Hindai"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <Github className="h-4 w-4" />
-            GitHub
-          </Link>
+          <div className="flex items-center gap-2">
+            <Sparkles className="size-3.5 text-primary" />
+            <span>Hindi boot effect • Sanskrit-first details • Theme aware</span>
+          </div>
         </div>
       </div>
     </footer>

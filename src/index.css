@@ -3,115 +3,229 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Ancient Indian Color Palette */
 :root {
-  /* Saffron - Spiritual */
-  --saffron: 30 100% 50%;
-  --saffron-light: 30 80% 60%;
-  --saffron-dark: 30 100% 40%;
-  
-  /* Gold - Wisdom */
-  --gold: 45 100% 50%;
-  --gold-light: 45 80% 60%;
-  
-  /* Earth - Ancient Manuscripts */
-  --earth: 30 20% 25%;
-  --earth-light: 30 15% 35%;
-  --parchment: 40 30% 92%;
-  
-  /* Deep Red - Spiritual Power */
-  --deep-red: 0 70% 40%;
-  --deep-red-light: 0 60% 50%;
-  
-  /* Default Theme (Light - Parchment) */
-  --background: 40 30% 96%;
-  --foreground: 30 20% 15%;
-  --card: 40 20% 98%;
-  --card-foreground: 30 20% 15%;
-  --popover: 40 20% 98%;
-  --popover-foreground: 30 20% 15%;
-  --primary: 30 100% 45%;
-  --primary-foreground: 40 30% 98%;
-  --secondary: 40 20% 90%;
-  --secondary-foreground: 30 20% 20%;
-  --muted: 40 15% 85%;
-  --muted-foreground: 30 10% 40%;
-  --accent: 45 100% 50%;
-  --accent-foreground: 30 20% 15%;
-  --destructive: 0 70% 45%;
-  --destructive-foreground: 40 30% 98%;
-  --border: 40 20% 80%;
-  --input: 40 20% 85%;
-  --ring: 30 100% 45%;
-  --radius: 0.5rem;
+  --background: 38 46% 95%;
+  --foreground: 22 18% 14%;
+  --card: 38 48% 98%;
+  --card-foreground: 22 18% 14%;
+  --popover: 38 48% 98%;
+  --popover-foreground: 22 18% 14%;
+  --primary: 24 90% 54%;
+  --primary-foreground: 40 40% 98%;
+  --secondary: 36 28% 90%;
+  --secondary-foreground: 22 18% 18%;
+  --muted: 36 24% 89%;
+  --muted-foreground: 24 12% 38%;
+  --accent: 42 92% 62%;
+  --accent-foreground: 20 18% 14%;
+  --destructive: 0 72% 48%;
+  --destructive-foreground: 40 40% 98%;
+  --border: 32 24% 80%;
+  --input: 32 28% 88%;
+  --ring: 24 90% 54%;
+  --radius: 1.35rem;
   --chart-1: 12 76% 61%;
   --chart-2: 173 58% 39%;
   --chart-3: 197 37% 24%;
   --chart-4: 43 74% 66%;
   --chart-5: 27 87% 67%;
-  --sidebar-background: 0 0% 98%;
-  --sidebar-foreground: 240 5.3% 26.1%;
-  --sidebar-primary: 240 5.9% 10%;
-  --sidebar-primary-foreground: 0 0% 98%;
-  --sidebar-accent: 240 4.8% 95.9%;
-  --sidebar-accent-foreground: 240 5.9% 10%;
-  --sidebar-border: 220 13% 91%;
-  --sidebar-ring: 217.2 91.2% 59.8%;
+  --sidebar-background: 38 48% 97%;
+  --sidebar-foreground: 22 18% 18%;
+  --sidebar-primary: 24 90% 54%;
+  --sidebar-primary-foreground: 38 48% 98%;
+  --sidebar-accent: 36 28% 92%;
+  --sidebar-accent-foreground: 22 18% 18%;
+  --sidebar-border: 32 24% 84%;
+  --sidebar-ring: 24 90% 54%;
 }
 
-/* Dark Theme - Ancient Night */
 .dark {
-  --background: 30 20% 8%;
-  --foreground: 40 30% 95%;
-  --card: 30 15% 12%;
-  --card-foreground: 40 30% 95%;
-  --popover: 30 15% 10%;
-  --popover-foreground: 40 30% 95%;
-  --primary: 30 90% 55%;
-  --primary-foreground: 30 20% 10%;
-  --secondary: 30 10% 18%;
-  --secondary-foreground: 40 30% 90%;
-  --muted: 30 10% 20%;
-  --muted-foreground: 40 15% 60%;
-  --accent: 45 90% 50%;
-  --accent-foreground: 30 20% 10%;
-  --destructive: 0 60% 40%;
-  --destructive-foreground: 40 30% 95%;
-  --border: 30 10% 20%;
-  --input: 30 10% 20%;
-  --ring: 30 90% 55%;
+  --background: 28 20% 8%;
+  --foreground: 36 34% 95%;
+  --card: 28 16% 11%;
+  --card-foreground: 36 34% 95%;
+  --popover: 28 16% 10%;
+  --popover-foreground: 36 34% 95%;
+  --primary: 32 94% 63%;
+  --primary-foreground: 24 18% 10%;
+  --secondary: 28 12% 16%;
+  --secondary-foreground: 36 26% 90%;
+  --muted: 28 12% 16%;
+  --muted-foreground: 34 16% 61%;
+  --accent: 46 86% 66%;
+  --accent-foreground: 24 18% 10%;
+  --destructive: 0 64% 50%;
+  --destructive-foreground: 36 34% 95%;
+  --border: 28 12% 22%;
+  --input: 28 12% 20%;
+  --ring: 32 94% 63%;
   --chart-1: 220 70% 50%;
   --chart-2: 160 60% 45%;
   --chart-3: 30 80% 55%;
   --chart-4: 280 65% 60%;
   --chart-5: 340 75% 55%;
-  --sidebar-background: 240 5.9% 10%;
-  --sidebar-foreground: 240 4.8% 95.9%;
-  --sidebar-primary: 224.3 76.3% 48%;
-  --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 240 3.7% 15.9%;
-  --sidebar-accent-foreground: 240 4.8% 95.9%;
-  --sidebar-border: 240 3.7% 15.9%;
-  --sidebar-ring: 217.2 91.2% 59.8%;
+  --sidebar-background: 28 16% 10%;
+  --sidebar-foreground: 36 26% 90%;
+  --sidebar-primary: 32 94% 63%;
+  --sidebar-primary-foreground: 24 18% 10%;
+  --sidebar-accent: 28 12% 16%;
+  --sidebar-accent-foreground: 36 26% 90%;
+  --sidebar-border: 28 12% 22%;
+  --sidebar-ring: 32 94% 63%;
 }
-
 
 /* stylelint-disable at-rule-no-unknown */
 @layer base {
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-  /* stylelint-enable at-rule-no-unknown */
+
   html {
     scroll-behavior: smooth;
   }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+    background-image:
+      radial-gradient(circle at 15% 15%, hsl(var(--primary) / 0.18), transparent 28%),
+      radial-gradient(circle at 85% 10%, hsl(var(--accent) / 0.14), transparent 32%),
+      radial-gradient(circle at 60% 75%, hsl(var(--primary) / 0.08), transparent 28%),
+      linear-gradient(180deg, hsl(var(--background)), hsl(var(--background)));
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.2;
+    background-image:
+      linear-gradient(120deg, transparent 0%, hsl(var(--foreground) / 0.04) 48%, transparent 100%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-size:
+      cover,
+      220px 220px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-ancient {
+    font-family: var(--font-cormorant), serif;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+
+  .font-devanagari {
+    font-family: var(--font-devanagari), serif;
+  }
 }
 
-/* Custom scrollbar */
+@layer components {
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.32em] text-muted-foreground backdrop-blur-xl;
+    border: 1px solid hsl(var(--border) / 0.7);
+    background: hsl(var(--background) / 0.65);
+  }
+
+  .section-title {
+    @apply font-serif text-4xl font-semibold tracking-[-0.04em] text-foreground sm:text-5xl md:text-6xl;
+  }
+
+  .section-copy {
+    @apply max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg;
+  }
+
+  .surface-panel {
+    @apply relative overflow-hidden rounded-[32px] shadow-[0_36px_90px_-52px_rgba(15,23,42,0.42)] backdrop-blur-2xl;
+    background: hsl(var(--card) / 0.72);
+    border: 1px solid hsl(var(--border) / 0.65);
+  }
+
+  .surface-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, hsl(var(--background) / 0.22), transparent 34%),
+      radial-gradient(circle at top right, hsl(var(--accent) / 0.16), transparent 28%);
+  }
+
+  .hero-mesh {
+    background-image:
+      radial-gradient(circle at 20% 10%, hsl(var(--accent) / 0.17), transparent 22%),
+      radial-gradient(circle at 82% 18%, hsl(var(--primary) / 0.18), transparent 26%),
+      radial-gradient(circle at 50% 82%, hsl(var(--foreground) / 0.06), transparent 30%),
+      linear-gradient(135deg, hsl(var(--background)), hsl(var(--secondary)));
+  }
+
+  .grain-mask {
+    background-image:
+      linear-gradient(120deg, transparent 0%, hsl(var(--foreground) / 0.06) 48%, transparent 100%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-size:
+      cover,
+      240px 240px;
+  }
+
+  .hero-sun {
+    @apply absolute rounded-full blur-3xl;
+    background: radial-gradient(circle, hsl(var(--accent) / 0.5) 0%, transparent 68%);
+  }
+
+  .temple-grid {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.4) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.4) 1px, transparent 1px);
+    background-size: 38px 38px;
+  }
+
+  .scripture-row {
+    @apply relative grid gap-5 px-6 py-6 transition-colors duration-300 md:grid-cols-[160px_minmax(0,1fr)_180px] md:items-end md:px-8;
+  }
+
+  .scripture-row::after {
+    content: "";
+    @apply pointer-events-none absolute inset-x-6 bottom-0 h-px md:inset-x-8;
+    background: hsl(var(--border) / 0.7);
+  }
+
+  .scripture-row:last-child::after {
+    display: none;
+  }
+
+  .scripture-row:hover {
+    background: hsl(var(--secondary) / 0.45);
+  }
+
+  .boot-splash-backdrop {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 50% 24%, hsl(var(--accent) / 0.26), transparent 20%),
+      radial-gradient(circle at 20% 70%, hsl(var(--primary) / 0.18), transparent 22%),
+      radial-gradient(circle at 80% 75%, hsl(var(--foreground) / 0.06), transparent 28%),
+      linear-gradient(180deg, hsl(var(--background)), hsl(var(--background)));
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      hsl(var(--foreground)) 0%,
+      hsl(var(--primary)) 50%,
+      hsl(var(--accent)) 100%
+    );
+  }
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -122,16 +236,38 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted-foreground) / 0.3);
-  border-radius: 4px;
+  background: hsl(var(--primary) / 0.3);
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground) / 0.5);
+  background: hsl(var(--primary) / 0.5);
 }
 
-/* Selection */
 ::selection {
   background: hsl(var(--primary) / 0.2);
-  color: hsl(var(--primary));
+  color: hsl(var(--foreground));
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-spin-slow {
+    animation: none;
+  }
 }

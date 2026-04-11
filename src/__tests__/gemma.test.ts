@@ -1,6 +1,6 @@
 /**
- * Unit Tests for Google Gemini Integration
- * 
+ * Unit Tests for Gemma 4 integration
+ *
  * Tests cover:
  * - AI types and interfaces
  * - Schema validation
@@ -8,20 +8,26 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { AIResponseSchema } from "@/lib/ai/gemini";
+import { AIResponseSchema, DEFAULT_GEMMA_MODEL, resolveGemmaModel } from "@/lib/ai/gemma";
 
-describe("Gemini AI Integration", () => {
+describe("Gemma 4 AI Integration", () => {
+  describe("resolveGemmaModel", () => {
+    it("should preserve supported Gemma 4 model ids", () => {
+      expect(resolveGemmaModel("gemma-4-31b-it")).toBe("gemma-4-31b-it");
+    });
+
+    it("should fall back to the default model for unsupported values", () => {
+      expect(resolveGemmaModel("gemini-2.5-flash")).toBe(DEFAULT_GEMMA_MODEL);
+    });
+  });
+
   describe("AIResponseSchema", () => {
     it("should validate valid AI response", () => {
       const validResponse = {
         explanation: "Test explanation",
         context: "Test context",
-        keyTerms: [
-          { term: "Karma", meaning: "Action", sanskrit: "कर्म" },
-        ],
-        references: [
-          { scripture: "Bhagavad Gita", chapter: 2, verse: 47 },
-        ],
+        keyTerms: [{ term: "Karma", meaning: "Action", sanskrit: "कर्म" }],
+        references: [{ scripture: "Bhagavad Gita", chapter: 2, verse: 47 }],
       };
 
       const result = AIResponseSchema.safeParse(validResponse);

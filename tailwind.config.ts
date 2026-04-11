@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -68,11 +69,12 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
-        serif: ["var(--font-domine)", "var(--font-martel)", "serif"],
-        devanagari: ["var(--font-martel)", "serif"],
+        sans: ["var(--font-manrope)", "sans-serif"],
+        serif: ["var(--font-cormorant)", "serif"],
+        display: ["var(--font-cormorant)", "serif"],
+        devanagari: ["var(--font-devanagari)", "serif"],
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;

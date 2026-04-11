@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
+import { BookOpen, ChevronDown, Menu, Moon, Search, Sparkles, Sun, Trophy } from "lucide-react";
+import { track } from "@vercel/analytics";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,34 +12,32 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Sun, Moon, BookOpen, Search, Sparkles, Trophy } from "lucide-react";
-import { SearchDialog } from "./search";
-import { VoiceSearch } from "./voice-search";
-import { track } from "@vercel/analytics";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { SearchDialog } from "@/components/search";
+import { VoiceSearch } from "@/components/voice-search";
+import { headerScriptures } from "@/lib/scripture-catalog";
 
 const navItems = [
-  { name: "Granthalaya", href: "/contents", subtitle: "Library" },
-  { name: "Guru AI", href: "/ai-guide", icon: Sparkles, subtitle: "AI Guide" },
-  { name: "Pariksha", href: "/quiz", icon: Trophy, subtitle: "Quiz" },
-  { name: "Vinyas", href: "/structure", subtitle: "Structure" },
-  { name: "Prastavana", href: "/preface", subtitle: "Preface" },
-];
-
-const scriptures = [
-  { name: "ऋग्वेद", subtitle: "Rigveda", href: "/rigveda" },
-  { name: "महाभारत", subtitle: "Mahabharata", href: "/mahabharata" },
-  { name: "रामायण", subtitle: "Ramayana", href: "/ramayana" },
-  { name: "श्रीमद्भगवद्गीता", subtitle: "Bhagavad Gita", href: "/bhagavad-gita" },
-  { name: "योगसूत्र", subtitle: "Yoga Sutras", href: "/yoga-sutras" },
+  { label: "Library", hindi: "Granthalaya", href: "/contents/" },
+  { label: "Guru AI", hindi: "Guru AI", href: "/ai-guide/", icon: Sparkles },
+  { label: "Study Paths", hindi: "Patha", href: "/study-paths/" },
+  { label: "Quiz", hindi: "Pariksha", href: "/quiz/", icon: Trophy },
+  { label: "Structure", hindi: "Vinyas", href: "/structure/" },
+  { label: "Preface", hindi: "Prastavana", href: "/preface/" },
 ];
 
 export function Header() {
-  const { setTheme, theme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  // Keyboard shortcut for search (⌘K / Ctrl+K)
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key === "k") {
@@ -57,63 +57,64 @@ export function Header() {
   };
 
   const handleThemeToggle = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    track("theme_toggled", { theme: newTheme });
+    const nextTheme = resolvedTheme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    track("theme_toggled", { theme: nextTheme });
   };
 
   const handleNavigation = (href: string, label: string) => {
     track("navigation_click", { destination: href, label });
+    setIsOpen(false);
   };
 
   const handleVoiceSearch = (transcript: string) => {
-    // Use the transcript as search query
-    // This could be integrated with the search dialog
     track("voice_search_used", { query: transcript });
     setIsSearchOpen(true);
-    // The search dialog could be enhanced to accept initial query
   };
 
   return (
-    <header
-      className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
-      role="banner"
-    >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Logo */}
+    <header className="bg-background/72 sticky top-0 z-50 border-b border-border/60 backdrop-blur-2xl">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="flex items-center gap-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-          aria-label="Hind AI - Home"
+          className="group flex min-w-0 items-center gap-3"
           onClick={() => handleNavigation("/", "Home")}
         >
-          <BookOpen className="h-6 w-6 text-primary" aria-hidden="true" />
-          <span className="text-xl font-bold">Hind AI</span>
+          <div className="flex size-11 items-center justify-center rounded-full border border-border/70 bg-background/70 text-primary shadow-[0_18px_42px_-30px_rgba(15,23,42,0.35)]">
+            <BookOpen className="size-5" />
+          </div>
+          <div className="min-w-0">
+            <div className="text-lg font-semibold tracking-[0.02em] text-foreground">Hind AI</div>
+            <div className="font-devanagari text-[11px] tracking-[0.24em] text-muted-foreground">
+              डिजिटल गुरुकुल
+            </div>
+          </div>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav
-          className="hidden items-center gap-6 md:flex"
-          role="navigation"
-          aria-label="Main navigation"
-        >
+        <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="gap-1"
-                aria-label="Browse scriptures"
-                aria-haspopup="menu"
-              >
-                Scriptures <Menu className="h-4 w-4" aria-hidden="true" />
+              <Button variant="ghost" size="sm" className="gap-2">
+                Scriptures
+                <ChevronDown className="size-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-48" role="menu">
-              {scriptures.map((item) => (
-                <DropdownMenuItem key={item.name} asChild role="menuitem">
-                  <Link href={item.href} onClick={() => handleNavigation(item.href, item.name)}>
-                    {item.name}
-                    <span className="block text-xs text-muted-foreground">{item.subtitle}</span>
+            <DropdownMenuContent
+              align="start"
+              className="bg-background/88 w-80 rounded-[24px] border-border/70 p-2 backdrop-blur-2xl"
+            >
+              {headerScriptures.map((item) => (
+                <DropdownMenuItem key={item.slug} asChild className="rounded-2xl px-4 py-3">
+                  <Link
+                    href={item.href}
+                    className="flex flex-col gap-1"
+                    onClick={() => handleNavigation(item.href, item.name)}
+                  >
+                    <span className="font-devanagari text-base text-foreground">
+                      {item.sanskrit}
+                    </span>
+                    <span className="text-sm font-semibold text-foreground">{item.name}</span>
+                    <span className="text-xs text-muted-foreground">{item.highlight}</span>
                   </Link>
                 </DropdownMenuItem>
               ))}
@@ -122,33 +123,34 @@ export function Header() {
 
           {navItems.map((item) => (
             <Link
-              key={item.name}
+              key={item.href}
               href={item.href}
-              className="rounded-md px-2 py-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-orange-500"
-              onClick={() => handleNavigation(item.href, item.name)}
+              className="group text-sm font-medium text-foreground/75 transition-colors hover:text-foreground"
+              onClick={() => handleNavigation(item.href, item.label)}
             >
-              {item.name}
+              <span className="inline-flex items-center gap-2">
+                {item.icon ? <item.icon className="size-4 text-primary/80" /> : null}
+                {item.label}
+              </span>
+              <span className="mt-1 block font-devanagari text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+                {item.hindi}
+              </span>
             </Link>
           ))}
         </nav>
 
-        {/* Actions */}
-        <div className="flex items-center gap-2" role="toolbar" aria-label="User actions">
+        <div className="flex items-center gap-2 sm:gap-3">
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
-            className="hidden items-center gap-2 text-muted-foreground sm:flex"
+            className="hidden gap-2 sm:inline-flex"
             onClick={handleSearchClick}
-            aria-label="Open search dialog (shortcut: Cmd+K)"
-            aria-keyshortcuts="Control+K"
+            aria-label="Open search dialog"
           >
-            <Search className="h-4 w-4" aria-hidden="true" />
-            <span className="hidden lg:inline">Search</span>
-            <kbd
-              className="hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 lg:inline-flex"
-              aria-label="Press Command K to search"
-            >
-              <span className="text-xs">⌘</span>K
+            <Search className="size-4" />
+            Search
+            <kbd className="hidden rounded-full border border-border/70 bg-background/80 px-2 py-0.5 text-[10px] font-medium text-muted-foreground lg:inline-flex">
+              ⌘K
             </kbd>
           </Button>
 
@@ -158,105 +160,72 @@ export function Header() {
             variant="ghost"
             size="icon"
             onClick={handleThemeToggle}
-            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
-            aria-pressed={theme === "dark"}
+            aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} theme`}
           >
-            <Sun
-              className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-              aria-hidden="true"
-            />
-            <Moon
-              className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-              aria-hidden="true"
-            />
+            <Sun className="size-4 rotate-0 scale-100 text-primary transition-all dark:-rotate-90 dark:scale-0" />
+            <Moon className="absolute size-4 rotate-90 scale-0 text-primary transition-all dark:rotate-0 dark:scale-100" />
             <span className="sr-only">Toggle theme</span>
           </Button>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-          >
-            <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            <span className="sr-only">Toggle theme</span>
-          </Button>
-
-          {/* Mobile Menu */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="md:hidden">
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-label="Open mobile menu"
-                aria-expanded={isOpen}
-                aria-controls="mobile-menu"
-              >
-                <Menu className="h-5 w-5" aria-hidden="true" />
-                <span className="sr-only">Toggle menu</span>
+            <SheetTrigger asChild className="lg:hidden">
+              <Button variant="ghost" size="icon">
+                <Menu className="size-5" />
+                <span className="sr-only">Open navigation menu</span>
               </Button>
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="w-72"
-              id="mobile-menu"
-              aria-label="Mobile navigation menu"
+              className="bg-background/92 w-[22rem] border-border/70 px-6 py-5 backdrop-blur-2xl"
             >
-              <nav className="flex flex-col gap-4" role="navigation" aria-label="Mobile navigation">
-                <Link
-                  href="/"
-                  className="flex items-center gap-2 rounded-md p-2 text-lg font-bold focus:outline-none focus:ring-2 focus:ring-orange-500"
-                  onClick={() => {
-                    setIsOpen(false);
-                    handleNavigation("/", "Home");
-                  }}
-                  aria-label="Hind AI - Home"
-                >
-                  <BookOpen className="h-5 w-5 text-primary" aria-hidden="true" />
-                  Hind AI
-                </Link>
-                <hr aria-hidden="true" />
-                <p className="text-xs font-medium text-muted-foreground" id="scriptures-heading">
-                  Scriptures
-                </p>
-                <ul aria-labelledby="scriptures-heading" role="list">
-                  {scriptures.map((item) => (
-                    <li key={item.name} role="listitem">
+              <SheetHeader className="border-b border-border/60 pb-5">
+                <SheetTitle className="text-left text-xl font-semibold">Hind AI</SheetTitle>
+                <SheetDescription className="text-left font-devanagari tracking-[0.18em]">
+                  डिजिटल गुरुकुल
+                </SheetDescription>
+              </SheetHeader>
+
+              <div className="mt-8 space-y-8">
+                <div className="space-y-3">
+                  <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+                    Scriptures
+                  </p>
+                  <div className="grid gap-2">
+                    {headerScriptures.map((item) => (
                       <Link
+                        key={item.slug}
                         href={item.href}
-                        className="block rounded-md px-2 py-1 text-sm text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-orange-500"
-                        onClick={() => {
-                          setIsOpen(false);
-                          handleNavigation(item.href, item.name);
-                        }}
+                        className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 transition-colors hover:bg-secondary/70"
+                        onClick={() => handleNavigation(item.href, item.name)}
                       >
-                        {item.name}
-                        <span className="block text-xs text-muted-foreground">{item.subtitle}</span>
+                        <p className="font-devanagari text-sm text-primary">{item.sanskrit}</p>
+                        <p className="mt-1 text-sm font-semibold text-foreground">{item.name}</p>
                       </Link>
-                    </li>
-                  ))}
-                </ul>
-                <hr aria-hidden="true" />
-                <p className="text-xs font-medium text-muted-foreground" id="navigation-heading">
-                  Navigation
-                </p>
-                <ul aria-labelledby="navigation-heading" role="list">
-                  {navItems.map((item) => (
-                    <li key={item.name} role="listitem">
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+                    Explore
+                  </p>
+                  <div className="grid gap-2">
+                    {navItems.map((item) => (
                       <Link
+                        key={item.href}
                         href={item.href}
-                        className="block rounded-md px-2 py-1 text-sm text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-orange-500"
-                        onClick={() => {
-                          setIsOpen(false);
-                          handleNavigation(item.href, item.name);
-                        }}
+                        className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 transition-colors hover:bg-secondary/70"
+                        onClick={() => handleNavigation(item.href, item.label)}
                       >
-                        {item.name}
+                        <p className="text-sm font-semibold text-foreground">{item.label}</p>
+                        <p className="mt-1 font-devanagari text-xs tracking-[0.18em] text-muted-foreground">
+                          {item.hindi}
+                        </p>
                       </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </SheetContent>
           </Sheet>
         </div>

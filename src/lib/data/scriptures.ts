@@ -1,6 +1,6 @@
 /**
  * Sample Scripture Data for Demo
- * 
+ *
  * This file contains sample verses from various Indian scriptures
  * for demonstration purposes in the hackathon.
  */
@@ -13,7 +13,8 @@ export const scriptures: Scripture[] = [
     name: "Bhagavad Gita",
     sanskritName: "भगवद्गीता",
     category: "philosophy",
-    description: "The Song of God - A 700-verse dialogue between Lord Krishna and Arjuna on the battlefield of Kurukshetra",
+    description:
+      "The Song of God - A 700-verse dialogue between Lord Krishna and Arjuna on the battlefield of Kurukshetra",
     totalChapters: 18,
     language: "Sanskrit",
     approximateDate: "~400 BCE - 200 CE",
@@ -52,7 +53,8 @@ export const sampleVerses: ScriptureVerse[] = [
     chapter: 2,
     verse: 47,
     sanskrit: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन |\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि ||",
-    transliteration: "karmaṇy-evādhikāras te mā phaleṣu kadācana |\nmā karma-phala-hetur bhūr mā te saṅgo 'stv akarmaṇi ||",
+    transliteration:
+      "karmaṇy-evādhikāras te mā phaleṣu kadācana |\nmā karma-phala-hetur bhūr mā te saṅgo 'stv akarmaṇi ||",
     translation: {
       en: "You have a right to perform your prescribed duty, but you are not entitled to the fruits of action. Never consider yourself to be the cause of the results of your activities, nor be attached to inaction.",
       hi: "कर्म करने मात्र में तुम्हारा अधिकार है, फलों में कभी नहीं। तुम कर्मफल के हेतु मत बनो, न ही अकर्म में आसक्ति हो।",
@@ -65,8 +67,10 @@ export const sampleVerses: ScriptureVerse[] = [
     scriptureId: "bhagavad-gita",
     chapter: 2,
     verse: 48,
-    sanskrit: "योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय |\nसिद्ध्यसिद्ध्योः समो भूत्वा समत्वं योग उच्यते ||",
-    transliteration: "yoga-sthaḥ kuru karmāṇi saṅgaṃ tyaktvā dhanañjaya |\nsiddhy-asiddhyoḥ samo bhūtvā samatvaṃ yoga ucyate ||",
+    sanskrit:
+      "योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय |\nसिद्ध्यसिद्ध्योः समो भूत्वा समत्वं योग उच्यते ||",
+    transliteration:
+      "yoga-sthaḥ kuru karmāṇi saṅgaṃ tyaktvā dhanañjaya |\nsiddhy-asiddhyoḥ samo bhūtvā samatvaṃ yoga ucyate ||",
     translation: {
       en: "Be steadfast in the performance of your duty, O Arjuna, abandoning attachment to success and failure. Such equanimity is called Yoga.",
       hi: "हे धनंजय! योग में स्थित होकर कर्म करो और आसक्ति को त्याग दो, सिद्धि और असिद्धि में समान रहो। यही समत्व योग कहलाता है।",
@@ -85,7 +89,8 @@ export const sampleVerses: ScriptureVerse[] = [
       en: "Yoga is the cessation of the fluctuations of the mind.",
       hi: "योग चित्त के वृत्तियों का निरोध है।",
     },
-    commentary: "This is the core definition of Yoga. Chitta refers to the mind-field, vrittis are the thought-waves or modifications, and nirodha means control or cessation. Yoga is not physical exercise but mental discipline.",
+    commentary:
+      "This is the core definition of Yoga. Chitta refers to the mind-field, vrittis are the thought-waves or modifications, and nirodha means control or cessation. Yoga is not physical exercise but mental discipline.",
     keyTerms: ["Chitta", "Vritti", "Nirodha"],
     relatedVerses: ["ys-1-1", "ys-1-3"],
   },
@@ -128,7 +133,11 @@ export function getVersesByScripture(scriptureId: string): ScriptureVerse[] {
 /**
  * Get a specific verse
  */
-export function getVerse(scriptureId: string, chapter: number, verse: number): ScriptureVerse | undefined {
+export function getVerse(
+  scriptureId: string,
+  chapter: number,
+  verse: number
+): ScriptureVerse | undefined {
   return sampleVerses.find(
     (v) => v.scriptureId === scriptureId && v.chapter === chapter && v.verse === verse
   );

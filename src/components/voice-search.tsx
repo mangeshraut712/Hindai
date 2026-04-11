@@ -67,31 +67,6 @@ export function VoiceSearch({
         setIsListening(false);
       };
 
-      recognition.onresult = (event: any) => {
-        let finalTranscript = "";
-
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          if (event.results[i].isFinal) {
-            finalTranscript += event.results[i][0].transcript;
-          }
-        }
-
-        if (finalTranscript) {
-          setTranscript(finalTranscript);
-          onResult(finalTranscript);
-          track("voice_search_result", {
-            transcript: finalTranscript,
-            length: finalTranscript.length,
-          });
-        }
-      };
-
-      recognition.onerror = (event: any) => {
-        console.error("Speech recognition error:", event.error);
-        track("voice_search_error", { error: event.error });
-        setIsListening(false);
-      };
-
       recognition.onend = () => {
         setIsListening(false);
       };

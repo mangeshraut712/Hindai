@@ -8,15 +8,11 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./src/__tests__/setup.ts"],
+    exclude: ["node_modules/**", "e2e/**", "playwright.config.ts", "coverage/**", ".next/**"],
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
-      exclude: [
-        "node_modules/",
-        "src/__tests__/",
-        "**/*.d.ts",
-        "**/*.config.*",
-      ],
+      exclude: ["node_modules/", "e2e/", ".next/", "src/__tests__/", "**/*.d.ts", "**/*.config.*"],
       // Thresholds disabled for initial development
       // Add tests incrementally and re-enable:
       // thresholds: {

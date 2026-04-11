@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GEMMA_MODEL, generateExplanation } from "@/lib/ai/gemma";
 
 /**
  * API Route for Gemma 4 AI Generation
@@ -8,76 +8,66 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
  * Part of the Gemma 4 Good Hackathon submission.
  */
 
-const GEMMA_API_KEY = process.env.GEMMA_API_KEY || process.env.GEMINI_API_KEY; // Fallback for compatibility
-const MODEL_NAME = process.env.GEMMA_MODEL || "gemma-4-27b-it"; // Gemma 4 instruction-tuned model
+export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    endpoint: "/api/ai/generate/",
+    methods: ["POST", "OPTIONS"],
+    model: GEMMA_MODEL,
+    usage: {
+      body: {
+        prompt: "Explain Bhagavad Gita 2.47 in simple English",
+        scriptureId: "optional",
+        compareScriptureIds: ["optional", "for compare mode"],
+        chapter: "optional",
+        verse: "optional",
+        language: "optional",
+        mode: "optional: explain | compare",
+        audience: "optional: general | student | teacher",
+      },
+    },
+  });
+}
 
-// Initialize Gemma 4 AI
-const ai = GEMMA_API_KEY ? new GoogleGenerativeAI(GEMMA_API_KEY) : null;
+export async function OPTIONS() {
+  return NextResponse.json({ ok: true, methods: ["GET", "POST", "OPTIONS"] });
+}
 
 export async function POST(request: NextRequest) {
-  // Check if API key is configured
-  if (!GEMMA_API_KEY || !ai) {
-    console.warn("GEMINI_API_KEY not configured");
-    return NextResponse.json(
-      {
-        response: getFallbackResponse(),
-        mock: true,
-        error: "AI service not configured. Set GEMMA_API_KEY environment variable.",
-      },
-      { status: 200 }
-    );
-  }
-
   try {
-    const { prompt } = await request.json();
+    const { prompt, scriptureId, compareScriptureIds, chapter, verse, language, mode, audience } =
+      await request.json();
 
-    if (!prompt) {
+    if (!prompt || typeof prompt !== "string") {
       return NextResponse.json({ error: "Prompt is required" }, { status: 400 });
     }
 
-    // Enhanced system prompt for scripture analysis
-    const systemPrompt = `You are Hind AI, an expert scholar of ancient Indian scriptures.
+    const userId =
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      request.headers.get("x-real-ip") ||
+      "anonymous";
 
-Your expertise includes:
-- Vedas (Rigveda, Samaveda, Yajurveda, Atharvaveda)
-- Upanishads (108 principal texts)
-- Epics (Mahabharata, Ramayana)
-- Bhagavad Gita (700 verses of spiritual wisdom)
-- Puranas (18 major texts)
-- Dharma Shastras (Manu Smriti, etc.)
-- Yoga Philosophy (Yoga Sutras, Yoga Vasishtha)
-
-Guidelines:
-1. Provide accurate, well-researched explanations
-2. Include Sanskrit transliteration for key terms
-3. Offer historical and cultural context
-4. Connect ancient wisdom to modern life
-5. Cite specific chapter and verse numbers
-6. Respect all spiritual traditions
-
-Response should be clear, educational, and accessible to modern readers.`;
-
-    // Call Google Gemini API
-    const model = ai.getGenerativeModel({ model: MODEL_NAME });
-    const result = await model.generateContent({
-      contents: [
-        {
-          role: "user",
-          parts: [{ text: `${systemPrompt}\n\nUser Query: ${prompt}\n\nResponse:` }],
-        },
-      ],
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 1024,
+    const result = await generateExplanation(
+      {
+        query: prompt.trim(),
+        scriptureId,
+        compareScriptureIds,
+        chapter,
+        verse,
+        language,
+        mode,
+        audience,
       },
-    });
-
-    const response = result.response.text() || getFallbackResponse();
+      userId
+    );
 
     return NextResponse.json({
-      response: response,
-      model: MODEL_NAME,
+      response: result.response,
+      cached: result.cached,
+      grounding: result.grounding,
+      model: GEMMA_MODEL,
       mock: false,
+      rateLimit: result.rateLimit,
     });
   } catch (error) {
     console.error("AI Generation Error:", error);
@@ -85,8 +75,11 @@ Response should be clear, educational, and accessible to modern readers.`;
     // Return fallback response
     return NextResponse.json(
       {
-        response: getFallbackResponse(),
+        response: {
+          explanation: getFallbackResponse(),
+        },
         mock: true,
+        model: GEMMA_MODEL,
         error: error instanceof Error ? error.message : "AI service unavailable",
       },
       { status: 200 }
@@ -108,10 +101,12 @@ I'm here to help you explore ancient Indian scriptures. Currently, I'm running i
 - Exploring the Yoga Sutras of Patanjali
 - Learning about meditation and spiritual practices
 
-**To enable full AI features:**
-Set the GEMMA_API_KEY environment variable with your Gemma 4 API key.
+**Why this is still in demo mode:**
+Accepting Gemma access on Kaggle does not configure this app by itself.
 
-Get your key at: https://aistudio.google.com/app/apikey
+**To enable full AI features, choose one backend:**
+1. Hosted API: set the GEMMA_API_KEY environment variable with your Google AI Studio key.
+2. Local runtime: run Ollama locally with a Gemma model available at ${process.env.OLLAMA_URL || "http://localhost:11434"}.
 
 **Sample Questions to Try:**
 - "What is Karma Yoga?"

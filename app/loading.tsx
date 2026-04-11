@@ -28,7 +28,7 @@ export default function Loading() {
           {/* Cards Skeleton */}
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="rounded-lg border p-6 space-y-4">
+              <div key={i} className="space-y-4 rounded-lg border p-6">
                 <Skeleton className="h-6 w-12" />
                 <Skeleton className="h-8 w-3/4" />
                 <Skeleton className="h-4 w-full" />

@@ -7,6 +7,8 @@ node_modules/
 # Testing
 coverage/
 *.lcov
+playwright-report/
+test-results/
 
 # Next.js
 .next/
@@ -43,6 +45,7 @@ Thumbs.db
 *.pem
 .vercel
 *.tsbuildinfo
+gita_response.json
+response.json
 next-env.d.ts
 !.next-env.d.ts
-

@@ -8,6 +8,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { track } from "@vercel/analytics";
+import { scriptureCatalog } from "@/lib/scripture-catalog";
+import { sampleVerses, scriptures as scriptureMeta, searchVerses } from "@/lib/data/scriptures";
 
 interface SearchResult {
   id: string;
@@ -15,80 +17,34 @@ interface SearchResult {
   description: string;
   category: string;
   href: string;
+  sanskrit?: string;
+  type: "text" | "verse";
 }
 
-const scriptureData: SearchResult[] = [
-  {
-    id: "1",
-    title: "Rigveda",
-    description: "The oldest sacred text of Hinduism",
-    category: "Veda",
-    href: "/rigveda",
-  },
-  {
-    id: "2",
-    title: "Mahabharata",
-    description: "The great Indian epic",
-    category: "Epic",
-    href: "/mahabharata",
-  },
-  {
-    id: "3",
-    title: "Ramayana",
-    description: "The journey of Lord Rama",
-    category: "Epic",
-    href: "/ramayana",
-  },
-  {
-    id: "4",
-    title: "Bhagavad Gita",
-    description: "The Song of God",
-    category: "Philosophy",
-    href: "/bhagavad-gita",
-  },
-  {
-    id: "5",
-    title: "Srimad Bhagavatam",
-    description: "Stories of Lord Krishna",
-    category: "Purana",
-    href: "/srimad-bhagavatam",
-  },
-  {
-    id: "6",
-    title: "Markandeya Purana",
-    description: "Including Devi Mahatmyam",
-    category: "Purana",
-    href: "/markandeya-purana",
-  },
-  {
-    id: "7",
-    title: "Devi Mahatmyam",
-    description: "Glory of the Divine Mother",
-    category: "Purana",
-    href: "/devi-mahatmyam",
-  },
-  {
-    id: "8",
-    title: "Manu Smriti",
-    description: "Ancient legal and moral codes",
-    category: "Dharma Shastra",
-    href: "/manu-smriti",
-  },
-  {
-    id: "9",
-    title: "Parashara Smriti",
-    description: "Vedic guidance for daily life",
-    category: "Dharma Shastra",
-    href: "/parashara",
-  },
-  {
-    id: "10",
-    title: "Yoga Vasishtha",
-    description: "Spiritual instruction of Lord Rama",
-    category: "Philosophy",
-    href: "/yoga-vasishtha",
-  },
-];
+const scriptureData: SearchResult[] = scriptureCatalog.map((item, index) => ({
+  id: String(index + 1),
+  title: item.name,
+  description: item.description,
+  category: item.category,
+  href: item.href,
+  sanskrit: item.sanskrit,
+  type: "text",
+}));
+
+const verseData: SearchResult[] = sampleVerses.map((verse) => {
+  const scripture = scriptureMeta.find((item) => item.id === verse.scriptureId);
+  const scriptureHref = scriptureCatalog.find((item) => item.slug === verse.scriptureId)?.href;
+
+  return {
+    id: verse.id,
+    title: `${scripture?.name || verse.scriptureId} ${verse.chapter}.${verse.verse}`,
+    description: verse.translation.en,
+    category: "Verse",
+    href: scriptureHref ? `${scriptureHref}#${verse.id}` : "/contents/",
+    sanskrit: verse.sanskrit,
+    type: "verse",
+  };
+});
 
 export function SearchDialog({
   open,
@@ -123,15 +79,21 @@ export function SearchDialog({
           (item) =>
             item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            item.category.toLowerCase().includes(searchQuery.toLowerCase())
+            item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.sanskrit?.includes(searchQuery)
         );
-        setResults(filtered);
+        const verseMatches = searchVerses(searchQuery)
+          .map((verse) => verseData.find((item) => item.id === verse.id))
+          .filter((item): item is SearchResult => Boolean(item));
+
+        const merged = [...filtered, ...verseMatches].slice(0, 8);
+        setResults(merged);
 
         // Track search results
         track("search_results", {
           query: searchQuery.trim(),
-          results_count: filtered.length,
-          has_results: filtered.length > 0,
+          results_count: merged.length,
+          has_results: merged.length > 0,
         });
       }
       setIsLoading(false);
@@ -223,6 +185,9 @@ export function SearchDialog({
                       <BookOpen className="h-4 w-4 text-muted-foreground" />
                       <div className="flex-1">
                         <p className="font-medium">{result.title}</p>
+                        {result.sanskrit ? (
+                          <p className="font-devanagari text-xs text-primary">{result.sanskrit}</p>
+                        ) : null}
                         <p className="text-sm text-muted-foreground">{result.description}</p>
                       </div>
                       <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">

@@ -1,26 +1,12 @@
 /**
  * Component Tests for AI Explanation
- * 
+ *
  * Tests React component behavior, loading states, error handling
  */
 
-import { describe, it, expect, vi } from "vitest";
+import { beforeEach, describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { AIExplanation } from "@/components/ai/ai-explanation";
-
-// Mock the AI library
-vi.mock("@/lib/ai/gemini", () => ({
-  generateExplanation: vi.fn().mockResolvedValue({
-    response: {
-      explanation: "This is a test explanation",
-      context: "Test context",
-      keyTerms: [],
-      references: [],
-    },
-    cached: false,
-    rateLimit: { remaining: 9, reset: Date.now() + 60000 },
-  }),
-}));
 
 describe("AIExplanation Component", () => {
   const defaultProps = {
@@ -32,6 +18,22 @@ describe("AIExplanation Component", () => {
     verse: 47,
   };
 
+  beforeEach(() => {
+    vi.mocked(global.fetch).mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        response: {
+          explanation: "This is a test explanation",
+          context: "Test context",
+          keyTerms: [],
+          references: [],
+        },
+        cached: false,
+        rateLimit: { remaining: 9, reset: Date.now() + 60000 },
+      }),
+    } as Response);
+  });
+
   it("renders the get explanation button initially", () => {
     render(<AIExplanation {...defaultProps} />);
 
@@ -39,11 +41,31 @@ describe("AIExplanation Component", () => {
   });
 
   it("shows loading state when clicked", async () => {
+    let resolveFetch!: (value: Response) => void;
+    vi.mocked(global.fetch).mockReturnValueOnce(
+      new Promise((resolve) => {
+        resolveFetch = resolve;
+      }) as Promise<Response>
+    );
+
     render(<AIExplanation {...defaultProps} />);
 
     fireEvent.click(screen.getByText("Get AI Explanation"));
 
     expect(screen.getByText(/Generating with/)).toBeInTheDocument();
+
+    resolveFetch({
+      ok: true,
+      json: async () => ({
+        response: {
+          explanation: "This is a test explanation",
+        },
+      }),
+    } as Response);
+
+    await waitFor(() => {
+      expect(screen.getByText("AI-Powered Study Pack")).toBeInTheDocument();
+    });
   });
 
   it("displays explanation after successful generation", async () => {
@@ -52,28 +74,21 @@ describe("AIExplanation Component", () => {
     fireEvent.click(screen.getByText("Get AI Explanation"));
 
     await waitFor(() => {
-      expect(screen.getByText("AI-Powered Explanation")).toBeInTheDocument();
+      expect(screen.getByText("AI-Powered Study Pack")).toBeInTheDocument();
     });
 
-    expect(
-      screen.getByText("This is a test explanation")
-    ).toBeInTheDocument();
+    expect(screen.getByText("This is a test explanation")).toBeInTheDocument();
   });
 
   it("shows error message when generation fails", async () => {
-    const { generateExplanation } = await import("@/lib/ai/gemini");
-    vi.mocked(generateExplanation).mockRejectedValueOnce(
-      new Error("API Error")
-    );
+    vi.mocked(global.fetch).mockRejectedValueOnce(new Error("API Error"));
 
     render(<AIExplanation {...defaultProps} />);
 
     fireEvent.click(screen.getByText("Get AI Explanation"));
 
     await waitFor(() => {
-      expect(
-        screen.getByText(/Failed to generate explanation/)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Failed to generate explanation/)).toBeInTheDocument();
     });
   });
 
@@ -84,11 +99,11 @@ describe("AIExplanation Component", () => {
     fireEvent.click(screen.getByText("Get AI Explanation"));
 
     await waitFor(() => {
-      expect(screen.getByText("AI-Powered Explanation")).toBeInTheDocument();
+      expect(screen.getByText("AI-Powered Study Pack")).toBeInTheDocument();
     });
 
     // Click regenerate
-    fireEvent.click(screen.getByText("Get Another Explanation"));
+    fireEvent.click(screen.getByText("Generate Another Study Pack"));
 
     expect(screen.getByText("Get AI Explanation")).toBeInTheDocument();
   });

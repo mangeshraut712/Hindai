@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Daily Wisdom", () => {
   test("should display daily wisdom content", async ({ page }) => {
-    await page.goto("/daily");
+    await page.goto("/daily", { waitUntil: "networkidle" });
 
     // Check main content
     await expect(page.locator("h1")).toContainText("दैनिक ज्ञान");
@@ -16,7 +16,7 @@ test.describe("Daily Wisdom", () => {
   });
 
   test("should allow liking wisdom", async ({ page }) => {
-    await page.goto("/daily");
+    await page.goto("/daily", { waitUntil: "networkidle" });
 
     const likeButton = page.locator("button").filter({ hasText: "Love" });
     await likeButton.click();
@@ -26,7 +26,7 @@ test.describe("Daily Wisdom", () => {
   });
 
   test("should show meditation timer", async ({ page }) => {
-    await page.goto("/daily");
+    await page.goto("/daily", { waitUntil: "networkidle" });
 
     // Click meditate button
     await page.locator("button").filter({ hasText: "Meditate" }).click();
@@ -36,7 +36,7 @@ test.describe("Daily Wisdom", () => {
   });
 
   test("should handle meditation timer controls", async ({ page }) => {
-    await page.goto("/daily");
+    await page.goto("/daily", { waitUntil: "networkidle" });
 
     // Open meditation timer
     await page.locator("button").filter({ hasText: "Meditate" }).click();

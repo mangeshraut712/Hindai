@@ -3,52 +3,80 @@ import { test, expect } from "@playwright/test";
 
 test.describe("AI Chat", () => {
   test("should load AI guide page", async ({ page }) => {
-    await page.goto("/ai-guide");
+    await page.goto("/ai-guide", { waitUntil: "networkidle" });
 
     // Check page content
-    await expect(page.locator("h1")).toContainText(/AI|Guru/);
+    await expect(page.locator("h1")).toContainText(/living conversation/i);
 
     // Check chat interface
-    await expect(page.locator('input[placeholder*="scripture"]')).toBeVisible();
+    await expect(page.locator('input[placeholder*="Ask about scriptures"]')).toBeVisible();
   });
 
-  test("should send AI query", async ({ page }) => {
-    await page.goto("/ai-guide");
+  test("should send an explain-mode query", async ({ page }) => {
+    await page.route("**/api/ai/stream/", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "text/plain; charset=utf-8",
+        body: "Karma Yoga means acting with discipline while releasing attachment to outcomes.",
+      });
+    });
 
-    // Type a question
-    await page.fill('input[placeholder*="scripture"]', "What is karma yoga?");
+    await page.goto("/ai-guide", { waitUntil: "networkidle" });
+    await page.fill('input[placeholder*="Ask about scriptures"]', "What is karma yoga?");
+    await page.getByRole("button", { name: /send message/i }).click();
+    await expect(page.getByText(/Karma Yoga means acting with discipline/i)).toBeVisible();
+  });
 
-    // Click send button
-    await page.locator('button[type="submit"]').click();
+  test("should render compare results as a structured summary", async ({ page }) => {
+    await page.route("**/api/ai/stream/", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "text/plain; charset=utf-8",
+        headers: {
+          "x-hindai-compare-card": JSON.stringify({
+            commonGround: ["Both texts connect disciplined practice with self-mastery."],
+            differences: [
+              {
+                topic: "Primary lens",
+                insight:
+                  "The Gita frames action in duty, while Yoga Sutras frames practice in mind training.",
+              },
+            ],
+            classroomUse: ["Use both texts to compare action and contemplation."],
+          }),
+        },
+        body: "Comparison complete.",
+      });
+    });
 
-    // Check if response appears (this might take time)
-    await expect(page.locator(".message-assistant")).toBeVisible({ timeout: 30000 });
+    await page.goto("/ai-guide", { waitUntil: "networkidle" });
+    await page.getByRole("button", { name: /compare texts/i }).click();
+    await page.getByRole("button", { name: "Bhagavad Gita", exact: true }).click();
+    await page.getByRole("button", { name: "Yoga Sutras", exact: true }).click();
+    await page.fill(
+      'input[placeholder*="Compare two texts"]',
+      "Compare Bhagavad Gita and Yoga Sutras"
+    );
+    await page.getByRole("button", { name: /send message/i }).click();
+
+    await expect(page.getByText("Compare summary")).toBeVisible();
+    await expect(page.getByText("Common ground")).toBeVisible();
+    await expect(page.getByText("Differences")).toBeVisible();
+    await expect(page.getByText(/Primary lens/i)).toBeVisible();
   });
 
   test("should handle error states", async ({ page }) => {
-    // Mock a failed API call
-    await page.route("**/api/ai/generate", (route) => route.abort());
+    await page.route("**/api/ai/stream/", async (route) => {
+      await route.fulfill({
+        status: 503,
+        contentType: "application/json",
+        body: JSON.stringify({ error: "AI service unavailable" }),
+      });
+    });
 
-    await page.goto("/ai-guide");
-
-    // Try to send a query
-    await page.fill('input[placeholder*="scripture"]', "Test query");
-    await page.locator('button[type="submit"]').click();
-
-    // Check for error message
-    await expect(page.locator("text=error")).toBeVisible();
-  });
-
-  test("should show loading state during AI response", async ({ page }) => {
-    await page.goto("/ai-guide");
-
-    // Start typing
-    await page.fill('input[placeholder*="scripture"]', "What is dharma?");
-
-    // Click send
-    await page.locator('button[type="submit"]').click();
-
-    // Check for loading indicator
-    await expect(page.locator('[aria-label*="loading"]')).toBeVisible();
+    await page.goto("/ai-guide", { waitUntil: "networkidle" });
+    await page.fill('input[placeholder*="Ask about scriptures"]', "Test query");
+    await page.getByRole("button", { name: /send message/i }).click();
+    await expect(page.getByText(/having trouble connecting to the AI service/i)).toBeVisible();
   });
 });

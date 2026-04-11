@@ -28,7 +28,8 @@ const quizQuestions: Question[] = [
       "Knowledge is superior to action",
     ],
     correctAnswer: 1,
-    explanation: "This verse teaches Karma Yoga - the path of selfless action. Krishna tells Arjuna: 'You have a right to perform your prescribed duty, but you are not entitled to the fruits of action.'",
+    explanation:
+      "This verse teaches Karma Yoga - the path of selfless action. Krishna tells Arjuna: 'You have a right to perform your prescribed duty, but you are not entitled to the fruits of action.'",
     scripture: "Bhagavad Gita 2.47",
     difficulty: "easy",
   },
@@ -42,7 +43,8 @@ const quizQuestions: Question[] = [
       "Control of breath and senses",
     ],
     correctAnswer: 1,
-    explanation: "Yoga Sutra 1.2 defines Yoga as 'Yogas chitta vritti nirodha' - Yoga is the cessation of the fluctuations/modifications of the mind.",
+    explanation:
+      "Yoga Sutra 1.2 defines Yoga as 'Yogas chitta vritti nirodha' - Yoga is the cessation of the fluctuations/modifications of the mind.",
     scripture: "Yoga Sutras 1.2",
     difficulty: "medium",
   },
@@ -56,7 +58,8 @@ const quizQuestions: Question[] = [
       "Brahma, Vishnu, and Shiva",
     ],
     correctAnswer: 0,
-    explanation: "The three Gunas are Sattva (purity/harmony), Rajas (activity/passion), and Tamas (inertia/darkness). These qualities bind the soul to the material world.",
+    explanation:
+      "The three Gunas are Sattva (purity/harmony), Rajas (activity/passion), and Tamas (inertia/darkness). These qualities bind the soul to the material world.",
     scripture: "Bhagavad Gita Chapter 14",
     difficulty: "medium",
   },
@@ -70,7 +73,8 @@ const quizQuestions: Question[] = [
       "Charity and donation",
     ],
     correctAnswer: 1,
-    explanation: "Ahimsa means non-violence or non-harming in thought, word, and action. It's the first of the Yamas in Patanjali's Yoga Sutras and a fundamental principle in Hinduism, Buddhism, and Jainism.",
+    explanation:
+      "Ahimsa means non-violence or non-harming in thought, word, and action. It's the first of the Yamas in Patanjali's Yoga Sutras and a fundamental principle in Hinduism, Buddhism, and Jainism.",
     scripture: "Yoga Sutras 2.35",
     difficulty: "easy",
   },
@@ -84,7 +88,8 @@ const quizQuestions: Question[] = [
       "Pleasure and enjoyment",
     ],
     correctAnswer: 1,
-    explanation: "The Upanishads teach that the ultimate goal of human life is Moksha - liberation from the cycle of birth and death (samsara) and realization of one's true nature as Atman (soul) which is one with Brahman (universal consciousness).",
+    explanation:
+      "The Upanishads teach that the ultimate goal of human life is Moksha - liberation from the cycle of birth and death (samsara) and realization of one's true nature as Atman (soul) which is one with Brahman (universal consciousness).",
     scripture: "Mundaka Upanishad 3.2.9",
     difficulty: "hard",
   },
@@ -153,14 +158,14 @@ export function QuizSystem() {
     }
 
     return (
-      <Card className="w-full max-w-2xl mx-auto">
+      <Card className="mx-auto w-full max-w-2xl">
         <CardHeader className="text-center">
-          <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
             <Trophy className="h-8 w-8 text-primary" />
           </div>
           <CardTitle className="text-2xl">Quiz Completed!</CardTitle>
         </CardHeader>
-        <CardContent className="text-center space-y-4">
+        <CardContent className="space-y-4 text-center">
           <div className="text-4xl font-bold">
             {score} / {quizQuestions.length}
           </div>
@@ -180,15 +185,15 @@ export function QuizSystem() {
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="mx-auto w-full max-w-2xl">
       <CardHeader>
-        <div className="flex items-center justify-between mb-2">
+        <div className="mb-2 flex items-center justify-between">
           <span className="text-sm text-muted-foreground">
             Question {currentQuestion + 1} of {quizQuestions.length}
           </span>
           <span
             className={cn(
-              "text-xs px-2 py-1 rounded-full",
+              "rounded-full px-2 py-1 text-xs",
               question.difficulty === "easy" && "bg-green-100 text-green-800",
               question.difficulty === "medium" && "bg-yellow-100 text-yellow-800",
               question.difficulty === "hard" && "bg-red-100 text-red-800"
@@ -198,7 +203,7 @@ export function QuizSystem() {
           </span>
         </div>
         <Progress value={progress} className="w-full" />
-        <CardTitle className="text-xl mt-4">{question.question}</CardTitle>
+        <CardTitle className="mt-4 text-xl">{question.question}</CardTitle>
       </CardHeader>
 
       <CardContent className="space-y-4">
@@ -208,14 +213,14 @@ export function QuizSystem() {
               key={index}
               variant={selectedAnswer === index ? "default" : "outline"}
               className={cn(
-                "w-full justify-start text-left h-auto py-3 px-4",
+                "h-auto w-full justify-start px-4 py-3 text-left",
                 showExplanation &&
                   index === question.correctAnswer &&
-                  "bg-green-100 border-green-500 hover:bg-green-100",
+                  "border-green-500 bg-green-100 hover:bg-green-100",
                 showExplanation &&
                   selectedAnswer === index &&
                   index !== question.correctAnswer &&
-                  "bg-red-100 border-red-500 hover:bg-red-100"
+                  "border-red-500 bg-red-100 hover:bg-red-100"
               )}
               onClick={() => handleSelect(index)}
               disabled={showExplanation}
@@ -225,17 +230,15 @@ export function QuizSystem() {
               {showExplanation && index === question.correctAnswer && (
                 <CheckCircle className="ml-auto h-5 w-5 text-green-600" />
               )}
-              {showExplanation &&
-                selectedAnswer === index &&
-                index !== question.correctAnswer && (
-                  <XCircle className="ml-auto h-5 w-5 text-red-600" />
-                )}
+              {showExplanation && selectedAnswer === index && index !== question.correctAnswer && (
+                <XCircle className="ml-auto h-5 w-5 text-red-600" />
+              )}
             </Button>
           ))}
         </div>
 
         {showExplanation && (
-          <div className="bg-muted p-4 rounded-lg space-y-2">
+          <div className="space-y-2 rounded-lg bg-muted p-4">
             <div className="flex items-center gap-2 text-sm font-medium">
               <BookOpen className="h-4 w-4" />
               {question.scripture}
@@ -246,11 +249,7 @@ export function QuizSystem() {
 
         <div className="flex gap-2 pt-2">
           {!showExplanation ? (
-            <Button
-              onClick={handleSubmit}
-              disabled={selectedAnswer === null}
-              className="flex-1"
-            >
+            <Button onClick={handleSubmit} disabled={selectedAnswer === null} className="flex-1">
               Submit Answer
             </Button>
           ) : (
@@ -266,7 +265,7 @@ export function QuizSystem() {
           )}
         </div>
 
-        <p className="text-xs text-center text-muted-foreground">
+        <p className="text-center text-xs text-muted-foreground">
           Score: {score} / {currentQuestion + (showExplanation ? 1 : 0)}
         </p>
       </CardContent>

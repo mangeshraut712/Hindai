@@ -8,9 +8,7 @@ export default function NotFound() {
       <div className="text-center">
         <BookOpen className="mx-auto h-16 w-16 text-muted-foreground" />
         <h1 className="mt-6 text-4xl font-bold tracking-tight">404</h1>
-        <p className="mt-2 text-lg text-muted-foreground">
-          Page not found
-        </p>
+        <p className="mt-2 text-lg text-muted-foreground">Page not found</p>
         <p className="mt-4 max-w-md text-sm text-muted-foreground">
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>

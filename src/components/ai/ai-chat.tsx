@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Send, Loader2, Sparkles, User, Bot, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { generateExplanationStream } from "@/lib/ai/gemini";
+import { scriptureCatalog } from "@/lib/scripture-catalog";
 
 interface Message {
   id: string;
@@ -15,20 +15,71 @@ interface Message {
   content: string;
   timestamp: Date;
   citations?: string[];
+  compareCard?: {
+    commonGround?: string[];
+    differences?: Array<{
+      topic: string;
+      insight: string;
+    }>;
+    classroomUse?: string[];
+  };
 }
 
-export function AIChat() {
+interface AIChatProps {
+  initialPrompt?: string;
+  initialMode?: "explain" | "compare";
+  initialCompareScriptureIds?: string[];
+  initialAudience?: "general" | "student" | "teacher";
+}
+
+const compareOptions = scriptureCatalog
+  .filter((item) =>
+    [
+      "bhagavad-gita",
+      "yoga-sutras",
+      "yoga-vasishtha",
+      "rigveda",
+      "ramayana",
+      "srimad-bhagavatam",
+    ].includes(item.slug)
+  )
+  .map((item) => ({
+    id: item.slug,
+    label: item.name,
+  }));
+
+export function AIChat({
+  initialPrompt = "",
+  initialMode = "explain",
+  initialCompareScriptureIds = [],
+  initialAudience = "general",
+}: AIChatProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
       role: "assistant",
-      content: "Namaste! 🙏 I'm your AI guide to ancient Indian scriptures. Ask me about any verse, concept, or teaching from the Vedas, Upanishads, Bhagavad Gita, or other sacred texts.",
+      content:
+        "Namaste! 🙏 I'm your AI guide to ancient Indian scriptures. Ask me about any verse, concept, or teaching from the Vedas, Upanishads, Bhagavad Gita, or other sacred texts.",
       timestamp: new Date(),
     },
   ]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(initialPrompt);
   const [isLoading, setIsLoading] = useState(false);
+  const [mode, setMode] = useState<"explain" | "compare">(initialMode);
+  const [audience, setAudience] = useState<"general" | "student" | "teacher">(initialAudience);
+  const [compareScriptureIds, setCompareScriptureIds] = useState<string[]>(
+    initialCompareScriptureIds.slice(0, 2)
+  );
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const comparisonSummary = useMemo(
+    () =>
+      compareScriptureIds
+        .map((id) => scriptureCatalog.find((item) => item.slug === id)?.name)
+        .filter(Boolean)
+        .join(" • "),
+    [compareScriptureIds]
+  );
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -47,7 +98,8 @@ export function AIChat() {
       timestamp: new Date(),
     };
 
-    setMessages((prev) => [...prev, userMessage]);
+    const nextConversation = [...messages, userMessage];
+    setMessages(nextConversation);
     setInput("");
     setIsLoading(true);
 
@@ -64,19 +116,50 @@ export function AIChat() {
     ]);
 
     try {
-      const stream = generateExplanationStream({
-        query: userMessage.content,
-        language: "en",
+      const response = await fetch("/api/ai/stream/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          messages: nextConversation.map(({ role, content }) => ({
+            role,
+            content,
+          })),
+          mode,
+          audience,
+          compareScriptureIds,
+        }),
       });
 
+      if (!response.ok || !response.body) {
+        throw new Error("Streaming request failed");
+      }
+
+      const compareHeader = response.headers.get("x-hindai-compare-card");
+      const compareCard = compareHeader ? JSON.parse(compareHeader) : null;
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
       let fullContent = "";
-      for await (const chunk of stream) {
-        fullContent += chunk;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) {
+          fullContent += decoder.decode();
+          break;
+        }
+
+        fullContent += decoder.decode(value, { stream: true });
         setMessages((prev) =>
           prev.map((msg) =>
-            msg.id === aiMessageId ? { ...msg, content: fullContent } : msg
+            msg.id === aiMessageId ? { ...msg, content: fullContent, compareCard } : msg
           )
         );
+      }
+
+      if (!fullContent.trim()) {
+        throw new Error("Empty streaming response");
       }
     } catch {
       setMessages((prev) =>
@@ -110,20 +193,102 @@ export function AIChat() {
     "Compare Buddhism and Hinduism",
   ];
 
+  const toggleCompareScripture = (id: string) => {
+    setCompareScriptureIds((current) => {
+      if (current.includes(id)) {
+        return current.filter((item) => item !== id);
+      }
+
+      if (current.length >= 2) {
+        return [current[1], id];
+      }
+
+      return [...current, id];
+    });
+  };
+
   return (
-    <Card className="w-full max-w-4xl mx-auto h-[600px] flex flex-col">
-      <CardHeader className="border-b bg-gradient-to-r from-primary/5 to-secondary/5">
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <Sparkles className="h-5 w-5 text-primary" />
+    <Card className="surface-panel mx-auto flex h-[680px] w-full max-w-5xl flex-col overflow-hidden border-border/60">
+      <CardHeader className="border-b border-border/60 px-6 py-5">
+        <CardTitle className="flex items-center gap-3 text-lg">
+          <div className="flex size-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+            <Sparkles className="h-5 w-5" />
+          </div>
           AI Scripture Guide
           <span className="ml-auto text-xs font-normal text-muted-foreground">
-            Powered by Google Gemini
+            Powered by Gemma 4
           </span>
         </CardTitle>
       </CardHeader>
 
-      <ScrollArea ref={scrollRef} className="flex-1 p-4">
-        <div className="space-y-4">
+      <ScrollArea ref={scrollRef} className="flex-1 px-6 py-6">
+        <div className="mb-6 space-y-4 rounded-[24px] border border-border/60 bg-background/65 p-4">
+          <div className="flex flex-wrap gap-2">
+            <Button
+              variant={mode === "explain" ? "premium" : "outline"}
+              size="sm"
+              onClick={() => setMode("explain")}
+            >
+              Explain mode
+            </Button>
+            <Button
+              variant={mode === "compare" ? "premium" : "outline"}
+              size="sm"
+              onClick={() => setMode("compare")}
+            >
+              Compare texts
+            </Button>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            {(["general", "student", "teacher"] as const).map((persona) => (
+              <Button
+                key={persona}
+                variant={audience === persona ? "secondary" : "outline"}
+                size="sm"
+                onClick={() => setAudience(persona)}
+              >
+                {persona}
+              </Button>
+            ))}
+          </div>
+
+          {mode === "compare" ? (
+            <div className="space-y-3">
+              <p className="text-sm font-medium text-muted-foreground">
+                Choose up to two texts to compare
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {compareOptions.map((option) => (
+                  <Button
+                    key={option.id}
+                    variant={compareScriptureIds.includes(option.id) ? "premium" : "outline"}
+                    size="sm"
+                    onClick={() => toggleCompareScripture(option.id)}
+                  >
+                    {option.label}
+                  </Button>
+                ))}
+              </div>
+              {comparisonSummary ? (
+                <p className="text-xs text-muted-foreground">
+                  Active comparison: {comparisonSummary}
+                </p>
+              ) : (
+                <p className="text-xs text-muted-foreground">
+                  Pick two texts to unlock grounded comparison mode.
+                </p>
+              )}
+            </div>
+          ) : (
+            <p className="text-xs text-muted-foreground">
+              Ask for explanations, guided reading, study packs, and grounded references from the
+              current scripture corpus.
+            </p>
+          )}
+        </div>
+
+        <div className="space-y-5">
           {messages.map((message) => (
             <div
               key={message.id}
@@ -134,10 +299,10 @@ export function AIChat() {
             >
               <div
                 className={cn(
-                  "flex h-8 w-8 shrink-0 select-none items-center justify-center rounded-md border",
+                  "flex size-9 shrink-0 select-none items-center justify-center rounded-full border border-border/60",
                   message.role === "user"
                     ? "bg-primary text-primary-foreground"
-                    : "bg-secondary"
+                    : "bg-background/80 text-foreground"
                 )}
               >
                 {message.role === "user" ? (
@@ -149,15 +314,44 @@ export function AIChat() {
 
               <div
                 className={cn(
-                  "rounded-lg px-4 py-2 max-w-[80%] prose prose-sm",
+                  "prose prose-sm max-w-[82%] rounded-[24px] px-4 py-3 shadow-[0_18px_40px_-32px_rgba(15,23,42,0.4)]",
                   message.role === "user"
-                    ? "bg-primary text-primary-foreground ml-auto"
-                    : "bg-muted"
+                    ? "ml-auto bg-primary text-primary-foreground"
+                    : "bg-secondary/72 border border-border/60"
                 )}
               >
                 <div className="whitespace-pre-wrap">{message.content}</div>
+                {message.compareCard &&
+                (message.compareCard.commonGround?.length ||
+                  message.compareCard.differences?.length) ? (
+                  <div className="mt-4 space-y-3 rounded-[18px] border border-border/60 bg-background/75 p-4 text-foreground">
+                    <p className="text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground">
+                      Compare summary
+                    </p>
+                    <div className="grid gap-3 md:grid-cols-2">
+                      <div className="rounded-[16px] border border-border/60 bg-background/70 p-3">
+                        <p className="text-sm font-medium">Common ground</p>
+                        <ul className="mt-2 space-y-2 text-xs leading-6 text-muted-foreground">
+                          {(message.compareCard.commonGround || []).map((item) => (
+                            <li key={item}>• {item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="rounded-[16px] border border-border/60 bg-background/70 p-3">
+                        <p className="text-sm font-medium">Differences</p>
+                        <ul className="mt-2 space-y-2 text-xs leading-6 text-muted-foreground">
+                          {(message.compareCard.differences || []).map((difference) => (
+                            <li key={`${difference.topic}-${difference.insight}`}>
+                              <strong>{difference.topic}:</strong> {difference.insight}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
                 {message.citations && message.citations.length > 0 && (
-                  <div className="mt-2 pt-2 border-t border-border/50 text-xs">
+                  <div className="mt-2 border-t border-border/50 pt-2 text-xs">
                     <span className="font-medium">Sources:</span>
                     <ul className="mt-1 space-y-0.5">
                       {message.citations.map((cite, i) => (
@@ -183,10 +377,8 @@ export function AIChat() {
 
         {/* Suggested Questions */}
         {messages.length === 1 && (
-          <div className="mt-6">
-            <p className="text-sm text-muted-foreground mb-2">
-              Try asking:
-            </p>
+          <div className="mt-8">
+            <p className="mb-3 text-sm text-muted-foreground">Try asking:</p>
             <div className="flex flex-wrap gap-2">
               {suggestedQuestions.map((question) => (
                 <Button
@@ -196,7 +388,7 @@ export function AIChat() {
                   onClick={() => {
                     setInput(question);
                   }}
-                  className="text-xs"
+                  className="justify-start text-xs"
                 >
                   {question}
                 </Button>
@@ -206,20 +398,26 @@ export function AIChat() {
         )}
       </ScrollArea>
 
-      <CardContent className="border-t p-4">
+      <CardContent className="border-t border-border/60 p-4">
         <div className="flex gap-2">
           <Input
-            placeholder="Ask about scriptures..."
+            placeholder={
+              mode === "compare"
+                ? "Compare two texts, themes, or teaching styles..."
+                : "Ask about scriptures..."
+            }
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             disabled={isLoading}
-            className="flex-1"
+            className="h-12 flex-1 rounded-full border-border/70 bg-background/75"
           />
           <Button
             onClick={handleSend}
             disabled={!input.trim() || isLoading}
             size="icon"
+            variant="premium"
+            aria-label="Send message"
           >
             {isLoading ? (
               <Loader2 className="h-4 w-4 animate-spin" />
@@ -228,8 +426,9 @@ export function AIChat() {
             )}
           </Button>
         </div>
-        <p className="text-xs text-muted-foreground mt-2">
-          Press Enter to send • AI responses are generated in real-time
+        <p className="mt-2 text-xs text-muted-foreground">
+          Press Enter to send • Compare mode is grounded in the selected texts • AI responses are
+          generated in real-time
         </p>
       </CardContent>
     </Card>

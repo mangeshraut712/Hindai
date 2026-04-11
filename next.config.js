@@ -18,6 +18,7 @@ const nextConfig = {
   ...(process.env.ANALYZE === "true" && {
     webpack: (config) => {
       if (process.env.NODE_ENV === "development") {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
         config.plugins.push(
           new BundleAnalyzerPlugin({
@@ -33,6 +34,7 @@ const nextConfig = {
   trailingSlash: true,
   output: "standalone",
   distDir: ".next",
+  outputFileTracingRoot: __dirname,
 
   // Security headers and CORS
   async headers() {
@@ -66,13 +68,7 @@ const nextConfig = {
       },
       {
         source: "/api/:path*",
-        headers: [
-          { key: "Access-Control-Allow-Credentials", value: "true" },
-          { key: "Access-Control-Allow-Origin", value: "*" },
-          { key: "Access-Control-Allow-Methods", value: "GET,POST,OPTIONS" },
-          { key: "Access-Control-Allow-Headers", value: "Content-Type, Authorization, X-API-Key" },
-          { key: "Cache-Control", value: "public, max-age=300, s-maxage=600" },
-        ],
+        headers: [{ key: "Cache-Control", value: "no-store" }],
       },
       {
         source: "/_next/image(.*)",
@@ -89,6 +85,7 @@ const nextConfig = {
   webpack: (config, { dev, isServer }) => {
     // Bundle analyzer (only in development)
     if (dev && process.env.ANALYZE === "true") {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
       config.plugins.push(
         new BundleAnalyzerPlugin({
