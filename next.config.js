@@ -4,6 +4,9 @@ const nextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
+  // Vercel optimization
+  output: 'standalone',
+  distDir: '.next',
   // Support custom ports (3000, 3001, etc.)
   async headers() {
     return [
@@ -17,10 +20,6 @@ const nextConfig = {
         ],
       },
     ];
-  },
-  // Handle HTTPS and HTTP environments
-  async rewrites() {
-    return [];
   },
 };
 
