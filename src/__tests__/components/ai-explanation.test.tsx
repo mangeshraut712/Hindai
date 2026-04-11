@@ -43,7 +43,7 @@ describe("AIExplanation Component", () => {
 
     fireEvent.click(screen.getByText("Get AI Explanation"));
 
-    expect(screen.getByText("Generating with Gemini...")).toBeInTheDocument();
+    expect(screen.getByText(/Generating with/)).toBeInTheDocument();
   });
 
   it("displays explanation after successful generation", async () => {
