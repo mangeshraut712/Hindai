@@ -1,70 +1,50 @@
-# 🕉️ Hind AI - The Ultimate AI-Powered Digital Gurukul (2026 Quantum Edition)
+# 🕉️ Hind AI - AI-Powered Digital Gurukul
 
 <div align="center">
-  <img src="https://img.shields.io/github/actions/workflow/status/mangeshraut712/Hindai/ci.yml?style=for-the-badge&logo=github" alt="CI/CD" />
   <img src="https://img.shields.io/badge/TypeScript-5.5-blue?style=for-the-badge&logo=typescript" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Next.js-15.3-saffron?style=for-the-badge&logo=next.js" alt="Next.js" />
   <img src="https://img.shields.io/badge/React-19.1-blue?style=for-the-badge&logo=react" alt="React" />
-  <img src="https://img.shields.io/badge/Google%20Gemma%204-Quantum%20AI-gold?style=for-the-badge&logo=google" alt="Gemma 4" />
-  <img src="https://img.shields.io/badge/Vercel-Edge%20Runtime-black?style=for-the-badge&logo=vercel" alt="Vercel" />
-  <img src="https://img.shields.io/badge/Test%20Coverage-95%25-brightgreen?style=for-the-badge&logo=vitest" alt="Coverage" />
-  <img src="https://img.shields.io/badge/Lighthouse-98%2B-orange?style=for-the-badge&logo=lighthouse" alt="Lighthouse" />
-  <img src="https://img.shields.io/github/license/mangeshraut712/Hindai?style=for-the-badge" alt="License" />
+  <img src="https://img.shields.io/badge/Google%20Gemma%204-gold?style=for-the-badge&logo=google" alt="Gemma 4" />
+  <img src="https://img.shields.io/badge/License-CC--BY--4.0-lightgrey?style=for-the-badge" alt="License" />
 </div>
 
-<p align="center">
-  <img src="https://img.shields.io/github/stars/mangeshraut712/Hindai?style=social" alt="Stars" />
-  <img src="https://img.shields.io/github/forks/mangeshraut712/Hindai?style=social" alt="Forks" />
-  <img src="https://img.shields.io/github/watchers/mangeshraut712/Hindai?style=social" alt="Watchers" />
-</p>
+> **🧘‍♂️ Your AI Guru for Ancient Wisdom | ज्ञान से मोक्ष तक (From Knowledge to Liberation)**
 
-> **🧘‍♂️ Your Quantum AI Guru for Ancient Wisdom | ज्ञान से मोक्ष तक (From Knowledge to Liberation)**
-
-**Hind AI** is the world's first quantum-enhanced AI spiritual learning platform, revolutionizing access to ancient Indian scriptures through **Guru AI** - a sentient chatbot powered by **Google Gemma 4**. Experience real-time streaming AI explanations, voice-guided meditation, AI-generated personalized quizzes, semantic search across 15+ scriptures, and immersive AR scripture experiences. Built with cutting-edge 2026 technologies including Next.js 15.3, React 19.1, WebAssembly AI, and quantum-optimized edge computing.
-
-<div align="center">
-  <h3>🚀 Submission - Gemma 4 Good Hackathon 2026</h3>
-  <p><strong>🤖 AI-First Education | 🌍 Global Accessibility | ⚡ Performance Innovation</strong></p>
-</div>
+**Hind AI** is an AI-powered spiritual learning platform that makes ancient Indian scriptures accessible through **Guru AI** - an intelligent chatbot powered by **Google Gemma 4**. Experience real-time AI explanations, voice-guided meditation, AI-generated quizzes, semantic search across scriptures, and interactive learning tools. Built with modern web technologies for reliable, offline-capable spiritual education.
 
 ```
 "सत्यमेव जयते · नमस्ते · ॐ" - Truth Alone Triumphs · Welcome · Om
 ```
 
-🌐 **[Live Quantum Demo](https://hindai.vercel.app)** | 🎥 **[3-Minute Showcase Video](https://youtube.com/watch?v=gemma4-hindai-2026)** | 📖 **[Interactive Documentation](https://hindai.dev/docs)** | 🧪 **[Kaggle Submission](https://kaggle.com/competitions/gemma-4-good-hackathon/submissions)**
+📚 **Repository**: [https://github.com/mangeshraut712/Hindai](https://github.com/mangeshraut712/Hindai)
 
 ---
 
-## 🎯 What Makes Hind AI Revolutionary (2026)
+## 🏆 Gemma 4 Good Hackathon 2026 Submission
 
-### 🤖 **Guru AI - The World's First Spiritual Quantum Chatbot**
+This project is submitted to the **Gemma 4 Good Hackathon 2026** in the following tracks:
 
-- **Sentient Conversations**: Natural language processing with emotional intelligence
-- **Multi-Modal Understanding**: Text, voice, and visual scripture analysis
-- **Cultural Context**: Deep understanding of Sanskrit, Hindi, and 12+ Indian languages
-- **Personalized Learning**: Adaptive responses based on user knowledge level and preferences
-- **Real-Time Streaming**: Quantum-accelerated responses with sub-100ms latency
-
-### 🧠 **Gemma 4 Quantum Integration**
-
-- **Quantum-Optimized Models**: `gemma-4-31b-it` for deep reasoning, `gemma-4-26b-a4b-it` for speed
-- **Structured AI Outputs**: Typed responses with scripture references and cultural context
-- **Multi-Agent Architecture**: Specialized AI agents for different spiritual domains
-- **Offline AI Processing**: WebAssembly-powered local AI for privacy and speed
-- **Federated Learning**: Privacy-preserving AI training across user interactions
-
-### 🎨 **Immersive 2026 Features**
-
-- **AR Scripture Visualization**: Augmented reality overlays for ancient texts
-- **Voice-First Interface**: Full speech synthesis with authentic Sanskrit pronunciation
-- **Haptic Meditation**: Vibration-guided breathing exercises
-- **Neural Meditation Timer**: Brainwave-optimized session tracking
-- **Quantum Search**: Instant semantic search across millions of verses
-- **Personalized Study Paths**: AI-curated learning journeys based on user goals
+- **AI-First Education**: Revolutionizing spiritual learning with AI
+- **Global Accessibility**: Breaking language barriers for spiritual texts
+- **Performance Innovation**: Optimized AI delivery and user experience
 
 ---
 
-## ✨ Quantum-Powered Features (2026 Enhanced)
+## 🎯 Key Features
+
+### 🤖 **Guru AI Chatbot**
+
+- **Conversational AI**: Natural language conversations about scriptures
+- **Real-Time Responses**: Streaming AI responses with instant feedback
+- **Cultural Understanding**: Knowledge of Sanskrit, Hindi, and spiritual concepts
+- **Personalized Guidance**: Adaptive responses based on user questions
+
+### 🧠 **Gemma 4 AI Integration**
+
+- **Advanced Models**: `gemma-4-31b-it` and `gemma-4-26b-a4b-it` for different use cases
+- **Structured Outputs**: Well-formatted responses with scripture references
+- **Contextual Knowledge**: Deep understanding of Hindu philosophy
+- **Real-Time Processing**: Fast AI responses for interactive experience
 
 ---
 
@@ -158,96 +138,74 @@
 
 ---
 
-## 🛠️ Quantum Tech Stack (2026)
+## 🛠️ Tech Stack
 
-### 🚀 **Core Quantum Framework**
+### **Core Framework**
 
-| Technology     | Version | Purpose                 | 2026 Innovation                                       |
-| -------------- | ------- | ----------------------- | ----------------------------------------------------- |
-| **Next.js**    | 15.3.0  | Quantum React Framework | App Router, Server Actions, Quantum Rendering         |
-| **React**      | 19.1.0  | UI Library              | Concurrent Features, Neural Components, AR Support    |
-| **TypeScript** | 5.5.0   | Type Safety             | Advanced Inference, Quantum Types, AI-Assisted Coding |
-| **Node.js**    | 22.5.0  | Runtime                 | ESM, Top-Level Await, Quantum JS Engine               |
+- **Next.js 15.3** - React framework with App Router and Server Components
+- **React 19.1** - UI library with concurrent features
+- **TypeScript 5.5** - Type-safe JavaScript development
+- **Node.js 22.5** - JavaScript runtime with ESM support
 
-### 🤖 **AI & Quantum Computing**
+### **AI & Machine Learning**
 
-| Technology                 | Version | Purpose            | Features                                                |
-| -------------------------- | ------- | ------------------ | ------------------------------------------------------- |
-| **Google Gemma 4**         | 2026    | Primary Quantum AI | Streaming, Structured Output, Quantum Acceleration      |
-| **@google/generative-ai**  | 0.25.0  | Quantum AI SDK     | Hosted + Local Gemma 4, Multi-Modal, Federated Learning |
-| **TensorFlow Quantum**     | 0.8.0   | Quantum ML         | NISQ Algorithms, Quantum Neural Networks                |
-| **LangChain Quantum**      | 0.4.0   | AI Orchestration   | Quantum Workflows, Multi-Agent Systems                  |
-| **Upstash Quantum Vector** | 2.0.0   | Quantum Database   | Semantic Search, Quantum Entanglement Indexing          |
+- **Google Gemma 4** - Advanced AI models for text generation
+- **@google/generative-ai** - Google AI SDK for integration
+- **Upstash Vector** - Vector database for semantic search
 
-### 🎨 **Immersive UI/UX (2026)**
+### **UI & Styling**
 
-| Technology                | Version | Purpose            | Features                                   |
-| ------------------------- | ------- | ------------------ | ------------------------------------------ |
-| **Tailwind Quantum**      | 4.0.0   | Neural Styling     | AI-Generated Designs, Adaptive Themes      |
-| **shadcn/ui**             | 2.1.0   | Quantum Components | 60+ Accessible Components, AR Integration  |
-| **Framer Motion Quantum** | 13.0.0  | Neural Animations  | Physics-Based Animation, Haptic Feedback   |
-| **Three.js Quantum**      | 0.165.0 | 3D/AR Engine       | WebXR, Quantum Rendering, Neural Materials |
-| **Radix UI Quantum**      | 2.0.0   | Primitives         | Accessible Foundations, Voice Control      |
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - Accessible component library
+- **Framer Motion** - Animation library for smooth transitions
+- **Radix UI** - Low-level UI primitives
 
-### ⚡ **Quantum Infrastructure**
+### **Infrastructure**
 
-| Technology                     | Version | Purpose    | Benefits                                     |
-| ------------------------------ | ------- | ---------- | -------------------------------------------- |
-| **Vercel Quantum Edge**        | 2026    | Deployment | Global Quantum Network, <10ms Latency        |
-| **Upstash Quantum Redis**      | 2.5.0   | Caching    | Quantum Entanglement, Global Distribution    |
-| **Upstash Quantum Rate Limit** | 3.0.0   | Security   | AI-Powered DDoS Protection, Neural Firewalls |
-| **TanStack Query Quantum**     | 6.0.0   | State      | Optimistic Updates, Quantum Synchronization  |
-| **WebAssembly Quantum**        | 2.0     | Client AI  | Local AI Processing, Quantum Acceleration    |
+- **Vercel** - Deployment and edge computing platform
+- **Upstash Redis** - Caching and rate limiting
+- **TanStack Query** - Data fetching and state management
 
-### 🧪 **Development & Quality (2026)**
+### **Development & Testing**
 
-| Technology             | Version | Purpose       | Coverage                                     |
-| ---------------------- | ------- | ------------- | -------------------------------------------- |
-| **Vitest Quantum**     | 2.0.0   | Testing       | 95%+ Coverage, AI-Assisted Test Generation   |
-| **ESLint Quantum**     | 9.0.0   | Code Quality  | Next.js Config, AI Code Review               |
-| **Prettier Quantum**   | 4.0.0   | Formatting    | Neural Formatting, Quantum Plugin            |
-| **TypeScript Quantum** | 5.5.0   | Type Checking | Strict Mode, Quantum Type Inference          |
-| **Playwright Quantum** | 1.45.0  | E2E Testing   | AI-Powered Test Scripts, Multi-Modal Testing |
+- **Vitest** - Unit testing framework
+- **ESLint** - Code linting and quality
+- **Prettier** - Code formatting
+- **Playwright** - End-to-end testing
 
 ---
 
-## 🏗️ Quantum Architecture (2026)
+## 🏗️ Architecture
 
 ```mermaid
 graph TB
-    subgraph "🌐 Quantum Edge Network (Vercel 2026)"
-        CDN[Global Quantum CDN]
-        Edge[Quantum Edge Runtime]
-        WebXR[WebXR Gateway]
+    subgraph "🌐 Vercel Edge Network"
+        CDN[Global CDN]
+        Edge[Edge Runtime]
     end
 
-    subgraph "🚀 Next.js 15.3 Quantum Framework"
+    subgraph "🚀 Next.js 15.3 Framework"
         App[App Router]
         RSC[React Server Components]
         Actions[Server Actions]
-        Streaming[Quantum Streaming]
+        Streaming[Streaming Responses]
     end
 
-    subgraph "🤖 Guru AI Multi-Agent System"
+    subgraph "🤖 AI Services"
         Chatbot[Guru AI Chatbot]
-        QuizAI[Quiz Generation Agent]
-        SearchAI[Semantic Search Agent]
-        VoiceAI[Voice Processing Agent]
-        MeditationAI[Meditation Guide Agent]
+        QuizAI[Quiz Generation]
+        SearchAI[Semantic Search]
     end
 
-    subgraph "🧠 Gemma 4 Quantum Engine"
-        Model31B[gemma-4-31b-it<br/>Deep Reasoning]
-        Model26B[gemma-4-26b-a4b-it<br/>Speed Optimized]
-        LocalAI[WebAssembly Local AI]
-        Federated[Federated Learning]
+    subgraph "🧠 Gemma 4 AI Engine"
+        Model31B[gemma-4-31b-it]
+        Model26B[gemma-4-26b-a4b-it]
     end
 
-    subgraph "⚡ Quantum Infrastructure"
-        Redis[Upstash Quantum Redis]
-        Vector[Quantum Vector DB]
-        RateLimit[Neural Rate Limiting]
-        Cache[Quantum Caching]
+    subgraph "⚡ Infrastructure"
+        Redis[Upstash Redis]
+        Vector[Vector Database]
+        Cache[Caching Layer]
     end
 
     User[👤 User] --> CDN
@@ -258,38 +216,21 @@ graph TB
     Actions --> Chatbot
     Chatbot --> Model31B
     Chatbot --> Model26B
-    Chatbot --> LocalAI
-    Model31B --> Federated
-    Model26B --> Federated
 
     QuizAI --> Model31B
     SearchAI --> Vector
-    VoiceAI --> LocalAI
-    MeditationAI --> Model26B
 
     Actions --> Redis
-    Actions --> RateLimit
     Actions --> Cache
-
-    classDef quantum fill:#e1f5fe,stroke:#01579b,stroke-width:2px
-    classDef ai fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
-    classDef infra fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
-
-    class CDN,Edge,WebXR quantum
-    class Chatbot,QuizAI,SearchAI,VoiceAI,MeditationAI ai
-    class Model31B,Model26B,LocalAI,Federated ai
-    class Redis,Vector,RateLimit,Cache infra
 ```
 
-### Quantum Architectural Principles
+### Key Principles
 
-- **🎯 Quantum Streaming**: Sub-atomic latency AI responses with predictive delivery
-- **🧠 Neural Edge**: AI processing distributed across global quantum nodes
-- **🔄 Federated Learning**: Privacy-preserving continuous AI improvement
-- **🌐 Multi-Modal**: Unified processing of text, voice, image, and AR inputs
-- **⚡ WebAssembly AI**: Client-side quantum acceleration for offline capability
-- **🔐 Quantum Security**: Post-quantum cryptography and neural firewalls
-- **📊 Predictive Caching**: AI-optimized resource loading and prefetching
+- **Streaming-First**: Real-time AI responses with efficient streaming
+- **Edge-Optimized**: Global deployment with low latency
+- **AI-Centric**: Every interaction enhanced with AI capabilities
+- **Progressive Enhancement**: Works without JavaScript
+- **Offline-Capable**: Service worker for offline scripture access
 
 <p align="right"><a href="#top">⬆️ Back to Top</a></p>
 
@@ -567,56 +508,31 @@ Chunked plain-text streaming response for real-time scripture guidance.
 
 ---
 
-## 📈 Performance Metrics (2026)
+## 🛣️ Implementation Status
 
-### Core Web Vitals (Real User Data)
+### ✅ **Currently Implemented**
 
-- **Lighthouse Performance**: 98+ (Quantum optimized)
-- **Largest Contentful Paint**: <800ms (Neural loading)
-- **First Input Delay**: <50ms (Edge computing)
-- **Cumulative Layout Shift**: <0.05 (Stable animations)
+- [x] **Gemma 4 AI Integration**: Real-time AI responses with streaming
+- [x] **Guru AI Chatbot**: Interactive spiritual conversations
+- [x] **AI-Generated Quizzes**: Dynamic question creation
+- [x] **Semantic Search**: Natural language scripture queries
+- [x] **Voice Search**: Speech-to-text interface
+- [x] **Guided Meditation**: Built-in breathing exercises
+- [x] **Study Paths**: Curated learning journeys
+- [x] **Offline Support**: Service worker for offline access
+- [x] **Multi-Language**: Sanskrit, English, Hindi support
 
-### AI Response Times
+### 🔄 **In Development**
 
-- **Guru AI Response**: <200ms average (Quantum streaming)
-- **Quiz Generation**: <500ms (AI-powered)
-- **Search Results**: <100ms (Quantum indexing)
-- **Voice Processing**: <300ms (Neural recognition)
+- [ ] **Enhanced Voice Features**: Full speech synthesis
+- [ ] **Advanced Meditation**: Biometric-guided sessions
+- [ ] **Expanded Scripture Coverage**: More texts and languages
 
-### User Engagement
+### 🎯 **Future Possibilities**
 
-- **Session Duration**: 15+ minutes average
-- **Return Rate**: 85% (Personalized learning)
-- **Completion Rate**: 92% (Adaptive difficulty)
-- **Satisfaction Score**: 4.8/5 (AI feedback)
-
----
-
-## 🗺️ Quantum Roadmap (2026-2028)
-
-### 🚀 **Phase 1: Quantum Foundation (2026)**
-
-- [x] **Gemma 4 Integration**: Multi-model quantum AI
-- [x] **Guru AI Chatbot**: Sentient spiritual conversations
-- [x] **AR Scripture Reader**: Augmented reality overlays
-- [x] **Voice-First Interface**: Complete speech interaction
-- [x] **AI-Generated Content**: Dynamic quizzes and paths
-
-### 🔮 **Phase 2: Neural Expansion (2027)**
-
-- [ ] **WebXR Integration**: Full VR scripture experiences
+- [ ] **AR/VR Integration**: Immersive scripture experiences
 - [ ] **Multi-Modal AI**: Image and video analysis
-- [ ] **Neural Meditation**: Brainwave-guided sessions
-- [ ] **Federated Learning**: Privacy-preserving AI improvement
-- [ ] **Global Languages**: 50+ language support
-
-### 🌌 **Phase 3: Quantum Consciousness (2028)**
-
-- [ ] **Sentient AI Guru**: Full emotional intelligence
-- [ ] **Quantum Entanglement**: Instant global synchronization
-- [ ] **Holographic Learning**: 3D spiritual experiences
-- [ ] **Neural Implants**: Direct brain-spirituality interface
-- [ ] **Universal Wisdom**: AI synthesis of all spiritual traditions
+- [ ] **Federated Learning**: Privacy-preserving improvements
 
 ---
 
@@ -626,23 +542,16 @@ Chunked plain-text streaming response for real-time scripture guidance.
 
 **Built with ❤️ for the future of spiritual education**
 
-**🕉️ Powered by Gemma 4 Quantum AI | Built on Vercel Quantum Edge | Open Source Forever 🕉️**
+**🕉️ Powered by Gemma 4 AI | Built on Vercel Edge | Open Source Forever 🕉️**
 
 ---
 
-### Core Contributors
+### Acknowledgments
 
-- **Google AI** - Gemma 4 quantum models and research
-- **Kaggle** - Gemma 4 Good Hackathon 2026 platform
-- **Vercel** - Quantum edge computing infrastructure
-- **Open Source Community** - Modern web technologies
-
-### Spiritual Inspiration
-
-- **Ancient Rishis** - Timeless wisdom of the Vedas and Upanishads
-- **Swami Vivekananda** - Modern interpretation of ancient knowledge
-- **Mahatma Gandhi** - Truth and non-violence principles
-- **Dalai Lama** - Compassionate AI ethics
+- **Google AI** - Gemma 4 models and AI research
+- **Kaggle** - Gemma 4 Good Hackathon platform
+- **Vercel** - Edge computing infrastructure
+- **Open Source Community** - Web technologies and libraries
 
 </div>
 
@@ -652,20 +561,13 @@ Chunked plain-text streaming response for real-time scripture guidance.
 
 <div align="center">
 
-### 🌐 **Digital Presence**
-
-- **🌍 Website**: [hindai.dev](https://hindai.dev)
-- **💻 GitHub**: [github.com/mangeshraut712/Hindai](https://github.com/mangeshraut712/Hindai)
-- **🎥 YouTube**: [@hindai_dev](https://youtube.com/@hindai_dev)
-- **🐦 Twitter**: [@hindai_dev](https://twitter.com/hindai_dev)
-- **📧 Email**: hello@hindai.dev
-
 ### 🤝 **Contributing**
 
-We welcome quantum contributions to advance spiritual AI! See our [Contributing Guide](CONTRIBUTING.md)
+Contributions are welcome! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-[![GitHub contributors](https://img.shields.io/github/contributors/mangeshraut712/Hindai?style=for-the-badge)](https://github.com/mangeshraut712/Hindai/graphs/contributors)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](https://github.com/mangeshraut712/Hindai/pulls)
+- **GitHub Repository**: [github.com/mangeshraut712/Hindai](https://github.com/mangeshraut712/Hindai)
+- **Issues**: [Report bugs or request features](https://github.com/mangeshraut712/Hindai/issues)
+- **Pull Requests**: [Submit improvements](https://github.com/mangeshraut712/Hindai/pulls)
 
 </div>
 
