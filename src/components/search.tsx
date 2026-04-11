@@ -4,14 +4,10 @@ import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Search as SearchIcon, X, BookOpen, Loader2 } from "lucide-react";
 import { Command } from "cmdk";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { track } from "@vercel/analytics";
 
 interface SearchResult {
   id: string;
@@ -22,16 +18,76 @@ interface SearchResult {
 }
 
 const scriptureData: SearchResult[] = [
-  { id: "1", title: "Rigveda", description: "The oldest sacred text of Hinduism", category: "Veda", href: "/rigveda" },
-  { id: "2", title: "Mahabharata", description: "The great Indian epic", category: "Epic", href: "/mahabharata" },
-  { id: "3", title: "Ramayana", description: "The journey of Lord Rama", category: "Epic", href: "/ramayana" },
-  { id: "4", title: "Bhagavad Gita", description: "The Song of God", category: "Philosophy", href: "/bhagavad-gita" },
-  { id: "5", title: "Srimad Bhagavatam", description: "Stories of Lord Krishna", category: "Purana", href: "/srimad-bhagavatam" },
-  { id: "6", title: "Markandeya Purana", description: "Including Devi Mahatmyam", category: "Purana", href: "/markandeya-purana" },
-  { id: "7", title: "Devi Mahatmyam", description: "Glory of the Divine Mother", category: "Purana", href: "/devi-mahatmyam" },
-  { id: "8", title: "Manu Smriti", description: "Ancient legal and moral codes", category: "Dharma Shastra", href: "/manu-smriti" },
-  { id: "9", title: "Parashara Smriti", description: "Vedic guidance for daily life", category: "Dharma Shastra", href: "/parashara" },
-  { id: "10", title: "Yoga Vasishtha", description: "Spiritual instruction of Lord Rama", category: "Philosophy", href: "/yoga-vasishtha" },
+  {
+    id: "1",
+    title: "Rigveda",
+    description: "The oldest sacred text of Hinduism",
+    category: "Veda",
+    href: "/rigveda",
+  },
+  {
+    id: "2",
+    title: "Mahabharata",
+    description: "The great Indian epic",
+    category: "Epic",
+    href: "/mahabharata",
+  },
+  {
+    id: "3",
+    title: "Ramayana",
+    description: "The journey of Lord Rama",
+    category: "Epic",
+    href: "/ramayana",
+  },
+  {
+    id: "4",
+    title: "Bhagavad Gita",
+    description: "The Song of God",
+    category: "Philosophy",
+    href: "/bhagavad-gita",
+  },
+  {
+    id: "5",
+    title: "Srimad Bhagavatam",
+    description: "Stories of Lord Krishna",
+    category: "Purana",
+    href: "/srimad-bhagavatam",
+  },
+  {
+    id: "6",
+    title: "Markandeya Purana",
+    description: "Including Devi Mahatmyam",
+    category: "Purana",
+    href: "/markandeya-purana",
+  },
+  {
+    id: "7",
+    title: "Devi Mahatmyam",
+    description: "Glory of the Divine Mother",
+    category: "Purana",
+    href: "/devi-mahatmyam",
+  },
+  {
+    id: "8",
+    title: "Manu Smriti",
+    description: "Ancient legal and moral codes",
+    category: "Dharma Shastra",
+    href: "/manu-smriti",
+  },
+  {
+    id: "9",
+    title: "Parashara Smriti",
+    description: "Vedic guidance for daily life",
+    category: "Dharma Shastra",
+    href: "/parashara",
+  },
+  {
+    id: "10",
+    title: "Yoga Vasishtha",
+    description: "Spiritual instruction of Lord Rama",
+    category: "Philosophy",
+    href: "/yoga-vasishtha",
+  },
 ];
 
 export function SearchDialog({
@@ -50,6 +106,14 @@ export function SearchDialog({
     setQuery(searchQuery);
     setIsLoading(true);
 
+    // Track search queries (only if meaningful length)
+    if (searchQuery.trim().length > 2) {
+      track("search_query", {
+        query: searchQuery.trim(),
+        query_length: searchQuery.trim().length,
+      });
+    }
+
     // Simulate search with debounce
     const timeout = setTimeout(() => {
       if (searchQuery.trim() === "") {
@@ -62,6 +126,13 @@ export function SearchDialog({
             item.category.toLowerCase().includes(searchQuery.toLowerCase())
         );
         setResults(filtered);
+
+        // Track search results
+        track("search_results", {
+          query: searchQuery.trim(),
+          results_count: filtered.length,
+          has_results: filtered.length > 0,
+        });
       }
       setIsLoading(false);
     }, 150);
@@ -70,16 +141,29 @@ export function SearchDialog({
   }, []);
 
   const handleSelect = (href: string) => {
+    track("search_result_selected", {
+      destination: href,
+      query: query.trim(),
+    });
+
     onOpenChange(false);
     setQuery("");
     router.push(href);
   };
+
+  // Track dialog state changes
+  useEffect(() => {
+    if (open) {
+      track("search_dialog_opened");
+    }
+  }, [open]);
 
   // Keyboard shortcut to open search
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
+        track("search_keyboard_shortcut");
         onOpenChange(true);
       }
     };
@@ -90,8 +174,8 @@ export function SearchDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[550px] p-0 gap-0">
-        <DialogHeader className="px-4 py-3 border-b">
+      <DialogContent className="gap-0 p-0 sm:max-w-[550px]">
+        <DialogHeader className="border-b px-4 py-3">
           <DialogTitle className="flex items-center gap-2">
             <SearchIcon className="h-4 w-4" />
             Search Scriptures
@@ -111,7 +195,7 @@ export function SearchDialog({
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                className="absolute right-1 top-1/2 h-7 w-7 -translate-y-1/2"
                 onClick={() => {
                   setQuery("");
                   setResults([]);
@@ -139,11 +223,9 @@ export function SearchDialog({
                       <BookOpen className="h-4 w-4 text-muted-foreground" />
                       <div className="flex-1">
                         <p className="font-medium">{result.title}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {result.description}
-                        </p>
+                        <p className="text-sm text-muted-foreground">{result.description}</p>
                       </div>
-                      <span className="text-xs rounded-full bg-primary/10 px-2 py-0.5 text-primary">
+                      <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">
                         {result.category}
                       </span>
                     </Command.Item>

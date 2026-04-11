@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 /**
  * API Route for Google Gemini AI Generation
- * 
+ *
  * This endpoint uses Google Gemini 2.5 Flash for AI-powered scripture analysis.
  */
 
@@ -11,27 +11,27 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const MODEL_NAME = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 
 // Initialize Gemini AI
-const ai = GEMINI_API_KEY ? new GoogleGenAI({ apiKey: GEMINI_API_KEY }) : null;
+const ai = GEMINI_API_KEY ? new GoogleGenerativeAI(GEMINI_API_KEY) : null;
 
 export async function POST(request: NextRequest) {
   // Check if API key is configured
   if (!GEMINI_API_KEY || !ai) {
     console.warn("GEMINI_API_KEY not configured");
-    return NextResponse.json({
-      response: getFallbackResponse(),
-      mock: true,
-      error: "AI service not configured. Set GEMINI_API_KEY environment variable."
-    }, { status: 200 });
+    return NextResponse.json(
+      {
+        response: getFallbackResponse(),
+        mock: true,
+        error: "AI service not configured. Set GEMINI_API_KEY environment variable.",
+      },
+      { status: 200 }
+    );
   }
 
   try {
     const { prompt } = await request.json();
 
     if (!prompt) {
-      return NextResponse.json(
-        { error: "Prompt is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Prompt is required" }, { status: 400 });
     }
 
     // Enhanced system prompt for scripture analysis
@@ -57,17 +57,22 @@ Guidelines:
 Response should be clear, educational, and accessible to modern readers.`;
 
     // Call Google Gemini API
-    const result = await ai.models.generateContent({
-      model: MODEL_NAME,
-      contents: `${systemPrompt}\n\nUser Query: ${prompt}\n\nResponse:`,
-      config: {
+    const model = ai.getGenerativeModel({ model: MODEL_NAME });
+    const result = await model.generateContent({
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: `${systemPrompt}\n\nUser Query: ${prompt}\n\nResponse:` }],
+        },
+      ],
+      generationConfig: {
         temperature: 0.7,
         maxOutputTokens: 1024,
       },
     });
 
-    const response = result.text || getFallbackResponse();
-    
+    const response = result.response.text() || getFallbackResponse();
+
     return NextResponse.json({
       response: response,
       model: MODEL_NAME,
@@ -75,13 +80,16 @@ Response should be clear, educational, and accessible to modern readers.`;
     });
   } catch (error) {
     console.error("AI Generation Error:", error);
-    
+
     // Return fallback response
-    return NextResponse.json({
-      response: getFallbackResponse(),
-      mock: true,
-      error: error instanceof Error ? error.message : "AI service unavailable"
-    }, { status: 200 });
+    return NextResponse.json(
+      {
+        response: getFallbackResponse(),
+        mock: true,
+        error: error instanceof Error ? error.message : "AI service unavailable",
+      },
+      { status: 200 }
+    );
   }
 }
 

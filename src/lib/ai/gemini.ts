@@ -1,14 +1,14 @@
 /**
  * Google Gemini API Integration for Hind AI
- * 
+ *
  * Production-ready implementation using @google/genai SDK
  * Features: streaming, rate limiting, caching, structured output
- * 
+ *
  * @author Hind AI Team
  * @version 1.0.0
  */
 
-import { GoogleGenAI, GenerateContentConfig } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { z } from "zod";
@@ -22,13 +22,15 @@ const CACHE_TTL = 60 * 60 * 24; // 24 hours in seconds
 export const AIResponseSchema = z.object({
   explanation: z.string(),
   context: z.string().optional(),
-  keyTerms: z.array(
-    z.object({
-      term: z.string(),
-      meaning: z.string(),
-      sanskrit: z.string().optional(),
-    })
-  ).optional(),
+  keyTerms: z
+    .array(
+      z.object({
+        term: z.string(),
+        meaning: z.string(),
+        sanskrit: z.string().optional(),
+      })
+    )
+    .optional(),
   references: z
     .array(
       z.object({
@@ -65,7 +67,7 @@ const ratelimit = new Ratelimit({
 });
 
 // Initialize Gemini AI
-const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+const ai = GEMINI_API_KEY ? new GoogleGenerativeAI(GEMINI_API_KEY) : null;
 
 /**
  * System prompt for scripture analysis
@@ -152,7 +154,11 @@ async function cacheResponse(key: string, response: AIResponse): Promise<void> {
 export async function generateExplanation(
   query: AIQuery,
   userId: string = "anonymous"
-): Promise<{ response: AIResponse; cached: boolean; rateLimit: { remaining: number; reset: number } }> {
+): Promise<{
+  response: AIResponse;
+  cached: boolean;
+  rateLimit: { remaining: number; reset: number };
+}> {
   // Check rate limit
   const rateLimitCheck = await checkRateLimit(userId);
   if (!rateLimitCheck.success) {
@@ -179,20 +185,19 @@ export async function generateExplanation(
   const userPrompt = buildPrompt(query);
 
   try {
-    const config: GenerateContentConfig = {
-      systemInstruction: SYSTEM_PROMPT,
-      temperature: 0.7,
-      maxOutputTokens: 2048,
-      responseMimeType: "application/json",
-    };
+    if (!ai) throw new Error("AI not initialized");
 
-    const result = await ai.models.generateContent({
-      model: MODEL_NAME,
-      contents: userPrompt,
-      config,
+    const model = ai.getGenerativeModel({ model: MODEL_NAME });
+    const result = await model.generateContent({
+      contents: [{ role: "user", parts: [{ text: `${SYSTEM_PROMPT}\n\n${userPrompt}` }] }],
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 2048,
+        responseMimeType: "application/json",
+      },
     });
 
-    const text = result.text || "{}";
+    const text = result.response.text() || "{}";
     const parsed = JSON.parse(text);
     const validated = AIResponseSchema.parse(parsed);
 
@@ -209,9 +214,7 @@ export async function generateExplanation(
     };
   } catch (error) {
     console.error("Gemini API error:", error);
-    throw new Error(
-      error instanceof Error ? error.message : "Failed to generate AI explanation"
-    );
+    throw new Error(error instanceof Error ? error.message : "Failed to generate AI explanation");
   }
 }
 
@@ -231,20 +234,19 @@ export async function* generateExplanationStream(
   const userPrompt = buildPrompt(query);
 
   try {
-    const config: GenerateContentConfig = {
-      systemInstruction: SYSTEM_PROMPT,
-      temperature: 0.7,
-      maxOutputTokens: 2048,
-    };
+    if (!ai) throw new Error("AI not initialized");
 
-    const stream = await ai.models.generateContentStream({
-      model: MODEL_NAME,
-      contents: userPrompt,
-      config,
+    const model = ai.getGenerativeModel({ model: MODEL_NAME });
+    const result = await model.generateContentStream({
+      contents: [{ role: "user", parts: [{ text: `${SYSTEM_PROMPT}\n\n${userPrompt}` }] }],
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 2048,
+      },
     });
 
-    for await (const chunk of stream) {
-      yield chunk.text || "";
+    for await (const chunk of result.stream) {
+      yield chunk.text();
     }
   } catch (error) {
     console.error("Streaming error:", error);
@@ -318,15 +320,17 @@ Response format (JSON):
 }`;
 
   try {
-    const result = await ai.models.generateContent({
-      model: MODEL_NAME,
-      contents: prompt,
-      config: {
+    if (!ai) throw new Error("AI not initialized");
+
+    const model = ai.getGenerativeModel({ model: MODEL_NAME });
+    const result = await model.generateContent({
+      contents: [{ role: "user", parts: [{ text: prompt }] }],
+      generationConfig: {
         responseMimeType: "application/json",
       },
     });
 
-    const parsed = JSON.parse(result.text || "{}");
+    const parsed = JSON.parse(result.response.text() || "{}");
     return {
       translation: parsed.translation || "Translation unavailable",
       transliteration: parsed.transliteration || sanskrit,
