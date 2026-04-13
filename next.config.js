@@ -10,8 +10,10 @@ const nextConfig = {
   },
 
   // Performance optimizations
+  swcMinify: true,
   experimental: {
     scrollRestoration: true,
+    optimizePackageImports: ["@radix-ui/react-*", "lucide-react", "framer-motion"],
   },
 
   // Bundle analysis (development only)
