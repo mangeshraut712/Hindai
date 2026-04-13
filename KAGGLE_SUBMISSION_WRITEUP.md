@@ -1,5 +1,7 @@
 # Hind AI: Ancient Wisdom Meets Modern AI - Powered by Gemma 4
 
+![Hind AI Cover](public/cover.png)
+
 **Track:** Future of Education + Digital Equity  
 **Live Demo:** https://hindai-nine.vercel.app  
 **GitHub:** https://github.com/mangeshraut712/Hindai  
@@ -109,13 +111,13 @@ User Query: ${query}
 
 ### Technical Performance
 
-| Metric | Value | Benchmark |
-|--------|-------|-----------|
-| Inference Time | 2-3s | < 5s acceptable |
-| First Contentful Paint | 0.8s | < 1.5s good |
-| Lighthouse Score | 98/100 | > 90 excellent |
-| API Response (Edge) | < 100ms | < 200ms good |
-| Test Coverage | 85% | > 80% production-ready |
+| Metric                 | Value   | Benchmark              |
+| ---------------------- | ------- | ---------------------- |
+| Inference Time         | 2-3s    | < 5s acceptable        |
+| First Contentful Paint | 0.8s    | < 1.5s good            |
+| Lighthouse Score       | 98/100  | > 90 excellent         |
+| API Response (Edge)    | < 100ms | < 200ms good           |
+| Test Coverage          | 85%     | > 80% production-ready |
 
 ### User Impact (Projected)
 
@@ -194,7 +196,7 @@ const relevantVerses = await vectorDb.query({
 // 2. Construct contextual prompt
 const contextualPrompt = `
 Retrieved Context:
-${relevantVerses.map(v => `${v.sanskrit} - ${v.translation}`).join('\n')}
+${relevantVerses.map((v) => `${v.sanskrit} - ${v.translation}`).join("\n")}
 
 User Question: ${query}
 `;
@@ -211,17 +213,17 @@ const answer = await generateWithLocal(contextualPrompt);
 
 1. User visits **hindai-nine.vercel.app**
 2. Navigates to **"Guru AI"**
-3. Asks: *"What is the essence of Bhagavad Gita?"*
+3. Asks: _"What is the essence of Bhagavad Gita?"_
 4. Gemma 4 responds:
    - Cites Chapter 2, Verse 47 (Karma Yoga)
-   - Sanskrit: *कर्मण्येवाधिकारस्ते मा फलेषु कदाचन*
-   - Transliteration: *Karmanye vadhikaraste ma phaleshu kadachana*
+   - Sanskrit: _कर्मण्येवाधिकारस्ते मा फलेषु कदाचन_
+   - Transliteration: _Karmanye vadhikaraste ma phaleshu kadachana_
    - Modern application: "Focus on your work, not the promotion"
 
 ### Scenario 2: Deep Study
 
 1. User selects **Bhagavad Gita → Chapter 18** from Granthalaya
-2. Asks: *"Explain the three types of faith"*
+2. Asks: _"Explain the three types of faith"_
 3. System retrieves verses 17.1-17.6 via RAG
 4. Gemma 4 generates comparative analysis with examples
 
@@ -302,7 +304,7 @@ npm run dev
 
 **Built with ❤️ and Gemma 4 for the global spiritual community.**
 
-*May this tool bring ancient wisdom to modern seekers.* 🕉️
+_May this tool bring ancient wisdom to modern seekers._ 🕉️
 
 ---
 

@@ -82,16 +82,16 @@ Hind AI transforms ancient Indian scriptures into an interactive, AI-powered lea
 
 ### Stack Overview
 
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| **Frontend** | Next.js 15 + React 19 + TypeScript | Modern, type-safe UI |
-| **Styling** | Tailwind CSS + shadcn/ui | Beautiful, accessible components |
-| **AI Engine** | Gemma 4 (gemma4:4b) via Ollama | Local, private inference |
-| **RAG** | Upstash Vector + Redis | Scripture retrieval + caching |
-| **Animations** | Framer Motion | Smooth, spiritual-themed transitions |
-| **Auth** | Supabase Auth | Secure user sessions |
-| **Deployment** | Vercel Edge | Global CDN, low latency |
-| **Testing** | Vitest + Playwright | Production-grade quality |
+| Layer          | Technology                         | Purpose                              |
+| -------------- | ---------------------------------- | ------------------------------------ |
+| **Frontend**   | Next.js 15 + React 19 + TypeScript | Modern, type-safe UI                 |
+| **Styling**    | Tailwind CSS + shadcn/ui           | Beautiful, accessible components     |
+| **AI Engine**  | Gemma 4 (gemma4:4b) via Ollama     | Local, private inference             |
+| **RAG**        | Upstash Vector + Redis             | Scripture retrieval + caching        |
+| **Animations** | Framer Motion                      | Smooth, spiritual-themed transitions |
+| **Auth**       | Supabase Auth                      | Secure user sessions                 |
+| **Deployment** | Vercel Edge                        | Global CDN, low latency              |
+| **Testing**    | Vitest + Playwright                | Production-grade quality             |
 
 ### Why Gemma 4?
 
@@ -128,22 +128,22 @@ Retrieved Verses: ${context}
 
 ### Technical Performance
 
-| Metric | Value | Benchmark |
-|--------|-------|-----------|
-| **Inference Time** | ~2-3s | < 5s acceptable |
-| **First Contentful Paint** | 0.8s | < 1.5s good |
-| **Lighthouse Score** | 98/100 | > 90 excellent |
-| **Test Coverage** | 85% | > 80% production-ready |
-| **API Response** | < 100ms (Edge) | < 200ms good |
+| Metric                     | Value          | Benchmark              |
+| -------------------------- | -------------- | ---------------------- |
+| **Inference Time**         | ~2-3s          | < 5s acceptable        |
+| **First Contentful Paint** | 0.8s           | < 1.5s good            |
+| **Lighthouse Score**       | 98/100         | > 90 excellent         |
+| **Test Coverage**          | 85%            | > 80% production-ready |
+| **API Response**           | < 100ms (Edge) | < 200ms good           |
 
 ### User Impact (Projected)
 
-| Metric | Target | Rationale |
-|--------|--------|-----------|
-| **Daily Active Users** | 10,000 | Based on spiritual app benchmarks |
-| **Scriptures Explained** | 700M verses | Complete Indian corpus |
-| **Languages Supported** | 12 | Major Indian + English |
-| **Accessibility Score** | 98/100 | WCAG 2.1 AA compliant |
+| Metric                   | Target      | Rationale                         |
+| ------------------------ | ----------- | --------------------------------- |
+| **Daily Active Users**   | 10,000      | Based on spiritual app benchmarks |
+| **Scriptures Explained** | 700M verses | Complete Indian corpus            |
+| **Languages Supported**  | 12          | Major Indian + English            |
+| **Accessibility Score**  | 98/100      | WCAG 2.1 AA compliant             |
 
 ---
 
@@ -173,7 +173,7 @@ Retrieved Verses: ${context}
 
 1. User visits **hindai.vercel.app**
 2. Clicks **"🤖 Guru AI"** in navigation
-3. Asks: *"What is the essence of Bhagavad Gita?"*
+3. Asks: _"What is the essence of Bhagavad Gita?"_
 4. Gemma 4 responds with:
    - Chapter 2, Verse 47 (Karma Yoga)
    - Sanskrit + transliteration
@@ -184,7 +184,7 @@ Retrieved Verses: ${context}
 
 1. User navigates to **"📚 Granthalaya"**
 2. Selects **Bhagavad Gita → Chapter 18**
-3. Asks specific question about *Moksha*
+3. Asks specific question about _Moksha_
 4. System retrieves relevant verses
 5. Gemma 4 generates personalized explanation
 6. User takes auto-generated quiz
@@ -306,4 +306,4 @@ curl http://localhost:11434/api/generate \
 
 **Built with ❤️ and Gemma 4 for the global spiritual community.**
 
-*May this tool bring ancient wisdom to modern seekers.* 🕉️
+_May this tool bring ancient wisdom to modern seekers._ 🕉️
