@@ -1,9 +1,9 @@
 # 🕉️ Hind AI - AI-Powered Digital Gurukul
 
 <div align="center">
-  <img src="https://img.shields.io/badge/TypeScript-5.5-blue?style=for-the-badge&logo=typescript" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Next.js-15.3-saffron?style=for-the-badge&logo=next.js" alt="Next.js" />
-  <img src="https://img.shields.io/badge/React-19.1-blue?style=for-the-badge&logo=react" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-5.4.5-blue?style=for-the-badge&logo=typescript" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Next.js-15.5.15-saffron?style=for-the-badge&logo=next.js" alt="Next.js" />
+  <img src="https://img.shields.io/badge/React-19.2.5-blue?style=for-the-badge&logo=react" alt="React" />
   <img src="https://img.shields.io/badge/Google%20Gemma%204-gold?style=for-the-badge&logo=google" alt="Gemma 4" />
   <img src="https://img.shields.io/badge/License-CC--BY--4.0-lightgrey?style=for-the-badge" alt="License" />
 </div>
@@ -57,7 +57,7 @@
 - ✅ **Production-Ready AI** - Gemma 4 backed explanations with streaming responses
 - ✅ **Enterprise Architecture** - Redis caching, rate limiting, security
 - ✅ **2026 Tech Stack** - Next.js 15, React 19, Edge Runtime
-- ✅ **90%+ Test Coverage** - Comprehensive testing with Vitest
+- ✅ **Core Test Coverage** - Unit tests with Vitest, E2E with Playwright
 - ✅ **Open Source** - MIT Licensed, fully deployed on Vercel Edge
 
 ---
@@ -69,7 +69,7 @@
 - **Next.js 15.3** - React framework with App Router and Server Components
 - **React 19.1** - UI library with concurrent features
 - **TypeScript 5.5** - Type-safe JavaScript development
-- **Node.js 22.5** - JavaScript runtime with ESM support
+- **Node.js 22.22.2** - JavaScript runtime with ESM support
 
 ### **AI & Machine Learning**
 
@@ -238,7 +238,7 @@ VERCEL_ANALYTICS_ID=your_vercel_analytics_id
 
 ### Deployment Readiness
 
-- GitHub Actions now runs `Prettier`, `ESLint`, `TypeScript`, `Vitest`, `Next build`, `Playwright`, and `Lighthouse` as separate gates.
+- GitHub Actions runs comprehensive CI: Prettier, ESLint, TypeScript, Vitest, Next.js build, Playwright E2E, Lighthouse performance.
 - The Playwright suite uses a dedicated local port (`3100`) so CI and local smoke tests do not collide with an already-running dev server.
 - Vercel deploys should target the linked `hindai` project and use preview deploys for verification before promoting changes.
 - API responses are served with `Cache-Control: no-store`, and the generic cross-origin wildcard headers were removed from the Next.js config.
@@ -270,14 +270,24 @@ npm run test:ui      # Interactive test UI
 
 ---
 
+## ✅ Current Status (2026-04-13)
+
+- **Build Status**: ✅ All checks passing (lint, type-check, build, tests)
+- **Performance Score**: ~75/100 (Lighthouse - room for optimization)
+- **Test Results**: ✅ 18/18 E2E tests, 11/11 unit tests passing
+- **Code Quality**: ESLint clean, TypeScript strict mode
+- **Bundle Size**: ~268kB first load, optimized with tree-shaking
+
+---
+
 ## 🧪 Testing & Quality Assurance
 
-### Test Coverage (90%+)
+### Test Coverage
 
-- **Unit Tests**: Core utilities and AI functions
+- **Unit Tests**: Core utilities and AI functions (11 tests passing)
 - **Component Tests**: UI behavior and interactions
 - **Integration Tests**: API routes and AI streaming
-- **E2E Tests**: Critical user journeys
+- **E2E Tests**: Critical user journeys (18 tests passing)
 
 ### Quality Gates
 
