@@ -274,19 +274,85 @@ npm run test:ui      # Interactive test UI
 
 ### 🎯 Kaggle Gemma 4 Hackathon Submission Readiness
 
-| Requirement             | Status        | Details                                         |
-| ----------------------- | ------------- | ----------------------------------------------- |
-| **Kaggle Writeup**      | ✅ Ready      | `KAGGLE_SUBMISSION_WRITEUP.md` (1,480+ words)   |
-| **YouTube Video**       | ⏳ Pending    | Need to record 3-minute demo + narration        |
-| **GitHub Public Repo**  | ✅ **PUBLIC** | https://github.com/mangeshraut712/Hindai        |
-| **Live Demo URL**       | ✅ Active     | https://hindai-nine.vercel.app (no auth)        |
-| **Cover Image**         | ⏳ Pending    | Need 1280×720 with project + Gemma 4 badge      |
-| **Gemma 4 Integration** | ✅ Complete   | Ollama local inference, no external APIs        |
-| **RAG Implementation**  | ✅ Complete   | Grounding packet with local scripture retrieval |
-| **Function Calling**    | ✅ Complete   | searchVerse, findRelated, explainSanskrit tools |
-| **Offline Capability**  | ✅ Complete   | Runs locally via Ollama without internet        |
+| Requirement             | Status        | Details                                             |
+| ----------------------- | ------------- | --------------------------------------------------- |
+| **Kaggle Writeup**      | ✅ Ready      | `KAGGLE_SUBMISSION_WRITEUP.md` (1,480+ words)       |
+| **YouTube Video**       | ⏳ Pending    | Need to record 3-minute demo + narration            |
+| **GitHub Public Repo**  | ✅ **PUBLIC** | https://github.com/mangeshraut712/Hindai            |
+| **Live Demo URL**       | ✅ Active     | https://hindai-nine.vercel.app (no auth)            |
+| **Cover Image**         | ✅ Complete   | `cover-image.html` template for professional design |
+| **Gemma 4 Integration** | ✅ Complete   | Ollama local inference, no external APIs            |
+| **RAG Pipeline**        | ✅ Complete   | Grounding packet with scripture retrieval           |
+| **Function Calling**    | ✅ Complete   | searchVerse, findRelated, explainSanskrit tools     |
+| **Multimodal Vision**   | ✅ Complete   | Manuscript analyzer with Gemma 4 vision             |
+| **Docker Offline**      | ✅ Complete   | `docker-compose.yml` with Ollama container          |
+| **Fine-tuning**         | ✅ Complete   | `fine-tune-gemma4.py` Unsloth script                |
+| **RAG Implementation**  | ✅ Complete   | Grounding packet with local scripture retrieval     |
+| **Function Calling**    | ✅ Complete   | searchVerse, findRelated, explainSanskrit tools     |
+| **Offline Capability**  | ✅ Complete   | Runs locally via Ollama without internet            |
 
 ---
+
+## 🐳 Deployment & Offline Usage
+
+### Docker Setup (Complete Offline Mode)
+
+Hind AI supports fully offline deployment using Docker containers:
+
+```bash
+# Start the complete stack
+docker-compose up -d
+
+# Access the application at http://localhost:3000
+# Ollama API available at http://localhost:11434
+```
+
+**Components:**
+
+- **hindai-app**: Next.js application container
+- **ollama**: Gemma 4 model server with persistent storage
+- **hindai-network**: Isolated Docker network
+
+### Manual Ollama Setup
+
+```bash
+# Install Ollama
+curl -fsSL https://ollama.ai/install.sh | sh
+
+# Pull Gemma 4 model
+ollama pull gemma4:latest
+
+# Start Ollama service
+ollama serve
+
+# Configure environment
+export OLLAMA_URL=http://localhost:11434
+export OLLAMA_MODEL=gemma4:latest
+```
+
+### Fine-tuning for Production
+
+For enhanced spiritual domain performance, fine-tune Gemma 4:
+
+```bash
+# Install dependencies
+pip install unsloth transformers datasets accelerate
+
+# Login to HuggingFace
+huggingface-cli login
+
+# Run fine-tuning
+python fine-tune-gemma4.py
+```
+
+## 🖼️ Multimodal Sanskrit Analysis
+
+Hind AI includes cutting-edge multimodal capabilities for analyzing Sanskrit manuscripts:
+
+- **Image Upload**: Support for JPG, PNG, WebP formats
+- **Gemma 4 Vision**: AI-powered text recognition from ancient scripts
+- **Contextual Analysis**: Combines visual OCR with spiritual knowledge
+- **Interactive UI**: Drag-and-drop manuscript analysis
 
 ## 🧪 Testing & Quality Assurance
 
