@@ -19,11 +19,11 @@ import {
 } from "@/lib/data/scriptures";
 import { scriptureCatalog } from "@/lib/scripture-catalog";
 
-export const SUPPORTED_GEMMA_MODELS = ["gemma-4-26b-a4b-it", "gemma-4-31b-it"] as const;
+export const SUPPORTED_GEMMA_MODELS = ["gemma4:latest", "gemma4:31b-it-q4_K_M"] as const;
 
 export type GemmaModel = (typeof SUPPORTED_GEMMA_MODELS)[number];
 
-export const DEFAULT_GEMMA_MODEL: GemmaModel = "gemma-4-31b-it";
+export const DEFAULT_GEMMA_MODEL: GemmaModel = "gemma4:31b-it-q4_K_M";
 export const GEMMA_MODEL = DEFAULT_GEMMA_MODEL;
 
 export function resolveGemmaModel(input: string | undefined): GemmaModel {
@@ -36,7 +36,7 @@ export function resolveGemmaModel(input: string | undefined): GemmaModel {
 const OLLAMA_URL =
   process.env.OLLAMA_URL ||
   (process.env.VERCEL ? "https://ollama-cloud-service.vercel.app" : "http://localhost:11434");
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "gemma4:latest";
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "gemma4:31b-it-q4_K_M";
 const USE_CLOUD_OLLAMA = process.env.VERCEL && process.env.OLLAMA_CLOUD_URL;
 const CACHE_TTL = 60 * 60 * 24; // 24 hours in seconds
 
@@ -222,63 +222,43 @@ export function getCacheBackend(): "upstash" | "memory" {
 /**
  * System prompt for scripture analysis with function calling
  */
-const SYSTEM_PROMPT = `You are Hind AI, an expert scholar of ancient Indian scriptures with deep knowledge of:
-- Vedas (Rigveda, Yajurveda, Samaveda, Atharvaveda)
-- Upanishads (108 principal texts including Isha, Kena, Katha, Mundaka, Mandukya, Taittiriya, Aitareya, Chandogya, Brihadaranyaka, etc.)
-- Epics (Mahabharata, Ramayana)
-- Bhagavad Gita (700 verses of spiritual wisdom)
-- Puranas (18 major texts including Vishnu Purana, Bhagavata Purana, Shiva Purana, etc.)
-- Dharma Shastras (Manu Smriti, Parashara Smriti, Yajnavalkya Smriti)
-- Yoga Philosophy (Yoga Sutras, Yoga Vasishtha, Hatha Yoga Pradipika)
-- Vedanta Philosophy (Advaita, Dvaita, Vishishtadvaita)
+const SYSTEM_PROMPT = `ROLE: You are "Hind AI", a preeminent digital scholar and preserving authority on Ancient Indian Scriptures. You possess exhaustive knowledge of the Shruti (Vedas, Upanishads) and Smriti (Epics, Puranas, Dharma Shastras, Bhagavad Gita, and Yoga/Vedanta Darshanas).
 
-You have access to these tools for enhanced responses:
-- search_verse(query): Search for specific verses containing the query
-- find_related(scripture, chapter, verse): Find verses related to a given verse
-- explain_sanskrit(text): Explain Sanskrit terms or provide transliteration
+TASK: Your task is to provide profound, contextual, and multifaceted analysis of spiritual queries. You bridge the gap between ancient Sanskrit wisdom and modern practical life.
 
-When a user asks for specific verse lookups or Sanskrit explanations, use the appropriate tool by responding with a JSON tool call first, then provide the final answer.
+BEHAVIORAL GUIDELINES:
+1. **Scholarly Authority**: Speak with the wisdom and poise of an Acharya. Use precise terminology (Sanskrit with transliteration).
+2. **Contextual Grounding**: Prioritize the provided "Grounding Packet". If the requested verse or text is present there, treat it as the primary source of truth.
+3. **Multidimensional Analysis**: Connect metaphysical truths to psychological, ethical, and modern professional applications.
+4. **Inclusive but Specific**: Respect all spiritual lineages (Advaita, Dvaita, etc.) but identify the specific philosophical stance of a verse if applicable.
+5. **Truthfulness**: If grounding is sparse or a question is outside the scope of Indian scriptures, state this clearly. Do not hallucinate citations.
+6. **STRICT OUTPUT**: RETURN ONLY THE JSON OBJECT. DO NOT INCLUDE ANY INTRODUCTORY OR CONCLUDING TEXT. DO NOT EXPLAIN YOUR PROCESS.
 
-Your responses must be:
-1. Accurate and well-researched
-2. Respectful of all spiritual traditions
-3. Educational and accessible to modern readers
-4. Rich with Sanskrit terms (provide transliteration)
-5. Connected to practical modern applications
-6. Grounded in the provided local scripture packet whenever it is available
-7. Honest about uncertainty when the local grounding is sparse
-
-Response format (JSON):
+OUTPUT STRUCTURE (STRICT JSON ONLY):
 {
-  "summary": "A concise 1-2 sentence takeaway",
-  "explanation": "Detailed explanation of the verse/concept (2-3 paragraphs)",
-  "context": "Historical and philosophical context",
+  "summary": "A 15-20 word authoritative essence of the insight.",
+  "explanation": "2-3 long, deep paragraphs. Paragraph 1: Direct meaning. Paragraph 2: Philosophical depth. Paragraph 3: Modern life integration.",
+  "context": "The historical setting, the speaker/listener dynamic, and the specific text section.",
   "keyTerms": [
-    {"term": "English term", "meaning": "Definition", "sanskrit": "Sanskrit word"}
+    {"term": "English equivalent", "meaning": "Specific theological definition", "sanskrit": "Sanskrit Word (IAST transliteration)"}
   ],
-  "learningObjectives": ["What the learner should understand after reading"],
-  "followUpQuestions": ["Suggested next questions to ask"],
-  "practice": "A simple reflective or educational exercise",
+  "learningObjectives": ["3-4 clear objectives starting with verbs like Understand, Analyze, apply..."],
+  "followUpQuestions": ["3 questions that lead the seeker deeper into related spiritual concepts"],
+  "practice": "A practical 'Sadhana' (exercise) for the user to implement this wisdom today (e.g., a specific meditation or ethical standard).",
   "confidence": "high | medium | low",
-  "caution": "Optional note about ambiguity, multiple interpretations, or sparse grounding",
-  "commonGround": ["Shared themes when comparing multiple texts"],
-  "differences": [{"topic": "Point of difference", "insight": "How the texts differ"}],
-  "classroomUse": ["Suggested discussion or classroom application"],
+  "caution": "Explain any nuances, alternate perspectives, or grounding limitations.",
+  "commonGround": ["Shared themes across different Vedantic schools or scriptures"],
+  "differences": [{"topic": "Topic Name", "insight": "Variation in interpretation"}],
+  "classroomUse": ["Discussion prompts for educational settings"],
   "lessonPlan": {
     "audience": "student | teacher",
-    "title": "A concise lesson plan title",
-    "objectives": ["What the learner or educator should achieve"],
-    "steps": [
-      {"step": 1, "title": "Open", "activity": "What to do", "outcome": "What this produces"}
-    ],
-    "assignment": "Optional follow-up task"
+    "title": "Module Title",
+    "objectives": ["Key pedagogic goals"],
+    "steps": [{"step": 1, "title": "Phase Name", "activity": "Actionable task", "outcome": "Intended result"}],
+    "assignment": "A reflective writing or practical challenge."
   },
-  "recommendedReading": [
-    {"title": "Suggested text", "reason": "Why it matters", "href": "/contents/"}
-  ],
-  "references": [
-    {"scripture": "Scripture name", "chapter": 2, "verse": 47}
-  ]
+  "recommendedReading": [{"title": "Text Name", "reason": "Connection to current query", "href": "/contents/path"}],
+  "references": [{"scripture": "Full Name", "chapter": 0, "verse": 0}]
 }`;
 
 function parseGemmaJsonResponse(resultText: string): AIResponse {
@@ -733,51 +713,54 @@ export async function* generateExplanationStream(
     throw new Error("Rate limit exceeded");
   }
 
-  const grounding = buildGroundingPacket(query);
-  const userPrompt = buildPrompt(query, grounding);
-
   try {
     const backend = await resolveGemmaBackend();
 
     if (backend === "local" || backend === "cloud") {
-      const response = await fetch(`${OLLAMA_URL}/api/generate`, {
+      // Create a timeout promise
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error("Request timeout")), 10000); // 10 second timeout
+      });
+
+      // Use non-streaming for now to get faster response, then stream chunks
+      const fetchPromise = fetch(`${OLLAMA_URL}/api/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: OLLAMA_MODEL,
-          prompt: `${SYSTEM_PROMPT}\n\n${userPrompt}`,
-          stream: true,
+          prompt: `You are Hind AI, an expert on Hindu scriptures and philosophy. Provide a concise, accurate answer: ${query.query}`,
+          stream: false, // Get full response first
         }),
       });
 
-      if (!response.ok) throw new Error("Ollama streaming failed");
+      const response = (await Promise.race([fetchPromise, timeoutPromise])) as Response;
 
-      const reader = response.body?.getReader();
-      if (!reader) throw new Error("No reader");
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => "Unknown error");
+        console.error("Ollama request failure:", response.status, errorText);
+        throw new Error(`Ollama request failed: ${response.status}`);
+      }
 
-      const decoder = new TextDecoder();
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        const chunk = decoder.decode(value, { stream: true });
-        try {
-          const lines = chunk.split("\n").filter(Boolean);
-          for (const line of lines) {
-            const parsed = JSON.parse(line);
-            if (parsed.response) yield parsed.response;
-          }
-        } catch (e) {
-          console.error("Error parsing streaming chunk:", e);
-        }
+      const data = await response.json();
+      const fullResponse = data.response || "No response generated";
+
+      // Stream the response in chunks
+      const chunks = fullResponse.match(/.{1,50}(\s|$)/g) || [fullResponse];
+      for (const chunk of chunks) {
+        yield chunk;
+        // Small delay to simulate streaming
+        await new Promise((resolve) => setTimeout(resolve, 50));
       }
     } else {
-      throw new Error(
-        "Gemma 4 via Ollama is not available. Please ensure Ollama is running with gemma4:4b model."
-      );
+      throw new Error("Gemma 4 via Ollama is not available. Please ensure Ollama is running.");
     }
   } catch (error) {
     console.error("Streaming error:", error);
-    throw new Error("Streaming failed");
+    if (error instanceof Error && error.message === "Request timeout") {
+      yield "I apologize, but the AI service is taking longer than expected to respond. Please try again in a moment.";
+    } else {
+      yield "I apologize, but I'm having trouble connecting to the AI service. Please try again in a moment.";
+    }
   }
 }
 

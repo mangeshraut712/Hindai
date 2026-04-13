@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { generateExplanation, getAIStatus } from "@/lib/ai/gemma";
+import { generateExplanationStream, getAIStatus } from "@/lib/ai/gemma";
 
 /**
  * Streaming AI Route - Next.js 15 + React 19
@@ -22,78 +22,12 @@ export async function OPTIONS() {
   return NextResponse.json({ ok: true, methods: ["GET", "POST", "OPTIONS"] });
 }
 
-function formatStudyPack(
-  result: Awaited<ReturnType<typeof generateExplanation>>["response"]
-): string {
-  const sections: string[] = [];
-
-  if (result.summary) {
-    sections.push(`Summary\n${result.summary}`);
-  }
-
-  sections.push(result.explanation || "Explanation unavailable.");
-
-  if (result.context) {
-    sections.push(`Context\n${result.context}`);
-  }
-
-  if (result.commonGround?.length) {
-    sections.push(`Shared themes\n- ${result.commonGround.join("\n- ")}`);
-  }
-
-  if (result.differences?.length) {
-    sections.push(
-      `Key differences\n${result.differences
-        .map((difference) => `- ${difference.topic}: ${difference.insight}`)
-        .join("\n")}`
-    );
-  }
-
-  if (result.learningObjectives?.length) {
-    sections.push(`Learning objectives\n- ${result.learningObjectives.join("\n- ")}`);
-  }
-
-  if (result.classroomUse?.length) {
-    sections.push(`Classroom use\n- ${result.classroomUse.join("\n- ")}`);
-  }
-
-  if (result.lessonPlan) {
-    sections.push(
-      `Lesson plan: ${result.lessonPlan.title}\nAudience: ${result.lessonPlan.audience}\nObjectives\n- ${result.lessonPlan.objectives.join("\n- ")}\nSteps\n${result.lessonPlan.steps
-        .map(
-          (step) =>
-            `${step.step}. ${step.title}\n   Activity: ${step.activity}\n   Outcome: ${step.outcome}`
-        )
-        .join(
-          "\n"
-        )}${result.lessonPlan.assignment ? `\nAssignment\n${result.lessonPlan.assignment}` : ""}`
-    );
-  }
-
-  if (result.practice) {
-    sections.push(`Practice\n${result.practice}`);
-  }
-
-  if (result.followUpQuestions?.length) {
-    sections.push(`Follow-up questions\n- ${result.followUpQuestions.join("\n- ")}`);
-  }
-
-  if (result.references?.length) {
-    sections.push(
-      `References\n- ${result.references
-        .map((reference) => `${reference.scripture} ${reference.chapter}.${reference.verse}`)
-        .join("\n- ")}`
-    );
-  }
-
-  return sections.join("\n\n");
-}
-
 export async function POST(req: Request) {
   try {
     const { messages, scripture, chapter, verse, compareScriptureIds, mode, audience } =
       await req.json();
     const aiStatus = await getAIStatus();
+
     const latestUserMessage = Array.isArray(messages)
       ? [...messages]
           .reverse()
@@ -129,31 +63,30 @@ export async function POST(req: Request) {
       req.headers.get("x-real-ip") ||
       "anonymous";
     const encoder = new TextEncoder();
-    const result = await generateExplanation(
-      {
-        query: latestUserMessage.content.trim(),
-        scriptureId: scripture,
-        compareScriptureIds,
-        chapter,
-        verse,
-        language: "en",
-        mode,
-        audience,
-      },
-      userId
-    );
-    const text = formatStudyPack(result.response);
-    const chunks = text.match(/.{1,120}(\s|$)/g) || [text];
 
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          for (const chunk of chunks) {
+          const streamGenerator = generateExplanationStream(
+            {
+              query: latestUserMessage.content.trim(),
+              scriptureId: scripture,
+              compareScriptureIds,
+              chapter,
+              verse,
+              language: "en",
+              mode,
+              audience,
+            },
+            userId
+          );
+
+          for await (const chunk of streamGenerator) {
             controller.enqueue(encoder.encode(chunk));
-            await new Promise((resolve) => setTimeout(resolve, 20));
           }
           controller.close();
         } catch (error) {
+          console.error("Streaming controller error:", error);
           controller.error(error);
         }
       },
@@ -163,11 +96,6 @@ export async function POST(req: Request) {
       headers: {
         "Cache-Control": "no-cache, no-transform",
         "Content-Type": "text/plain; charset=utf-8",
-        "X-HindAI-Compare-Card": JSON.stringify({
-          commonGround: result.response.commonGround || [],
-          differences: result.response.differences || [],
-          classroomUse: result.response.classroomUse || [],
-        }),
         "X-Accel-Buffering": "no",
       },
     });

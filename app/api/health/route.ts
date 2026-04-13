@@ -19,7 +19,7 @@ export async function GET() {
       available: aiStatus.available,
       backend: aiStatus.type,
       model: aiStatus.model,
-      cache: aiStatus.cacheBackend,
+      cache: aiStatus.cacheBackend || "memory",
     },
     message: "Hind AI Gemma 4 Hackathon Project - All Systems Operational",
   });

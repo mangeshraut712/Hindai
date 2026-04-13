@@ -38,7 +38,7 @@ const nextConfig = {
     },
   }),
 
-  trailingSlash: true,
+  // trailingSlash: true, // Disabled to fix API routing issues
   output: "standalone",
   distDir: ".next",
   outputFileTracingRoot: __dirname,
@@ -57,7 +57,6 @@ const nextConfig = {
       base-uri 'self';
       form-action 'self';
       frame-ancestors 'none';
-      upgrade-insecure-requests;
     `
       .replace(/\s{2,}/g, " ")
       .trim();
