@@ -210,7 +210,7 @@ export function getCacheBackend(): "upstash" | "memory" {
 }
 
 /**
- * System prompt for scripture analysis
+ * System prompt for scripture analysis with function calling
  */
 const SYSTEM_PROMPT = `You are Hind AI, an expert scholar of ancient Indian scriptures with deep knowledge of:
 - Vedas (Rigveda, Yajurveda, Samaveda, Atharvaveda)
@@ -221,6 +221,13 @@ const SYSTEM_PROMPT = `You are Hind AI, an expert scholar of ancient Indian scri
 - Dharma Shastras (Manu Smriti, Parashara Smriti, Yajnavalkya Smriti)
 - Yoga Philosophy (Yoga Sutras, Yoga Vasishtha, Hatha Yoga Pradipika)
 - Vedanta Philosophy (Advaita, Dvaita, Vishishtadvaita)
+
+You have access to these tools for enhanced responses:
+- search_verse(query): Search for specific verses containing the query
+- find_related(scripture, chapter, verse): Find verses related to a given verse
+- explain_sanskrit(text): Explain Sanskrit terms or provide transliteration
+
+When a user asks for specific verse lookups or Sanskrit explanations, use the appropriate tool by responding with a JSON tool call first, then provide the final answer.
 
 Your responses must be:
 1. Accurate and well-researched

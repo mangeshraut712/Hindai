@@ -156,3 +156,79 @@ export function searchVerses(query: string): ScriptureVerse[] {
       v.keyTerms.some((term) => term.toLowerCase().includes(lowerQuery))
   );
 }
+
+/**
+ * Gemma 4 Function Calling Tools
+ */
+
+// Tool: Search for specific verses
+export function searchVerse(query: string): ScriptureVerse[] {
+  return searchVerses(query).slice(0, 5); // Return top 5 matches
+}
+
+// Tool: Find related verses
+export function findRelated(scriptureId: string, chapter: number, verse: number): ScriptureVerse[] {
+  const baseVerse = getVerse(scriptureId, chapter, verse);
+  if (!baseVerse) return [];
+
+  // Find verses with similar keywords
+  const related = sampleVerses.filter(
+    (v) =>
+      v.scriptureId !== scriptureId && v.keyTerms.some((term) => baseVerse.keyTerms.includes(term))
+  );
+
+  return related.slice(0, 3);
+}
+
+// Tool: Explain Sanskrit text
+export function explainSanskrit(text: string): {
+  transliteration: string;
+  meaning: string;
+  context: string;
+} {
+  // Simple mapping for demo - in production would use more sophisticated analysis
+  const sanskritTerms: Record<
+    string,
+    { transliteration: string; meaning: string; context: string }
+  > = {
+    कर्म: {
+      transliteration: "karma",
+      meaning: "action, work, deed",
+      context: "The law of cause and effect in Hindu philosophy",
+    },
+    योग: {
+      transliteration: "yoga",
+      meaning: "union, discipline",
+      context: "Path to spiritual liberation through various practices",
+    },
+    धर्म: {
+      transliteration: "dharma",
+      meaning: "duty, righteousness, law",
+      context: "Moral and ethical order that sustains society",
+    },
+    मोक्ष: {
+      transliteration: "moksha",
+      meaning: "liberation, freedom",
+      context: "Release from the cycle of rebirth",
+    },
+    आत्मा: {
+      transliteration: "atman",
+      meaning: "soul, self",
+      context: "The true self beyond physical form",
+    },
+  };
+
+  // Check if text matches any known term
+  for (const [sanskrit, explanation] of Object.entries(sanskritTerms)) {
+    if (text.includes(sanskrit)) {
+      return explanation;
+    }
+  }
+
+  // Fallback
+  return {
+    transliteration: text, // Simplified - would use proper transliteration library
+    meaning: "Sanskrit term",
+    context: "Ancient Indian language term used in spiritual texts",
+  };
+}
