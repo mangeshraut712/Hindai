@@ -338,6 +338,24 @@ docker-compose up -d
 - **ollama**: Gemma 4 model server with persistent storage
 - **hindai-network**: Isolated Docker network
 
+### Vercel Deployment (Cloud Ollama)
+
+For production deployment on Vercel with cloud-hosted Ollama:
+
+1. **Deploy Ollama to a cloud service** (Railway, DigitalOcean, etc.)
+2. **Set Vercel environment variables**:
+   ```bash
+   OLLAMA_URL=https://your-ollama-service.com
+   OLLAMA_CLOUD_URL=true
+   OLLAMA_MODEL=gemma4:latest
+   ```
+3. **Deploy to Vercel**:
+   ```bash
+   vercel --prod
+   ```
+
+**Note**: Requires cloud-hosted Ollama service since Vercel doesn't support persistent processes.
+
 ### Manual Ollama Setup
 
 ```bash

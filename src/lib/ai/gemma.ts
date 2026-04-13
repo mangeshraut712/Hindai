@@ -33,8 +33,11 @@ export function resolveGemmaModel(input: string | undefined): GemmaModel {
 }
 
 // Configuration - Gemma 4 via Ollama (Kaggle Competition)
-const OLLAMA_URL = process.env.OLLAMA_URL || "http://localhost:11434";
+const OLLAMA_URL =
+  process.env.OLLAMA_URL ||
+  (process.env.VERCEL ? "https://ollama-cloud-service.vercel.app" : "http://localhost:11434");
 const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "gemma4:latest";
+const USE_CLOUD_OLLAMA = process.env.VERCEL && process.env.OLLAMA_CLOUD_URL;
 const CACHE_TTL = 60 * 60 * 24; // 24 hours in seconds
 
 // Schema validation
@@ -199,10 +202,17 @@ async function isOllamaAvailable(): Promise<boolean> {
   }
 }
 
-async function resolveGemmaBackend(): Promise<"local" | "none"> {
-  // For Kaggle competition: Gemma 4 via Ollama only
-  // No external AI APIs used
-  return (await isOllamaAvailable()) ? "local" : "none";
+async function resolveGemmaBackend(): Promise<"local" | "cloud" | "none"> {
+  // For Kaggle competition: Gemma 4 via Ollama (local or cloud)
+  // No external AI APIs used - only Ollama instances allowed
+
+  if (USE_CLOUD_OLLAMA) {
+    // Vercel deployment: Use cloud Ollama service
+    return (await isOllamaAvailable()) ? "cloud" : "none";
+  } else {
+    // Local development: Use local Ollama
+    return (await isOllamaAvailable()) ? "local" : "none";
+  }
 }
 
 export function getCacheBackend(): "upstash" | "memory" {
@@ -682,11 +692,11 @@ export async function generateExplanation(
     let resultText = "";
     const backend = await resolveGemmaBackend();
 
-    if (backend === "local") {
+    if (backend === "local" || backend === "cloud") {
       resultText = await generateWithOllama(userPrompt);
     } else {
       throw new Error(
-        "Gemma 4 via Ollama is not available. Please ensure Ollama is running with gemma4:4b model."
+        "Gemma 4 via Ollama is not available. For local development, run: ollama pull gemma4:latest && ollama serve"
       );
     }
 
@@ -729,7 +739,7 @@ export async function* generateExplanationStream(
   try {
     const backend = await resolveGemmaBackend();
 
-    if (backend === "local") {
+    if (backend === "local" || backend === "cloud") {
       const response = await fetch(`${OLLAMA_URL}/api/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -834,7 +844,7 @@ export async function checkGemmaAvailability(): Promise<{
       const { remaining } = await ratelimit.limit("healthcheck");
       return {
         available: true,
-        type: "ollama",
+        type: backend,
         model: OLLAMA_MODEL,
         cacheBackend: getCacheBackend(),
         rateLimitRemaining: remaining,
@@ -900,11 +910,11 @@ Response format (JSON):
     let resultText = "";
     const backend = await resolveGemmaBackend();
 
-    if (backend === "local") {
+    if (backend === "local" || backend === "cloud") {
       resultText = await generateWithOllama(prompt);
     } else {
       throw new Error(
-        "Gemma 4 via Ollama is not available. Please ensure Ollama is running with gemma4:4b model."
+        "Gemma 4 via Ollama is not available. For local development: ollama pull gemma4:latest && ollama serve"
       );
     }
 

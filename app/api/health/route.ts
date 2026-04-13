@@ -8,23 +8,19 @@ import { getAIStatus } from "@/lib/ai/gemma";
  */
 export async function GET() {
   const aiStatus = await getAIStatus();
-  const hostedKeyConfigured = Boolean(
-    process.env.GEMMA_API_KEY || process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY
-  );
 
   return NextResponse.json({
     status: "healthy",
     timestamp: new Date().toISOString(),
     version: "1.0.0",
-    environment: process.env.NODE_ENV,
-    model: aiStatus.model,
-    backend: aiStatus.type,
-    cache_backend: aiStatus.cacheBackend,
-    services: {
-      gemma: aiStatus.available ? "configured" : "not_configured",
-      hosted_api: hostedKeyConfigured ? "configured" : "not_configured",
-      local_ollama: aiStatus.type === "local" ? "configured" : "not_configured",
-      redis: aiStatus.cacheBackend === "upstash" ? "configured" : "fallback_memory",
+    environment: process.env.NODE_ENV || "development",
+    deployment: process.env.VERCEL ? "vercel" : "local",
+    ai: {
+      available: aiStatus.available,
+      backend: aiStatus.type,
+      model: aiStatus.model,
+      cache: aiStatus.cacheBackend,
     },
+    message: "Hind AI Gemma 4 Hackathon Project - All Systems Operational",
   });
 }

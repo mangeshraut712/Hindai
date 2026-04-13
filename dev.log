@@ -1,0 +1,27 @@
+
+> hind-ai@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.15
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.12:3000
+   - Experiments (use with caution):
+     ✓ scrollRestoration
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 2.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 5.4s (2364 modules)
+ HEAD / 200 in 6043ms
+ ✓ Compiled in 1033ms (1099 modules)
+ ✓ Compiled in 428ms (1099 modules)
+ ✓ Compiled in 428ms (1099 modules)
+ ✓ Compiled in 140ms (1099 modules)
+ ✓ Compiled in 160ms (1099 modules)
+ ✓ Compiled in 280ms (1099 modules)
+ ✓ Compiled in 195ms (1099 modules)
+ ✓ Compiled in 281ms (1099 modules)
+ ✓ Compiled in 231ms (1099 modules)
+ ✓ Compiled in 198ms (1099 modules)
+ ✓ Compiled in 144ms (1099 modules)
