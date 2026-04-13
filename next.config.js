@@ -12,7 +12,14 @@ const nextConfig = {
   // Performance optimizations
   experimental: {
     scrollRestoration: true,
-    optimizePackageImports: ["@radix-ui/react-*", "lucide-react", "framer-motion"],
+    optimizeCss: true,
+    optimizePackageImports: [
+      "@radix-ui/react-*",
+      "lucide-react",
+      "framer-motion",
+      "react",
+      "react-dom",
+    ],
   },
 
   // Bundle analysis (development only)
