@@ -854,20 +854,28 @@ export async function checkGemmaAvailability(): Promise<{
   }
 
   try {
-    const { remaining } = await ratelimit.limit("healthcheck");
+    if (ratelimit) {
+      const { remaining } = await ratelimit.limit("healthcheck");
+      return {
+        available: true,
+        backend: "ollama",
+        model: OLLAMA_MODEL,
+        cacheBackend: getCacheBackend(),
+        rateLimitRemaining: remaining,
+      };
+    }
     return {
-      available,
-      model,
-      type,
-      cacheBackend,
-      rateLimitRemaining: remaining,
+      available: true,
+      backend: "ollama",
+      model: OLLAMA_MODEL,
+      cacheBackend: getCacheBackend(),
     };
   } catch {
     return {
-      available,
-      model,
-      type,
-      cacheBackend,
+      available: false,
+      backend: "none",
+      model: OLLAMA_MODEL,
+      cacheBackend: getCacheBackend(),
     };
   }
 }
