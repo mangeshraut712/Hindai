@@ -1,16 +1,15 @@
 "use client";
 
 import type { ComponentProps } from "react";
-import type { TargetAndTransition } from "motion/react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
-const initialProps: TargetAndTransition = {
+const initialProps = {
   pathLength: 0,
   opacity: 0,
 };
 
-const animateProps: TargetAndTransition = {
+const animateProps = {
   pathLength: 1,
   opacity: 1,
 };

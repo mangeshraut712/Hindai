@@ -94,6 +94,7 @@ export function ManuscriptAnalyzer() {
             >
               {selectedImage ? (
                 <div className="space-y-2">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={URL.createObjectURL(selectedImage)}
                     alt="Selected manuscript"
