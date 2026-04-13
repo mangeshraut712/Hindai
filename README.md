@@ -18,6 +18,12 @@
 
 📚 **Repository**: [https://github.com/mangeshraut712/Hindai](https://github.com/mangeshraut712/Hindai)
 
+## Documentation
+
+- [Setup Guide](docs/SETUP.md)
+- [Hackathon Submission](docs/HACKATHON.md)
+- [Differentiation Strategy](docs/DIFFERENTIATION.md)
+
 ---
 
 ## 🎯 Key Features

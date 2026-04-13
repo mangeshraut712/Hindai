@@ -9,6 +9,8 @@ coverage/
 *.lcov
 playwright-report/
 test-results/
+.lighthouseci/
+.playwright-mcp/
 
 # Next.js
 .next/

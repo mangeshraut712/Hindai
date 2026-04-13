@@ -69,6 +69,7 @@ test.describe("Accessibility", () => {
 
     // Test functionality still works
     await page.getByRole("button", { name: /open search dialog/i }).click();
+    await page.waitForSelector('[role="dialog"]');
     await expect(page.locator('[role="dialog"]')).toBeVisible();
   });
 });
