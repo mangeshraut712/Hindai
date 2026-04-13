@@ -286,8 +286,6 @@ npm run test:ui      # Interactive test UI
 | **Multimodal Vision**   | ✅ Complete   | Manuscript analyzer with Gemma 4 vision             |
 | **Docker Offline**      | ✅ Complete   | `docker-compose.yml` with Ollama container          |
 | **Fine-tuning**         | ✅ Complete   | `fine-tune-gemma4.py` Unsloth script                |
-| **RAG Implementation**  | ✅ Complete   | Grounding packet with local scripture retrieval     |
-| **Function Calling**    | ✅ Complete   | searchVerse, findRelated, explainSanskrit tools     |
 | **Offline Capability**  | ✅ Complete   | Runs locally via Ollama without internet            |
 
 ---
