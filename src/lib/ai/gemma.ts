@@ -805,8 +805,10 @@ export const getAIStatus = checkGemmaAvailability;
 
 export async function checkGemmaAvailability(): Promise<{
   available: boolean;
-  backend: string;
+  type: string;
   model: string;
+  cacheBackend?: string;
+  rateLimitRemaining?: number;
   error?: string;
 }> {
   const backend = await resolveGemmaBackend();
@@ -814,7 +816,7 @@ export async function checkGemmaAvailability(): Promise<{
   if (backend === "none") {
     return {
       available: false,
-      backend: "none",
+      type: "none",
       model: "none",
       error: "Gemma 4 via Ollama is not available. Please run: ollama pull gemma4:4b",
     };
@@ -825,7 +827,7 @@ export async function checkGemmaAvailability(): Promise<{
       const { remaining } = await ratelimit.limit("healthcheck");
       return {
         available: true,
-        backend: "ollama",
+        type: "ollama",
         model: OLLAMA_MODEL,
         cacheBackend: getCacheBackend(),
         rateLimitRemaining: remaining,
@@ -833,14 +835,14 @@ export async function checkGemmaAvailability(): Promise<{
     }
     return {
       available: true,
-      backend: "ollama",
+      type: "ollama",
       model: OLLAMA_MODEL,
       cacheBackend: getCacheBackend(),
     };
   } catch {
     return {
       available: false,
-      backend: "none",
+      type: "none",
       model: OLLAMA_MODEL,
       cacheBackend: getCacheBackend(),
     };
