@@ -12,7 +12,6 @@ const nextConfig = {
   // Performance optimizations
   experimental: {
     scrollRestoration: true,
-    optimizeCss: true,
     optimizePackageImports: [
       "@radix-ui/react-*",
       "lucide-react",
