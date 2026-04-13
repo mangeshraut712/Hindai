@@ -20,7 +20,6 @@
 
 ## Documentation
 
-- [Setup Guide](docs/SETUP.md)
 - [Hackathon Submission](docs/HACKATHON.md)
 - [Differentiation Strategy](docs/DIFFERENTIATION.md)
 
