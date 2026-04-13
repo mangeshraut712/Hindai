@@ -1,14 +1,13 @@
 /**
- * Gemma 4 API integration for Hind AI.
- *
- * Hosted through Google AI Studio / Gemini API using supported Gemma 4 model IDs.
+ * Gemma 4 AI Integration for Hind AI
+ * 
+ * Kaggle Competition: Gemma 4 - The Future of AI is Yours to Shape
+ * Track: Future of Education + Digital Equity
+ * 
+ * This module uses Gemma 4 via Ollama for local AI inference.
+ * No external AI APIs (Gemini, OpenAI, etc.) are used.
  */
 
-// Server-side module: call this through API routes from client components.
-
-// Using Gemma 4 models through Google AI infrastructure
-// Gemma 4 models are available as part of the Google AI family
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { z } from "zod";
@@ -32,12 +31,9 @@ export function resolveGemmaModel(input: string | undefined): GemmaModel {
     : DEFAULT_GEMMA_MODEL;
 }
 
-// Configuration - Gemma 4
-const GEMMA_API_KEY =
-  process.env.GEMMA_API_KEY || process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+// Configuration - Gemma 4 via Ollama (Kaggle Competition)
 const OLLAMA_URL = process.env.OLLAMA_URL || "http://localhost:11434";
-export const GEMMA_MODEL = resolveGemmaModel(process.env.GEMMA_MODEL);
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || process.env.GEMMA_MODEL || "gemma-4-4b-it";
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "gemma4:4b";
 const CACHE_TTL = 60 * 60 * 24; // 24 hours in seconds
 
 // Schema validation
@@ -182,8 +178,8 @@ const ratelimit = redis
     })
   : null;
 
-// Initialize Gemma 4 AI
-const ai = GEMMA_API_KEY ? new GoogleGenerativeAI(GEMMA_API_KEY) : null;
+// Gemma 4 is loaded via Ollama locally - no API keys needed
+// To setup: ollama pull gemma4:4b
 
 async function isOllamaAvailable(): Promise<boolean> {
   const controller = new AbortController();
@@ -202,11 +198,9 @@ async function isOllamaAvailable(): Promise<boolean> {
   }
 }
 
-async function resolveGemmaBackend(): Promise<"hosted" | "local" | "none"> {
-  if (ai) {
-    return "hosted";
-  }
-
+async function resolveGemmaBackend(): Promise<"local" | "none"> {
+  // For Kaggle competition: Gemma 4 via Ollama only
+  // No external AI APIs used
   return (await isOllamaAvailable()) ? "local" : "none";
 }
 
@@ -842,24 +836,20 @@ function buildPrompt(query: AIQuery, grounding: GroundingPacket): string {
 /**
  * Get AI service status
  */
-export async function getAIStatus(): Promise<{
+export async function checkGemmaAvailability(): Promise<{
   available: boolean;
+  backend: string;
   model: string;
-  type: "local" | "hosted" | "none";
-  cacheBackend: "upstash" | "memory";
-  rateLimitRemaining?: number;
+  error?: string;
 }> {
-  const type = await resolveGemmaBackend();
-  const available = type !== "none";
-  const model = type === "local" ? OLLAMA_MODEL : GEMMA_MODEL;
-  const cacheBackend = getCacheBackend();
+  const backend = await resolveGemmaBackend();
 
-  if (!ratelimit) {
+  if (backend === "none") {
     return {
-      available,
-      model,
-      type,
-      cacheBackend,
+      available: false,
+      backend: "none",
+      model: "none",
+      error: "Gemma 4 via Ollama is not available. Please run: ollama pull gemma4:4b",
     };
   }
 
