@@ -348,7 +348,7 @@ export function AIExplanation({
           </Button>
         )}
         <p className="mt-2 text-center text-xs text-muted-foreground">
-          Powered by Gemma 4 via Google AI Studio
+          Powered by Gemma 4 via Ollama
         </p>
       </CardContent>
     </Card>

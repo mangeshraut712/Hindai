@@ -4,13 +4,13 @@
   <img src="https://img.shields.io/badge/TypeScript-5.4.5-blue?style=for-the-badge&logo=typescript" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Next.js-15.5.15-saffron?style=for-the-badge&logo=next.js" alt="Next.js" />
   <img src="https://img.shields.io/badge/React-19.2.5-blue?style=for-the-badge&logo=react" alt="React" />
-  <img src="https://img.shields.io/badge/Google%20Gemma%204-gold?style=for-the-badge&logo=google" alt="Gemma 4" />
+  <img src="https://img.shields.io/badge/Gemma%204-gold?style=for-the-badge&logo=ollama" alt="Gemma 4" />
   <img src="https://img.shields.io/badge/License-CC--BY--4.0-lightgrey?style=for-the-badge" alt="License" />
 </div>
 
 > **🧘‍♂️ Your AI Guru for Ancient Wisdom | ज्ञान से मोक्ष तक (From Knowledge to Liberation)**
 
-**Hind AI** is an AI-powered spiritual learning platform that makes ancient Indian scriptures accessible through **Guru AI** - an intelligent chatbot powered by **Google Gemma 4**. Experience real-time AI explanations, voice-guided meditation, AI-generated quizzes, semantic search across scriptures, and interactive learning tools. Built with modern web technologies for reliable, offline-capable spiritual education.
+**Hind AI** is an AI-powered spiritual learning platform that makes ancient Indian scriptures accessible through **Guru AI** - an intelligent chatbot powered by **Gemma 4 via Ollama**. Experience real-time AI explanations, voice-guided meditation, AI-generated quizzes, semantic search across scriptures, and interactive learning tools. Built with modern web technologies for reliable, offline-capable spiritual education.
 
 ```
 "सत्यमेव जयते · नमस्ते · ॐ" - Truth Alone Triumphs · Welcome · Om
@@ -37,7 +37,7 @@
 
 ### 🧠 **Gemma 4 AI Integration**
 
-- **Advanced Models**: `gemma-4-31b-it` and `gemma-4-26b-a4b-it` for different use cases
+- **Local Ollama Models**: `gemma4:latest` for offline-capable AI inference
 - **Structured Outputs**: Well-formatted responses with scripture references
 - **Contextual Knowledge**: Deep understanding of Hindu philosophy
 - **Real-Time Processing**: Fast AI responses for interactive experience
@@ -73,8 +73,8 @@
 
 ### **AI & Machine Learning**
 
-- **Google Gemma 4** - Advanced AI models for text generation
-- **@google/generative-ai** - Google AI SDK for integration
+- **Gemma 4 via Ollama** - Local AI models for offline text generation
+- **Ollama API** - Local AI inference without external APIs
 - **Upstash Vector** - Vector database for semantic search
 
 ### **UI & Styling**
@@ -122,8 +122,8 @@ graph TB
     end
 
     subgraph "🧠 Gemma 4 AI Engine"
-        Model31B[gemma-4-31b-it]
-        Model26B[gemma-4-26b-a4b-it]
+        Ollama[Ollama Local Runtime]
+        Model[gemma4:latest]
     end
 
     subgraph "⚡ Infrastructure"
@@ -138,10 +138,10 @@ graph TB
     App --> RSC
     RSC --> Actions
     Actions --> Chatbot
-    Chatbot --> Model31B
-    Chatbot --> Model26B
+    Chatbot --> Ollama
+    Ollama --> Model
 
-    QuizAI --> Model31B
+    QuizAI --> Ollama
     SearchAI --> Vector
 
     Actions --> Redis
@@ -202,13 +202,10 @@ graph TB
 
 ```env
 # ==========================================
-# REQUIRED: Gemma 4 API access via Google AI Studio
+# REQUIRED: Ollama for local Gemma 4
 # ==========================================
-GEMMA_API_KEY=your_gemma_api_key_here
-# Alternative supported names:
-# GEMINI_API_KEY=your_google_ai_studio_key_here
-# GOOGLE_API_KEY=your_google_ai_studio_key_here
-GEMMA_MODEL=gemma-4-31b-it
+OLLAMA_URL=http://localhost:11434
+OLLAMA_MODEL=gemma4:latest
 
 # ==========================================
 # OPTIONAL BUT RECOMMENDED ON VERCEL: Upstash Redis
@@ -230,9 +227,9 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 VERCEL_ANALYTICS_ID=your_vercel_analytics_id
 ```
 
-### Vercel Runtime Notes
+### Deployment Notes
 
-- For hosted Gemma on Vercel, `GEMINI_API_KEY` is enough because the server accepts `GEMMA_API_KEY`, `GEMINI_API_KEY`, or `GOOGLE_API_KEY`.
+- The app uses Ollama for local AI inference. For production deployment, ensure Ollama is running on the server.
 - `KAGGLE_API_TOKEN` is **not** used by the deployed Next.js app runtime. It is only useful for Kaggle CLI/model management workflows.
 - Without Upstash Redis, the app still works by using an in-memory cache fallback, but that cache is per-instance and not shared across Vercel invocations.
 
@@ -245,12 +242,9 @@ VERCEL_ANALYTICS_ID=your_vercel_analytics_id
 
 ### Model Guidance
 
-- Default recommendation for Hind AI: `gemma-4-31b-it`
-- Use `gemma-4-31b-it` when you want the strongest reasoning, richer study packs, and higher-quality compare-text output.
-- Use `gemma-4-26b-a4b-it` when latency or token cost matters more than absolute output quality.
-- Practical tradeoff for this product:
-  - `gemma-4-31b-it`: better for teacher lesson plans, nuanced comparisons, and scripture-context synthesis.
-  - `gemma-4-26b-a4b-it`: better for cheaper, faster day-to-day tutoring and lighter traffic budgets.
+- Default model for Hind AI: `gemma4:latest` (Gemma 4 8B parameter model)
+- Ollama provides local inference without API keys or external dependencies.
+- For optimal performance, ensure sufficient RAM/GPU resources for the model.
 
 ### Available Scripts
 
@@ -401,6 +395,7 @@ Chunked plain-text streaming response for real-time scripture guidance.
 ### Acknowledgments
 
 - **Google AI** - Gemma 4 models and AI research
+- **Ollama** - Local AI model runtime
 - **Kaggle** - Gemma 4 Good Hackathon platform
 - **Vercel** - Edge computing infrastructure
 - **Open Source Community** - Web technologies and libraries

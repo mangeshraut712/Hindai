@@ -1,9 +1,9 @@
 /**
  * Gemma 4 AI Integration for Hind AI
- * 
+ *
  * Kaggle Competition: Gemma 4 - The Future of AI is Yours to Shape
  * Track: Future of Education + Digital Equity
- * 
+ *
  * This module uses Gemma 4 via Ollama for local AI inference.
  * No external AI APIs (Gemini, OpenAI, etc.) are used.
  */
@@ -24,6 +24,7 @@ export const SUPPORTED_GEMMA_MODELS = ["gemma-4-26b-a4b-it", "gemma-4-31b-it"] a
 export type GemmaModel = (typeof SUPPORTED_GEMMA_MODELS)[number];
 
 export const DEFAULT_GEMMA_MODEL: GemmaModel = "gemma-4-31b-it";
+export const GEMMA_MODEL = DEFAULT_GEMMA_MODEL;
 
 export function resolveGemmaModel(input: string | undefined): GemmaModel {
   return SUPPORTED_GEMMA_MODELS.includes(input as GemmaModel)
@@ -33,7 +34,7 @@ export function resolveGemmaModel(input: string | undefined): GemmaModel {
 
 // Configuration - Gemma 4 via Ollama (Kaggle Competition)
 const OLLAMA_URL = process.env.OLLAMA_URL || "http://localhost:11434";
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "gemma4:4b";
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "gemma4:latest";
 const CACHE_TTL = 60 * 60 * 24; // 24 hours in seconds
 
 // Schema validation
@@ -677,26 +678,9 @@ export async function generateExplanation(
     if (backend === "local") {
       resultText = await generateWithOllama(userPrompt);
     } else {
-      if (backend === "none") {
-        throw new Error(
-          "Gemma is not configured. Kaggle access approval alone does not configure this app. Set GEMMA_API_KEY for hosted access, or run Ollama locally for a local Gemma runtime."
-        );
-      }
-
-      if (!ai) {
-        throw new Error("Gemma hosted client is not initialized.");
-      }
-
-      const model = ai.getGenerativeModel({ model: GEMMA_MODEL });
-      const result = await model.generateContent({
-        contents: [{ role: "user", parts: [{ text: `${SYSTEM_PROMPT}\n\n${userPrompt}` }] }],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 2048,
-          responseMimeType: "application/json",
-        },
-      });
-      resultText = result.response.text() || "{}";
+      throw new Error(
+        "Gemma 4 via Ollama is not available. Please ensure Ollama is running with gemma4:4b model."
+      );
     }
 
     const validated = parseGemmaJsonResponse(resultText);
@@ -770,28 +754,9 @@ export async function* generateExplanationStream(
         }
       }
     } else {
-      if (backend === "none") {
-        throw new Error(
-          "Gemma is not configured. Set GEMMA_API_KEY for hosted access, or run Ollama locally."
-        );
-      }
-
-      if (!ai) {
-        throw new Error("Gemma hosted client is not initialized.");
-      }
-
-      const model = ai.getGenerativeModel({ model: GEMMA_MODEL });
-      const result = await model.generateContentStream({
-        contents: [{ role: "user", parts: [{ text: `${SYSTEM_PROMPT}\n\n${userPrompt}` }] }],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 2048,
-        },
-      });
-
-      for await (const chunk of result.stream) {
-        yield chunk.text();
-      }
+      throw new Error(
+        "Gemma 4 via Ollama is not available. Please ensure Ollama is running with gemma4:4b model."
+      );
     }
   } catch (error) {
     console.error("Streaming error:", error);
@@ -836,6 +801,8 @@ function buildPrompt(query: AIQuery, grounding: GroundingPacket): string {
 /**
  * Get AI service status
  */
+export const getAIStatus = checkGemmaAvailability;
+
 export async function checkGemmaAvailability(): Promise<{
   available: boolean;
   backend: string;
@@ -927,24 +894,9 @@ Response format (JSON):
     if (backend === "local") {
       resultText = await generateWithOllama(prompt);
     } else {
-      if (backend === "none") {
-        throw new Error(
-          "Gemma is not configured. Set GEMMA_API_KEY for hosted access, or run Ollama locally."
-        );
-      }
-
-      if (!ai) {
-        throw new Error("Gemma hosted client is not initialized.");
-      }
-
-      const model = ai.getGenerativeModel({ model: GEMMA_MODEL });
-      const result = await model.generateContent({
-        contents: [{ role: "user", parts: [{ text: prompt }] }],
-        generationConfig: {
-          responseMimeType: "application/json",
-        },
-      });
-      resultText = result.response.text() || "{}";
+      throw new Error(
+        "Gemma 4 via Ollama is not available. Please ensure Ollama is running with gemma4:4b model."
+      );
     }
 
     return {
