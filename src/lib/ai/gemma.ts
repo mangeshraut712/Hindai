@@ -19,11 +19,14 @@ import {
 } from "@/lib/data/scriptures";
 import { scriptureCatalog } from "@/lib/scripture-catalog";
 
-export const SUPPORTED_GEMMA_MODELS = ["gemma4:latest", "gemma4:31b-it-q4_K_M"] as const;
+export const SUPPORTED_GEMMA_MODELS = [
+  "gemma4:latest",
+  "gemma4:31b-it-q4_K_M",
+] as const;
 
 export type GemmaModel = (typeof SUPPORTED_GEMMA_MODELS)[number];
 
-export const DEFAULT_GEMMA_MODEL: GemmaModel = "gemma4:31b-it-q4_K_M";
+export const DEFAULT_GEMMA_MODEL: GemmaModel = "gemma4:latest";
 export const GEMMA_MODEL = DEFAULT_GEMMA_MODEL;
 
 export function resolveGemmaModel(input: string | undefined): GemmaModel {
@@ -35,8 +38,10 @@ export function resolveGemmaModel(input: string | undefined): GemmaModel {
 // Configuration - Gemma 4 via Ollama (Kaggle Competition)
 const OLLAMA_URL =
   process.env.OLLAMA_URL ||
-  (process.env.VERCEL ? "https://ollama-cloud-service.vercel.app" : "http://localhost:11434");
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "gemma4:31b-it-q4_K_M";
+  (process.env.VERCEL
+    ? "https://ollama-cloud-service.vercel.app"
+    : "http://localhost:11434");
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "gemma4:latest"; // 9.6GB - much faster than 31b
 const USE_CLOUD_OLLAMA = process.env.VERCEL && process.env.OLLAMA_CLOUD_URL;
 const CACHE_TTL = 60 * 60 * 24; // 24 hours in seconds
 
@@ -51,7 +56,7 @@ export const AIResponseSchema = z.object({
         term: z.string(),
         meaning: z.string(),
         sanskrit: z.string().optional(),
-      })
+      }),
     )
     .optional(),
   references: z
@@ -60,7 +65,7 @@ export const AIResponseSchema = z.object({
         scripture: z.string(),
         chapter: z.number(),
         verse: z.number(),
-      })
+      }),
     )
     .optional(),
   learningObjectives: z.array(z.string()).optional(),
@@ -74,7 +79,7 @@ export const AIResponseSchema = z.object({
       z.object({
         topic: z.string(),
         insight: z.string(),
-      })
+      }),
     )
     .optional(),
   classroomUse: z.array(z.string()).optional(),
@@ -89,7 +94,7 @@ export const AIResponseSchema = z.object({
           title: z.string(),
           activity: z.string(),
           outcome: z.string(),
-        })
+        }),
       ),
       assignment: z.string().optional(),
     })
@@ -100,7 +105,7 @@ export const AIResponseSchema = z.object({
         title: z.string(),
         reason: z.string(),
         href: z.string().optional(),
-      })
+      }),
     )
     .optional(),
 });
@@ -152,7 +157,7 @@ export type GroundingPacket = {
 };
 
 const hasRedisConfig = Boolean(
-  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
+  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN,
 );
 
 const memoryState = globalThis as typeof globalThis & {
@@ -161,9 +166,11 @@ const memoryState = globalThis as typeof globalThis & {
 };
 
 const memoryCache =
-  memoryState.__hindaiMemoryCache ?? (memoryState.__hindaiMemoryCache = new Map());
+  memoryState.__hindaiMemoryCache ??
+  (memoryState.__hindaiMemoryCache = new Map());
 const memoryRateLimit =
-  memoryState.__hindaiMemoryRateLimit ?? (memoryState.__hindaiMemoryRateLimit = new Map());
+  memoryState.__hindaiMemoryRateLimit ??
+  (memoryState.__hindaiMemoryRateLimit = new Map());
 
 // Initialize Redis for caching only when credentials are available.
 const redis = hasRedisConfig
@@ -220,46 +227,18 @@ export function getCacheBackend(): "upstash" | "memory" {
 }
 
 /**
- * System prompt for scripture analysis with function calling
+ * System prompt for scripture analysis - OPTIMIZED for speed
  */
-const SYSTEM_PROMPT = `ROLE: You are "Hind AI", a preeminent digital scholar and preserving authority on Ancient Indian Scriptures. You possess exhaustive knowledge of the Shruti (Vedas, Upanishads) and Smriti (Epics, Puranas, Dharma Shastras, Bhagavad Gita, and Yoga/Vedanta Darshanas).
+const SYSTEM_PROMPT = `You are "Hind AI", a digital scholar of Ancient Indian Scriptures.
 
-TASK: Your task is to provide profound, contextual, and multifaceted analysis of spiritual queries. You bridge the gap between ancient Sanskrit wisdom and modern practical life.
-
-BEHAVIORAL GUIDELINES:
-1. **Scholarly Authority**: Speak with the wisdom and poise of an Acharya. Use precise terminology (Sanskrit with transliteration).
-2. **Contextual Grounding**: Prioritize the provided "Grounding Packet". If the requested verse or text is present there, treat it as the primary source of truth.
-3. **Multidimensional Analysis**: Connect metaphysical truths to psychological, ethical, and modern professional applications.
-4. **Inclusive but Specific**: Respect all spiritual lineages (Advaita, Dvaita, etc.) but identify the specific philosophical stance of a verse if applicable.
-5. **Truthfulness**: If grounding is sparse or a question is outside the scope of Indian scriptures, state this clearly. Do not hallucinate citations.
-6. **STRICT OUTPUT**: RETURN ONLY THE JSON OBJECT. DO NOT INCLUDE ANY INTRODUCTORY OR CONCLUDING TEXT. DO NOT EXPLAIN YOUR PROCESS.
-
-OUTPUT STRUCTURE (STRICT JSON ONLY):
+Provide concise analysis in JSON format with this structure:
 {
-  "summary": "A 15-20 word authoritative essence of the insight.",
-  "explanation": "2-3 long, deep paragraphs. Paragraph 1: Direct meaning. Paragraph 2: Philosophical depth. Paragraph 3: Modern life integration.",
-  "context": "The historical setting, the speaker/listener dynamic, and the specific text section.",
-  "keyTerms": [
-    {"term": "English equivalent", "meaning": "Specific theological definition", "sanskrit": "Sanskrit Word (IAST transliteration)"}
-  ],
-  "learningObjectives": ["3-4 clear objectives starting with verbs like Understand, Analyze, apply..."],
-  "followUpQuestions": ["3 questions that lead the seeker deeper into related spiritual concepts"],
-  "practice": "A practical 'Sadhana' (exercise) for the user to implement this wisdom today (e.g., a specific meditation or ethical standard).",
-  "confidence": "high | medium | low",
-  "caution": "Explain any nuances, alternate perspectives, or grounding limitations.",
-  "commonGround": ["Shared themes across different Vedantic schools or scriptures"],
-  "differences": [{"topic": "Topic Name", "insight": "Variation in interpretation"}],
-  "classroomUse": ["Discussion prompts for educational settings"],
-  "lessonPlan": {
-    "audience": "student | teacher",
-    "title": "Module Title",
-    "objectives": ["Key pedagogic goals"],
-    "steps": [{"step": 1, "title": "Phase Name", "activity": "Actionable task", "outcome": "Intended result"}],
-    "assignment": "A reflective writing or practical challenge."
-  },
-  "recommendedReading": [{"title": "Text Name", "reason": "Connection to current query", "href": "/contents/path"}],
-  "references": [{"scripture": "Full Name", "chapter": 0, "verse": 0}]
-}`;
+  "explanation": "Main explanation (1-2 paragraphs)",
+  "summary": "Brief summary (20-30 words)",
+  "keyTerms": [{"term": "English", "meaning": "Definition", "sanskrit": "Sanskrit"}]
+}
+
+Keep responses focused and under 400 words.`;
 
 function parseGemmaJsonResponse(resultText: string): AIResponse {
   const keyedObject = extractParsableObjectByKey(resultText, "explanation");
@@ -302,7 +281,10 @@ function extractJsonObject(input: string): string | null {
   return input.slice(start, end + 1).trim();
 }
 
-function extractParsableObjectByKey(input: string, key: string): Record<string, unknown> | null {
+function extractParsableObjectByKey(
+  input: string,
+  key: string,
+): Record<string, unknown> | null {
   const keyToken = `"${key}"`;
   let keyIndex = input.lastIndexOf(keyToken);
 
@@ -425,7 +407,9 @@ function buildGroundingPacket(query: AIQuery): GroundingPacket {
     .sort((a, b) => b.score - a.score)
     .slice(0, 3)
     .map(({ verse, whyRelevant }) => {
-      const scripture = scriptureData.find((item) => item.id === verse.scriptureId);
+      const scripture = scriptureData.find(
+        (item) => item.id === verse.scriptureId,
+      );
       return {
         id: verse.id,
         scriptureId: verse.scriptureId,
@@ -481,10 +465,10 @@ function buildGroundingPacket(query: AIQuery): GroundingPacket {
     })
     .filter(
       (
-        item
+        item,
       ): item is GroundingScripture & {
         score: number;
-      } => Boolean(item)
+      } => Boolean(item),
     )
     .sort((a, b) => b.score - a.score)
     .slice(0, 3)
@@ -508,7 +492,7 @@ function groundingPacketToPrompt(packet: GroundingPacket): string {
   Sanskrit: ${verse.sanskrit}
   Transliteration: ${verse.transliteration}
   Translation: ${verse.translation}
-  Commentary: ${verse.commentary || "None"}`
+  Commentary: ${verse.commentary || "None"}`,
     )
     .join("\n");
 
@@ -517,7 +501,7 @@ function groundingPacketToPrompt(packet: GroundingPacket): string {
       (scripture) => `- ${scripture.title} (${scripture.category})
   Why relevant: ${scripture.whyRelevant}
   Description: ${scripture.description}
-  Href: ${scripture.href}`
+  Href: ${scripture.href}`,
     )
     .join("\n");
 
@@ -634,7 +618,7 @@ async function cacheResponse(key: string, response: AIResponse): Promise<void> {
  */
 export async function generateExplanation(
   query: AIQuery,
-  userId: string = "anonymous"
+  userId: string = "anonymous",
 ): Promise<{
   response: AIResponse;
   cached: boolean;
@@ -645,7 +629,7 @@ export async function generateExplanation(
   const rateLimitCheck = await checkRateLimit(userId);
   if (!rateLimitCheck.success) {
     throw new Error(
-      `Rate limit exceeded. Try again in ${Math.ceil((rateLimitCheck.reset - Date.now()) / 1000)} seconds.`
+      `Rate limit exceeded. Try again in ${Math.ceil((rateLimitCheck.reset - Date.now()) / 1000)} seconds.`,
     );
   }
 
@@ -676,7 +660,7 @@ export async function generateExplanation(
       resultText = await generateWithOllama(userPrompt);
     } else {
       throw new Error(
-        "Gemma 4 via Ollama is not available. For local development, run: ollama pull gemma4:latest && ollama serve"
+        "Gemma 4 via Ollama is not available. For local development, run: ollama pull gemma4:latest && ollama serve",
       );
     }
 
@@ -696,7 +680,11 @@ export async function generateExplanation(
     };
   } catch (error) {
     console.error("Gemma 4 generation error:", error);
-    throw new Error(error instanceof Error ? error.message : "Failed to generate AI explanation");
+    throw new Error(
+      error instanceof Error
+        ? error.message
+        : "Failed to generate AI explanation",
+    );
   }
 }
 
@@ -705,7 +693,7 @@ export async function generateExplanation(
  */
 export async function* generateExplanationStream(
   query: AIQuery,
-  userId: string = "anonymous"
+  userId: string = "anonymous",
 ): AsyncGenerator<string, void, unknown> {
   // Check rate limit
   const rateLimitCheck = await checkRateLimit(userId);
@@ -715,50 +703,72 @@ export async function* generateExplanationStream(
 
   try {
     const backend = await resolveGemmaBackend();
+    const grounding = buildGroundingPacket(query);
+    const userPrompt = buildPrompt(query, grounding);
 
     if (backend === "local" || backend === "cloud") {
-      // Create a timeout promise
-      const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(() => reject(new Error("Request timeout")), 10000); // 10 second timeout
-      });
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
 
-      // Use non-streaming for now to get faster response, then stream chunks
-      const fetchPromise = fetch(`${OLLAMA_URL}/api/generate`, {
+      const response = await fetch(`${OLLAMA_URL}/api/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({
           model: OLLAMA_MODEL,
-          prompt: `You are Hind AI, an expert on Hindu scriptures and philosophy. Provide a concise, accurate answer: ${query.query}`,
-          stream: false, // Get full response first
+          prompt: `${SYSTEM_PROMPT}\n\n${userPrompt}`,
+          stream: true,
+          options: {
+            num_predict: 500,  // Limit for fast streaming
+            temperature: 0.7,
+            top_k: 40,
+            top_p: 0.9,
+          },
         }),
       });
 
-      const response = (await Promise.race([fetchPromise, timeoutPromise])) as Response;
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
         const errorText = await response.text().catch(() => "Unknown error");
-        console.error("Ollama request failure:", response.status, errorText);
-        throw new Error(`Ollama request failed: ${response.status}`);
+        console.error("Ollama streaming failure:", response.status, errorText);
+        throw new Error(`Ollama streaming failed: ${response.status}`);
       }
 
-      const data = await response.json();
-      const fullResponse = data.response || "No response generated";
+      if (!response.body) throw new Error("No response body from Ollama");
 
-      // Stream the response in chunks
-      const chunks = fullResponse.match(/.{1,50}(\s|$)/g) || [fullResponse];
-      for (const chunk of chunks) {
-        yield chunk;
-        // Small delay to simulate streaming
-        await new Promise((resolve) => setTimeout(resolve, 50));
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        const lines = chunk.split("\n").filter(Boolean);
+
+        for (const line of lines) {
+          try {
+            const parsed = JSON.parse(line);
+            if (parsed.message && parsed.message.content) {
+              yield parsed.message.content;
+            }
+          } catch (_e) {
+            // Partial JSON chunk, skip for next line
+          }
+        }
       }
     } else {
-      throw new Error("Gemma 4 via Ollama is not available. Please ensure Ollama is running.");
+      throw new Error(
+        "Gemma 4 via Ollama is not available. Please run: ollama pull gemma4:latest && ollama serve",
+      );
     }
-  } catch (error) {
-    console.error("Streaming error:", error);
-    if (error instanceof Error && error.message === "Request timeout") {
-      yield "I apologize, but the AI service is taking longer than expected to respond. Please try again in a moment.";
+  } catch (error: any) {
+    if (error.name === "AbortError") {
+      console.warn("Model connection timed out after 60s.");
+      yield "I apologize, but the scholarly analysis is taking longer than usual. Please ensure your local server has enough resources for the model.";
     } else {
+      console.error("Streaming error:", error);
       yield "I apologize, but I'm having trouble connecting to the AI service. Please try again in a moment.";
     }
   }
@@ -818,7 +828,8 @@ export async function checkGemmaAvailability(): Promise<{
       available: false,
       type: "none",
       model: "none",
-      error: "Gemma 4 via Ollama is not available. Please run: ollama pull gemma4:4b",
+      error:
+        "Gemma 4 via Ollama is not available. Please run: ollama pull gemma4:latest",
     };
   }
 
@@ -861,6 +872,12 @@ async function generateWithOllama(prompt: string): Promise<string> {
       prompt: `${SYSTEM_PROMPT}\n\n${prompt}`,
       stream: false,
       format: "json",
+      options: {
+        num_predict: 500,  // Limit output tokens for speed
+        temperature: 0.7,
+        top_k: 40,
+        top_p: 0.9,
+      },
     }),
   });
 
@@ -874,7 +891,7 @@ async function generateWithOllama(prompt: string): Promise<string> {
  */
 export async function translateSanskrit(
   sanskrit: string,
-  targetLang: "en" | "hi" = "en"
+  targetLang: "en" | "hi" = "en",
 ): Promise<{ translation: string; transliteration: string }> {
   const prompt = `Translate this Sanskrit text to ${targetLang === "hi" ? "Hindi" : "English"}.
 Provide:
@@ -897,7 +914,7 @@ Response format (JSON):
       resultText = await generateWithOllama(prompt);
     } else {
       throw new Error(
-        "Gemma 4 via Ollama is not available. For local development: ollama pull gemma4:latest && ollama serve"
+        "Gemma 4 via Ollama is not available. For local development: ollama pull gemma4:latest && ollama serve",
       );
     }
 
@@ -911,7 +928,8 @@ Response format (JSON):
           };
         } catch {
           return {
-            translation: normalizePlainText(resultText) || "Translation unavailable",
+            translation:
+              normalizePlainText(resultText) || "Translation unavailable",
             transliteration: sanskrit,
           };
         }

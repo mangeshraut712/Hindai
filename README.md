@@ -4,14 +4,14 @@
   <img src="https://img.shields.io/badge/TypeScript-5.7.2-blue?style=for-the-badge&logo=typescript" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Next.js-15.5.15-saffron?style=for-the-badge&logo=next.js" alt="Next.js" />
   <img src="https://img.shields.io/badge/React-19.2.5-blue?style=for-the-badge&logo=react" alt="React" />
-  <img src="https://img.shields.io/badge/Gemma%204%2031B-gold?style=for-the-badge&logo=ollama" alt="Gemma 4 31B" />
+  <img src="https://img.shields.io/badge/Gemma%204%208B-gold?style=for-the-badge&logo=ollama" alt="Gemma 4 8B" />
   <img src="https://img.shields.io/badge/Docker-Ready-blue?style=for-the-badge&logo=docker" alt="Docker" />
   <img src="https://img.shields.io/badge/License-CC--BY--4.0-lightgrey?style=for-the-badge" alt="License" />
 </div>
 
 > **🧘‍♂️ Your AI Guru for Ancient Wisdom | ज्ञान से मोक्ष तक (From Knowledge to Liberation)**
 
-**Hind AI** is a cutting-edge AI-powered spiritual learning platform that democratizes access to ancient Indian wisdom using **Gemma 4 31B via Ollama**. Our platform features advanced RAG pipelines, multimodal Sanskrit analysis, function calling tools, and complete offline capability - all built for the Kaggle Gemma 4 Hackathon.
+**Hind AI** is a cutting-edge AI-powered spiritual learning platform that democratizes access to ancient Indian wisdom using **Gemma 4 8B via Ollama**. Our platform features advanced RAG pipelines, multimodal Sanskrit analysis, function calling tools, and complete offline capability - all built for the Kaggle Gemma 4 Hackathon.
 
 ```
 "सत्यमेव जयते · नमस्ते · ॐ" - Truth Alone Triumphs · Welcome · Om
@@ -36,7 +36,7 @@
 
 ### 🤖 **Guru AI - Advanced Spiritual Chatbot**
 
-- **🧠 Gemma 4 31B Powered**: Local inference with 31B parameter instruction-tuned model via Ollama
+- **🧠 Gemma 4 8B Powered**: Local inference with fast 8B parameter instruction-tuned model via Ollama (~8s response time)
 - **🔍 RAG Pipeline**: Context-grounded answers from scripture database with citations
 - **🛠️ Function Calling**: Advanced tools - `search_verse()`, `find_related()`, `explain_sanskrit()`
 - **📜 Real-time Sanskrit**: Devanagari rendering with Roman transliteration

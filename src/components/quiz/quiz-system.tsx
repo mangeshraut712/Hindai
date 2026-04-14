@@ -120,10 +120,10 @@ export function QuizSystem() {
       if (data.response?.explanation) {
         // Parse the AI response
         const content = data.response.explanation;
-        const questionMatch = content.match(/Question:\s*(.+?)(?=Options:|$)/s);
-        const optionsMatch = content.match(/Options:\s*(.+?)(?=Correct Answer:|$)/s);
+        const questionMatch = content.match(/Question:\s*([\s\S]+?)(?=Options:|$)/);
+        const optionsMatch = content.match(/Options:\s*([\s\S]+?)(?=Correct Answer:|$)/);
         const correctMatch = content.match(/Correct Answer:\s*(\d)/);
-        const explanationMatch = content.match(/Explanation:\s*(.+)$/s);
+        const explanationMatch = content.match(/Explanation:\s*([\s\S]+)$/);
 
         if (questionMatch && optionsMatch && correctMatch && explanationMatch) {
           const questionText = questionMatch[1].trim();

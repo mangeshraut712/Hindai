@@ -1,6 +1,10 @@
-node_modules/
-.next/
-coverage/
-playwright-report/
-test-results/
+# Generated Next.js files
 next-env.d.ts
+.next/
+
+# Dependencies
+node_modules/
+
+# Build output
+out/
+dist/
