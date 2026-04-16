@@ -400,8 +400,8 @@ VERCEL_ANALYTICS_ID=your_vercel_analytics_id
 
 ### Deployment Readiness
 
-- GitHub Actions runs comprehensive CI: Prettier, ESLint, TypeScript, Vitest, Next.js build, Playwright E2E, Lighthouse performance.
-- The Playwright suite uses a dedicated local port (`3100`) so CI and local smoke tests do not collide with an already-running dev server.
+- GitHub Actions runs CI: Prettier, ESLint, TypeScript, Next.js build (tests temporarily disabled)
+- Tests are temporarily commented out in CI due to missing test files
 - Vercel deploys should target the linked `hindai` project and use preview deploys for verification before promoting changes.
 - API responses are served with `Cache-Control: no-store`, and the generic cross-origin wildcard headers were removed from the Next.js config.
 
