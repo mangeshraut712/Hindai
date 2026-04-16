@@ -200,6 +200,7 @@ async function isOllamaAvailable(): Promise<boolean> {
     const response = await fetch(`${OLLAMA_URL}/api/tags`, {
       method: "GET",
       signal: controller.signal,
+      cache: "no-store",
     });
     return response.ok;
   } catch {
@@ -708,63 +709,87 @@ export async function* generateExplanationStream(
 
     if (backend === "local" || backend === "cloud") {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 30_000); // 30s for faster streaming
 
-      const response = await fetch(`${OLLAMA_URL}/api/generate`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        signal: controller.signal,
-        body: JSON.stringify({
-          model: OLLAMA_MODEL,
-          prompt: `${SYSTEM_PROMPT}\n\n${userPrompt}`,
-          stream: true,
-          options: {
-            num_predict: 500,  // Limit for fast streaming
-            temperature: 0.7,
-            top_k: 40,
-            top_p: 0.9,
-          },
-        }),
-      });
+      try {
+        const response = await fetch(`${OLLAMA_URL}/api/generate`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          signal: controller.signal,
+          body: JSON.stringify({
+            model: OLLAMA_MODEL,
+            prompt: `${SYSTEM_PROMPT}\n\n${userPrompt}`,
+            stream: true,
+            options: {
+              num_predict: 200,
+              temperature: 0.7,
+              top_k: 40,
+              top_p: 0.9,
+            },
+          }),
+        });
 
-      clearTimeout(timeoutId);
+        if (!response.ok) {
+          const errorText = await response.text().catch(() => "Unknown error");
+          console.error("Ollama streaming failure:", response.status, errorText);
+          throw new Error(`Ollama streaming failed: ${response.status}`);
+        }
 
-      if (!response.ok) {
-        const errorText = await response.text().catch(() => "Unknown error");
-        console.error("Ollama streaming failure:", response.status, errorText);
-        throw new Error(`Ollama streaming failed: ${response.status}`);
-      }
+        if (!response.body) throw new Error("No response body from Ollama");
 
-      if (!response.body) throw new Error("No response body from Ollama");
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
 
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
+        while (true) {
+          const { done, value } = await reader.read();
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split("\n").filter(Boolean);
-
-        for (const line of lines) {
-          try {
-            const parsed = JSON.parse(line);
-            if (parsed.message && parsed.message.content) {
-              yield parsed.message.content;
+          if (done) {
+            // Flush any remaining buffer content
+            if (buffer.trim()) {
+              try {
+                const parsed = JSON.parse(buffer.trim());
+                if (typeof parsed.response === "string") {
+                  yield parsed.response;
+                }
+              } catch {
+                // ignore incomplete final chunk
+              }
             }
-          } catch (_e) {
-            // Partial JSON chunk, skip for next line
+            break;
+          }
+
+          if (value) {
+            buffer += decoder.decode(value, { stream: true });
+            const parts = buffer.split("\n");
+            buffer = parts.pop() ?? "";
+
+            for (const line of parts) {
+              const trimmed = line.trim();
+              if (!trimmed) continue;
+              try {
+                const parsed = JSON.parse(trimmed);
+                if (typeof parsed.response === "string") {
+                  yield parsed.response;
+                } else if (parsed.message && typeof parsed.message.content === "string") {
+                  yield parsed.message.content;
+                }
+              } catch {
+                // Ignore partial JSON parsing errors
+              }
+            }
           }
         }
+      } finally {
+        clearTimeout(timeoutId);
       }
     } else {
       throw new Error(
         "Gemma 4 via Ollama is not available. Please run: ollama pull gemma4:latest && ollama serve",
       );
     }
-  } catch (error: any) {
-    if (error.name === "AbortError") {
+  } catch (error: unknown) {
+    if (error instanceof Error && error.name === "AbortError") {
       console.warn("Model connection timed out after 60s.");
       yield "I apologize, but the scholarly analysis is taking longer than usual. Please ensure your local server has enough resources for the model.";
     } else {
@@ -873,7 +898,7 @@ async function generateWithOllama(prompt: string): Promise<string> {
       stream: false,
       format: "json",
       options: {
-        num_predict: 500,  // Limit output tokens for speed
+        num_predict: 200,  // Limit output tokens for speed
         temperature: 0.7,
         top_k: 40,
         top_p: 0.9,

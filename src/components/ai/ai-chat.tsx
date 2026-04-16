@@ -108,7 +108,7 @@ export function AIChat({
     ]);
 
     try {
-      const response = await fetch("/api/ai/stream/", {
+      const response = await fetch("/api/ai/stream", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

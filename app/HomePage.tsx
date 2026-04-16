@@ -76,6 +76,9 @@ export default function HomePage() {
                   <p className="font-devanagari text-sm tracking-[0.32em] text-primary">
                     ज्ञान से मोक्ष तक
                   </p>
+                  <p className="font-devanagari text-lg tracking-[0.18em] text-muted-foreground">
+                    सत्यमेव जयते · नमस्ते · ॐ
+                  </p>
                   <h1 className="font-serif text-5xl font-semibold tracking-[-0.05em] text-foreground sm:text-6xl lg:text-7xl">
                     Ancient wisdom,
                     <br />

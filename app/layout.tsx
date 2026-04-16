@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Cormorant_Garamond, Noto_Serif_Devanagari } from "next/font/google";
+import {
+  Manrope,
+  Cormorant_Garamond,
+  Noto_Serif_Devanagari,
+} from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "./providers";
@@ -28,7 +32,8 @@ const notoSerifDevanagari = Noto_Serif_Devanagari({
 export const metadata: Metadata = {
   metadataBase: new URL("https://hindai.dev"),
   title: {
-    default: "Hind AI - AI-Powered Digital Library of Ancient Indian Scriptures",
+    default:
+      "Hind AI - AI-Powered Digital Library of Ancient Indian Scriptures",
     template: "%s | Hind AI",
   },
   description:
@@ -90,7 +95,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Hind AI - AI-Powered Digital Library",
-    description: "Discover ancient Indian wisdom through AI-powered exploration.",
+    description:
+      "Discover ancient Indian wisdom through AI-powered exploration.",
     images: ["/og_home.png"],
   },
   alternates: {
@@ -120,13 +126,18 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
         {/* Structured Data for WebSite */}
         <script
           type="application/ld+json"
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
@@ -141,7 +152,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 "@type": "SearchAction",
                 target: {
                   "@type": "EntryPoint",
-                  urlTemplate: "https://hindai.dev/contents?q={search_term_string}",
+                  urlTemplate:
+                    "https://hindai.dev/contents?q={search_term_string}",
                 },
                 "query-input": "required name=search_term_string",
               },
@@ -151,6 +163,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Structured Data for Organization */}
         <script
           type="application/ld+json"
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
@@ -169,6 +182,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body
+        suppressHydrationWarning
         className={`${manrope.variable} ${cormorant.variable} ${notoSerifDevanagari.variable} min-h-screen bg-background font-sans antialiased`}
       >
         <Providers>{children}</Providers>

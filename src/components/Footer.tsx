@@ -10,6 +10,7 @@ const footerGroups = [
     links: [
       { label: "Library", href: "/contents/" },
       { label: "Guru AI", href: "/ai-guide/" },
+      { label: "Daily", href: "/daily/" },
       { label: "Study Paths", href: "/study-paths/" },
       { label: "Quiz", href: "/quiz/" },
       { label: "Structure", href: "/structure/" },

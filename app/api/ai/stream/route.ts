@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { generateExplanationStream, getAIStatus } from "@/lib/ai/gemma";
 
+export const dynamic = "force-dynamic";
+
 /**
  * Streaming AI Route - Next.js 15 + React 19
  * Real-time AI responses with Server Streaming
