@@ -9,7 +9,9 @@ test.describe("AI Chat", () => {
     await expect(page.locator("h1")).toContainText(/living conversation/i);
 
     // Check chat interface
-    await expect(page.locator('input[placeholder*="Ask about scriptures"]')).toBeVisible();
+    await expect(
+      page.locator('input[placeholder*="Ask about scriptures"]'),
+    ).toBeVisible();
   });
 
   test("should send an explain-mode query", async ({ page }) => {
@@ -22,19 +24,28 @@ test.describe("AI Chat", () => {
     });
 
     await page.goto("/ai-guide", { waitUntil: "networkidle" });
-    await page.fill('input[placeholder*="Ask about scriptures"]', "What is karma yoga?");
+    await page.fill(
+      'input[placeholder*="Ask about scriptures"]',
+      "What is karma yoga?",
+    );
     await page.getByRole("button", { name: /send message/i }).click();
-    await expect(page.getByText(/Karma Yoga means acting with discipline/i)).toBeVisible();
+    await expect(
+      page.getByText(/Karma Yoga means acting with discipline/i),
+    ).toBeVisible();
   });
 
-  test("should render compare results as a structured summary", async ({ page }) => {
+  test("should render compare results as a structured summary", async ({
+    page,
+  }) => {
     await page.route("**/api/ai/stream/", async (route) => {
       await route.fulfill({
         status: 200,
         contentType: "text/plain; charset=utf-8",
         headers: {
           "x-hindai-compare-card": JSON.stringify({
-            commonGround: ["Both texts connect disciplined practice with self-mastery."],
+            commonGround: [
+              "Both texts connect disciplined practice with self-mastery.",
+            ],
             differences: [
               {
                 topic: "Primary lens",
@@ -42,7 +53,9 @@ test.describe("AI Chat", () => {
                   "The Gita frames action in duty, while Yoga Sutras frames practice in mind training.",
               },
             ],
-            classroomUse: ["Use both texts to compare action and contemplation."],
+            classroomUse: [
+              "Use both texts to compare action and contemplation.",
+            ],
           }),
         },
         body: "Comparison complete.",
@@ -51,11 +64,15 @@ test.describe("AI Chat", () => {
 
     await page.goto("/ai-guide", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: /compare texts/i }).click();
-    await page.getByRole("button", { name: "Bhagavad Gita", exact: true }).click();
-    await page.getByRole("button", { name: "Yoga Sutras", exact: true }).click();
+    await page
+      .getByRole("button", { name: "Bhagavad Gita", exact: true })
+      .click();
+    await page
+      .getByRole("button", { name: "Yoga Sutras", exact: true })
+      .click();
     await page.fill(
       'input[placeholder*="Compare two texts"]',
-      "Compare Bhagavad Gita and Yoga Sutras"
+      "Compare Bhagavad Gita and Yoga Sutras",
     );
     await page.getByRole("button", { name: /send message/i }).click();
 
@@ -77,6 +94,8 @@ test.describe("AI Chat", () => {
     await page.goto("/ai-guide", { waitUntil: "networkidle" });
     await page.fill('input[placeholder*="Ask about scriptures"]', "Test query");
     await page.getByRole("button", { name: /send message/i }).click();
-    await expect(page.getByText(/having trouble connecting to the AI service/i)).toBeVisible();
+    await expect(
+      page.getByText(/having trouble connecting to the AI service/i),
+    ).toBeVisible();
   });
 });

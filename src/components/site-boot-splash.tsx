@@ -52,7 +52,10 @@ export function SiteBootSplash() {
           key="boot-splash"
           className="fixed inset-0 z-[120] flex items-center justify-center overflow-hidden bg-background"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
+          exit={{
+            opacity: 0,
+            transition: { duration: 0.8, ease: "easeInOut" },
+          }}
         >
           <div className="boot-splash-backdrop" aria-hidden="true" />
           <motion.div

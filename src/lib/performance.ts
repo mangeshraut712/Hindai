@@ -85,7 +85,7 @@ class PerformanceMonitor {
     if ("performance" in window && "getEntriesByType" in performance) {
       window.addEventListener("load", () => {
         const navigation = performance.getEntriesByType(
-          "navigation"
+          "navigation",
         )[0] as PerformanceNavigationTiming;
         if (navigation) {
           this.recordMetric({
@@ -115,7 +115,10 @@ class PerformanceMonitor {
 
     // Log to console in development
     if (process.env.NODE_ENV === "development") {
-      console.log(`[Performance] ${metric.name}: ${metric.value}ms`, metric.metadata);
+      console.log(
+        `[Performance] ${metric.name}: ${metric.value}ms`,
+        metric.metadata,
+      );
     }
   }
 
@@ -143,7 +146,8 @@ export function usePerformance() {
   return {
     recordMetric: performanceMonitor.recordMetric.bind(performanceMonitor),
     getMetrics: performanceMonitor.getMetrics.bind(performanceMonitor),
-    getAverageMetric: performanceMonitor.getAverageMetric.bind(performanceMonitor),
+    getAverageMetric:
+      performanceMonitor.getAverageMetric.bind(performanceMonitor),
   };
 }
 
@@ -162,7 +166,10 @@ export function measureExecutionTime<T>(name: string, fn: () => T): T {
   return result;
 }
 
-export async function measureAsyncExecutionTime<T>(name: string, fn: () => Promise<T>): Promise<T> {
+export async function measureAsyncExecutionTime<T>(
+  name: string,
+  fn: () => Promise<T>,
+): Promise<T> {
   const start = performance.now();
   const result = await fn();
   const end = performance.now();

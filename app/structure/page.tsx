@@ -1,6 +1,13 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { BookOpen, BookText, LibraryBig, ScrollText, Sparkles, Trees } from "lucide-react";
+import {
+  BookOpen,
+  BookText,
+  LibraryBig,
+  ScrollText,
+  Sparkles,
+  Trees,
+} from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -13,7 +20,11 @@ export const metadata: Metadata = {
 
 const summaryStats = [
   { label: "Vedas", value: "4", note: "Rig, Yajur, Sama, Atharva" },
-  { label: "Upanishads", value: "108+", note: "recognized philosophical texts" },
+  {
+    label: "Upanishads",
+    value: "108+",
+    note: "recognized philosophical texts",
+  },
   { label: "Mahapuranas", value: "18", note: "major Puranas" },
   { label: "Itihasas", value: "2", note: "Ramayana and Mahabharata" },
 ];
@@ -60,7 +71,8 @@ const structureSections = [
 const vedaLayers = [
   {
     name: "Samhitas",
-    description: "Collections of hymns and mantras used in praise, ritual, and invocation.",
+    description:
+      "Collections of hymns and mantras used in praise, ritual, and invocation.",
   },
   {
     name: "Brahmanas",
@@ -86,7 +98,10 @@ export default function StructurePage() {
 
       <main className="flex-1">
         <section className="hero-mesh relative overflow-hidden border-b border-border/60">
-          <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
+          <div
+            className="grain-mask absolute inset-0 opacity-45"
+            aria-hidden="true"
+          />
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.7fr)] lg:px-8">
             <div className="max-w-3xl">
               <span className="eyebrow">Knowledge Structure</span>
@@ -94,13 +109,15 @@ export default function StructurePage() {
                 Hindu scripture is a tradition, not a closed shelf.
               </h1>
               <p className="section-copy mt-5">
-                Hinduism does not have a fixed number of scriptures. Its vast body of literature was
-                compiled over thousands of years and is broadly organized into two major categories:{" "}
+                Hinduism does not have a fixed number of scriptures. Its vast
+                body of literature was compiled over thousands of years and is
+                broadly organized into two major categories:{" "}
                 <strong>Shruti</strong> and <strong>Smriti</strong>.
               </p>
               <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
-                The foundational body includes 4 Vedas, over 108 recognized Upanishads, 18 Major
-                Puranas, and 2 major Epics. This page is the structural map for that world.
+                The foundational body includes 4 Vedas, over 108 recognized
+                Upanishads, 18 Major Puranas, and 2 major Epics. This page is
+                the structural map for that world.
               </p>
             </div>
 
@@ -121,7 +138,9 @@ export default function StructurePage() {
                       <p className="mt-2 font-serif text-3xl font-semibold text-foreground">
                         {item.value}
                       </p>
-                      <p className="mt-2 text-sm text-muted-foreground">{item.note}</p>
+                      <p className="mt-2 text-sm text-muted-foreground">
+                        {item.note}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -176,9 +195,10 @@ export default function StructurePage() {
                     Each Veda is layered, not singular.
                   </h2>
                   <p className="mt-4 text-sm leading-7 text-muted-foreground">
-                    The Vedas are not single books in the modern sense. They are layered textual
-                    traditions containing hymns, ritual exposition, meditative transition texts, and
-                    philosophical teachings.
+                    The Vedas are not single books in the modern sense. They are
+                    layered textual traditions containing hymns, ritual
+                    exposition, meditative transition texts, and philosophical
+                    teachings.
                   </p>
                 </div>
 
@@ -191,7 +211,9 @@ export default function StructurePage() {
                       <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
                         <LibraryBig className="size-5" />
                       </div>
-                      <h3 className="mt-4 text-2xl font-semibold text-foreground">{layer.name}</h3>
+                      <h3 className="mt-4 text-2xl font-semibold text-foreground">
+                        {layer.name}
+                      </h3>
                       <p className="mt-3 text-sm leading-7 text-muted-foreground">
                         {layer.description}
                       </p>
@@ -212,12 +234,14 @@ export default function StructurePage() {
                     Revered across traditions
                   </span>
                   <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
-                    The Bhagavad Gita sits inside the Mahabharata but stands on its own.
+                    The Bhagavad Gita sits inside the Mahabharata but stands on
+                    its own.
                   </h2>
                   <p className="text-white/72 mt-4 text-sm leading-7">
-                    The Gita is part of the Mahabharata, yet it is widely revered as an independent
-                    guide to action, devotion, knowledge, and liberation. That is why it often
-                    functions as a gateway text for modern readers.
+                    The Gita is part of the Mahabharata, yet it is widely
+                    revered as an independent guide to action, devotion,
+                    knowledge, and liberation. That is why it often functions as
+                    a gateway text for modern readers.
                   </p>
                 </div>
 

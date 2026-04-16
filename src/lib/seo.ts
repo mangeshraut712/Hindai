@@ -15,7 +15,10 @@ export const organizationStructuredData: StructuredData = {
   description: "AI-Powered Digital Library of Ancient Indian Scriptures",
   url: "https://hindai.dev",
   logo: "https://hindai.dev/og_home.png",
-  sameAs: ["https://github.com/mangeshraut712/Hindai", "https://twitter.com/hindai_dev"],
+  sameAs: [
+    "https://github.com/mangeshraut712/Hindai",
+    "https://twitter.com/hindai_dev",
+  ],
   founder: {
     "@type": "Person",
     name: "Hind AI Team",
@@ -55,7 +58,7 @@ export function generateScriptureStructuredData(
     number: number;
     text: string;
     translation?: string;
-  }>
+  }>,
 ): StructuredData {
   const structuredData: StructuredData = {
     "@context": "https://schema.org",
@@ -92,7 +95,7 @@ export function generateScriptureStructuredData(
 
 // FAQ structured data
 export function generateFAQStructuredData(
-  faqs: Array<{ question: string; answer: string }>
+  faqs: Array<{ question: string; answer: string }>,
 ): StructuredData {
   return {
     "@context": "https://schema.org",
@@ -110,7 +113,7 @@ export function generateFAQStructuredData(
 
 // Breadcrumb structured data
 export function generateBreadcrumbStructuredData(
-  breadcrumbs: Array<{ name: string; url: string }>
+  breadcrumbs: Array<{ name: string; url: string }>,
 ): StructuredData {
   return {
     "@context": "https://schema.org",
@@ -125,7 +128,9 @@ export function generateBreadcrumbStructuredData(
 }
 
 // Utility function to merge structured data
-export function mergeStructuredData(...data: StructuredData[]): StructuredData[] {
+export function mergeStructuredData(
+  ...data: StructuredData[]
+): StructuredData[] {
   return data;
 }
 
@@ -135,7 +140,7 @@ export function generateMetadata(
   description: string,
   path: string = "",
   image?: string,
-  structuredData?: StructuredData[]
+  structuredData?: StructuredData[],
 ): Metadata {
   const baseUrl = "https://hindai.dev";
   const url = path ? `${baseUrl}${path}` : baseUrl;

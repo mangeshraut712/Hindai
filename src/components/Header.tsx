@@ -103,7 +103,11 @@ export function Header() {
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary" suppressHydrationWarning>
+        <nav
+          className="hidden items-center gap-6 lg:flex"
+          aria-label="Primary"
+          suppressHydrationWarning
+        >
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="gap-2">

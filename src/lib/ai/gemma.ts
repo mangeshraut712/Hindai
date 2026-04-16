@@ -731,7 +731,11 @@ export async function* generateExplanationStream(
 
         if (!response.ok) {
           const errorText = await response.text().catch(() => "Unknown error");
-          console.error("Ollama streaming failure:", response.status, errorText);
+          console.error(
+            "Ollama streaming failure:",
+            response.status,
+            errorText,
+          );
           throw new Error(`Ollama streaming failed: ${response.status}`);
         }
 
@@ -771,7 +775,10 @@ export async function* generateExplanationStream(
                 const parsed = JSON.parse(trimmed);
                 if (typeof parsed.response === "string") {
                   yield parsed.response;
-                } else if (parsed.message && typeof parsed.message.content === "string") {
+                } else if (
+                  parsed.message &&
+                  typeof parsed.message.content === "string"
+                ) {
                   yield parsed.message.content;
                 }
               } catch {
@@ -898,7 +905,7 @@ async function generateWithOllama(prompt: string): Promise<string> {
       stream: false,
       format: "json",
       options: {
-        num_predict: 200,  // Limit output tokens for speed
+        num_predict: 200, // Limit output tokens for speed
         temperature: 0.7,
         top_k: 40,
         top_p: 0.9,

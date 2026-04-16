@@ -41,7 +41,7 @@ const compareOptions = scriptureCatalog
       "rigveda",
       "ramayana",
       "srimad-bhagavatam",
-    ].includes(item.slug)
+    ].includes(item.slug),
   )
   .map((item) => ({
     id: item.slug,
@@ -58,9 +58,11 @@ export function AIChat({
   const [input, setInput] = useState(initialPrompt);
   const [isLoading, setIsLoading] = useState(false);
   const [mode, setMode] = useState<"explain" | "compare">(initialMode);
-  const [audience, setAudience] = useState<"general" | "student" | "teacher">(initialAudience);
+  const [audience, setAudience] = useState<"general" | "student" | "teacher">(
+    initialAudience,
+  );
   const [compareScriptureIds, setCompareScriptureIds] = useState<string[]>(
-    initialCompareScriptureIds.slice(0, 2)
+    initialCompareScriptureIds.slice(0, 2),
   );
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -70,7 +72,7 @@ export function AIChat({
         .map((id) => scriptureCatalog.find((item) => item.slug === id)?.name)
         .filter(Boolean)
         .join(" • "),
-    [compareScriptureIds]
+    [compareScriptureIds],
   );
 
   // Auto-scroll to bottom
@@ -145,8 +147,10 @@ export function AIChat({
         fullContent += decoder.decode(value, { stream: true });
         setMessages((prev) =>
           prev.map((msg) =>
-            msg.id === aiMessageId ? { ...msg, content: fullContent, compareCard } : msg
-          )
+            msg.id === aiMessageId
+              ? { ...msg, content: fullContent, compareCard }
+              : msg,
+          ),
         );
       }
 
@@ -162,8 +166,8 @@ export function AIChat({
                 content:
                   "I apologize, but I'm having trouble connecting to the AI service. Please try again in a moment.",
               }
-            : msg
-        )
+            : msg,
+        ),
       );
     } finally {
       setIsLoading(false);
@@ -254,7 +258,11 @@ export function AIChat({
                 {compareOptions.map((option) => (
                   <Button
                     key={option.id}
-                    variant={compareScriptureIds.includes(option.id) ? "premium" : "outline"}
+                    variant={
+                      compareScriptureIds.includes(option.id)
+                        ? "premium"
+                        : "outline"
+                    }
                     size="sm"
                     onClick={() => toggleCompareScripture(option.id)}
                   >
@@ -274,8 +282,8 @@ export function AIChat({
             </div>
           ) : (
             <p className="text-xs text-muted-foreground">
-              Ask for explanations, guided reading, study packs, and grounded references from the
-              current scripture corpus.
+              Ask for explanations, guided reading, study packs, and grounded
+              references from the current scripture corpus.
             </p>
           )}
         </div>
@@ -286,7 +294,7 @@ export function AIChat({
               key={message.id}
               className={cn(
                 "flex gap-3",
-                message.role === "user" ? "flex-row-reverse" : "flex-row"
+                message.role === "user" ? "flex-row-reverse" : "flex-row",
               )}
             >
               <div
@@ -294,7 +302,7 @@ export function AIChat({
                   "flex size-9 shrink-0 select-none items-center justify-center rounded-full border border-border/60",
                   message.role === "user"
                     ? "bg-primary text-primary-foreground"
-                    : "bg-background/80 text-foreground"
+                    : "bg-background/80 text-foreground",
                 )}
               >
                 {message.role === "user" ? (
@@ -309,7 +317,7 @@ export function AIChat({
                   "prose prose-sm max-w-[82%] rounded-[24px] px-4 py-3 shadow-[0_18px_40px_-32px_rgba(15,23,42,0.4)]",
                   message.role === "user"
                     ? "ml-auto bg-primary text-primary-foreground"
-                    : "bg-secondary/72 border border-border/60"
+                    : "bg-secondary/72 border border-border/60",
                 )}
               >
                 <div className="whitespace-pre-wrap">{message.content}</div>
@@ -324,19 +332,26 @@ export function AIChat({
                       <div className="rounded-[16px] border border-border/60 bg-background/70 p-3">
                         <p className="text-sm font-medium">Common ground</p>
                         <ul className="mt-2 space-y-2 text-xs leading-6 text-muted-foreground">
-                          {(message.compareCard.commonGround || []).map((item) => (
-                            <li key={item}>• {item}</li>
-                          ))}
+                          {(message.compareCard.commonGround || []).map(
+                            (item) => (
+                              <li key={item}>• {item}</li>
+                            ),
+                          )}
                         </ul>
                       </div>
                       <div className="rounded-[16px] border border-border/60 bg-background/70 p-3">
                         <p className="text-sm font-medium">Differences</p>
                         <ul className="mt-2 space-y-2 text-xs leading-6 text-muted-foreground">
-                          {(message.compareCard.differences || []).map((difference) => (
-                            <li key={`${difference.topic}-${difference.insight}`}>
-                              <strong>{difference.topic}:</strong> {difference.insight}
-                            </li>
-                          ))}
+                          {(message.compareCard.differences || []).map(
+                            (difference) => (
+                              <li
+                                key={`${difference.topic}-${difference.insight}`}
+                              >
+                                <strong>{difference.topic}:</strong>{" "}
+                                {difference.insight}
+                              </li>
+                            ),
+                          )}
                         </ul>
                       </div>
                     </div>
@@ -419,8 +434,8 @@ export function AIChat({
           </Button>
         </div>
         <p className="mt-2 text-xs text-muted-foreground">
-          Press Enter to send • Compare mode is grounded in the selected texts • AI responses are
-          generated in real-time
+          Press Enter to send • Compare mode is grounded in the selected texts •
+          AI responses are generated in real-time
         </p>
       </CardContent>
     </Card>

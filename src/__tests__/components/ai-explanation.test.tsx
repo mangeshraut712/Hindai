@@ -45,7 +45,7 @@ describe("AIExplanation Component", () => {
     vi.mocked(global.fetch).mockReturnValueOnce(
       new Promise((resolve) => {
         resolveFetch = resolve;
-      }) as Promise<Response>
+      }) as Promise<Response>,
     );
 
     render(<AIExplanation {...defaultProps} />);
@@ -88,7 +88,9 @@ describe("AIExplanation Component", () => {
     fireEvent.click(screen.getByText("Get AI Explanation"));
 
     await waitFor(() => {
-      expect(screen.getByText(/Failed to generate explanation/)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Failed to generate explanation/),
+      ).toBeInTheDocument();
     });
   });
 

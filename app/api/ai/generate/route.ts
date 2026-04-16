@@ -35,11 +35,22 @@ export async function OPTIONS() {
 
 export async function POST(request: NextRequest) {
   try {
-    const { prompt, scriptureId, compareScriptureIds, chapter, verse, language, mode, audience } =
-      await request.json();
+    const {
+      prompt,
+      scriptureId,
+      compareScriptureIds,
+      chapter,
+      verse,
+      language,
+      mode,
+      audience,
+    } = await request.json();
 
     if (!prompt || typeof prompt !== "string") {
-      return NextResponse.json({ error: "Prompt is required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Prompt is required" },
+        { status: 400 },
+      );
     }
 
     const userId =
@@ -58,7 +69,7 @@ export async function POST(request: NextRequest) {
         mode,
         audience,
       },
-      userId
+      userId,
     );
 
     return NextResponse.json({
@@ -76,7 +87,7 @@ export async function POST(request: NextRequest) {
       {
         error: "AI service is currently unavailable. Please try again later.",
       },
-      { status: 503 }
+      { status: 503 },
     );
   }
 }

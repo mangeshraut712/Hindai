@@ -55,8 +55,12 @@ test.describe("Accessibility", () => {
     await page.goto("/", { waitUntil: "networkidle" });
 
     await expect(page.locator("nav")).toBeVisible();
-    await expect(page.getByRole("button", { name: /open search dialog/i })).toBeVisible();
-    await expect(page.getByRole("button", { name: /switch to .* theme/i })).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: /open search dialog/i }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: /switch to .* theme/i }),
+    ).toBeVisible();
   });
 
   test("should work with reduced motion", async ({ page }) => {

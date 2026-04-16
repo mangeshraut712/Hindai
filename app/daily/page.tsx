@@ -2,7 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sun, Moon, Share2, Heart, Sparkles, Bell, BellOff, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Sun,
+  Moon,
+  Share2,
+  Heart,
+  Sparkles,
+  Bell,
+  BellOff,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MeditationTimer } from "@/components/meditation-timer";
@@ -19,7 +29,8 @@ const dailyWisdom = [
     translation:
       "You have a right to perform your prescribed duty, but you are not entitled to the fruits of action.",
     source: "Bhagavad Gita 2.47",
-    context: "The essence of Karma Yoga - focus on your duty without attachment to results.",
+    context:
+      "The essence of Karma Yoga - focus on your duty without attachment to results.",
     theme: "duty",
   },
   {
@@ -61,7 +72,8 @@ const dailyWisdom = [
     id: 6,
     sanskrit: "मन एव मनुष्याणां कारणं बन्धमोक्षयोः",
     transliteration: "Mana eva manushyanam karanam bandha mokshayoh",
-    translation: "The mind alone is the cause of bondage and liberation for humans.",
+    translation:
+      "The mind alone is the cause of bondage and liberation for humans.",
     source: "Amritabindu Upanishad",
     theme: "mind",
   },
@@ -101,7 +113,9 @@ export default function DailyWisdomPage() {
     if ("Notification" in window) {
       const permission = await Notification.requestPermission();
       setNotificationsEnabled(permission === "granted");
-      track("notification_permission_requested", { granted: permission === "granted" });
+      track("notification_permission_requested", {
+        granted: permission === "granted",
+      });
 
       if (permission === "granted") {
         // Schedule daily notification for 7 AM
@@ -138,22 +152,27 @@ export default function DailyWisdomPage() {
       });
     } else {
       await navigator.clipboard.writeText(
-        `"${currentWisdom.translation}" - ${currentWisdom.source}\n\nDiscover more at Hind AI`
+        `"${currentWisdom.translation}" - ${currentWisdom.source}\n\nDiscover more at Hind AI`,
       );
       alert("Copied to clipboard!");
     }
   };
 
   const handleNext = () => {
-    const currentIndex = dailyWisdom.findIndex((w) => w.id === currentWisdom.id);
+    const currentIndex = dailyWisdom.findIndex(
+      (w) => w.id === currentWisdom.id,
+    );
     const nextIndex = (currentIndex + 1) % dailyWisdom.length;
     setCurrentWisdom(dailyWisdom[nextIndex]);
     setIsLiked(false);
   };
 
   const handlePrevious = () => {
-    const currentIndex = dailyWisdom.findIndex((w) => w.id === currentWisdom.id);
-    const prevIndex = (currentIndex - 1 + dailyWisdom.length) % dailyWisdom.length;
+    const currentIndex = dailyWisdom.findIndex(
+      (w) => w.id === currentWisdom.id,
+    );
+    const prevIndex =
+      (currentIndex - 1 + dailyWisdom.length) % dailyWisdom.length;
     setCurrentWisdom(dailyWisdom[prevIndex]);
     setIsLiked(false);
   };
@@ -179,7 +198,9 @@ export default function DailyWisdomPage() {
               </h1>
               <Moon className="h-8 w-8 text-indigo-500" />
             </div>
-            <p className="text-lg text-muted-foreground">Daily Wisdom from Ancient Scriptures</p>
+            <p className="text-lg text-muted-foreground">
+              Daily Wisdom from Ancient Scriptures
+            </p>
             <p className="mt-2 text-sm text-orange-600">
               {new Date().toLocaleDateString("en-IN", {
                 weekday: "long",
@@ -305,7 +326,9 @@ export default function DailyWisdomPage() {
               variant="outline"
               onClick={() => setIsLiked(!isLiked)}
               className={`gap-2 ${
-                isLiked ? "border-red-300 bg-red-100 text-red-600" : "hover:bg-red-50"
+                isLiked
+                  ? "border-red-300 bg-red-100 text-red-600"
+                  : "hover:bg-red-50"
               }`}
             >
               <Heart className={`h-4 w-4 ${isLiked ? "fill-current" : ""}`} />
@@ -326,11 +349,19 @@ export default function DailyWisdomPage() {
                   : "hover:bg-green-50"
               }`}
             >
-              {notificationsEnabled ? <Bell className="h-4 w-4" /> : <BellOff className="h-4 w-4" />}
+              {notificationsEnabled ? (
+                <Bell className="h-4 w-4" />
+              ) : (
+                <BellOff className="h-4 w-4" />
+              )}
               {notificationsEnabled ? "Daily On" : "Daily Reminder"}
             </Button>
 
-            <Button onClick={toggleMeditation} variant="outline" className="gap-2 hover:bg-purple-50">
+            <Button
+              onClick={toggleMeditation}
+              variant="outline"
+              className="gap-2 hover:bg-purple-50"
+            >
               🧘 Meditate
             </Button>
 

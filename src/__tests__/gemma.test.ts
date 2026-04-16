@@ -8,7 +8,11 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { AIResponseSchema, DEFAULT_GEMMA_MODEL, resolveGemmaModel } from "@/lib/ai/gemma";
+import {
+  AIResponseSchema,
+  DEFAULT_GEMMA_MODEL,
+  resolveGemmaModel,
+} from "@/lib/ai/gemma";
 
 describe("Gemma 4 AI Integration", () => {
   describe("resolveGemmaModel", () => {

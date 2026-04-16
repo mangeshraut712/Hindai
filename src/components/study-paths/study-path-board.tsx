@@ -2,7 +2,14 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Bookmark, CheckCircle2, Download, GraduationCap, Share2, Users } from "lucide-react";
+import {
+  Bookmark,
+  CheckCircle2,
+  Download,
+  GraduationCap,
+  Share2,
+  Users,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { studyPaths } from "@/lib/study-paths";
 
@@ -59,7 +66,7 @@ export function StudyPathBoard() {
       "",
       ...path.steps.map(
         (step, index) =>
-          `${index + 1}. ${step.title}\n${step.description}\nOpen: ${window.location.origin}${step.href}`
+          `${index + 1}. ${step.title}\n${step.description}\nOpen: ${window.location.origin}${step.href}`,
       ),
     ].join("\n\n");
 
@@ -69,15 +76,20 @@ export function StudyPathBoard() {
   const paths = useMemo(
     () =>
       studyPaths.map((path) => {
-        const state = savedState[path.id] || { saved: false, completedStepIds: [] };
+        const state = savedState[path.id] || {
+          saved: false,
+          completedStepIds: [],
+        };
         return {
           ...path,
           saved: state.saved,
           completedStepIds: state.completedStepIds,
-          progress: Math.round((state.completedStepIds.length / path.steps.length) * 100),
+          progress: Math.round(
+            (state.completedStepIds.length / path.steps.length) * 100,
+          ),
         };
       }),
-    [savedState]
+    [savedState],
   );
 
   return (
@@ -114,11 +126,19 @@ export function StudyPathBoard() {
                     <Bookmark className="size-4" />
                     {path.saved ? "Saved" : "Save path"}
                   </Button>
-                  <Button variant="outline" size="sm" onClick={() => sharePath(path.id)}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => sharePath(path.id)}
+                  >
                     <Share2 className="size-4" />
                     Share
                   </Button>
-                  <Button variant="outline" size="sm" onClick={() => exportPath(path)}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => exportPath(path)}
+                  >
                     <Download className="size-4" />
                     Export
                   </Button>
@@ -131,8 +151,12 @@ export function StudyPathBoard() {
               <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground">
                 {path.title}
               </h2>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">{path.summary}</p>
-              <p className="text-foreground/84 mt-3 text-sm leading-7">{path.goal}</p>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                {path.summary}
+              </p>
+              <p className="text-foreground/84 mt-3 text-sm leading-7">
+                {path.goal}
+              </p>
 
               <div className="mt-5 rounded-full border border-border/60 bg-background/75 px-4 py-2 text-xs text-muted-foreground">
                 Progress: {path.progress}% complete
@@ -148,12 +172,16 @@ export function StudyPathBoard() {
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div>
-                          <p className="text-sm font-medium text-foreground">{step.title}</p>
+                          <p className="text-sm font-medium text-foreground">
+                            {step.title}
+                          </p>
                           <p className="mt-2 text-xs leading-6 text-muted-foreground">
                             {step.description}
                           </p>
                         </div>
-                        {completed ? <CheckCircle2 className="mt-0.5 size-5 text-primary" /> : null}
+                        {completed ? (
+                          <CheckCircle2 className="mt-0.5 size-5 text-primary" />
+                        ) : null}
                       </div>
                       <div className="mt-4 flex gap-2">
                         <Button variant="outline" size="sm" asChild>
@@ -164,7 +192,9 @@ export function StudyPathBoard() {
                           size="sm"
                           onClick={() => {
                             const nextCompleted = completed
-                              ? path.completedStepIds.filter((id) => id !== step.id)
+                              ? path.completedStepIds.filter(
+                                  (id) => id !== step.id,
+                                )
                               : [...path.completedStepIds, step.id];
 
                             persist({

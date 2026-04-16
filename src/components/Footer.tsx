@@ -40,8 +40,8 @@ export function Footer() {
             </h2>
           </div>
           <p className="max-w-xl text-sm leading-7 text-muted-foreground">
-            Hind AI brings scriptures, reflection, and AI-guided learning into one theme-aware
-            reading experience shaped for modern seekers.
+            Hind AI brings scriptures, reflection, and AI-guided learning into
+            one theme-aware reading experience shaped for modern seekers.
           </p>
           <div className="flex items-center gap-3">
             <Link
@@ -78,11 +78,14 @@ export function Footer() {
       <div className="border-t border-border/60">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <p>
-            © {new Date().getFullYear()} Hind AI. Designed for reflection, reading, and inquiry.
+            © {new Date().getFullYear()} Hind AI. Designed for reflection,
+            reading, and inquiry.
           </p>
           <div className="flex items-center gap-2">
             <Sparkles className="size-3.5 text-primary" />
-            <span>Hindi boot effect • Sanskrit-first details • Theme aware</span>
+            <span>
+              Hindi boot effect • Sanskrit-first details • Theme aware
+            </span>
           </div>
         </div>
       </div>

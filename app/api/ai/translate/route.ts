@@ -30,10 +30,16 @@ export async function POST(request: NextRequest) {
     const { sanskrit, targetLang = "en" } = await request.json();
 
     if (!sanskrit) {
-      return NextResponse.json({ error: "Sanskrit text is required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Sanskrit text is required" },
+        { status: 400 },
+      );
     }
 
-    const result = await translateSanskrit(sanskrit, targetLang === "hi" ? "hi" : "en");
+    const result = await translateSanskrit(
+      sanskrit,
+      targetLang === "hi" ? "hi" : "en",
+    );
 
     return NextResponse.json({
       sanskrit,

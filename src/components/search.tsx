@@ -4,12 +4,21 @@ import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Search as SearchIcon, X, BookOpen, Loader2 } from "lucide-react";
 import { Command } from "cmdk";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { track } from "@vercel/analytics";
 import { scriptureCatalog } from "@/lib/scripture-catalog";
-import { sampleVerses, scriptures as scriptureMeta, searchVerses } from "@/lib/data/scriptures";
+import {
+  sampleVerses,
+  scriptures as scriptureMeta,
+  searchVerses,
+} from "@/lib/data/scriptures";
 
 interface SearchResult {
   id: string;
@@ -33,7 +42,9 @@ const scriptureData: SearchResult[] = scriptureCatalog.map((item, index) => ({
 
 const verseData: SearchResult[] = sampleVerses.map((verse) => {
   const scripture = scriptureMeta.find((item) => item.id === verse.scriptureId);
-  const scriptureHref = scriptureCatalog.find((item) => item.slug === verse.scriptureId)?.href;
+  const scriptureHref = scriptureCatalog.find(
+    (item) => item.slug === verse.scriptureId,
+  )?.href;
 
   return {
     id: verse.id,
@@ -78,9 +89,11 @@ export function SearchDialog({
         const filtered = scriptureData.filter(
           (item) =>
             item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.description
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
             item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            item.sanskrit?.includes(searchQuery)
+            item.sanskrit?.includes(searchQuery),
         );
         const verseMatches = searchVerses(searchQuery)
           .map((verse) => verseData.find((item) => item.id === verse.id))
@@ -186,9 +199,13 @@ export function SearchDialog({
                       <div className="flex-1">
                         <p className="font-medium">{result.title}</p>
                         {result.sanskrit ? (
-                          <p className="font-devanagari text-xs text-primary">{result.sanskrit}</p>
+                          <p className="font-devanagari text-xs text-primary">
+                            {result.sanskrit}
+                          </p>
                         ) : null}
-                        <p className="text-sm text-muted-foreground">{result.description}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {result.description}
+                        </p>
                       </div>
                       <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">
                         {result.category}
@@ -205,8 +222,9 @@ export function SearchDialog({
               <div className="py-8 text-center text-muted-foreground">
                 <p className="mb-2">Start typing to search scriptures</p>
                 <p className="text-sm">
-                  Press <kbd className="rounded bg-muted px-1.5 py-0.5">⌘</kbd> +{" "}
-                  <kbd className="rounded bg-muted px-1.5 py-0.5">K</kbd> to open search anytime
+                  Press <kbd className="rounded bg-muted px-1.5 py-0.5">⌘</kbd>{" "}
+                  + <kbd className="rounded bg-muted px-1.5 py-0.5">K</kbd> to
+                  open search anytime
                 </p>
               </div>
             )}

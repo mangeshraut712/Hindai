@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle, XCircle, ArrowRight, Trophy, BookOpen, Sparkles } from "lucide-react";
+import {
+  CheckCircle,
+  XCircle,
+  ArrowRight,
+  Trophy,
+  BookOpen,
+  Sparkles,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -50,7 +57,8 @@ const sampleQuizQuestions: Question[] = [
   },
   {
     id: "3",
-    question: "What are the three qualities (Gunas) described in the Bhagavad Gita?",
+    question:
+      "What are the three qualities (Gunas) described in the Bhagavad Gita?",
     options: [
       "Sattva, Rajas, and Tamas",
       "Good, Bad, and Neutral",
@@ -96,7 +104,8 @@ const sampleQuizQuestions: Question[] = [
 ];
 
 export function QuizSystem() {
-  const [quizQuestions, setQuizQuestions] = useState<Question[]>(sampleQuizQuestions);
+  const [quizQuestions, setQuizQuestions] =
+    useState<Question[]>(sampleQuizQuestions);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
@@ -120,8 +129,12 @@ export function QuizSystem() {
       if (data.response?.explanation) {
         // Parse the AI response
         const content = data.response.explanation;
-        const questionMatch = content.match(/Question:\s*([\s\S]+?)(?=Options:|$)/);
-        const optionsMatch = content.match(/Options:\s*([\s\S]+?)(?=Correct Answer:|$)/);
+        const questionMatch = content.match(
+          /Question:\s*([\s\S]+?)(?=Options:|$)/,
+        );
+        const optionsMatch = content.match(
+          /Options:\s*([\s\S]+?)(?=Correct Answer:|$)/,
+        );
         const correctMatch = content.match(/Correct Answer:\s*(\d)/);
         const explanationMatch = content.match(/Explanation:\s*([\s\S]+)$/);
 
@@ -208,10 +221,12 @@ export function QuizSystem() {
       message = "Excellent! You have deep knowledge of Indian scriptures!";
       emoji = "🏆";
     } else if (percentage >= 60) {
-      message = "Good job! Keep learning and exploring these ancient wisdom texts.";
+      message =
+        "Good job! Keep learning and exploring these ancient wisdom texts.";
       emoji = "📚";
     } else {
-      message = "Keep studying! These sacred texts have profound wisdom to share.";
+      message =
+        "Keep studying! These sacred texts have profound wisdom to share.";
       emoji = "🙏";
     }
 
@@ -232,7 +247,8 @@ export function QuizSystem() {
             {emoji} {message}
           </p>
           <div className="text-sm text-muted-foreground">
-            You scored {percentage}% - {score} correct out of {quizQuestions.length} questions
+            You scored {percentage}% - {score} correct out of{" "}
+            {quizQuestions.length} questions
           </div>
           <Button onClick={handleRestart} className="mt-4">
             Try Again
@@ -245,7 +261,11 @@ export function QuizSystem() {
   return (
     <>
       <div className="mb-4 flex justify-center">
-        <Button onClick={generateAIQuiz} disabled={isGenerating} variant="outline">
+        <Button
+          onClick={generateAIQuiz}
+          disabled={isGenerating}
+          variant="outline"
+        >
           <Sparkles className="mr-2 h-4 w-4" />
           {isGenerating ? "Generating..." : "Generate AI Quiz Question"}
         </Button>
@@ -260,8 +280,9 @@ export function QuizSystem() {
               className={cn(
                 "rounded-full px-2 py-1 text-xs",
                 question.difficulty === "easy" && "bg-green-100 text-green-800",
-                question.difficulty === "medium" && "bg-yellow-100 text-yellow-800",
-                question.difficulty === "hard" && "bg-red-100 text-red-800"
+                question.difficulty === "medium" &&
+                  "bg-yellow-100 text-yellow-800",
+                question.difficulty === "hard" && "bg-red-100 text-red-800",
               )}
             >
               {question.difficulty}
@@ -285,12 +306,14 @@ export function QuizSystem() {
                   showExplanation &&
                     selectedAnswer === index &&
                     index !== question.correctAnswer &&
-                    "border-red-500 bg-red-100 hover:bg-red-100"
+                    "border-red-500 bg-red-100 hover:bg-red-100",
                 )}
                 onClick={() => handleSelect(index)}
                 disabled={showExplanation}
               >
-                <span className="mr-3 font-medium">{String.fromCharCode(65 + index)}.</span>
+                <span className="mr-3 font-medium">
+                  {String.fromCharCode(65 + index)}.
+                </span>
                 {option}
                 {showExplanation && index === question.correctAnswer && (
                   <CheckCircle className="ml-auto h-5 w-5 text-green-600" />
@@ -316,7 +339,11 @@ export function QuizSystem() {
 
           <div className="flex gap-2 pt-2">
             {!showExplanation ? (
-              <Button onClick={handleSubmit} disabled={selectedAnswer === null} className="flex-1">
+              <Button
+                onClick={handleSubmit}
+                disabled={selectedAnswer === null}
+                className="flex-1"
+              >
                 Submit Answer
               </Button>
             ) : (

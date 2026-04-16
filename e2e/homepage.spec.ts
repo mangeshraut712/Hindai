@@ -15,7 +15,9 @@ test.describe("Homepage", () => {
     await expect(page.locator("nav")).toBeVisible();
 
     // Check search functionality
-    const searchButton = page.getByRole("button", { name: /open search dialog/i });
+    const searchButton = page.getByRole("button", {
+      name: /open search dialog/i,
+    });
     await expect(searchButton).toBeVisible();
   });
 
@@ -39,7 +41,9 @@ test.describe("Homepage", () => {
 
     // Check if search dialog opens
     await expect(page.locator('[role="dialog"]')).toBeVisible();
-    await expect(page.getByPlaceholder(/search by name, description, or category/i)).toBeVisible();
+    await expect(
+      page.getByPlaceholder(/search by name, description, or category/i),
+    ).toBeVisible();
   });
 
   test("should toggle theme", async ({ page }) => {
@@ -50,6 +54,8 @@ test.describe("Homepage", () => {
 
     await page.getByRole("button", { name: /switch to .* theme/i }).click();
 
-    await expect.poll(async () => (await html.getAttribute("class")) || "").not.toBe(initialClass);
+    await expect
+      .poll(async () => (await html.getAttribute("class")) || "")
+      .not.toBe(initialClass);
   });
 });

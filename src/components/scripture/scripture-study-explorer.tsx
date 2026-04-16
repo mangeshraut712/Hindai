@@ -19,18 +19,23 @@ export function ScriptureStudyExplorer({
 }: ScriptureStudyExplorerProps) {
   const progressKey = `hindai.reading-progress.${scriptureSlug}`;
   const chapters = useMemo(
-    () => [...new Set(verses.map((verse) => verse.chapter))].sort((a, b) => a - b),
-    [verses]
+    () =>
+      [...new Set(verses.map((verse) => verse.chapter))].sort((a, b) => a - b),
+    [verses],
   );
   const [selectedChapter, setSelectedChapter] = useState(chapters[0]);
 
   const chapterVerses = useMemo(
     () =>
-      verses.filter((verse) => verse.chapter === selectedChapter).sort((a, b) => a.verse - b.verse),
-    [selectedChapter, verses]
+      verses
+        .filter((verse) => verse.chapter === selectedChapter)
+        .sort((a, b) => a.verse - b.verse),
+    [selectedChapter, verses],
   );
 
-  const [selectedVerseId, setSelectedVerseId] = useState(chapterVerses[0]?.id || verses[0]?.id);
+  const [selectedVerseId, setSelectedVerseId] = useState(
+    chapterVerses[0]?.id || verses[0]?.id,
+  );
 
   useEffect(() => {
     try {
@@ -49,12 +54,17 @@ export function ScriptureStudyExplorer({
   }, [progressKey]);
 
   const selectedVerse = useMemo(
-    () => chapterVerses.find((verse) => verse.id === selectedVerseId) || chapterVerses[0],
-    [chapterVerses, selectedVerseId]
+    () =>
+      chapterVerses.find((verse) => verse.id === selectedVerseId) ||
+      chapterVerses[0],
+    [chapterVerses, selectedVerseId],
   );
 
-  const selectedIndex = chapterVerses.findIndex((verse) => verse.id === selectedVerse?.id);
-  const previousVerse = selectedIndex > 0 ? chapterVerses[selectedIndex - 1] : null;
+  const selectedIndex = chapterVerses.findIndex(
+    (verse) => verse.id === selectedVerse?.id,
+  );
+  const previousVerse =
+    selectedIndex > 0 ? chapterVerses[selectedIndex - 1] : null;
   const nextVerse =
     selectedIndex >= 0 && selectedIndex < chapterVerses.length - 1
       ? chapterVerses[selectedIndex + 1]
@@ -67,7 +77,7 @@ export function ScriptureStudyExplorer({
       JSON.stringify({
         chapter: selectedVerse.chapter,
         verseId: selectedVerse.id,
-      })
+      }),
     );
   }, [progressKey, selectedVerse]);
 
@@ -95,7 +105,8 @@ export function ScriptureStudyExplorer({
         ))}
         {selectedVerse ? (
           <span className="text-xs text-muted-foreground">
-            Continue reading from chapter {selectedVerse.chapter}, verse {selectedVerse.verse}
+            Continue reading from chapter {selectedVerse.chapter}, verse{" "}
+            {selectedVerse.verse}
           </span>
         ) : null}
       </div>
@@ -112,14 +123,18 @@ export function ScriptureStudyExplorer({
                   Verse {selectedVerse.verse}
                 </h3>
               </div>
-              <span className="text-sm text-muted-foreground">{scriptureHighlight}</span>
+              <span className="text-sm text-muted-foreground">
+                {scriptureHighlight}
+              </span>
             </div>
 
             <div className="mt-8 flex flex-wrap gap-2">
               {chapterVerses.map((verse) => (
                 <Button
                   key={verse.id}
-                  variant={verse.id === selectedVerse.id ? "premium" : "outline"}
+                  variant={
+                    verse.id === selectedVerse.id ? "premium" : "outline"
+                  }
                   size="sm"
                   onClick={() => setSelectedVerseId(verse.id)}
                 >
@@ -177,7 +192,9 @@ export function ScriptureStudyExplorer({
                   variant="outline"
                   size="sm"
                   disabled={!previousVerse}
-                  onClick={() => previousVerse && setSelectedVerseId(previousVerse.id)}
+                  onClick={() =>
+                    previousVerse && setSelectedVerseId(previousVerse.id)
+                  }
                 >
                   <ChevronLeft className="size-4" />
                   Previous verse

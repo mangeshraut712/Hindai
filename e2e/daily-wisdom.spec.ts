@@ -22,7 +22,9 @@ test.describe("Daily Wisdom", () => {
     await likeButton.click();
 
     // Button text should change
-    await expect(page.locator("button").filter({ hasText: "Loved" })).toBeVisible();
+    await expect(
+      page.locator("button").filter({ hasText: "Loved" }),
+    ).toBeVisible();
   });
 
   test("should show meditation timer", async ({ page }) => {
@@ -48,6 +50,8 @@ test.describe("Daily Wisdom", () => {
     await page.locator("button").filter({ hasText: "Start" }).click();
 
     // Check if pause button appears
-    await expect(page.locator("button").filter({ hasText: "Pause" })).toBeVisible();
+    await expect(
+      page.locator("button").filter({ hasText: "Pause" }),
+    ).toBeVisible();
   });
 });

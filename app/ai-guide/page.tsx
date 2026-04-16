@@ -49,7 +49,10 @@ export default async function AIGuidePage({ searchParams }: AIGuidePageProps) {
 
       <main className="flex-1">
         <section className="hero-mesh relative overflow-hidden border-b border-border/60">
-          <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
+          <div
+            className="grain-mask absolute inset-0 opacity-45"
+            aria-hidden="true"
+          />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
               <span className="eyebrow">Guru AI • Gemma 4</span>
@@ -57,9 +60,9 @@ export default async function AIGuidePage({ searchParams }: AIGuidePageProps) {
                 Ask scripture questions like a living conversation.
               </h1>
               <p className="section-copy mt-5">
-                This surface is now aligned with the rest of the site: cleaner hierarchy, calmer
-                color, better typography, and enough atmosphere to still feel rooted in the source
-                traditions.
+                This surface is now aligned with the rest of the site: cleaner
+                hierarchy, calmer color, better typography, and enough
+                atmosphere to still feel rooted in the source traditions.
               </p>
             </div>
           </div>
@@ -81,8 +84,12 @@ export default async function AIGuidePage({ searchParams }: AIGuidePageProps) {
                     <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
                       <Sparkles className="size-5" />
                     </div>
-                    <h2 className="mt-5 text-2xl font-semibold text-foreground">{point.title}</h2>
-                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{point.body}</p>
+                    <h2 className="mt-5 text-2xl font-semibold text-foreground">
+                      {point.title}
+                    </h2>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                      {point.body}
+                    </p>
                   </div>
                 </div>
               ))}
