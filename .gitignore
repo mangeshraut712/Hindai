@@ -41,3 +41,6 @@ Thumbs.db
 # Ollama local models
 ollama_models/
 ollama_home/
+
+# Ollama app (local only)
+bin/
