@@ -709,7 +709,7 @@ export async function* generateExplanationStream(
 
     if (backend === "local" || backend === "cloud") {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30_000); // 30s for faster streaming
+      const timeoutId = setTimeout(() => controller.abort(), 20_000); // 20s for faster streaming
 
       try {
         const response = await fetch(`${OLLAMA_URL}/api/generate`, {
@@ -721,10 +721,11 @@ export async function* generateExplanationStream(
             prompt: `${SYSTEM_PROMPT}\n\n${userPrompt}`,
             stream: true,
             options: {
-              num_predict: 200,
-              temperature: 0.7,
-              top_k: 40,
-              top_p: 0.9,
+              num_predict: 150, // Reduced for faster responses
+              temperature: 0.6, // More deterministic
+              top_k: 30, // More focused
+              top_p: 0.8, // More focused
+              repeat_penalty: 1.0, // Prevent repetition
             },
           }),
         });

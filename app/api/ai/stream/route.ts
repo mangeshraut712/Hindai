@@ -75,6 +75,9 @@ export async function POST(req: Request) {
 
     const stream = new ReadableStream({
       async start(controller) {
+        let isClosed = false;
+        const abortController = new AbortController();
+        
         try {
           const streamGenerator = generateExplanationStream(
             {
@@ -91,13 +94,47 @@ export async function POST(req: Request) {
           );
 
           for await (const chunk of streamGenerator) {
-            controller.enqueue(encoder.encode(chunk));
+            if (abortController.signal.aborted) {
+              break;
+            }
+            if (!isClosed) {
+              try {
+                controller.enqueue(encoder.encode(chunk));
+              } catch (enqueueError) {
+                if (enqueueError instanceof Error && enqueueError.message.includes('closed')) {
+                  isClosed = true;
+                  break;
+                }
+                throw enqueueError;
+              }
+            }
           }
-          controller.close();
+          
+          if (!isClosed) {
+            try {
+              controller.close();
+              isClosed = true;
+            } catch {
+              // Ignore close errors if already closed
+              isClosed = true;
+            }
+          }
         } catch (error) {
           console.error("Streaming controller error:", error);
-          controller.error(error);
+          if (!isClosed) {
+            try {
+              controller.error(error);
+              isClosed = true;
+            } catch {
+              // Ignore error if already closed
+              isClosed = true;
+            }
+          }
         }
+      },
+      cancel() {
+        // Handle stream cancellation
+        return;
       },
     });
 
