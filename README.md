@@ -95,7 +95,7 @@
 - ✅ **Enterprise Architecture** - Redis caching, rate limiting, security
 - ✅ **2026 Tech Stack** - Next.js 15, React 19, Edge Runtime
 - ✅ **Core Test Coverage** - Unit tests with Vitest, E2E with Playwright
-- ✅ **Open Source** - MIT Licensed, fully deployed on Vercel Edge
+- ✅ **Open Source** - CC-BY-4.0 Licensed, fully deployed on Vercel Edge
 
 ---
 
@@ -110,7 +110,7 @@
 
 ### **AI & Machine Learning**
 
-- **Gemma 4 31B via Ollama** - Local AI models for offline text generation
+- **Gemma 4 8B via Ollama** - Local AI models for offline text generation
 - **Ollama API** - Local AI inference without external APIs
 - **Upstash Vector** - Vector database for semantic search
 
@@ -246,7 +246,7 @@ Hind AI - Complete Submission Package
 
 - **▲ Next.js 15**: Full-stack framework with App Router
 - **🦙 Ollama**: Local LLM runtime for Gemma 4
-- **🤖 Gemma 4 31B**: Google's 31B parameter instruction-tuned multimodal model
+- **🤖 Gemma 4 8B**: Google's 8B parameter instruction-tuned multimodal model
 - **🔍 RAG Pipeline**: Retrieval-augmented generation with vector search
 - **🛠️ Function Calling**: Advanced AI tool integration
 
@@ -369,7 +369,7 @@ graph TB
 # REQUIRED: Ollama for local Gemma 4
 # ==========================================
 OLLAMA_URL=http://localhost:11434
-OLLAMA_MODEL=gemma4:31b-it-q4_K_M
+OLLAMA_MODEL=gemma4:latest
 
 # ==========================================
 # OPTIONAL BUT RECOMMENDED ON VERCEL: Upstash Redis
@@ -396,7 +396,7 @@ VERCEL_ANALYTICS_ID=your_vercel_analytics_id
 - The app uses Ollama for local AI inference. For production deployment, ensure Ollama is running on the server.
 - `KAGGLE_API_TOKEN` is **not** used by the deployed Next.js app runtime. It is only useful for Kaggle CLI/model management workflows.
 - Without Upstash Redis, the app still works by using an in-memory cache fallback, but that cache is per-instance and not shared across Vercel invocations.
-- Current model: `gemma4:31b-it-q4_K_M` (31B instruction-tuned model with Q4_K_M quantization)
+- Current model: `gemma4:latest` (8B instruction-tuned model)
 
 ### Deployment Readiness
 
@@ -407,7 +407,7 @@ VERCEL_ANALYTICS_ID=your_vercel_analytics_id
 
 ### Model Guidance
 
-- Default model for Hind AI: `gemma4:31b-it-q4_K_M` (Gemma 4 31B instruction-tuned model)
+- Default model for Hind AI: `gemma4:latest` (Gemma 4 8B instruction-tuned model)
 - Ollama provides local inference without API keys or external dependencies.
 - For optimal performance, ensure sufficient RAM (32GB+) and GPU resources for the model.
 - Model size: ~19GB quantized (Q4_K_M) for efficient local inference
@@ -437,7 +437,7 @@ npm run test:ui      # Interactive test UI
 - **Test Results**: ✅ 11/11 unit tests passing
 - **Code Quality**: ESLint clean, TypeScript strict mode
 - **Bundle Size**: ~300kB first load, optimized with tree-shaking
-- **AI Model**: ✅ Gemma 4 31B instruction-tuned (gemma4:31b-it-q4_K_M)
+- **AI Model**: ✅ Gemma 4 8B instruction-tuned (gemma4:latest)
 - **Streaming**: ✅ Real-time AI responses with timeout protection
 
 ### **🏆 Kaggle Gemma 4 Hackathon Submission Readiness**
@@ -452,7 +452,7 @@ npm run test:ui      # Interactive test UI
 | **Gemma 4 Integration**  | ✅ Complete   | Ollama local/cloud inference, no external APIs           |
 | **RAG Pipeline**         | ✅ Complete   | Scripture grounding with vector retrieval                |
 | **Function Calling**     | ✅ Complete   | `search_verse()`, `find_related()`, `explain_sanskrit()` |
-| **Multimodal Vision**    | ✅ Complete   | Sanskrit manuscript analysis with Gemma 4 31B            |
+| **Multimodal Vision**    | ✅ Complete   | Sanskrit manuscript analysis with Gemma 4 8B            |
 | **Docker Offline**       | ✅ Complete   | `docker-compose.yml` with persistent Ollama              |
 | **Fine-tuning Script**   | ✅ Complete   | `fine-tune-gemma4.py` Unsloth implementation             |
 | **Vercel Compatibility** | ✅ Complete   | Cloud Ollama support for production deployment           |
@@ -465,7 +465,7 @@ npm run test:ui      # Interactive test UI
 - **Bundle Size**: ✅ 300kB optimized production build
 - **Security**: ✅ 4 moderate vulnerabilities (down from 12)
 - **Performance**: ✅ Lighthouse-ready with offline support
-- **AI Model**: ✅ Gemma 4 31B instruction-tuned (19GB quantized)
+- **AI Model**: ✅ Gemma 4 8B instruction-tuned (8B quantized)
 - **Dependencies**: ✅ 603 packages optimized
 
 ### **🔧 Technical Validation**
@@ -475,7 +475,7 @@ npm run test:ui      # Interactive test UI
 - **Build System**: ✅ Production-ready Next.js 15.5
 - **API Routes**: ✅ 5 functional endpoints with streaming
 - **Database**: ✅ Upstash Redis + Supabase integration
-- **AI Integration**: ✅ Ollama + Gemma 4 31B verified with streaming
+- **AI Integration**: ✅ Ollama + Gemma 4 8B verified with streaming
 
 ---
 
@@ -524,7 +524,7 @@ Cloud deployment with hosted Ollama service:
 # Set environment variables in Vercel dashboard
 OLLAMA_URL=https://your-cloud-ollama-service.com
 OLLAMA_CLOUD_URL=true
-OLLAMA_MODEL=gemma4:31b-it-q4_K_M
+OLLAMA_MODEL=gemma4:latest
 
 # Deploy
 vercel --prod
@@ -544,15 +544,15 @@ For development with local AI inference:
 brew install ollama  # macOS
 # OR curl -fsSL https://ollama.ai/install.sh | sh  # Linux
 
-# Pull Gemma 4 31B model
-ollama pull gemma4:31b-it-q4_K_M
+# Pull Gemma 4 8B model
+ollama pull gemma4:latest
 
 # Start Ollama service (in another terminal)
 ollama serve
 
 # Configure environment (optional)
 export OLLAMA_URL=http://localhost:11434
-export OLLAMA_MODEL=gemma4:31b-it-q4_K_M
+export OLLAMA_MODEL=gemma4:latest
 
 # Run the application
 npm run dev
@@ -564,15 +564,15 @@ npm run dev
 # Install Ollama
 curl -fsSL https://ollama.ai/install.sh | sh
 
-# Pull Gemma 4 31B model
-ollama pull gemma4:31b-it-q4_K_M
+# Pull Gemma 4 8B model
+ollama pull gemma4:latest
 
 # Start Ollama service
 ollama serve
 
 # Configure environment
 export OLLAMA_URL=http://localhost:11434
-export OLLAMA_MODEL=gemma4:31b-it-q4_K_M
+export OLLAMA_MODEL=gemma4:latest
 ```
 
 ### Fine-tuning for Production
@@ -724,7 +724,7 @@ Generate a Gemma 4 explanation for a verse or scripture question.
     ]
   },
   "cached": false,
-  "model": "gemma4:31b-it-q4_K_M",
+  "model": "gemma4:latest",
   "mock": false
 }
 ```

@@ -161,7 +161,7 @@ export const scriptureSections: ScriptureSection[] = [
         sanskrit: "योगसूत्र",
         category: "Philosophy",
         description:
-          "Patanjali’s concise aphorisms on mind, discipline, practice, and the stilling of mental fluctuation.",
+          "Patanjali's concise aphorisms on mind, discipline, practice, and the stilling of mental fluctuation.",
         highlight: "Mind, discipline, stillness",
         href: "/yoga-sutras/",
         language: "Sanskrit",
@@ -176,7 +176,7 @@ export const scriptureSections: ScriptureSection[] = [
         sanskrit: "योगवसिष्ठ",
         category: "Philosophy",
         description:
-          "A vast contemplative dialogue on mind, reality, freedom, and awakened perception.",
+          "A vast contemplative dialogue on mind, reality, freedom, and awakened perception. (Coming Soon)",
         highlight: "Mind, non-duality, inquiry",
         href: "/yoga-vasishtha/",
         language: "Sanskrit",
@@ -191,7 +191,7 @@ export const scriptureSections: ScriptureSection[] = [
         sanskrit: "मनुस्मृति",
         category: "Dharma",
         description:
-          "An influential dharma text on conduct, society, and moral order.",
+          "An influential dharma text on conduct, society, and moral order. (Coming Soon)",
         highlight: "Law, ethics, social duty",
         href: "/manu-smriti/",
         language: "Sanskrit",
@@ -206,7 +206,7 @@ export const scriptureSections: ScriptureSection[] = [
         sanskrit: "पराशर स्मृति",
         category: "Dharma",
         description:
-          "A dharma text often read for guidance in later historical periods and household life.",
+          "A dharma text often read for guidance in later historical periods and household life. (Coming Soon)",
         highlight: "Conduct, ritual, household life",
         href: "/parashara/",
         language: "Sanskrit",
