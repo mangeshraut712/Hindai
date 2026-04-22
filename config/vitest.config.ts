@@ -9,18 +9,6 @@ export default defineConfig({
     globals: true,
     setupFiles: ["./src/__tests__/setup.ts"],
     exclude: ["node_modules/**", "e2e/**", "playwright.config.ts", "coverage/**", ".next/**"],
-    coverage: {
-      reporter: ["text", "json", "html"],
-      exclude: ["node_modules/", "e2e/", ".next/", "src/__tests__/", "**/*.d.ts", "**/*.config.*"],
-      // Thresholds disabled for initial development
-      // Add tests incrementally and re-enable:
-      // thresholds: {
-      //   lines: 70,
-      //   functions: 70,
-      //   branches: 60,
-      //   statements: 70,
-      // },
-    },
   },
   resolve: {
     alias: {
