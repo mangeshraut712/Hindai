@@ -10,7 +10,6 @@ export default defineConfig({
     setupFiles: ["./src/__tests__/setup.ts"],
     exclude: ["node_modules/**", "e2e/**", "playwright.config.ts", "coverage/**", ".next/**"],
     coverage: {
-      provider: "v8",
       reporter: ["text", "json", "html"],
       exclude: ["node_modules/", "e2e/", ".next/", "src/__tests__/", "**/*.d.ts", "**/*.config.*"],
       // Thresholds disabled for initial development
