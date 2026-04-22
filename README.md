@@ -452,7 +452,7 @@ npm run test:ui      # Interactive test UI
 | **Gemma 4 Integration**  | ✅ Complete   | Ollama local/cloud inference, no external APIs           |
 | **RAG Pipeline**         | ✅ Complete   | Scripture grounding with vector retrieval                |
 | **Function Calling**     | ✅ Complete   | `search_verse()`, `find_related()`, `explain_sanskrit()` |
-| **Multimodal Vision**    | ✅ Complete   | Sanskrit manuscript analysis with Gemma 4 8B            |
+| **Multimodal Vision**    | ✅ Complete   | Sanskrit manuscript analysis with Gemma 4 8B             |
 | **Docker Offline**       | ✅ Complete   | `docker-compose.yml` with persistent Ollama              |
 | **Fine-tuning Script**   | ✅ Complete   | `fine-tune-gemma4.py` Unsloth implementation             |
 | **Vercel Compatibility** | ✅ Complete   | Cloud Ollama support for production deployment           |

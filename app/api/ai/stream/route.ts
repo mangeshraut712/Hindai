@@ -77,7 +77,7 @@ export async function POST(req: Request) {
       async start(controller) {
         let isClosed = false;
         const abortController = new AbortController();
-        
+
         try {
           const streamGenerator = generateExplanationStream(
             {
@@ -101,7 +101,10 @@ export async function POST(req: Request) {
               try {
                 controller.enqueue(encoder.encode(chunk));
               } catch (enqueueError) {
-                if (enqueueError instanceof Error && enqueueError.message.includes('closed')) {
+                if (
+                  enqueueError instanceof Error &&
+                  enqueueError.message.includes("closed")
+                ) {
                   isClosed = true;
                   break;
                 }
@@ -109,7 +112,7 @@ export async function POST(req: Request) {
               }
             }
           }
-          
+
           if (!isClosed) {
             try {
               controller.close();
