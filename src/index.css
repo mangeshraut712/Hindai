@@ -4,24 +4,24 @@
 @tailwind utilities;
 
 :root {
-  --background: 38 46% 95%;
+  --background: 38 46% 96%;
   --foreground: 22 18% 14%;
-  --card: 38 48% 98%;
+  --card: 38 44% 97%;
   --card-foreground: 22 18% 14%;
-  --popover: 38 48% 98%;
+  --popover: 38 44% 97%;
   --popover-foreground: 22 18% 14%;
   --primary: 24 90% 54%;
   --primary-foreground: 40 40% 98%;
-  --secondary: 36 28% 90%;
+  --secondary: 36 30% 91%;
   --secondary-foreground: 22 18% 18%;
-  --muted: 36 24% 89%;
-  --muted-foreground: 24 12% 38%;
+  --muted: 36 24% 90%;
+  --muted-foreground: 24 12% 34%;
   --accent: 42 92% 62%;
   --accent-foreground: 20 18% 14%;
   --destructive: 0 72% 48%;
   --destructive-foreground: 40 40% 98%;
-  --border: 32 24% 80%;
-  --input: 32 28% 88%;
+  --border: 32 24% 78%;
+  --input: 32 28% 86%;
   --ring: 24 90% 54%;
   --radius: 1.35rem;
   --chart-1: 12 76% 61%;
@@ -40,24 +40,24 @@
 }
 
 .dark {
-  --background: 28 20% 8%;
+  --background: 28 18% 10%;
   --foreground: 36 34% 95%;
-  --card: 28 16% 11%;
+  --card: 28 14% 14%;
   --card-foreground: 36 34% 95%;
-  --popover: 28 16% 10%;
+  --popover: 28 14% 13%;
   --popover-foreground: 36 34% 95%;
   --primary: 32 94% 63%;
   --primary-foreground: 24 18% 10%;
-  --secondary: 28 12% 16%;
+  --secondary: 28 12% 19%;
   --secondary-foreground: 36 26% 90%;
-  --muted: 28 12% 16%;
-  --muted-foreground: 34 16% 61%;
+  --muted: 28 12% 18%;
+  --muted-foreground: 34 16% 69%;
   --accent: 46 86% 66%;
   --accent-foreground: 24 18% 10%;
   --destructive: 0 64% 50%;
   --destructive-foreground: 36 34% 95%;
-  --border: 28 12% 22%;
-  --input: 28 12% 20%;
+  --border: 28 12% 28%;
+  --input: 28 12% 24%;
   --ring: 32 94% 63%;
   --chart-1: 220 70% 50%;
   --chart-2: 160 60% 45%;
@@ -115,7 +115,7 @@
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    opacity: 0.2;
+    opacity: 0.16;
     background-image:
       linear-gradient(
         120deg,
@@ -161,8 +161,8 @@
 
   .surface-panel {
     @apply relative overflow-hidden rounded-[32px] shadow-[0_36px_90px_-52px_rgba(15,23,42,0.42)] backdrop-blur-2xl;
-    background: hsl(var(--card) / 0.72);
-    border: 1px solid hsl(var(--border) / 0.65);
+    background: hsl(var(--card) / 0.8);
+    border: 1px solid hsl(var(--border) / 0.78);
   }
 
   .surface-panel::before {
@@ -176,6 +176,22 @@
         circle at top right,
         hsl(var(--accent) / 0.16),
         transparent 28%
+      );
+  }
+
+  .dark .surface-panel {
+    background: hsl(var(--card) / 0.88);
+    border-color: hsl(var(--border) / 0.82);
+    box-shadow: 0 42px 100px -58px rgba(0, 0, 0, 0.68);
+  }
+
+  .dark .surface-panel::before {
+    background:
+      linear-gradient(180deg, hsl(var(--background) / 0.16), transparent 30%),
+      radial-gradient(
+        circle at top right,
+        hsl(var(--accent) / 0.1),
+        transparent 26%
       );
   }
 
@@ -197,6 +213,26 @@
         transparent 30%
       ),
       linear-gradient(135deg, hsl(var(--background)), hsl(var(--secondary)));
+  }
+
+  .dark .hero-mesh {
+    background-image:
+      radial-gradient(
+        circle at 18% 14%,
+        hsl(var(--accent) / 0.14),
+        transparent 22%
+      ),
+      radial-gradient(
+        circle at 82% 16%,
+        hsl(var(--primary) / 0.14),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at 55% 80%,
+        hsl(var(--foreground) / 0.05),
+        transparent 26%
+      ),
+      linear-gradient(135deg, hsl(28 18% 11%), hsl(28 14% 15%));
   }
 
   .grain-mask {

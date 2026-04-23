@@ -13,22 +13,22 @@ export const metadata: Metadata = {
 const guidePoints = [
   {
     title: "Ask in plain language",
-    body: "Start with a question the way you would ask a teacher, not the way you would query a database.",
+    body: "Use Guru AI the way you would speak to a teacher: direct questions, context when needed, and clear learning goals.",
   },
   {
-    title: "Request context",
-    body: "Ask for historical framing, key Sanskrit terms, and parallels across texts when the concept feels dense.",
+    title: "Translate with Gemma 4",
+    body: "Move between Devanagari, transliteration, English, Hindi, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Gujarati, and Punjabi without leaving the study surface.",
   },
   {
     title: "Stay grounded",
-    body: "Use the catalog for shelves and use Guru AI for explanation, comparison, and guided reading.",
+    body: "Use the scripture catalog for navigation and Guru AI for explanation, comparison, translation, and guided reading.",
   },
 ];
 
 type AIGuidePageProps = {
   searchParams?: Promise<{
     prompt?: string;
-    mode?: "explain" | "compare";
+    mode?: "explain" | "compare" | "translate";
     compare?: string;
     audience?: "general" | "student" | "teacher";
   }>;
@@ -53,17 +53,49 @@ export default async function AIGuidePage({ searchParams }: AIGuidePageProps) {
             className="grain-mask absolute inset-0 opacity-45"
             aria-hidden="true"
           />
+          <div
+            className="hero-sun -left-20 top-10 h-56 w-56 opacity-80"
+            aria-hidden="true"
+          />
+          <div
+            className="hero-sun right-0 top-20 h-72 w-72 opacity-60"
+            aria-hidden="true"
+          />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-            <div className="max-w-3xl">
-              <span className="eyebrow">Guru AI • Gemma 4</span>
-              <h1 className="section-title mt-6">
-                Ask scripture questions like a living conversation.
-              </h1>
-              <p className="section-copy mt-5">
-                This surface is now aligned with the rest of the site: cleaner
-                hierarchy, calmer color, better typography, and enough
-                atmosphere to still feel rooted in the source traditions.
-              </p>
+            <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+              <div className="max-w-3xl">
+                <span className="eyebrow">Guru AI • Gemma 4</span>
+                <h1 className="section-title mt-6">
+                  Ask, compare, and translate Indian scripture with local AI.
+                </h1>
+                <p className="section-copy mt-5">
+                  Guru AI now combines grounded study prompts with an
+                  Indian-language translation tool, making it easier to move
+                  from Sanskrit or Devanagari lines into readable English or
+                  Indian-language explanations for many more learners.
+                </p>
+              </div>
+
+              <div className="surface-panel max-w-xl p-6 lg:ml-auto">
+                <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+                  Built for study
+                </p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {[
+                    "Real-time Gemma 4 answers",
+                    "Compare mode for parallel reading",
+                    "Translate Sanskrit and Devanagari",
+                    "Cleaner light and dark surfaces",
+                  ].map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground/80"
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>

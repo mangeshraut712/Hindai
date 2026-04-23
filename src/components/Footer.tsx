@@ -33,7 +33,7 @@ export function Footer() {
         <div className="space-y-6">
           <div>
             <p className="font-devanagari text-sm tracking-[0.28em] text-primary">
-              ज्ञान • साधना • संवाद
+              सत्यमेव जयते · नमस्ते · ॐ
             </p>
             <h2 className="mt-4 font-serif text-4xl font-semibold tracking-[-0.04em] text-foreground">
               A calmer way to study ancient Indian thought.

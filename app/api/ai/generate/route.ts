@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { GEMMA_MODEL, generateExplanation } from "@/lib/ai/gemma";
+import { generateExplanation, getAIStatus } from "@/lib/ai/gemma";
+
+export const runtime = "nodejs";
 
 /**
  * API Route for Gemma 4 AI Generation
@@ -9,11 +11,12 @@ import { GEMMA_MODEL, generateExplanation } from "@/lib/ai/gemma";
  */
 
 export async function GET() {
+  const aiStatus = await getAIStatus();
   return NextResponse.json({
     ok: true,
     endpoint: "/api/ai/generate/",
     methods: ["POST", "OPTIONS"],
-    model: GEMMA_MODEL,
+    model: aiStatus.model,
     usage: {
       body: {
         prompt: "Explain Bhagavad Gita 2.47 in simple English",
@@ -72,11 +75,13 @@ export async function POST(request: NextRequest) {
       userId,
     );
 
+    const aiStatus = await getAIStatus();
+
     return NextResponse.json({
       response: result.response,
       cached: result.cached,
       grounding: result.grounding,
-      model: GEMMA_MODEL,
+      model: aiStatus.model,
       mock: false,
       rateLimit: result.rateLimit,
     });
@@ -85,7 +90,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       {
-        error: "AI service is currently unavailable. Please try again later.",
+        error: error instanceof Error ? error.message : "AI service is currently unavailable. Please try again later.",
       },
       { status: 503 },
     );

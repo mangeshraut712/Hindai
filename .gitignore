@@ -45,3 +45,6 @@ ollama_home/
 
 # Ollama app (local only)
 bin/
+
+# Playwright CLI
+.playwright-cli/

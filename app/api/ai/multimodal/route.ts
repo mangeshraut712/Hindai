@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateExplanation } from "@/lib/ai/gemma";
+import { generateExplanation, getAIStatus } from "@/lib/ai/gemma";
+
+export const runtime = "nodejs";
 
 // Multimodal endpoint for Sanskrit manuscript analysis
 export async function POST(request: NextRequest) {
@@ -29,11 +31,12 @@ export async function POST(request: NextRequest) {
       multimodalQuery,
       "multimodal-user",
     );
+    const aiStatus = await getAIStatus();
 
     return NextResponse.json({
       response: result.response,
       grounded: result.grounding,
-      model: "gemma4:latest",
+      model: aiStatus.model,
       multimodal: true,
     });
   } catch (error) {

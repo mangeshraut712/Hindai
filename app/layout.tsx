@@ -111,7 +111,7 @@ export const metadata: Metadata = {
   classification: "Religious & Spiritual",
   icons: {
     icon: [{ url: "/favicon.ico" }],
-    apple: [{ url: "/logo.png", sizes: "180x180" }],
+    apple: [{ url: "/icon-144x144.png", sizes: "144x144" }],
   },
   manifest: "/manifest.json",
 };
@@ -170,7 +170,7 @@ export default function RootLayout({
               "@type": "Organization",
               name: "Hind AI",
               url: "https://hindai.dev",
-              logo: "https://hindai.dev/logo.png",
+              logo: "https://hindai.dev/icon-144x144.png",
               sameAs: ["https://github.com/mangeshraut712/Hindai"],
               contactPoint: {
                 "@type": "ContactPoint",

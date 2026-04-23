@@ -9,6 +9,10 @@
   <img src="https://img.shields.io/badge/License-CC--BY--4.0-lightgrey?style=for-the-badge" alt="License" />
 </div>
 
+<div align="center">
+  <img src="/logo.png" alt="Hind AI Logo" width="150" />
+</div>
+
 > **🧘‍♂️ Your AI Guru for Ancient Wisdom | ज्ञान से मोक्ष तक (From Knowledge to Liberation)**
 
 **Hind AI** is a cutting-edge AI-powered spiritual learning platform that democratizes access to ancient Indian wisdom using **Gemma 4 8B via Ollama**. Our platform features advanced RAG pipelines, multimodal Sanskrit analysis, function calling tools, and complete offline capability - all built for the Kaggle Gemma 4 Hackathon.
@@ -23,12 +27,8 @@
 
 ## 📋 Documentation
 
-- [**🏆 Kaggle Submission Writeup**](KAGGLE_SUBMISSION_WRITEUP.md) - Complete technical submission (1,480+ words)
-- [**🎨 Cover Image Template**](cover-image.html) - Professional cover design for submission
 - [**🔧 Fine-tuning Script**](fine-tune-gemma4.py) - Unsloth implementation for production scaling
 - [**🐳 Docker Deployment**](docker-compose.yml) - Complete offline stack configuration
-- [**📖 Hackathon Details**](docs/HACKATHON.md) - Competition requirements & strategy
-- [**🎯 Differentiation**](docs/DIFFERENTIATION.md) - Competitive advantages analysis
 
 ---
 

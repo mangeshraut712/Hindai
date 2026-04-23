@@ -1,10 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { translateSanskrit } from "@/lib/ai/gemma";
+import {
+  DEFAULT_TRANSLATION_LANGUAGE,
+  resolveTranslationLanguage,
+  TRANSLATION_LANGUAGES,
+} from "@/lib/ai/translation-languages";
 
 /**
  * API Route for Sanskrit Translation
  *
- * Translates Sanskrit verses to English or Hindi
+ * Translates Indic scripture text into English and major Indian languages
  */
 
 export async function GET() {
@@ -18,6 +23,7 @@ export async function GET() {
         targetLang: "en",
       },
     },
+    supportedLanguages: TRANSLATION_LANGUAGES,
   });
 }
 
@@ -27,24 +33,33 @@ export async function OPTIONS() {
 
 export async function POST(request: NextRequest) {
   try {
-    const { sanskrit, targetLang = "en" } = await request.json();
+    const { sanskrit, text, targetLang = DEFAULT_TRANSLATION_LANGUAGE } =
+      await request.json();
+    const sourceText =
+      typeof text === "string" && text.trim().length > 0
+        ? text.trim()
+        : typeof sanskrit === "string"
+          ? sanskrit.trim()
+          : "";
+    const resolvedTargetLang = resolveTranslationLanguage(targetLang);
 
-    if (!sanskrit) {
+    if (!sourceText) {
       return NextResponse.json(
-        { error: "Sanskrit text is required" },
+        { error: "Text is required for translation" },
         { status: 400 },
       );
     }
 
     const result = await translateSanskrit(
-      sanskrit,
-      targetLang === "hi" ? "hi" : "en",
+      sourceText,
+      resolvedTargetLang,
     );
 
     return NextResponse.json({
-      sanskrit,
+      sanskrit: sourceText,
+      text: sourceText,
       translation: result.translation,
-      targetLang,
+      targetLang: resolvedTargetLang,
       transliteration: result.transliteration,
     });
   } catch (error) {
