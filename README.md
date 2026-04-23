@@ -26,8 +26,8 @@
 
 ## 📋 Documentation
 
-- [**🔧 Fine-tuning Script**](fine-tune-gemma4.py) - Unsloth implementation for production scaling
-- [**🐳 Docker Deployment**](docker-compose.yml) - Complete offline stack configuration
+- [**🔧 Fine-tuning Script**](scripts/fine-tune-gemma4.py) - Unsloth implementation for production scaling
+- [**🐳 Docker Deployment**](docker/docker-compose.yml) - Complete offline stack configuration
 
 ---
 
@@ -118,8 +118,8 @@
 Hind AI - Project Structure
 ├── 📖 README.md                         # Comprehensive documentation
 ├── 🔧 scripts/fine-tune-gemma4.py       # Unsloth fine-tuning for production
-├── 🐳 docker-compose.yml               # Complete offline deployment stack
-├── 🐳 Dockerfile & Dockerfile.ollama    # Container configurations
+├── 🐳 docker/docker-compose.yml               # Complete offline deployment stack
+├── 🐳 docker/Dockerfile & docker/Dockerfile.ollama    # Container configurations
 ├── 📦 package.json                     # Dependencies and scripts
 ├── ⚙️ Configuration Files
 │   ├── next.config.ts                  # Next.js configuration
@@ -519,5 +519,5 @@ This project is licensed under the **Creative Commons Attribution 4.0 Internatio
 ---
 
 <div align="center">
-  <p><a href="#-hind-ai---ancient-wisdom-meets-modern-ai">⬆️ Back to Top</a></p>
+  <p><a href="#hind-ai---ancient-wisdom-meets-modern-ai">⬆️ Back to Top</a></p>
 </div>
