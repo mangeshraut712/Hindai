@@ -14,7 +14,7 @@ export const organizationStructuredData: StructuredData = {
   name: "Hind AI",
   description: "AI-Powered Digital Library of Ancient Indian Scriptures",
   url: "https://hindai.dev",
-  logo: "https://hindai.dev/og_home.png",
+  logo: "https://hindai.dev/Home.png",
   sameAs: ["https://github.com/mangeshraut712/Hindai", "https://twitter.com/hindai_dev"],
   founder: {
     "@type": "Person",
@@ -139,7 +139,7 @@ export function generateMetadata(
 ): Metadata {
   const baseUrl = "https://hindai.dev";
   const url = path ? `${baseUrl}${path}` : baseUrl;
-  const ogImage = image || `${baseUrl}/og_home.png`;
+  const ogImage = image || `${baseUrl}/Home.png`;
 
   const metadata: Metadata = {
     title: {

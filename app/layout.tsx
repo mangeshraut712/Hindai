@@ -80,7 +80,7 @@ export const metadata: Metadata = {
       "Discover ancient Indian wisdom through AI-powered exploration. A modern digital library for Vedas, Upanishads, Epics, and Puranas.",
     images: [
       {
-        url: "/og_home.png",
+        url: "/Home.png",
         width: 1200,
         height: 630,
         alt: "Hind AI - Ancient Indian Scriptures with AI",
@@ -91,7 +91,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Hind AI - AI-Powered Digital Library",
     description: "Discover ancient Indian wisdom through AI-powered exploration.",
-    images: ["/og_home.png"],
+    images: ["/Home.png"],
   },
   alternates: {
     canonical: "https://hindai.dev",
@@ -122,7 +122,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning>
+    <html lang="en" dir="ltr" className="relative" suppressHydrationWarning>
       <head>
         {/* Structured Data for WebSite */}
         <script
@@ -172,11 +172,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body
         suppressHydrationWarning
-        className={`${manrope.variable} ${cormorant.variable} ${notoSerifDevanagari.variable} min-h-screen bg-background font-sans antialiased`}
+        className={`${manrope.variable} ${cormorant.variable} ${notoSerifDevanagari.variable} relative min-h-screen bg-background font-sans antialiased`}
       >
         <Providers>{children}</Providers>
-        <Analytics />
-        <SpeedInsights />
+        {process.env.NODE_ENV === "production" && (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        )}
       </body>
     </html>
   );

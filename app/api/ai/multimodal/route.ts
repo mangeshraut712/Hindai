@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateExplanation, getAIStatus } from "@/lib/ai/gemma";
+import { analyzeManuscriptImage } from "@/lib/ai/gemma";
 
 export const runtime = "nodejs";
 
@@ -18,19 +18,12 @@ export async function POST(request: NextRequest) {
     const imageBuffer = await image.arrayBuffer();
     const base64Image = Buffer.from(imageBuffer).toString("base64");
 
-    const multimodalQuery = {
-      query: `${query}\n\n[IMAGE: ${base64Image}]\n\nPlease analyze this Sanskrit manuscript image and provide insights.`,
-      language: "en" as const,
-      mode: "explain" as const,
-    };
-
-    const result = await generateExplanation(multimodalQuery, "multimodal-user");
-    const aiStatus = await getAIStatus();
+    const result = await analyzeManuscriptImage(base64Image, image.type || "image/png", query);
 
     return NextResponse.json({
       response: result.response,
-      grounded: result.grounding,
-      model: aiStatus.model,
+      grounded: { verses: [], scriptures: [] },
+      model: result.model,
       multimodal: true,
     });
   } catch (error) {

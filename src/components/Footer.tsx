@@ -84,7 +84,7 @@ export function Footer() {
           </p>
           <div className="flex items-center gap-2" aria-label="Features">
             <Sparkles className="size-3.5 text-primary" aria-hidden="true" />
-            <span>Hindi boot effect • Sanskrit-first details • Theme aware</span>
+            <span>Hindi splash • Sanskrit-first details • Theme aware</span>
           </div>
         </div>
       </div>

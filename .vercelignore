@@ -1,0 +1,15 @@
+.git
+.next
+.playwright-cli
+.vercel
+.vercel.env.production
+node_modules
+ollama_home
+ollama_models
+bin
+coverage
+playwright-report
+test-results
+*.log
+*.tsbuildinfo
+.env.local

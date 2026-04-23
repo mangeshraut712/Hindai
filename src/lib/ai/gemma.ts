@@ -23,7 +23,10 @@ import {
 } from "@/lib/ai/translation-languages";
 import { scriptureCatalog } from "@/lib/scripture-catalog";
 
-export const SUPPORTED_GEMMA_MODELS = ["gemma4:latest", "gemma4:31b-it-q4_K_M"] as const;
+export const SUPPORTED_GEMMA_MODELS = [
+  "gemma4:latest",
+  "gemma4:31b-it-q4_K_M",
+] as const;
 
 export type GemmaModel = (typeof SUPPORTED_GEMMA_MODELS)[number];
 
@@ -37,12 +40,122 @@ export function resolveGemmaModel(input: string | undefined): GemmaModel {
 }
 
 // Configuration - Gemma 4 via Ollama (Kaggle Competition)
+const OLLAMA_API_KEY = process.env.OLLAMA_API_KEY;
+const GEMINI_API_KEY =
+  process.env.GEMINI_API_KEY || process.env.GEMMA_API_KEY || process.env.GOOGLE_API_KEY;
 const OLLAMA_URL =
+  process.env.OLLAMA_CLOUD_URL ||
   process.env.OLLAMA_URL ||
-  (process.env.VERCEL ? "https://ollama-cloud-service.vercel.app" : "http://localhost:11434");
-const REQUESTED_OLLAMA_MODEL = resolveGemmaModel(process.env.OLLAMA_MODEL);
-const USE_CLOUD_OLLAMA = process.env.VERCEL && process.env.OLLAMA_CLOUD_URL;
+  (process.env.VERCEL ? "https://ollama-cloud-service.vercel.app" : "http://127.0.0.1:11434");
+const REQUESTED_OLLAMA_MODEL = resolveGemmaModel(
+  process.env.OLLAMA_MODEL || process.env.GEMMA_MODEL
+);
+const HOSTED_GEMMA_MODEL = process.env.GEMMA_MODEL || "gemma-4-31b-it";
+const USE_CLOUD_OLLAMA = Boolean(
+  process.env.VERCEL &&
+  (process.env.OLLAMA_CLOUD_URL ||
+    (process.env.OLLAMA_URL && process.env.OLLAMA_URL.startsWith("https://")))
+);
 const CACHE_TTL = 60 * 60 * 24; // 24 hours in seconds
+
+function getOllamaHeaders(): Record<string, string> {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  if (OLLAMA_API_KEY) {
+    headers.Authorization = `Bearer ${OLLAMA_API_KEY}`;
+    headers["X-API-Key"] = OLLAMA_API_KEY;
+  }
+
+  return headers;
+}
+
+type GoogleGemmaPart =
+  | { text: string }
+  | {
+      inline_data: {
+        mime_type: string;
+        data: string;
+      };
+    };
+
+async function generateWithGoogleGemma(
+  parts: GoogleGemmaPart[],
+  systemInstruction: string
+): Promise<string> {
+  if (!GEMINI_API_KEY) {
+    throw new Error("GEMINI_API_KEY is not configured.");
+  }
+
+  const primaryModel = await resolveHostedGemmaModel();
+  const candidateModels = [
+    primaryModel,
+    "gemma-4-31b-it",
+    "gemma-4-26b-a4b-it",
+  ].filter((model, index, array) => array.indexOf(model) === index);
+
+  let lastError = "Unknown error";
+
+  for (const hostedModel of candidateModels) {
+    const isThinkingModel = hostedModel.includes("31b");
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${hostedModel}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          system_instruction: {
+            parts: [{ text: systemInstruction }]
+          },
+          contents: [
+            {
+              role: "user",
+              parts: parts,
+            },
+          ],
+          generationConfig: {
+            temperature: 0.45,
+            topP: 0.9,
+            topK: 40,
+            maxOutputTokens: 2048,
+            // Enable thinking for the largest model
+            ...(isThinkingModel ? { thinking: true, thinking_budget: 1024 } : {})
+          },
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      lastError = await response.text().catch(() => "Unknown error");
+      continue;
+    }
+
+    const data = (await response.json()) as {
+      candidates?: Array<{
+        content?: {
+          parts?: Array<{ text?: string }>;
+        };
+      }>;
+    };
+
+    const text = (data.candidates || [])
+      .flatMap((candidate) => candidate.content?.parts || [])
+      .map((part) => part.text || "")
+      .join("")
+      .trim();
+
+    if (text) {
+      return text;
+    }
+
+    lastError = "Google Gemma returned an empty response.";
+  }
+
+  throw new Error(`Google Gemma error: ${lastError}`);
+}
 
 // Schema validation
 export const AIResponseSchema = z.object({
@@ -174,6 +287,7 @@ const memoryState = globalThis as typeof globalThis & {
   __hindaiMemoryCache?: Map<string, { value: AIResponse; expiresAt: number }>;
   __hindaiMemoryRateLimit?: Map<string, MemoryRateLimitEntry>;
   __hindaiOllamaModels?: { names: string[]; checkedAt: number };
+  __hindaiGoogleModels?: { names: string[]; checkedAt: number };
 };
 
 const memoryCache =
@@ -264,16 +378,93 @@ async function resolveOllamaModel(): Promise<string> {
   return supportedInstalledModel || REQUESTED_OLLAMA_MODEL;
 }
 
-async function resolveGemmaBackend(): Promise<"local" | "cloud" | "none"> {
+function isGoogleGemmaConfigured(): boolean {
+  return Boolean(GEMINI_API_KEY && HOSTED_GEMMA_MODEL);
+}
+
+async function getAvailableGoogleGemmaModels(): Promise<string[]> {
+  if (!GEMINI_API_KEY) {
+    return [];
+  }
+
+  const cached = memoryState.__hindaiGoogleModels;
+  if (cached && Date.now() - cached.checkedAt < 60_000) {
+    return cached.names;
+  }
+
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(GEMINI_API_KEY)}`
+    );
+
+    if (!response.ok) {
+      return [];
+    }
+
+    const data = (await response.json()) as {
+      models?: Array<{ name?: string }>;
+    };
+
+    const names = (data.models || [])
+      .map((model) => model.name?.replace(/^models\//, "") || "")
+      .filter(Boolean)
+      .filter((name) => name.startsWith("gemma-"));
+
+    memoryState.__hindaiGoogleModels = {
+      names,
+      checkedAt: Date.now(),
+    };
+
+    return names;
+  } catch {
+    return [];
+  }
+}
+
+async function resolveHostedGemmaModel(): Promise<string> {
+  const availableModels = await getAvailableGoogleGemmaModels();
+
+  // If the configured model is available, use it directly
+  if (availableModels.includes(HOSTED_GEMMA_MODEL)) {
+    return HOSTED_GEMMA_MODEL;
+  }
+
+  // Gemma 4 series: check for actual gemma-4 models first, then fall back
+  if (HOSTED_GEMMA_MODEL.startsWith("gemma-4")) {
+    const gemma4Model = availableModels.find((m) => m.startsWith("gemma-4"));
+    if (gemma4Model) return gemma4Model;
+  }
+
+  // If no models were fetched, return the configured model and let the API call handle the error
+  if (!availableModels.length) {
+    return HOSTED_GEMMA_MODEL;
+  }
+
+  // Ordered fallback chain: prefer larger, more capable Gemma 4 models
+  const fallbackOrder = [
+    "gemma-4-31b-it",
+    "gemma-4-26b-a4b-it",
+  ];
+
+  return fallbackOrder.find((model) => availableModels.includes(model)) || availableModels[0];
+}
+
+async function resolveGemmaBackend(): Promise<"local" | "cloud" | "google" | "none"> {
   // For Kaggle competition: Gemma 4 via Ollama (local or cloud)
   // No external AI APIs used - only Ollama instances allowed
 
   if (USE_CLOUD_OLLAMA) {
     // Vercel deployment: Use cloud Ollama service
-    return (await isOllamaAvailable()) ? "cloud" : "none";
+    if (await isOllamaAvailable()) {
+      return "cloud";
+    }
+    return isGoogleGemmaConfigured() ? "google" : "none";
   } else {
     // Local development: Use local Ollama
-    return (await isOllamaAvailable()) ? "local" : "none";
+    if (await isOllamaAvailable()) {
+      return "local";
+    }
+    return isGoogleGemmaConfigured() ? "google" : "none";
   }
 }
 
@@ -378,6 +569,40 @@ function extractJsonStringValue(input: string, key: string): string | null {
   return normalizePlainText(
     match[1].replace(/\\"/g, '"').replace(/\\n/g, "\n").replace(/\\\\/g, "\\")
   );
+}
+
+function parseTranslationPayload(
+  resultText: string,
+  originalText: string
+): { translation: string; transliteration: string } {
+  const candidates = [
+    resultText.trim(),
+    extractFencedJson(resultText),
+    extractJsonObject(resultText),
+  ].filter((value): value is string => Boolean(value));
+
+  for (const candidate of candidates) {
+    try {
+      const parsed = JSON.parse(candidate) as {
+        translation?: string;
+        transliteration?: string;
+      };
+
+      if (parsed.translation || parsed.transliteration) {
+        return {
+          translation: parsed.translation || "Translation unavailable",
+          transliteration: parsed.transliteration || originalText,
+        };
+      }
+    } catch {
+      // Try the next candidate.
+    }
+  }
+
+  return {
+    translation: normalizePlainText(resultText) || "Translation unavailable",
+    transliteration: originalText,
+  };
 }
 
 function extractFencedJson(input: string): string | null {
@@ -768,8 +993,11 @@ export async function generateExplanation(
   try {
     const backend = await resolveGemmaBackend();
 
-    if (backend === "local" || backend === "cloud") {
-      const resultText = await generateLeanTextWithOllama(userPrompt);
+    if (backend === "local" || backend === "cloud" || backend === "google") {
+      const resultText =
+        backend === "google"
+          ? await generateWithGoogleGemma([{ text: userPrompt }], GENERATE_SYSTEM_PROMPT)
+          : await generateLeanTextWithOllama(userPrompt);
       const normalized = normalizePlainText(resultText);
       const validated: AIResponse = {
         explanation: normalized,
@@ -789,7 +1017,7 @@ export async function generateExplanation(
       };
     } else {
       throw new Error(
-        "Gemma 4 via Ollama is not available. For local development, run: ollama pull gemma4:latest && ollama serve"
+        "Gemma is not configured. Set OLLAMA_URL or OLLAMA_CLOUD_URL for Ollama, or GEMINI_API_KEY plus GEMMA_MODEL for hosted Gemma."
       );
     }
   } catch (error) {
@@ -815,16 +1043,31 @@ export async function* generateExplanationStream(
     const backend = await resolveGemmaBackend();
     const grounding = buildGroundingPacket(query);
     const userPrompt = buildStreamingPrompt(query, grounding);
-    const model = await resolveOllamaModel();
+
+    if (backend === "google") {
+      const fullText = await generateWithGoogleGemma(
+        [{ text: userPrompt }],
+        STREAMING_SYSTEM_PROMPT
+      );
+
+      for (const sentence of fullText.split(/(?<=[.!?])\s+/)) {
+        const chunk = sentence.trim();
+        if (!chunk) continue;
+        yield `${chunk} `;
+      }
+
+      return;
+    }
 
     if (backend === "local" || backend === "cloud") {
+      const model = await resolveOllamaModel();
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 120_000); // 120s for local model load
 
       try {
         const response = await fetch(`${OLLAMA_URL}/api/chat`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: getOllamaHeaders(),
           signal: controller.signal,
           body: JSON.stringify({
             model,
@@ -978,7 +1221,12 @@ export async function checkGemmaAvailability(): Promise<{
   error?: string;
 }> {
   const backend = await resolveGemmaBackend();
-  const model = backend === "none" ? "none" : await resolveOllamaModel();
+  const model =
+    backend === "none"
+      ? "none"
+      : backend === "google"
+        ? await resolveHostedGemmaModel()
+        : await resolveOllamaModel();
 
   if (backend === "none") {
     return {
@@ -1002,7 +1250,7 @@ export async function checkGemmaAvailability(): Promise<{
     }
     return {
       available: true,
-      type: "ollama",
+      type: backend,
       model,
       cacheBackend: getCacheBackend(),
     };
@@ -1020,10 +1268,17 @@ export async function checkGemmaAvailability(): Promise<{
  * Helper for Ollama generation
  */
 async function generateWithOllama(prompt: string): Promise<string> {
+  return generateWithOllamaWithSystem(prompt, SYSTEM_PROMPT);
+}
+
+async function generateWithOllamaWithSystem(
+  prompt: string,
+  systemInstruction: string
+): Promise<string> {
   const model = await resolveOllamaModel();
   const response = await fetch(`${OLLAMA_URL}/api/chat`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getOllamaHeaders(),
     body: JSON.stringify({
       model,
       think: false,
@@ -1031,7 +1286,7 @@ async function generateWithOllama(prompt: string): Promise<string> {
       messages: [
         {
           role: "system",
-          content: SYSTEM_PROMPT,
+          content: systemInstruction,
         },
         {
           role: "user",
@@ -1039,10 +1294,12 @@ async function generateWithOllama(prompt: string): Promise<string> {
         },
       ],
       options: {
-        num_predict: 220,
-        temperature: 0.55,
+        num_predict: 512,
+        temperature: 0.45,
         top_k: 40,
         top_p: 0.9,
+        // Native thinking mode for Gemma 4 via Ollama
+        ...(model.startsWith("gemma4") ? { think: true } : {})
       },
     }),
   });
@@ -1060,7 +1317,7 @@ async function generateLeanTextWithOllama(prompt: string): Promise<string> {
   try {
     const response = await fetch(`${OLLAMA_URL}/api/chat`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: getOllamaHeaders(),
       signal: controller.signal,
       body: JSON.stringify({
         model,
@@ -1126,26 +1383,15 @@ export async function generateQuizQuestion(topic?: string): Promise<QuizQuestion
   const backend = await resolveGemmaBackend();
   if (backend === "none") {
     throw new Error(
-      "Gemma 4 via Ollama is not available. For local development, run: ollama pull gemma4:latest && ollama serve"
+      "Gemma is not configured. Set OLLAMA_URL or OLLAMA_CLOUD_URL for Ollama, or GEMINI_API_KEY plus GEMMA_MODEL for hosted Gemma."
     );
   }
 
-  const model = await resolveOllamaModel();
   const prompt = topic?.trim().length
     ? `Create one quiz question about: ${topic.trim()}`
     : "Create one quiz question about Bhagavad Gita, Yoga Sutras, Upanishads, Ramayana, or Mahabharata.";
 
-  const response = await fetch(`${OLLAMA_URL}/api/chat`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model,
-      think: false,
-      stream: false,
-      messages: [
-        {
-          role: "system",
-          content: `You create high-quality multiple-choice quiz questions about Indian scriptures.
+  const systemInstruction = `You create high-quality multiple-choice quiz questions about Indian scriptures.
 
 Return ONLY one valid JSON object with this exact shape:
 {
@@ -1162,31 +1408,12 @@ Rules:
 - correctAnswer must be 0, 1, 2, or 3
 - explanation must mention the relevant scripture or verse
 - difficulty must be easy, medium, or hard
-- do not wrap the JSON in markdown`,
-        },
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-      options: {
-        num_predict: 260,
-        temperature: 0.4,
-        top_k: 40,
-        top_p: 0.9,
-      },
-    }),
-  });
+- do not wrap the JSON in markdown`;
 
-  if (!response.ok) {
-    throw new Error(`Ollama error: ${response.statusText}`);
-  }
-
-  const data = (await response.json()) as {
-    message?: { content?: string };
-    response?: string;
-  };
-  const content = data?.message?.content || data?.response || "";
+  const content =
+    backend === "google"
+      ? await generateWithGoogleGemma([{ text: prompt }], systemInstruction)
+      : await generateWithOllamaWithSystem(prompt, systemInstruction);
 
   const candidates = [
     content.trim(),
@@ -1235,7 +1462,7 @@ Response format (JSON):
       const model = await resolveOllamaModel();
       const response = await fetch(`${OLLAMA_URL}/api/generate`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getOllamaHeaders(),
         body: JSON.stringify({
           model,
           prompt,
@@ -1256,26 +1483,16 @@ Response format (JSON):
 
       const data = (await response.json()) as { response?: string };
       const resultText = data.response || "";
-
-      return {
-        ...(() => {
-          try {
-            const parsed = JSON.parse(resultText);
-            return {
-              translation: parsed.translation || "Translation unavailable",
-              transliteration: parsed.transliteration || sanskrit,
-            };
-          } catch {
-            return {
-              translation: normalizePlainText(resultText) || "Translation unavailable",
-              transliteration: sanskrit,
-            };
-          }
-        })(),
-      };
+      return parseTranslationPayload(resultText, sanskrit);
+    } else if (backend === "google") {
+      const resultText = await generateWithGoogleGemma(
+        [{ text: prompt }],
+        "You translate Indic scripture faithfully and return JSON only."
+      );
+      return parseTranslationPayload(resultText, sanskrit);
     } else {
       throw new Error(
-        "Gemma 4 via Ollama is not available. For local development: ollama pull gemma4:latest && ollama serve"
+        "Gemma is not configured. Set OLLAMA_URL or OLLAMA_CLOUD_URL for Ollama, or GEMINI_API_KEY plus GEMMA_MODEL for hosted Gemma."
       );
     }
   } catch (error) {
@@ -1285,4 +1502,54 @@ Response format (JSON):
       transliteration: sanskrit,
     };
   }
+}
+
+export async function analyzeManuscriptImage(
+  imageBase64: string,
+  mimeType: string,
+  query: string
+): Promise<{
+  response: AIResponse;
+  model: string;
+}> {
+  const backend = await resolveGemmaBackend();
+
+  if (backend === "google") {
+    const text = await generateWithGoogleGemma(
+      [
+        { text: query },
+        {
+          inline_data: {
+            mime_type: mimeType,
+            data: imageBase64,
+          },
+        },
+      ],
+      "You analyze Sanskrit manuscript images. Reply in plain text with a concise scholarly reading."
+    );
+
+    return {
+      response: {
+        explanation: normalizePlainText(text),
+        summary: normalizePlainText(text)
+          .split(/(?<=[.!?])\s+/)[0]
+          ?.slice(0, 180),
+      },
+      model: HOSTED_GEMMA_MODEL,
+    };
+  }
+
+  const result = await generateExplanation(
+    {
+      query: `${query}\n\n[IMAGE: ${imageBase64}]\n\nPlease analyze this Sanskrit manuscript image and provide insights.`,
+      language: "en",
+      mode: "explain",
+    },
+    "multimodal-user"
+  );
+
+  return {
+    response: result.response,
+    model: (await getAIStatus()).model,
+  };
 }

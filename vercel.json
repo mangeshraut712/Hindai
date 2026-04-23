@@ -1,5 +1,40 @@
 {
   "framework": "nextjs",
   "buildCommand": "npm run build",
-  "installCommand": "npm install --legacy-peer-deps"
+  "installCommand": "npm install --legacy-peer-deps",
+  "regions": ["bom1"],
+  "functions": {
+    "app/api/ai/stream/route.ts": {
+      "maxDuration": 60
+    },
+    "app/api/ai/generate/route.ts": {
+      "maxDuration": 30
+    },
+    "app/api/ai/translate/route.ts": {
+      "maxDuration": 30
+    },
+    "app/api/ai/quiz/route.ts": {
+      "maxDuration": 30
+    },
+    "app/api/ai/multimodal/route.ts": {
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-DNS-Prefetch-Control", "value": "on" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
+      ]
+    }
+  ]
 }
