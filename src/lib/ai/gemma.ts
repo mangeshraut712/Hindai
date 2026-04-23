@@ -163,6 +163,9 @@ async function generateWithGoogleGemma(
     primaryModel,
     "gemma-4-31b-it",
     "gemma-4-26b-a4b-it",
+    "gemma-3-27b-it",
+    "gemma-3-12b-it",
+    "gemma-3-4b-it",
   ].filter((model, index, array) => array.indexOf(model) === index);
 
   let lastError = "Unknown error";
@@ -504,10 +507,15 @@ async function resolveHostedGemmaModel(): Promise<string> {
     return HOSTED_GEMMA_MODEL;
   }
 
-  // Ordered fallback chain: prefer larger, more capable Gemma 4 models
+  // Ordered fallback chain: prefer Gemma 4, then Gemma 3, then any available
+  // Note: gemma-4 models may not be available via Google API yet
   const fallbackOrder = [
     "gemma-4-31b-it",
     "gemma-4-26b-a4b-it",
+    "gemma-3-27b-it",
+    "gemma-3-12b-it",
+    "gemma-3-4b-it",
+    "gemma-3-1b-it",
   ];
 
   return fallbackOrder.find((model) => availableModels.includes(model)) || availableModels[0];
