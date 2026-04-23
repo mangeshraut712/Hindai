@@ -47,9 +47,11 @@ export function Footer() {
             <Link
               href="https://github.com/mangeshraut712/Hindai"
               target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View source code on GitHub"
               className="inline-flex size-11 items-center justify-center rounded-full border border-border/70 bg-background/70 text-foreground transition-colors hover:bg-secondary/80"
             >
-              <Github className="size-5" />
+              <Github className="size-5" aria-hidden="true" />
             </Link>
             <span className="eyebrow">Gemma 4 powered</span>
           </div>
@@ -57,15 +59,15 @@ export function Footer() {
 
         {footerGroups.map((group) => (
           <div key={group.title} className="space-y-4">
-            <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+            <h3 className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
               {group.title}
-            </p>
+            </h3>
             <div className="grid gap-3">
               {group.links.map((link) => (
                 <Link
                   key={link.href + link.label}
                   href={link.href}
-                  className="text-foreground/76 text-sm transition-colors hover:text-foreground"
+                  className="text-foreground/76 text-sm transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 rounded-sm"
                 >
                   {link.label}
                 </Link>
@@ -80,8 +82,8 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} Hind AI. Designed for reflection, reading, and inquiry.
           </p>
-          <div className="flex items-center gap-2">
-            <Sparkles className="size-3.5 text-primary" />
+          <div className="flex items-center gap-2" aria-label="Features">
+            <Sparkles className="size-3.5 text-primary" aria-hidden="true" />
             <span>Hindi boot effect • Sanskrit-first details • Theme aware</span>
           </div>
         </div>
