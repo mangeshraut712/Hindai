@@ -23,7 +23,8 @@
 
 🌐 **Live Demo**: [https://hindai-nine.vercel.app](https://hindai-nine.vercel.app)  
 📚 **Repository**: [https://github.com/mangeshraut712/Hindai](https://github.com/mangeshraut712/Hindai)  
-🏆 **Kaggle Track**: Future of Education + Digital Equity
+🏆 **Kaggle Track**: Future of Education + Digital Equity  
+📝 **Kaggle Writeup**: [Gemma 4 Good Hackathon Submission](https://www.kaggle.com/competitions/gemma-4-good-hackathon/writeups)
 
 ## 📋 Documentation
 
@@ -445,7 +446,7 @@ npm run test:ui      # Interactive test UI
 
 | Requirement              | Status        | Details                                                  |
 | ------------------------ | ------------- | -------------------------------------------------------- |
-| **Kaggle Writeup**       | ✅ Complete   | `KAGGLE_SUBMISSION_WRITEUP.md` (1,480+ words)            |
+| **Kaggle Writeup**       | ✅ Complete   | [Published Submission](https://www.kaggle.com/competitions/gemma-4-good-hackathon/writeups)            |
 | **YouTube Video**        | ⏳ Pending    | Need to record 3-minute demo showcasing features         |
 | **GitHub Public Repo**   | ✅ **PUBLIC** | https://github.com/mangeshraut712/Hindai                 |
 | **Live Demo URL**        | ✅ Active     | https://hindai-nine.vercel.app (no auth required)        |
