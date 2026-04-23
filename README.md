@@ -66,11 +66,6 @@
 - **🎵 Audio Features**: Voice-guided meditation and Sanskrit pronunciation
 - **👥 Community**: Shared insights and collaborative learning
 
-- **Conversational AI**: Natural language conversations about scriptures
-- **Real-Time Responses**: Streaming AI responses with instant feedback
-- **Cultural Understanding**: Knowledge of Sanskrit, Hindi, and spiritual concepts
-- **Personalized Guidance**: Adaptive responses based on user questions
-
 ### 🧠 **Gemma 4 AI Integration**
 
 - **Local Ollama Models**: `gemma4:latest` for offline-capable AI inference
@@ -122,11 +117,10 @@
 ```
 Hind AI - Project Structure
 ├── 📖 README.md                         # Comprehensive documentation
-├── 🎨 cover-image.html                  # Professional cover image template
-├── 🔧 fine-tune-gemma4.py              # Unsloth fine-tuning for production
+├── 🔧 scripts/fine-tune-gemma4.py       # Unsloth fine-tuning for production
 ├── 🐳 docker-compose.yml               # Complete offline deployment stack
 ├── 🐳 Dockerfile & Dockerfile.ollama    # Container configurations
-├── 📦 package.json                     # Optimized dependencies (603 packages)
+├── 📦 package.json                     # Dependencies and scripts
 ├── ⚙️ Configuration Files
 │   ├── next.config.ts                  # Next.js configuration
 │   ├── tailwind.config.ts              # Styling configuration
@@ -209,86 +203,6 @@ Hind AI - Project Structure
 │  │  Global CDN     │  │  Offline Mode   │  │  Performance    │           │
 │  └─────────────────┘  └─────────────────┘  └─────────────────┘           │
 └─────────────────────────────────────────────────────────────────────────────┘
-```
-
-### **🛠️ Technology Stack**
-
-#### **Frontend**
-
-- **⚛️ React 19**: Latest React with concurrent features
-- **🔷 TypeScript 5.7**: Strict type checking and modern syntax
-- **🎨 Tailwind CSS**: Utility-first styling with custom design system
-- **🧩 shadcn/ui**: High-quality component library
-- **📱 PWA**: Progressive Web App with offline capabilities
-
-#### **Backend & AI**
-
-- **▲ Next.js 15**: Full-stack framework with App Router
-- **🦙 Ollama**: Local LLM runtime for Gemma 4
-- **🤖 Gemma 4 8B**: Google's 8B parameter instruction-tuned multimodal model
-- **🔍 RAG Pipeline**: Retrieval-augmented generation with vector search
-- **🛠️ Function Calling**: Advanced AI tool integration
-
-#### **Data & Storage**
-
-- **🗄️ Supabase**: PostgreSQL with real-time subscriptions
-- **⚡ Upstash Redis**: High-performance caching and rate limiting
-- **🔗 Upstash Vector**: Vector similarity search for RAG
-- **📊 Analytics**: Vercel Analytics for usage insights
-
-#### **DevOps & Deployment**
-
-- **🐳 Docker**: Containerized deployment with docker-compose
-- **▲ Vercel**: Global edge network deployment
-- **🔄 CI/CD**: GitHub Actions automated testing
-- **🧪 Testing**: Vitest unit tests + Playwright E2E tests
-- **📈 Monitoring**: Performance monitoring and error tracking
-
-```mermaid
-graph TB
-    subgraph "🌐 Vercel Edge Network"
-        CDN[Global CDN]
-        Edge[Edge Runtime]
-    end
-
-    subgraph "🚀 Next.js 15.3 Framework"
-        App[App Router]
-        RSC[React Server Components]
-        Actions[Server Actions]
-        Streaming[Streaming Responses]
-    end
-
-    subgraph "🤖 AI Services"
-        Chatbot[Guru AI Chatbot]
-        QuizAI[Quiz Generation]
-        SearchAI[Semantic Search]
-    end
-
-    subgraph "🧠 Gemma 4 AI Engine"
-        Ollama[Ollama Local Runtime]
-        Model[gemma4:latest]
-    end
-
-    subgraph "⚡ Infrastructure"
-        Redis[Upstash Redis]
-        Vector[Vector Database]
-        Cache[Caching Layer]
-    end
-
-    User[👤 User] --> CDN
-    CDN --> Edge
-    Edge --> App
-    App --> RSC
-    RSC --> Actions
-    Actions --> Chatbot
-    Chatbot --> Ollama
-    Ollama --> Model
-
-    QuizAI --> Ollama
-    SearchAI --> Vector
-
-    Actions --> Redis
-    Actions --> Cache
 ```
 
 ### Key Principles
@@ -408,149 +322,6 @@ npm run test:ui      # Interactive test UI
 
 ---
 
-## ✅ Current Status (2026-04-23)
-
-- **Build Status**: ✅ All checks passing (lint, type-check, build, formatting)
-- **Project Structure**: ✅ Root directory reorganized, symlinks removed, configs flattened
-- **Performance Score**: ~75/100 (Lighthouse - room for optimization)
-- **Test Results**: ✅ 11/11 unit tests passing
-- **Code Quality**: ✅ ESLint clean, TypeScript strict mode, Prettier formatted
-- **Bundle Size**: ~300kB first load, optimized with tree-shaking
-- **AI Model**: ✅ Gemma 4 8B instruction-tuned (gemma4:latest)
-- **Streaming**: ✅ Real-time AI responses with timeout protection
-
-### **📊 Quality Metrics**
-
-- **Build Status**: ✅ Successful (4.0s compilation)
-- **Test Coverage**: ✅ 11/11 unit tests passing
-- **Bundle Size**: ✅ 300kB optimized production build
-- **Security**: ✅ 4 moderate vulnerabilities (down from 12)
-- **Performance**: ✅ Lighthouse-ready with offline support
-- **AI Model**: ✅ Gemma 4 8B instruction-tuned (8B quantized)
-- **Dependencies**: ✅ 603 packages optimized
-
-### **🔧 Technical Validation**
-
-- **TypeScript**: ✅ Strict mode, zero errors
-- **ESLint**: ✅ Clean code, zero warnings
-- **Build System**: ✅ Production-ready Next.js 15.5
-- **API Routes**: ✅ 5 functional endpoints with streaming
-- **Database**: ✅ Upstash Redis + Supabase integration
-- **AI Integration**: ✅ Ollama + Gemma 4 8B verified with streaming
-
----
-
-## 🚀 Deployment & Installation
-
-### **Option 1: Quick Development Setup**
-
-```bash
-# Clone repository
-git clone https://github.com/mangeshraut712/Hindai.git
-cd HindAI
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Visit http://localhost:3000
-```
-
-### **Option 2: Docker Offline Deployment**
-
-Complete offline stack with persistent Gemma 4 model:
-
-```bash
-# Build and start all services
-docker-compose up -d
-
-# Access the application
-# Frontend: http://localhost:3000
-# Ollama API: http://localhost:11434
-```
-
-**Services:**
-
-- **hindai-app**: Next.js application with optimized build
-- **ollama**: Gemma 4 model server with 8B parameters
-- **hindai-network**: Isolated container network
-
-### **Option 3: Vercel Production Deployment**
-
-Cloud deployment with hosted Ollama service:
-
-```bash
-# Set environment variables in Vercel dashboard
-OLLAMA_URL=https://your-cloud-ollama-service.com
-OLLAMA_CLOUD_URL=true
-OLLAMA_MODEL=gemma4:latest
-
-# Deploy
-vercel --prod
-```
-
-**Supported Cloud Ollama Providers:**
-
-- Railway, Render, DigitalOcean, AWS ECS
-- Any service supporting persistent Ollama containers
-
-### **Option 4: Local Ollama Setup**
-
-For development with local AI inference:
-
-```bash
-# Install Ollama
-brew install ollama  # macOS
-# OR curl -fsSL https://ollama.ai/install.sh | sh  # Linux
-
-# Pull Gemma 4 8B model
-ollama pull gemma4:latest
-
-# Start Ollama service (in another terminal)
-ollama serve
-
-# Configure environment (optional)
-export OLLAMA_URL=http://localhost:11434
-export OLLAMA_MODEL=gemma4:latest
-
-# Run the application
-npm run dev
-```
-
-### Manual Ollama Setup
-
-```bash
-# Install Ollama
-curl -fsSL https://ollama.ai/install.sh | sh
-
-# Pull Gemma 4 8B model
-ollama pull gemma4:latest
-
-# Start Ollama service
-ollama serve
-
-# Configure environment
-export OLLAMA_URL=http://localhost:11434
-export OLLAMA_MODEL=gemma4:latest
-```
-
-### Fine-tuning for Production
-
-For enhanced spiritual domain performance, fine-tune Gemma 4:
-
-```bash
-# Install dependencies
-pip install unsloth transformers datasets accelerate
-
-# Login to HuggingFace
-huggingface-cli login
-
-# Run fine-tuning
-python fine-tune-gemma4.py
-```
-
 ## 🖼️ Multimodal Sanskrit Analysis
 
 Hind AI includes cutting-edge multimodal capabilities for analyzing Sanskrit manuscripts:
@@ -564,10 +335,10 @@ Hind AI includes cutting-edge multimodal capabilities for analyzing Sanskrit man
 
 ### Test Coverage
 
-- **Unit Tests**: Core utilities and AI functions (11 tests passing)
+- **Unit Tests**: Core utilities and AI functions
 - **Component Tests**: UI behavior and interactions
 - **Integration Tests**: API routes and AI streaming
-- **E2E Tests**: Critical user journeys (18 tests passing)
+- **E2E Tests**: Critical user journeys
 
 ### Quality Gates
 
@@ -590,7 +361,7 @@ Hind AI includes cutting-edge multimodal capabilities for analyzing Sanskrit man
 
 ### **🔧 Technical Differentiation**
 
-- **No External APIs**: 100% local AI inference (hackathon compliant)
+- **No External APIs**: 100% local AI inference
 - **Docker Native**: Production-ready containerized deployment
 - **Enterprise Architecture**: Scalable design with Redis caching
 - **Research Ready**: Fine-tuning scripts for production scaling
