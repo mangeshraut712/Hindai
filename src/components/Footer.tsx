@@ -67,7 +67,7 @@ export function Footer() {
                 <Link
                   key={link.href + link.label}
                   href={link.href}
-                  className="text-foreground/76 text-sm transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 rounded-sm"
+                  className="text-foreground/76 rounded-sm text-sm transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2"
                 >
                   {link.label}
                 </Link>
