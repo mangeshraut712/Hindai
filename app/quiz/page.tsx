@@ -35,21 +35,13 @@ export default function QuizPage() {
         {/* ── Hero ── */}
         <section className="hero-mesh relative overflow-hidden border-b border-border/60">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
-          <div
-            className="hero-sun -left-20 top-10 size-56 opacity-80"
-            aria-hidden="true"
-          />
-          <div
-            className="hero-sun right-0 top-20 size-72 opacity-60"
-            aria-hidden="true"
-          />
+          <div className="hero-sun -left-20 top-10 size-56 opacity-80" aria-hidden="true" />
+          <div className="hero-sun right-0 top-20 size-72 opacity-60" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
               <div className="max-w-3xl">
                 <span className="eyebrow">Pariksha</span>
-                <h1 className="section-title mt-6">
-                  Test your knowledge of ancient wisdom.
-                </h1>
+                <h1 className="section-title mt-6">Test your knowledge of ancient wisdom.</h1>
                 <p className="section-copy mt-5">
                   AI-generated questions from the Bhagavad Gita, Yoga Sutras, Upanishads, and the
                   great epics. Each answer deepens your understanding of the tradition.

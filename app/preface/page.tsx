@@ -3,15 +3,7 @@ import { Metadata } from "next";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import {
-  Sparkles,
-  BookOpen,
-  Heart,
-  Lightbulb,
-  ArrowRight,
-  ScrollText,
-  Bot,
-} from "lucide-react";
+import { Sparkles, BookOpen, Heart, Lightbulb, ArrowRight, ScrollText, Bot } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Preface",
@@ -94,8 +86,8 @@ export default function PrefacePage() {
               <span className="eyebrow">Prastavana</span>
               <h1 className="section-title mt-6">Welcome to Hind AI.</h1>
               <p className="section-copy mt-5">
-                Your companion in exploring the timeless wisdom of ancient India. More than a digital
-                library — a bridge between ancient revelation and the modern seeker.
+                Your companion in exploring the timeless wisdom of ancient India. More than a
+                digital library — a bridge between ancient revelation and the modern seeker.
               </p>
               <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
                 Our mission is to preserve, present, and make accessible the vast ocean of spiritual
@@ -117,8 +109,8 @@ export default function PrefacePage() {
                 <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">
                   Hinduism does not have a fixed number of scriptures. Its literature grew across
                   thousands of years and is broadly classified into two streams:
-                  <strong> Shruti</strong>, the revealed foundation, and <strong>Smriti</strong>, the
-                  remembered and transmitted tradition.
+                  <strong> Shruti</strong>, the revealed foundation, and <strong>Smriti</strong>,
+                  the remembered and transmitted tradition.
                 </p>
                 <div className="mt-8 grid gap-4 sm:grid-cols-3">
                   {[
@@ -216,11 +208,11 @@ export default function PrefacePage() {
                   Multiple perspectives, not definitive answers.
                 </h2>
                 <p className="mt-5 text-sm leading-7 text-muted-foreground">
-                  These ancient texts have been interpreted in countless ways over millennia. Hind AI
-                  presents multiple perspectives and encourages you to contemplate the teachings and
-                  find what resonates with your own understanding. The goal is not to provide
-                  definitive answers, but to facilitate your own exploration of these profound wisdom
-                  traditions.
+                  These ancient texts have been interpreted in countless ways over millennia. Hind
+                  AI presents multiple perspectives and encourages you to contemplate the teachings
+                  and find what resonates with your own understanding. The goal is not to provide
+                  definitive answers, but to facilitate your own exploration of these profound
+                  wisdom traditions.
                 </p>
               </div>
             </div>
@@ -237,7 +229,8 @@ export default function PrefacePage() {
                     ॐ शान्तिः शान्तिः शान्तिः
                   </span>
                   <h2 className="font-serif text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
-                    May your journey through these sacred texts bring wisdom, peace, and enlightenment.
+                    May your journey through these sacred texts bring wisdom, peace, and
+                    enlightenment.
                   </h2>
                   <p className="text-white/72 text-base leading-7">
                     Om Shanti Shanti Shanti — Peace in body, mind, and spirit.

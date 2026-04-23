@@ -25,22 +25,19 @@ import { scriptureCatalog } from "@/lib/scripture-catalog";
 
 /**
  * Gemma 4 Models - Exclusive Support
- * 
+ *
  * Available models:
  * - gemma-4-31b-it: Dense model with thinking mode (free via Google AI Studio)
  * - gemma-4-26b-a4b-it: MoE model with 4B active parameters
  * - gemma4:latest: Local Ollama version (4B parameters, 8B quality)
- * 
+ *
  * All models support:
  * - Native thinking/chain-of-thought for complex reasoning
  * - System instructions for consistent persona
  * - Multimodal capabilities (text + images)
  * - JSON structured output
  */
-export const SUPPORTED_GEMMA_MODELS = [
-  "gemma4:latest",
-  "gemma4:31b-it-q4_K_M",
-] as const;
+export const SUPPORTED_GEMMA_MODELS = ["gemma4:latest", "gemma4:31b-it-q4_K_M"] as const;
 
 export type GemmaModel = (typeof SUPPORTED_GEMMA_MODELS)[number];
 
@@ -78,8 +75,8 @@ const GEMMA4_AGENTIC_CONFIG = {
   // Dense 31B model - Full thinking mode
   "gemma-4-31b-it": {
     thinking: true,
-    thinking_budget: 2048,      // Tokens reserved for reasoning
-    temperature: 0.3,           // Lower for consistent, focused responses
+    thinking_budget: 2048, // Tokens reserved for reasoning
+    temperature: 0.3, // Lower for consistent, focused responses
     topP: 0.85,
     topK: 20,
     maxOutputTokens: 4096,
@@ -101,13 +98,13 @@ const GEMMA4_AGENTIC_CONFIG = {
  */
 function getGemma4GenerationConfig(model: string) {
   const isThinkingModel = model.includes("31b") || model.includes("26b");
-  
+
   // Check if we have a specific config for this model
   const configKey = model as keyof typeof GEMMA4_AGENTIC_CONFIG;
   if (GEMMA4_AGENTIC_CONFIG[configKey]) {
     return GEMMA4_AGENTIC_CONFIG[configKey];
   }
-  
+
   // Default config for other Gemma 4 variants
   return {
     temperature: 0.45,
@@ -115,10 +112,12 @@ function getGemma4GenerationConfig(model: string) {
     topK: 40,
     maxOutputTokens: 2048,
     // Enable thinking for capable models
-    ...(isThinkingModel ? { 
-      thinking: true, 
-      thinking_budget: 1024 
-    } : {}),
+    ...(isThinkingModel
+      ? {
+          thinking: true,
+          thinking_budget: 1024,
+        }
+      : {}),
   };
 }
 const USE_CLOUD_OLLAMA = Boolean(
@@ -180,7 +179,7 @@ async function generateWithGoogleGemma(
         },
         body: JSON.stringify({
           system_instruction: {
-            parts: [{ text: systemInstruction }]
+            parts: [{ text: systemInstruction }],
           },
           contents: [
             {
@@ -1386,7 +1385,7 @@ async function generateWithOllamaWithSystem(
         top_k: 40,
         top_p: 0.9,
         // Native thinking mode for Gemma 4 via Ollama
-        ...(model.startsWith("gemma4") ? { think: true } : {})
+        ...(model.startsWith("gemma4") ? { think: true } : {}),
       },
     }),
   });

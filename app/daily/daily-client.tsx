@@ -46,7 +46,8 @@ const dailyWisdom = [
     transliteration: "Tamaso ma jyotir gamaya",
     translation: "Lead me from darkness to light, from ignorance to knowledge.",
     source: "Brihadaranyaka Upanishad 1.3.28",
-    context: "One of the most beloved prayers in Vedic literature, seeking illumination of the soul.",
+    context:
+      "One of the most beloved prayers in Vedic literature, seeking illumination of the soul.",
     theme: "Jnana",
   },
   {
@@ -85,7 +86,8 @@ const dailyWisdom = [
     transliteration: "Satyameva jayate",
     translation: "Truth alone triumphs, not falsehood.",
     source: "Mundaka Upanishad 3.1.6",
-    context: "India's national motto — a declaration that truth is the ultimate victor in all things.",
+    context:
+      "India's national motto — a declaration that truth is the ultimate victor in all things.",
     theme: "Satya",
   },
 ];
@@ -180,21 +182,13 @@ export default function DailyWisdomClient() {
         {/* ── Hero ── */}
         <section className="hero-mesh relative overflow-hidden border-b border-border/60">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
-          <div
-            className="hero-sun -left-20 top-10 size-56 opacity-80"
-            aria-hidden="true"
-          />
-          <div
-            className="hero-sun right-0 top-20 size-72 opacity-60"
-            aria-hidden="true"
-          />
+          <div className="hero-sun -left-20 top-10 size-56 opacity-80" aria-hidden="true" />
+          <div className="hero-sun right-0 top-20 size-72 opacity-60" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
               <div className="max-w-3xl">
                 <span className="eyebrow">Dainik Sadhana</span>
-                <h1 className="section-title mt-6">
-                  Begin each day with timeless wisdom.
-                </h1>
+                <h1 className="section-title mt-6">Begin each day with timeless wisdom.</h1>
                 <p className="section-copy mt-5">
                   A new Sanskrit verse, its meaning, and a meditation prompt drawn from the Vedas,
                   Upanishads, and Bhagavad Gita — every day.
@@ -240,7 +234,12 @@ export default function DailyWisdomClient() {
           <div className="mx-auto max-w-4xl">
             {/* Navigation */}
             <div className="mb-8 flex items-center justify-between">
-              <Button variant="outline" size="icon" onClick={handlePrevious} aria-label="Previous verse">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={handlePrevious}
+                aria-label="Previous verse"
+              >
                 <ChevronLeft className="size-5" />
               </Button>
               <div className="flex items-center gap-3">
@@ -352,9 +351,7 @@ export default function DailyWisdomClient() {
                 variant="outline"
                 onClick={requestNotificationPermission}
                 className={
-                  notificationsEnabled
-                    ? "border-primary/40 bg-primary/10 text-primary"
-                    : ""
+                  notificationsEnabled ? "border-primary/40 bg-primary/10 text-primary" : ""
                 }
               >
                 {notificationsEnabled ? (
@@ -404,7 +401,9 @@ export default function DailyWisdomClient() {
                 </div>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Button variant="premium" size="lg" asChild>
-                    <Link href={`/ai-guide/?prompt=${encodeURIComponent(`Explain ${currentWisdom.source} — "${currentWisdom.transliteration}"`)}`}>
+                    <Link
+                      href={`/ai-guide/?prompt=${encodeURIComponent(`Explain ${currentWisdom.source} — "${currentWisdom.transliteration}"`)}`}
+                    >
                       Ask Guru AI
                       <Sparkles className="size-4" />
                     </Link>

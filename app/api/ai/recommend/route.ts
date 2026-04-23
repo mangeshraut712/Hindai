@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAIStatus } from "@/lib/ai/gemma";
-import {
-  searchVerses,
-  scriptures as scriptureData,
-} from "@/lib/data/scriptures";
+import { searchVerses, scriptures as scriptureData } from "@/lib/data/scriptures";
 import { scriptureCatalog } from "@/lib/scripture-catalog";
 
 export const runtime = "nodejs";
