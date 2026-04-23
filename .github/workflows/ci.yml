@@ -142,7 +142,7 @@ jobs:
   #
   # Required Vercel Environment Variables:
   #   GEMINI_API_KEY        — Google Generative Language API key (for hosted Gemma)
-  #   GEMMA_MODEL           — Model ID, e.g. "gemma-3-27b-it"
+  #   GEMMA_MODEL           — Model ID, e.g. "gemma-4-31b-it" or "gemma-4-26b-a4b-it"
   #   OLLAMA_API_KEY        — API key for cloud Ollama (if using)
   #   KAGGLE_API_TOKEN      — Kaggle API token (for model access)
   #   OLLAMA_CLOUD_URL      — (Optional) Cloud Ollama endpoint URL

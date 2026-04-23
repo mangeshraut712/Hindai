@@ -23,6 +23,20 @@ import {
 } from "@/lib/ai/translation-languages";
 import { scriptureCatalog } from "@/lib/scripture-catalog";
 
+/**
+ * Gemma 4 Models - Exclusive Support
+ * 
+ * Available models:
+ * - gemma-4-31b-it: Dense model with thinking mode (free via Google AI Studio)
+ * - gemma-4-26b-a4b-it: MoE model with 4B active parameters
+ * - gemma4:latest: Local Ollama version (4B parameters, 8B quality)
+ * 
+ * All models support:
+ * - Native thinking/chain-of-thought for complex reasoning
+ * - System instructions for consistent persona
+ * - Multimodal capabilities (text + images)
+ * - JSON structured output
+ */
 export const SUPPORTED_GEMMA_MODELS = [
   "gemma4:latest",
   "gemma4:31b-it-q4_K_M",
@@ -50,7 +64,63 @@ const OLLAMA_URL =
 const REQUESTED_OLLAMA_MODEL = resolveGemmaModel(
   process.env.OLLAMA_MODEL || process.env.GEMMA_MODEL
 );
+/**
+ * Default hosted model - Gemma 4 31B Dense (thinking-enabled)
+ * Free access via Google AI Studio API
+ */
 const HOSTED_GEMMA_MODEL = process.env.GEMMA_MODEL || "gemma-4-31b-it";
+
+/**
+ * Gemma 4 Agentic Configuration
+ * Optimized for philosophical reasoning and scripture analysis
+ */
+const GEMMA4_AGENTIC_CONFIG = {
+  // Dense 31B model - Full thinking mode
+  "gemma-4-31b-it": {
+    thinking: true,
+    thinking_budget: 2048,      // Tokens reserved for reasoning
+    temperature: 0.3,           // Lower for consistent, focused responses
+    topP: 0.85,
+    topK: 20,
+    maxOutputTokens: 4096,
+  },
+  // MoE 26B model - Efficient reasoning
+  "gemma-4-26b-a4b-it": {
+    thinking: true,
+    thinking_budget: 1536,
+    temperature: 0.4,
+    topP: 0.9,
+    topK: 30,
+    maxOutputTokens: 4096,
+  },
+} as const;
+
+/**
+ * Get generation configuration for a specific Gemma 4 model
+ * Applies agentic settings with thinking mode for enhanced reasoning
+ */
+function getGemma4GenerationConfig(model: string) {
+  const isThinkingModel = model.includes("31b") || model.includes("26b");
+  
+  // Check if we have a specific config for this model
+  const configKey = model as keyof typeof GEMMA4_AGENTIC_CONFIG;
+  if (GEMMA4_AGENTIC_CONFIG[configKey]) {
+    return GEMMA4_AGENTIC_CONFIG[configKey];
+  }
+  
+  // Default config for other Gemma 4 variants
+  return {
+    temperature: 0.45,
+    topP: 0.9,
+    topK: 40,
+    maxOutputTokens: 2048,
+    // Enable thinking for capable models
+    ...(isThinkingModel ? { 
+      thinking: true, 
+      thinking_budget: 1024 
+    } : {}),
+  };
+}
 const USE_CLOUD_OLLAMA = Boolean(
   process.env.VERCEL &&
   (process.env.OLLAMA_CLOUD_URL ||
@@ -98,7 +168,6 @@ async function generateWithGoogleGemma(
   let lastError = "Unknown error";
 
   for (const hostedModel of candidateModels) {
-    const isThinkingModel = hostedModel.includes("31b");
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/${hostedModel}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`,
       {
@@ -117,12 +186,7 @@ async function generateWithGoogleGemma(
             },
           ],
           generationConfig: {
-            temperature: 0.45,
-            topP: 0.9,
-            topK: 40,
-            maxOutputTokens: 2048,
-            // Enable thinking for the largest model
-            ...(isThinkingModel ? { thinking: true, thinking_budget: 1024 } : {})
+            ...getGemma4GenerationConfig(hostedModel),
           },
         }),
       }
@@ -473,20 +537,35 @@ export function getCacheBackend(): "upstash" | "memory" {
 }
 
 /**
- * System prompt for scripture analysis - OPTIMIZED for speed
+ * System prompt for scripture analysis - OPTIMIZED for Gemma 4
+ * Leverages native thinking mode and system instructions for coherent reasoning
  */
-const SYSTEM_PROMPT = `You are "Hind AI", a digital scholar of Ancient Indian Scriptures.
+const SYSTEM_PROMPT = `You are "Hind AI", an expert digital scholar specializing in Ancient Indian Scriptures and Vedic wisdom.
 
-Provide concise analysis in JSON format with this structure:
+Your expertise includes:
+- Vedic literature (Rigveda, Samaveda, Yajurveda, Atharvaveda)
+- Principal Upanishads (Isha, Kena, Katha, Chandogya, etc.)
+- Bhagavad Gita and Mahabharata
+- Ramayana and Puranas
+- Yoga Sutras and Dharma Shastras
+- Sanskrit etymology and philosophy
+
+Provide analysis in JSON format with this structure:
 {
-  "explanation": "Main explanation (1-2 paragraphs)",
-  "summary": "Brief summary (20-30 words)",
-  "keyTerms": [{"term": "English", "meaning": "Definition", "sanskrit": "Sanskrit"}]
+  "explanation": "Clear, scholarly explanation with philosophical depth (1-2 paragraphs)",
+  "summary": "Concise synthesis (20-30 words)",
+  "keyTerms": [{"term": "English term", "meaning": "Clear definition", "sanskrit": "Devanagari script"}],
+  "context": "Historical/scriptural context and significance",
+  "references": [{"scripture": "Name", "chapter": 0, "verse": 0}]
 }
 
-Return ONLY one valid JSON object.
-"explanation" must be a plain string, never an object or nested JSON.
-Keep responses focused and under 400 words.`;
+Guidelines:
+- Use your reasoning capability to analyze deeper philosophical meanings
+- Connect concepts across different scriptures when relevant
+- Provide accurate Sanskrit transliterations
+- Cite specific chapter/verse references when possible
+- Keep "explanation" as a plain string, never nested objects
+- Return ONLY valid JSON, no markdown formatting`;
 
 const STREAMING_SYSTEM_PROMPT = `You are Hind AI, a concise guide to Indian scriptures.
 
