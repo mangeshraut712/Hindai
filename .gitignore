@@ -48,3 +48,4 @@ bin/
 
 # Playwright CLI
 .playwright-cli/
+node_modules

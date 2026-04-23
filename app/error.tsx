@@ -21,25 +21,19 @@ export default function Error({
     <div className="flex min-h-screen flex-col items-center justify-center px-4">
       <div className="text-center">
         <AlertCircle className="mx-auto h-16 w-16 text-destructive" />
-        <h1 className="mt-6 text-3xl font-bold tracking-tight">
-          Something went wrong
-        </h1>
+        <h1 className="mt-6 text-3xl font-bold tracking-tight">Something went wrong</h1>
         <p className="mt-4 max-w-md text-muted-foreground">
-          We apologize for the inconvenience. An unexpected error has occurred.
-          Our team has been notified.
+          We apologize for the inconvenience. An unexpected error has occurred. Our team has been
+          notified.
         </p>
         {error.message && (
           <div className="mt-6 rounded-lg bg-muted p-4">
-            <p className="text-sm font-medium text-muted-foreground">
-              Error details:
-            </p>
+            <p className="text-sm font-medium text-muted-foreground">Error details:</p>
             <code className="mt-2 block max-w-md overflow-auto text-xs text-destructive">
               {error.message}
             </code>
             {error.digest && (
-              <p className="mt-2 text-xs text-muted-foreground">
-                Error ID: {error.digest}
-              </p>
+              <p className="mt-2 text-xs text-muted-foreground">Error ID: {error.digest}</p>
             )}
           </div>
         )}

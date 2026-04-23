@@ -26,8 +26,7 @@ export const scriptures: Scripture[] = [
     name: "Rigveda",
     sanskritName: "ऋग्वेद",
     category: "veda",
-    description:
-      "The oldest sacred text of Hinduism, containing hymns to various deities",
+    description: "The oldest sacred text of Hinduism, containing hymns to various deities",
     totalChapters: 10,
     language: "Vedic Sanskrit",
     approximateDate: "~1500 - 1200 BCE",
@@ -38,8 +37,7 @@ export const scriptures: Scripture[] = [
     name: "Yoga Sutras",
     sanskritName: "योगसूत्र",
     category: "philosophy",
-    description:
-      "196 aphorisms on the theory and practice of Yoga by Patanjali",
+    description: "196 aphorisms on the theory and practice of Yoga by Patanjali",
     totalChapters: 4,
     language: "Sanskrit",
     approximateDate: "~400 CE",
@@ -54,8 +52,7 @@ export const sampleVerses: ScriptureVerse[] = [
     scriptureId: "bhagavad-gita",
     chapter: 2,
     verse: 47,
-    sanskrit:
-      "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन |\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि ||",
+    sanskrit: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन |\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि ||",
     transliteration:
       "karmaṇy-evādhikāras te mā phaleṣu kadācana |\nmā karma-phala-hetur bhūr mā te saṅgo 'stv akarmaṇi ||",
     translation: {
@@ -117,8 +114,7 @@ export const sampleVerses: ScriptureVerse[] = [
     chapter: 1,
     verse: 1,
     sanskrit: "अग्निमीळे पुरोहितं यज्ञस्य देवमृत्विजम् |\nहोतारं रत्नधातमम् ||",
-    transliteration:
-      "agnim īḷe purohitaṃ yajñasya devam ṛtvijam |\nhotāraṃ ratna-dhātamam ||",
+    transliteration: "agnim īḷe purohitaṃ yajñasya devam ṛtvijam |\nhotāraṃ ratna-dhātamam ||",
     translation: {
       en: "I praise Agni, the priest, the divine minister of the sacrifice, the invoker, the bestower of treasures.",
       hi: "मैं अग्नि की स्तुति करता हूं, जो पुरोहित, यज्ञ के देव, ऋत्विज, होता और रत्नों के दाता हैं।",
@@ -140,13 +136,10 @@ export function getVersesByScripture(scriptureId: string): ScriptureVerse[] {
 export function getVerse(
   scriptureId: string,
   chapter: number,
-  verse: number,
+  verse: number
 ): ScriptureVerse | undefined {
   return sampleVerses.find(
-    (v) =>
-      v.scriptureId === scriptureId &&
-      v.chapter === chapter &&
-      v.verse === verse,
+    (v) => v.scriptureId === scriptureId && v.chapter === chapter && v.verse === verse
   );
 }
 
@@ -160,7 +153,7 @@ export function searchVerses(query: string): ScriptureVerse[] {
       v.translation.en.toLowerCase().includes(lowerQuery) ||
       v.sanskrit.includes(query) ||
       v.transliteration.toLowerCase().includes(lowerQuery) ||
-      v.keyTerms.some((term) => term.toLowerCase().includes(lowerQuery)),
+      v.keyTerms.some((term) => term.toLowerCase().includes(lowerQuery))
   );
 }
 
@@ -174,19 +167,14 @@ export function searchVerse(query: string): ScriptureVerse[] {
 }
 
 // Tool: Find related verses
-export function findRelated(
-  scriptureId: string,
-  chapter: number,
-  verse: number,
-): ScriptureVerse[] {
+export function findRelated(scriptureId: string, chapter: number, verse: number): ScriptureVerse[] {
   const baseVerse = getVerse(scriptureId, chapter, verse);
   if (!baseVerse) return [];
 
   // Find verses with similar keywords
   const related = sampleVerses.filter(
     (v) =>
-      v.scriptureId !== scriptureId &&
-      v.keyTerms.some((term) => baseVerse.keyTerms.includes(term)),
+      v.scriptureId !== scriptureId && v.keyTerms.some((term) => baseVerse.keyTerms.includes(term))
   );
 
   return related.slice(0, 3);

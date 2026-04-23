@@ -2,17 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useTheme } from "next-themes";
-import {
-  BookOpen,
-  ChevronDown,
-  Menu,
-  Moon,
-  Search,
-  Sparkles,
-  Sun,
-  Trophy,
-} from "lucide-react";
+import { ChevronDown, Menu, Moon, Search, Sparkles, Sun, Trophy } from "lucide-react";
 import { track } from "@vercel/analytics";
 import { Button } from "@/components/ui/button";
 import {
@@ -90,13 +82,18 @@ export function Header() {
           className="group flex min-w-0 items-center gap-3"
           onClick={() => handleNavigation("/", "Home")}
         >
-          <div className="flex size-11 items-center justify-center rounded-full border border-border/70 bg-background/70 text-primary shadow-[0_18px_42px_-30px_rgba(15,23,42,0.35)]">
-            <BookOpen className="size-5" />
+          <div className="flex size-11 items-center justify-center overflow-hidden rounded-full border border-border/70 bg-background/70 text-primary shadow-[0_18px_42px_-30px_rgba(15,23,42,0.35)]">
+            <Image
+              src="/logo.png"
+              alt="Hind AI Logo"
+              width={44}
+              height={44}
+              className="object-cover"
+              priority
+            />
           </div>
           <div className="min-w-0">
-            <div className="text-lg font-semibold tracking-[0.02em] text-foreground">
-              Hind AI
-            </div>
+            <div className="text-lg font-semibold tracking-[0.02em] text-foreground">Hind AI</div>
             <div className="font-devanagari text-[11px] tracking-[0.24em] text-muted-foreground">
               डिजिटल गुरुकुल
             </div>
@@ -120,11 +117,7 @@ export function Header() {
               className="bg-background/88 w-80 rounded-[24px] border-border/70 p-2 backdrop-blur-2xl"
             >
               {headerScriptures.map((item) => (
-                <DropdownMenuItem
-                  key={item.slug}
-                  asChild
-                  className="rounded-2xl px-4 py-3"
-                >
+                <DropdownMenuItem key={item.slug} asChild className="rounded-2xl px-4 py-3">
                   <Link
                     href={item.href}
                     className="flex flex-col gap-1"
@@ -133,12 +126,8 @@ export function Header() {
                     <span className="font-devanagari text-base text-foreground">
                       {item.sanskrit}
                     </span>
-                    <span className="text-sm font-semibold text-foreground">
-                      {item.name}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      {item.highlight}
-                    </span>
+                    <span className="text-sm font-semibold text-foreground">{item.name}</span>
+                    <span className="text-xs text-muted-foreground">{item.highlight}</span>
                   </Link>
                 </DropdownMenuItem>
               ))}
@@ -153,9 +142,7 @@ export function Header() {
               onClick={() => handleNavigation(item.href, item.label)}
             >
               <span className="inline-flex items-center gap-2">
-                {item.icon ? (
-                  <item.icon className="size-4 text-primary/80" />
-                ) : null}
+                {item.icon ? <item.icon className="size-4 text-primary/80" /> : null}
                 {item.label}
               </span>
               <span className="mt-1 block font-devanagari text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
@@ -180,17 +167,9 @@ export function Header() {
             </kbd>
           </Button>
 
-          <VoiceSearch
-            onResult={handleVoiceSearch}
-            className="hidden sm:flex"
-          />
+          <VoiceSearch onResult={handleVoiceSearch} className="hidden sm:flex" />
 
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handleThemeToggle}
-            aria-label="Toggle theme"
-          >
+          <Button variant="ghost" size="icon" onClick={handleThemeToggle} aria-label="Toggle theme">
             <Sun className="size-4 rotate-0 scale-100 text-primary transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute size-4 rotate-90 scale-0 text-primary transition-all dark:rotate-0 dark:scale-100" />
             <span className="sr-only">Toggle theme</span>
@@ -208,9 +187,7 @@ export function Header() {
               className="bg-background/92 w-[22rem] border-border/70 px-6 py-5 backdrop-blur-2xl"
             >
               <SheetHeader className="border-b border-border/60 pb-5">
-                <SheetTitle className="text-left text-xl font-semibold">
-                  Hind AI
-                </SheetTitle>
+                <SheetTitle className="text-left text-xl font-semibold">Hind AI</SheetTitle>
                 <SheetDescription className="text-left font-devanagari tracking-[0.18em]">
                   डिजिटल गुरुकुल
                 </SheetDescription>
@@ -229,12 +206,8 @@ export function Header() {
                         className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 transition-colors hover:bg-secondary/70"
                         onClick={() => handleNavigation(item.href, item.name)}
                       >
-                        <p className="font-devanagari text-sm text-primary">
-                          {item.sanskrit}
-                        </p>
-                        <p className="mt-1 text-sm font-semibold text-foreground">
-                          {item.name}
-                        </p>
+                        <p className="font-devanagari text-sm text-primary">{item.sanskrit}</p>
+                        <p className="mt-1 text-sm font-semibold text-foreground">{item.name}</p>
                       </Link>
                     ))}
                   </div>
@@ -252,9 +225,7 @@ export function Header() {
                         className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 transition-colors hover:bg-secondary/70"
                         onClick={() => handleNavigation(item.href, item.label)}
                       >
-                        <p className="text-sm font-semibold text-foreground">
-                          {item.label}
-                        </p>
+                        <p className="text-sm font-semibold text-foreground">{item.label}</p>
                         <p className="mt-1 font-devanagari text-xs tracking-[0.18em] text-muted-foreground">
                           {item.hindi}
                         </p>

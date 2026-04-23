@@ -114,7 +114,7 @@ export function AIExplanation({
       setGrounding(result.grounding ?? null);
     } catch {
       setError(
-        "Failed to generate explanation. Please check the Gemma 4 API configuration and try again.",
+        "Failed to generate explanation. Please check the Gemma 4 API configuration and try again."
       );
     } finally {
       setLoading(false);
@@ -133,37 +133,29 @@ export function AIExplanation({
         <CardContent className="space-y-4">
           {studyPack.summary ? (
             <div className="rounded-lg border border-border/60 bg-background/70 p-4">
-              <p className="text-sm font-medium text-muted-foreground">
-                Quick takeaway
-              </p>
+              <p className="text-sm font-medium text-muted-foreground">Quick takeaway</p>
               <p className="mt-2 text-sm leading-7">{studyPack.summary}</p>
             </div>
           ) : null}
 
           <div className="prose prose-sm dark:prose-invert max-w-none">
-            {(studyPack.explanation || "Explanation unavailable.")
-              .split("\n")
-              .map((line, i) => (
-                <p key={i} className="mb-2">
-                  {line}
-                </p>
-              ))}
+            {(studyPack.explanation || "Explanation unavailable.").split("\n").map((line, i) => (
+              <p key={i} className="mb-2">
+                {line}
+              </p>
+            ))}
           </div>
 
           {studyPack.context ? (
             <div className="rounded-lg border border-border/60 bg-background/70 p-4">
-              <p className="text-sm font-medium text-muted-foreground">
-                Context
-              </p>
+              <p className="text-sm font-medium text-muted-foreground">Context</p>
               <p className="mt-2 text-sm leading-7">{studyPack.context}</p>
             </div>
           ) : null}
 
           {studyPack.keyTerms?.length ? (
             <div className="space-y-2">
-              <p className="text-sm font-medium text-muted-foreground">
-                Key terms
-              </p>
+              <p className="text-sm font-medium text-muted-foreground">Key terms</p>
               <div className="grid gap-3 md:grid-cols-2">
                 {studyPack.keyTerms.map((term) => (
                   <div
@@ -172,13 +164,9 @@ export function AIExplanation({
                   >
                     <p className="text-sm font-medium">{term.term}</p>
                     {term.sanskrit ? (
-                      <p className="mt-1 font-devanagari text-sm text-primary">
-                        {term.sanskrit}
-                      </p>
+                      <p className="mt-1 font-devanagari text-sm text-primary">{term.sanskrit}</p>
                     ) : null}
-                    <p className="mt-2 text-xs leading-6 text-muted-foreground">
-                      {term.meaning}
-                    </p>
+                    <p className="mt-2 text-xs leading-6 text-muted-foreground">{term.meaning}</p>
                   </div>
                 ))}
               </div>
@@ -187,9 +175,7 @@ export function AIExplanation({
 
           {studyPack.learningObjectives?.length ? (
             <div>
-              <p className="text-sm font-medium text-muted-foreground">
-                Learning objectives
-              </p>
+              <p className="text-sm font-medium text-muted-foreground">Learning objectives</p>
               <ul className="mt-2 space-y-2 text-sm text-muted-foreground">
                 {studyPack.learningObjectives.map((objective) => (
                   <li key={objective}>• {objective}</li>
@@ -200,9 +186,7 @@ export function AIExplanation({
 
           {studyPack.followUpQuestions?.length ? (
             <div>
-              <p className="text-sm font-medium text-muted-foreground">
-                Follow-up questions
-              </p>
+              <p className="text-sm font-medium text-muted-foreground">Follow-up questions</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {studyPack.followUpQuestions.map((question) => (
                   <span
@@ -224,9 +208,7 @@ export function AIExplanation({
                     ? "Teacher lesson plan"
                     : "Student lesson plan"}
                 </p>
-                <p className="mt-2 text-sm font-medium">
-                  {studyPack.lessonPlan.title}
-                </p>
+                <p className="mt-2 text-sm font-medium">{studyPack.lessonPlan.title}</p>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
@@ -239,9 +221,7 @@ export function AIExplanation({
                 </ul>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  Steps
-                </p>
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Steps</p>
                 <div className="mt-2 space-y-3">
                   {studyPack.lessonPlan.steps.map((step) => (
                     <div
@@ -276,25 +256,18 @@ export function AIExplanation({
 
           {studyPack.practice ? (
             <div className="rounded-lg border border-border/60 bg-background/70 p-4">
-              <p className="text-sm font-medium text-muted-foreground">
-                Practice
-              </p>
+              <p className="text-sm font-medium text-muted-foreground">Practice</p>
               <p className="mt-2 text-sm leading-7">{studyPack.practice}</p>
             </div>
           ) : null}
 
           {studyPack.references?.length ? (
             <div>
-              <p className="text-sm font-medium text-muted-foreground">
-                References
-              </p>
+              <p className="text-sm font-medium text-muted-foreground">References</p>
               <ul className="mt-2 space-y-2 text-sm text-muted-foreground">
                 {studyPack.references.map((reference) => (
-                  <li
-                    key={`${reference.scripture}-${reference.chapter}-${reference.verse}`}
-                  >
-                    • {reference.scripture} {reference.chapter}.
-                    {reference.verse}
+                  <li key={`${reference.scripture}-${reference.chapter}-${reference.verse}`}>
+                    • {reference.scripture} {reference.chapter}.{reference.verse}
                   </li>
                 ))}
               </ul>
@@ -355,21 +328,12 @@ export function AIExplanation({
         {error ? (
           <div className="space-y-4 text-center">
             <p className="text-sm text-muted-foreground">{error}</p>
-            <Button
-              onClick={fetchExplanation}
-              variant="outline"
-              size="sm"
-              className="w-full"
-            >
+            <Button onClick={fetchExplanation} variant="outline" size="sm" className="w-full">
               Try Again
             </Button>
           </div>
         ) : (
-          <Button
-            onClick={fetchExplanation}
-            disabled={loading}
-            className="w-full gap-2"
-          >
+          <Button onClick={fetchExplanation} disabled={loading} className="w-full gap-2">
             {loading ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />

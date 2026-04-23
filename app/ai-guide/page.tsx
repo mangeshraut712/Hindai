@@ -49,18 +49,9 @@ export default async function AIGuidePage({ searchParams }: AIGuidePageProps) {
 
       <main className="flex-1">
         <section className="hero-mesh relative overflow-hidden border-b border-border/60">
-          <div
-            className="grain-mask absolute inset-0 opacity-45"
-            aria-hidden="true"
-          />
-          <div
-            className="hero-sun -left-20 top-10 h-56 w-56 opacity-80"
-            aria-hidden="true"
-          />
-          <div
-            className="hero-sun right-0 top-20 h-72 w-72 opacity-60"
-            aria-hidden="true"
-          />
+          <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
+          <div className="hero-sun -left-20 top-10 h-56 w-56 opacity-80" aria-hidden="true" />
+          <div className="hero-sun right-0 top-20 h-72 w-72 opacity-60" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
               <div className="max-w-3xl">
@@ -69,10 +60,9 @@ export default async function AIGuidePage({ searchParams }: AIGuidePageProps) {
                   Ask, compare, and translate Indian scripture with local AI.
                 </h1>
                 <p className="section-copy mt-5">
-                  Guru AI now combines grounded study prompts with an
-                  Indian-language translation tool, making it easier to move
-                  from Sanskrit or Devanagari lines into readable English or
-                  Indian-language explanations for many more learners.
+                  Guru AI now combines grounded study prompts with an Indian-language translation
+                  tool, making it easier to move from Sanskrit or Devanagari lines into readable
+                  English or Indian-language explanations for many more learners.
                 </p>
               </div>
 
@@ -116,12 +106,8 @@ export default async function AIGuidePage({ searchParams }: AIGuidePageProps) {
                     <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
                       <Sparkles className="size-5" />
                     </div>
-                    <h2 className="mt-5 text-2xl font-semibold text-foreground">
-                      {point.title}
-                    </h2>
-                    <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                      {point.body}
-                    </p>
+                    <h2 className="mt-5 text-2xl font-semibold text-foreground">{point.title}</h2>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{point.body}</p>
                   </div>
                 </div>
               ))}

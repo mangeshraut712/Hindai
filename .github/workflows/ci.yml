@@ -1,8 +1,7 @@
 name: CI Pipeline
 
-# Note: Tests requiring API keys are skipped by default.
-# For local testing: export GEMMA_API_KEY="your_key" && npm run test
-# GitHub Secrets (optional, for CI): GEMMA_API_KEY, UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN
+# Note: the app is designed for local Ollama in development.
+# CI does not boot Ollama by default, so keep tests isolated from local model dependencies.
 
 on:
   push:

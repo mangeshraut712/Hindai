@@ -1,9 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Manrope,
-  Cormorant_Garamond,
-  Noto_Serif_Devanagari,
-} from "next/font/google";
+import { Manrope, Cormorant_Garamond, Noto_Serif_Devanagari } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "./providers";
@@ -32,8 +28,7 @@ const notoSerifDevanagari = Noto_Serif_Devanagari({
 export const metadata: Metadata = {
   metadataBase: new URL("https://hindai.dev"),
   title: {
-    default:
-      "Hind AI - AI-Powered Digital Library of Ancient Indian Scriptures",
+    default: "Hind AI - AI-Powered Digital Library of Ancient Indian Scriptures",
     template: "%s | Hind AI",
   },
   description:
@@ -95,8 +90,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Hind AI - AI-Powered Digital Library",
-    description:
-      "Discover ancient Indian wisdom through AI-powered exploration.",
+    description: "Discover ancient Indian wisdom through AI-powered exploration.",
     images: ["/og_home.png"],
   },
   alternates: {
@@ -111,7 +105,7 @@ export const metadata: Metadata = {
   classification: "Religious & Spiritual",
   icons: {
     icon: [{ url: "/favicon.ico" }],
-    apple: [{ url: "/icon-144x144.png", sizes: "144x144" }],
+    apple: [{ url: "/logo.png", sizes: "180x180" }],
   },
   manifest: "/manifest.json",
 };
@@ -126,11 +120,7 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
@@ -152,8 +142,7 @@ export default function RootLayout({
                 "@type": "SearchAction",
                 target: {
                   "@type": "EntryPoint",
-                  urlTemplate:
-                    "https://hindai.dev/contents?q={search_term_string}",
+                  urlTemplate: "https://hindai.dev/contents?q={search_term_string}",
                 },
                 "query-input": "required name=search_term_string",
               },
@@ -170,7 +159,7 @@ export default function RootLayout({
               "@type": "Organization",
               name: "Hind AI",
               url: "https://hindai.dev",
-              logo: "https://hindai.dev/icon-144x144.png",
+              logo: "https://hindai.dev/logo.png",
               sameAs: ["https://github.com/mangeshraut712/Hindai"],
               contactPoint: {
                 "@type": "ContactPoint",

@@ -18,9 +18,7 @@ export function MeditationTimer({ className }: MeditationTimerProps) {
   const [isActive, setIsActive] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
-  const [currentPhase, setCurrentPhase] = useState<
-    "inhale" | "hold" | "exhale"
-  >("inhale");
+  const [currentPhase, setCurrentPhase] = useState<"inhale" | "hold" | "exhale">("inhale");
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const _audioRef = useRef<HTMLAudioElement | null>(null);
@@ -115,9 +113,7 @@ export function MeditationTimer({ className }: MeditationTimerProps) {
 
   const createBellSound = () => {
     if (typeof window !== "undefined" && window.AudioContext) {
-      const audioContext = new (
-        window.AudioContext || (window as any).webkitAudioContext
-      )();
+      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
       const oscillator = audioContext.createOscillator();
       const gainNode = audioContext.createGain();
 
@@ -125,16 +121,10 @@ export function MeditationTimer({ className }: MeditationTimerProps) {
       gainNode.connect(audioContext.destination);
 
       oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-      oscillator.frequency.exponentialRampToValueAtTime(
-        400,
-        audioContext.currentTime + 0.5,
-      );
+      oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.5);
 
       gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(
-        0.01,
-        audioContext.currentTime + 1,
-      );
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
 
       oscillator.start(audioContext.currentTime);
       oscillator.stop(audioContext.currentTime + 1);
@@ -176,16 +166,11 @@ export function MeditationTimer({ className }: MeditationTimerProps) {
 
           {/* Timer Display */}
           <div className="space-y-4">
-            <div className="font-mono text-6xl font-bold">
-              {formatTime(timeLeft)}
-            </div>
+            <div className="font-mono text-6xl font-bold">{formatTime(timeLeft)}</div>
 
             {/* Progress Circle */}
             <div className="relative mx-auto h-32 w-32">
-              <svg
-                className="h-full w-full -rotate-90 transform"
-                viewBox="0 0 100 100"
-              >
+              <svg className="h-full w-full -rotate-90 transform" viewBox="0 0 100 100">
                 <circle
                   cx="50"
                   cy="50"
@@ -224,14 +209,10 @@ export function MeditationTimer({ className }: MeditationTimerProps) {
 
           {/* Duration Selector */}
           <div className="space-y-2">
-            <label className="text-sm font-medium">
-              Duration: {duration} minutes
-            </label>
+            <label className="text-sm font-medium">Duration: {duration} minutes</label>
             <Slider
               value={[duration]}
-              onValueChange={(value: number[]) =>
-                !isActive && setDuration(value[0])
-              }
+              onValueChange={(value: number[]) => !isActive && setDuration(value[0])}
               min={1}
               max={60}
               step={1}
@@ -249,21 +230,11 @@ export function MeditationTimer({ className }: MeditationTimerProps) {
               </Button>
             ) : (
               <>
-                <Button
-                  onClick={handlePause}
-                  variant="outline"
-                  size="lg"
-                  className="gap-2"
-                >
+                <Button onClick={handlePause} variant="outline" size="lg" className="gap-2">
                   <Pause className="h-4 w-4" />
                   {isPaused ? "Resume" : "Pause"}
                 </Button>
-                <Button
-                  onClick={handleReset}
-                  variant="outline"
-                  size="lg"
-                  className="gap-2"
-                >
+                <Button onClick={handleReset} variant="outline" size="lg" className="gap-2">
                   <RotateCcw className="h-4 w-4" />
                   Reset
                 </Button>
@@ -276,11 +247,7 @@ export function MeditationTimer({ className }: MeditationTimerProps) {
               size="lg"
               className="gap-2"
             >
-              {soundEnabled ? (
-                <Volume2 className="h-4 w-4" />
-              ) : (
-                <VolumeX className="h-4 w-4" />
-              )}
+              {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
             </Button>
           </div>
 

@@ -90,21 +90,9 @@
       "rlig" 1,
       "calt" 1;
     background-image:
-      radial-gradient(
-        circle at 15% 15%,
-        hsl(var(--primary) / 0.18),
-        transparent 28%
-      ),
-      radial-gradient(
-        circle at 85% 10%,
-        hsl(var(--accent) / 0.14),
-        transparent 32%
-      ),
-      radial-gradient(
-        circle at 60% 75%,
-        hsl(var(--primary) / 0.08),
-        transparent 28%
-      ),
+      radial-gradient(circle at 15% 15%, hsl(var(--primary) / 0.18), transparent 28%),
+      radial-gradient(circle at 85% 10%, hsl(var(--accent) / 0.14), transparent 32%),
+      radial-gradient(circle at 60% 75%, hsl(var(--primary) / 0.08), transparent 28%),
       linear-gradient(180deg, hsl(var(--background)), hsl(var(--background)));
     min-height: 100vh;
   }
@@ -117,12 +105,7 @@
     pointer-events: none;
     opacity: 0.16;
     background-image:
-      linear-gradient(
-        120deg,
-        transparent 0%,
-        hsl(var(--foreground) / 0.04) 48%,
-        transparent 100%
-      ),
+      linear-gradient(120deg, transparent 0%, hsl(var(--foreground) / 0.04) 48%, transparent 100%),
       url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     background-size:
       cover,
@@ -172,11 +155,7 @@
     pointer-events: none;
     background:
       linear-gradient(180deg, hsl(var(--background) / 0.22), transparent 34%),
-      radial-gradient(
-        circle at top right,
-        hsl(var(--accent) / 0.16),
-        transparent 28%
-      );
+      radial-gradient(circle at top right, hsl(var(--accent) / 0.16), transparent 28%);
   }
 
   .dark .surface-panel {
@@ -188,61 +167,28 @@
   .dark .surface-panel::before {
     background:
       linear-gradient(180deg, hsl(var(--background) / 0.16), transparent 30%),
-      radial-gradient(
-        circle at top right,
-        hsl(var(--accent) / 0.1),
-        transparent 26%
-      );
+      radial-gradient(circle at top right, hsl(var(--accent) / 0.1), transparent 26%);
   }
 
   .hero-mesh {
     background-image:
-      radial-gradient(
-        circle at 20% 10%,
-        hsl(var(--accent) / 0.17),
-        transparent 22%
-      ),
-      radial-gradient(
-        circle at 82% 18%,
-        hsl(var(--primary) / 0.18),
-        transparent 26%
-      ),
-      radial-gradient(
-        circle at 50% 82%,
-        hsl(var(--foreground) / 0.06),
-        transparent 30%
-      ),
+      radial-gradient(circle at 20% 10%, hsl(var(--accent) / 0.17), transparent 22%),
+      radial-gradient(circle at 82% 18%, hsl(var(--primary) / 0.18), transparent 26%),
+      radial-gradient(circle at 50% 82%, hsl(var(--foreground) / 0.06), transparent 30%),
       linear-gradient(135deg, hsl(var(--background)), hsl(var(--secondary)));
   }
 
   .dark .hero-mesh {
     background-image:
-      radial-gradient(
-        circle at 18% 14%,
-        hsl(var(--accent) / 0.14),
-        transparent 22%
-      ),
-      radial-gradient(
-        circle at 82% 16%,
-        hsl(var(--primary) / 0.14),
-        transparent 28%
-      ),
-      radial-gradient(
-        circle at 55% 80%,
-        hsl(var(--foreground) / 0.05),
-        transparent 26%
-      ),
+      radial-gradient(circle at 18% 14%, hsl(var(--accent) / 0.14), transparent 22%),
+      radial-gradient(circle at 82% 16%, hsl(var(--primary) / 0.14), transparent 28%),
+      radial-gradient(circle at 55% 80%, hsl(var(--foreground) / 0.05), transparent 26%),
       linear-gradient(135deg, hsl(28 18% 11%), hsl(28 14% 15%));
   }
 
   .grain-mask {
     background-image:
-      linear-gradient(
-        120deg,
-        transparent 0%,
-        hsl(var(--foreground) / 0.06) 48%,
-        transparent 100%
-      ),
+      linear-gradient(120deg, transparent 0%, hsl(var(--foreground) / 0.06) 48%, transparent 100%),
       url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     background-size:
       cover,
@@ -251,11 +197,7 @@
 
   .hero-sun {
     @apply absolute rounded-full blur-3xl;
-    background: radial-gradient(
-      circle,
-      hsl(var(--accent) / 0.5) 0%,
-      transparent 68%
-    );
+    background: radial-gradient(circle, hsl(var(--accent) / 0.5) 0%, transparent 68%);
   }
 
   .temple-grid {
@@ -287,21 +229,9 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(
-        circle at 50% 24%,
-        hsl(var(--accent) / 0.26),
-        transparent 20%
-      ),
-      radial-gradient(
-        circle at 20% 70%,
-        hsl(var(--primary) / 0.18),
-        transparent 22%
-      ),
-      radial-gradient(
-        circle at 80% 75%,
-        hsl(var(--foreground) / 0.06),
-        transparent 28%
-      ),
+      radial-gradient(circle at 50% 24%, hsl(var(--accent) / 0.26), transparent 20%),
+      radial-gradient(circle at 20% 70%, hsl(var(--primary) / 0.18), transparent 22%),
+      radial-gradient(circle at 80% 75%, hsl(var(--foreground) / 0.06), transparent 28%),
       linear-gradient(180deg, hsl(var(--background)), hsl(var(--background)));
   }
 

@@ -11,10 +11,7 @@ export async function POST(request: NextRequest) {
     const query = formData.get("query") as string;
 
     if (!image || !query) {
-      return NextResponse.json(
-        { error: "Image and query are required" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "Image and query are required" }, { status: 400 });
     }
 
     // Convert image to base64 for Gemma 4 vision
@@ -27,10 +24,7 @@ export async function POST(request: NextRequest) {
       mode: "explain" as const,
     };
 
-    const result = await generateExplanation(
-      multimodalQuery,
-      "multimodal-user",
-    );
+    const result = await generateExplanation(multimodalQuery, "multimodal-user");
     const aiStatus = await getAIStatus();
 
     return NextResponse.json({
@@ -41,9 +35,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Multimodal analysis error:", error);
-    return NextResponse.json(
-      { error: "Failed to analyze manuscript image" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Failed to analyze manuscript image" }, { status: 500 });
   }
 }

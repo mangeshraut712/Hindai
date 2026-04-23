@@ -1,27 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  ArrowLeft,
-  ArrowRight,
-  BookOpen,
-  Clock3,
-  Languages,
-  Sparkles,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, Clock3, Languages, Sparkles } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ScriptureStudyExplorer } from "@/components/scripture/scripture-study-explorer";
-import {
-  getVerse,
-  getVersesByScripture,
-  scriptures,
-} from "@/lib/data/scriptures";
-import {
-  getScriptureCatalogItem,
-  scriptureCatalog,
-} from "@/lib/scripture-catalog";
+import { getVerse, getVersesByScripture, scriptures } from "@/lib/data/scriptures";
+import { getScriptureCatalogItem, scriptureCatalog } from "@/lib/scripture-catalog";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -31,9 +17,7 @@ export async function generateStaticParams() {
   return scriptureCatalog.map((item) => ({ slug: item.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const item = getScriptureCatalogItem(slug);
 
@@ -65,8 +49,7 @@ export default async function ScripturePage({ params }: PageProps) {
 
   const detailed = scriptures.find((scripture) => scripture.id === slug);
   const verses = getVersesByScripture(slug);
-  const firstVerse =
-    verses[0] || (detailed ? getVerse(detailed.id, 1, 1) : undefined);
+  const firstVerse = verses[0] || (detailed ? getVerse(detailed.id, 1, 1) : undefined);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -74,10 +57,7 @@ export default async function ScripturePage({ params }: PageProps) {
 
       <main className="flex-1">
         <section className="hero-mesh relative overflow-hidden border-b border-border/60">
-          <div
-            className="grain-mask absolute inset-0 opacity-45"
-            aria-hidden="true"
-          />
+          <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.72fr)] lg:px-8">
             <div className="max-w-4xl">
               <Link
@@ -185,13 +165,11 @@ export default async function ScripturePage({ params }: PageProps) {
               <div className="space-y-10">
                 <div className="max-w-3xl">
                   <span className="eyebrow">Verse study</span>
-                  <h2 className="section-title mt-6">
-                    Read a verse, then deepen it with Gemma 4.
-                  </h2>
+                  <h2 className="section-title mt-6">Read a verse, then deepen it with Gemma 4.</h2>
                   <p className="section-copy mt-5">
-                    Hind AI is stronger than a plain digital shelf when it turns
-                    a scripture page into a study surface: original text,
-                    transliteration, translation, then grounded AI explanation.
+                    Hind AI is stronger than a plain digital shelf when it turns a scripture page
+                    into a study surface: original text, transliteration, translation, then grounded
+                    AI explanation.
                   </p>
                 </div>
 
@@ -209,10 +187,9 @@ export default async function ScripturePage({ params }: PageProps) {
                     This text is cataloged and ready for guided expansion.
                   </h2>
                   <p className="mt-4 text-sm leading-7 text-muted-foreground">
-                    Hind AI already provides the structural position, key
-                    concepts, and a Gemma 4 study path for {item.name}. The next
-                    step is to keep expanding the direct verse library so each
-                    shelf becomes a full reading destination.
+                    Hind AI already provides the structural position, key concepts, and a Gemma 4
+                    study path for {item.name}. The next step is to keep expanding the direct verse
+                    library so each shelf becomes a full reading destination.
                   </p>
                   <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                     <Button variant="premium" asChild>
@@ -231,12 +208,9 @@ export default async function ScripturePage({ params }: PageProps) {
 
             {firstVerse ? null : (
               <div className="mt-10 rounded-[24px] border border-border/60 bg-background/75 p-5 text-sm leading-7 text-muted-foreground">
-                <strong className="text-foreground">
-                  Why this matters competitively:
-                </strong>{" "}
-                a scripture page with direct route ownership gives Hind AI a
-                stronger reading product, while Gemma 4 remains the layer that
-                explains, compares, and teaches.
+                <strong className="text-foreground">Why this matters competitively:</strong> a
+                scripture page with direct route ownership gives Hind AI a stronger reading product,
+                while Gemma 4 remains the layer that explains, compares, and teaches.
               </div>
             )}
           </div>

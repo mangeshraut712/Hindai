@@ -16,10 +16,7 @@ export default function StudyPathsPage() {
 
       <main className="flex-1">
         <section className="hero-mesh relative overflow-hidden border-b border-border/60">
-          <div
-            className="grain-mask absolute inset-0 opacity-45"
-            aria-hidden="true"
-          />
+          <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
               <span className="eyebrow">Guided Study Paths</span>
@@ -27,9 +24,9 @@ export default function StudyPathsPage() {
                 Saved reading journeys for students and teachers.
               </h1>
               <p className="section-copy mt-5">
-                This is where Hind AI starts to behave like a real learning
-                product: structured paths, persistent progress, and direct
-                handoff into scripture pages and Gemma 4 guidance.
+                This is where Hind AI starts to behave like a real learning product: structured
+                paths, persistent progress, and direct handoff into scripture pages and Gemma 4
+                guidance.
               </p>
             </div>
           </div>

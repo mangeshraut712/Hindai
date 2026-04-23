@@ -31,8 +31,7 @@ export const scriptureSections: ScriptureSection[] = [
         name: "Rigveda",
         sanskrit: "ऋग्वेद",
         category: "Veda",
-        description:
-          "The oldest layer of Vedic poetry, invocation, and cosmic imagination.",
+        description: "The oldest layer of Vedic poetry, invocation, and cosmic imagination.",
         highlight: "Hymns, cosmology, praise",
         href: "/rigveda/",
         language: "Vedic Sanskrit",
@@ -54,8 +53,7 @@ export const scriptureSections: ScriptureSection[] = [
         name: "Mahabharata",
         sanskrit: "महाभारत",
         category: "Epic",
-        description:
-          "A civilizational epic about dharma under impossible human conditions.",
+        description: "A civilizational epic about dharma under impossible human conditions.",
         highlight: "Dharma, statecraft, war",
         href: "/mahabharata/",
         language: "Sanskrit",
@@ -69,23 +67,20 @@ export const scriptureSections: ScriptureSection[] = [
         name: "Ramayana",
         sanskrit: "रामायण",
         category: "Epic",
-        description:
-          "The journey of Rama, Sita, Lakshmana, and Hanuman through love and duty.",
+        description: "The journey of Rama, Sita, Lakshmana, and Hanuman through love and duty.",
         highlight: "Exile, devotion, kingship",
         href: "/ramayana/",
         language: "Sanskrit",
         approximateDate: "~500 BCE–100 BCE",
         keyConcepts: ["Devotion", "Kingship", "Exile", "Dharma"],
-        readingLens:
-          "Read it as both a narrative and a study in conduct, relationship, and rule.",
+        readingLens: "Read it as both a narrative and a study in conduct, relationship, and rule.",
       },
       {
         slug: "bhagavad-gita",
         name: "Bhagavad Gita",
         sanskrit: "श्रीमद्भगवद्गीता",
         category: "Dialogue",
-        description:
-          "Krishna’s teaching on action, devotion, knowledge, and inner steadiness.",
+        description: "Krishna’s teaching on action, devotion, knowledge, and inner steadiness.",
         highlight: "Karma, yoga, liberation",
         href: "/bhagavad-gita/",
         language: "Sanskrit",
@@ -107,8 +102,7 @@ export const scriptureSections: ScriptureSection[] = [
         name: "Srimad Bhagavatam",
         sanskrit: "श्रीमद्भागवतम्",
         category: "Purana",
-        description:
-          "A devotional universe centered on Krishna, bhakti, and divine play.",
+        description: "A devotional universe centered on Krishna, bhakti, and divine play.",
         highlight: "Bhakti, Krishna, cosmic story",
         href: "/srimad-bhagavatam/",
         language: "Sanskrit",
@@ -122,8 +116,7 @@ export const scriptureSections: ScriptureSection[] = [
         name: "Markandeya Purana",
         sanskrit: "मार्कण्डेय पुराण",
         category: "Purana",
-        description:
-          "A wide-ranging Purana that contains the celebrated Devi Mahatmyam.",
+        description: "A wide-ranging Purana that contains the celebrated Devi Mahatmyam.",
         highlight: "Myth, cycles, goddess traditions",
         href: "/markandeya-purana/",
         language: "Sanskrit",
@@ -137,15 +130,13 @@ export const scriptureSections: ScriptureSection[] = [
         name: "Devi Mahatmyam",
         sanskrit: "देवीमहात्म्यम्",
         category: "Shakta",
-        description:
-          "A luminous text of the Divine Mother, power, protection, and cosmic balance.",
+        description: "A luminous text of the Divine Mother, power, protection, and cosmic balance.",
         highlight: "Shakti, victory, protection",
         href: "/devi-mahatmyam/",
         language: "Sanskrit",
         approximateDate: "~400–600 CE",
         keyConcepts: ["Shakti", "Protection", "Cosmic order"],
-        readingLens:
-          "Approach it through symbolism and theology, not only mythology.",
+        readingLens: "Approach it through symbolism and theology, not only mythology.",
       },
     ],
   },
@@ -219,9 +210,7 @@ export const scriptureSections: ScriptureSection[] = [
   },
 ];
 
-export const scriptureCatalog = scriptureSections.flatMap(
-  (section) => section.items,
-);
+export const scriptureCatalog = scriptureSections.flatMap((section) => section.items);
 
 export const featuredScriptures = scriptureCatalog.slice(0, 6);
 

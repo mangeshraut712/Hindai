@@ -17,12 +17,10 @@ export default function QuizPage() {
       <main className="flex-1">
         <div className="container mx-auto px-4 py-8">
           <div className="mx-auto max-w-2xl">
-            <h1 className="mb-4 text-center text-3xl font-bold">
-              Test Your Knowledge
-            </h1>
+            <h1 className="mb-4 text-center text-3xl font-bold">Test Your Knowledge</h1>
             <p className="mb-8 text-center text-muted-foreground">
-              Challenge yourself with questions from the Bhagavad Gita, Yoga
-              Sutras, and other sacred texts. Learn as you play!
+              Challenge yourself with questions from the Bhagavad Gita, Yoga Sutras, and other
+              sacred texts. Learn as you play!
             </p>
 
             <QuizSystem />
@@ -30,18 +28,10 @@ export default function QuizPage() {
             <div className="mt-8 text-center text-sm text-muted-foreground">
               <p>Topics covered:</p>
               <div className="mt-2 flex flex-wrap justify-center gap-2">
-                <span className="rounded-full bg-primary/10 px-2 py-1">
-                  Bhagavad Gita
-                </span>
-                <span className="rounded-full bg-primary/10 px-2 py-1">
-                  Yoga Sutras
-                </span>
-                <span className="rounded-full bg-primary/10 px-2 py-1">
-                  Upanishads
-                </span>
-                <span className="rounded-full bg-primary/10 px-2 py-1">
-                  Indian Philosophy
-                </span>
+                <span className="rounded-full bg-primary/10 px-2 py-1">Bhagavad Gita</span>
+                <span className="rounded-full bg-primary/10 px-2 py-1">Yoga Sutras</span>
+                <span className="rounded-full bg-primary/10 px-2 py-1">Upanishads</span>
+                <span className="rounded-full bg-primary/10 px-2 py-1">Indian Philosophy</span>
               </div>
             </div>
           </div>

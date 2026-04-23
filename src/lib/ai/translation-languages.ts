@@ -15,20 +15,13 @@ export type TranslationLanguage = (typeof TRANSLATION_LANGUAGES)[number]["id"];
 
 export const DEFAULT_TRANSLATION_LANGUAGE: TranslationLanguage = "en";
 
-export function resolveTranslationLanguage(
-  input: string | undefined,
-): TranslationLanguage {
+export function resolveTranslationLanguage(input: string | undefined): TranslationLanguage {
   return (
     TRANSLATION_LANGUAGES.find((language) => language.id === input)?.id ||
     DEFAULT_TRANSLATION_LANGUAGE
   );
 }
 
-export function getTranslationLanguageLabel(
-  languageId: TranslationLanguage,
-): string {
-  return (
-    TRANSLATION_LANGUAGES.find((language) => language.id === languageId)
-      ?.label || "English"
-  );
+export function getTranslationLanguageLabel(languageId: TranslationLanguage): string {
+  return TRANSLATION_LANGUAGES.find((language) => language.id === languageId)?.label || "English";
 }

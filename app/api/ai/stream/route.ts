@@ -45,15 +45,8 @@ export async function OPTIONS() {
 
 export async function POST(req: Request) {
   try {
-    const {
-      messages,
-      scripture,
-      chapter,
-      verse,
-      compareScriptureIds,
-      mode,
-      audience,
-    } = await req.json();
+    const { messages, scripture, chapter, verse, compareScriptureIds, mode, audience } =
+      await req.json();
     const latestUserMessage = Array.isArray(messages)
       ? [...messages]
           .reverse()
@@ -61,14 +54,14 @@ export async function POST(req: Request) {
             (message: { role?: string; content?: string }) =>
               message?.role === "user" &&
               typeof message.content === "string" &&
-              message.content.trim().length > 0,
+              message.content.trim().length > 0
           )
       : null;
 
     if (!latestUserMessage) {
       return NextResponse.json(
         { error: "A user message is required for streaming." },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -93,7 +86,7 @@ export async function POST(req: Request) {
             mode,
             audience,
           },
-          userId,
+          userId
         );
 
         for await (const chunk of streamGenerator) {
@@ -126,7 +119,7 @@ export async function POST(req: Request) {
     console.error("Streaming error:", error);
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "AI service unavailable" },
-      { status: 503 },
+      { status: 503 }
     );
   }
 }

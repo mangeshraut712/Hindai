@@ -108,8 +108,8 @@ export class ErrorBoundary extends Component<Props, State> {
               </h1>
 
               <p className="mb-6 text-gray-600 dark:text-gray-300">
-                We encountered an unexpected error. Our team has been notified
-                and is working to fix this issue.
+                We encountered an unexpected error. Our team has been notified and is working to fix
+                this issue.
               </p>
 
               <div className="space-y-3">
@@ -121,11 +121,7 @@ export class ErrorBoundary extends Component<Props, State> {
                   Try Again
                 </Button>
 
-                <Button
-                  onClick={this.handleGoHome}
-                  variant="outline"
-                  className="w-full"
-                >
+                <Button onClick={this.handleGoHome} variant="outline" className="w-full">
                   <Home className="mr-2 h-4 w-4" />
                   Go Home
                 </Button>
@@ -142,9 +138,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 </details>
               )}
 
-              <p className="mt-4 text-xs text-gray-500">
-                Error ID: {this.state.errorId}
-              </p>
+              <p className="mt-4 text-xs text-gray-500">Error ID: {this.state.errorId}</p>
             </div>
           </div>
         </div>
@@ -158,7 +152,7 @@ export class ErrorBoundary extends Component<Props, State> {
 // Higher-order component for wrapping components with error boundary
 export function withErrorBoundary<P extends object>(
   Component: React.ComponentType<P>,
-  fallback?: ReactNode,
+  fallback?: ReactNode
 ) {
   const WrappedComponent = (props: P) => (
     <ErrorBoundary fallback={fallback}>

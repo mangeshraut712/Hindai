@@ -33,8 +33,7 @@ export async function OPTIONS() {
 
 export async function POST(request: NextRequest) {
   try {
-    const { sanskrit, text, targetLang = DEFAULT_TRANSLATION_LANGUAGE } =
-      await request.json();
+    const { sanskrit, text, targetLang = DEFAULT_TRANSLATION_LANGUAGE } = await request.json();
     const sourceText =
       typeof text === "string" && text.trim().length > 0
         ? text.trim()
@@ -44,16 +43,10 @@ export async function POST(request: NextRequest) {
     const resolvedTargetLang = resolveTranslationLanguage(targetLang);
 
     if (!sourceText) {
-      return NextResponse.json(
-        { error: "Text is required for translation" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "Text is required for translation" }, { status: 400 });
     }
 
-    const result = await translateSanskrit(
-      sourceText,
-      resolvedTargetLang,
-    );
+    const result = await translateSanskrit(sourceText, resolvedTargetLang);
 
     return NextResponse.json({
       sanskrit: sourceText,

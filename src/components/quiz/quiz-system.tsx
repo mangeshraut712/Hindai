@@ -1,14 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  CheckCircle,
-  XCircle,
-  ArrowRight,
-  Trophy,
-  BookOpen,
-  Sparkles,
-} from "lucide-react";
+import { CheckCircle, XCircle, ArrowRight, Trophy, BookOpen, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -57,8 +50,7 @@ const sampleQuizQuestions: Question[] = [
   },
   {
     id: "3",
-    question:
-      "What are the three qualities (Gunas) described in the Bhagavad Gita?",
+    question: "What are the three qualities (Gunas) described in the Bhagavad Gita?",
     options: [
       "Sattva, Rajas, and Tamas",
       "Good, Bad, and Neutral",
@@ -104,8 +96,7 @@ const sampleQuizQuestions: Question[] = [
 ];
 
 export function QuizSystem() {
-  const [quizQuestions, setQuizQuestions] =
-    useState<Question[]>(sampleQuizQuestions);
+  const [quizQuestions, setQuizQuestions] = useState<Question[]>(sampleQuizQuestions);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
@@ -117,55 +108,34 @@ export function QuizSystem() {
   const generateAIQuiz = async () => {
     setIsGenerating(true);
     try {
-      const response = await fetch("/api/ai/generate", {
+      const response = await fetch("/api/ai/quiz", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          prompt:
-            "Generate a multiple choice quiz question about ancient Indian scriptures. Format exactly as: Question: [question text] Options: 1. [option1] 2. [option2] 3. [option3] 4. [option4] Correct Answer: [number 0-3] Explanation: [detailed explanation with scripture reference]",
+          topic: "Bhagavad Gita, Yoga Sutras, Upanishads, Ramayana, or Mahabharata",
         }),
       });
       const data = await response.json();
-      if (data.response?.explanation) {
-        // Parse the AI response
-        const content = data.response.explanation;
-        const questionMatch = content.match(
-          /Question:\s*([\s\S]+?)(?=Options:|$)/,
-        );
-        const optionsMatch = content.match(
-          /Options:\s*([\s\S]+?)(?=Correct Answer:|$)/,
-        );
-        const correctMatch = content.match(/Correct Answer:\s*(\d)/);
-        const explanationMatch = content.match(/Explanation:\s*([\s\S]+)$/);
+      if (data.question) {
+        const newQuestion: Question = {
+          id: Date.now().toString(),
+          question: data.question.question,
+          options: data.question.options,
+          correctAnswer: data.question.correctAnswer,
+          explanation: data.question.explanation,
+          scripture: data.question.scripture,
+          difficulty: data.question.difficulty,
+        };
 
-        if (questionMatch && optionsMatch && correctMatch && explanationMatch) {
-          const questionText = questionMatch[1].trim();
-          const optionsText = optionsMatch[1].trim();
-          const options = optionsText
-            .split(/\d+\.\s*/)
-            .filter(Boolean)
-            .map((opt: string) => opt.trim());
-          const correctAnswer = parseInt(correctMatch[1]) - 1; // 0-based
-          const explanation = explanationMatch[1].trim();
-
-          const newQuestion: Question = {
-            id: Date.now().toString(),
-            question: questionText,
-            options,
-            correctAnswer,
-            explanation,
-            scripture: "AI Generated",
-            difficulty: "medium",
-          };
-
-          setQuizQuestions([newQuestion]);
-          setCurrentQuestion(0);
-          setSelectedAnswer(null);
-          setShowExplanation(false);
-          setScore(0);
-          setCompleted(false);
-          setAnswers([]);
-        }
+        setQuizQuestions([newQuestion]);
+        setCurrentQuestion(0);
+        setSelectedAnswer(null);
+        setShowExplanation(false);
+        setScore(0);
+        setCompleted(false);
+        setAnswers([]);
+      } else {
+        throw new Error(data.error || "Quiz generation failed");
       }
     } catch (error) {
       console.error("Failed to generate quiz:", error);
@@ -221,12 +191,10 @@ export function QuizSystem() {
       message = "Excellent! You have deep knowledge of Indian scriptures!";
       emoji = "🏆";
     } else if (percentage >= 60) {
-      message =
-        "Good job! Keep learning and exploring these ancient wisdom texts.";
+      message = "Good job! Keep learning and exploring these ancient wisdom texts.";
       emoji = "📚";
     } else {
-      message =
-        "Keep studying! These sacred texts have profound wisdom to share.";
+      message = "Keep studying! These sacred texts have profound wisdom to share.";
       emoji = "🙏";
     }
 
@@ -247,8 +215,7 @@ export function QuizSystem() {
             {emoji} {message}
           </p>
           <div className="text-sm text-muted-foreground">
-            You scored {percentage}% - {score} correct out of{" "}
-            {quizQuestions.length} questions
+            You scored {percentage}% - {score} correct out of {quizQuestions.length} questions
           </div>
           <Button onClick={handleRestart} className="mt-4">
             Try Again
@@ -261,11 +228,7 @@ export function QuizSystem() {
   return (
     <>
       <div className="mb-4 flex justify-center">
-        <Button
-          onClick={generateAIQuiz}
-          disabled={isGenerating}
-          variant="outline"
-        >
+        <Button onClick={generateAIQuiz} disabled={isGenerating} variant="outline">
           <Sparkles className="mr-2 h-4 w-4" />
           {isGenerating ? "Generating..." : "Generate AI Quiz Question"}
         </Button>
@@ -280,9 +243,8 @@ export function QuizSystem() {
               className={cn(
                 "rounded-full px-2 py-1 text-xs",
                 question.difficulty === "easy" && "bg-green-100 text-green-800",
-                question.difficulty === "medium" &&
-                  "bg-yellow-100 text-yellow-800",
-                question.difficulty === "hard" && "bg-red-100 text-red-800",
+                question.difficulty === "medium" && "bg-yellow-100 text-yellow-800",
+                question.difficulty === "hard" && "bg-red-100 text-red-800"
               )}
             >
               {question.difficulty}
@@ -306,14 +268,12 @@ export function QuizSystem() {
                   showExplanation &&
                     selectedAnswer === index &&
                     index !== question.correctAnswer &&
-                    "border-red-500 bg-red-100 hover:bg-red-100",
+                    "border-red-500 bg-red-100 hover:bg-red-100"
                 )}
                 onClick={() => handleSelect(index)}
                 disabled={showExplanation}
               >
-                <span className="mr-3 font-medium">
-                  {String.fromCharCode(65 + index)}.
-                </span>
+                <span className="mr-3 font-medium">{String.fromCharCode(65 + index)}.</span>
                 {option}
                 {showExplanation && index === question.correctAnswer && (
                   <CheckCircle className="ml-auto h-5 w-5 text-green-600" />
@@ -339,11 +299,7 @@ export function QuizSystem() {
 
           <div className="flex gap-2 pt-2">
             {!showExplanation ? (
-              <Button
-                onClick={handleSubmit}
-                disabled={selectedAnswer === null}
-                className="flex-1"
-              >
+              <Button onClick={handleSubmit} disabled={selectedAnswer === null} className="flex-1">
                 Submit Answer
               </Button>
             ) : (

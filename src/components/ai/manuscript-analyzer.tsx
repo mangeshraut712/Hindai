@@ -100,9 +100,7 @@ export function ManuscriptAnalyzer() {
                     alt="Selected manuscript"
                     className="mx-auto max-h-48 max-w-full rounded"
                   />
-                  <p className="text-sm text-muted-foreground">
-                    {selectedImage.name}
-                  </p>
+                  <p className="text-sm text-muted-foreground">{selectedImage.name}</p>
                 </div>
               ) : (
                 <div className="space-y-2">
@@ -157,9 +155,7 @@ export function ManuscriptAnalyzer() {
             )}
           </Button>
 
-          {error && (
-            <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
-          )}
+          {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
         </CardContent>
       </Card>
 
@@ -182,27 +178,22 @@ export function ManuscriptAnalyzer() {
               <p className="text-sm leading-7">{result.response.explanation}</p>
             </div>
 
-            {result.response.keyTerms &&
-              result.response.keyTerms.length > 0 && (
-                <div className="space-y-2">
-                  <h4 className="font-medium">Identified Terms</h4>
-                  <div className="grid gap-2 md:grid-cols-2">
-                    {result.response.keyTerms.map((term, index) => (
-                      <div key={index} className="rounded-lg bg-muted/50 p-3">
-                        <p className="text-sm font-medium">{term.term}</p>
-                        {term.sanskrit && (
-                          <p className="font-devanagari text-sm text-primary">
-                            {term.sanskrit}
-                          </p>
-                        )}
-                        <p className="mt-1 text-xs text-muted-foreground">
-                          {term.meaning}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
+            {result.response.keyTerms && result.response.keyTerms.length > 0 && (
+              <div className="space-y-2">
+                <h4 className="font-medium">Identified Terms</h4>
+                <div className="grid gap-2 md:grid-cols-2">
+                  {result.response.keyTerms.map((term, index) => (
+                    <div key={index} className="rounded-lg bg-muted/50 p-3">
+                      <p className="text-sm font-medium">{term.term}</p>
+                      {term.sanskrit && (
+                        <p className="font-devanagari text-sm text-primary">{term.sanskrit}</p>
+                      )}
+                      <p className="mt-1 text-xs text-muted-foreground">{term.meaning}</p>
+                    </div>
+                  ))}
                 </div>
-              )}
+              </div>
+            )}
 
             <div className="text-xs text-muted-foreground">
               Analyzed using Gemma 4 Vision • Model: {result.model}

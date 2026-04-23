@@ -31,9 +31,7 @@ export function VoiceSearch({
       setIsSupported(true);
 
       // Initialize speech recognition
-      const recognition = new (
-        window.webkitSpeechRecognition || window.SpeechRecognition
-      )();
+      const recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
 
       recognition.continuous = false;
       recognition.interimResults = true;
@@ -121,16 +119,11 @@ export function VoiceSearch({
         ) : (
           <Mic className="h-4 w-4" />
         )}
-        <span className="hidden sm:inline">
-          {isListening ? "Listening..." : "Voice"}
-        </span>
+        <span className="hidden sm:inline">{isListening ? "Listening..." : "Voice"}</span>
       </Button>
 
       {transcript && (
-        <div
-          className="max-w-xs truncate text-sm text-muted-foreground"
-          title={transcript}
-        >
+        <div className="max-w-xs truncate text-sm text-muted-foreground" title={transcript}>
           &ldquo;{transcript}&rdquo;
         </div>
       )}
