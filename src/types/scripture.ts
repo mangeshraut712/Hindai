@@ -40,7 +40,7 @@ export interface ScriptureVerse {
   keyTerms: string[];
   relatedVerses?: string[];
   tags?: string[]; // For search optimization
-  sukta?: string; // For Vedas
+  sukta?: number; // For Vedas
   mandala?: number; // For Vedas
 }
 

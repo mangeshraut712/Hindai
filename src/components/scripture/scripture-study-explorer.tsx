@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, Sparkles, Bookmark, BookmarkCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AIExplanation } from "@/components/ai/ai-explanation";
 import { ScriptureVerse } from "@/types/scripture";
@@ -18,19 +18,45 @@ export function ScriptureStudyExplorer({
   scriptureHighlight,
 }: ScriptureStudyExplorerProps) {
   const progressKey = `hindai.reading-progress.${scriptureSlug}`;
+  const favoritesKey = `hindai.favorites.verses`;
+  
+  // Check if this is Rigveda (has mandala and sukta fields)
+  const isRigveda = scriptureSlug === "rigveda" || verses.some(v => v.mandala !== undefined);
+  
+  const mandalas = useMemo(
+    () => [...new Set(verses.map((verse) => verse.mandala).filter((m): m is number => m !== undefined))].sort((a, b) => a - b),
+    [verses]
+  );
+  
   const chapters = useMemo(
     () => [...new Set(verses.map((verse) => verse.chapter))].sort((a, b) => a - b),
     [verses]
   );
+  
+  const [selectedMandala, setSelectedMandala] = useState(mandalas[0] || chapters[0]);
   const [selectedChapter, setSelectedChapter] = useState(chapters[0]);
 
+  const suktas = useMemo(
+    () => [...new Set(verses.filter(v => v.mandala === selectedMandala).map((verse) => verse.sukta).filter((s): s is number => s !== undefined))].sort((a, b) => a - b),
+    [selectedMandala, verses]
+  );
+  
+  const [selectedSukta, setSelectedSukta] = useState(suktas[0]);
+
   const chapterVerses = useMemo(
-    () =>
-      verses.filter((verse) => verse.chapter === selectedChapter).sort((a, b) => a.verse - b.verse),
-    [selectedChapter, verses]
+    () => {
+      if (isRigveda && selectedMandala !== undefined && selectedSukta !== undefined) {
+        return verses
+          .filter((verse) => verse.mandala === selectedMandala && verse.sukta === selectedSukta)
+          .sort((a, b) => a.verse - b.verse);
+      }
+      return verses.filter((verse) => verse.chapter === selectedChapter).sort((a, b) => a.verse - b.verse);
+    },
+    [isRigveda, selectedMandala, selectedSukta, selectedChapter, verses]
   );
 
   const [selectedVerseId, setSelectedVerseId] = useState(chapterVerses[0]?.id || verses[0]?.id);
+  const [favoriteVerseIds, setFavoriteVerseIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     try {
@@ -47,6 +73,18 @@ export function ScriptureStudyExplorer({
       // Ignore malformed local progress.
     }
   }, [progressKey]);
+
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(favoritesKey);
+      if (raw) {
+        const saved = JSON.parse(raw) as string[];
+        setFavoriteVerseIds(new Set(saved));
+      }
+    } catch {
+      setFavoriteVerseIds(new Set());
+    }
+  }, [favoritesKey]);
 
   const selectedVerse = useMemo(
     () => chapterVerses.find((verse) => verse.id === selectedVerseId) || chapterVerses[0],
@@ -71,31 +109,95 @@ export function ScriptureStudyExplorer({
     );
   }, [progressKey, selectedVerse]);
 
+  const toggleFavorite = (verseId: string) => {
+    const newFavorites = new Set(favoriteVerseIds);
+    if (newFavorites.has(verseId)) {
+      newFavorites.delete(verseId);
+    } else {
+      newFavorites.add(verseId);
+    }
+    setFavoriteVerseIds(newFavorites);
+    window.localStorage.setItem(favoritesKey, JSON.stringify([...newFavorites]));
+  };
+
   return (
     <div className="space-y-10">
       <div className="flex flex-wrap items-center gap-3">
-        <span className="eyebrow">Chapter navigator</span>
-        {chapters.map((chapter) => (
-          <Button
-            key={chapter}
-            variant={chapter === selectedChapter ? "premium" : "outline"}
-            size="sm"
-            onClick={() => {
-              setSelectedChapter(chapter);
-              const firstVerse = verses
-                .filter((verse) => verse.chapter === chapter)
-                .sort((a, b) => a.verse - b.verse)[0];
-              if (firstVerse) {
-                setSelectedVerseId(firstVerse.id);
-              }
-            }}
-          >
-            Chapter {chapter}
-          </Button>
-        ))}
+        <span className="eyebrow">{isRigveda ? "Mandala navigator" : "Chapter navigator"}</span>
+        {isRigveda ? (
+          <>
+            {mandalas.map((mandala) => (
+              <Button
+                key={mandala}
+                variant={mandala === selectedMandala ? "premium" : "outline"}
+                size="sm"
+                onClick={() => {
+                  setSelectedMandala(mandala);
+                  const firstSukta = suktas[0];
+                  if (firstSukta) {
+                    setSelectedSukta(firstSukta);
+                    const firstVerse = verses
+                      .filter((verse) => verse.mandala === mandala && verse.sukta === firstSukta)
+                      .sort((a, b) => a.verse - b.verse)[0];
+                    if (firstVerse) {
+                      setSelectedVerseId(firstVerse.id);
+                    }
+                  }
+                }}
+              >
+                Mandala {mandala}
+              </Button>
+            ))}
+            {selectedMandala && (
+              <div className="flex flex-wrap items-center gap-2 ml-4">
+                <span className="text-xs text-muted-foreground">Sukta:</span>
+                {suktas.map((sukta) => (
+                  <Button
+                    key={sukta}
+                    variant={sukta === selectedSukta ? "premium" : "outline"}
+                    size="sm"
+                    onClick={() => {
+                      setSelectedSukta(sukta);
+                      const firstVerse = verses
+                        .filter((verse) => verse.mandala === selectedMandala && verse.sukta === sukta)
+                        .sort((a, b) => a.verse - b.verse)[0];
+                      if (firstVerse) {
+                        setSelectedVerseId(firstVerse.id);
+                      }
+                    }}
+                  >
+                    {sukta}
+                  </Button>
+                ))}
+              </div>
+            )}
+          </>
+        ) : (
+          chapters.map((chapter) => (
+            <Button
+              key={chapter}
+              variant={chapter === selectedChapter ? "premium" : "outline"}
+              size="sm"
+              onClick={() => {
+                setSelectedChapter(chapter);
+                const firstVerse = verses
+                  .filter((verse) => verse.chapter === chapter)
+                  .sort((a, b) => a.verse - b.verse)[0];
+                if (firstVerse) {
+                  setSelectedVerseId(firstVerse.id);
+                }
+              }}
+            >
+              Chapter {chapter}
+            </Button>
+          ))
+        )}
         {selectedVerse ? (
           <span className="text-xs text-muted-foreground">
-            Continue reading from chapter {selectedVerse.chapter}, verse {selectedVerse.verse}
+            {isRigveda 
+              ? `Reading Mandala ${selectedVerse.mandala}, Sukta ${selectedVerse.sukta}, Verse ${selectedVerse.verse}`
+              : `Continue reading from chapter ${selectedVerse.chapter}, verse ${selectedVerse.verse}`
+            }
           </span>
         ) : null}
       </div>
@@ -106,13 +208,27 @@ export function ScriptureStudyExplorer({
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
-                  Chapter {selectedVerse.chapter}
+                  {isRigveda ? `Mandala ${selectedVerse.mandala}, Sukta ${selectedVerse.sukta}` : `Chapter ${selectedVerse.chapter}`}
                 </p>
                 <h3 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground">
                   Verse {selectedVerse.verse}
                 </h3>
               </div>
-              <span className="text-sm text-muted-foreground">{scriptureHighlight}</span>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">{scriptureHighlight}</span>
+                <Button
+                  variant={favoriteVerseIds.has(selectedVerse.id) ? "premium" : "outline"}
+                  size="sm"
+                  onClick={() => toggleFavorite(selectedVerse.id)}
+                >
+                  {favoriteVerseIds.has(selectedVerse.id) ? (
+                    <BookmarkCheck className="size-4" />
+                  ) : (
+                    <Bookmark className="size-4" />
+                  )}
+                  {favoriteVerseIds.has(selectedVerse.id) ? "Saved" : "Save"}
+                </Button>
+              </div>
             </div>
 
             <div className="mt-8 flex flex-wrap gap-2">

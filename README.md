@@ -286,9 +286,34 @@ VERCEL_ANALYTICS_ID=your_vercel_analytics_id
 
 ### Deployment Notes
 
-- The app uses Ollama for local AI inference. For production deployment, ensure Ollama is running on the server.
+- The app uses Ollama for local AI inference. For production deployment, you have two options:
+  1. **Cloud Ollama**: Deploy a cloud-hosted Ollama service and set `OLLAMA_CLOUD_URL` and `OLLAMA_API_KEY` environment variables in Vercel
+  2. **Google Gemma API**: Use Google AI Studio's hosted Gemma models by setting `GEMINI_API_KEY` and `GEMMA_MODEL`
 - Without Upstash Redis, the app still works by using an in-memory cache fallback, but that cache is per-instance and not shared across Vercel invocations.
 - Current model: `gemma4:latest` (8B instruction-tuned model)
+
+### Cloud Ollama Setup for Vercel
+
+To deploy with cloud Ollama:
+
+1. **Deploy a cloud Ollama service** (options include):
+   - **Ollama Cloud**: Official cloud service from Ollama
+   - **Self-hosted**: Deploy Ollama on a VPS (AWS, DigitalOcean, Render, Railway, etc.)
+   - **Docker**: Run Ollama in a container on a cloud provider
+
+2. **Configure Vercel environment variables**:
+   ```env
+   OLLAMA_CLOUD_URL=https://your-ollama-cloud.example.com
+   OLLAMA_API_KEY=your_api_key_here
+   OLLAMA_MODEL=gemma4:latest
+   ```
+
+3. **Deploy to Vercel**:
+   ```bash
+   vercel --prod
+   ```
+
+The app will automatically detect the cloud Ollama configuration when running on Vercel and use it for AI inference.
 
 ### Deployment Readiness
 
