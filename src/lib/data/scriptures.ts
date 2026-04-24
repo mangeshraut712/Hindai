@@ -317,6 +317,147 @@ export const sampleVerses: ScriptureVerse[] = [
     relatedVerses: ["bg-2-47"],
   },
   {
+    id: "bg-2-47",
+    scriptureId: "bhagavad-gita",
+    chapter: 2,
+    verse: 47,
+    sanskrit: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन |\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि ||",
+    transliteration:
+      "karmaṇy-evādhikāras te mā phaleṣu kadācana |\nmā karma-phala-hetur bhūr mā te saṅgo 'stv akarmaṇi ||",
+    translation: {
+      en: "You have the right to perform your prescribed duties, but you are not entitled to the fruits of your actions. Never consider yourself the cause of the results of your activities, nor be attached to inaction.",
+      hi: "तुम्हें कर्म करने का अधिकार है, परंतु कर्मों के फलों में कभी नहीं। कर्मों के फलों का कारण मत बनो और अकर्म में आसक्त मत हो।",
+    },
+    keyTerms: ["Karma", "Phala", "Adhikara"],
+    relatedVerses: ["bg-2-48", "bg-3-19"],
+  },
+  {
+    id: "bg-2-11",
+    scriptureId: "bhagavad-gita",
+    chapter: 2,
+    verse: 11,
+    sanskrit:
+      "श्रीभगवानुवाच |\nअशोच्यानन्वशोचस्त्वं प्रज्ञावादांश्च भाषसे |\nगतासूनगतासूंश्च नानुशोचन्ति पण्डिताः ||",
+    transliteration:
+      "śrī-bhagavān uvāca |\naśocyān anvaśocas tvaṃ prajñā-vādānś ca bhāṣase |\ngatāsūn agatāsūṁś ca nānuśocanti paṇḍitāḥ ||",
+    translation: {
+      en: "The Blessed Lord said: You speak like a wise man, but you grieve for what is not worthy of grief. The wise lament neither for the living nor for the dead.",
+      hi: "श्री भगवान बोले: तुम शोक करने योग्य के लिए शोक करते हो और ज्ञानी पुरुषों की तरह बातें करते हो। ज्ञानी पुरुष न जीवित के लिए शोक करते हैं और न मृत के लिए।",
+    },
+    keyTerms: ["Shoka", "Pandita", "Jnana"],
+    relatedVerses: ["bg-2-12", "bg-2-13"],
+  },
+  {
+    id: "bg-2-20",
+    scriptureId: "bhagavad-gita",
+    chapter: 2,
+    verse: 20,
+    sanskrit:
+      "न जायते म्रियते वा कदाचि॒न्नायं भूत्वा भविता वा न भूयः |\nअजो नित्यः शाश्वतोऽयं पुराणो॒ न हन्यते हन्यमाने शरीरे ||",
+    transliteration:
+      "na jāyate mriyate vā kadācin nāyam bhūtvā bhavitā vā na bhūyaḥ |\najo nityaḥ śāśvato 'yam purāṇo na hanyate hanyamāne śarīre ||",
+    translation: {
+      en: "For the soul there is never birth nor death. Nor, having once been, does it ever cease to be. Unborn, eternal, constant and ancient, it is not killed when the body is killed.",
+      hi: "आत्मा का कभी जन्म नहीं होता और न मृत्यु। न वह कभी उत्पन्न होकर फिर नष्ट होता है। वह अजन्मा, नित्य, सनातन और पुरातन है। शरीर के मारे जाने पर भी वह नहीं मारा जाता।",
+    },
+    keyTerms: ["Atman", "Aj", "Nitya"],
+    relatedVerses: ["bg-2-21", "bg-2-22"],
+  },
+  {
+    id: "bg-4-7",
+    scriptureId: "bhagavad-gita",
+    chapter: 4,
+    verse: 7,
+    sanskrit: "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत |\nअभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम् ||",
+    transliteration:
+      "yadā yadā hi dharmasya glānir bhavati bhārata |\nabhyutthānam adharmasya tadātmānaṃ sṛjāmy aham ||",
+    translation: {
+      en: "Whenever and wherever there is a decline in righteousness, O Arjuna, and a predominant rise of unrighteousness, then I manifest Myself.",
+      hi: "हे भारत! जब-जब धर्म की हानि और अधर्म का प्रादुर्भाव होता है, तब-तब मैं अपने को प्रकट करता हूं।",
+    },
+    keyTerms: ["Dharma", "Adharma", "Avatara"],
+    relatedVerses: ["bg-4-8", "bg-4-9"],
+  },
+  {
+    id: "bg-6-5",
+    scriptureId: "bhagavad-gita",
+    chapter: 6,
+    verse: 5,
+    sanskrit:
+      "उद्धरेदात्मनात्मानं नात्मानमवसादयेत् |\nआत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः ||",
+    transliteration:
+      "uddhared ātmanātmānaṃ nātmānam avasādayet |\nātmaiva hy ātmano bandhur ātmaiva ripur ātmanaḥ ||",
+    translation: {
+      en: "One must elevate oneself by one's own mind, not degrade oneself. The mind is the friend of the conditioned soul, and his enemy as well.",
+      hi: "मनुष्य को चाहिए कि वह अपने मन से अपने को ऊपर उठाए, नीचा न गिराए। क्योंकि मन ही जीव का मित्र है और मन ही शत्रु भी।",
+    },
+    keyTerms: ["Atman", "Manas", "Bandhu"],
+    relatedVerses: ["bg-6-6", "bg-6-7"],
+  },
+  {
+    id: "bg-9-26",
+    scriptureId: "bhagavad-gita",
+    chapter: 9,
+    verse: 26,
+    sanskrit:
+      "पत्रं पुष्पं फलं तोयं यो मे भक्त्या प्रयच्छति |\nतदहं भक्त्युपहृतमश्नामि प्रयतात्मनः ||",
+    transliteration:
+      "patraṃ puṣpaṃ phalaṃ toyaṃ yo me bhaktyā prayacchati |\ntad ahaṃ bhakty-upahṛtam aśnāmi prayatātmanaḥ ||",
+    translation: {
+      en: "Whoever offers Me with devotion a leaf, a flower, a fruit, or water, I accept that offering from the pure-hearted devotee.",
+      hi: "जो कोई भक्ति से पत्र, पुष्प, फल या जल मुझे अर्पण करता है, उस शुद्ध हृदय भक्त का वह भक्ति समर्पित भोजन मैं ग्रहण करता हूं।",
+    },
+    keyTerms: ["Bhakti", "Prasad", "Puja"],
+    relatedVerses: ["bg-9-27", "bg-9-28"],
+  },
+  {
+    id: "bg-12-13",
+    scriptureId: "bhagavad-gita",
+    chapter: 12,
+    verse: 13,
+    sanskrit: "अद्वेष्टा सर्वभूतानां मैत्रः करुण एव च |\nनिर्ममो निरहंकारः समदुःखसुखः क्षमी ||",
+    transliteration:
+      "adveṣṭā sarva-bhūtānāṃ maitraḥ karuṇa eva ca |\nniḥ-mamo nir-aham-kāraḥ sama-duḥkha-sukhaḥ kṣamī ||",
+    translation: {
+      en: "One who is not envious but who is a kind friend to all living entities, who does not think himself a proprietor, who is free from false ego, who is equal in both happiness and distress, who is always satisfied and engaged in devotional service with determination, whose mind and intelligence are in full control-these are qualities of one situated in divine consciousness.",
+      hi: "सर्व भूतों से द्वेष न करने वाला, सबका मित्र और दयालु, ममता और अहंकार से रहित, सुख-दुःख में समान रहने वाला और क्षमावान।",
+    },
+    keyTerms: ["Adveshta", "Maitra", "Nirmama"],
+    relatedVerses: ["bg-12-14", "bg-12-15"],
+  },
+  {
+    id: "bg-15-1",
+    scriptureId: "bhagavad-gita",
+    chapter: 15,
+    verse: 1,
+    sanskrit:
+      "श्रीभगवानुवाच |\nऊर्ध्वमूलमधःशाखमश्वत्थं प्राहुरव्ययम् |\nछन्दांसि यस्य पर्णानि यस्तं वेद स वेदवित् ||",
+    transliteration:
+      "śrī-bhagavān uvāca |\nūrdhva-mūlam adhaḥ-śākham aśvattham prāhur avyayam |\ncchandāṁsi yasya parṇāni yas tam veda sa veda-vit ||",
+    translation: {
+      en: "The Blessed Lord said: They speak of an eternal ashvattha tree with its roots above and branches below. Its leaves are the Vedic hymns. One who knows this tree is the knower of the Vedas.",
+      hi: "श्री भगवान बोले: ऊपर जड़ वाला और नीचे शाखाओं वाला अश्वत्थ वृक्ष को अव्यय कहते हैं। उसकी पत्तियां वेद हैं। जो इसको जानता है, वह वेदों को जानता है।",
+    },
+    keyTerms: ["Ashvattha", "Veda", "Jnana"],
+    relatedVerses: ["bg-15-2", "bg-15-3"],
+  },
+  {
+    id: "bg-18-66",
+    scriptureId: "bhagavad-gita",
+    chapter: 18,
+    verse: 66,
+    sanskrit:
+      "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज |\nअहं त्वा सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः ||",
+    transliteration:
+      "sarva-dharmān parityajya mām ekaṃ śaraṇaṃ vraja |\naham tvā sarva-pāpebhyo mokṣayiṣyāmi mā śucaḥ ||",
+    translation: {
+      en: "Abandon all varieties of religion and just surrender unto Me. I shall deliver you from all sinful reactions. Do not fear.",
+      hi: "सर्व धर्मों को त्याग कर मेरे ही शरण में आओ। मैं तुम्हें सब पापों से मुक्त कर दूंगा। मत शोक करो।",
+    },
+    keyTerms: ["Sarana", "Moksha", "Prapatti"],
+    relatedVerses: ["bg-18-65", "bg-18-67"],
+  },
+  {
     id: "isha-1-1",
     scriptureId: "isha-upanishad",
     chapter: 1,
