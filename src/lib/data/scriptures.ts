@@ -74,7 +74,7 @@ export const sampleVerses: ScriptureVerse[] = [
     keyTerms: ["Agni", "Rishi", "Deva"],
   },
   {
-    id: "rv-1-1-3",
+    id: "rv-1-2-3",
     scriptureId: "rigveda",
     chapter: 1,
     verse: 3,
@@ -85,6 +85,129 @@ export const sampleVerses: ScriptureVerse[] = [
       hi: "अग्नि के द्वारा धन प्राप्त होता है, प्रतिदिन समृद्धि, यशस्वी और सबसे वीरतापूर्ण।",
     },
     keyTerms: ["Agni", "Raya", "Vira"],
+  },
+  {
+    id: "rv-2-1-1",
+    scriptureId: "rigveda",
+    chapter: 2,
+    verse: 1,
+    sanskrit: "अ॒ग्निमी॑ळे पु॒रोहि॑तं य॒ज्ञस्य॑ दे॒वमृत्विज॑म् |\nहोतारं॑ रत्न॒धात॑मम् ||",
+    transliteration: "agnim īḷe purohitaṃ yajñasya devam ṛtvijam |\nhotāraṃ ratna-dhātamam ||",
+    translation: {
+      en: "I praise Agni, the priest, the divine minister of the sacrifice, the invoker, the bestower of treasures.",
+      hi: "मैं अग्नि की स्तुति करता हूं, जो पुरोहित, यज्ञ के देव, ऋत्विज, होता और रत्नों के दाता हैं।",
+    },
+    keyTerms: ["Agni", "Yajna", "Hotr"],
+  },
+  {
+    id: "rv-3-1-1",
+    scriptureId: "rigveda",
+    chapter: 3,
+    verse: 1,
+    sanskrit: "अ॒ग्निं नरो॒ दीधि॑तिभिररण्योर्हस्त॑च्युती जनयन्त प्रश॒स्तम् ||",
+    transliteration: "agnim naro dīdhitibhir araṇyor hastacyutī janayanta praśastam ||",
+    translation: {
+      en: "Men with their insights generate the praised Agni from the forest with hand-held friction.",
+      hi: "मनुष्य अपनी बुद्धि से हाथ से घर्षण करके वन से प्रसिद्ध अग्नि को उत्पन्न करते हैं।",
+    },
+    keyTerms: ["Agni", "Nara", "Araṇya"],
+  },
+  {
+    id: "rv-4-1-1",
+    scriptureId: "rigveda",
+    chapter: 4,
+    verse: 1,
+    sanskrit: "अ॒ग्निं दू॒तं वृ॑णीमहे॒ होता॑रं विश्व॒वेद॑सम् |\nअ॒स्य य॒ज्ञस्य॑ सु॒क्रतुम् ||",
+    transliteration: "agnim dūtam vṛṇīmahe hotāram viśva-vedasam |\nasya yajñasya sukrtum ||",
+    translation: {
+      en: "We choose Agni as messenger, the priest who knows all, the well-performer of this sacrifice.",
+      hi: "हम अग्नि को दूत के रूप में चुनते हैं, जो सब कुछ जानने वाला होता है, इस यज्ञ का अच्छा कार्यकर्ता।",
+    },
+    keyTerms: ["Agni", "Duta", "Hotr"],
+  },
+  {
+    id: "rv-5-1-1",
+    scriptureId: "rigveda",
+    chapter: 5,
+    verse: 1,
+    sanskrit: "प्र देवं॑ देव्या धिय॒ आ व॑ह॒ होता॑रं स॒य्याज्य॑म् ||",
+    transliteration: "pra devam devyā dhiyā ā vaha hotāram syājyam ||",
+    translation: {
+      en: "Bring forward the divine priest with divine insight, worthy of being invoked together.",
+      hi: "दिव्य बुद्धि के साथ दिव्य पुरोहित को आगे लाओ, जो साथ में आह्वान करने योग्य है।",
+    },
+    keyTerms: ["Deva", "Dhi", "Hotr"],
+  },
+  {
+    id: "rv-6-1-1",
+    scriptureId: "rigveda",
+    chapter: 6,
+    verse: 1,
+    sanskrit:
+      "अ॒ग्निं होता॑रं प्र॒वृणे॒ जना॑नां॒ होता॑रं विश्व॒वेद॑सम् |\nस हि ष्मा॒ राजा॒ कृपा॑वाँ ऋ॒तावा॑ ||",
+    transliteration:
+      "agnim hotāram pravṛṇe janānāṃ hotāram viśva-vedasam |\nsa hi ṣmā rājā kṛpāvāṁ ṛtāvā ||",
+    translation: {
+      en: "I choose Agni as the priest of peoples, the priest who knows all. For he is indeed the king, compassionate, and truthful.",
+      hi: "मैं अग्नि को लोगों का पुरोहित चुनता हूं, जो सब कुछ जानने वाला पुरोहित है। क्योंकि वह वास्तव में राजा है, दयालु और सच्चा।",
+    },
+    keyTerms: ["Agni", "Hotr", "Raja"],
+  },
+  {
+    id: "rv-7-1-1",
+    scriptureId: "rigveda",
+    chapter: 7,
+    verse: 1,
+    sanskrit:
+      "मे॒धाति॑थिं धा॒न्यं१ वा॑सयिष्ट धे॒नुं च॒ विश्व॑दोगाम् |\nप्र॒जाव॑न्तं र॒यिं न॑शत् ||",
+    transliteration:
+      "medhātithiṃ dhānyam vā vayṣṭha dhenum ca viśva-dogām |\nprajāvantam rayim naśat ||",
+    translation: {
+      en: "May he settle the guest with grain, and the all-giving cow. May he obtain wealth with offspring.",
+      hi: "वह अतिथि को धान्य के साथ बसाए, और सब कुछ देने वाली गाय को। वह संतान के साथ धन प्राप्त करे।",
+    },
+    keyTerms: ["Medhatithi", "Dhanya", "Raya"],
+  },
+  {
+    id: "rv-8-1-1",
+    scriptureId: "rigveda",
+    chapter: 8,
+    verse: 1,
+    sanskrit:
+      "इन्द्रं॒ म॒तिर॑हूय॒ग्मा दे॒वं मर्ता॑सो अ॒स्माकं॑ य॒ज्ञम् |\nअ॒स्माकं॑ वृत्र॒हन्त॑मं पु॒रां॒द॒रं श॑क्रमु॒त्थिषु॑ ||",
+    transliteration:
+      "indram matir ahūyagmā devaṃ martāso asmākam yajñam |\nasmākam vṛtra-hantamam purāṁ-daram śakram utthiṣu ||",
+    translation: {
+      en: "The hymn calls Indra, the god, our sacrifice. Our most Vritra-slaying, fort-destroying, mighty one in battles.",
+      hi: "स्तुति इंद्र को बुलाती है, जो देव है, हमारा यज्ञ। हमारा सबसे वृत्र-वध करने वाला, गढ़ तोड़ने वाला, युद्धों में शक्तिशाली।",
+    },
+    keyTerms: ["Indra", "Vritra", "Shakra"],
+  },
+  {
+    id: "rv-9-1-1",
+    scriptureId: "rigveda",
+    chapter: 9,
+    verse: 1,
+    sanskrit: "प्र सोमा॑सो मद॒च्युता॒ अत्य॑नूषत॒ पवि॑त्रा॒सः ।\nइन्दुं॒ विश्वा॒ अवी॑वृधन् ||",
+    transliteration: "pra somāso mada-cyutā atyanūṣata pavitrāsaḥ |\nindum viśvā avīvṛdhan ||",
+    translation: {
+      en: "The Somas, not deprived of ecstasy, have surged forward through the filters. They have increased the drop everywhere.",
+      hi: "सोम, जो आनंद से वंचित नहीं हैं, पवित्रों के माध्यम से आगे बढ़े हैं। उन्होंने सब जगह बूँद को बढ़ाया है।",
+    },
+    keyTerms: ["Soma", "Pavitra", "Indu"],
+  },
+  {
+    id: "rv-10-1-1",
+    scriptureId: "rigveda",
+    chapter: 10,
+    verse: 1,
+    sanskrit: "अ॒ग्निमी॑ळे पु॒रोहि॑तं य॒ज्ञस्य॑ दे॒वमृत्विज॑म् |\nहोतारं॑ रत्न॒धात॑मम् ||",
+    transliteration: "agnim īḷe purohitaṃ yajñasya devam ṛtvijam |\nhotāraṃ ratna-dhātamam ||",
+    translation: {
+      en: "I praise Agni, the priest, the divine minister of the sacrifice, the invoker, the bestower of treasures.",
+      hi: "मैं अग्नि की स्तुति करता हूं, जो पुरोहित, यज्ञ के देव, ऋत्विज, होता और रत्नों के दाता हैं।",
+    },
+    keyTerms: ["Agni", "Yajna", "Hotr"],
   },
   {
     id: "rv-1-1-4",
@@ -192,6 +315,51 @@ export const sampleVerses: ScriptureVerse[] = [
     },
     keyTerms: ["Yoga", "Samatva", "Sanga"],
     relatedVerses: ["bg-2-47"],
+  },
+  {
+    id: "isha-1-1",
+    scriptureId: "isha-upanishad",
+    chapter: 1,
+    verse: 1,
+    sanskrit:
+      "ईशा॒वास्यमिदं॒ सर्वं॒ यत्किं॒च जग॑त्यां जग॒त् |\nतेन॑ त्य॒क्तेन॑ भुञ्जीथा॒ मा गृ॒धः कस्य॑ स्वि॒द्धन॑म् ||",
+    transliteration:
+      "īśāvāsyam idaṃ sarvaṃ yat kiñca jagatyāṃ jagat |\ntenatyaktena bhuñjīthā mā gṛdhaḥ kasyasvid dhanam ||",
+    translation: {
+      en: "All this whatsoever moves on the earth is to be covered by the Lord. Protect yourself through that detachment. Do not covet anybody's wealth.",
+      hi: "यह सब जो कुछ भी पृथ्वी पर चलता है, ईश्वर से आवृत है। उस त्याग से अपने को रक्षा करो। किसी की संपत्ति की लालसा मत करो।",
+    },
+    keyTerms: ["Isha", "Sarvam", "Tyaga"],
+  },
+  {
+    id: "isha-1-2",
+    scriptureId: "isha-upanishad",
+    chapter: 1,
+    verse: 2,
+    sanskrit:
+      "कुर्व॑न्ने॒वे॒ह कर्मा॑णि जिजी॑विषे॒च्छतं॒ समा॑: |\nए॒वं त्वयि॒ ना॒न्यथे॒तोऽस्ति॒ न कर्म॑ लि॒प्यते॑ नरे ||",
+    transliteration:
+      "kurvann eveha karmāṇi jijīviṣec chatam samāḥ |\nevaṃ tvayi nānyatheto'sti na karma lipyate nare ||",
+    translation: {
+      en: "One should desire to live in this world for a hundred years performing karma. Thus for you there is no other way. Karma does not bind the man.",
+      hi: "कर्म करते हुए इस संसार में सौ वर्ष जीवित रहने की इच्छा करनी चाहिए। इस प्रकार आपके लिए कोई दूसरा मार्ग नहीं है। कर्म मनुष्य को नहीं बांधता।",
+    },
+    keyTerms: ["Karma", "Jivana", "Lipyate"],
+  },
+  {
+    id: "isha-1-3",
+    scriptureId: "isha-upanishad",
+    chapter: 1,
+    verse: 3,
+    sanskrit:
+      "अ॒सु॒र्या॒ नाम॑ ते लो॒का अ॒न्धेना॑ तम॒सावृ॑ताः |\nताꣳस्ते॑ प्रे॒त्याभि॑गच्छ॒न्त्य॒ल्पमे॑धा॒सो जनाः॑ ||",
+    transliteration:
+      "asuryā nāma te lokā andhenā tamasāvṛtāḥ |\ntāṁs te pretyābhigacchanti alpamedhāso janāḥ ||",
+    translation: {
+      en: "Those worlds of the Asuras are enveloped in blinding darkness. Those people who are of little intelligence go to them after death.",
+      hi: "असुरों के वे लोक अंधकार से आवृत हैं। जो लोग कम बुद्धि वाले हैं, वे मृत्यु के बाद उनमें जाते हैं।",
+    },
+    keyTerms: ["Asurya", "Loka", "Tamas"],
   },
   {
     id: "ys-1-2",

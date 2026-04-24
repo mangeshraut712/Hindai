@@ -134,9 +134,11 @@ export function ScriptureStudyExplorer({
                   <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
                     Sanskrit
                   </p>
-                  <p className="mt-3 font-devanagari text-2xl leading-10 text-foreground">
-                    {selectedVerse.sanskrit}
-                  </p>
+                  <div className="mt-3 rounded-lg border border-amber-200/50 bg-gradient-to-r from-amber-50/50 to-orange-50/50 p-6 dark:border-amber-800/30 dark:from-amber-950/20 dark:to-orange-950/20">
+                    <p className="leading-12 font-devanagari text-3xl text-foreground drop-shadow-sm">
+                      {selectedVerse.sanskrit}
+                    </p>
+                  </div>
                 </div>
                 <div>
                   <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
