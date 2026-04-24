@@ -1789,3 +1789,207 @@ export async function analyzeManuscriptImage(
     model: (await getAIStatus()).model,
   };
 }
+
+// ─── Verse Generation with Gemma 4 ──────────────────────────────────────────────
+
+export interface VerseGenerationRequest {
+  scriptureId: string;
+  scriptureName: string;
+  chapter: number;
+  verse: number;
+  speaker?: string;
+  context?: string;
+}
+
+export interface GeneratedVerse {
+  id: string;
+  scriptureId: string;
+  chapter: number;
+  verse: number;
+  sanskrit: string;
+  transliteration: string;
+  translation: {
+    en: string;
+    hi?: string;
+  };
+  wordByWord?: Array<{
+    sanskrit: string;
+    iast: string;
+    meaning: string;
+  }>;
+  keyTerms: string[];
+  speaker?: string;
+}
+
+export interface VerseGenerationResult {
+  verse: GeneratedVerse;
+  mock?: boolean;
+  rateLimit?: {
+    remaining: number;
+    limit: number;
+    reset: number;
+  };
+}
+
+/**
+ * Generate a complete verse using Gemma 4 AI
+ * Creates Sanskrit text, transliteration, translation, and word-by-word analysis
+ */
+export async function generateVerseWithGemma(
+  request: VerseGenerationRequest,
+  userId: string = "anonymous"
+): Promise<VerseGenerationResult> {
+  // Check rate limit
+  let rateLimitInfo: { remaining: number; limit: number; reset: number } | undefined;
+
+  if (ratelimit) {
+    const { success, limit, remaining, reset } = await ratelimit.limit(userId);
+    rateLimitInfo = { limit, remaining, reset: Math.floor(reset / 1000) };
+
+    if (!success) {
+      throw new Error("Rate limit exceeded. Please try again in a minute.");
+    }
+  }
+
+  const backend = await resolveGemmaBackend();
+
+  const prompt = `Generate a complete verse entry for ${request.scriptureName}, Chapter ${request.chapter}, Verse ${request.verse}.
+
+${request.speaker ? `Speaker: ${request.speaker}` : ""}
+${request.context ? `Context: ${request.context}` : ""}
+
+Please provide:
+1. The Sanskrit verse in Devanagari script (exact traditional text)
+2. IAST transliteration
+3. English translation
+4. Hindi translation
+5. Word-by-word breakdown (Sanskrit word, IAST, meaning)
+6. Key terms/concepts (3-5 terms)
+
+Format your response as JSON:
+{
+  "sanskrit": "...",
+  "transliteration": "...",
+  "translationEn": "...",
+  "translationHi": "...",
+  "wordByWord": [
+    {"sanskrit": "...", "iast": "...", "meaning": "..."}
+  ],
+  "keyTerms": ["..."]
+}
+
+Important:
+- Use authentic Sanskrit from traditional recensions
+- Ensure transliteration follows IAST standard
+- Translations should be faithful to traditional commentaries
+- Word-by-word should cover all significant words`;
+
+  try {
+    let responseText: string;
+
+    if (backend === "local" || backend === "cloud") {
+      responseText = await generateWithOllamaWithSystem(
+        prompt,
+        "You are a Sanskrit scholar specializing in Hindu scriptures. Generate accurate verse data."
+      );
+    } else if (backend === "openrouter") {
+      responseText = await generateWithOpenRouter(
+        [{ text: prompt }],
+        "You are a Sanskrit scholar specializing in Hindu scriptures. Generate accurate verse data."
+      );
+    } else if (backend === "google") {
+      responseText = await generateWithGoogleGemma(
+        [{ text: prompt }],
+        "You are a Sanskrit scholar specializing in Hindu scriptures. Generate accurate verse data."
+      );
+    } else {
+      // Fallback: return mock data for development
+      return {
+        verse: generateMockVerse(request),
+        mock: true,
+        rateLimit: rateLimitInfo,
+      };
+    }
+
+    // Parse the generated verse
+    const parsed = parseGeneratedVerse(responseText, request);
+
+    return {
+      verse: parsed,
+      mock: false,
+      rateLimit: rateLimitInfo,
+    };
+  } catch (error) {
+    console.error("Verse generation error:", error);
+
+    // Return mock data on error for graceful degradation
+    return {
+      verse: generateMockVerse(request),
+      mock: true,
+      rateLimit: rateLimitInfo,
+    };
+  }
+}
+
+function generateMockVerse(request: VerseGenerationRequest): GeneratedVerse {
+  const verseId = `bg-${request.chapter}-${request.verse}`;
+
+  return {
+    id: verseId,
+    scriptureId: request.scriptureId,
+    chapter: request.chapter,
+    verse: request.verse,
+    sanskrit: "[Generated Sanskrit verse will appear here when AI is configured]",
+    transliteration: "[Transliteration will be generated]",
+    translation: {
+      en: `This is a placeholder for ${request.scriptureName} Chapter ${request.chapter}, Verse ${request.verse}. Please configure OLLAMA_URL, OPENROUTER_API_KEY, or GEMINI_API_KEY to enable AI verse generation.`,
+      hi: "[हिंदी अनुवाद यहाँ प्रदर्शित किया जाएगा]",
+    },
+    keyTerms: ["AI Generation", "Configuration Needed"],
+    speaker: request.speaker,
+  };
+}
+
+function parseGeneratedVerse(text: string, request: VerseGenerationRequest): GeneratedVerse {
+  const verseId = `${request.scriptureId}-${request.chapter}-${request.verse}`.replace(
+    /[^a-z0-9-]/g,
+    "-"
+  );
+
+  // Try to extract JSON
+  const jsonMatch =
+    text.match(/```json\s*([\s\S]*?)```/) || text.match(/\{[\s\S]*"sanskrit"[\s\S]*\}/);
+
+  let data: {
+    sanskrit?: string;
+    transliteration?: string;
+    translationEn?: string;
+    translationHi?: string;
+    wordByWord?: Array<{ sanskrit: string; iast: string; meaning: string }>;
+    keyTerms?: string[];
+  } = {};
+
+  if (jsonMatch) {
+    try {
+      data = JSON.parse(jsonMatch[1] || jsonMatch[0]);
+    } catch {
+      // Use fallback
+    }
+  }
+
+  return {
+    id: verseId,
+    scriptureId: request.scriptureId,
+    chapter: request.chapter,
+    verse: request.verse,
+    sanskrit: data.sanskrit || "[Sanskrit text not generated]",
+    transliteration: data.transliteration || "[Transliteration not generated]",
+    translation: {
+      en: data.translationEn || "[Translation not generated]",
+      hi: data.translationHi,
+    },
+    wordByWord: data.wordByWord,
+    keyTerms: data.keyTerms || ["Generated", "AI"],
+    speaker: request.speaker,
+  };
+}

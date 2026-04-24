@@ -4,7 +4,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Play, Pause, RotateCcw, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { track } from "@vercel/analytics";
 
@@ -153,112 +152,123 @@ export function MeditationTimer({ className }: MeditationTimerProps) {
   const progress = ((duration * 60 - timeLeft) / (duration * 60)) * 100;
 
   return (
-    <Card className={`mx-auto w-full max-w-md ${className}`}>
-      <CardContent className="p-6">
-        <div className="space-y-6 text-center">
-          {/* Title */}
-          <div className="space-y-2">
-            <h3 className="text-lg font-semibold">Meditation Timer</h3>
-            <p className="text-sm text-muted-foreground">
-              {getPhaseInstruction()} • 4-4-4 Breathing
-            </p>
+    <div className={`surface-panel mx-auto w-full max-w-md p-7 ${className}`}>
+      <div className="relative z-10 space-y-7 text-center">
+        {/* Title */}
+        <div className="space-y-2">
+          <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+            Dhyana Timer
+          </p>
+          <h3 className="text-2xl font-semibold tracking-[-0.03em] text-foreground">Meditation</h3>
+          <p className="text-sm text-muted-foreground">
+            {getPhaseInstruction()} <span className="mx-1 text-border">|</span> 4-4-4 Breathing
+          </p>
+        </div>
+
+        {/* Timer Display */}
+        <div className="space-y-5">
+          <div className="font-serif text-6xl font-semibold tracking-[-0.04em] text-foreground">
+            {formatTime(timeLeft)}
           </div>
 
-          {/* Timer Display */}
-          <div className="space-y-4">
-            <div className="font-mono text-6xl font-bold">{formatTime(timeLeft)}</div>
-
-            {/* Progress Circle */}
-            <div className="relative mx-auto h-32 w-32">
-              <svg className="h-full w-full -rotate-90 transform" viewBox="0 0 100 100">
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="45"
-                  stroke="currentColor"
-                  strokeWidth="8"
-                  fill="none"
-                  className="text-muted-foreground/20"
-                />
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="45"
-                  stroke="currentColor"
-                  strokeWidth="8"
-                  fill="none"
-                  strokeDasharray={`${2 * Math.PI * 45}`}
-                  strokeDashoffset={`${2 * Math.PI * 45 * (1 - progress / 100)}`}
-                  className="text-orange-500 transition-all duration-1000"
-                  strokeLinecap="round"
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div
-                  className={`h-4 w-4 rounded-full transition-colors ${
-                    currentPhase === "inhale"
-                      ? "bg-green-500"
-                      : currentPhase === "hold"
-                        ? "bg-yellow-500"
-                        : "bg-blue-500"
-                  }`}
-                />
-              </div>
+          {/* Progress Circle */}
+          <div className="relative mx-auto h-36 w-36">
+            <svg className="h-full w-full -rotate-90 transform" viewBox="0 0 100 100">
+              <circle
+                cx="50"
+                cy="50"
+                r="45"
+                stroke="currentColor"
+                strokeWidth="6"
+                fill="none"
+                className="text-muted-foreground/15"
+              />
+              <circle
+                cx="50"
+                cy="50"
+                r="45"
+                stroke="currentColor"
+                strokeWidth="6"
+                fill="none"
+                strokeDasharray={`${2 * Math.PI * 45}`}
+                strokeDashoffset={`${2 * Math.PI * 45 * (1 - progress / 100)}`}
+                className="text-primary transition-all duration-1000"
+                strokeLinecap="round"
+              />
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div
+                className={`size-5 rounded-full shadow-lg transition-all duration-700 ${
+                  currentPhase === "inhale"
+                    ? "scale-110 bg-emerald-500 shadow-emerald-500/30"
+                    : currentPhase === "hold"
+                      ? "scale-100 bg-amber-400 shadow-amber-400/30"
+                      : "scale-75 bg-sky-500 shadow-sky-500/30"
+                }`}
+              />
             </div>
           </div>
-
-          {/* Duration Selector */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Duration: {duration} minutes</label>
-            <Slider
-              value={[duration]}
-              onValueChange={(value: number[]) => !isActive && setDuration(value[0])}
-              min={1}
-              max={60}
-              step={1}
-              className="w-full"
-              disabled={isActive}
-            />
-          </div>
-
-          {/* Controls */}
-          <div className="flex justify-center gap-2">
-            {!isActive ? (
-              <Button onClick={handleStart} size="lg" className="gap-2">
-                <Play className="h-4 w-4" />
-                Start
-              </Button>
-            ) : (
-              <>
-                <Button onClick={handlePause} variant="outline" size="lg" className="gap-2">
-                  <Pause className="h-4 w-4" />
-                  {isPaused ? "Resume" : "Pause"}
-                </Button>
-                <Button onClick={handleReset} variant="outline" size="lg" className="gap-2">
-                  <RotateCcw className="h-4 w-4" />
-                  Reset
-                </Button>
-              </>
-            )}
-
-            <Button
-              onClick={() => setSoundEnabled(!soundEnabled)}
-              variant="ghost"
-              size="lg"
-              className="gap-2"
-            >
-              {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
-            </Button>
-          </div>
-
-          {/* Instructions */}
-          <div className="space-y-1 text-xs text-muted-foreground">
-            <p>🫁 Follow the 4-4-4 breathing pattern</p>
-            <p>🔔 Bell sound at completion</p>
-            <p>⏸️ Pause anytime to continue later</p>
-          </div>
         </div>
-      </CardContent>
-    </Card>
+
+        {/* Duration Selector */}
+        <div className="space-y-3 px-2">
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-muted-foreground">Duration</span>
+            <span className="font-semibold text-foreground">{duration} min</span>
+          </div>
+          <Slider
+            value={[duration]}
+            onValueChange={(value: number[]) => !isActive && setDuration(value[0])}
+            min={1}
+            max={60}
+            step={1}
+            className="w-full"
+            disabled={isActive}
+          />
+        </div>
+
+        {/* Controls */}
+        <div className="flex justify-center gap-2">
+          {!isActive ? (
+            <Button onClick={handleStart} variant="premium" size="lg" className="gap-2">
+              <Play className="h-4 w-4" />
+              Begin
+            </Button>
+          ) : (
+            <>
+              <Button onClick={handlePause} variant="outline" size="lg" className="gap-2">
+                <Pause className="h-4 w-4" />
+                {isPaused ? "Resume" : "Pause"}
+              </Button>
+              <Button onClick={handleReset} variant="outline" size="lg" className="gap-2">
+                <RotateCcw className="h-4 w-4" />
+                Reset
+              </Button>
+            </>
+          )}
+
+          <Button
+            onClick={() => setSoundEnabled(!soundEnabled)}
+            variant="ghost"
+            size="icon"
+            className="size-10 rounded-full"
+            aria-label={soundEnabled ? "Disable bell sound" : "Enable bell sound"}
+          >
+            {soundEnabled ? (
+              <Volume2 className="h-4 w-4 text-primary" />
+            ) : (
+              <VolumeX className="h-4 w-4 text-muted-foreground" />
+            )}
+          </Button>
+        </div>
+
+        {/* Instructions */}
+        <div className="space-y-1.5 text-xs text-muted-foreground">
+          <p>Follow the 4-4-4 breathing pattern</p>
+          <p>Bell sound marks completion</p>
+          <p>Pause anytime to continue later</p>
+        </div>
+      </div>
+    </div>
   );
 }

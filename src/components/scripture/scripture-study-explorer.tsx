@@ -1,7 +1,15 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, Sparkles, Bookmark, BookmarkCheck } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Sparkles,
+  Bookmark,
+  BookmarkCheck,
+  BookOpen,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AIExplanation } from "@/components/ai/ai-explanation";
 import { ScriptureVerse } from "@/types/scripture";
@@ -20,41 +28,53 @@ export function ScriptureStudyExplorer({
 }: ScriptureStudyExplorerProps) {
   const progressKey = `hindai.reading-progress.${scriptureSlug}`;
   const favoritesKey = `hindai.favorites.verses`;
-  
+
   // Check if this is Rigveda (has mandala and sukta fields)
-  const isRigveda = scriptureSlug === "rigveda" || verses.some(v => v.mandala !== undefined);
-  
+  const isRigveda = scriptureSlug === "rigveda" || verses.some((v) => v.mandala !== undefined);
+
   const mandalas = useMemo(
-    () => [...new Set(verses.map((verse) => verse.mandala).filter((m): m is number => m !== undefined))].sort((a, b) => a - b),
+    () =>
+      [
+        ...new Set(
+          verses.map((verse) => verse.mandala).filter((m): m is number => m !== undefined)
+        ),
+      ].sort((a, b) => a - b),
     [verses]
   );
-  
+
   const chapters = useMemo(
     () => [...new Set(verses.map((verse) => verse.chapter))].sort((a, b) => a - b),
     [verses]
   );
-  
+
   const [selectedMandala, setSelectedMandala] = useState(mandalas[0] || chapters[0]);
   const [selectedChapter, setSelectedChapter] = useState(chapters[0]);
 
   const suktas = useMemo(
-    () => [...new Set(verses.filter(v => v.mandala === selectedMandala).map((verse) => verse.sukta).filter((s): s is number => s !== undefined))].sort((a, b) => a - b),
+    () =>
+      [
+        ...new Set(
+          verses
+            .filter((v) => v.mandala === selectedMandala)
+            .map((verse) => verse.sukta)
+            .filter((s): s is number => s !== undefined)
+        ),
+      ].sort((a, b) => a - b),
     [selectedMandala, verses]
   );
-  
+
   const [selectedSukta, setSelectedSukta] = useState(suktas[0]);
 
-  const chapterVerses = useMemo(
-    () => {
-      if (isRigveda && selectedMandala !== undefined && selectedSukta !== undefined) {
-        return verses
-          .filter((verse) => verse.mandala === selectedMandala && verse.sukta === selectedSukta)
-          .sort((a, b) => a.verse - b.verse);
-      }
-      return verses.filter((verse) => verse.chapter === selectedChapter).sort((a, b) => a.verse - b.verse);
-    },
-    [isRigveda, selectedMandala, selectedSukta, selectedChapter, verses]
-  );
+  const chapterVerses = useMemo(() => {
+    if (isRigveda && selectedMandala !== undefined && selectedSukta !== undefined) {
+      return verses
+        .filter((verse) => verse.mandala === selectedMandala && verse.sukta === selectedSukta)
+        .sort((a, b) => a.verse - b.verse);
+    }
+    return verses
+      .filter((verse) => verse.chapter === selectedChapter)
+      .sort((a, b) => a.verse - b.verse);
+  }, [isRigveda, selectedMandala, selectedSukta, selectedChapter, verses]);
 
   const [selectedVerseId, setSelectedVerseId] = useState(chapterVerses[0]?.id || verses[0]?.id);
   const [favoriteVerseIds, setFavoriteVerseIds] = useState<Set<string>>(new Set());
@@ -89,6 +109,16 @@ export function ScriptureStudyExplorer({
     selectedIndex >= 0 && selectedIndex < chapterVerses.length - 1
       ? chapterVerses[selectedIndex + 1]
       : null;
+
+  // Update selected verse ID when chapterVerses changes (for Rigveda navigation)
+  useEffect(() => {
+    if (chapterVerses.length > 0) {
+      const currentVerseExists = chapterVerses.find((v) => v.id === selectedVerseId);
+      if (!currentVerseExists) {
+        setSelectedVerseId(chapterVerses[0]?.id);
+      }
+    }
+  }, [chapterVerses, selectedVerseId]);
 
   useEffect(() => {
     if (!selectedVerse) return;
@@ -138,7 +168,7 @@ export function ScriptureStudyExplorer({
               </Button>
             ))}
             {selectedMandala && (
-              <div className="flex flex-wrap items-center gap-2 ml-4">
+              <div className="ml-4 flex flex-wrap items-center gap-2">
                 <span className="text-xs text-muted-foreground">Sukta:</span>
                 {suktas.map((sukta) => (
                   <Button
@@ -148,7 +178,9 @@ export function ScriptureStudyExplorer({
                     onClick={() => {
                       setSelectedSukta(sukta);
                       const firstVerse = verses
-                        .filter((verse) => verse.mandala === selectedMandala && verse.sukta === sukta)
+                        .filter(
+                          (verse) => verse.mandala === selectedMandala && verse.sukta === sukta
+                        )
                         .sort((a, b) => a.verse - b.verse)[0];
                       if (firstVerse) {
                         setSelectedVerseId(firstVerse.id);
@@ -183,141 +215,182 @@ export function ScriptureStudyExplorer({
         )}
         {selectedVerse ? (
           <span className="text-xs text-muted-foreground">
-            {isRigveda 
+            {isRigveda
               ? `Reading Mandala ${selectedVerse.mandala}, Sukta ${selectedVerse.sukta}, Verse ${selectedVerse.verse}`
-              : `Continue reading from chapter ${selectedVerse.chapter}, verse ${selectedVerse.verse}`
-            }
+              : `Continue reading from chapter ${selectedVerse.chapter}, verse ${selectedVerse.verse}`}
           </span>
         ) : null}
       </div>
 
-      {selectedVerse ? (
-        <article id={selectedVerse.id} className="surface-panel p-8 md:p-10">
-          <div className="relative z-10">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
-                  {isRigveda ? `Mandala ${selectedVerse.mandala}, Sukta ${selectedVerse.sukta}` : `Chapter ${selectedVerse.chapter}`}
-                </p>
-                <h3 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground">
-                  Verse {selectedVerse.verse}
-                </h3>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground">{scriptureHighlight}</span>
-                <Button
-                  variant={favoriteVerseIds.has(selectedVerse.id) ? "premium" : "outline"}
-                  size="sm"
-                  onClick={() => toggleFavorite(selectedVerse.id)}
-                >
-                  {favoriteVerseIds.has(selectedVerse.id) ? (
-                    <BookmarkCheck className="size-4" />
-                  ) : (
-                    <Bookmark className="size-4" />
-                  )}
-                  {favoriteVerseIds.has(selectedVerse.id) ? "Saved" : "Save"}
-                </Button>
-              </div>
-            </div>
-
-            <div className="mt-8 flex flex-wrap gap-2">
-              {chapterVerses.map((verse) => (
-                <Button
-                  key={verse.id}
-                  variant={verse.id === selectedVerse.id ? "premium" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedVerseId(verse.id)}
-                >
-                  {verse.verse}
-                </Button>
-              ))}
-            </div>
-
-            <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-              <div className="space-y-5">
+      <AnimatePresence mode="wait">
+        {selectedVerse ? (
+          <motion.article
+            key={selectedVerse.id}
+            id={selectedVerse.id}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="surface-panel p-8 md:p-10"
+          >
+            <div className="relative z-10">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-                    Sanskrit
+                  <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+                    {isRigveda
+                      ? `Mandala ${selectedVerse.mandala}, Sukta ${selectedVerse.sukta}`
+                      : `Chapter ${selectedVerse.chapter}`}
                   </p>
-                  <div className="mt-3 rounded-lg border border-amber-200/50 bg-gradient-to-r from-amber-50/50 to-orange-50/50 p-6 dark:border-amber-800/30 dark:from-amber-950/20 dark:to-orange-950/20">
-                    <p className="leading-12 font-devanagari text-3xl text-foreground drop-shadow-sm">
-                      {selectedVerse.sanskrit}
-                    </p>
+                  <h3 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+                    Verse {selectedVerse.verse}
+                  </h3>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-muted-foreground">{scriptureHighlight}</span>
+                  <Button
+                    variant={favoriteVerseIds.has(selectedVerse.id) ? "premium" : "outline"}
+                    size="sm"
+                    onClick={() => toggleFavorite(selectedVerse.id)}
+                  >
+                    {favoriteVerseIds.has(selectedVerse.id) ? (
+                      <BookmarkCheck className="size-4" />
+                    ) : (
+                      <Bookmark className="size-4" />
+                    )}
+                    {favoriteVerseIds.has(selectedVerse.id) ? "Saved" : "Save"}
+                  </Button>
+                </div>
+              </div>
+
+              <div className="mt-8 flex flex-wrap gap-1.5">
+                {chapterVerses.map((verse) => (
+                  <button
+                    key={verse.id}
+                    onClick={() => setSelectedVerseId(verse.id)}
+                    className={`inline-flex size-9 items-center justify-center rounded-xl text-sm font-medium transition-all ${
+                      verse.id === selectedVerse.id
+                        ? "bg-primary text-primary-foreground shadow-sm"
+                        : "border border-border/60 bg-background/75 text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                    }`}
+                  >
+                    {verse.verse}
+                  </button>
+                ))}
+              </div>
+
+              <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+                <div className="space-y-6">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <BookOpen className="size-4 text-primary" />
+                      <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                        Sanskrit
+                      </p>
+                    </div>
+                    <div className="mt-4 rounded-2xl border border-amber-200/40 bg-gradient-to-br from-amber-50/60 via-orange-50/40 to-rose-50/30 p-7 dark:border-amber-800/20 dark:from-amber-950/25 dark:via-orange-950/15 dark:to-rose-950/10">
+                      <p className="font-devanagari text-2xl leading-relaxed text-foreground drop-shadow-sm sm:text-3xl">
+                        {selectedVerse.sanskrit}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-                    Transliteration
-                  </p>
-                  <p className="mt-3 text-sm italic leading-7 text-muted-foreground">
-                    {selectedVerse.transliteration}
-                  </p>
-                </div>
-              </div>
-
-              <div className="space-y-5">
-                <div>
-                  <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-                    Translation
-                  </p>
-                  <p className="text-foreground/88 mt-3 text-base leading-8">
-                    {selectedVerse.translation.en}
-                  </p>
-                  {selectedVerse.translation.hi ? (
-                    <p className="mt-3 font-devanagari text-sm leading-8 text-muted-foreground">
-                      {selectedVerse.translation.hi}
-                    </p>
+                  {selectedVerse.transliteration ? (
+                    <div>
+                      <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                        Transliteration
+                      </p>
+                      <p className="mt-3 text-sm italic leading-8 text-muted-foreground">
+                        {selectedVerse.transliteration}
+                      </p>
+                    </div>
                   ) : null}
                 </div>
 
-                {selectedVerse.commentary ? (
-                  <div className="rounded-[22px] border border-border/60 bg-background/75 p-4 text-sm leading-7 text-muted-foreground">
-                    {selectedVerse.commentary}
+                <div className="space-y-6">
+                  <div>
+                    <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                      Translation
+                    </p>
+                    <p className="mt-4 text-base leading-8 text-foreground/90">
+                      {selectedVerse.translation.en}
+                    </p>
+                    {selectedVerse.translation.hi ? (
+                      <p className="mt-4 border-t border-border/40 pt-4 font-devanagari text-sm leading-8 text-muted-foreground">
+                        {selectedVerse.translation.hi}
+                      </p>
+                    ) : null}
                   </div>
-                ) : null}
+
+                  {selectedVerse.commentary ? (
+                    <div className="rounded-[22px] border border-border/60 bg-background/75 p-5 text-sm leading-7 text-muted-foreground">
+                      {selectedVerse.commentary}
+                    </div>
+                  ) : null}
+
+                  {selectedVerse.deity || selectedVerse.sage || selectedVerse.meter ? (
+                    <div className="flex flex-wrap gap-2">
+                      {selectedVerse.deity ? (
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/75 px-3 py-1 text-xs text-muted-foreground">
+                          Deity: <strong className="text-foreground">{selectedVerse.deity}</strong>
+                        </span>
+                      ) : null}
+                      {selectedVerse.sage ? (
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/75 px-3 py-1 text-xs text-muted-foreground">
+                          Sage: <strong className="text-foreground">{selectedVerse.sage}</strong>
+                        </span>
+                      ) : null}
+                      {selectedVerse.meter ? (
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/75 px-3 py-1 text-xs text-muted-foreground">
+                          Meter: <strong className="text-foreground">{selectedVerse.meter}</strong>
+                        </span>
+                      ) : null}
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={!previousVerse}
+                    onClick={() => previousVerse && setSelectedVerseId(previousVerse.id)}
+                  >
+                    <ChevronLeft className="size-4" />
+                    Previous verse
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={!nextVerse}
+                    onClick={() => nextVerse && setSelectedVerseId(nextVerse.id)}
+                  >
+                    Next verse
+                    <ChevronRight className="size-4" />
+                  </Button>
+                </div>
+
+                <span className="inline-flex items-center gap-2 text-xs text-muted-foreground">
+                  <Sparkles className="size-4 text-primary" />
+                  Gemma 4 grounded study pack
+                </span>
+              </div>
+
+              <div className="mt-8">
+                <AIExplanation
+                  verseId={selectedVerse.id}
+                  sanskrit={selectedVerse.sanskrit}
+                  translation={selectedVerse.translation.en}
+                  scripture={scriptureSlug}
+                  chapter={selectedVerse.chapter}
+                  verse={selectedVerse.verse}
+                  audience="student"
+                />
               </div>
             </div>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={!previousVerse}
-                  onClick={() => previousVerse && setSelectedVerseId(previousVerse.id)}
-                >
-                  <ChevronLeft className="size-4" />
-                  Previous verse
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={!nextVerse}
-                  onClick={() => nextVerse && setSelectedVerseId(nextVerse.id)}
-                >
-                  Next verse
-                  <ChevronRight className="size-4" />
-                </Button>
-              </div>
-
-              <span className="inline-flex items-center gap-2 text-xs text-muted-foreground">
-                <Sparkles className="size-4 text-primary" />
-                Gemma 4 grounded study pack
-              </span>
-            </div>
-
-            <AIExplanation
-              verseId={selectedVerse.id}
-              sanskrit={selectedVerse.sanskrit}
-              translation={selectedVerse.translation.en}
-              scripture={scriptureSlug}
-              chapter={selectedVerse.chapter}
-              verse={selectedVerse.verse}
-              audience="student"
-            />
-          </div>
-        </article>
-      ) : null}
+          </motion.article>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }

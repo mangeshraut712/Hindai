@@ -11,7 +11,7 @@ export function cn(...inputs: ClassValue[]) {
  */
 export function getLocalStorageItem<T>(key: string): T | null {
   if (typeof window === "undefined") return null;
-  
+
   try {
     const raw = window.localStorage.getItem(key);
     if (!raw) return null;
@@ -23,7 +23,7 @@ export function getLocalStorageItem<T>(key: string): T | null {
 
 export function setLocalStorageItem<T>(key: string, value: T): void {
   if (typeof window === "undefined") return;
-  
+
   try {
     window.localStorage.setItem(key, JSON.stringify(value));
   } catch {
@@ -33,7 +33,7 @@ export function setLocalStorageItem<T>(key: string, value: T): void {
 
 export function removeLocalStorageItem(key: string): void {
   if (typeof window === "undefined") return;
-  
+
   try {
     window.localStorage.removeItem(key);
   } catch {

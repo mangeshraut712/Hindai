@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { CheckCircle, XCircle, ArrowRight, Trophy, BookOpen, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
@@ -185,141 +184,198 @@ export function QuizSystem() {
   if (completed) {
     const percentage = (score / quizQuestions.length) * 100;
     let message = "";
-    let emoji = "";
+    let sanskritMessage = "";
 
     if (percentage >= 80) {
-      message = "Excellent! You have deep knowledge of Indian scriptures!";
-      emoji = "🏆";
+      message = "Excellent! You have deep knowledge of Indian scriptures.";
+      sanskritMessage = "सर्वज्ञः";
     } else if (percentage >= 60) {
-      message = "Good job! Keep learning and exploring these ancient wisdom texts.";
-      emoji = "📚";
+      message = "Good progress. Keep learning and exploring these ancient wisdom texts.";
+      sanskritMessage = "अभ्यासः";
     } else {
-      message = "Keep studying! These sacred texts have profound wisdom to share.";
-      emoji = "🙏";
+      message = "Every question is a step toward understanding. Continue your study.";
+      sanskritMessage = "श्रद्धा";
     }
 
     return (
-      <Card className="mx-auto w-full max-w-2xl">
-        <CardHeader className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-            <Trophy className="h-8 w-8 text-primary" />
+      <div className="surface-panel mx-auto w-full max-w-2xl p-8 md:p-10">
+        <div className="relative z-10 text-center">
+          <div className="mx-auto mb-5 flex size-16 items-center justify-center rounded-full bg-primary/10">
+            <Trophy className="size-8 text-primary" />
           </div>
-          <CardTitle className="text-2xl">Quiz Completed!</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4 text-center">
-          <div className="text-4xl font-bold">
-            {score} / {quizQuestions.length}
-          </div>
-          <Progress value={percentage} className="w-full" />
-          <p className="text-lg">
-            {emoji} {message}
+          <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+            Pariksha Complete
           </p>
-          <div className="text-sm text-muted-foreground">
-            You scored {percentage}% - {score} correct out of {quizQuestions.length} questions
+          <p className="mt-2 font-devanagari text-3xl text-primary">{sanskritMessage}</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+            Quiz Completed
+          </h2>
+
+          <div className="mt-6 text-5xl font-semibold tracking-[-0.04em] text-foreground">
+            {score} <span className="text-muted-foreground">/ {quizQuestions.length}</span>
           </div>
-          <Button onClick={handleRestart} className="mt-4">
+          <div className="mt-5">
+            <Progress value={percentage} className="h-2 w-full" />
+          </div>
+          <p className="mt-5 text-base text-muted-foreground">{message}</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            You scored {Math.round(percentage)}% — {score} correct out of {quizQuestions.length}{" "}
+            questions
+          </p>
+          <Button onClick={handleRestart} variant="premium" className="mt-7 gap-2">
             Try Again
           </Button>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     );
   }
 
   return (
     <>
-      <div className="mb-4 flex justify-center">
-        <Button onClick={generateAIQuiz} disabled={isGenerating} variant="outline">
-          <Sparkles className="mr-2 h-4 w-4" />
-          {isGenerating ? "Generating..." : "Generate AI Quiz Question"}
+      <div className="mb-5 flex justify-center">
+        <Button
+          onClick={generateAIQuiz}
+          disabled={isGenerating}
+          variant="outline"
+          className="gap-2"
+        >
+          <Sparkles className="size-4" />
+          {isGenerating ? "Generating with Gemma 4..." : "Generate AI Quiz Question"}
         </Button>
       </div>
-      <Card className="mx-auto w-full max-w-2xl">
-        <CardHeader>
-          <div className="mb-2 flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">
-              Question {currentQuestion + 1} of {quizQuestions.length}
-            </span>
-            <span
-              className={cn(
-                "rounded-full px-2 py-1 text-xs",
-                question.difficulty === "easy" && "bg-green-100 text-green-800",
-                question.difficulty === "medium" && "bg-yellow-100 text-yellow-800",
-                question.difficulty === "hard" && "bg-red-100 text-red-800"
-              )}
-            >
-              {question.difficulty}
-            </span>
-          </div>
-          <Progress value={progress} className="w-full" />
-          <CardTitle className="mt-4 text-xl">{question.question}</CardTitle>
-        </CardHeader>
-
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            {question.options.map((option, index) => (
-              <Button
-                key={index}
-                variant={selectedAnswer === index ? "default" : "outline"}
+      <div className="surface-panel mx-auto w-full max-w-2xl overflow-hidden">
+        <div className="relative z-10">
+          {/* Header */}
+          <div className="border-b border-border/60 px-6 py-5 md:px-8">
+            <div className="mb-3 flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">
+                Question {currentQuestion + 1} of {quizQuestions.length}
+              </span>
+              <span
                 className={cn(
-                  "h-auto w-full justify-start px-4 py-3 text-left",
+                  "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-wider",
+                  question.difficulty === "easy" &&
+                    "border border-emerald-200/60 bg-emerald-50/60 text-emerald-800 dark:border-emerald-800/40 dark:bg-emerald-950/30 dark:text-emerald-300",
+                  question.difficulty === "medium" &&
+                    "border border-amber-200/60 bg-amber-50/60 text-amber-800 dark:border-amber-800/40 dark:bg-amber-950/30 dark:text-amber-300",
+                  question.difficulty === "hard" &&
+                    "border border-red-200/60 bg-red-50/60 text-red-800 dark:border-red-800/40 dark:bg-red-950/30 dark:text-red-300"
+                )}
+              >
+                <span
+                  className={`size-1.5 rounded-full ${
+                    question.difficulty === "easy"
+                      ? "bg-emerald-500"
+                      : question.difficulty === "medium"
+                        ? "bg-amber-400"
+                        : "bg-red-500"
+                  }`}
+                />
+                {question.difficulty}
+              </span>
+            </div>
+            <Progress value={progress} className="h-1.5 w-full" />
+            <h3 className="mt-4 text-xl font-semibold leading-relaxed text-foreground">
+              {question.question}
+            </h3>
+          </div>
+
+          {/* Options */}
+          <div className="space-y-2 px-6 py-5 md:px-8">
+            {question.options.map((option, index) => (
+              <button
+                key={index}
+                className={cn(
+                  "flex w-full items-center gap-3 rounded-2xl border px-4 py-3.5 text-left text-sm transition-all",
+                  selectedAnswer === index && !showExplanation
+                    ? "border-primary/50 bg-primary/5 text-foreground"
+                    : "border-border/60 bg-background/40 text-foreground/80 hover:border-primary/30 hover:bg-secondary/30",
                   showExplanation &&
                     index === question.correctAnswer &&
-                    "border-green-500 bg-green-100 hover:bg-green-100",
+                    "border-emerald-300/60 bg-emerald-50/40 dark:border-emerald-800/40 dark:bg-emerald-950/20",
                   showExplanation &&
                     selectedAnswer === index &&
                     index !== question.correctAnswer &&
-                    "border-red-500 bg-red-100 hover:bg-red-100"
+                    "border-red-300/60 bg-red-50/40 dark:border-red-800/40 dark:bg-red-950/20",
+                  showExplanation && "cursor-default"
                 )}
                 onClick={() => handleSelect(index)}
                 disabled={showExplanation}
               >
-                <span className="mr-3 font-medium">{String.fromCharCode(65 + index)}.</span>
-                {option}
+                <span
+                  className={cn(
+                    "flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold",
+                    selectedAnswer === index && !showExplanation
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted text-muted-foreground",
+                    showExplanation &&
+                      index === question.correctAnswer &&
+                      "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
+                    showExplanation &&
+                      selectedAnswer === index &&
+                      index !== question.correctAnswer &&
+                      "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300"
+                  )}
+                >
+                  {String.fromCharCode(65 + index)}
+                </span>
+                <span className="flex-1">{option}</span>
                 {showExplanation && index === question.correctAnswer && (
-                  <CheckCircle className="ml-auto h-5 w-5 text-green-600" />
+                  <CheckCircle className="size-5 shrink-0 text-emerald-600 dark:text-emerald-400" />
                 )}
                 {showExplanation &&
                   selectedAnswer === index &&
                   index !== question.correctAnswer && (
-                    <XCircle className="ml-auto h-5 w-5 text-red-600" />
+                    <XCircle className="size-5 shrink-0 text-red-600 dark:text-red-400" />
                   )}
-              </Button>
+              </button>
             ))}
           </div>
 
+          {/* Explanation */}
           {showExplanation && (
-            <div className="space-y-2 rounded-lg bg-muted p-4">
-              <div className="flex items-center gap-2 text-sm font-medium">
-                <BookOpen className="h-4 w-4" />
+            <div className="mx-6 mb-5 space-y-3 rounded-2xl border border-border/60 bg-background/60 p-5 md:mx-8">
+              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                <BookOpen className="size-4 text-primary" />
                 {question.scripture}
               </div>
-              <p className="text-sm">{question.explanation}</p>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                {question.explanation}
+              </p>
             </div>
           )}
 
-          <div className="flex gap-2 pt-2">
-            {!showExplanation ? (
-              <Button onClick={handleSubmit} disabled={selectedAnswer === null} className="flex-1">
-                Submit Answer
-              </Button>
-            ) : (
-              <Button onClick={handleNext} className="flex-1">
-                {currentQuestion < quizQuestions.length - 1 ? (
-                  <>
-                    Next Question <ArrowRight className="ml-2 h-4 w-4" />
-                  </>
-                ) : (
-                  "See Results"
-                )}
-              </Button>
-            )}
-          </div>
+          {/* Actions */}
+          <div className="border-t border-border/60 px-6 py-5 md:px-8">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              {!showExplanation ? (
+                <Button
+                  onClick={handleSubmit}
+                  disabled={selectedAnswer === null}
+                  variant="premium"
+                  className="w-full sm:w-auto"
+                >
+                  Submit Answer
+                </Button>
+              ) : (
+                <Button onClick={handleNext} variant="premium" className="w-full gap-2 sm:w-auto">
+                  {currentQuestion < quizQuestions.length - 1 ? (
+                    <>
+                      Next Question <ArrowRight className="size-4" />
+                    </>
+                  ) : (
+                    "See Results"
+                  )}
+                </Button>
+              )}
 
-          <p className="text-center text-xs text-muted-foreground">
-            Score: {score} / {currentQuestion + (showExplanation ? 1 : 0)}
-          </p>
-        </CardContent>
-      </Card>
+              <span className="text-center text-xs text-muted-foreground sm:text-right">
+                Score: {score} / {currentQuestion + (showExplanation ? 1 : 0)}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

@@ -26,6 +26,11 @@ export interface ScriptureVerse {
   verse: number;
   sanskrit: string;
   transliteration: string;
+  padaArtha?: {
+    word: string;
+    iast: string;
+    meaning: string;
+  }[];
   wordByWord?: {
     sanskrit: string;
     iast: string;
@@ -40,8 +45,18 @@ export interface ScriptureVerse {
   keyTerms: string[];
   relatedVerses?: string[];
   tags?: string[]; // For search optimization
+  speaker?: string; // Speaker of the verse (e.g. Krishna, Arjuna)
   sukta?: number; // For Vedas
   mandala?: number; // For Vedas
+  deity?: string;
+  sage?: string;
+  meter?: string;
+  verseRefs?: {
+    scriptureId: string;
+    chapter: number;
+    verse: number;
+    relevance: string;
+  }[];
 }
 
 export interface AIExplanation {

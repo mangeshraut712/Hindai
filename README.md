@@ -26,26 +26,34 @@
 
 ## 🆕 Recent Updates
 
-### Version 1.0.0 (April 2026)
+### Version 1.1.0 (April 2026)
 
-**Scripture Data Enhancements:**
-- ✨ Added complete Rigveda structure with all 10 Mandalas, Suktas, and detailed verses
-- ✨ Added skeleton data for all 4 Vedas (Rigveda, Samaveda, Krishna Yajurveda, Shukla Yajurveda, Atharvaveda)
-- ✨ Added 13 principal Upanishads with complete metadata
-- ✨ Added all 18 Mahapuranas with comprehensive metadata
-- ✨ Implemented word-for-word (anvaya) breakdown for verses with Sanskrit, IAST, and meanings
-- ✨ Added cross-scriptural linking system for related verses
+**🤖 Gemma 4 Verse Generation System:**
 
-**User Experience Improvements:**
-- ✨ Rigveda Mandala/Sukta navigation (replaces standard chapter navigation)
-- ✨ Favorites/bookmark functionality for saving verses
-- ✨ Enhanced verse display with word-by-word breakdown
+- ✨ **AI-Powered Verse Generation** - Generate any missing verse using Gemma 4 AI
+- ✨ **Single Verse Generator** - Create Sanskrit, IAST, English, Hindi translations on demand
+- ✨ **Batch Generation** - Generate entire chapters with progress tracking
+- ✨ **Word-by-Word Breakdown** - AI-generated pada-by-pada meanings
+- ✨ **Speaker Attribution** - Track who speaks each verse (Krishna, Arjuna, Sanjaya, Dhritarashtra)
+- ✨ **Rate-Limited API** - 10 requests/minute for optimal performance
 
-**Deployment & Infrastructure:**
+**📚 Scripture Data Status (184 Total Scriptures):**
+
+| Category | Count | Metadata | Verse Data |
+|----------|-------|----------|------------|
+| Vedas | 6 | ✅ 100% | ⚠️ 0.2% (Gemma4 gen ready) |
+| Epics | 2 | ✅ 100% | ✅ 0% (on-demand gen) |
+| Mahapuranas | 18 | ✅ 100% | ✅ 0% (on-demand gen) |
+| Upanishads | 109 | ✅ 100% | ⚠️ 8 verses |
+| Gita Verses | 49/700 | ✅ 100% | ⚠️ 7% (651 to generate) |
+| Rigveda Verses | 21/~10,600 | ✅ 100% | ⚠️ 0.2% |
+
+**Infrastructure:**
+
 - ✨ Cloud Ollama configuration documentation for Vercel deployment
-- ✨ Removed unused dependencies (geist, sonner)
 - ✨ All security vulnerabilities resolved (0 vulnerabilities)
 - ✨ TypeScript, lint, and build checks passing
+- ✨ Complete website inventory audit (`scripture-audit-report.md`)
 
 ---
 
@@ -331,6 +339,7 @@ To deploy with cloud Ollama:
    - **Docker**: Run Ollama in a container on a cloud provider
 
 2. **Configure Vercel environment variables**:
+
    ```env
    OLLAMA_CLOUD_URL=https://your-ollama-cloud.example.com
    OLLAMA_API_KEY=your_api_key_here
@@ -518,6 +527,49 @@ Generate a Gemma 4 explanation for a verse or scripture question.
 #### POST `/api/ai/stream`
 
 Chunked plain-text streaming response for real-time scripture guidance.
+
+#### POST `/api/ai/verse-generate`
+
+Generate complete verse data (Sanskrit, transliteration, translations, word-by-word) using Gemma 4 AI.
+
+**Request:**
+
+```json
+{
+  "scriptureId": "bhagavad-gita",
+  "scriptureName": "Bhagavad Gita",
+  "chapter": 2,
+  "verse": 48,
+  "speaker": "Krishna",
+  "context": "Karma Yoga teaching"
+}
+```
+
+**Response:**
+
+```json
+{
+  "verse": {
+    "id": "bg-2-48",
+    "scriptureId": "bhagavad-gita",
+    "chapter": 2,
+    "verse": 48,
+    "sanskrit": "योगस्थः कुरु कर्माणि...",
+    "transliteration": "yoga-sthaḥ kuru karmāṇi...",
+    "translation": {
+      "en": "Perform your duty equipoised...",
+      "hi": "योग में स्थित होकर कर्म करो..."
+    },
+    "wordByWord": [
+      { "sanskrit": "योगस्थः", "iast": "yoga-sthaḥ", "meaning": "established in yoga" }
+    ],
+    "keyTerms": ["Karma Yoga", "Equipoise", "Duty"],
+    "speaker": "Krishna"
+  },
+  "generated": true,
+  "model": "gemma4:latest"
+}
+```
 
 ---
 

@@ -136,28 +136,30 @@ export function SearchDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="gap-0 p-0 sm:max-w-[550px]">
-        <DialogHeader className="border-b px-4 py-3">
-          <DialogTitle className="flex items-center gap-2">
-            <SearchIcon className="h-4 w-4" />
+      <DialogContent className="gap-0 overflow-hidden rounded-[28px] border-border/60 bg-background/95 p-0 shadow-[0_36px_90px_-52px_rgba(15,23,42,0.42)] backdrop-blur-2xl sm:max-w-[580px]">
+        <DialogHeader className="border-b border-border/60 px-5 py-4">
+          <DialogTitle className="flex items-center gap-2.5 text-base font-semibold">
+            <div className="flex size-8 items-center justify-center rounded-full bg-primary/10">
+              <SearchIcon className="h-4 w-4 text-primary" />
+            </div>
             Search Scriptures
           </DialogTitle>
         </DialogHeader>
-        <div className="p-4">
+        <div className="p-5">
           <div className="relative">
-            <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <SearchIcon className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              placeholder="Search by name, description, or category..."
+              placeholder="Search by name, description, Sanskrit, or category..."
               value={query}
               onChange={(e) => handleSearch(e.target.value)}
-              className="pl-10 pr-10"
+              className="rounded-2xl border-border/60 bg-background/75 py-5 pl-11 pr-10 text-base placeholder:text-muted-foreground/60 focus-visible:ring-primary/30"
               autoFocus
             />
-            {query && (
+            {query ? (
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute right-1 top-1/2 h-7 w-7 -translate-y-1/2"
+                className="absolute right-2 top-1/2 h-7 w-7 -translate-y-1/2 rounded-full hover:bg-muted"
                 onClick={() => {
                   setQuery("");
                   setResults([]);
@@ -165,32 +167,39 @@ export function SearchDialog({
               >
                 <X className="h-4 w-4" />
               </Button>
-            )}
+            ) : null}
           </div>
 
           <div className="mt-4">
             {isLoading ? (
-              <div className="flex items-center justify-center py-8">
-                <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+              <div className="flex items-center justify-center py-10">
+                <div className="flex flex-col items-center gap-3">
+                  <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                  <p className="text-xs text-muted-foreground">Searching scriptures...</p>
+                </div>
               </div>
             ) : results.length > 0 ? (
               <Command>
-                <Command.List className="max-h-[300px] overflow-auto">
+                <Command.List className="max-h-[340px] overflow-auto">
                   {results.map((result) => (
                     <Command.Item
                       key={result.id}
                       onSelect={() => handleSelect(result.href)}
-                      className="flex cursor-pointer items-center gap-3 rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground"
+                      className="group flex cursor-pointer items-start gap-3 rounded-2xl px-3 py-3 transition-colors hover:bg-secondary/50"
                     >
-                      <BookOpen className="h-4 w-4 text-muted-foreground" />
-                      <div className="flex-1">
-                        <p className="font-medium">{result.title}</p>
-                        {result.sanskrit ? (
-                          <p className="font-devanagari text-xs text-primary">{result.sanskrit}</p>
-                        ) : null}
-                        <p className="text-sm text-muted-foreground">{result.description}</p>
+                      <div className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        <BookOpen className="h-4 w-4" />
                       </div>
-                      <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium text-foreground">{result.title}</p>
+                        {result.sanskrit ? (
+                          <p className="font-devanagari text-sm text-primary">{result.sanskrit}</p>
+                        ) : null}
+                        <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                          {result.description}
+                        </p>
+                      </div>
+                      <span className="mt-0.5 shrink-0 rounded-full border border-border/60 bg-background/75 px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
                         {result.category}
                       </span>
                     </Command.Item>
@@ -198,16 +207,35 @@ export function SearchDialog({
                 </Command.List>
               </Command>
             ) : query ? (
-              <div className="py-8 text-center text-muted-foreground">
-                No results found for &quot;{query}&quot;
+              <div className="py-10 text-center">
+                <p className="font-devanagari text-2xl text-muted-foreground/50">खोज प्रयत्नः</p>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  No results found for &quot;{query}&quot;
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground/70">
+                  Try searching with Sanskrit names, English titles, or themes
+                </p>
               </div>
             ) : (
-              <div className="py-8 text-center text-muted-foreground">
-                <p className="mb-2">Start typing to search scriptures</p>
-                <p className="text-sm">
-                  Press <kbd className="rounded bg-muted px-1.5 py-0.5">⌘</kbd> +{" "}
-                  <kbd className="rounded bg-muted px-1.5 py-0.5">K</kbd> to open search anytime
+              <div className="py-10 text-center">
+                <p className="text-sm text-muted-foreground">
+                  Start typing to search across all scriptures
                 </p>
+                <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/75 px-3 py-1.5 text-xs text-muted-foreground">
+                  Press <kbd className="rounded-md bg-muted px-1.5 py-0.5 font-mono">⌘</kbd> +{" "}
+                  <kbd className="rounded-md bg-muted px-1.5 py-0.5 font-mono">K</kbd> anywhere
+                </div>
+                <div className="mt-5 flex flex-wrap justify-center gap-2">
+                  {["Rigveda", "Bhagavad Gita", "Upanishads", "Karma"].map((suggestion) => (
+                    <button
+                      key={suggestion}
+                      onClick={() => handleSearch(suggestion)}
+                      className="rounded-full border border-border/60 bg-background/75 px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-secondary/50 hover:text-foreground"
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
           </div>
