@@ -59,31 +59,6 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["lucide-react"],
     scrollRestoration: true,
   },
-  // Webpack optimizations
-  webpack: (config, { dev, isServer }) => {
-    // Only apply in production client builds
-    if (!dev && !isServer) {
-      config.optimization = {
-        ...config.optimization,
-        splitChunks: {
-          chunks: "all",
-          cacheGroups: {
-            vendor: {
-              test: /[\\/]node_modules[\\/]/,
-              name: "vendors",
-              chunks: "all",
-            },
-            common: {
-              minChunks: 2,
-              chunks: "all",
-              enforce: true,
-            },
-          },
-        },
-      };
-    }
-    return config;
-  },
 };
 
 export default nextConfig;
