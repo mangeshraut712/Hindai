@@ -24,6 +24,31 @@
 🌐 **Live Demo**: [https://hindai-nine.vercel.app](https://hindai-nine.vercel.app)  
 📚 **Repository**: [https://github.com/mangeshraut712/Hindai](https://github.com/mangeshraut712/Hindai)
 
+## 🆕 Recent Updates
+
+### Version 1.0.0 (April 2026)
+
+**Scripture Data Enhancements:**
+- ✨ Added complete Rigveda structure with all 10 Mandalas, Suktas, and detailed verses
+- ✨ Added skeleton data for all 4 Vedas (Rigveda, Samaveda, Krishna Yajurveda, Shukla Yajurveda, Atharvaveda)
+- ✨ Added 13 principal Upanishads with complete metadata
+- ✨ Added all 18 Mahapuranas with comprehensive metadata
+- ✨ Implemented word-for-word (anvaya) breakdown for verses with Sanskrit, IAST, and meanings
+- ✨ Added cross-scriptural linking system for related verses
+
+**User Experience Improvements:**
+- ✨ Rigveda Mandala/Sukta navigation (replaces standard chapter navigation)
+- ✨ Favorites/bookmark functionality for saving verses
+- ✨ Enhanced verse display with word-by-word breakdown
+
+**Deployment & Infrastructure:**
+- ✨ Cloud Ollama configuration documentation for Vercel deployment
+- ✨ Removed unused dependencies (geist, sonner)
+- ✨ All security vulnerabilities resolved (0 vulnerabilities)
+- ✨ TypeScript, lint, and build checks passing
+
+---
+
 ## 📋 Documentation
 
 - [**🔧 Fine-tuning Script**](scripts/fine-tune-gemma4.py) - Unsloth implementation for production scaling
@@ -44,11 +69,13 @@
 
 ### 📚 **Digital Granthalaya - Scripture Library**
 
-- **📖 Complete Collection**: 18 Puranas + 4 Vedas + Upanishads + Bhagavad Gita
+- **📖 Complete Collection**: 18 Puranas + 4 Vedas (Rigveda, Samaveda, Yajurveda, Atharvaveda) + 13 Principal Upanishads + Bhagavad Gita
 - **🔎 AI-Powered Search**: Semantic search with vector similarity
 - **🌍 Multilingual**: Sanskrit (Devanagari) + Roman transliteration + English
 - **📚 Interactive Study**: Verse-by-verse AI explanations and commentary
 - **🔖 Bookmarking**: Personal study collections and progress tracking
+- **🏷️ Favorites**: Save favorite verses for quick access
+- **📖 Rigveda Navigation**: Mandala and Sukta-based navigation for Rigveda
 
 ### 🖼️ **Multimodal Sanskrit Manuscript Analysis**
 
@@ -69,9 +96,11 @@
 ### 🧠 **Gemma 4 AI Integration**
 
 - **Local Ollama Models**: `gemma4:latest` for offline-capable AI inference
+- **Cloud Ollama Support**: Configurable cloud Ollama for Vercel deployment
 - **Structured Outputs**: Well-formatted responses with scripture references
 - **Contextual Knowledge**: Deep understanding of Hindu philosophy
 - **Real-Time Processing**: Fast AI responses for interactive experience
+- **Enhanced Sanskrit Support**: Native Devanagari script processing and Sandhi splitting
 
 ---
 
