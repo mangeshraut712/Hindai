@@ -2,20 +2,20 @@
 
 <div align="center">
 
-  ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue?style=for-the-badge&logo=typescript)
-  ![Next.js](https://img.shields.io/badge/Next.js-15.0.0-saffron?style=for-the-badge&logo=next.js)
-  ![React](https://img.shields.io/badge/React-19.0.0-blue?style=for-the-badge&logo=react)
-  ![Gemma 4](https://img.shields.io/badge/Gemma%204%208B-gold?style=for-the-badge&logo=google)
-  ![Node.js](https://img.shields.io/badge/Node.js-22.0.0-green?style=for-the-badge&logo=node.js)
-  ![License](https://img.shields.io/badge/License-CC--BY--4.0-lightgrey?style=for-the-badge)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue?style=for-the-badge&logo=typescript)
+![Next.js](https://img.shields.io/badge/Next.js-15.0.0-saffron?style=for-the-badge&logo=next.js)
+![React](https://img.shields.io/badge/React-19.0.0-blue?style=for-the-badge&logo=react)
+![Gemma 4](https://img.shields.io/badge/Gemma%204%208B-gold?style=for-the-badge&logo=google)
+![Node.js](https://img.shields.io/badge/Node.js-22.0.0-green?style=for-the-badge&logo=node.js)
+![License](https://img.shields.io/badge/License-CC--BY--4.0-lightgrey?style=for-the-badge)
 
   <img src="public/logo.png" alt="Hind AI Logo" width="150" />
 
-  **🧘‍♂️ Your AI Guru for Ancient Wisdom | ज्ञान से मोक्ष तक (From Knowledge to Liberation)**
+**🧘‍♂️ Your AI Guru for Ancient Wisdom | ज्ञान से मोक्ष तक (From Knowledge to Liberation)**
 
-  [![Live Demo](https://img.shields.io/badge/Live-Demo-Visit-blue?style=for-the-badge)](https://hindai-nine.vercel.app)
-  [![GitHub Stars](https://img.shields.io/github/stars/mangeshraut712/Hindai?style=for-the-badge)](https://github.com/mangeshraut712/Hindai)
-  [![GitHub Issues](https://img.shields.io/github/issues/mangeshraut712/Hindai?style=for-the-badge)](https://github.com/mangeshraut712/Hindai/issues)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-Visit-blue?style=for-the-badge)](https://hindai-nine.vercel.app)
+[![GitHub Stars](https://img.shields.io/github/stars/mangeshraut712/Hindai?style=for-the-badge)](https://github.com/mangeshraut712/Hindai)
+[![GitHub Issues](https://img.shields.io/github/issues/mangeshraut712/Hindai?style=for-the-badge)](https://github.com/mangeshraut712/Hindai/issues)
 
 </div>
 
@@ -132,58 +132,58 @@ npm run dev
 
 ### Core Framework
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **Next.js** | 15.0.0 | React framework with App Router |
-| **React** | 19.0.0 | UI library with concurrent features |
-| **TypeScript** | 5.9.3 | Type-safe JavaScript development |
-| **Node.js** | 22.0.0 | JavaScript runtime with ESM support |
+| Technology     | Version | Purpose                             |
+| -------------- | ------- | ----------------------------------- |
+| **Next.js**    | 15.0.0  | React framework with App Router     |
+| **React**      | 19.0.0  | UI library with concurrent features |
+| **TypeScript** | 5.9.3   | Type-safe JavaScript development    |
+| **Node.js**    | 22.0.0  | JavaScript runtime with ESM support |
 
 ### AI & Machine Learning
 
-| Technology | Purpose |
-|------------|---------|
-| **Gemma 4 8B** | Local AI model for text generation |
-| **Ollama** | Local AI inference runtime |
-| **Upstash Redis** | Caching and rate limiting |
+| Technology        | Purpose                            |
+| ----------------- | ---------------------------------- |
+| **Gemma 4 8B**    | Local AI model for text generation |
+| **Ollama**        | Local AI inference runtime         |
+| **Upstash Redis** | Caching and rate limiting          |
 
 ### UI & Styling
 
-| Technology | Purpose |
-|------------|---------|
-| **Tailwind CSS** | Utility-first CSS framework |
-| **shadcn/ui** | Accessible component library |
-| **Framer Motion** | Animation library |
-| **Radix UI** | Low-level UI primitives |
-| **Lucide React** | Icon library |
-| **cmdk** | Command palette |
-| **next-themes** | Dark mode support |
+| Technology        | Purpose                      |
+| ----------------- | ---------------------------- |
+| **Tailwind CSS**  | Utility-first CSS framework  |
+| **shadcn/ui**     | Accessible component library |
+| **Framer Motion** | Animation library            |
+| **Radix UI**      | Low-level UI primitives      |
+| **Lucide React**  | Icon library                 |
+| **cmdk**          | Command palette              |
+| **next-themes**   | Dark mode support            |
 
 ### State & Data
 
-| Technology | Purpose |
-|------------|---------|
+| Technology         | Purpose                            |
+| ------------------ | ---------------------------------- |
 | **TanStack Query** | Data fetching and state management |
-| **Zod** | Schema validation |
+| **Zod**            | Schema validation                  |
 
 ### Development & Testing
 
-| Technology | Purpose |
-|------------|---------|
-| **Vitest** | Unit testing framework |
-| **Playwright** | E2E testing |
-| **ESLint** | Code linting |
-| **Prettier** | Code formatting |
+| Technology          | Purpose                 |
+| ------------------- | ----------------------- |
+| **Vitest**          | Unit testing framework  |
+| **Playwright**      | E2E testing             |
+| **ESLint**          | Code linting            |
+| **Prettier**        | Code formatting         |
 | **Testing Library** | React component testing |
 
 ### Infrastructure
 
-| Technology | Purpose |
-|------------|---------|
-| **Vercel** | Deployment and edge computing |
-| **Docker** | Containerization |
-| **Vercel Analytics** | Performance monitoring |
-| **Vercel Speed Insights** | Core Web Vitals |
+| Technology                | Purpose                       |
+| ------------------------- | ----------------------------- |
+| **Vercel**                | Deployment and edge computing |
+| **Docker**                | Containerization              |
+| **Vercel Analytics**      | Performance monitoring        |
+| **Vercel Speed Insights** | Core Web Vitals               |
 
 ---
 
@@ -361,6 +361,7 @@ VERCEL_ANALYTICS_ID=your_vercel_analytics_id
 Generate Gemma 4 explanation for verses or scripture questions.
 
 **Request:**
+
 ```json
 {
   "prompt": "Explain Bhagavad Gita 2.47 in simple English",
@@ -371,6 +372,7 @@ Generate Gemma 4 explanation for verses or scripture questions.
 ```
 
 **Response:**
+
 ```json
 {
   "response": {
@@ -402,6 +404,7 @@ Generate Gemma 4 explanation for verses or scripture questions.
 Generate complete verse data using Gemma 4 AI.
 
 **Request:**
+
 ```json
 {
   "scriptureId": "bhagavad-gita",
@@ -414,6 +417,7 @@ Generate complete verse data using Gemma 4 AI.
 ```
 
 **Response:**
+
 ```json
 {
   "verse": {
@@ -443,6 +447,7 @@ Generate complete verse data using Gemma 4 AI.
 Analyze Sanskrit manuscript images with Gemma 4 Vision.
 
 **Request:**
+
 ```json
 {
   "image": "base64_encoded_image",
