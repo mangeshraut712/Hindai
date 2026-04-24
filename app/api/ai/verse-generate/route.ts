@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateVerseWithGemma, getAIStatus } from "@/lib/ai/gemma";
+import { getVerse } from "@/lib/data/scriptures";
 
 export const runtime = "nodejs";
 
@@ -42,12 +43,31 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "scriptureId is required" }, { status: 400 });
     }
 
-    if (!chapter || typeof chapter !== "number") {
-      return NextResponse.json({ error: "chapter is required (number)" }, { status: 400 });
+    if (!Number.isInteger(chapter) || chapter < 1) {
+      return NextResponse.json(
+        { error: "chapter is required as a positive integer" },
+        { status: 400 }
+      );
     }
 
-    if (!verse || typeof verse !== "number") {
-      return NextResponse.json({ error: "verse is required (number)" }, { status: 400 });
+    if (!Number.isInteger(verse) || verse < 1) {
+      return NextResponse.json(
+        { error: "verse is required as a positive integer" },
+        { status: 400 }
+      );
+    }
+
+    const existingVerse = getVerse(scriptureId, chapter, verse);
+    const aiStatus = await getAIStatus();
+
+    if (existingVerse) {
+      return NextResponse.json({
+        verse: existingVerse,
+        generated: false,
+        source: "local-index",
+        model: aiStatus.model,
+        mock: false,
+      });
     }
 
     const userId =
@@ -67,11 +87,10 @@ export async function POST(request: NextRequest) {
       userId
     );
 
-    const aiStatus = await getAIStatus();
-
     return NextResponse.json({
       verse: result.verse,
       generated: true,
+      source: result.mock ? "fallback-placeholder" : "gemma",
       model: aiStatus.model,
       mock: result.mock || false,
       rateLimit: result.rateLimit,

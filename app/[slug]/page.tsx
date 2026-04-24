@@ -179,6 +179,32 @@ export default async function ScripturePage({ params }: PageProps) {
                   scriptureSlug={slug}
                   scriptureHighlight={item.highlight}
                 />
+
+                <div className="surface-panel p-6 md:p-8">
+                  <div className="relative z-10 grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(280px,420px)] lg:items-start">
+                    <div>
+                      <span className="eyebrow">
+                        <Sparkles className="size-4 inline mr-2" />
+                        Generate Verse/Scripture
+                      </span>
+                      <h2 className="mt-5 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+                        Retrieve indexed verses or generate missing entries.
+                      </h2>
+                      <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                        Known verses are returned from the local scripture index first. Missing
+                        entries are sent to the Gemma 4 verse generation pipeline.
+                      </p>
+                    </div>
+                    <VerseGenerator
+                      scriptureId={slug}
+                      scriptureName={item.name}
+                      chapter={firstVerse?.chapter || 1}
+                      verse={firstVerse?.verse || 1}
+                      speaker={firstVerse?.speaker}
+                      context={`Retrieve or generate a verse from ${item.name}`}
+                    />
+                  </div>
+                </div>
               </div>
             ) : (
               <div className="space-y-10">

@@ -27,15 +27,15 @@ const footerGroups = [
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-border/60 bg-background/80">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,hsl(var(--accent)/0.12),transparent_35%)]" />
+    <footer className="relative overflow-hidden border-t border-border/60 bg-background/88">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,hsl(var(--primary)/0.1),transparent_32%),radial-gradient(circle_at_80%_0%,hsl(var(--accent)/0.1),transparent_34%)]" />
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
         <div className="space-y-6">
           <div>
             <p className="font-devanagari text-sm tracking-[0.28em] text-primary">
               सत्यमेव जयते · नमस्ते · ॐ
             </p>
-            <h2 className="mt-4 font-serif text-4xl font-semibold tracking-[-0.04em] text-foreground">
+            <h2 className="mt-4 font-serif text-4xl font-semibold tracking-[-0.025em] text-foreground">
               A calmer way to study ancient Indian thought.
             </h2>
           </div>
@@ -49,7 +49,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="View source code on GitHub"
-              className="inline-flex size-11 items-center justify-center rounded-full border border-border/70 bg-background/70 text-foreground transition-colors hover:bg-secondary/80"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-border/70 bg-background/75 text-foreground transition-colors hover:border-primary/35 hover:bg-secondary/80"
             >
               <Github className="size-5" aria-hidden="true" />
             </Link>
@@ -67,7 +67,7 @@ export function Footer() {
                 <Link
                   key={link.href + link.label}
                   href={link.href}
-                  className="text-foreground/76 rounded-sm text-sm transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2"
+                  className="rounded-sm text-sm text-foreground/72 transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2"
                 >
                   {link.label}
                 </Link>

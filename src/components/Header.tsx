@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { ChevronDown, Menu, Moon, Search, Sparkles, Sun, Trophy } from "lucide-react";
+import { BookOpen, ChevronDown, Menu, Moon, Search, Sparkles, Sun, Trophy } from "lucide-react";
 import { track } from "@vercel/analytics";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,19 +27,25 @@ import { VoiceSearch } from "@/components/voice-search";
 import { headerScriptures } from "@/lib/scripture-catalog";
 
 const navItems = [
-  { label: "Library", hindi: "Granthalaya", href: "/contents" },
-  { label: "Guru AI", hindi: "Guru AI", href: "/ai-guide", icon: Sparkles },
-  { label: "Daily", hindi: "Dainik", href: "/daily" },
-  { label: "Study Paths", hindi: "Patha", href: "/study-paths" },
-  { label: "Quiz", hindi: "Pariksha", href: "/quiz", icon: Trophy },
-  { label: "Structure", hindi: "Vinyas", href: "/structure" },
-  { label: "Preface", hindi: "Prastavana", href: "/preface" },
+  { label: "Library", script: "ग्रन्थालय", href: "/contents", icon: BookOpen },
+  { label: "Guru AI", script: "गुरु", href: "/ai-guide", icon: Sparkles },
+  { label: "Study Paths", script: "पाठ", href: "/study-paths" },
+  { label: "Daily", script: "दैनिक", href: "/daily" },
+];
+
+const moreItems = [
+  { label: "Quiz", script: "परीक्षा", href: "/quiz", icon: Trophy },
+  { label: "Structure", script: "विन्यास", href: "/structure" },
+  { label: "Preface", script: "प्रस्तावना", href: "/preface" },
 ];
 
 export function Header() {
   const { setTheme, resolvedTheme } = useTheme();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const isActive = (href: string) => pathname === href || pathname === `${href}/`;
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -75,14 +82,14 @@ export function Header() {
   };
 
   return (
-    <header className="bg-background/72 sticky top-0 z-50 border-b border-border/60 backdrop-blur-2xl">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-2xl supports-[backdrop-filter]:bg-background/72">
+      <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <Link
           href="/"
           className="group flex min-w-0 items-center gap-3"
           onClick={() => handleNavigation("/", "Home")}
         >
-          <div className="flex size-11 items-center justify-center overflow-hidden rounded-full border border-border/70 bg-background/70 text-primary shadow-[0_18px_42px_-30px_rgba(15,23,42,0.35)]">
+          <div className="flex size-11 items-center justify-center overflow-hidden rounded-full border border-border/70 bg-background/80 text-primary shadow-[0_18px_42px_-30px_rgba(15,23,42,0.35)]">
             <Image
               src="/logo.png"
               alt="Hind AI Logo"
@@ -93,21 +100,21 @@ export function Header() {
             />
           </div>
           <div className="min-w-0">
-            <div className="text-lg font-semibold tracking-[0.02em] text-foreground">Hind AI</div>
-            <div className="font-devanagari text-[11px] tracking-[0.24em] text-muted-foreground">
+            <div className="text-lg font-semibold tracking-[0.01em] text-foreground">Hind AI</div>
+            <div className="font-devanagari text-[11px] tracking-[0.18em] text-muted-foreground">
               डिजिटल गुरुकुल
             </div>
           </div>
         </Link>
 
         <nav
-          className="hidden items-center gap-6 lg:flex"
+          className="hidden items-center gap-1 rounded-full border border-border/60 bg-background/54 p-1 shadow-[0_20px_60px_-48px_rgba(15,23,42,0.5)] lg:flex"
           aria-label="Primary"
           suppressHydrationWarning
         >
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="gap-2">
+              <Button variant="ghost" size="sm" className="nav-pill gap-2">
                 Scriptures
                 <ChevronDown className="size-4" />
               </Button>
@@ -116,6 +123,11 @@ export function Header() {
               align="start"
               className="bg-background/88 w-80 rounded-[24px] border-border/70 p-2 backdrop-blur-2xl"
             >
+              <div className="px-3 pb-2 pt-1">
+                <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+                  प्रमुख ग्रन्थ · Featured Texts
+                </p>
+              </div>
               {headerScriptures.map((item) => (
                 <DropdownMenuItem key={item.slug} asChild className="rounded-2xl px-4 py-3">
                   <Link
@@ -138,21 +150,59 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="group text-sm font-medium text-foreground/75 transition-colors hover:text-foreground"
+              className={`nav-pill group ${isActive(item.href) ? "nav-pill-active" : ""}`}
               onClick={() => handleNavigation(item.href, item.label)}
             >
-              <span className="inline-flex items-center gap-2">
+              <span className="inline-flex items-center gap-1.5">
                 {item.icon ? <item.icon className="size-4 text-primary/80" /> : null}
                 {item.label}
               </span>
-              <span className="mt-1 block font-devanagari text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-                {item.hindi}
+              <span className="sr-only">
+                {" "}
+                {item.script}
               </span>
             </Link>
           ))}
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="nav-pill gap-2">
+                More
+                <ChevronDown className="size-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="w-56 rounded-[24px] border-border/70 bg-background/92 p-2 backdrop-blur-2xl"
+            >
+              {moreItems.map((item) => (
+                <DropdownMenuItem key={item.href} asChild className="rounded-2xl px-4 py-3">
+                  <Link
+                    href={item.href}
+                    className="flex items-center justify-between gap-3"
+                    onClick={() => handleNavigation(item.href, item.label)}
+                  >
+                    <span className="inline-flex items-center gap-2 text-sm font-semibold">
+                      {item.icon ? <item.icon className="size-4 text-primary" /> : null}
+                      {item.label}
+                    </span>
+                    <span className="font-devanagari text-xs text-muted-foreground">
+                      {item.script}
+                    </span>
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
+          <div className="hidden items-center gap-1 xl:flex" aria-label="Study languages">
+            <span className="script-chip">EN</span>
+            <span className="script-chip font-devanagari">हिंदी</span>
+            <span className="script-chip font-devanagari">संस्कृत</span>
+          </div>
+
           <Button
             variant="outline"
             size="sm"
@@ -167,7 +217,7 @@ export function Header() {
             </kbd>
           </Button>
 
-          <VoiceSearch onResult={handleVoiceSearch} className="hidden sm:flex" />
+          <VoiceSearch onResult={handleVoiceSearch} className="hidden md:flex" />
 
           <Button variant="ghost" size="icon" onClick={handleThemeToggle} aria-label="Toggle theme">
             <Sun className="size-4 rotate-0 scale-100 text-primary transition-all dark:-rotate-90 dark:scale-0" />
@@ -188,12 +238,29 @@ export function Header() {
             >
               <SheetHeader className="border-b border-border/60 pb-5">
                 <SheetTitle className="text-left text-xl font-semibold">Hind AI</SheetTitle>
-                <SheetDescription className="text-left font-devanagari tracking-[0.18em]">
-                  डिजिटल गुरुकुल
+                <SheetDescription className="text-left">
+                  <span className="font-devanagari tracking-[0.16em]">डिजिटल गुरुकुल</span>
+                  <span className="mt-3 flex flex-wrap gap-2">
+                    <span className="script-chip">English</span>
+                    <span className="script-chip font-devanagari">हिंदी</span>
+                    <span className="script-chip font-devanagari">संस्कृत</span>
+                  </span>
                 </SheetDescription>
               </SheetHeader>
 
-              <div className="mt-8 space-y-8">
+              <div className="mt-6 space-y-7">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start"
+                  onClick={() => {
+                    handleSearchClick();
+                    setIsOpen(false);
+                  }}
+                >
+                  <Search className="size-4" />
+                  Search scriptures
+                </Button>
+
                 <div className="space-y-3">
                   <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
                     Scriptures
@@ -218,16 +285,20 @@ export function Header() {
                     Explore
                   </p>
                   <div className="grid gap-2">
-                    {navItems.map((item) => (
+                    {[...navItems, ...moreItems].map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 transition-colors hover:bg-secondary/70"
+                        className={`rounded-[20px] border px-4 py-3 transition-colors hover:bg-secondary/70 ${
+                          isActive(item.href)
+                            ? "border-primary/45 bg-primary/10"
+                            : "border-border/60 bg-background/70"
+                        }`}
                         onClick={() => handleNavigation(item.href, item.label)}
                       >
                         <p className="text-sm font-semibold text-foreground">{item.label}</p>
-                        <p className="mt-1 font-devanagari text-xs tracking-[0.18em] text-muted-foreground">
-                          {item.hindi}
+                        <p className="mt-1 font-devanagari text-xs tracking-[0.12em] text-muted-foreground">
+                          {item.script}
                         </p>
                       </Link>
                     ))}

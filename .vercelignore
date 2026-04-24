@@ -1,6 +1,7 @@
 .git
 .next
 .playwright-cli
+.playwright-mcp
 .vercel
 .vercel.env.production
 node_modules

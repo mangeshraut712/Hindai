@@ -175,7 +175,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={`${manrope.variable} ${cormorant.variable} ${notoSerifDevanagari.variable} relative min-h-screen bg-background font-sans antialiased`}
       >
         <Providers>{children}</Providers>
-        {process.env.NODE_ENV === "production" && (
+        {process.env.VERCEL === "1" && (
           <>
             <Analytics />
             <SpeedInsights />

@@ -70,7 +70,7 @@ export default function HomePage() {
 
           <div className="mx-auto grid min-h-[calc(100svh-5rem)] max-w-7xl items-end gap-14 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.9fr)] lg:px-8">
             <motion.div style={{ y: heroY }} className="relative z-10 max-w-3xl">
-              <span className="eyebrow">Digital Gurukul • Gemma 4 • हिंदी · English · संस्कृत</span>
+              <span className="eyebrow">Digital Gurukul • Gemma 4 • English · हिंदी · संस्कृत</span>
               <div className="mt-8 space-y-6">
                 <div className="space-y-4">
                   <p className="font-devanagari text-sm tracking-[0.32em] text-primary">
@@ -86,9 +86,9 @@ export default function HomePage() {
                     <span className="text-gradient"> modern clarity.</span>
                   </h1>
                   <p className="section-copy max-w-2xl">
-                    Hind AI turns the first screen into a calm invitation: browse sacred literature,
-                    ask difficult questions, and study Sanskrit ideas without losing atmosphere,
-                    typography, or cultural texture.
+                    Hind AI keeps scripture study calm and legible: browse sacred literature, ask
+                    difficult questions, and move between Sanskrit, Hindi, and English without
+                    losing atmosphere or context.
                   </p>
                   <p className="max-w-2xl text-sm leading-7 text-muted-foreground">
                     Hindu scripture is not a closed shelf with a fixed count. It is a vast tradition
@@ -165,14 +165,14 @@ export default function HomePage() {
 
               <div className="surface-panel absolute -bottom-8 left-4 hidden w-[78%] p-5 lg:block">
                 <div className="relative z-10 flex items-start gap-3">
-                  <div className="bg-primary/12 flex size-11 items-center justify-center rounded-full text-primary">
+                <div className="flex size-11 items-center justify-center rounded-full bg-accent/12 text-accent">
                     <Languages className="size-5" />
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-foreground">Language-aware study</p>
                     <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                      Hindi boot presence, Sanskrit detail, and readable English explanations all
-                      inside one theme-aware surface.
+                      Sanskrit detail, Hindi context, and readable English explanations in one
+                      theme-aware surface.
                     </p>
                   </div>
                 </div>
@@ -185,10 +185,10 @@ export default function HomePage() {
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
               <span className="eyebrow">How the interface works</span>
-              <h2 className="section-title mt-6">Modern restraint, ancient atmosphere.</h2>
+                <h2 className="section-title mt-6">Modern restraint, ancient atmosphere.</h2>
               <p className="section-copy mt-5">
-                The interface is intentionally quieter: stronger typography, fewer decorative boxes,
-                gentler backgrounds, and clearer routes into reading, discovery, and AI guidance.
+                  The interface uses stronger typography, quieter surfaces, balanced color, and
+                  clearer routes into reading, discovery, and AI guidance.
               </p>
             </div>
 
@@ -215,11 +215,10 @@ export default function HomePage() {
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div className="max-w-3xl">
                 <span className="eyebrow">Scripture shelves</span>
-                <h2 className="section-title mt-6">Browse by shelf, not by broken route.</h2>
+                <h2 className="section-title mt-6">Browse by shelf, then open the text.</h2>
                 <p className="section-copy mt-5">
-                  The library now points to real sections instead of dead scripture pages. Every
-                  shelf gives you a clear entry into the catalog and then onward into AI-guided
-                  study.
+                  Every shelf gives you a clear entry into the catalog and then onward into
+                  AI-guided study, verse retrieval, and interpretation.
                 </p>
               </div>
               <Button variant="outline" asChild>
@@ -258,7 +257,7 @@ export default function HomePage() {
 
         <section className="px-4 pb-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <div className="surface-panel overflow-hidden bg-[linear-gradient(135deg,hsl(var(--foreground)),hsl(28_18%_18%))] text-background">
+            <div className="surface-panel overflow-hidden bg-[linear-gradient(135deg,hsl(var(--foreground)),hsl(var(--secondary-foreground)))] text-background">
               <div className="grid gap-10 px-6 py-10 md:px-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-end">
                 <div className="relative z-10 max-w-xl space-y-5">
                   <span className="eyebrow border-white/15 bg-white/10 text-white/70">Guru AI</span>

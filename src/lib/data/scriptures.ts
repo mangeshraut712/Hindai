@@ -3575,6 +3575,41 @@ export const sampleVerses: ScriptureVerse[] = [
   ...rigvedaVerses.filter((rv) => !coreVerses.some((cv) => cv.id === rv.id)),
 ];
 
+export function getVerseLocationKey(verse: Pick<ScriptureVerse, "scriptureId" | "chapter" | "verse" | "sukta">) {
+  return [
+    verse.scriptureId,
+    verse.chapter,
+    verse.sukta !== undefined ? verse.sukta : "any",
+    verse.verse,
+  ].join(":");
+}
+
+export const verseById = new Map(sampleVerses.map((verse) => [verse.id, verse]));
+
+export const versesByScripture = sampleVerses.reduce((index, verse) => {
+  const verses = index.get(verse.scriptureId) || [];
+  verses.push(verse);
+  index.set(verse.scriptureId, verses);
+  return index;
+}, new Map<string, ScriptureVerse[]>());
+
+export const versesByLocation = sampleVerses.reduce((index, verse) => {
+  const exactKey = getVerseLocationKey(verse);
+  index.set(exactKey, [...(index.get(exactKey) || []), verse]);
+
+  const legacyKey = getVerseLocationKey({
+    scriptureId: verse.scriptureId,
+    chapter: verse.chapter,
+    verse: verse.verse,
+  });
+
+  if (!index.has(legacyKey)) {
+    index.set(legacyKey, [verse]);
+  }
+
+  return index;
+}, new Map<string, ScriptureVerse[]>());
+
 // ─── Helper Functions for Navigation ───────────────────────────────────────────────
 
 export function getRigvedaMandala(mandalaNum: number): Mandala | undefined {
@@ -3621,19 +3656,27 @@ export function getLandmarkSuktas() {
 export function getVerse(
   scriptureId: string,
   chapter: number,
-  verse: number
+  verse: number,
+  options?: { sukta?: number }
 ): ScriptureVerse | undefined {
-  return sampleVerses.find(
-    (v) => v.scriptureId === scriptureId && v.chapter === chapter && v.verse === verse
-  );
+  return versesByLocation.get(getVerseLocationKey({ scriptureId, chapter, verse, ...options }))?.[0];
+}
+
+export function getVerseById(id: string): ScriptureVerse | undefined {
+  return verseById.get(id);
 }
 
 export function getVersesByScripture(scriptureId: string): ScriptureVerse[] {
-  return sampleVerses.filter((v) => v.scriptureId === scriptureId);
+  return versesByScripture.get(scriptureId) || [];
 }
 
 export function searchVerses(query: string): ScriptureVerse[] {
-  const lowerQuery = query.toLowerCase();
+  const lowerQuery = query.trim().toLowerCase();
+
+  if (!lowerQuery) {
+    return sampleVerses;
+  }
+
   return sampleVerses.filter(
     (v) =>
       v.sanskrit.toLowerCase().includes(lowerQuery) ||

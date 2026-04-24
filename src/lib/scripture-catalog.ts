@@ -1,3 +1,5 @@
+import { MAHAPURANAS, UPANISHADS, scriptures } from "@/lib/data/scriptures";
+
 export type ScriptureItem = {
   slug: string;
   name: string;
@@ -454,7 +456,89 @@ export const scriptureSections: ScriptureSection[] = [
   },
 ];
 
-export const scriptureCatalog = scriptureSections.flatMap((section) => section.items);
+const curatedScriptureCatalog = scriptureSections.flatMap((section) => section.items);
+
+function titleCaseCategory(category: string) {
+  return category
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function mergeCatalogItems(items: ScriptureItem[]) {
+  const bySlug = new Map<string, ScriptureItem>();
+
+  for (const item of items) {
+    if (!bySlug.has(item.slug)) {
+      bySlug.set(item.slug, item);
+    }
+  }
+
+  return [...bySlug.values()];
+}
+
+const generatedScriptureCatalog: ScriptureItem[] = scriptures.map((scripture) => ({
+  slug: scripture.id,
+  name: scripture.name,
+  sanskrit: scripture.sanskritName,
+  category: titleCaseCategory(scripture.category),
+  description: scripture.description,
+  highlight: scripture.keyConcepts.slice(0, 3).join(", ") || titleCaseCategory(scripture.category),
+  href: `/${scripture.id}`,
+  language: scripture.language,
+  approximateDate: scripture.approximateDate,
+  keyConcepts: scripture.keyConcepts,
+  readingLens:
+    scripture.totalVerses && scripture.totalVerses > 0
+      ? `Use the verse generator for precise chapter and verse access across ${scripture.totalVerses.toLocaleString()} indexed or generation-ready verses.`
+      : undefined,
+}));
+
+const generatedUpanishadCatalog: ScriptureItem[] = UPANISHADS.map((upanishad) => ({
+  slug: upanishad.id,
+  name: upanishad.name,
+  sanskrit: upanishad.sanskrit,
+  category: "Upanishad",
+  description:
+    upanishad.theme && upanishad.theme !== "unknown"
+      ? `${upanishad.name} is an Upanishadic text focused on ${upanishad.theme}.`
+      : `${upanishad.name} is cataloged for guided study and on-demand verse generation.`,
+  highlight:
+    upanishad.theme && upanishad.theme !== "unknown" ? upanishad.theme : "Upanishadic wisdom",
+  href: `/${upanishad.id}`,
+  language: "Sanskrit",
+  approximateDate: upanishad.period,
+  keyConcepts:
+    upanishad.theme && upanishad.theme !== "unknown" ? [upanishad.theme] : ["Atman", "Brahman"],
+  readingLens:
+    upanishad.verses > 0
+      ? `Use the generator to retrieve or create any of the ${upanishad.verses} cataloged verses.`
+      : "Use the generator for targeted verse access while the direct verse library is expanded.",
+}));
+
+const generatedPuranaCatalog: ScriptureItem[] = MAHAPURANAS.map((purana) => ({
+  slug: purana.id,
+  name: purana.name,
+  sanskrit: purana.sanskrit,
+  category: "Purana",
+  description: `${purana.name} is a Mahapurana centered on ${purana.theme}.`,
+  highlight: purana.theme,
+  href: `/${purana.id}`,
+  language: "Sanskrit",
+  approximateDate: purana.period,
+  keyConcepts: [purana.deity, "Purana", "Devotion"].filter(Boolean),
+  readingLens:
+    purana.verses > 0
+      ? `Use the generator for targeted access across the traditional ${purana.verses.toLocaleString()} verse scope.`
+      : "Use the generator for targeted verse access while the direct verse library is expanded.",
+}));
+
+export const scriptureCatalog = mergeCatalogItems([
+  ...curatedScriptureCatalog,
+  ...generatedScriptureCatalog,
+  ...generatedUpanishadCatalog,
+  ...generatedPuranaCatalog,
+]);
 
 export const featuredScriptures = scriptureCatalog.slice(0, 6);
 

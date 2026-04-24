@@ -49,3 +49,4 @@ bin/
 
 # Playwright CLI
 .playwright-cli/
+.playwright-mcp/
