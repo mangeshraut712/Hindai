@@ -1,4 +1,4 @@
-# 🕉️ Hind AI - Ancient Wisdom Meets Modern AI
+# 🕉️ Hind AI - Ancient Wisdom Meets Modern AI {#top}
 
 <div align="center">
 
@@ -590,6 +590,6 @@ This project is licensed under the **Creative Commons Attribution 4.0 Internatio
 
 **🕉️ Powered by Gemma 4 AI | Built on Vercel Edge | Open Source Forever 🕉️**
 
-[⬆️ Back to Top](#-hind-ai---ancient-wisdom-meets-modern-ai)
+[⬆️ Back to Top](#top)
 
 </div>
