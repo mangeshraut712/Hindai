@@ -12,9 +12,10 @@ export const organizationStructuredData: StructuredData = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Hind AI",
-  description: "AI-Powered Digital Library of Ancient Indian Scriptures",
+  description:
+    "World's most authoritative digital platform for Vedic and Hindu scriptures powered by Gemma 4 AI",
   url: "https://hindai.dev",
-  logo: "https://hindai.dev/Home.png",
+  logo: "https://hindai.dev/og_home.png",
   sameAs: ["https://github.com/mangeshraut712/Hindai", "https://twitter.com/hindai_dev"],
   founder: {
     "@type": "Person",
@@ -26,21 +27,53 @@ export const organizationStructuredData: StructuredData = {
     email: "hello@hindai.dev",
     contactType: "customer service",
   },
+  keywords: [
+    "Vedas",
+    "Upanishads",
+    "Bhagavad Gita",
+    "Puranas",
+    "Sanskrit",
+    "Hinduism",
+    "Vedic scriptures",
+    "Ancient Indian wisdom",
+  ],
 };
 
 // WebSite structured data
 export const websiteStructuredData: StructuredData = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Hind AI",
-  description: "AI-Powered Digital Library of Ancient Indian Scriptures",
+  name: "Hind AI - World's Leading Vedic Scripture Platform",
+  description:
+    "AI-Powered Digital Library of Ancient Indian Scriptures with Gemma 4 analysis, cross-scriptural connections, and linguistic breakdowns",
   url: "https://hindai.dev",
   potentialAction: {
     "@type": "SearchAction",
     target: "https://hindai.dev/search?q={search_term_string}",
     "query-input": "required name=search_term_string",
   },
+  keywords: [
+    "Vedic library",
+    "Hindu scriptures",
+    "Sanskrit texts",
+    "AI scripture analysis",
+    "Gemma 4",
+  ],
 };
+
+// BreadcrumbList structured data
+export function generateBreadcrumbStructuredData(items: Array<{ name: string; url: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
 
 // CreativeWork structured data for scriptures
 export function generateScriptureStructuredData(
@@ -108,22 +141,6 @@ export function generateFAQStructuredData(
   };
 }
 
-// Breadcrumb structured data
-export function generateBreadcrumbStructuredData(
-  breadcrumbs: Array<{ name: string; url: string }>
-): StructuredData {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: breadcrumbs.map((crumb, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: crumb.name,
-      item: crumb.url,
-    })),
-  };
-}
-
 // Utility function to merge structured data
 export function mergeStructuredData(...data: StructuredData[]): StructuredData[] {
   return data;
@@ -148,17 +165,22 @@ export function generateMetadata(
     },
     description,
     keywords: [
-      "Hindu scriptures",
-      "Bhagavad Gita",
-      "Yoga Sutras",
-      "Sanskrit",
-      "Ancient wisdom",
-      "AI spiritual guide",
-      "Indian philosophy",
-      "Vedanta",
+      "Vedas",
       "Upanishads",
+      "Bhagavad Gita",
+      "Puranas",
+      "Sanskrit",
+      "Hindu scriptures",
+      "Ancient Indian wisdom",
+      "AI spiritual guide",
+      "Gemma 4",
+      "Vedic philosophy",
+      "Yoga Sutras",
       "Ramayana",
       "Mahabharata",
+      "Rigveda",
+      "Cross-scriptural analysis",
+      "Sanskrit grammar",
     ],
     authors: [{ name: "Hind AI Team" }],
     creator: "Hind AI",
