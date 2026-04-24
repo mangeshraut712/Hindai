@@ -39,14 +39,14 @@
 
 **📚 Scripture Data Status (184 Total Scriptures):**
 
-| Category | Count | Metadata | Verse Data |
-|----------|-------|----------|------------|
-| Vedas | 6 | ✅ 100% | ⚠️ 0.2% (Gemma4 gen ready) |
-| Epics | 2 | ✅ 100% | ✅ 0% (on-demand gen) |
-| Mahapuranas | 18 | ✅ 100% | ✅ 0% (on-demand gen) |
-| Upanishads | 109 | ✅ 100% | ⚠️ 8 verses |
-| Gita Verses | 49/700 | ✅ 100% | ⚠️ 7% (651 to generate) |
-| Rigveda Verses | 21/~10,600 | ✅ 100% | ⚠️ 0.2% |
+| Category       | Count      | Metadata | Verse Data                 |
+| -------------- | ---------- | -------- | -------------------------- |
+| Vedas          | 6          | ✅ 100%  | ⚠️ 0.2% (Gemma4 gen ready) |
+| Epics          | 2          | ✅ 100%  | ✅ 0% (on-demand gen)      |
+| Mahapuranas    | 18         | ✅ 100%  | ✅ 0% (on-demand gen)      |
+| Upanishads     | 109        | ✅ 100%  | ⚠️ 8 verses                |
+| Gita Verses    | 49/700     | ✅ 100%  | ⚠️ 7% (651 to generate)    |
+| Rigveda Verses | 21/~10,600 | ✅ 100%  | ⚠️ 0.2%                    |
 
 **Infrastructure:**
 
