@@ -6,6 +6,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ScriptureStudyExplorer } from "@/components/scripture/scripture-study-explorer";
+import { VerseGenerator } from "@/components/scripture/verse-generator";
 import { getVerse, getVersesByScripture, scriptures } from "@/lib/data/scriptures";
 import { getScriptureCatalogItem, scriptureCatalog } from "@/lib/scripture-catalog";
 
@@ -180,27 +181,54 @@ export default async function ScripturePage({ params }: PageProps) {
                 />
               </div>
             ) : (
-              <div className="surface-panel p-8 md:p-10">
-                <div className="relative z-10 max-w-3xl">
-                  <span className="eyebrow">Overview mode</span>
-                  <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
-                    This text is cataloged and ready for guided expansion.
-                  </h2>
-                  <p className="mt-4 text-sm leading-7 text-muted-foreground">
-                    Hind AI already provides the structural position, key concepts, and a Gemma 4
-                    study path for {item.name}. The next step is to keep expanding the direct verse
-                    library so each shelf becomes a full reading destination.
-                  </p>
-                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                    <Button variant="premium" asChild>
-                      <Link href="/ai-guide/">
-                        Ask Gemma about {item.name}
-                        <ArrowRight className="size-4" />
-                      </Link>
-                    </Button>
-                    <Button variant="outline" asChild>
-                      <Link href="/contents/">Return to the library</Link>
-                    </Button>
+              <div className="space-y-10">
+                <div className="surface-panel p-8 md:p-10">
+                  <div className="relative z-10 max-w-3xl">
+                    <span className="eyebrow">Overview mode</span>
+                    <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
+                      This text is cataloged and ready for guided expansion.
+                    </h2>
+                    <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                      Hind AI already provides the structural position, key concepts, and a Gemma 4
+                      study path for {item.name}. The next step is to keep expanding the direct verse
+                      library so each shelf becomes a full reading destination.
+                    </p>
+                    <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                      <Button variant="premium" asChild>
+                        <Link href="/ai-guide/">
+                          Ask Gemma about {item.name}
+                          <ArrowRight className="size-4" />
+                        </Link>
+                      </Button>
+                      <Button variant="outline" asChild>
+                        <Link href="/contents/">Return to the library</Link>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="surface-panel p-8 md:p-10">
+                  <div className="relative z-10 max-w-3xl">
+                    <span className="eyebrow">
+                      <Sparkles className="size-4 inline mr-2" />
+                      AI Verse Generation
+                    </span>
+                    <h2 className="mt-6 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+                      Generate verses with Gemma 4 AI
+                    </h2>
+                    <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                      Use our AI-powered verse generator to create Sanskrit text, transliteration,
+                      translations, and word-by-word breakdowns for any verse in {item.name}.
+                    </p>
+                    <div className="mt-8">
+                      <VerseGenerator
+                        scriptureId={slug}
+                        scriptureName={item.name}
+                        chapter={1}
+                        verse={1}
+                        context={`Generate the first verse of ${item.name}`}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
