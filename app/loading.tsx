@@ -1,5 +1,3 @@
-import { Skeleton } from "@/components/ui/skeleton";
-
 function ShimmerBlock({ className }: { className?: string }) {
   return (
     <div className={`relative overflow-hidden rounded-2xl bg-muted/60 ${className || ""}`}>

@@ -23,7 +23,7 @@ async function fetchJson(url) {
           res.on("end", () => {
             try {
               resolve(JSON.parse(data));
-            } catch (e) {
+            } catch {
               resolve(data); // might not be JSON
             }
           });
@@ -36,7 +36,7 @@ async function fetchJson(url) {
 (async () => {
   try {
     console.log("Fetching chapter metadata...");
-    const chapters = await fetchJson(
+    const _chapters = await fetchJson(
       "https://raw.githubusercontent.com/gita/gita/master/data/chapters.json"
     );
 

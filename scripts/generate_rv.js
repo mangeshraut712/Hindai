@@ -23,7 +23,7 @@ async function fetchJson(url) {
           res.on("end", () => {
             try {
               resolve(JSON.parse(data));
-            } catch (e) {
+            } catch {
               resolve(data); // might not be JSON
             }
           });
@@ -33,7 +33,7 @@ async function fetchJson(url) {
   });
 }
 
-function cleanText(text) {
+function _cleanText(text) {
   if (!text) return "";
   return text.replace(/\\n/g, "\n").replace(/\r/g, "").trim();
 }
@@ -131,10 +131,11 @@ function parseSuktaMetadata(metadataStr) {
       for (let j = 0; j < verseLines.length; j++) {
         const line = verseLines[j];
         const match = line.match(/॥(\d+|[०-९]+)॥/); // look for ॥1॥ or ॥१॥
-        let verseNumStr = String(vCounter);
+        let _verseNumStr = String(vCounter);
         if (match) {
           // It has an explicit number
           // We'll just use vCounter sequentially, as it's more reliable.
+          _verseNumStr = match[1]; // Store the matched number for potential future use
         }
 
         const enTrans = enVerses[j] || "Translation coming soon...";

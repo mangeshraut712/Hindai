@@ -23,7 +23,7 @@ async function fetchJson(url) {
           res.on("end", () => {
             try {
               resolve(JSON.parse(data));
-            } catch (e) {
+            } catch {
               resolve(data); // might not be JSON
             }
           });
@@ -187,7 +187,7 @@ function cleanText(text) {
             })
             .filter((x) => x !== null);
           if (wordMeaningsList.length === 0) wordMeaningsList = undefined;
-        } catch (e) {
+        } catch {
           // ignore
         }
       }

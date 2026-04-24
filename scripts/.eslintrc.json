@@ -1,0 +1,14 @@
+{
+  "env": {
+    "node": true,
+    "es2022": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "script"
+  },
+  "rules": {
+    "@typescript-eslint/no-require-imports": "off",
+    "no-undef": "off"
+  }
+}

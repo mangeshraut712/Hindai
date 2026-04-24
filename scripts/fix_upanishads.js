@@ -114,7 +114,7 @@ const muktika108 = [
 
 // Let's create the properly formatted array
 let upanishadsArrayStr = muktika108
-  .map((name, index) => {
+  .map((name, _index) => {
     return `  {
     id: "${name.toLowerCase()}-upanishad",
     name: "${name} Upanishad",

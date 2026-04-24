@@ -1,5 +1,5 @@
 const fs = require("fs");
-const ts = require("typescript"); // Or just use regex / string manipulation for simplicity since it's an exported array.
+// Note: typescript module not needed - using regex/string manipulation for simplicity
 
 let fileContent = fs.readFileSync("src/lib/data/scriptures.ts", "utf-8");
 

@@ -17,7 +17,7 @@ if (!sampleVersesMatch) {
 // Replace the sampleVerses array with the ones without BG verses, and append the BG verses from a new TS file.
 // Or just import the new BG verses into scriptures.ts.
 
-let updatedScripturesFile = scripturesFile.replace(
+let _updatedScripturesFile = scripturesFile.replace(
   /export const sampleVerses: ScriptureVerse\[\] = \[([\s\S]*?)\];\n/,
   "export const sampleVerses: ScriptureVerse[] = [\n$1\n  ...bhagavadGitaVerses.filter(bgv => !sampleVersesIds.has(bgv.id))\n];\n"
 );
