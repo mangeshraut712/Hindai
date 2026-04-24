@@ -52,6 +52,9 @@ export function resolveGemmaModel(input: string | undefined): GemmaModel {
 
 // Configuration - Gemma 4 via Ollama (Kaggle Competition)
 const OLLAMA_API_KEY = process.env.OLLAMA_API_KEY;
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+const OPENROUTER_URL = process.env.OPENROUTER_URL || "https://openrouter.ai/api/v1";
+const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "google/gemma-4-31b-it:free";
 const GEMINI_API_KEY =
   process.env.GEMINI_API_KEY || process.env.GEMMA_API_KEY || process.env.GOOGLE_API_KEY;
 const OLLAMA_URL =
@@ -140,6 +143,10 @@ function getOllamaHeaders(): Record<string, string> {
   return headers;
 }
 
+function isOpenRouterConfigured(): boolean {
+  return Boolean(OPENROUTER_API_KEY && OPENROUTER_MODEL);
+}
+
 type GoogleGemmaPart =
   | { text: string }
   | {
@@ -221,6 +228,84 @@ async function generateWithGoogleGemma(
   }
 
   throw new Error(`Google Gemma error: ${lastError}`);
+}
+
+async function generateWithOpenRouter(
+  parts: GoogleGemmaPart[],
+  systemInstruction: string
+): Promise<string> {
+  if (!OPENROUTER_API_KEY) {
+    throw new Error("OPENROUTER_API_KEY is not configured.");
+  }
+
+  const content = parts.map((part) => {
+    if ("text" in part) {
+      return {
+        type: "text",
+        text: part.text,
+      };
+    }
+
+    return {
+      type: "image_url",
+      image_url: {
+        url: `data:${part.inline_data.mime_type};base64,${part.inline_data.data}`,
+      },
+    };
+  });
+
+  const response = await fetch(`${OPENROUTER_URL}/chat/completions`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${OPENROUTER_API_KEY}`,
+      "Content-Type": "application/json",
+      "HTTP-Referer": "https://hindai.dev",
+      "X-Title": "Hind AI",
+    },
+    body: JSON.stringify({
+      model: OPENROUTER_MODEL,
+      messages: [
+        {
+          role: "system",
+          content: systemInstruction,
+        },
+        {
+          role: "user",
+          content,
+        },
+      ],
+      temperature: 0.4,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text().catch(() => "Unknown error");
+    throw new Error(`OpenRouter error: ${response.status} ${errorText}`);
+  }
+
+  const data = (await response.json()) as {
+    choices?: Array<{
+      message?: {
+        content?: string | Array<{ type?: string; text?: string }>;
+      };
+    }>;
+  };
+
+  const rawContent = data.choices?.[0]?.message?.content;
+  if (typeof rawContent === "string") {
+    return rawContent.trim();
+  }
+
+  const text = (rawContent || [])
+    .map((part) => part.text || "")
+    .join("")
+    .trim();
+
+  if (!text) {
+    throw new Error("OpenRouter returned an empty response.");
+  }
+
+  return text;
 }
 
 // Schema validation
@@ -520,7 +605,9 @@ async function resolveHostedGemmaModel(): Promise<string> {
   return fallbackOrder.find((model) => availableModels.includes(model)) || availableModels[0];
 }
 
-async function resolveGemmaBackend(): Promise<"local" | "cloud" | "google" | "none"> {
+async function resolveGemmaBackend(): Promise<
+  "local" | "cloud" | "openrouter" | "google" | "none"
+> {
   // For Kaggle competition: Gemma 4 via Ollama (local or cloud)
   // No external AI APIs used - only Ollama instances allowed
 
@@ -529,11 +616,17 @@ async function resolveGemmaBackend(): Promise<"local" | "cloud" | "google" | "no
     if (await isOllamaAvailable()) {
       return "cloud";
     }
+    if (isOpenRouterConfigured()) {
+      return "openrouter";
+    }
     return isGoogleGemmaConfigured() ? "google" : "none";
   } else {
     // Local development: Use local Ollama
     if (await isOllamaAvailable()) {
       return "local";
+    }
+    if (isOpenRouterConfigured()) {
+      return "openrouter";
     }
     return isGoogleGemmaConfigured() ? "google" : "none";
   }
@@ -1079,11 +1172,18 @@ export async function generateExplanation(
   try {
     const backend = await resolveGemmaBackend();
 
-    if (backend === "local" || backend === "cloud" || backend === "google") {
+    if (
+      backend === "local" ||
+      backend === "cloud" ||
+      backend === "openrouter" ||
+      backend === "google"
+    ) {
       const resultText =
-        backend === "google"
-          ? await generateWithGoogleGemma([{ text: userPrompt }], GENERATE_SYSTEM_PROMPT)
-          : await generateLeanTextWithOllama(userPrompt);
+        backend === "openrouter"
+          ? await generateWithOpenRouter([{ text: userPrompt }], GENERATE_SYSTEM_PROMPT)
+          : backend === "google"
+            ? await generateWithGoogleGemma([{ text: userPrompt }], GENERATE_SYSTEM_PROMPT)
+            : await generateLeanTextWithOllama(userPrompt);
       const normalized = normalizePlainText(resultText);
       const validated: AIResponse = {
         explanation: normalized,
@@ -1103,7 +1203,7 @@ export async function generateExplanation(
       };
     } else {
       throw new Error(
-        "Gemma is not configured. Set OLLAMA_URL or OLLAMA_CLOUD_URL for Ollama, or GEMINI_API_KEY plus GEMMA_MODEL for hosted Gemma."
+        "Gemma is not configured. Set OLLAMA_URL or OLLAMA_CLOUD_URL for Ollama, OPENROUTER_API_KEY for OpenRouter, or GEMINI_API_KEY plus GEMMA_MODEL for hosted Gemma."
       );
     }
   } catch (error) {
@@ -1129,6 +1229,21 @@ export async function* generateExplanationStream(
     const backend = await resolveGemmaBackend();
     const grounding = buildGroundingPacket(query);
     const userPrompt = buildStreamingPrompt(query, grounding);
+
+    if (backend === "openrouter") {
+      const fullText = await generateWithOpenRouter(
+        [{ text: userPrompt }],
+        STREAMING_SYSTEM_PROMPT
+      );
+
+      for (const sentence of fullText.split(/(?<=[.!?])\s+/)) {
+        const chunk = sentence.trim();
+        if (!chunk) continue;
+        yield `${chunk} `;
+      }
+
+      return;
+    }
 
     if (backend === "google") {
       const fullText = await generateWithGoogleGemma(
@@ -1310,9 +1425,11 @@ export async function checkGemmaAvailability(): Promise<{
   const model =
     backend === "none"
       ? "none"
-      : backend === "google"
-        ? await resolveHostedGemmaModel()
-        : await resolveOllamaModel();
+      : backend === "openrouter"
+        ? OPENROUTER_MODEL
+        : backend === "google"
+          ? await resolveHostedGemmaModel()
+          : await resolveOllamaModel();
 
   if (backend === "none") {
     return {
@@ -1497,9 +1614,11 @@ Rules:
 - do not wrap the JSON in markdown`;
 
   const content =
-    backend === "google"
-      ? await generateWithGoogleGemma([{ text: prompt }], systemInstruction)
-      : await generateWithOllamaWithSystem(prompt, systemInstruction);
+    backend === "openrouter"
+      ? await generateWithOpenRouter([{ text: prompt }], systemInstruction)
+      : backend === "google"
+        ? await generateWithGoogleGemma([{ text: prompt }], systemInstruction)
+        : await generateWithOllamaWithSystem(prompt, systemInstruction);
 
   const candidates = [
     content.trim(),
@@ -1570,6 +1689,12 @@ Response format (JSON):
       const data = (await response.json()) as { response?: string };
       const resultText = data.response || "";
       return parseTranslationPayload(resultText, sanskrit);
+    } else if (backend === "openrouter") {
+      const resultText = await generateWithOpenRouter(
+        [{ text: prompt }],
+        "You translate Indic scripture faithfully and return JSON only."
+      );
+      return parseTranslationPayload(resultText, sanskrit);
     } else if (backend === "google") {
       const resultText = await generateWithGoogleGemma(
         [{ text: prompt }],
@@ -1578,7 +1703,7 @@ Response format (JSON):
       return parseTranslationPayload(resultText, sanskrit);
     } else {
       throw new Error(
-        "Gemma is not configured. Set OLLAMA_URL or OLLAMA_CLOUD_URL for Ollama, or GEMINI_API_KEY plus GEMMA_MODEL for hosted Gemma."
+        "Gemma is not configured. Set OLLAMA_URL or OLLAMA_CLOUD_URL for Ollama, OPENROUTER_API_KEY for OpenRouter, or GEMINI_API_KEY plus GEMMA_MODEL for hosted Gemma."
       );
     }
   } catch (error) {
@@ -1599,6 +1724,31 @@ export async function analyzeManuscriptImage(
   model: string;
 }> {
   const backend = await resolveGemmaBackend();
+
+  if (backend === "openrouter") {
+    const text = await generateWithOpenRouter(
+      [
+        { text: query },
+        {
+          inline_data: {
+            mime_type: mimeType,
+            data: imageBase64,
+          },
+        },
+      ],
+      "You analyze Sanskrit manuscript images. Reply in plain text with a concise scholarly reading."
+    );
+
+    return {
+      response: {
+        explanation: normalizePlainText(text),
+        summary: normalizePlainText(text)
+          .split(/(?<=[.!?])\s+/)[0]
+          ?.slice(0, 180),
+      },
+      model: OPENROUTER_MODEL,
+    };
+  }
 
   if (backend === "google") {
     const text = await generateWithGoogleGemma(
@@ -1621,7 +1771,7 @@ export async function analyzeManuscriptImage(
           .split(/(?<=[.!?])\s+/)[0]
           ?.slice(0, 180),
       },
-      model: HOSTED_GEMMA_MODEL,
+      model: await resolveHostedGemmaModel(),
     };
   }
 
