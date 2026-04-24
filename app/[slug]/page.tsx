@@ -184,7 +184,7 @@ export default async function ScripturePage({ params }: PageProps) {
                   <div className="relative z-10 grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(280px,420px)] lg:items-start">
                     <div>
                       <span className="eyebrow">
-                        <Sparkles className="size-4 inline mr-2" />
+                        <Sparkles className="mr-2 inline size-4" />
                         Generate Verse/Scripture
                       </span>
                       <h2 className="mt-5 text-3xl font-semibold tracking-[-0.04em] text-foreground">
@@ -216,8 +216,8 @@ export default async function ScripturePage({ params }: PageProps) {
                     </h2>
                     <p className="mt-4 text-sm leading-7 text-muted-foreground">
                       Hind AI already provides the structural position, key concepts, and a Gemma 4
-                      study path for {item.name}. The next step is to keep expanding the direct verse
-                      library so each shelf becomes a full reading destination.
+                      study path for {item.name}. The next step is to keep expanding the direct
+                      verse library so each shelf becomes a full reading destination.
                     </p>
                     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                       <Button variant="premium" asChild>
@@ -236,7 +236,7 @@ export default async function ScripturePage({ params }: PageProps) {
                 <div className="surface-panel p-8 md:p-10">
                   <div className="relative z-10 max-w-3xl">
                     <span className="eyebrow">
-                      <Sparkles className="size-4 inline mr-2" />
+                      <Sparkles className="mr-2 inline size-4" />
                       AI Verse Generation
                     </span>
                     <h2 className="mt-6 text-3xl font-semibold tracking-[-0.04em] text-foreground">

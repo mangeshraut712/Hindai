@@ -27,7 +27,7 @@ const footerGroups = [
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-border/60 bg-background/88">
+    <footer className="bg-background/88 relative overflow-hidden border-t border-border/60">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,hsl(var(--primary)/0.1),transparent_32%),radial-gradient(circle_at_80%_0%,hsl(var(--accent)/0.1),transparent_34%)]" />
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
         <div className="space-y-6">
@@ -67,7 +67,7 @@ export function Footer() {
                 <Link
                   key={link.href + link.label}
                   href={link.href}
-                  className="rounded-sm text-sm text-foreground/72 transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2"
+                  className="text-foreground/72 rounded-sm text-sm transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2"
                 >
                   {link.label}
                 </Link>

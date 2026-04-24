@@ -165,7 +165,7 @@ export default function HomePage() {
 
               <div className="surface-panel absolute -bottom-8 left-4 hidden w-[78%] p-5 lg:block">
                 <div className="relative z-10 flex items-start gap-3">
-                <div className="flex size-11 items-center justify-center rounded-full bg-accent/12 text-accent">
+                  <div className="bg-accent/12 flex size-11 items-center justify-center rounded-full text-accent">
                     <Languages className="size-5" />
                   </div>
                   <div>
@@ -185,10 +185,10 @@ export default function HomePage() {
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
               <span className="eyebrow">How the interface works</span>
-                <h2 className="section-title mt-6">Modern restraint, ancient atmosphere.</h2>
+              <h2 className="section-title mt-6">Modern restraint, ancient atmosphere.</h2>
               <p className="section-copy mt-5">
-                  The interface uses stronger typography, quieter surfaces, balanced color, and
-                  clearer routes into reading, discovery, and AI guidance.
+                The interface uses stronger typography, quieter surfaces, balanced color, and
+                clearer routes into reading, discovery, and AI guidance.
               </p>
             </div>
 

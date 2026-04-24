@@ -3575,7 +3575,9 @@ export const sampleVerses: ScriptureVerse[] = [
   ...rigvedaVerses.filter((rv) => !coreVerses.some((cv) => cv.id === rv.id)),
 ];
 
-export function getVerseLocationKey(verse: Pick<ScriptureVerse, "scriptureId" | "chapter" | "verse" | "sukta">) {
+export function getVerseLocationKey(
+  verse: Pick<ScriptureVerse, "scriptureId" | "chapter" | "verse" | "sukta">
+) {
   return [
     verse.scriptureId,
     verse.chapter,
@@ -3659,7 +3661,9 @@ export function getVerse(
   verse: number,
   options?: { sukta?: number }
 ): ScriptureVerse | undefined {
-  return versesByLocation.get(getVerseLocationKey({ scriptureId, chapter, verse, ...options }))?.[0];
+  return versesByLocation.get(
+    getVerseLocationKey({ scriptureId, chapter, verse, ...options })
+  )?.[0];
 }
 
 export function getVerseById(id: string): ScriptureVerse | undefined {

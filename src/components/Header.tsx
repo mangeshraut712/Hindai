@@ -82,7 +82,7 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-2xl supports-[backdrop-filter]:bg-background/72">
+    <header className="supports-[backdrop-filter]:bg-background/72 sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-2xl">
       <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <Link
           href="/"
@@ -108,7 +108,7 @@ export function Header() {
         </Link>
 
         <nav
-          className="hidden items-center gap-1 rounded-full border border-border/60 bg-background/54 p-1 shadow-[0_20px_60px_-48px_rgba(15,23,42,0.5)] lg:flex"
+          className="bg-background/54 hidden items-center gap-1 rounded-full border border-border/60 p-1 shadow-[0_20px_60px_-48px_rgba(15,23,42,0.5)] lg:flex"
           aria-label="Primary"
           suppressHydrationWarning
         >
@@ -157,10 +157,7 @@ export function Header() {
                 {item.icon ? <item.icon className="size-4 text-primary/80" /> : null}
                 {item.label}
               </span>
-              <span className="sr-only">
-                {" "}
-                {item.script}
-              </span>
+              <span className="sr-only"> {item.script}</span>
             </Link>
           ))}
 
@@ -173,7 +170,7 @@ export function Header() {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="w-56 rounded-[24px] border-border/70 bg-background/92 p-2 backdrop-blur-2xl"
+              className="bg-background/92 w-56 rounded-[24px] border-border/70 p-2 backdrop-blur-2xl"
             >
               {moreItems.map((item) => (
                 <DropdownMenuItem key={item.href} asChild className="rounded-2xl px-4 py-3">
