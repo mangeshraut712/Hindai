@@ -223,6 +223,192 @@ export const sampleVerses: ScriptureVerse[] = [
     },
     keyTerms: ["Agni", "Yajna", "Hotr"],
   },
+  // Mandala 2 - Family Book (Grhyasutra)
+  {
+    id: "rv-2-1-1",
+    scriptureId: "rigveda",
+    chapter: 2,
+    verse: 1,
+    sanskrit: "अ॒ग्निं दू॒तं पुरो॑हितं हो॒तारं वेद॑सा सदम् |\nदे॒वेभि॒र्दे॒वो अ॑स्तु नः ||",
+    transliteration: "agnim dūtam purohitaṃ hotāram vedasā sadam |\n devebhir devo astu naḥ ||",
+    translation: {
+      en: "Agni, the messenger, the priest, the invoker, seated with knowledge, may the god be with us among the gods.",
+      hi: "अग्नि, दूत, पुरोहित, होता, ज्ञान के साथ बैठा, देवों में देव हमारे साथ हो।",
+    },
+    keyTerms: ["Agni", "Duta", "Veda"],
+  },
+  // Mandala 3 - Family Book (Visvamitra)
+  {
+    id: "rv-3-62-10",
+    scriptureId: "rigveda",
+    chapter: 3,
+    verse: 62,
+    sanskrit: "एकं सत् विप्रा बहुधा वदन्ति |\nअग्निं यमं मातरिश्वानमाहुः ||",
+    transliteration: "ekaṃ sat viprā bahudhā vadanti |\nagniṃ yamaṃ mātariśvānām āhuḥ ||",
+    translation: {
+      en: "Truth is one, the wise call it by many names - Agni, Yama, Matarishvan.",
+      hi: "सत्य एक है, विद्वान उसे कई नामों से बुलाते हैं - अग्नि, यम, मातरिश्वन।",
+    },
+    keyTerms: ["Sat", "Ekam", "Agni", "Yama"],
+  },
+  // Mandala 4 - Family Book (Vamadeva)
+  {
+    id: "rv-4-58-1",
+    scriptureId: "rigveda",
+    chapter: 4,
+    verse: 58,
+    sanskrit: "श्रेयो अन्तो अद्य देवेषु विश्वस्य हितम् |\nउषसो या जागृहि प्राणैः ||",
+    transliteration: "śreyo anto adya deveṣu viśvasya hitam |\nuṣaso yā jāgṛhi prāṇaiḥ ||",
+    translation: {
+      en: "The ultimate good, today among the gods, the welfare of the world, which the dawn awakens with life.",
+      hi: "परम कल्याण, आज देवों में, विश्व का हित, जिसे उषा प्राणों से जगाती है।",
+    },
+    keyTerms: ["Shreya", "Deva", "Usha", "Prana"],
+  },
+  // Mandala 5 - Family Book (Atri)
+  {
+    id: "rv-5-51-15",
+    scriptureId: "rigveda",
+    chapter: 5,
+    verse: 51,
+    sanskrit: "गायत्रेण प्रतिमुञ्चामि त्वमग्ने |\nसोम्येण च रासना इन्द्रियेण च ||",
+    transliteration: "gāyatreṇa pratimun̄cāmi tvam agne |\nsomyena ca rāsanā indriyena ca ||",
+    translation: {
+      en: "I release you, Agni, with the Gayatri meter, with the Soma, with the Rasa, with the Indra.",
+      hi: "मैं तुम्हें, अग्नि, गायत्री छंद से, सोम से, रस से, इन्द्र से मुक्त करता हूं।",
+    },
+    keyTerms: ["Gayatri", "Soma", "Rasa", "Indra"],
+  },
+  // Mandala 6 - Family Book (Bharadvaja)
+  {
+    id: "rv-6-75-16",
+    scriptureId: "rigveda",
+    chapter: 6,
+    verse: 75,
+    sanskrit: "यदा ते देवा अविश्रुता नामधेया |\nतदा त्वं विश्वतो मिमितो वृषा ||",
+    transliteration: "yadā te devā aviśrutā nāmadheyā |\ntadā tvaṃ viśvato mimito vṛṣā ||",
+    translation: {
+      en: "When the gods, unhearing, had no names, then you, O Bull, were called from everywhere.",
+      hi: "जब देव, जो न सुनते थे, नाम रहित थे, तब तुम, हे वृषभ, सब ओर से बुलाए गए।",
+    },
+    keyTerms: ["Deva", "Vrisha", "Nama"],
+  },
+  // Mandala 7 - Family Book (Vasistha)
+  {
+    id: "rv-7-32-26",
+    scriptureId: "rigveda",
+    chapter: 7,
+    verse: 32,
+    sanskrit: "अ॒ग्निर्मू॒र्धा दि॒वि श्रि॑यो॒ अन्त॑रिक्षे॒धः |\nपृ॒थि॒व्या॒मु॒ष्यो॒ रोच॑ना ||",
+    transliteration: "agnir mūrdhā divi śriyo antarikṣedhaḥ |\npṛthivyāmuṣyo rocanā ||",
+    translation: {
+      en: "Agni is the head of heaven, the glory in the atmosphere, the light on earth.",
+      hi: "अग्नि स्वर्ग का शीर्ष है, अंतरिक्ष की शोभा, पृथ्वी पर प्रकाश।",
+    },
+    keyTerms: ["Agni", "Divi", "Antariksha", "Prithivi"],
+  },
+  // Mandala 8 - Family Book (Kanva)
+  {
+    id: "rv-8-100-11",
+    scriptureId: "rigveda",
+    chapter: 8,
+    verse: 100,
+    sanskrit: "इन्द्रं वृषाभमृषभं गोपामृतस्य |\nप्रवोचन्ति स्वधावः सदस्थाः ||",
+    transliteration: "indraṃ vṛṣābham ṛṣabham gopām ṛtasya |\npravocanti svadhāvaḥ sadasthāḥ ||",
+    translation: {
+      en: "They call Indra the bull among bulls, the protector of truth, the self-ruling one.",
+      hi: "वे इन्द्र को बैलों में बैल, सत्य के रक्षक, स्वयंशासी कहते हैं।",
+    },
+    keyTerms: ["Indra", "Vrisha", "Gopa", "Rta"],
+  },
+  // Mandala 9 - Soma Book
+  {
+    id: "rv-9-113-7",
+    scriptureId: "rigveda",
+    chapter: 9,
+    verse: 113,
+    sanskrit: "सोमेन सोममभिप्र नयामि |\nराजन्तमध्वराणां गोपामृतस्य ||",
+    transliteration: "somena somam abhipra nayāmi |\nrājantam adhvarāṇām gopām ṛtasya ||",
+    translation: {
+      en: "With Soma, I lead Soma, the ruler of sacrifices, the protector of truth.",
+      hi: "सोम के साथ, मैं सोम का नेतृत्व करता हूं, यज्ञों का राजा, सत्य का रक्षक।",
+    },
+    keyTerms: ["Soma", "Raja", "Gopa", "Rta"],
+  },
+  // Mandala 10 - Late Book (includes Purusha Sukta)
+  {
+    id: "rv-10-90-1",
+    scriptureId: "rigveda",
+    chapter: 10,
+    verse: 90,
+    sanskrit:
+      "पुरुषः सूक्तमिदासीत् पुरुषाणां विश्वकर्मा |\nतदांशुः पुरुषात् पादोऽस्य विश्वा भूतानि त्रिपादस्यामृतं दिवि ||",
+    transliteration:
+      "puruṣaḥ sūktam idāsīt puruṣāṇāṃ viśvakarmā |\ntadāṃśuḥ puruṣāt pādo'sya viśvā bhūtāni tripādasyāmṛtaṃ divi ||",
+    translation: {
+      en: "The Purusha (Cosmic Being) has a thousand heads, a thousand eyes, a thousand feet. He pervaded the earth on all sides and extended beyond it as far as ten fingers.",
+      hi: "पुरुष के हजार सिर, हजार आँखें, हजार पैर हैं। उसने पृथ्वी को सभी ओर से घेरा और दस उंगलियों तक उससे आगे बढ़ा।",
+    },
+    keyTerms: ["Purusha", "Vishvakarma", "Tripada", "Amrita"],
+  },
+  {
+    id: "rv-10-90-2",
+    scriptureId: "rigveda",
+    chapter: 10,
+    verse: 90,
+    sanskrit:
+      "त्रिपादूर्ध्व उदैत्पुरुषः पादोऽस्येहाभवत् पुनः |\nततो विष्वङ्क्योऽक्रामत् सशनो अश्रुगात् प्रजापतिः ||",
+    transliteration:
+      "tripādūrdhva udait puruṣaḥ pādo'syehābhavat punaḥ |\ntato viśvaṅkryo 'krāmat saśano aśrugāt prajāpatiḥ ||",
+    translation: {
+      en: "Three-fourths of Purusha went upward, one-fourth remained here. From that, he spread in all directions, eating and not eating, Prajapati.",
+      hi: "पुरुष का तीन-चौथाई ऊपर गया, एक-चौथाई यहाँ रहा। उससे, वह सभी दिशाओं में फैला, खाता और न खाता, प्रजापति।",
+    },
+    keyTerms: ["Purusha", "Prajapati", "Tripada"],
+  },
+  {
+    id: "rv-10-129-1",
+    scriptureId: "rigveda",
+    chapter: 10,
+    verse: 129,
+    sanskrit:
+      "नासदासीन्नो सदासीत्तदानीं नासीद्रजो नो व्योमा परो यत् |\nकिमावरीवः कुह कुश्यस्त शर्मण्नम्भः किमासीद्गहनं गभीरम् ||",
+    transliteration:
+      "nāsadāsīn no sadāsīt tadānīṃ nāsīd rajo no vyoma paro yat |\nkim āvarīvaḥ kuha kusyad śarman nambhaḥ kim āsīd gahanam gabhīram ||",
+    translation: {
+      en: "There was neither non-existence nor existence then. There was neither the realm of space nor the sky which is beyond. What was covering? Where? In whose protection? Was there water, bottomlessly deep?",
+      hi: "तब न अस्तित्व था, न अनस्तित्व। न अंतरिक्ष था, न उससे परे आकाश। क्या ढका था? कहाँ? किसकी रक्षा में? क्या पानी था, अतल गहरा?",
+    },
+    keyTerms: ["Sat", "Asat", "Rajas", "Vyoma"],
+  },
+  {
+    id: "rv-10-129-2",
+    scriptureId: "rigveda",
+    chapter: 10,
+    verse: 129,
+    sanskrit:
+      "न मृत्युरासीदमृतं न तर्हि न रात्र्या अह्न असीत्प्रकेत |\nआनीदवातं स्वधया तदेकं तस्माद्धान्यन्न परः किं चनास ||",
+    transliteration:
+      "na mṛtyur āsīd amṛtaṃ na tarhi na rātryā ahan asīt praket |\nānīdavātaṃ svadhayā tad ekaṃ tasmād dhānyan na paraḥ kiṃ canāsa ||",
+    translation: {
+      en: "There was neither death nor immortality then. There was no distinguishing sign of night nor of day. That One breathed, windless, by its own impulse. Other than that, there was nothing beyond.",
+      hi: "तब न मृत्यु थी, न अमृतता। न रात का निशान, न दिन का। वह एक स्वयं से, वायरहित, सांस लेता था। उसके अलावा, कुछ भी नहीं था।",
+    },
+    keyTerms: ["Mrityu", "Amrita", "Ratri", "Ahan"],
+  },
+  {
+    id: "rv-10-191-4",
+    scriptureId: "rigveda",
+    chapter: 10,
+    verse: 191,
+    sanskrit: "समाने जन्त्रे समाने चित्ते |\nसमाने मनसि विचिकित्तस्मिन् ||",
+    transliteration: "samāne janṭre samāne citte |\nsamāne manasi vicikitsasmin ||",
+    translation: {
+      en: "With common purpose, with common mind, with common thought, in common deliberation.",
+      hi: "समान उद्देश्य से, समान चित्त से, समान विचार से, समान विचार-विमर्श में।",
+    },
+    keyTerms: ["Samana", "Jantra", "Chitta", "Manas"],
+  },
 ];
 
 /**
