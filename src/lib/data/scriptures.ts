@@ -165,6 +165,19 @@ export const sampleVerses: ScriptureVerse[] = [
     keyTerms: ["Agni", "Pita", "Svasti"],
   },
   {
+    id: "rv-1-2-1",
+    scriptureId: "rigveda",
+    chapter: 1,
+    verse: 1,
+    sanskrit: "वाय॒वा या॑हि दर्शते॒मे सोमा॒ अरं॑कृताः |\nतेषां॑ पाहि श्रु॒धी हव॑म् ||",
+    transliteration: "vāyavā yāhi darśatem e soma aramkṛtāḥ |\nteṣām pāhi śrudhī havam ||",
+    translation: {
+      en: "O Vayu, come here to see; these Somas are prepared. Drink of them, hear our call.",
+      hi: "हे वायु, यहाँ देखने के लिए आओ; ये सोम तैयार हैं। उनसे पीओ, हमारे आह्वान को सुनो।",
+    },
+    keyTerms: ["Vayu", "Soma", "Hav"],
+  },
+  {
     id: "bg-2-48",
     scriptureId: "bhagavad-gita",
     chapter: 2,

@@ -1,18 +1,22 @@
 /**
  * TypeScript types for scripture data
+ * Optimized for large-scale scripture databases
  */
 
 export interface Scripture {
   id: string;
   name: string;
   sanskritName: string;
-  category: "veda" | "epic" | "purana" | "dharma-shastra" | "philosophy";
+  category: "veda" | "epic" | "purana" | "dharma-shastra" | "philosophy" | "upanishad";
   description: string;
   totalChapters: number;
+  totalVerses?: number;
   language: string;
   approximateDate: string;
   author?: string;
   keyConcepts: string[];
+  mandalas?: number; // For Vedas
+  sections?: string[]; // For structured texts
 }
 
 export interface ScriptureVerse {
@@ -22,13 +26,22 @@ export interface ScriptureVerse {
   verse: number;
   sanskrit: string;
   transliteration: string;
+  wordByWord?: {
+    sanskrit: string;
+    iast: string;
+    meaning: string;
+  }[];
   translation: {
     en: string;
     hi?: string;
+    sa?: string; // Sanskrit explanation
   };
   commentary?: string;
   keyTerms: string[];
   relatedVerses?: string[];
+  tags?: string[]; // For search optimization
+  sukta?: string; // For Vedas
+  mandala?: number; // For Vedas
 }
 
 export interface AIExplanation {
@@ -49,10 +62,30 @@ export interface AIExplanation {
   }[];
   generatedAt: Date;
   modelVersion: string;
+  mode?: "contextual" | "cross-scriptural" | "linguistic";
 }
 
 export interface SearchResult {
   verse: ScriptureVerse;
   score: number;
   highlights: string[];
+}
+
+export interface PaginatedResult<T> {
+  data: T[];
+  total: number;
+  page: number;
+  pageSize: number;
+  hasMore: boolean;
+}
+
+export interface ScriptureIndex {
+  scriptureId: string;
+  chapter: number;
+  verse: number;
+  sanskrit: string;
+  transliteration: string;
+  translation: string;
+  tags: string[];
+  keyTerms: string[];
 }
