@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Bookmark, CheckCircle2, Download, GraduationCap, Share2, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { studyPaths } from "@/lib/study-paths";
+import { getLocalStorageItem, setLocalStorageItem } from "@/lib/utils";
 
 const STORAGE_KEY = "hindai.study-path-progress";
 
@@ -20,19 +21,15 @@ export function StudyPathBoard() {
   const [savedState, setSavedState] = useState<SavedState>({});
 
   useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        setSavedState(JSON.parse(raw));
-      }
-    } catch {
-      setSavedState({});
+    const saved = getLocalStorageItem<SavedState>(STORAGE_KEY);
+    if (saved) {
+      setSavedState(saved);
     }
   }, []);
 
   const persist = (next: SavedState) => {
     setSavedState(next);
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    setLocalStorageItem(STORAGE_KEY, next);
   };
 
   const sharePath = async (pathId: string) => {

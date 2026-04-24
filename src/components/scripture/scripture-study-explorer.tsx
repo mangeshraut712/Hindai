@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, Sparkles, Bookmark, BookmarkCheck } from "lu
 import { Button } from "@/components/ui/button";
 import { AIExplanation } from "@/components/ai/ai-explanation";
 import { ScriptureVerse } from "@/types/scripture";
+import { getLocalStorageItem, setLocalStorageItem } from "@/lib/utils";
 
 type ScriptureStudyExplorerProps = {
   verses: ScriptureVerse[];
@@ -59,30 +60,21 @@ export function ScriptureStudyExplorer({
   const [favoriteVerseIds, setFavoriteVerseIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(progressKey);
-      if (!raw) return;
-      const saved = JSON.parse(raw) as { chapter: number; verseId: string };
+    const saved = getLocalStorageItem<{ chapter: number; verseId: string }>(progressKey);
+    if (saved) {
       if (saved.chapter) {
         setSelectedChapter(saved.chapter);
       }
       if (saved.verseId) {
         setSelectedVerseId(saved.verseId);
       }
-    } catch {
-      // Ignore malformed local progress.
     }
   }, [progressKey]);
 
   useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(favoritesKey);
-      if (raw) {
-        const saved = JSON.parse(raw) as string[];
-        setFavoriteVerseIds(new Set(saved));
-      }
-    } catch {
-      setFavoriteVerseIds(new Set());
+    const saved = getLocalStorageItem<string[]>(favoritesKey);
+    if (saved) {
+      setFavoriteVerseIds(new Set(saved));
     }
   }, [favoritesKey]);
 
@@ -100,13 +92,10 @@ export function ScriptureStudyExplorer({
 
   useEffect(() => {
     if (!selectedVerse) return;
-    window.localStorage.setItem(
-      progressKey,
-      JSON.stringify({
-        chapter: selectedVerse.chapter,
-        verseId: selectedVerse.id,
-      })
-    );
+    setLocalStorageItem(progressKey, {
+      chapter: selectedVerse.chapter,
+      verseId: selectedVerse.id,
+    });
   }, [progressKey, selectedVerse]);
 
   const toggleFavorite = (verseId: string) => {
@@ -117,7 +106,7 @@ export function ScriptureStudyExplorer({
       newFavorites.add(verseId);
     }
     setFavoriteVerseIds(newFavorites);
-    window.localStorage.setItem(favoritesKey, JSON.stringify([...newFavorites]));
+    setLocalStorageItem(favoritesKey, [...newFavorites]);
   };
 
   return (
