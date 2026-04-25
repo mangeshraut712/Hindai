@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -24,16 +24,32 @@ interface MultimodalResponse {
 
 export function ManuscriptAnalyzer() {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string>("");
   const [query, setQuery] = useState("");
   const [analyzing, setAnalyzing] = useState(false);
   const [result, setResult] = useState<MultimodalResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Cleanup object URL on component unmount
+  useEffect(() => {
+    return () => {
+      if (imageUrl) {
+        URL.revokeObjectURL(imageUrl);
+      }
+    };
+  }, [imageUrl]);
+
   const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && file.type.startsWith("image/")) {
       setSelectedImage(file);
+      // Create object URL safely and clean up previous URL
+      if (imageUrl) {
+        URL.revokeObjectURL(imageUrl);
+      }
+      const newImageUrl = URL.createObjectURL(file);
+      setImageUrl(newImageUrl);
       setError(null);
     } else {
       setError("Please select a valid image file");
@@ -92,15 +108,14 @@ export function ManuscriptAnalyzer() {
               className="cursor-pointer rounded-lg border-2 border-dashed border-border p-6 text-center transition-colors hover:border-primary/50"
               onClick={() => fileInputRef.current?.click()}
             >
-              {selectedImage ? (
+              {imageUrl ? (
                 <div className="space-y-2">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={URL.createObjectURL(selectedImage)}
+                    src={imageUrl}
                     alt="Selected manuscript"
                     className="mx-auto max-h-48 max-w-full rounded"
                   />
-                  <p className="text-sm text-muted-foreground">{selectedImage.name}</p>
+                  <p className="text-sm text-muted-foreground">{selectedImage?.name}</p>
                 </div>
               ) : (
                 <div className="space-y-2">
