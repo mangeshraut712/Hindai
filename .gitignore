@@ -84,3 +84,8 @@ bin/
 # Playwright CLI
 .playwright-cli/
 .playwright-mcp/
+
+# Playwright test artifacts
+test-results/
+playwright-report/
+playwright/.cache/
