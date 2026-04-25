@@ -113,7 +113,9 @@ export function Header() {
             />
           </div>
           <div className="min-w-0">
-            <div className="text-lg font-semibold tracking-[0.01em] text-foreground transition-colors duration-300 group-hover:text-primary">Hind AI</div>
+            <div className="text-lg font-semibold tracking-[0.01em] text-foreground transition-colors duration-300 group-hover:text-primary">
+              Hind AI
+            </div>
             <div className="font-devanagari text-[11px] tracking-[0.18em] text-muted-foreground transition-colors duration-300 group-hover:text-primary/80">
               डिजिटल गुरुकुल
             </div>
@@ -134,7 +136,7 @@ export function Header() {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="start"
-              className="bg-background/88 w-80 rounded-[24px] border-border/70 p-2 backdrop-blur-2xl shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)]"
+              className="bg-background/88 w-80 rounded-[24px] border-border/70 p-2 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-2xl"
             >
               <div className="px-3 pb-2 pt-1">
                 <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
@@ -142,7 +144,11 @@ export function Header() {
                 </p>
               </div>
               {headerScriptures.map((item) => (
-                <DropdownMenuItem key={item.slug} asChild className="rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10">
+                <DropdownMenuItem
+                  key={item.slug}
+                  asChild
+                  className="rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
+                >
                   <Link
                     href={item.href}
                     className="flex flex-col gap-1"
@@ -167,7 +173,9 @@ export function Header() {
               onClick={() => handleNavigation(item.href, item.label)}
             >
               <span className="inline-flex items-center gap-1.5">
-                {item.icon ? <item.icon className="size-4 text-primary/80 group-hover:text-primary transition-colors" /> : null}
+                {item.icon ? (
+                  <item.icon className="size-4 text-primary/80 transition-colors group-hover:text-primary" />
+                ) : null}
                 {item.label}
               </span>
               <span className="sr-only"> {item.script}</span>
@@ -183,10 +191,14 @@ export function Header() {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="bg-background/92 w-56 rounded-[24px] border-border/70 p-2 backdrop-blur-2xl shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)]"
+              className="bg-background/92 w-56 rounded-[24px] border-border/70 p-2 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-2xl"
             >
               {moreItems.map((item) => (
-                <DropdownMenuItem key={item.href} asChild className="rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10">
+                <DropdownMenuItem
+                  key={item.href}
+                  asChild
+                  className="rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
+                >
                   <Link
                     href={item.href}
                     className="flex items-center justify-between gap-3"
@@ -216,7 +228,7 @@ export function Header() {
           <Button
             variant="outline"
             size="sm"
-            className="hidden gap-2 sm:inline-flex border-primary/30 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+            className="hidden gap-2 border-primary/30 transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 sm:inline-flex"
             onClick={handleSearchClick}
             aria-label="Open search dialog"
           >
@@ -229,12 +241,12 @@ export function Header() {
 
           <VoiceSearch onResult={handleVoiceSearch} className="hidden md:flex" />
 
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={handleThemeToggle} 
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleThemeToggle}
             aria-label="Toggle theme"
-            className="hover:bg-primary/10 transition-colors duration-300"
+            className="transition-colors duration-300 hover:bg-primary/10"
           >
             <Sun className="size-4 rotate-0 scale-100 text-primary transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute size-4 rotate-90 scale-0 text-primary transition-all dark:rotate-0 dark:scale-100" />
@@ -243,10 +255,10 @@ export function Header() {
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="icon"
-                className="hover:bg-primary/10 transition-colors duration-300"
+                className="transition-colors duration-300 hover:bg-primary/10"
               >
                 <Menu className="size-5 text-primary/80" />
                 <span className="sr-only">Open navigation menu</span>
@@ -257,9 +269,13 @@ export function Header() {
               className="bg-background/92 w-[22rem] border-border/70 px-6 py-5 backdrop-blur-2xl"
             >
               <SheetHeader className="border-b border-border/60 pb-5">
-                <SheetTitle className="text-left text-xl font-semibold text-primary">Hind AI</SheetTitle>
+                <SheetTitle className="text-left text-xl font-semibold text-primary">
+                  Hind AI
+                </SheetTitle>
                 <SheetDescription className="text-left">
-                  <span className="font-devanagari tracking-[0.16em] text-muted-foreground">डिजिटल गुरुकुल</span>
+                  <span className="font-devanagari tracking-[0.16em] text-muted-foreground">
+                    डिजिटल गुरुकुल
+                  </span>
                   <span className="mt-3 flex flex-wrap gap-2">
                     <span className="script-chip">English</span>
                     <span className="script-chip font-devanagari">हिंदी</span>
@@ -271,7 +287,7 @@ export function Header() {
               <div className="mt-6 space-y-7">
                 <Button
                   variant="outline"
-                  className="w-full justify-start border-primary/30 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+                  className="w-full justify-start border-primary/30 transition-all duration-300 hover:border-primary/50 hover:bg-primary/5"
                   onClick={() => {
                     handleSearchClick();
                     setIsOpen(false);

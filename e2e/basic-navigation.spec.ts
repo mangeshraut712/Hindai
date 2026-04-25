@@ -30,7 +30,7 @@ test.describe("Basic Navigation", () => {
     await page.goto("/");
 
     // Click search button
-    const searchButton = page.locator('button').filter({ hasText: 'Search' }).first();
+    const searchButton = page.locator("button").filter({ hasText: "Search" }).first();
     await searchButton.click();
 
     // Wait a moment for dialog
