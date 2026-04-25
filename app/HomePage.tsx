@@ -48,6 +48,27 @@ const sampleQuestions = [
   "Give me a meditation idea from Yoga texts.",
 ];
 
+const featuredVerses = [
+  {
+    sanskrit: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन",
+    transliteration: "Karmanye vadhikaraste ma phaleshu kadachana",
+    translation: "You have a right to perform your prescribed duty, but you are not entitled to the fruits of action.",
+    source: "Bhagavad Gita 2.47",
+  },
+  {
+    sanskrit: "तमसो मा ज्योतिर्गमय",
+    transliteration: "Tamaso ma jyotir gamaya",
+    translation: "Lead me from darkness to light, from ignorance to knowledge.",
+    source: "Brihadaranyaka Upanishad 1.3.28",
+  },
+  {
+    sanskrit: "अहं ब्रह्मास्मि",
+    transliteration: "Aham Brahmasmi",
+    translation: "I am Brahman - the ultimate reality.",
+    source: "Brihadaranyaka Upanishad 1.4.10",
+  },
+];
+
 const stats = [
   { value: "4", label: "Vedas" },
   { value: "108+", label: "Upanishads" },
@@ -447,6 +468,43 @@ export default function HomePage() {
                   </div>
                 </div>
               </motion.div>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 pb-24 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="max-w-3xl">
+              <span className="eyebrow">Featured Verses • श्लोक संग्रह</span>
+              <h2 className="section-title mt-6">Timeless wisdom, daily inspiration.</h2>
+              <p className="section-copy mt-5">
+                Explore these foundational verses that have guided seekers for millennia. Each one
+                carries profound meaning and practical wisdom for modern life.
+              </p>
+            </div>
+
+            <div className="mt-12 grid gap-6 md:grid-cols-3">
+              {featuredVerses.map((verse, index) => (
+                <motion.div
+                  key={verse.source}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="surface-panel group p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                >
+                  <div className="relative z-10 space-y-4">
+                    <p className="font-devanagari text-lg leading-relaxed text-primary group-hover:scale-105 transition-transform duration-300">
+                      {verse.sanskrit}
+                    </p>
+                    <p className="text-xs italic text-muted-foreground">{verse.transliteration}</p>
+                    <p className="text-sm leading-6 text-foreground/90">{verse.translation}</p>
+                    <div className="pt-3 border-t border-border/60">
+                      <p className="text-xs font-semibold text-primary">{verse.source}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>

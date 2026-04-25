@@ -83,7 +83,7 @@ export default function QuizPage() {
             <div className="surface-panel p-8 md:p-10">
               <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                 <div className="max-w-2xl">
-                  <span className="eyebrow">Deepen your study</span>
+                  <span className="eyebrow">Deepen your study • गहरा अध्ययन</span>
                   <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
                     From quiz to guided learning.
                   </h2>

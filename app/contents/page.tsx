@@ -79,8 +79,8 @@ export default function ContentsPage() {
 
                 <div className="surface-panel">
                   <div className="relative z-10">
-                    {section.items.map((item) => (
-                      <article key={item.slug} id={item.slug} className="scripture-row">
+                    {section.items.map((item, index) => (
+                      <article key={item.slug} id={item.slug} className="scripture-row group">
                         <div>
                           <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
                             {item.category}
@@ -97,16 +97,16 @@ export default function ContentsPage() {
                         </div>
                         <div className="flex flex-col gap-3 md:items-end">
                           <span className="text-sm text-muted-foreground">{item.highlight}</span>
-                          <Button variant="outline" asChild>
+                          <Button variant="outline" asChild className="transition-all duration-300 hover:border-primary/50 hover:bg-primary/5">
                             <Link href={item.href}>
                               Read text
-                              <ArrowRight className="size-4" />
+                              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                             </Link>
                           </Button>
-                          <Button variant="ghost" asChild>
+                          <Button variant="ghost" asChild className="transition-all duration-300 hover:bg-primary/10">
                             <Link href="/ai-guide/">
                               Ask in Guru AI
-                              <ArrowRight className="size-4" />
+                              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                             </Link>
                           </Button>
                         </div>
@@ -124,7 +124,7 @@ export default function ContentsPage() {
             <div className="surface-panel p-8 md:p-10">
               <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                 <div className="max-w-2xl">
-                  <span className="eyebrow">Need interpretation?</span>
+                  <span className="eyebrow">Need interpretation? • व्याख्या</span>
                   <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
                     Move from catalog to conversation.
                   </h2>

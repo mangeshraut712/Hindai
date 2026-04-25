@@ -390,7 +390,7 @@ export default function DailyWisdomClient() {
             <div className="surface-panel p-8 md:p-10">
               <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                 <div className="max-w-2xl">
-                  <span className="eyebrow">Go deeper</span>
+                  <span className="eyebrow">Go deeper • गहराई में</span>
                   <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
                     Ask Guru AI to explain today&apos;s verse.
                   </h2>

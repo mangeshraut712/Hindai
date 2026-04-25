@@ -15,6 +15,7 @@ import {
   Sparkles,
   Sun,
   Trophy,
+  Users,
 } from "lucide-react";
 import { track } from "@vercel/analytics";
 import { Button } from "@/components/ui/button";
@@ -41,10 +42,11 @@ const navItems = [
   { label: "Guru AI", script: "गुरु", href: "/ai-guide", icon: Sparkles },
   { label: "Sanskrit", script: "संस्कृत", href: "/sanskrit-nova", icon: Languages },
   { label: "Study Paths", script: "पाठ", href: "/study-paths" },
-  { label: "Quiz", script: "परीक्षा", href: "/quiz", icon: Trophy },
+  { label: "Community", script: "समुदाय", href: "/community", icon: Users },
 ];
 
 const moreItems = [
+  { label: "Quiz", script: "परीक्षा", href: "/quiz", icon: Trophy },
   { label: "Daily", script: "दैनिक", href: "/daily", icon: Sun },
   { label: "Structure", script: "विन्यास", href: "/structure", icon: BookOpen },
   { label: "Preface", script: "प्रस्तावना", href: "/preface", icon: Sparkles },
