@@ -23,7 +23,33 @@ The merged direction is to keep HindAI's stack and Gemma 4 runtime, then port Sa
 - `/api/sanskrit/chat` routes Sanskrit tutor prompts through HindAI Gemma 4.
 - `/api/sanskrit/transliterate` preserves the Devanagari to IAST workflow.
 - `/api/sanskrit/tracks` exposes guided Sanskrit tracks.
+- Legacy SanskritNova API paths are preserved:
+  - `/api/chat`
+  - `/api/transliterate`
+  - `/api/tracks`
+  - `/api/info`
+  - `/api/grounded-answer`
+  - `/api/agentic-answer`
 - Header, footer, and sitemap now point to the merged surface.
+
+## Cross-Check Result
+
+| SanskritNova feature               | HindAI status                                              |
+| ---------------------------------- | ---------------------------------------------------------- |
+| Tutor learn mode                   | Merged in `/sanskrit-nova` and `/api/sanskrit/chat`        |
+| Translate mode                     | Merged through Gemma 4 Sanskrit chat                       |
+| Analyze mode                       | Merged through Gemma 4 Sanskrit chat                       |
+| Grounded mode                      | Merged through HindAI scripture-aware Gemma 4 route        |
+| Agentic mode                       | Merged as a Gemma 4 study-agent flow, not LangGraph/Python |
+| Devanagari to IAST transliteration | Merged with canonical and legacy API routes                |
+| Recent transliteration examples    | Merged in the HindAI page                                  |
+| Speak/copy/clear transliteration   | Merged in the HindAI page                                  |
+| Guided tracks                      | Merged with English and Hindi labels                       |
+| Hindi language toggle              | Merged in the HindAI Sanskrit Studio                       |
+| Python/FastAPI/OpenRouter stack    | Intentionally not merged; HindAI Gemma 4 is canonical      |
+| Docker/Kubernetes/Netlify stack    | Intentionally not merged; HindAI deployment remains Vercel |
+
+The intentionally skipped pieces were infrastructure duplicates, not user-facing learning features. Keeping them out avoids two AI backends, two deployment models, and two API contracts inside one app.
 
 ## Final Repo Cleanup Steps
 

@@ -8,15 +8,18 @@ import {
   GraduationCap,
   Languages,
   Loader2,
+  RotateCcw,
   Send,
   Sparkles,
+  Volume2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { sanskritTracks } from "@/lib/sanskrit/tracks";
 
-type StudioMode = "learn" | "translate" | "analyze" | "grounded";
+type StudioMode = "learn" | "translate" | "analyze" | "grounded" | "agentic";
 type StudioTab = "tutor" | "transliterate" | "tracks";
+type StudioLanguage = "en" | "hi";
 
 type TutorMessage = {
   id: string;
@@ -26,28 +29,76 @@ type TutorMessage = {
   transliteration?: string;
 };
 
-const modeLabels: Array<{ id: StudioMode; label: string; helper: string }> = [
-  { id: "learn", label: "Tutor", helper: "Clear teaching with examples" },
-  { id: "translate", label: "Translate", helper: "Meaning, nuance, transliteration" },
-  { id: "analyze", label: "Analyze", helper: "Grammar and context" },
-  { id: "grounded", label: "Grounded", helper: "Scripture-aware explanation" },
+const modeLabels: Array<{
+  id: StudioMode;
+  label: string;
+  labelHi: string;
+  helper: string;
+  helperHi: string;
+}> = [
+  {
+    id: "learn",
+    label: "Tutor",
+    labelHi: "अध्ययन",
+    helper: "Clear teaching with examples",
+    helperHi: "उदाहरणों के साथ सरल शिक्षा",
+  },
+  {
+    id: "translate",
+    label: "Translate",
+    labelHi: "अनुवाद",
+    helper: "Meaning, nuance, transliteration",
+    helperHi: "अर्थ, भाव, और लिप्यंतरण",
+  },
+  {
+    id: "analyze",
+    label: "Analyze",
+    labelHi: "विश्लेषण",
+    helper: "Grammar and context",
+    helperHi: "व्याकरण और संदर्भ",
+  },
+  {
+    id: "grounded",
+    label: "Grounded",
+    labelHi: "संदर्भित",
+    helper: "Scripture-aware explanation",
+    helperHi: "ग्रन्थ-संदर्भ के साथ उत्तर",
+  },
+  {
+    id: "agentic",
+    label: "Agentic",
+    labelHi: "योजनाबद्ध",
+    helper: "Plan, answer, and next practice",
+    helperHi: "योजना, उत्तर, और अगला अभ्यास",
+  },
 ];
 
-const promptSuggestions = [
+const promptSuggestionsEn = [
   "Explain dharma with one Sanskrit example",
   "Translate योगश्चित्तवृत्तिनिरोधः",
   "Analyze रामो वनं गच्छति",
   "Give me a 7-day Sanskrit foundations plan",
 ];
 
+const promptSuggestionsHi = [
+  "धर्म को एक संस्कृत उदाहरण के साथ समझाइए",
+  "योगश्चित्तवृत्तिनिरोधः का हिंदी अनुवाद करें",
+  "रामो वनं गच्छति का व्याकरण विश्लेषण करें",
+  "मुझे 7 दिन की संस्कृत आधार योजना दें",
+];
+
 export function SanskritNovaStudio() {
   const [activeTab, setActiveTab] = useState<StudioTab>("tutor");
+  const [language, setLanguage] = useState<StudioLanguage>("en");
   const [mode, setMode] = useState<StudioMode>("learn");
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<TutorMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [transliterationInput, setTransliterationInput] = useState("रामो गच्छति");
   const [transliterationResult, setTransliterationResult] = useState("");
+  const [transliterationHistory, setTransliterationHistory] = useState<
+    Array<{ input: string; output: string }>
+  >([]);
   const [isTransliterating, setIsTransliterating] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -55,6 +106,15 @@ export function SanskritNovaStudio() {
     () => modeLabels.find((item) => item.id === mode) || modeLabels[0],
     [mode]
   );
+  const promptSuggestions = language === "hi" ? promptSuggestionsHi : promptSuggestionsEn;
+  const displayedTracks = sanskritTracks.map((track) => ({
+    ...track,
+    displayTitle: language === "hi" ? track.titleHi : track.title,
+    displayLevel: language === "hi" ? track.levelHi : track.level,
+    displayDuration: language === "hi" ? track.durationHi : track.duration,
+    displayFocus: language === "hi" ? track.focusHi : track.focus,
+    displayPlan: language === "hi" ? track.planHi : track.plan,
+  }));
 
   const submitTutorMessage = async () => {
     const message = input.trim();
@@ -74,7 +134,7 @@ export function SanskritNovaStudio() {
       const response = await fetch("/api/sanskrit/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message, mode }),
+        body: JSON.stringify({ message, mode, lang: language }),
       });
       const payload = (await response.json().catch(() => null)) as {
         reply?: string;
@@ -137,6 +197,12 @@ export function SanskritNovaStudio() {
       }
 
       setTransliterationResult(payload.iast);
+      setTransliterationHistory((current) =>
+        [
+          { input: text, output: payload.iast || "" },
+          ...current.filter((item) => item.input !== text),
+        ].slice(0, 5)
+      );
     } catch (error) {
       setTransliterationResult(
         error instanceof Error ? error.message : "Transliteration failed. Please try again."
@@ -151,6 +217,30 @@ export function SanskritNovaStudio() {
     await navigator.clipboard.writeText(transliterationResult);
     setCopied(true);
     setTimeout(() => setCopied(false), 1400);
+  };
+
+  const speakTransliteration = () => {
+    if (!transliterationResult || typeof window === "undefined" || !window.speechSynthesis) {
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(transliterationResult);
+    utterance.lang = language === "hi" ? "hi-IN" : "en-IN";
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const clearTransliteration = () => {
+    setTransliterationInput("");
+    setTransliterationResult("");
+    setCopied(false);
+  };
+
+  const useTransliterationInTutor = () => {
+    const text = transliterationInput.trim();
+    if (!text) return;
+    setInput(`Analyze and explain this Sanskrit phrase: ${text}`);
+    setMode("analyze");
+    setActiveTab("tutor");
   };
 
   const handleTutorKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -177,6 +267,23 @@ export function SanskritNovaStudio() {
             {tab.label}
           </Button>
         ))}
+        <div className="ml-auto flex rounded-full border border-border/70 bg-background/70 p-1">
+          {(["en", "hi"] as const).map((item) => (
+            <button
+              key={item}
+              type="button"
+              onClick={() => setLanguage(item)}
+              className={cn(
+                "rounded-full px-4 py-2 text-sm font-semibold transition-colors",
+                language === item
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:bg-secondary/70"
+              )}
+            >
+              {item === "en" ? "English" : "हिंदी"}
+            </button>
+          ))}
+        </div>
       </div>
 
       {activeTab === "tutor" ? (
@@ -184,11 +291,14 @@ export function SanskritNovaStudio() {
           <aside className="border-b border-border/60 bg-background/55 p-6 backdrop-blur-xl lg:border-b-0 lg:border-r">
             <p className="eyebrow">SanskritNova merged</p>
             <h2 className="mt-5 font-serif text-4xl font-semibold tracking-[-0.03em] text-foreground">
-              Sanskrit tutor on HindAI Gemma 4.
+              {language === "hi"
+                ? "HindAI Gemma 4 पर संस्कृत ट्यूटर।"
+                : "Sanskrit tutor on HindAI Gemma 4."}
             </h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              The old SanskritNova tutor modes now run inside HindAI through the existing Gemma 4
-              service, so there is no separate OpenRouter or Python API to maintain.
+              {language === "hi"
+                ? "SanskritNova के ट्यूटर मोड अब HindAI के Gemma 4 सेवा से चलते हैं, इसलिए अलग OpenRouter या Python API की जरूरत नहीं है।"
+                : "The old SanskritNova tutor modes now run inside HindAI through the existing Gemma 4 service, so there is no separate OpenRouter or Python API to maintain."}
             </p>
 
             <div className="mt-6 space-y-3">
@@ -204,8 +314,12 @@ export function SanskritNovaStudio() {
                       : "border-border/60 bg-background/70 text-muted-foreground hover:bg-secondary/70"
                   )}
                 >
-                  <span className="block text-sm font-semibold">{item.label}</span>
-                  <span className="mt-1 block text-xs">{item.helper}</span>
+                  <span className="block text-sm font-semibold">
+                    {language === "hi" ? item.labelHi : item.label}
+                  </span>
+                  <span className="mt-1 block text-xs">
+                    {language === "hi" ? item.helperHi : item.helper}
+                  </span>
                 </button>
               ))}
             </div>
@@ -216,7 +330,9 @@ export function SanskritNovaStudio() {
               <p className="text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground">
                 Active mode
               </p>
-              <p className="mt-1 text-lg font-semibold text-foreground">{activeMode.label}</p>
+              <p className="mt-1 text-lg font-semibold text-foreground">
+                {language === "hi" ? activeMode.labelHi : activeMode.label}
+              </p>
             </div>
 
             <div className="flex-1 space-y-5 overflow-y-auto p-6">
@@ -267,7 +383,9 @@ export function SanskritNovaStudio() {
               {isLoading ? (
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Loader2 className="size-4 animate-spin" />
-                  Gemma 4 is preparing the Sanskrit answer...
+                  {language === "hi"
+                    ? "Gemma 4 संस्कृत उत्तर तैयार कर रहा है..."
+                    : "Gemma 4 is preparing the Sanskrit answer..."}
                 </div>
               ) : null}
             </div>
@@ -279,7 +397,11 @@ export function SanskritNovaStudio() {
                   onChange={(event) => setInput(event.target.value)}
                   onKeyDown={handleTutorKeyDown}
                   rows={3}
-                  placeholder="Ask for Sanskrit explanation, translation, grammar, or a learning plan..."
+                  placeholder={
+                    language === "hi"
+                      ? "संस्कृत व्याख्या, अनुवाद, व्याकरण, या अध्ययन योजना पूछें..."
+                      : "Ask for Sanskrit explanation, translation, grammar, or a learning plan..."
+                  }
                   className="min-h-[96px] flex-1 resize-none rounded-[24px] border border-border/70 bg-background/80 px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring/40"
                 />
                 <Button
@@ -293,7 +415,7 @@ export function SanskritNovaStudio() {
                   ) : (
                     <Send className="size-4" />
                   )}
-                  Send
+                  {language === "hi" ? "भेजें" : "Send"}
                 </Button>
               </div>
             </div>
@@ -306,11 +428,14 @@ export function SanskritNovaStudio() {
           <div className="border-b border-border/60 p-6 lg:border-b-0 lg:border-r">
             <p className="eyebrow">Devanagari to IAST</p>
             <h2 className="mt-5 font-serif text-4xl font-semibold tracking-[-0.03em] text-foreground">
-              Fast transliteration from SanskritNova.
+              {language === "hi"
+                ? "SanskritNova से तेज़ लिप्यंतरण।"
+                : "Fast transliteration from SanskritNova."}
             </h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              This keeps SanskritNova&apos;s quick conversion workflow inside HindAI for verses,
-              mantras, and short study phrases.
+              {language === "hi"
+                ? "श्लोक, मंत्र, और छोटे अभ्यास वाक्यों के लिए SanskritNova का त्वरित रूपांतरण अब HindAI में है।"
+                : "This keeps SanskritNova's quick conversion workflow inside HindAI for verses, mantras, and short study phrases."}
             </p>
           </div>
 
@@ -342,6 +467,22 @@ export function SanskritNovaStudio() {
                 {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
                 {copied ? "Copied" : "Copy"}
               </Button>
+              <Button
+                variant="outline"
+                onClick={speakTransliteration}
+                disabled={!transliterationResult}
+              >
+                <Volume2 className="size-4" />
+                Speak
+              </Button>
+              <Button variant="outline" onClick={useTransliterationInTutor}>
+                <Sparkles className="size-4" />
+                Ask Tutor
+              </Button>
+              <Button variant="ghost" onClick={clearTransliteration}>
+                <RotateCcw className="size-4" />
+                Clear
+              </Button>
             </div>
 
             <div className="min-h-[140px] rounded-[24px] border border-border/60 bg-card/75 p-5">
@@ -352,30 +493,63 @@ export function SanskritNovaStudio() {
                 {transliterationResult || "Press transliterate to convert the text."}
               </p>
             </div>
+            <div className="rounded-[24px] border border-border/60 bg-background/70 p-5">
+              <p className="text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground">
+                Recent examples
+              </p>
+              <div className="mt-3 grid gap-2">
+                {(transliterationHistory.length
+                  ? transliterationHistory
+                  : [
+                      { input: "रामो गच्छति", output: "rāmo gacchati" },
+                      { input: "नमस्ते", output: "namaste" },
+                    ]
+                ).map((item) => (
+                  <button
+                    key={`${item.input}-${item.output}`}
+                    type="button"
+                    onClick={() => {
+                      setTransliterationInput(item.input);
+                      setTransliterationResult(item.output);
+                    }}
+                    className="rounded-[16px] border border-border/60 bg-card/70 px-4 py-3 text-left transition-colors hover:bg-secondary/70"
+                  >
+                    <span className="block font-devanagari text-sm text-foreground">
+                      {item.input}
+                    </span>
+                    <span className="mt-1 block text-sm text-muted-foreground">{item.output}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
       ) : null}
 
       {activeTab === "tracks" ? (
         <section className="grid gap-5 lg:grid-cols-3">
-          {sanskritTracks.map((track) => (
+          {displayedTracks.map((track) => (
             <article key={track.slug} className="surface-panel p-6">
               <div className="relative z-10">
                 <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
                   <BookOpen className="size-5" />
                 </div>
                 <p className="mt-5 text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground">
-                  {track.level} · {track.duration}
+                  {track.displayLevel} · {track.displayDuration}
                 </p>
-                <h2 className="mt-3 text-2xl font-semibold text-foreground">{track.title}</h2>
+                <h2 className="mt-3 text-2xl font-semibold text-foreground">
+                  {track.displayTitle}
+                </h2>
                 <p className="mt-1 font-devanagari text-base text-muted-foreground">
                   {track.titleHi}
                 </p>
-                <p className="mt-4 text-sm leading-7 text-muted-foreground">{track.focus}</p>
+                <p className="mt-4 text-sm leading-7 text-muted-foreground">{track.displayFocus}</p>
                 <div className="mt-5 rounded-[20px] border border-border/60 bg-background/70 p-4">
-                  <p className="text-sm font-semibold text-foreground">Practice loop</p>
+                  <p className="text-sm font-semibold text-foreground">
+                    {language === "hi" ? "अभ्यास क्रम" : "Practice loop"}
+                  </p>
                   <ul className="mt-3 space-y-2 text-sm leading-6 text-muted-foreground">
-                    {track.plan.map((step) => (
+                    {track.displayPlan.map((step) => (
                       <li key={step}>{step}</li>
                     ))}
                   </ul>

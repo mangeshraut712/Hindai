@@ -13,9 +13,12 @@ const MODE_INSTRUCTIONS = {
     "Analyze grammar, meaning, and context. Mention case, number, root, compound, or sandhi only when you can do so responsibly.",
   grounded:
     "Give a grounded Sanskrit learning answer using Hind AI scripture context when relevant. If sources are uncertain, say so plainly.",
+  agentic:
+    "Work like a careful Sanskrit study agent: restate the learner goal, plan the analysis, answer, then list the next check or practice step.",
 } as const;
 
 type SanskritChatMode = keyof typeof MODE_INSTRUCTIONS;
+const MAX_CHAT_MESSAGE_LENGTH = 4_000;
 
 function resolveMode(mode: unknown): SanskritChatMode {
   return typeof mode === "string" && mode in MODE_INSTRUCTIONS
@@ -31,11 +34,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Message is required." }, { status: 400 });
     }
 
+    if (message.length > MAX_CHAT_MESSAGE_LENGTH) {
+      return NextResponse.json(
+        { error: `Message must be ${MAX_CHAT_MESSAGE_LENGTH} characters or fewer.` },
+        { status: 413 }
+      );
+    }
+
     const resolvedMode = resolveMode(mode);
     const prompt = [
       "You are SanskritNova inside Hind AI, powered only by Hind AI's Gemma 4 runtime.",
       MODE_INSTRUCTIONS[resolvedMode],
       lang === "hi" ? "Respond primarily in Hindi when it remains clear." : "Respond in English.",
+      "For Hindi responses, keep Sanskrit terms in Devanagari with brief English glosses only when helpful.",
       "Avoid OpenRouter, Gemini-branded, or non-Gemma claims. Be concise and useful.",
       `Input transliteration: ${transliterateToIast(message.trim())}`,
       `Learner request: ${message.trim()}`,
