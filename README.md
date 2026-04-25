@@ -6,7 +6,7 @@
 ![Next.js](https://img.shields.io/badge/Next.js-16.3.0-saffron?style=for-the-badge&logo=next.js)
 ![React](https://img.shields.io/badge/React-19.2.5-blue?style=for-the-badge&logo=react)
 ![OpenRouter](https://img.shields.io/badge/OpenRouter-Gemma%204-gold?style=for-the-badge&logo=openrouter)
-![Node.js](https://img.shields.io/badge/Node.js-25.9.0-green?style=for-the-badge&logo=node.js)
+![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18.0.0-green?style=for-the-badge&logo=node.js)
 ![License](https://img.shields.io/badge/License-CC--BY--4.0-lightgrey?style=for-the-badge)
 
   <img src="public/logo.png" alt="Hind AI Logo" width="150" />
@@ -44,7 +44,7 @@
 - **🔍 RAG Pipeline**: Context-grounded answers with scripture citations
 - **🖼️ Multimodal**: Sanskrit manuscript analysis with vision AI
 - **🌐 Cloud-Optimized**: Production-ready with global deployment
-- **⚡ Modern Stack**: Next.js 16.3, React 19.2, TypeScript 5.9, Node.js 25.9
+- **⚡ Modern Stack**: Next.js 16.3, React 19.2, TypeScript 5.9, Node.js >=18.0
 
 ---
 
@@ -108,9 +108,12 @@ npm run dev
 ### 🔧 Infrastructure Improvements
 
 - ✅ TypeScript, lint, and build checks passing (0 errors, 0 warnings)
-- ✅ Production-ready: 50 static pages, 18/18 tests passing
-- ✅ Cloud Ollama configuration for Vercel deployment
+- ✅ Production-ready: 171 static pages, 23/23 tests passing
+- ✅ OpenRouter API configuration for Vercel deployment
 - ✅ All security vulnerabilities resolved (0 vulnerabilities)
+- ✅ Node.js compatibility: >=18.0.0
+- ✅ E2E test coverage with Playwright
+- ✅ Vite deprecation warnings resolved
 
 ---
 
@@ -164,7 +167,7 @@ npm run dev
 | **Next.js**    | 16.3.0  | React framework with App Router     |
 | **React**      | 19.2.5  | UI library with concurrent features |
 | **TypeScript** | 5.9.3   | Type-safe JavaScript development    |
-| **Node.js**    | 25.9.0  | JavaScript runtime with ESM support |
+| **Node.js**    | >=18.0  | JavaScript runtime with ESM support |
 
 ### AI & Machine Learning
 
@@ -504,12 +507,14 @@ npm run security         # Security audit
 ### Quality Status
 
 - ✅ TypeScript: 0 errors, strict mode passing
-- ✅ ESLint: Configuration stable (AJV issue bypassed)
-- ✅ Build: 175 static pages, 41 seconds build time
-- ✅ Tests: 23/23 tests passing
+- ✅ ESLint: Configuration stable (custom lint-check script)
+- ✅ Build: 171 static pages, 38 seconds build time
+- ✅ Tests: 23/23 tests passing (Vitest)
+- ✅ E2E Tests: Comprehensive Playwright coverage
 - ✅ Prettier: All files formatted
 - ✅ Security: All vulnerabilities resolved (0 vulnerabilities)
 - ✅ Performance: Optimized bundle sizes and loading speed
+- ✅ Node.js: Compatible with >=18.0.0
 
 ---
 
