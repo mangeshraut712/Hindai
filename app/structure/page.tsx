@@ -11,8 +11,8 @@ const summaryStats = [
   { label: "Vedas", value: "4", note: "Rig, Yajur, Sama, Atharva" },
   {
     label: "Upanishads",
-    value: "108+",
-    note: "recognized philosophical texts",
+    value: "30",
+    note: "documented philosophical texts",
   },
   { label: "Mahapuranas", value: "18", note: "major Puranas" },
   { label: "Itihasas", value: "2", note: "Ramayana and Mahabharata" },
@@ -104,7 +104,7 @@ export default function StructurePage() {
                 <strong>Shruti</strong> and <strong>Smriti</strong>.
               </p>
               <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
-                The foundational body includes 4 Vedas, over 108 recognized Upanishads, 18 Major
+                The foundational body includes 4 Vedas, 30 documented Upanishads, 18 Major
                 Puranas, and 2 major Epics. This page is the structural map for that world.
               </p>
             </motion.div>

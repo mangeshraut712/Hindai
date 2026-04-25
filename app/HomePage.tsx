@@ -15,7 +15,7 @@ const studyModes = [
     icon: Library,
     title: "Read by shelf",
     body: "Move through Vedas, epics, Puranas, and philosophy with clear structure rather than scattered links.",
-    features: ["4 Vedas", "18 Puranas", "108+ Upanishads", "2 Epics"],
+    features: ["4 Vedas", "18 Puranas", "30 Upanishads", "2 Epics"],
   },
   {
     icon: ScanSearch,
@@ -72,7 +72,7 @@ const featuredVerses = [
 
 const stats = [
   { value: "4", label: "Vedas" },
-  { value: "108+", label: "Upanishads" },
+  { value: "30", label: "Upanishads" },
   { value: "18", label: "Mahapuranas" },
   { value: "2", label: "Itihasas" },
 ];
@@ -127,12 +127,11 @@ export default function HomePage() {
                     losing atmosphere or context.
                   </p>
                   <p className="max-w-2xl text-sm leading-7 text-muted-foreground">
-                    Hindu scripture is not a closed shelf with a fixed count. It is a vast tradition
-                    built over millennia, broadly organized into <strong>Shruti</strong> (revealed
-                    scripture) and <strong>Smriti</strong> (remembered tradition), with the Bhagavad
-                    Gita, Upanishads, Puranas, and epics all occupying distinct but connected
-                    places.
-                  </p>
+                  Hindu scripture is a vast tradition built over millennia, broadly organized into
+                  <strong>Shruti</strong> (revealed scripture) and <strong>Smriti</strong> (remembered
+                  tradition), with the Bhagavad Gita, Upanishads, Puranas, and epics all occupying
+                  distinct but connected places.
+                </p>
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row">

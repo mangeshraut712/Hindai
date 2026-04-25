@@ -33,7 +33,7 @@ export default function ContentsPage() {
               <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
                 Hinduism does not have a fixed number of scriptures. This catalog is a practical
                 reading map through the better-known shelves: Shruti foundations such as the 4 Vedas
-                and 108+ Upanishads, and Smriti traditions such as the 18 Major Puranas, 18
+                and 30 Upanishads, and Smriti traditions such as the 18 Major Puranas, 18
                 Upa-Puranas, and the 2 great epics.
               </p>
             </motion.div>
