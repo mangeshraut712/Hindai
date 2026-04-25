@@ -24,9 +24,9 @@
     "performance": "npm run build && npx serve .next -p 3001",
     "security": "npm audit --audit-level moderate",
     "cleanup": "rm -rf .next node_modules/.cache && npm cache clean --force && npm prune",
-    "test:e2e": "playwright test --project=chromium --config=config/playwright.config.ts",
-    "test:e2e:ui": "playwright test --ui --config=config/playwright.config.ts",
-    "test:e2e:report": "playwright show-report --config=config/playwright.config.ts"
+    "test:e2e": "playwright test --project=chromium",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:report": "playwright show-report"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",
