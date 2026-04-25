@@ -54,7 +54,7 @@ export function resolveGemmaModel(input: string | undefined): GemmaModel {
 const OLLAMA_API_KEY = process.env.OLLAMA_API_KEY;
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const OPENROUTER_URL = process.env.OPENROUTER_URL || "https://openrouter.ai/api/v1";
-const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "google/gemma-4-31b-it:free";
+const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "anthropic/claude-3-haiku";
 const GEMINI_API_KEY =
   process.env.GEMINI_API_KEY || process.env.GEMMA_API_KEY || process.env.GOOGLE_API_KEY;
 const OLLAMA_URL =
@@ -608,25 +608,23 @@ async function resolveHostedGemmaModel(): Promise<string> {
 async function resolveGemmaBackend(): Promise<
   "local" | "cloud" | "openrouter" | "google" | "none"
 > {
-  // For Kaggle competition: Gemma 4 via Ollama (local or cloud)
-  // No external AI APIs used - only Ollama instances allowed
+  // Prioritize OpenRouter as the official LLM for reliability on Vercel
+  // Fallback to Ollama for local development or when OpenRouter is not configured
+
+  if (isOpenRouterConfigured()) {
+    return "openrouter";
+  }
 
   if (USE_CLOUD_OLLAMA) {
-    // Vercel deployment: Use cloud Ollama service
+    // Vercel deployment: Use cloud Ollama service as fallback
     if (await isOllamaAvailable()) {
       return "cloud";
     }
-    if (isOpenRouterConfigured()) {
-      return "openrouter";
-    }
     return isGoogleGemmaConfigured() ? "google" : "none";
   } else {
-    // Local development: Use local Ollama
+    // Local development: Use local Ollama as fallback
     if (await isOllamaAvailable()) {
       return "local";
-    }
-    if (isOpenRouterConfigured()) {
-      return "openrouter";
     }
     return isGoogleGemmaConfigured() ? "google" : "none";
   }

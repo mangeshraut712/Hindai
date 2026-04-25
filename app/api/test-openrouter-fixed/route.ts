@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(_request: NextRequest) {
+export async function GET() {
   const apiKey = process.env.OPENROUTER_API_KEY;
-  const apiUrl = process.env.OPENROUTER_URL || 'https://openrouter.ai/api/v1/chat/completions';
+  const apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
   
   if (!apiKey) {
     return NextResponse.json(
@@ -12,7 +12,7 @@ export async function GET(_request: NextRequest) {
   }
 
   try {
-    // Test OpenRouter API with a simple completion request
+    // Test OpenRouter API with proper headers and model
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
@@ -22,7 +22,7 @@ export async function GET(_request: NextRequest) {
         'X-Title': 'Hind AI Scripture Platform'
       },
       body: JSON.stringify({
-        model: process.env.OPENROUTER_MODEL || 'anthropic/claude-3-haiku',
+        model: process.env.OPENROUTER_MODEL || 'google/gemma-4-31b-it:free',
         messages: [
           {
             role: 'user',
@@ -34,32 +34,48 @@ export async function GET(_request: NextRequest) {
       })
     });
 
+    // Get response as text first to debug
+    const responseText = await response.text();
+    
     if (!response.ok) {
-      const errorData = await response.text();
       return NextResponse.json(
         { 
           error: 'OpenRouter API request failed',
           status: response.status,
-          details: errorData
+          statusText: response.statusText,
+          details: responseText
         },
         { status: response.status }
       );
     }
 
-    const data = await response.json();
+    // Try to parse as JSON
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (parseError) {
+      return NextResponse.json(
+        { 
+          error: 'Failed to parse OpenRouter response as JSON',
+          status: response.status,
+          responseText: responseText.substring(0, 500) // First 500 chars for debugging
+        },
+        { status: 500 }
+      );
+    }
     
     return NextResponse.json({
       success: true,
-      message: 'OpenRouter API key test successful',
-      response: data.choices[0]?.message?.content || 'No response content',
       model: data.model,
-      usage: data.usage
+      response: data.choices?.[0]?.message?.content || 'No response content',
+      usage: data.usage,
+      rawResponse: data
     });
 
   } catch (error) {
     return NextResponse.json(
       { 
-        error: 'Failed to test OpenRouter API',
+        error: 'Failed to call OpenRouter API',
         details: error instanceof Error ? error.message : 'Unknown error'
       },
       { status: 500 }
@@ -68,18 +84,20 @@ export async function GET(_request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const body = await request.json();
-  const apiKey = process.env.OPENROUTER_API_KEY;
-  const apiUrl = process.env.OPENROUTER_URL || 'https://openrouter.ai/api/v1/chat/completions';
-  
-  if (!apiKey) {
-    return NextResponse.json(
-      { error: 'OPENROUTER_API_KEY not found in environment variables' },
-      { status: 500 }
-    );
-  }
-
   try {
+    const body = await request.json();
+    const { model, messages, max_tokens = 100, temperature = 0.7 } = body;
+    
+    const apiKey = process.env.OPENROUTER_API_KEY;
+    const apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
+    
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: 'OPENROUTER_API_KEY not found in environment variables' },
+        { status: 500 }
+      );
+    }
+
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
@@ -89,41 +107,55 @@ export async function POST(request: NextRequest) {
         'X-Title': 'Hind AI Scripture Platform'
       },
       body: JSON.stringify({
-        model: body.model || 'anthropic/claude-3-haiku',
-        messages: body.messages || [
+        model: model || process.env.OPENROUTER_MODEL || 'google/gemma-4-31b-it:free',
+        messages: messages || [
           {
             role: 'user',
-            content: 'Test message from API endpoint'
+            content: 'Hello, please introduce yourself.'
           }
         ],
-        max_tokens: body.max_tokens || 100,
-        temperature: body.temperature || 0.7
+        max_tokens,
+        temperature
       })
     });
 
+    const responseText = await response.text();
+    
     if (!response.ok) {
-      const errorData = await response.text();
       return NextResponse.json(
         { 
           error: 'OpenRouter API request failed',
           status: response.status,
-          details: errorData
+          details: responseText
         },
         { status: response.status }
       );
     }
 
-    const data = await response.json();
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (parseError) {
+      return NextResponse.json(
+        { 
+          error: 'Failed to parse OpenRouter response as JSON',
+          responseText: responseText.substring(0, 500)
+        },
+        { status: 500 }
+      );
+    }
     
     return NextResponse.json({
       success: true,
-      response: data
+      model: data.model,
+      response: data.choices?.[0]?.message?.content || 'No response content',
+      usage: data.usage
     });
 
   } catch (error) {
     return NextResponse.json(
       { 
-        error: 'Failed to call OpenRouter API',
+        error: 'Failed to process request',
         details: error instanceof Error ? error.message : 'Unknown error'
       },
       { status: 500 }

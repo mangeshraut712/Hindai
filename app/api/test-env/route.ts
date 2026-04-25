@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(_request: NextRequest) {
   const envVars = {
-    NVIDIA_API_KEY: process.env.NVIDIA_API_KEY ? 'SET' : 'NOT_SET',
     OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY ? 'SET' : 'NOT_SET',
     OPENROUTER_URL: process.env.OPENROUTER_URL || 'NOT_SET',
     OPENROUTER_MODEL: process.env.OPENROUTER_MODEL || 'NOT_SET',
