@@ -48,7 +48,7 @@ export default function QuizPage() {
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-                className="surface-panel max-w-md p-6 lg:ml-auto transition-all duration-300 hover:shadow-xl"
+                className="surface-panel max-w-md p-6 transition-all duration-300 hover:shadow-xl lg:ml-auto"
               >
                 <div className="relative z-10 space-y-4">
                   <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
@@ -61,7 +61,7 @@ export default function QuizPage() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
-                        className="group rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground/80 transition-all duration-300 hover:bg-primary/10 hover:border-primary/30 hover:scale-105"
+                        className="group rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground/80 transition-all duration-300 hover:scale-105 hover:border-primary/30 hover:bg-primary/10"
                       >
                         <span className="mr-2">{topic.emoji}</span>
                         {topic.label}

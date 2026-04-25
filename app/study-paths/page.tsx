@@ -44,12 +44,11 @@ export default function StudyPathsPage() {
             >
               <div className="relative z-10 max-w-3xl">
                 <span className="eyebrow">Learning Infrastructure • अध्ययन ढांचा</span>
-                <h2 className="section-title mt-6">
-                  Structured paths for consistent learning.
-                </h2>
+                <h2 className="section-title mt-6">Structured paths for consistent learning.</h2>
                 <p className="section-copy mt-5">
                   Study paths connect scripture structure, AI guidance, and progress tracking into
-                  reusable learning flows that work for both individual study and classroom teaching.
+                  reusable learning flows that work for both individual study and classroom
+                  teaching.
                 </p>
               </div>
             </motion.div>

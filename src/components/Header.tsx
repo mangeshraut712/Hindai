@@ -136,7 +136,7 @@ export function Header() {
                   <span className="text-xs font-semibold">Scriptures</span>
                   <span className="font-devanagari text-[10px] text-muted-foreground">ग्रन्थ</span>
                 </span>
-                <ChevronDown className="size-3.5 ml-1" />
+                <ChevronDown className="ml-1 size-3.5" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -196,7 +196,7 @@ export function Header() {
                   <span className="text-xs font-semibold">More</span>
                   <span className="font-devanagari text-[10px] text-muted-foreground">अधिक</span>
                 </span>
-                <ChevronDown className="size-3.5 ml-1" />
+                <ChevronDown className="ml-1 size-3.5" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -231,7 +231,10 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <div className="hidden items-center gap-1.5 rounded-full border border-border/60 bg-background/70 px-3 py-1.5 xl:flex" aria-label="Study languages">
+          <div
+            className="hidden items-center gap-1.5 rounded-full border border-border/60 bg-background/70 px-3 py-1.5 xl:flex"
+            aria-label="Study languages"
+          >
             <span className="text-[10px] font-semibold text-foreground">EN</span>
             <span className="h-3 w-px bg-border/60"></span>
             <span className="font-devanagari text-[10px] text-muted-foreground">हिंदी</span>
@@ -290,12 +293,14 @@ export function Header() {
                   <span className="font-devanagari tracking-[0.16em] text-muted-foreground">
                     डिजिटल गुरुकुल
                   </span>
-                  <div className="mt-3 flex items-center gap-1.5 rounded-full border border-border/60 bg-background/70 px-3 py-1.5 w-fit">
+                  <div className="mt-3 flex w-fit items-center gap-1.5 rounded-full border border-border/60 bg-background/70 px-3 py-1.5">
                     <span className="text-[10px] font-semibold text-foreground">EN</span>
                     <span className="h-3 w-px bg-border/60"></span>
                     <span className="font-devanagari text-[10px] text-muted-foreground">हिंदी</span>
                     <span className="h-3 w-px bg-border/60"></span>
-                    <span className="font-devanagari text-[10px] text-muted-foreground">संस्कृत</span>
+                    <span className="font-devanagari text-[10px] text-muted-foreground">
+                      संस्कृत
+                    </span>
                   </div>
                 </SheetDescription>
               </SheetHeader>

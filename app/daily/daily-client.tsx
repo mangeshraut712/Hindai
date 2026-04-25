@@ -203,7 +203,7 @@ export default function DailyWisdomClient() {
                 </p>
               </div>
 
-              <div className="surface-panel max-w-md p-6 lg:ml-auto transition-all duration-300 hover:shadow-xl">
+              <div className="surface-panel max-w-md p-6 transition-all duration-300 hover:shadow-xl lg:ml-auto">
                 <div className="relative z-10 space-y-4">
                   <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
                     Today&apos;s practice
@@ -217,7 +217,7 @@ export default function DailyWisdomClient() {
                     ].map((item) => (
                       <div
                         key={item}
-                        className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground/80 transition-all duration-300 hover:bg-primary/10 hover:border-primary/30"
+                        className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground/80 transition-all duration-300 hover:border-primary/30 hover:bg-primary/10"
                       >
                         {item}
                       </div>

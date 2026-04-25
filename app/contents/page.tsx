@@ -56,7 +56,11 @@ export default function ContentsPage() {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
                     >
-                      <Button variant="outline" asChild className="transition-all duration-300 hover:scale-105 hover:border-primary/50">
+                      <Button
+                        variant="outline"
+                        asChild
+                        className="transition-all duration-300 hover:scale-105 hover:border-primary/50"
+                      >
                         <Link href={`#${section.id}`}>{section.title}</Link>
                       </Button>
                     </motion.div>
@@ -67,7 +71,11 @@ export default function ContentsPage() {
                   question answering, jump straight into Guru AI. For the full hierarchy behind
                   these shelves, visit the Structure page.
                 </div>
-                <Button variant="outline" asChild className="transition-all duration-300 hover:scale-105">
+                <Button
+                  variant="outline"
+                  asChild
+                  className="transition-all duration-300 hover:scale-105"
+                >
                   <Link href="/structure/">View scripture structure</Link>
                 </Button>
               </div>
@@ -117,8 +125,10 @@ export default function ContentsPage() {
                           </p>
                         </div>
                         <div>
-                          <p className="font-devanagari text-xl text-primary group-hover:scale-105 transition-transform duration-300">{item.sanskrit}</p>
-                          <h3 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground group-hover:text-primary transition-colors duration-300">
+                          <p className="font-devanagari text-xl text-primary transition-transform duration-300 group-hover:scale-105">
+                            {item.sanskrit}
+                          </p>
+                          <h3 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground transition-colors duration-300 group-hover:text-primary">
                             {item.name}
                           </h3>
                           <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
@@ -127,13 +137,21 @@ export default function ContentsPage() {
                         </div>
                         <div className="flex flex-col gap-3 md:items-end">
                           <span className="text-sm text-muted-foreground">{item.highlight}</span>
-                          <Button variant="outline" asChild className="transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:scale-105">
+                          <Button
+                            variant="outline"
+                            asChild
+                            className="transition-all duration-300 hover:scale-105 hover:border-primary/50 hover:bg-primary/5"
+                          >
                             <Link href={item.href}>
                               Read text
                               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                             </Link>
                           </Button>
-                          <Button variant="ghost" asChild className="transition-all duration-300 hover:bg-primary/10 hover:scale-105">
+                          <Button
+                            variant="ghost"
+                            asChild
+                            className="transition-all duration-300 hover:scale-105 hover:bg-primary/10"
+                          >
                             <Link href="/ai-guide/">
                               Ask in Guru AI
                               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
@@ -169,10 +187,7 @@ export default function ContentsPage() {
                     explanation, comparison, and a modern reading line.
                   </p>
                 </div>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Button variant="premium" size="lg" asChild>
                     <Link href="/ai-guide/">
                       Open Guru AI

@@ -153,7 +153,7 @@ export default function StructurePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="surface-panel group p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                  className="surface-panel group p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
                   <div className="relative z-10">
                     <motion.div
@@ -166,7 +166,7 @@ export default function StructurePage() {
                     <p className="mt-5 text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
                       {section.subtitle}
                     </p>
-                    <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground group-hover:text-primary transition-colors duration-300">
+                    <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground transition-colors duration-300 group-hover:text-primary">
                       {section.title}
                     </h2>
                     <p className="mt-4 text-sm leading-7 text-muted-foreground">
@@ -224,7 +224,7 @@ export default function StructurePage() {
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: index * 0.1 }}
-                      className="group rounded-[26px] border border-border/60 bg-background/75 p-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/40"
+                      className="group rounded-[26px] border border-border/60 bg-background/75 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
                     >
                       <motion.div
                         className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110"
@@ -233,7 +233,9 @@ export default function StructurePage() {
                       >
                         <LibraryBig className="size-5" />
                       </motion.div>
-                      <h3 className="mt-4 text-2xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{layer.name}</h3>
+                      <h3 className="mt-4 text-2xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
+                        {layer.name}
+                      </h3>
                       <p className="mt-3 text-sm leading-7 text-muted-foreground">
                         {layer.description}
                       </p>

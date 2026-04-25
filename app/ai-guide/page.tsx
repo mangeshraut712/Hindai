@@ -107,7 +107,7 @@ export default function AIGuidePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="surface-panel group p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                  className="surface-panel group p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
                   <div className="relative z-10">
                     <motion.div
@@ -117,7 +117,9 @@ export default function AIGuidePage() {
                     >
                       <Sparkles className="size-5" />
                     </motion.div>
-                    <h2 className="mt-5 text-2xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{point.title}</h2>
+                    <h2 className="mt-5 text-2xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
+                      {point.title}
+                    </h2>
                     <p className="mt-3 text-sm leading-7 text-muted-foreground">{point.body}</p>
                   </div>
                 </motion.div>

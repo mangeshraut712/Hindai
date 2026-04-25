@@ -11,25 +11,29 @@ const communityFeatures = [
   {
     icon: MessageSquare,
     title: "Discussion Forums",
-    description: "Engage in meaningful conversations about scriptures, philosophy, and spiritual practices with like-minded individuals.",
+    description:
+      "Engage in meaningful conversations about scriptures, philosophy, and spiritual practices with like-minded individuals.",
     bilingual: "चर्चा मंच",
   },
   {
     icon: Users,
     title: "Study Groups",
-    description: "Form or join study circles to explore texts together, share insights, and support each other's learning journey.",
+    description:
+      "Form or join study circles to explore texts together, share insights, and support each other's learning journey.",
     bilingual: "अध्ययन समूह",
   },
   {
     icon: Calendar,
     title: "Live Events",
-    description: "Participate in online satsangs, workshops, and guided meditation sessions led by experienced practitioners.",
+    description:
+      "Participate in online satsangs, workshops, and guided meditation sessions led by experienced practitioners.",
     bilingual: "लाइव कार्यक्रम",
   },
   {
     icon: BookOpen,
     title: "Shared Resources",
-    description: "Access and contribute to a growing library of study materials, commentaries, and learning resources.",
+    description:
+      "Access and contribute to a growing library of study materials, commentaries, and learning resources.",
     bilingual: "साझा संसाधन",
   },
 ];
@@ -84,14 +88,14 @@ export default function CommunityPage() {
               <span className="eyebrow">Community • समुदाय</span>
               <h1 className="section-title mt-6">Learn together, grow together.</h1>
               <p className="section-copy mt-5">
-                Join a vibrant community of seekers, scholars, and practitioners. Connect with others
-                on the path of wisdom, share insights, and deepen your understanding through collective
-                learning and meaningful dialogue.
+                Join a vibrant community of seekers, scholars, and practitioners. Connect with
+                others on the path of wisdom, share insights, and deepen your understanding through
+                collective learning and meaningful dialogue.
               </p>
               <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
-                The journey of spiritual wisdom is enriched when walked together. Our community provides
-                a space for respectful discussion, collaborative study, and mutual support as we explore
-                the profound teachings of ancient Indian wisdom traditions.
+                The journey of spiritual wisdom is enriched when walked together. Our community
+                provides a space for respectful discussion, collaborative study, and mutual support
+                as we explore the profound teachings of ancient Indian wisdom traditions.
               </p>
             </motion.div>
           </div>
@@ -110,8 +114,8 @@ export default function CommunityPage() {
               <span className="eyebrow">Community Features • सुविधाएं</span>
               <h2 className="section-title mt-6">Ways to connect and learn.</h2>
               <p className="section-copy mt-5">
-                Discover the various ways you can engage with our community and enhance your spiritual
-                journey.
+                Discover the various ways you can engage with our community and enhance your
+                spiritual journey.
               </p>
             </motion.div>
 
@@ -123,7 +127,7 @@ export default function CommunityPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="surface-panel group p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                  className="surface-panel group p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
                   <div className="relative z-10 space-y-4">
                     <motion.div
@@ -134,7 +138,7 @@ export default function CommunityPage() {
                       <feature.icon className="size-5" />
                     </motion.div>
                     <div>
-                      <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                      <h3 className="text-lg font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
                         {feature.title}
                       </h3>
                       <p className="mt-2 font-devanagari text-xs text-muted-foreground">
@@ -165,8 +169,8 @@ export default function CommunityPage() {
                 <span className="eyebrow">Upcoming Events • आगामी कार्यक्रम</span>
                 <h2 className="section-title mt-6">Join our scheduled sessions.</h2>
                 <p className="section-copy mt-5">
-                  Participate in regularly scheduled study sessions, discussions, and events designed
-                  to support your learning journey.
+                  Participate in regularly scheduled study sessions, discussions, and events
+                  designed to support your learning journey.
                 </p>
               </motion.div>
 
@@ -185,11 +189,11 @@ export default function CommunityPage() {
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: index * 0.1 }}
-                      className="rounded-2xl border border-border/60 bg-background/75 p-4 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5 hover:scale-105"
+                      className="rounded-2xl border border-border/60 bg-background/75 p-4 transition-all duration-300 hover:scale-105 hover:border-primary/30 hover:bg-primary/5"
                     >
                       <div className="flex items-start gap-3">
                         <motion.div
-                          className="bg-primary/10 flex size-10 shrink-0 items-center justify-center rounded-full text-primary"
+                          className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"
                           whileHover={{ rotate: 15, scale: 1.1 }}
                           transition={{ duration: 0.3 }}
                         >
@@ -244,7 +248,7 @@ export default function CommunityPage() {
                       className="flex items-start gap-3 rounded-2xl border border-border/60 bg-background/75 px-4 py-3 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5"
                     >
                       <motion.div
-                        className="bg-primary/10 mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full text-primary"
+                        className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"
                         whileHover={{ scale: 1.2, rotate: 45 }}
                         transition={{ duration: 0.3 }}
                       >
