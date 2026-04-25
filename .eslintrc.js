@@ -1,5 +1,3 @@
-const { ESLint } = require("eslint");
-
 module.exports = {
   extends: ["next/core-web-vitals", "next/typescript"],
   rules: {
@@ -16,10 +14,23 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
+    project: true,
+    tsconfigRootDir: __dirname,
   },
   env: {
     browser: true,
     es2022: true,
     node: true,
   },
+  overrides: [
+    {
+      files: ["*.ts", "*.tsx"],
+      rules: {
+        "@typescript-eslint/no-unused-vars": [
+          "warn",
+          { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+        ],
+      },
+    },
+  ],
 };
