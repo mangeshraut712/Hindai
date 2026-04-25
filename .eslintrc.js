@@ -1,4 +1,4 @@
-const { ESLint } = require('eslint');
+const { ESLint } = require("eslint");
 
 module.exports = {
   extends: ["next/core-web-vitals", "next/typescript"],
@@ -12,7 +12,7 @@ module.exports = {
   },
   parserOptions: {
     ecmaVersion: 2022,
-    sourceType: 'module',
+    sourceType: "module",
     ecmaFeatures: {
       jsx: true,
     },

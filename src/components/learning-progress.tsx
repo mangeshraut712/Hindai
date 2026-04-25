@@ -82,9 +82,7 @@ export function LearningProgress() {
               <Clock className="size-5 text-orange-500" />
             </div>
             <div>
-              <div className="text-lg font-semibold text-foreground">
-                {stats.timeSpent}h
-              </div>
+              <div className="text-lg font-semibold text-foreground">{stats.timeSpent}h</div>
               <div className="text-xs text-muted-foreground">Time Spent</div>
             </div>
           </div>
@@ -96,9 +94,7 @@ export function LearningProgress() {
               <Zap className="size-5 text-green-500" />
             </div>
             <div>
-              <div className="text-lg font-semibold text-foreground">
-                {stats.studyStreak}
-              </div>
+              <div className="text-lg font-semibold text-foreground">{stats.studyStreak}</div>
               <div className="text-xs text-muted-foreground">Day Streak</div>
             </div>
           </div>
@@ -108,9 +104,7 @@ export function LearningProgress() {
               <Trophy className="size-5 text-purple-500" />
             </div>
             <div>
-              <div className="text-lg font-semibold text-foreground">
-                {stats.achievements}
-              </div>
+              <div className="text-lg font-semibold text-foreground">{stats.achievements}</div>
               <div className="text-xs text-muted-foreground">Achievements</div>
             </div>
           </div>

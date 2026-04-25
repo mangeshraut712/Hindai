@@ -7,7 +7,8 @@
 import { z } from "zod";
 
 export const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "google/gemma-4-31b-it:free";
-export const OPENROUTER_URL = process.env.OPENROUTER_URL || "https://openrouter.ai/api/v1/chat/completions";
+export const OPENROUTER_URL =
+  process.env.OPENROUTER_URL || "https://openrouter.ai/api/v1/chat/completions";
 
 export interface AIStatus {
   available: boolean;
@@ -37,7 +38,7 @@ export async function checkOpenRouterAvailability(): Promise<AIStatus> {
     const response = await fetch(OPENROUTER_URL, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${apiKey}`,
+        Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
         "HTTP-Referer": "https://hindai-nine.vercel.app",
         "X-Title": "Hind AI Scripture Platform",

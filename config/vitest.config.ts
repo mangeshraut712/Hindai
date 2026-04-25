@@ -18,4 +18,4 @@ export default defineConfig({
   optimizeDeps: {
     disabled: true,
   },
-  });
+});

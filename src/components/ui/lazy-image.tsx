@@ -9,21 +9,19 @@ interface LazyImageProps extends Omit<ImageProps, "onLoad" | "onError"> {
   className?: string;
 }
 
-export function LazyImage({ 
-  src, 
-  alt, 
-  fallback = "/logo.png", 
+export function LazyImage({
+  src,
+  alt,
+  fallback = "/logo.png",
   className,
-  ...props 
+  ...props
 }: LazyImageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
   return (
     <div className={cn("relative overflow-hidden", className)}>
-      {isLoading && (
-        <div className="absolute inset-0 bg-muted animate-pulse" />
-      )}
+      {isLoading && <div className="absolute inset-0 animate-pulse bg-muted" />}
       <Image
         src={hasError ? fallback : src}
         alt={alt}

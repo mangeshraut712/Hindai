@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "Sanatana Dharma",
     "Yoga",
     "Meditation",
-    "Gemma 4"
+    "Gemma 4",
   ],
   authors: [{ name: "Hind AI Team" }],
   creator: "Hind AI",
@@ -33,9 +33,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
     languages: {
-      "en": "/en",
-      "hi": "/hi",
-      "sa": "/sa",
+      en: "/en",
+      hi: "/hi",
+      sa: "/sa",
     },
   },
   openGraph: {

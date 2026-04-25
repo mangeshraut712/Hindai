@@ -8,14 +8,19 @@ const nextConfig = {
   poweredByHeader: false,
   // Bundle optimization
   experimental: {
-    optimizePackageImports: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', 'lucide-react', 'framer-motion'],
+    optimizePackageImports: [
+      "@radix-ui/react-dialog",
+      "@radix-ui/react-dropdown-menu",
+      "lucide-react",
+      "framer-motion",
+    ],
     scrollRestoration: true,
     optimizeCss: true,
     optimizeServerReact: true,
   },
   // Image optimization
   images: {
-    formats: ['image/webp', 'image/avif'],
+    formats: ["image/webp", "image/avif"],
     minimumCacheTTL: 60 * 60 * 24 * 7, // 7 days
     remotePatterns: [
       {

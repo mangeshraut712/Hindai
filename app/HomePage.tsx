@@ -15,19 +15,29 @@ const studyModes = [
     icon: Library,
     title: "Read by shelf",
     body: "Move through Vedas, epics, Puranas, and philosophy with clear structure rather than scattered links.",
-    features: ["4 Vedas", "18 Puranas", "108+ Upanishads", "2 Epics"]
+    features: ["4 Vedas", "18 Puranas", "108+ Upanishads", "2 Epics"],
   },
   {
     icon: ScanSearch,
     title: "Read by meaning",
     body: "Browse with context, transliteration, and modern summaries instead of raw verse fragments.",
-    features: ["Sanskrit + Hindi + English", "Word-by-word breakdown", "Historical context", "Cross-references"]
+    features: [
+      "Sanskrit + Hindi + English",
+      "Word-by-word breakdown",
+      "Historical context",
+      "Cross-references",
+    ],
   },
   {
     icon: Bot,
     title: "Ask by intent",
     body: "Use Guru AI when you need an explanation, comparison, or grounded entry point into a difficult idea.",
-    features: ["Gemma 4 powered", "Verse-by-verse analysis", "Comparative commentary", "Personalized learning"]
+    features: [
+      "Gemma 4 powered",
+      "Verse-by-verse analysis",
+      "Comparative commentary",
+      "Personalized learning",
+    ],
   },
 ];
 
@@ -198,9 +208,12 @@ export default function HomePage() {
 
             <div className="mt-12 grid gap-6 lg:grid-cols-3">
               {studyModes.map((mode) => (
-                <div key={mode.title} className="surface-panel p-7 group hover:shadow-2xl transition-all duration-300">
+                <div
+                  key={mode.title}
+                  className="surface-panel group p-7 transition-all duration-300 hover:shadow-2xl"
+                >
                   <div className="relative z-10 space-y-5">
-                    <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300">
+                    <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
                       <mode.icon className="size-5" />
                     </div>
                     <div>
@@ -208,7 +221,10 @@ export default function HomePage() {
                       <p className="mt-3 text-sm leading-7 text-muted-foreground">{mode.body}</p>
                       <div className="mt-4 flex flex-wrap gap-2">
                         {mode.features.map((feature) => (
-                          <span key={feature} className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                          <span
+                            key={feature}
+                            className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
+                          >
                             {feature}
                           </span>
                         ))}
@@ -340,20 +356,23 @@ export default function HomePage() {
               <span className="eyebrow">Interactive Features</span>
               <h2 className="section-title mt-6">Experience ancient wisdom in modern ways.</h2>
               <p className="section-copy mt-5">
-                Discover sacred texts through innovative features that make learning engaging, interactive, and deeply meaningful.
+                Discover sacred texts through innovative features that make learning engaging,
+                interactive, and deeply meaningful.
               </p>
             </div>
 
             <div className="mt-12 grid gap-8 lg:grid-cols-2">
-              <div className="surface-panel p-8 group hover:shadow-xl transition-all duration-300">
+              <div className="surface-panel group p-8 transition-all duration-300 hover:shadow-xl">
                 <div className="relative z-10 space-y-6">
-                  <div className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-purple-600 group-hover:scale-110 transition-transform duration-300">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-purple-600 transition-transform duration-300 group-hover:scale-110">
                     <Bot className="size-6" />
                   </div>
                   <div>
                     <h3 className="text-2xl font-semibold text-foreground">AI-Powered Learning</h3>
                     <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                      Get personalized explanations, comparative analysis, and contextual insights powered by Google Gemma 4. Ask questions in natural language and receive thoughtful, culturally-aware responses.
+                      Get personalized explanations, comparative analysis, and contextual insights
+                      powered by Google Gemma 4. Ask questions in natural language and receive
+                      thoughtful, culturally-aware responses.
                     </p>
                   </div>
                   <div className="space-y-3">
@@ -373,15 +392,19 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="surface-panel p-8 group hover:shadow-xl transition-all duration-300">
+              <div className="surface-panel group p-8 transition-all duration-300 hover:shadow-xl">
                 <div className="relative z-10 space-y-6">
-                  <div className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-500/20 text-blue-600 group-hover:scale-110 transition-transform duration-300">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-500/20 text-blue-600 transition-transform duration-300 group-hover:scale-110">
                     <Languages className="size-6" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-semibold text-foreground">Multilingual Experience</h3>
+                    <h3 className="text-2xl font-semibold text-foreground">
+                      Multilingual Experience
+                    </h3>
                     <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                      Study scriptures in their original Sanskrit, with transliteration, Hindi translations, and clear English explanations. Switch between languages seamlessly while maintaining context.
+                      Study scriptures in their original Sanskrit, with transliteration, Hindi
+                      translations, and clear English explanations. Switch between languages
+                      seamlessly while maintaining context.
                     </p>
                   </div>
                   <div className="space-y-3">
@@ -410,7 +433,8 @@ export default function HomePage() {
               <span className="eyebrow">Your Learning Journey</span>
               <h2 className="section-title mt-6">Track your spiritual progress.</h2>
               <p className="section-copy mt-5">
-                Monitor your learning journey with personalized progress tracking, achievements, and insights into your study habits.
+                Monitor your learning journey with personalized progress tracking, achievements, and
+                insights into your study habits.
               </p>
             </div>
 
