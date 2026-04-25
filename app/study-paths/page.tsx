@@ -1,13 +1,9 @@
-import type { Metadata } from "next";
+"use client";
+
+import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StudyPathBoard } from "@/components/study-paths/study-path-board";
-
-export const metadata: Metadata = {
-  title: "Study Paths",
-  description:
-    "Saved guided study paths for students and teachers across scripture, structure, and Gemma 4 learning flows.",
-};
 
 export default function StudyPathsPage() {
   return (
@@ -18,7 +14,12 @@ export default function StudyPathsPage() {
         <section className="hero-mesh relative overflow-hidden border-b border-border/60">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-            <div className="max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="max-w-3xl"
+            >
               <span className="eyebrow">Guided Study Paths • मार्गिका</span>
               <h1 className="section-title mt-6">
                 Saved reading journeys for students and teachers.
@@ -28,15 +29,21 @@ export default function StudyPathsPage() {
                 paths, persistent progress, and direct handoff into scripture pages and Gemma 4
                 guidance.
               </p>
-            </div>
+            </motion.div>
           </div>
         </section>
 
         <section className="px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <div className="surface-panel p-8 md:p-10">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="surface-panel p-8 md:p-10"
+            >
               <div className="relative z-10 max-w-3xl">
-                <span className="eyebrow">Learning Infrastructure</span>
+                <span className="eyebrow">Learning Infrastructure • अध्ययन ढांचा</span>
                 <h2 className="section-title mt-6">
                   Structured paths for consistent learning.
                 </h2>
@@ -45,10 +52,16 @@ export default function StudyPathsPage() {
                   reusable learning flows that work for both individual study and classroom teaching.
                 </p>
               </div>
-            </div>
-            <div className="mt-12">
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-12"
+            >
               <StudyPathBoard />
-            </div>
+            </motion.div>
           </div>
         </section>
       </main>

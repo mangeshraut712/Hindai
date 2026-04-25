@@ -1,15 +1,12 @@
-import { Metadata } from "next";
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { scriptureSections } from "@/lib/scripture-catalog";
-
-export const metadata: Metadata = {
-  title: "Library Contents",
-  description: "Browse the curated shelves of ancient Indian scriptures available on Hind AI.",
-};
 
 export default function ContentsPage() {
   return (
@@ -20,7 +17,12 @@ export default function ContentsPage() {
         <section className="hero-mesh relative overflow-hidden border-b border-border/60">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.7fr)] lg:px-8">
-            <div className="max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="max-w-3xl"
+            >
               <span className="eyebrow">Granthalaya • ग्रन्थालय</span>
               <h1 className="section-title mt-6">A cleaner catalog for timeless texts.</h1>
               <p className="section-copy mt-5">
@@ -34,18 +36,30 @@ export default function ContentsPage() {
                 and 108+ Upanishads, and Smriti traditions such as the 18 Major Puranas, 18
                 Upa-Puranas, and the 2 great epics.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="surface-panel p-6">
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+              className="surface-panel p-6"
+            >
               <div className="relative z-10 space-y-4">
                 <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
                   Jump to
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  {scriptureSections.map((section) => (
-                    <Button key={section.id} variant="outline" asChild>
-                      <Link href={`#${section.id}`}>{section.title}</Link>
-                    </Button>
+                  {scriptureSections.map((section, index) => (
+                    <motion.div
+                      key={section.id}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
+                    >
+                      <Button variant="outline" asChild className="transition-all duration-300 hover:scale-105 hover:border-primary/50">
+                        <Link href={`#${section.id}`}>{section.title}</Link>
+                      </Button>
+                    </motion.div>
                   ))}
                 </div>
                 <div className="rounded-[24px] border border-border/60 bg-background/75 p-4 text-sm leading-6 text-muted-foreground">
@@ -53,18 +67,26 @@ export default function ContentsPage() {
                   question answering, jump straight into Guru AI. For the full hierarchy behind
                   these shelves, visit the Structure page.
                 </div>
-                <Button variant="outline" asChild>
+                <Button variant="outline" asChild className="transition-all duration-300 hover:scale-105">
                   <Link href="/structure/">View scripture structure</Link>
                 </Button>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
         <section className="px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl space-y-16">
-            {scriptureSections.map((section) => (
-              <section key={section.id} id={section.id} className="scroll-mt-28">
+            {scriptureSections.map((section, sectionIndex) => (
+              <motion.section
+                key={section.id}
+                id={section.id}
+                className="scroll-mt-28"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: sectionIndex * 0.1 }}
+              >
                 <div className="mb-8 max-w-3xl">
                   <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
                     Shelf
@@ -80,7 +102,15 @@ export default function ContentsPage() {
                 <div className="surface-panel">
                   <div className="relative z-10">
                     {section.items.map((item, index) => (
-                      <article key={item.slug} id={item.slug} className="scripture-row group">
+                      <motion.article
+                        key={item.slug}
+                        id={item.slug}
+                        className="scripture-row group"
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.4, delay: index * 0.08 }}
+                      >
                         <div>
                           <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
                             {item.category}
@@ -97,29 +127,35 @@ export default function ContentsPage() {
                         </div>
                         <div className="flex flex-col gap-3 md:items-end">
                           <span className="text-sm text-muted-foreground">{item.highlight}</span>
-                          <Button variant="outline" asChild className="transition-all duration-300 hover:border-primary/50 hover:bg-primary/5">
+                          <Button variant="outline" asChild className="transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:scale-105">
                             <Link href={item.href}>
                               Read text
                               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                             </Link>
                           </Button>
-                          <Button variant="ghost" asChild className="transition-all duration-300 hover:bg-primary/10">
+                          <Button variant="ghost" asChild className="transition-all duration-300 hover:bg-primary/10 hover:scale-105">
                             <Link href="/ai-guide/">
                               Ask in Guru AI
                               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                             </Link>
                           </Button>
                         </div>
-                      </article>
+                      </motion.article>
                     ))}
                   </div>
                 </div>
-              </section>
+              </motion.section>
             ))}
           </div>
         </section>
 
-        <section className="px-4 pb-20 sm:px-6 lg:px-8">
+        <motion.section
+          className="px-4 pb-20 sm:px-6 lg:px-8"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="mx-auto max-w-7xl">
             <div className="surface-panel p-8 md:p-10">
               <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -133,16 +169,21 @@ export default function ContentsPage() {
                     explanation, comparison, and a modern reading line.
                   </p>
                 </div>
-                <Button variant="premium" size="lg" asChild>
-                  <Link href="/ai-guide/">
-                    Open Guru AI
-                    <Sparkles className="size-4" />
-                  </Link>
-                </Button>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button variant="premium" size="lg" asChild>
+                    <Link href="/ai-guide/">
+                      Open Guru AI
+                      <Sparkles className="size-4" />
+                    </Link>
+                  </Button>
+                </motion.div>
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
       </main>
 
       <Footer />

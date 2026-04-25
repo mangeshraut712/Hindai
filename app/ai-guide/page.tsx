@@ -1,14 +1,10 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { AIChat } from "@/components/ai/ai-chat";
-
-export const metadata: Metadata = {
-  title: "AI Scripture Guide",
-  description:
-    "Ask questions about ancient Indian scriptures and get AI-powered explanations from Gemma 4.",
-};
 
 const guidePoints = [
   {
@@ -25,24 +21,7 @@ const guidePoints = [
   },
 ];
 
-type AIGuidePageProps = {
-  searchParams?: Promise<{
-    prompt?: string;
-    mode?: "explain" | "compare" | "translate";
-    compare?: string;
-    audience?: "general" | "student" | "teacher";
-  }>;
-};
-
-export default async function AIGuidePage({ searchParams }: AIGuidePageProps) {
-  const resolvedSearchParams = (await searchParams) || {};
-  const compareScriptureIds = resolvedSearchParams.compare
-    ? resolvedSearchParams.compare
-        .split(",")
-        .map((value) => value.trim())
-        .filter(Boolean)
-    : [];
-
+export default function AIGuidePage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
@@ -54,7 +33,12 @@ export default async function AIGuidePage({ searchParams }: AIGuidePageProps) {
           <div className="hero-sun right-0 top-20 h-72 w-72 opacity-60" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-              <div className="max-w-3xl">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="max-w-3xl"
+              >
                 <span className="eyebrow">Guru AI • गुरु एआई</span>
                 <h1 className="section-title mt-6">
                   Ask, compare, and translate Indian scripture with local AI.
@@ -64,9 +48,14 @@ export default async function AIGuidePage({ searchParams }: AIGuidePageProps) {
                   tool, making it easier to move from Sanskrit or Devanagari lines into readable
                   English or Indian-language explanations for many more learners.
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="surface-panel max-w-xl p-6 lg:ml-auto">
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+                className="surface-panel max-w-xl p-6 lg:ml-auto"
+              >
                 <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
                   Built for study
                 </p>
@@ -76,42 +65,64 @@ export default async function AIGuidePage({ searchParams }: AIGuidePageProps) {
                     "Compare mode for parallel reading",
                     "Translate Sanskrit and Devanagari",
                     "Cleaner light and dark surfaces",
-                  ].map((item) => (
-                    <div
+                  ].map((item, index) => (
+                    <motion.div
                       key={item}
-                      className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground/80"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
+                      className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground/80 transition-all duration-300 hover:scale-105 hover:border-primary/30"
                     >
                       {item}
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>
 
         <section className="px-4 py-12 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <AIChat
-              initialPrompt={resolvedSearchParams.prompt || ""}
-              initialMode={resolvedSearchParams.mode || "explain"}
-              initialCompareScriptureIds={compareScriptureIds}
-              initialAudience={resolvedSearchParams.audience || "general"}
-            />
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <AIChat />
+            </motion.div>
 
-            <div className="mt-10 grid gap-5 lg:grid-cols-3">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-10 grid gap-5 lg:grid-cols-3"
+            >
               {guidePoints.map((point, index) => (
-                <div key={point.title} className="surface-panel group p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                <motion.div
+                  key={point.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="surface-panel group p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                >
                   <div className="relative z-10">
-                    <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20">
+                    <motion.div
+                      className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
                       <Sparkles className="size-5" />
-                    </div>
+                    </motion.div>
                     <h2 className="mt-5 text-2xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{point.title}</h2>
                     <p className="mt-3 text-sm leading-7 text-muted-foreground">{point.body}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
       </main>

@@ -1,18 +1,11 @@
-import type { Metadata } from "next";
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Users, MessageSquare, Calendar, BookOpen, Sparkles, ArrowRight } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-
-export const metadata: Metadata = {
-  title: "Community",
-  description: "Join the Hind AI community to connect with fellow seekers, participate in discussions, and deepen your understanding together.",
-  openGraph: {
-    title: "Community | Hind AI",
-    description: "Connect with fellow seekers and deepen your understanding together.",
-  },
-};
 
 const communityFeatures = [
   {
@@ -82,7 +75,12 @@ export default function CommunityPage() {
           <div className="hero-sun -left-20 top-10 size-56 opacity-80" aria-hidden="true" />
           <div className="hero-sun right-0 top-20 size-72 opacity-60" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-            <div className="max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="max-w-3xl"
+            >
               <span className="eyebrow">Community • समुदाय</span>
               <h1 className="section-title mt-6">Learn together, grow together.</h1>
               <p className="section-copy mt-5">
@@ -95,32 +93,46 @@ export default function CommunityPage() {
                 a space for respectful discussion, collaborative study, and mutual support as we explore
                 the profound teachings of ancient Indian wisdom traditions.
               </p>
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* ── Features ── */}
         <section className="px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <div className="max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="max-w-3xl"
+            >
               <span className="eyebrow">Community Features • सुविधाएं</span>
               <h2 className="section-title mt-6">Ways to connect and learn.</h2>
               <p className="section-copy mt-5">
                 Discover the various ways you can engage with our community and enhance your spiritual
                 journey.
               </p>
-            </div>
+            </motion.div>
 
             <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
               {communityFeatures.map((feature, index) => (
-                <div
+                <motion.div
                   key={feature.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="surface-panel group p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 >
                   <div className="relative z-10 space-y-4">
-                    <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20">
+                    <motion.div
+                      className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
                       <feature.icon className="size-5" />
-                    </div>
+                    </motion.div>
                     <div>
                       <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
                         {feature.title}
@@ -133,7 +145,7 @@ export default function CommunityPage() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -143,26 +155,46 @@ export default function CommunityPage() {
         <section className="px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.9fr)]">
-              <div className="max-w-3xl">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="max-w-3xl"
+              >
                 <span className="eyebrow">Upcoming Events • आगामी कार्यक्रम</span>
                 <h2 className="section-title mt-6">Join our scheduled sessions.</h2>
                 <p className="section-copy mt-5">
                   Participate in regularly scheduled study sessions, discussions, and events designed
                   to support your learning journey.
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="surface-panel p-6">
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="surface-panel p-6"
+              >
                 <div className="relative z-10 space-y-4">
-                  {upcomingEvents.map((event) => (
-                    <div
+                  {upcomingEvents.map((event, index) => (
+                    <motion.div
                       key={event.title}
-                      className="rounded-2xl border border-border/60 bg-background/75 p-4 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      className="rounded-2xl border border-border/60 bg-background/75 p-4 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5 hover:scale-105"
                     >
                       <div className="flex items-start gap-3">
-                        <div className="bg-primary/10 flex size-10 shrink-0 items-center justify-center rounded-full text-primary">
+                        <motion.div
+                          className="bg-primary/10 flex size-10 shrink-0 items-center justify-center rounded-full text-primary"
+                          whileHover={{ rotate: 15, scale: 1.1 }}
+                          transition={{ duration: 0.3 }}
+                        >
                           <Calendar className="size-4" />
-                        </div>
+                        </motion.div>
                         <div className="flex-1">
                           <h4 className="text-sm font-semibold text-foreground">{event.title}</h4>
                           <p className="mt-1 text-xs text-muted-foreground">
@@ -173,10 +205,10 @@ export default function CommunityPage() {
                           </p>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -184,7 +216,13 @@ export default function CommunityPage() {
         {/* ── Guidelines ── */}
         <section className="px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <div className="surface-panel p-8 md:p-10">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="surface-panel p-8 md:p-10"
+            >
               <div className="relative z-10 max-w-3xl">
                 <span className="eyebrow">Community Guidelines • समुदाय निर्देश</span>
                 <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
@@ -196,25 +234,39 @@ export default function CommunityPage() {
                 </p>
 
                 <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                  {guidelines.map((guideline) => (
-                    <div
+                  {guidelines.map((guideline, index) => (
+                    <motion.div
                       key={guideline}
-                      className="flex items-start gap-3 rounded-2xl border border-border/60 bg-background/75 px-4 py-3"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: index * 0.08 }}
+                      className="flex items-start gap-3 rounded-2xl border border-border/60 bg-background/75 px-4 py-3 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5"
                     >
-                      <div className="bg-primary/10 mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full text-primary">
+                      <motion.div
+                        className="bg-primary/10 mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full text-primary"
+                        whileHover={{ scale: 1.2, rotate: 45 }}
+                        transition={{ duration: 0.3 }}
+                      >
                         <Sparkles className="size-2.5" />
-                      </div>
+                      </motion.div>
                       <p className="text-sm leading-6 text-foreground/90">{guideline}</p>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* ── CTA ── */}
-        <section className="px-4 pb-20 sm:px-6 lg:px-8">
+        <motion.section
+          className="px-4 pb-20 sm:px-6 lg:px-8"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="mx-auto max-w-7xl">
             <div className="surface-panel overflow-hidden bg-[linear-gradient(135deg,hsl(var(--foreground)),hsl(28_18%_18%))] text-background">
               <div className="grid gap-8 px-6 py-10 md:px-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
@@ -233,28 +285,32 @@ export default function CommunityPage() {
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row">
-                  <Button variant="premium" size="lg" asChild>
-                    <Link href="/ai-guide/">
-                      Start Learning
-                      <Sparkles className="size-4" />
-                    </Link>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="border-white/20 bg-white/10 text-white hover:bg-white/20"
-                    asChild
-                  >
-                    <Link href="/contents/">
-                      Browse Library
-                      <ArrowRight className="size-4" />
-                    </Link>
-                  </Button>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button variant="premium" size="lg" asChild>
+                      <Link href="/ai-guide/">
+                        Start Learning
+                        <Sparkles className="size-4" />
+                      </Link>
+                    </Button>
+                  </motion.div>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="border-white/20 bg-white/10 text-white hover:bg-white/20"
+                      asChild
+                    >
+                      <Link href="/contents/">
+                        Browse Library
+                        <ArrowRight className="size-4" />
+                      </Link>
+                    </Button>
+                  </motion.div>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
       </main>
 
       <Footer />

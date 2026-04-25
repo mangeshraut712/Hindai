@@ -1,15 +1,11 @@
-import { Metadata } from "next";
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { BookOpen, BookText, LibraryBig, ScrollText, Sparkles, Trees } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-
-export const metadata: Metadata = {
-  title: "Knowledge Structure",
-  description:
-    "Understand how Hindu scriptures are organized into Shruti, Smriti, Vedas, Upanishads, Puranas, Itihasa, and related traditions.",
-};
 
 const summaryStats = [
   { label: "Vedas", value: "4", note: "Rig, Yajur, Sama, Atharva" },
@@ -92,7 +88,12 @@ export default function StructurePage() {
         <section className="hero-mesh relative overflow-hidden border-b border-border/60">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.7fr)] lg:px-8">
-            <div className="max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="max-w-3xl"
+            >
               <span className="eyebrow">Knowledge Structure • ज्ञान संरचना</span>
               <h1 className="section-title mt-6">
                 Hindu scripture is a tradition, not a closed shelf.
@@ -106,18 +107,26 @@ export default function StructurePage() {
                 The foundational body includes 4 Vedas, over 108 recognized Upanishads, 18 Major
                 Puranas, and 2 major Epics. This page is the structural map for that world.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="surface-panel p-6">
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+              className="surface-panel p-6"
+            >
               <div className="relative z-10">
                 <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
                   At a glance
                 </p>
                 <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                  {summaryStats.map((item) => (
-                    <div
+                  {summaryStats.map((item, index) => (
+                    <motion.div
                       key={item.label}
-                      className="rounded-[24px] border border-border/60 bg-background/70 p-4"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4, delay: 0.3 + index * 0.08 }}
+                      className="rounded-[24px] border border-border/60 bg-background/70 p-4 transition-all duration-300 hover:scale-105 hover:border-primary/30"
                     >
                       <p className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
                         {item.label}
@@ -126,11 +135,11 @@ export default function StructurePage() {
                         {item.value}
                       </p>
                       <p className="mt-2 text-sm text-muted-foreground">{item.note}</p>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -138,11 +147,22 @@ export default function StructurePage() {
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-6 lg:grid-cols-3">
               {structureSections.map((section, index) => (
-                <div key={section.title} className="surface-panel group p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                <motion.div
+                  key={section.title}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="surface-panel group p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                >
                   <div className="relative z-10">
-                    <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20">
+                    <motion.div
+                      className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
                       <section.icon className="size-5" />
-                    </div>
+                    </motion.div>
                     <p className="mt-5 text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
                       {section.subtitle}
                     </p>
@@ -153,18 +173,22 @@ export default function StructurePage() {
                       {section.description}
                     </p>
                     <ul className="mt-6 space-y-3">
-                      {section.points.map((point) => (
-                        <li
+                      {section.points.map((point, pointIndex) => (
+                        <motion.li
                           key={point}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.3, delay: pointIndex * 0.05 }}
                           className="text-foreground/84 flex items-start gap-3 text-sm leading-7"
                         >
                           <BookOpen className="mt-1 size-4 shrink-0 text-primary" />
                           <span>{point}</span>
-                        </li>
+                        </motion.li>
                       ))}
                     </ul>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -172,7 +196,13 @@ export default function StructurePage() {
 
         <section className="px-4 pb-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <div className="surface-panel p-8 md:p-10">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="surface-panel p-8 md:p-10"
+            >
               <div className="relative z-10">
                 <div className="max-w-3xl">
                   <span className="eyebrow">Inside the Vedas • वेद भीतर</span>
@@ -187,27 +217,41 @@ export default function StructurePage() {
                 </div>
 
                 <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-                  {vedaLayers.map((layer) => (
-                    <div
+                  {vedaLayers.map((layer, index) => (
+                    <motion.div
                       key={layer.name}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: index * 0.1 }}
                       className="group rounded-[26px] border border-border/60 bg-background/75 p-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/40"
                     >
-                      <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110">
+                      <motion.div
+                        className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110"
+                        whileHover={{ rotate: 180 }}
+                        transition={{ duration: 0.5 }}
+                      >
                         <LibraryBig className="size-5" />
-                      </div>
+                      </motion.div>
                       <h3 className="mt-4 text-2xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{layer.name}</h3>
                       <p className="mt-3 text-sm leading-7 text-muted-foreground">
                         {layer.description}
                       </p>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
-        <section className="px-4 pb-20 sm:px-6 lg:px-8">
+        <motion.section
+          className="px-4 pb-20 sm:px-6 lg:px-8"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="mx-auto max-w-7xl">
             <div className="surface-panel overflow-hidden bg-[linear-gradient(135deg,hsl(var(--foreground)),hsl(28_18%_18%))] text-background">
               <div className="grid gap-8 px-6 py-10 md:px-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
@@ -225,16 +269,18 @@ export default function StructurePage() {
                   </p>
                 </div>
 
-                <Button variant="premium" size="lg" asChild>
-                  <Link href="/contents/#epics">
-                    Explore the epics
-                    <BookText className="size-4" />
-                  </Link>
-                </Button>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button variant="premium" size="lg" asChild>
+                    <Link href="/contents/#epics">
+                      Explore the epics
+                      <BookText className="size-4" />
+                    </Link>
+                  </Button>
+                </motion.div>
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
       </main>
 
       <Footer />
