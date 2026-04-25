@@ -17,15 +17,6 @@ const nextConfig = {
   },
   // Static optimization
   trailingSlash: false,
-  // Disable Turbopack for stability
-  turbo: {
-    rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
-      },
-    },
-  },
   // Security headers
   async headers() {
     return [
