@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateExplanation, getAIStatus } from "@/lib/ai/gemma";
+import { generateExplanation, getAIStatus } from "@/lib/ai/openrouter";
 import { transliterateToIast } from "@/lib/sanskrit/transliteration";
 
 export const runtime = "nodejs";
@@ -77,9 +77,11 @@ export async function POST(request: NextRequest) {
       rateLimit: result.rateLimit,
     });
   } catch (error) {
+    console.error("Sanskrit chat API error:", error);
     return NextResponse.json(
       {
         error: error instanceof Error ? error.message : "Sanskrit tutor is currently unavailable.",
+        details: error instanceof Error ? error.stack : undefined,
       },
       { status: 503 }
     );

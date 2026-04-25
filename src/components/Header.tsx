@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { LazyImage } from "@/components/ui/lazy-image";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
@@ -101,13 +101,14 @@ export function Header() {
           onClick={() => handleNavigation("/", "Home")}
         >
           <div className="flex size-11 items-center justify-center overflow-hidden rounded-full border border-border/70 bg-background/80 text-primary shadow-[0_18px_42px_-30px_rgba(15,23,42,0.35)]">
-            <LazyImage
+            <Image
               src="/logo.png"
               alt="Hind AI Logo"
               width={44}
               height={44}
               className="object-cover"
               priority
+              loading="eager"
             />
           </div>
           <div className="min-w-0">

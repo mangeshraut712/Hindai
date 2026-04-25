@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import Image, { ImageProps } from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -16,27 +13,20 @@ export function LazyImage({
   className,
   ...props
 }: LazyImageProps) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
-
   return (
     <div className={cn("relative overflow-hidden", className)}>
-      {isLoading && <div className="absolute inset-0 animate-pulse bg-muted" />}
       <Image
-        src={hasError ? fallback : src}
+        src={src}
         alt={alt}
         {...props}
-        className={cn(
-          "transition-opacity duration-300",
-          isLoading ? "opacity-0" : "opacity-100",
-          className
-        )}
-        onLoad={() => setIsLoading(false)}
-        onError={() => {
-          setHasError(true);
-          setIsLoading(false);
-        }}
+        className={cn("transition-opacity duration-300", className)}
         loading="lazy"
+        onError={(e) => {
+          const target = e.target as HTMLImageElement;
+          if (fallback) {
+            target.src = fallback;
+          }
+        }}
       />
     </div>
   );

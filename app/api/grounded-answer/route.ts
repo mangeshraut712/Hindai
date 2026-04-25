@@ -42,9 +42,15 @@ export async function POST(request: NextRequest) {
       grounding: result.grounding,
     });
   } catch (error) {
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Grounded answer failed." },
-      { status: 503 }
-    );
+    const reason = error instanceof Error ? error.message : "Grounded answer failed.";
+    return NextResponse.json({
+      reply:
+        "Grounded mode received the request, but live Gemma/OpenRouter generation is unavailable. Use HindAI scripture pages and local verse data for reading context, then retry grounded AI after credentials are fixed.",
+      model: "fallback-reference",
+      sources: [],
+      grounding: { verses: [], scriptures: [] },
+      available: false,
+      error: reason,
+    });
   }
 }

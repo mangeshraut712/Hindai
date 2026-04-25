@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateExplanation, getAIStatus } from "@/lib/ai/gemma";
+import { generateExplanation, getAIStatus } from "@/lib/ai/openrouter";
 
 export const runtime = "nodejs";
 
@@ -38,8 +38,9 @@ export async function OPTIONS() {
 
 export async function POST(request: NextRequest) {
   try {
+    const body = await request.json();
     const { prompt, scriptureId, compareScriptureIds, chapter, verse, language, mode, audience } =
-      await request.json();
+      body;
 
     if (!prompt || typeof prompt !== "string") {
       return NextResponse.json({ error: "Prompt is required" }, { status: 400 });

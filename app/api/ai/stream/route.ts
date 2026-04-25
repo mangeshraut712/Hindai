@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { generateExplanationStream, getAIStatus } from "@/lib/ai/gemma";
+import { generateExplanationStream, getAIStatus } from "@/lib/ai/openrouter";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -45,8 +45,8 @@ export async function OPTIONS() {
 
 export async function POST(req: Request) {
   try {
-    const { messages, scripture, chapter, verse, compareScriptureIds, mode, audience } =
-      await req.json();
+    const body = await req.json();
+    const { messages, scripture, chapter, verse, compareScriptureIds, mode, audience } = body;
     const latestUserMessage = Array.isArray(messages)
       ? [...messages]
           .reverse()

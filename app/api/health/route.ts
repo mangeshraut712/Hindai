@@ -10,7 +10,7 @@ export async function GET() {
   const aiStatus = await getAIStatus();
 
   return NextResponse.json({
-    status: "healthy",
+    status: aiStatus.available ? "healthy" : "degraded",
     timestamp: new Date().toISOString(),
     version: "1.0.0",
     environment: process.env.NODE_ENV || "development",

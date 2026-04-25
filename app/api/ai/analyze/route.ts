@@ -102,11 +102,20 @@ Format as JSON with field: wordAnalysis (array of objects with: sanskrit, iast, 
     });
   } catch (error) {
     console.error("AI Analysis Error:", error);
-    return NextResponse.json(
-      {
-        error: error instanceof Error ? error.message : "Analysis generation failed.",
+    return NextResponse.json({
+      mode: "fallback",
+      analysis: {
+        philosophicalMeaning:
+          "Live AI analysis is unavailable. The text was accepted, but deeper commentary requires a working Gemma/OpenRouter backend.",
+        historicalContext:
+          "Use the local scripture page and catalog metadata as the primary source until AI credentials are fixed.",
+        broaderConnections:
+          "Retry this endpoint after OPENROUTER_API_KEY or the configured Gemma backend is valid.",
+        practicalApplication:
+          "Read the Sanskrit line, compare the available translation, and ask a narrower follow-up question.",
       },
-      { status: 503 }
-    );
+      available: false,
+      error: error instanceof Error ? error.message : "Analysis generation failed.",
+    });
   }
 }

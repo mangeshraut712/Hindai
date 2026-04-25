@@ -3,6 +3,8 @@ import { analyzeManuscriptImage } from "@/lib/ai/gemma";
 
 export const runtime = "nodejs";
 
+const MAX_IMAGE_SIZE_BYTES = 4 * 1024 * 1024;
+
 // Multimodal endpoint for Sanskrit manuscript analysis
 export async function POST(request: NextRequest) {
   try {
@@ -12,6 +14,14 @@ export async function POST(request: NextRequest) {
 
     if (!image || !query) {
       return NextResponse.json({ error: "Image and query are required" }, { status: 400 });
+    }
+
+    if (!image.type.startsWith("image/")) {
+      return NextResponse.json({ error: "Uploaded file must be an image" }, { status: 415 });
+    }
+
+    if (image.size > MAX_IMAGE_SIZE_BYTES) {
+      return NextResponse.json({ error: "Image must be 4MB or smaller" }, { status: 413 });
     }
 
     // Convert image to base64 for Gemma 4 vision
@@ -28,6 +38,14 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Multimodal analysis error:", error);
-    return NextResponse.json({ error: "Failed to analyze manuscript image" }, { status: 500 });
+    return NextResponse.json({
+      response:
+        "Image received, but live Gemma 4 vision analysis is unavailable. Check the configured AI backend and retry.",
+      grounded: { verses: [], scriptures: [] },
+      model: "fallback-reference",
+      multimodal: true,
+      available: false,
+      error: error instanceof Error ? error.message : "Failed to analyze manuscript image",
+    });
   }
 }
