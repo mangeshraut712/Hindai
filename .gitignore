@@ -33,6 +33,10 @@ yarn-error.log*
 # IDE
 .vscode/
 .idea/
+.claude/
+.factory/
+.trae/
+.windsurf/
 *.swp
 *.swo
 
