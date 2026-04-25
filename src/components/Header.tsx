@@ -100,27 +100,28 @@ export function Header() {
           className="group flex min-w-0 items-center gap-3"
           onClick={() => handleNavigation("/", "Home")}
         >
-          <div className="flex size-11 items-center justify-center overflow-hidden rounded-full border border-border/70 bg-background/80 text-primary shadow-[0_18px_42px_-30px_rgba(15,23,42,0.35)]">
+          <div className="relative flex size-11 items-center justify-center overflow-hidden rounded-full border-2 border-primary/30 bg-gradient-to-br from-primary/10 to-primary/5 text-primary shadow-[0_18px_42px_-30px_rgba(25,88,50,0.25)] transition-all duration-300 group-hover:border-primary/50 group-hover:shadow-[0_18px_42px_-30px_rgba(25,88,50,0.35)]">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             <Image
               src="/logo.png"
               alt="Hind AI Logo"
               width={44}
               height={44}
-              className="object-cover"
+              className="relative object-cover"
               priority
               loading="eager"
             />
           </div>
           <div className="min-w-0">
-            <div className="text-lg font-semibold tracking-[0.01em] text-foreground">Hind AI</div>
-            <div className="font-devanagari text-[11px] tracking-[0.18em] text-muted-foreground">
+            <div className="text-lg font-semibold tracking-[0.01em] text-foreground transition-colors duration-300 group-hover:text-primary">Hind AI</div>
+            <div className="font-devanagari text-[11px] tracking-[0.18em] text-muted-foreground transition-colors duration-300 group-hover:text-primary/80">
               डिजिटल गुरुकुल
             </div>
           </div>
         </Link>
 
         <nav
-          className="bg-background/54 hidden items-center gap-1 rounded-full border border-border/60 p-1 shadow-[0_20px_60px_-48px_rgba(15,23,42,0.5)] lg:flex"
+          className="bg-background/54 hidden items-center gap-1 rounded-full border border-border/60 p-1 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.15)] lg:flex"
           aria-label="Primary"
           suppressHydrationWarning
         >
@@ -133,7 +134,7 @@ export function Header() {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="start"
-              className="bg-background/88 w-80 rounded-[24px] border-border/70 p-2 backdrop-blur-2xl"
+              className="bg-background/88 w-80 rounded-[24px] border-border/70 p-2 backdrop-blur-2xl shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)]"
             >
               <div className="px-3 pb-2 pt-1">
                 <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
@@ -141,7 +142,7 @@ export function Header() {
                 </p>
               </div>
               {headerScriptures.map((item) => (
-                <DropdownMenuItem key={item.slug} asChild className="rounded-2xl px-4 py-3">
+                <DropdownMenuItem key={item.slug} asChild className="rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10">
                   <Link
                     href={item.href}
                     className="flex flex-col gap-1"
@@ -166,7 +167,7 @@ export function Header() {
               onClick={() => handleNavigation(item.href, item.label)}
             >
               <span className="inline-flex items-center gap-1.5">
-                {item.icon ? <item.icon className="size-4 text-primary/80" /> : null}
+                {item.icon ? <item.icon className="size-4 text-primary/80 group-hover:text-primary transition-colors" /> : null}
                 {item.label}
               </span>
               <span className="sr-only"> {item.script}</span>
@@ -182,10 +183,10 @@ export function Header() {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="bg-background/92 w-56 rounded-[24px] border-border/70 p-2 backdrop-blur-2xl"
+              className="bg-background/92 w-56 rounded-[24px] border-border/70 p-2 backdrop-blur-2xl shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)]"
             >
               {moreItems.map((item) => (
-                <DropdownMenuItem key={item.href} asChild className="rounded-2xl px-4 py-3">
+                <DropdownMenuItem key={item.href} asChild className="rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10">
                   <Link
                     href={item.href}
                     className="flex items-center justify-between gap-3"
@@ -215,11 +216,11 @@ export function Header() {
           <Button
             variant="outline"
             size="sm"
-            className="hidden gap-2 sm:inline-flex"
+            className="hidden gap-2 sm:inline-flex border-primary/30 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
             onClick={handleSearchClick}
             aria-label="Open search dialog"
           >
-            <Search className="size-4" />
+            <Search className="size-4 text-primary/80" />
             Search
             <kbd className="hidden rounded-full border border-border/70 bg-background/80 px-2 py-0.5 text-[10px] font-medium text-muted-foreground lg:inline-flex">
               ⌘K
@@ -228,7 +229,13 @@ export function Header() {
 
           <VoiceSearch onResult={handleVoiceSearch} className="hidden md:flex" />
 
-          <Button variant="ghost" size="icon" onClick={handleThemeToggle} aria-label="Toggle theme">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={handleThemeToggle} 
+            aria-label="Toggle theme"
+            className="hover:bg-primary/10 transition-colors duration-300"
+          >
             <Sun className="size-4 rotate-0 scale-100 text-primary transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute size-4 rotate-90 scale-0 text-primary transition-all dark:rotate-0 dark:scale-100" />
             <span className="sr-only">Toggle theme</span>
@@ -236,8 +243,12 @@ export function Header() {
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="icon">
-                <Menu className="size-5" />
+              <Button 
+                variant="ghost" 
+                size="icon"
+                className="hover:bg-primary/10 transition-colors duration-300"
+              >
+                <Menu className="size-5 text-primary/80" />
                 <span className="sr-only">Open navigation menu</span>
               </Button>
             </SheetTrigger>
@@ -246,9 +257,9 @@ export function Header() {
               className="bg-background/92 w-[22rem] border-border/70 px-6 py-5 backdrop-blur-2xl"
             >
               <SheetHeader className="border-b border-border/60 pb-5">
-                <SheetTitle className="text-left text-xl font-semibold">Hind AI</SheetTitle>
+                <SheetTitle className="text-left text-xl font-semibold text-primary">Hind AI</SheetTitle>
                 <SheetDescription className="text-left">
-                  <span className="font-devanagari tracking-[0.16em]">डिजिटल गुरुकुल</span>
+                  <span className="font-devanagari tracking-[0.16em] text-muted-foreground">डिजिटल गुरुकुल</span>
                   <span className="mt-3 flex flex-wrap gap-2">
                     <span className="script-chip">English</span>
                     <span className="script-chip font-devanagari">हिंदी</span>
@@ -260,13 +271,13 @@ export function Header() {
               <div className="mt-6 space-y-7">
                 <Button
                   variant="outline"
-                  className="w-full justify-start"
+                  className="w-full justify-start border-primary/30 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
                   onClick={() => {
                     handleSearchClick();
                     setIsOpen(false);
                   }}
                 >
-                  <Search className="size-4" />
+                  <Search className="size-4 text-primary" />
                   Search scriptures
                 </Button>
 
@@ -279,7 +290,7 @@ export function Header() {
                       <Link
                         key={item.slug}
                         href={item.href}
-                        className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 transition-colors hover:bg-secondary/70"
+                        className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5"
                         onClick={() => handleNavigation(item.href, item.name)}
                       >
                         <p className="font-devanagari text-sm text-primary">{item.sanskrit}</p>
@@ -298,7 +309,7 @@ export function Header() {
                       <Link
                         key={item.href}
                         href={item.href}
-                        className={`rounded-[20px] border px-4 py-3 transition-colors hover:bg-secondary/70 ${
+                        className={`rounded-[20px] border px-4 py-3 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5 ${
                           isActive(item.href)
                             ? "border-primary/45 bg-primary/10"
                             : "border-border/60 bg-background/70"
