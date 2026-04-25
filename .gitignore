@@ -40,6 +40,10 @@ yarn-error.log*
 *.swp
 *.swo
 
+# AI Assistant Skills
+skills/
+skills-lock.json
+
 # OS
 .DS_Store
 Thumbs.db
