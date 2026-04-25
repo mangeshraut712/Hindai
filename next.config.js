@@ -9,11 +9,26 @@ const nextConfig = {
   // Bundle optimization
   experimental: {
     optimizePackageImports: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', 'lucide-react'],
+    scrollRestoration: true,
   },
   // Image optimization
   images: {
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 60 * 60 * 24 * 7, // 7 days
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "hindai.dev",
+      },
+      {
+        protocol: "https",
+        hostname: "github.com",
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+      },
+    ],
   },
   // Static optimization
   trailingSlash: false,
@@ -42,29 +57,6 @@ const nextConfig = {
         ],
       },
     ];
-  },
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "hindai.dev",
-      },
-      {
-        protocol: "https",
-        hostname: "github.com",
-      },
-      {
-        protocol: "https",
-        hostname: "avatars.githubusercontent.com",
-      },
-    ],
-    formats: ["image/webp", "image/avif"],
-    minimumCacheTTL: 60,
-  },
-  // Experimental optimizations
-  experimental: {
-    optimizePackageImports: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', 'lucide-react'],
-    scrollRestoration: true,
   },
 };
 

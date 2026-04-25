@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getAIStatus } from "@/lib/ai/gemma";
+import { getAIStatus } from "@/lib/ai/openrouter";
 
 /**
  * Health Check API
