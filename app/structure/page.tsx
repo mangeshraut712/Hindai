@@ -104,8 +104,8 @@ export default function StructurePage() {
                 <strong>Shruti</strong> and <strong>Smriti</strong>.
               </p>
               <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
-                The foundational body includes 4 Vedas, 30 documented Upanishads, 18 Major
-                Puranas, and 2 major Epics. This page is the structural map for that world.
+                The foundational body includes 4 Vedas, 30 documented Upanishads, 18 Major Puranas,
+                and 2 major Epics. This page is the structural map for that world.
               </p>
             </motion.div>
 

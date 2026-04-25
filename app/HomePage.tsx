@@ -127,11 +127,11 @@ export default function HomePage() {
                     losing atmosphere or context.
                   </p>
                   <p className="max-w-2xl text-sm leading-7 text-muted-foreground">
-                  Hindu scripture is a vast tradition built over millennia, broadly organized into
-                  <strong>Shruti</strong> (revealed scripture) and <strong>Smriti</strong> (remembered
-                  tradition), with the Bhagavad Gita, Upanishads, Puranas, and epics all occupying
-                  distinct but connected places.
-                </p>
+                    Hindu scripture is a vast tradition built over millennia, broadly organized into
+                    <strong>Shruti</strong> (revealed scripture) and <strong>Smriti</strong>{" "}
+                    (remembered tradition), with the Bhagavad Gita, Upanishads, Puranas, and epics
+                    all occupying distinct but connected places.
+                  </p>
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row">
