@@ -32,6 +32,23 @@ api-keys.txt
 secrets.txt
 credentials.json
 
+# Vercel environment files - CRITICAL SECURITY
+.vercel.env.*
+vercel.env.*
+*.vercel.env*
+
+# Google API keys and secrets
+google-api-key.json
+google-credentials.json
+service-account.json
+
+# All API key patterns
+*api-key*
+*apikey*
+*api_key*
+*secret*
+*token*
+
 # Vercel
 .vercel
 
