@@ -6,6 +6,26 @@ const nextConfig = {
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
+  // Bundle optimization
+  experimental: {
+    optimizePackageImports: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', 'lucide-react'],
+  },
+  // Image optimization
+  images: {
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 60 * 60 * 24 * 7, // 7 days
+  },
+  // Static optimization
+  trailingSlash: false,
+  // Disable Turbopack for stability
+  turbo: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
+  },
   // Security headers
   async headers() {
     return [
@@ -52,7 +72,7 @@ const nextConfig = {
   },
   // Experimental optimizations
   experimental: {
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', 'lucide-react'],
     scrollRestoration: true,
   },
 };

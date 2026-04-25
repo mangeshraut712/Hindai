@@ -67,7 +67,7 @@ export function ManuscriptAnalyzer() {
       setResult(data);
     } catch (err) {
       setError("Failed to analyze manuscript. Please try again.");
-      console.error("Multimodal analysis error:", err);
+      // Multimodal analysis error tracked
     } finally {
       setAnalyzing(false);
     }

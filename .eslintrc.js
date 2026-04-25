@@ -8,4 +8,9 @@ module.exports = {
     ],
     "react-hooks/exhaustive-deps": "warn",
   },
+  settings: {
+    json: {
+      $schema: "https://json.schemastore.org/eslintrc",
+    },
+  },
 };

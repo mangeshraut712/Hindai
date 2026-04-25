@@ -62,7 +62,7 @@ export function VoiceSearch({
       };
 
       recognition.onerror = (event: any) => {
-        console.error("Speech recognition error:", event.error);
+        // Speech recognition error tracked
         track("voice_search_error", { error: event.error });
         setIsListening(false);
       };

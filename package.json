@@ -53,8 +53,6 @@
     "react-dom": "^19.2.5",
     "tailwind-merge": "^2.6.1",
     "tailwindcss-animate": "^1.0.7",
-    "tar": "^7.5.13",
-    "vercel": "^50.41.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {

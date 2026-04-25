@@ -1084,7 +1084,7 @@ export const UPANISHADS = [
     veda: "Yajurveda",
     verses: 18,
     period: "~800-600 BCE",
-    theme: "Supreme consciousness, cosmic order, spiritual wisdom"
+    theme: "Supreme consciousness, cosmic order, spiritual wisdom",
   },
   {
     id: "kena-upanishad",
@@ -1093,7 +1093,7 @@ export const UPANISHADS = [
     veda: "Samaveda",
     verses: 35,
     period: "~800-600 BCE",
-    theme: "Brahman as the underlying consciousness behind all actions"
+    theme: "Brahman as the underlying consciousness behind all actions",
   },
   {
     id: "katha-upanishad",
@@ -1102,7 +1102,7 @@ export const UPANISHADS = [
     veda: "Yajurveda",
     verses: 119,
     period: "~600-400 BCE",
-    theme: "Death and immortality, nature of self, path to liberation"
+    theme: "Death and immortality, nature of self, path to liberation",
   },
   {
     id: "prashna-upanishad",
@@ -1111,7 +1111,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 67,
     period: "~600-400 BCE",
-    theme: "Six philosophical questions about ultimate reality"
+    theme: "Six philosophical questions about ultimate reality",
   },
   {
     id: "mundaka-upanishad",
@@ -1120,7 +1120,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 64,
     period: "~600-400 BCE",
-    theme: "Two paths of knowledge: lower and higher, nature of Brahman"
+    theme: "Two paths of knowledge: lower and higher, nature of Brahman",
   },
   {
     id: "mandukya-upanishad",
@@ -1129,7 +1129,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 12,
     period: "~500-300 BCE",
-    theme: "Four states of consciousness, OM as ultimate reality"
+    theme: "Four states of consciousness, OM as ultimate reality",
   },
   {
     id: "taittiriya-upanishad",
@@ -1138,7 +1138,7 @@ export const UPANISHADS = [
     veda: "Yajurveda",
     verses: 117,
     period: "~600-400 BCE",
-    theme: "Five sheaths of existence, food and Brahman, spiritual education"
+    theme: "Five sheaths of existence, food and Brahman, spiritual education",
   },
   {
     id: "aitareya-upanishad",
@@ -1147,7 +1147,7 @@ export const UPANISHADS = [
     veda: "Rigveda",
     verses: 33,
     period: "~800-600 BCE",
-    theme: "Creation of universe, nature of consciousness, cosmic being"
+    theme: "Creation of universe, nature of consciousness, cosmic being",
   },
   {
     id: "chandogya-upanishad",
@@ -1156,7 +1156,7 @@ export const UPANISHADS = [
     veda: "Samaveda",
     verses: 629,
     period: "~800-600 BCE",
-    theme: "Brahman as ultimate reality, education, meditation, identity"
+    theme: "Brahman as ultimate reality, education, meditation, identity",
   },
   {
     id: "brihadaranyaka-upanishad",
@@ -1165,7 +1165,7 @@ export const UPANISHADS = [
     veda: "Yajurveda",
     verses: 647,
     period: "~900-700 BCE",
-    theme: "Nature of self, cosmic creation, karma, liberation, metaphysics"
+    theme: "Nature of self, cosmic creation, karma, liberation, metaphysics",
   },
   {
     id: "brahma-upanishad",
@@ -1174,7 +1174,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 45,
     period: "~500-300 BCE",
-    theme: "Nature of Brahman, liberation, meditation techniques"
+    theme: "Nature of Brahman, liberation, meditation techniques",
   },
   {
     id: "kaivalya-upanishad",
@@ -1183,7 +1183,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 24,
     period: "~500-300 BCE",
-    theme: "Liberation and isolation, nature of ultimate reality"
+    theme: "Liberation and isolation, nature of ultimate reality",
   },
   {
     id: "jabala-upanishad",
@@ -1192,7 +1192,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 86,
     period: "~500-300 BCE",
-    theme: "Renunciation, spiritual practices, detachment from world"
+    theme: "Renunciation, spiritual practices, detachment from world",
   },
   {
     id: "shvetashvatara-upanishad",
@@ -1201,7 +1201,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 113,
     period: "~400-200 BCE",
-    theme: "Nature of God, devotion, cosmic powers, spiritual discipline"
+    theme: "Nature of God, devotion, cosmic powers, spiritual discipline",
   },
   {
     id: "hamsa-upanishad",
@@ -1210,7 +1210,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 118,
     period: "~500-300 BCE",
-    theme: "Supreme soul, meditation, spiritual liberation"
+    theme: "Supreme soul, meditation, spiritual liberation",
   },
   {
     id: "aruneya-upanishad",
@@ -1219,7 +1219,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 33,
     period: "~500-300 BCE",
-    theme: "Renunciation, spiritual knowledge, liberation"
+    theme: "Renunciation, spiritual knowledge, liberation",
   },
   {
     id: "garbha-upanishad",
@@ -1228,7 +1228,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 49,
     period: "~500-300 BCE",
-    theme: "Embryology, creation, development of consciousness"
+    theme: "Embryology, creation, development of consciousness",
   },
   {
     id: "narayana-upanishad",
@@ -1237,7 +1237,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 76,
     period: "~500-300 BCE",
-    theme: "Supreme being Narayana, meditation, cosmic order"
+    theme: "Supreme being Narayana, meditation, cosmic order",
   },
   {
     id: "paramahamsa-upanishad",
@@ -1246,7 +1246,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 42,
     period: "~500-300 BCE",
-    theme: "Supreme renunciation, highest state of spiritual attainment"
+    theme: "Supreme renunciation, highest state of spiritual attainment",
   },
   {
     id: "amritabindu-upanishad",
@@ -1255,7 +1255,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 25,
     period: "~500-300 BCE",
-    theme: "Immortality, consciousness, liberation through knowledge"
+    theme: "Immortality, consciousness, liberation through knowledge",
   },
   {
     id: "amritanada-upanishad",
@@ -1264,7 +1264,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 18,
     period: "~500-300 BCE",
-    theme: "Immortality, bliss, spiritual liberation through meditation"
+    theme: "Immortality, bliss, spiritual liberation through meditation",
   },
   {
     id: "atharvashiras-upanishad",
@@ -1273,7 +1273,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 21,
     period: "~500-300 BCE",
-    theme: "Divine nature of Rudra, supreme consciousness, unity with Brahman"
+    theme: "Divine nature of Rudra, supreme consciousness, unity with Brahman",
   },
   {
     id: "atharvashikha-upanishad",
@@ -1282,7 +1282,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 11,
     period: "~500-300 BCE",
-    theme: "Four-faced Brahman, spiritual knowledge, liberation through wisdom"
+    theme: "Four-faced Brahman, spiritual knowledge, liberation through wisdom",
   },
   {
     id: "maitrayani-upanishad",
@@ -1291,7 +1291,7 @@ export const UPANISHADS = [
     veda: "Samaveda",
     verses: 64,
     period: "~600-400 BCE",
-    theme: "Nature of self, Brahman, liberation through knowledge and meditation"
+    theme: "Nature of self, Brahman, liberation through knowledge and meditation",
   },
   {
     id: "kaushitaki-upanishad",
@@ -1300,7 +1300,7 @@ export const UPANISHADS = [
     veda: "Rigveda",
     verses: 33,
     period: "~800-600 BCE",
-    theme: "Immortality, nature of self, path to liberation through meditation"
+    theme: "Immortality, nature of self, path to liberation through meditation",
   },
   {
     id: "brihajjabala-upanishad",
@@ -1309,7 +1309,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 20,
     period: "~500-300 BCE",
-    theme: "Ascetic practices, spiritual liberation, nature of Brahman"
+    theme: "Ascetic practices, spiritual liberation, nature of Brahman",
   },
   {
     id: "nrisimhatapani-upanishad",
@@ -1318,7 +1318,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 42,
     period: "~500-300 BCE",
-    theme: "Narasimha mantra, spiritual protection, liberation through devotion"
+    theme: "Narasimha mantra, spiritual protection, liberation through devotion",
   },
   {
     id: "kalagnirudra-upanishad",
@@ -1327,7 +1327,7 @@ export const UPANISHADS = [
     veda: "Atharvaveda",
     verses: 22,
     period: "~500-300 BCE",
-    theme: "Time, fire, Shiva, cosmic destruction and creation cycles"
+    theme: "Time, fire, Shiva, cosmic destruction and creation cycles",
   },
   {
     id: "maitreyi-upanishad",
@@ -1336,7 +1336,7 @@ export const UPANISHADS = [
     veda: "Yajurveda",
     verses: 32,
     period: "~600-400 BCE",
-    theme: "Self-knowledge, liberation, dialogue between Yajnavalkya and Maitreyi"
+    theme: "Self-knowledge, liberation, dialogue between Yajnavalkya and Maitreyi",
   },
   {
     id: "subala-upanishad",

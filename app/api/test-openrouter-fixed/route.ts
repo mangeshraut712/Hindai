@@ -1,12 +1,12 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
   const apiKey = process.env.OPENROUTER_API_KEY;
-  const apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
-  
+  const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
+
   if (!apiKey) {
     return NextResponse.json(
-      { error: 'OPENROUTER_API_KEY not found in environment variables' },
+      { error: "OPENROUTER_API_KEY not found in environment variables" },
       { status: 500 }
     );
   }
@@ -14,36 +14,37 @@ export async function GET() {
   try {
     // Test OpenRouter API with proper headers and model
     const response = await fetch(apiUrl, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://hindai-nine.vercel.app',
-        'X-Title': 'Hind AI Scripture Platform'
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://hindai-nine.vercel.app",
+        "X-Title": "Hind AI Scripture Platform",
       },
       body: JSON.stringify({
-        model: process.env.OPENROUTER_MODEL || 'google/gemma-4-31b-it:free',
+        model: process.env.OPENROUTER_MODEL || "google/gemma-4-31b-it:free",
         messages: [
           {
-            role: 'user',
-            content: 'Hello, this is a test message. Please respond with "OpenRouter API is working correctly."'
-          }
+            role: "user",
+            content:
+              'Hello, this is a test message. Please respond with "OpenRouter API is working correctly."',
+          },
         ],
         max_tokens: 50,
-        temperature: 0.5
-      })
+        temperature: 0.5,
+      }),
     });
 
     // Get response as text first to debug
     const responseText = await response.text();
-    
+
     if (!response.ok) {
       return NextResponse.json(
-        { 
-          error: 'OpenRouter API request failed',
+        {
+          error: "OpenRouter API request failed",
           status: response.status,
           statusText: response.statusText,
-          details: responseText
+          details: responseText,
         },
         { status: response.status }
       );
@@ -55,28 +56,27 @@ export async function GET() {
       data = JSON.parse(responseText);
     } catch (parseError) {
       return NextResponse.json(
-        { 
-          error: 'Failed to parse OpenRouter response as JSON',
+        {
+          error: "Failed to parse OpenRouter response as JSON",
           status: response.status,
-          responseText: responseText.substring(0, 500) // First 500 chars for debugging
+          responseText: responseText.substring(0, 500), // First 500 chars for debugging
         },
         { status: 500 }
       );
     }
-    
+
     return NextResponse.json({
       success: true,
       model: data.model,
-      response: data.choices?.[0]?.message?.content || 'No response content',
+      response: data.choices?.[0]?.message?.content || "No response content",
       usage: data.usage,
-      rawResponse: data
+      rawResponse: data,
     });
-
   } catch (error) {
     return NextResponse.json(
-      { 
-        error: 'Failed to call OpenRouter API',
-        details: error instanceof Error ? error.message : 'Unknown error'
+      {
+        error: "Failed to call OpenRouter API",
+        details: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 }
     );
@@ -87,46 +87,46 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { model, messages, max_tokens = 100, temperature = 0.7 } = body;
-    
+
     const apiKey = process.env.OPENROUTER_API_KEY;
-    const apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
-    
+    const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
+
     if (!apiKey) {
       return NextResponse.json(
-        { error: 'OPENROUTER_API_KEY not found in environment variables' },
+        { error: "OPENROUTER_API_KEY not found in environment variables" },
         { status: 500 }
       );
     }
 
     const response = await fetch(apiUrl, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://hindai-nine.vercel.app',
-        'X-Title': 'Hind AI Scripture Platform'
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://hindai-nine.vercel.app",
+        "X-Title": "Hind AI Scripture Platform",
       },
       body: JSON.stringify({
-        model: model || process.env.OPENROUTER_MODEL || 'google/gemma-4-31b-it:free',
+        model: model || process.env.OPENROUTER_MODEL || "google/gemma-4-31b-it:free",
         messages: messages || [
           {
-            role: 'user',
-            content: 'Hello, please introduce yourself.'
-          }
+            role: "user",
+            content: "Hello, please introduce yourself.",
+          },
         ],
         max_tokens,
-        temperature
-      })
+        temperature,
+      }),
     });
 
     const responseText = await response.text();
-    
+
     if (!response.ok) {
       return NextResponse.json(
-        { 
-          error: 'OpenRouter API request failed',
+        {
+          error: "OpenRouter API request failed",
           status: response.status,
-          details: responseText
+          details: responseText,
         },
         { status: response.status }
       );
@@ -137,26 +137,25 @@ export async function POST(request: NextRequest) {
       data = JSON.parse(responseText);
     } catch (parseError) {
       return NextResponse.json(
-        { 
-          error: 'Failed to parse OpenRouter response as JSON',
-          responseText: responseText.substring(0, 500)
+        {
+          error: "Failed to parse OpenRouter response as JSON",
+          responseText: responseText.substring(0, 500),
         },
         { status: 500 }
       );
     }
-    
+
     return NextResponse.json({
       success: true,
       model: data.model,
-      response: data.choices?.[0]?.message?.content || 'No response content',
-      usage: data.usage
+      response: data.choices?.[0]?.message?.content || "No response content",
+      usage: data.usage,
     });
-
   } catch (error) {
     return NextResponse.json(
-      { 
-        error: 'Failed to process request',
-        details: error instanceof Error ? error.message : 'Unknown error'
+      {
+        error: "Failed to process request",
+        details: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 }
     );

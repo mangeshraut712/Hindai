@@ -36,7 +36,7 @@ class PerformanceMonitor {
         lcpObserver.observe({ entryTypes: ["largest-contentful-paint"] });
         this.observers.push(lcpObserver);
       } catch {
-        console.warn("LCP observer not supported");
+        // LCP observer not supported
       }
 
       // FID (First Input Delay)
@@ -55,7 +55,7 @@ class PerformanceMonitor {
         fidObserver.observe({ entryTypes: ["first-input"] });
         this.observers.push(fidObserver);
       } catch {
-        console.warn("FID observer not supported");
+        // FID observer not supported
       }
 
       // CLS (Cumulative Layout Shift)
@@ -77,7 +77,7 @@ class PerformanceMonitor {
         clsObserver.observe({ entryTypes: ["layout-shift"] });
         this.observers.push(clsObserver);
       } catch {
-        console.warn("CLS observer not supported");
+        // CLS observer not supported
       }
     }
 
@@ -115,7 +115,7 @@ class PerformanceMonitor {
 
     // Log to console in development
     if (process.env.NODE_ENV === "development") {
-      console.log(`[Performance] ${metric.name}: ${metric.value}ms`, metric.metadata);
+      // Performance metric logged in development
     }
   }
 

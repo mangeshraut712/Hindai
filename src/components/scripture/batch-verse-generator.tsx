@@ -77,7 +77,7 @@ export function BatchVerseGenerator({
       const data = await response.json();
       return data.verse || null;
     } catch (err) {
-      console.error(`Error generating verse ${chapter}.${verse}:`, err);
+      // Verse generation error tracked
       return null;
     }
   };

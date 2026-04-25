@@ -20,7 +20,6 @@ export function MeditationTimer({ className }: MeditationTimerProps) {
   const [currentPhase, setCurrentPhase] = useState<"inhale" | "hold" | "exhale">("inhale");
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const _audioRef = useRef<HTMLAudioElement | null>(null);
   const bellAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleTimerComplete = useCallback(() => {

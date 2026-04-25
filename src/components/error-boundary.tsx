@@ -64,19 +64,8 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   private reportError(error: Error, errorInfo: React.ErrorInfo) {
-    const errorReport = {
-      message: error.message,
-      stack: error.stack,
-      componentStack: errorInfo.componentStack,
-      errorId: this.state.errorId,
-      url: typeof window !== "undefined" ? window.location.href : "",
-      userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
-      timestamp: new Date().toISOString(),
-      environment: process.env.NODE_ENV,
-      version: process.env.NEXT_PUBLIC_VERSION || "1.0.0",
-    };
-
-    // Error report generated
+    // Error logging could be implemented here
+    console.error("Error boundary caught error:", error, errorInfo);
   }
 
   private handleRetry = () => {
