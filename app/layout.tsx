@@ -122,7 +122,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" dir="ltr" className="relative" suppressHydrationWarning>
+    <html lang="en" dir="ltr" className="relative" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         {/* Structured Data for WebSite */}
         <script

@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Search as SearchIcon, X, BookOpen, Loader2 } from "lucide-react";
 import { Command } from "cmdk";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { track } from "@vercel/analytics";
@@ -144,6 +144,9 @@ export function SearchDialog({
             </div>
             Search Scriptures
           </DialogTitle>
+          <DialogDescription>
+            Search across all scriptures by name, description, Sanskrit text, or category
+          </DialogDescription>
         </DialogHeader>
         <div className="p-5">
           <div className="relative">
