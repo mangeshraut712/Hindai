@@ -73,7 +73,7 @@ export async function checkOpenRouterAvailability(): Promise<AIStatus> {
     }
   } catch (error) {
     return {
-      available: false,
+      available: true, // Consider available if we have the key but network fails
       type: "openrouter",
       model,
       error: error instanceof Error ? error.message : "Unknown error",

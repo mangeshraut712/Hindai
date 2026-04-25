@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(_request: NextRequest) {
   const openrouterKey = process.env.OPENROUTER_API_KEY;
-  const openrouterUrl =
-    process.env.OPENROUTER_URL || "https://openrouter.ai/api/v1/chat/completions";
+  const openrouterUrl = "https://openrouter.ai/api/v1/chat/completions";
 
   const results: {
     openrouter: { status: string; error: any; response: any };
@@ -25,7 +24,7 @@ export async function GET(_request: NextRequest) {
           "X-Title": "Hind AI Scripture Platform",
         },
         body: JSON.stringify({
-          model: process.env.OPENROUTER_MODEL || "anthropic/claude-3-haiku",
+          model: process.env.OPENROUTER_MODEL || "google/gemma-4-31b-it:free",
           messages: [
             {
               role: "user",
