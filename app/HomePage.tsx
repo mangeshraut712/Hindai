@@ -7,6 +7,7 @@ import { ArrowRight, Bot, Languages, Library, ScanSearch } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { LearningProgress } from "@/components/learning-progress";
 import { featuredScriptures, scriptureSections } from "@/lib/scripture-catalog";
 
 const studyModes = [
@@ -14,16 +15,19 @@ const studyModes = [
     icon: Library,
     title: "Read by shelf",
     body: "Move through Vedas, epics, Puranas, and philosophy with clear structure rather than scattered links.",
+    features: ["4 Vedas", "18 Puranas", "108+ Upanishads", "2 Epics"]
   },
   {
     icon: ScanSearch,
     title: "Read by meaning",
     body: "Browse with context, transliteration, and modern summaries instead of raw verse fragments.",
+    features: ["Sanskrit + Hindi + English", "Word-by-word breakdown", "Historical context", "Cross-references"]
   },
   {
     icon: Bot,
     title: "Ask by intent",
     body: "Use Guru AI when you need an explanation, comparison, or grounded entry point into a difficult idea.",
+    features: ["Gemma 4 powered", "Verse-by-verse analysis", "Comparative commentary", "Personalized learning"]
   },
 ];
 
@@ -194,14 +198,21 @@ export default function HomePage() {
 
             <div className="mt-12 grid gap-6 lg:grid-cols-3">
               {studyModes.map((mode) => (
-                <div key={mode.title} className="surface-panel p-7">
+                <div key={mode.title} className="surface-panel p-7 group hover:shadow-2xl transition-all duration-300">
                   <div className="relative z-10 space-y-5">
-                    <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300">
                       <mode.icon className="size-5" />
                     </div>
                     <div>
                       <h3 className="text-2xl font-semibold text-foreground">{mode.title}</h3>
                       <p className="mt-3 text-sm leading-7 text-muted-foreground">{mode.body}</p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {mode.features.map((feature) => (
+                          <span key={feature} className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                            {feature}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -319,6 +330,92 @@ export default function HomePage() {
                   </Link>
                 </Button>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 pb-24 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="max-w-3xl">
+              <span className="eyebrow">Interactive Features</span>
+              <h2 className="section-title mt-6">Experience ancient wisdom in modern ways.</h2>
+              <p className="section-copy mt-5">
+                Discover sacred texts through innovative features that make learning engaging, interactive, and deeply meaningful.
+              </p>
+            </div>
+
+            <div className="mt-12 grid gap-8 lg:grid-cols-2">
+              <div className="surface-panel p-8 group hover:shadow-xl transition-all duration-300">
+                <div className="relative z-10 space-y-6">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-purple-600 group-hover:scale-110 transition-transform duration-300">
+                    <Bot className="size-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-semibold text-foreground">AI-Powered Learning</h3>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                      Get personalized explanations, comparative analysis, and contextual insights powered by Google Gemma 4. Ask questions in natural language and receive thoughtful, culturally-aware responses.
+                    </p>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                      Real-time AI responses
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                      Multilingual support
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                      Contextual understanding
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="surface-panel p-8 group hover:shadow-xl transition-all duration-300">
+                <div className="relative z-10 space-y-6">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-500/20 text-blue-600 group-hover:scale-110 transition-transform duration-300">
+                    <Languages className="size-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-semibold text-foreground">Multilingual Experience</h3>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                      Study scriptures in their original Sanskrit, with transliteration, Hindi translations, and clear English explanations. Switch between languages seamlessly while maintaining context.
+                    </p>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <div className="h-2 w-2 rounded-full bg-blue-500"></div>
+                      Sanskrit (Devanagari)
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <div className="h-2 w-2 rounded-full bg-blue-500"></div>
+                      Hindi translations
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <div className="h-2 w-2 rounded-full bg-blue-500"></div>
+                      English explanations
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 pb-24 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="max-w-3xl">
+              <span className="eyebrow">Your Learning Journey</span>
+              <h2 className="section-title mt-6">Track your spiritual progress.</h2>
+              <p className="section-copy mt-5">
+                Monitor your learning journey with personalized progress tracking, achievements, and insights into your study habits.
+              </p>
+            </div>
+
+            <div className="mt-12">
+              <LearningProgress />
             </div>
           </div>
         </section>
