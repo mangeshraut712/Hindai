@@ -187,7 +187,7 @@ export default function DailyWisdomClient() {
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
               <div className="max-w-3xl">
-                <span className="eyebrow">Dainik Sadhana</span>
+                <span className="eyebrow">Dainik Sadhana • दैनिक साधना</span>
                 <h1 className="section-title mt-6">Begin each day with timeless wisdom.</h1>
                 <p className="section-copy mt-5">
                   A new Sanskrit verse, its meaning, and a meditation prompt drawn from the Vedas,
@@ -203,7 +203,7 @@ export default function DailyWisdomClient() {
                 </p>
               </div>
 
-              <div className="surface-panel max-w-md p-6 lg:ml-auto">
+              <div className="surface-panel max-w-md p-6 lg:ml-auto transition-all duration-300 hover:shadow-xl">
                 <div className="relative z-10 space-y-4">
                   <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
                     Today&apos;s practice
@@ -217,7 +217,7 @@ export default function DailyWisdomClient() {
                     ].map((item) => (
                       <div
                         key={item}
-                        className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground/80"
+                        className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground/80 transition-all duration-300 hover:bg-primary/10 hover:border-primary/30"
                       >
                         {item}
                       </div>

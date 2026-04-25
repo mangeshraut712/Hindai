@@ -19,7 +19,7 @@ export default function SanskritNovaPage() {
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
-              <span className="eyebrow">SanskritNova inside HindAI</span>
+              <span className="eyebrow">SanskritNova • संस्कृत नव</span>
               <h1 className="section-title mt-6">Learn Sanskrit with Gemma 4.</h1>
               <p className="section-copy mt-5">
                 Tutor chat, transliteration, and guided Sanskrit tracks from SanskritNova now live

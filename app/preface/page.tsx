@@ -83,7 +83,7 @@ export default function PrefacePage() {
           <div className="hero-sun right-0 top-20 size-72 opacity-60" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
-              <span className="eyebrow">Prastavana</span>
+              <span className="eyebrow">Prastavana • प्रस्तावना</span>
               <h1 className="section-title mt-6">Welcome to Hind AI.</h1>
               <p className="section-copy mt-5">
                 Your companion in exploring the timeless wisdom of ancient India. More than a
@@ -102,7 +102,7 @@ export default function PrefacePage() {
           <div className="mx-auto max-w-7xl">
             <div className="surface-panel p-8 md:p-10">
               <div className="relative z-10">
-                <span className="eyebrow">Understanding the tradition</span>
+                <span className="eyebrow">Understanding the tradition • परंपरा</span>
                 <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
                   How Hindu scripture is organized
                 </h2>
@@ -145,7 +145,7 @@ export default function PrefacePage() {
         <section className="px-4 pb-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
-              <span className="eyebrow">What you&apos;ll find here</span>
+              <span className="eyebrow">What you&apos;ll find here • यहाँ क्या है</span>
               <h2 className="section-title mt-6">Four pillars of the experience.</h2>
             </div>
             <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -170,7 +170,7 @@ export default function PrefacePage() {
         <section className="px-4 pb-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
-              <span className="eyebrow">Your journey</span>
+              <span className="eyebrow">Your journey • आपकी यात्रा</span>
               <h2 className="section-title mt-6">How to begin.</h2>
             </div>
             <div className="mt-12 grid gap-6 md:grid-cols-2">
@@ -203,7 +203,7 @@ export default function PrefacePage() {
           <div className="mx-auto max-w-7xl">
             <div className="surface-panel p-8 md:p-10">
               <div className="relative z-10 max-w-3xl">
-                <span className="eyebrow">A note on interpretation</span>
+                <span className="eyebrow">A note on interpretation • व्याख्या</span>
                 <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
                   Multiple perspectives, not definitive answers.
                 </h2>

@@ -165,7 +165,7 @@ export default async function ScripturePage({ params }: PageProps) {
             {verses.length > 0 ? (
               <div className="space-y-10">
                 <div className="max-w-3xl">
-                  <span className="eyebrow">Verse study</span>
+                  <span className="eyebrow">Verse study • श्लोक अध्ययन</span>
                   <h2 className="section-title mt-6">Read a verse, then deepen it with Gemma 4.</h2>
                   <p className="section-copy mt-5">
                     Hind AI is stronger than a plain digital shelf when it turns a scripture page
@@ -210,7 +210,7 @@ export default async function ScripturePage({ params }: PageProps) {
               <div className="space-y-10">
                 <div className="surface-panel p-8 md:p-10">
                   <div className="relative z-10 max-w-3xl">
-                    <span className="eyebrow">Overview mode</span>
+                    <span className="eyebrow">Overview mode • सारांश</span>
                     <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
                       This text is cataloged and ready for guided expansion.
                     </h2>

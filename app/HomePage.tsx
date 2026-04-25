@@ -198,7 +198,7 @@ export default function HomePage() {
         <section className="px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
-              <span className="eyebrow">How the interface works</span>
+              <span className="eyebrow">How the interface works • इंटरफ़ेस</span>
               <h2 className="section-title mt-6">Modern restraint, ancient atmosphere.</h2>
               <p className="section-copy mt-5">
                 The interface uses stronger typography, quieter surfaces, balanced color, and
@@ -245,7 +245,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div className="max-w-3xl">
-                <span className="eyebrow">Scripture shelves</span>
+                <span className="eyebrow">Scripture shelves • ग्रन्थ शेल्फ</span>
                 <h2 className="section-title mt-6">Browse by shelf, then open the text.</h2>
                 <p className="section-copy mt-5">
                   Every shelf gives you a clear entry into the catalog and then onward into
@@ -341,7 +341,7 @@ export default function HomePage() {
             <div className="surface-panel p-8 md:p-10">
               <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                 <div className="max-w-3xl">
-                  <span className="eyebrow">Guided journeys</span>
+                  <span className="eyebrow">Guided journeys • यात्रा</span>
                   <h2 className="section-title mt-6">
                     Turn scripture into a learning path, not just a page.
                   </h2>
@@ -365,7 +365,7 @@ export default function HomePage() {
         <section className="px-4 pb-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
-              <span className="eyebrow">Interactive Features</span>
+              <span className="eyebrow">Interactive Features • विशेषताएं</span>
               <h2 className="section-title mt-6">Experience ancient wisdom in modern ways.</h2>
               <p className="section-copy mt-5">
                 Discover sacred texts through innovative features that make learning engaging,
@@ -454,7 +454,7 @@ export default function HomePage() {
         <section className="px-4 pb-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
-              <span className="eyebrow">Your Learning Journey</span>
+              <span className="eyebrow">Your Learning Journey • आपकी यात्रा</span>
               <h2 className="section-title mt-6">Track your spiritual progress.</h2>
               <p className="section-copy mt-5">
                 Monitor your learning journey with personalized progress tracking, achievements, and

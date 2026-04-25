@@ -93,7 +93,7 @@ export default function StructurePage() {
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.7fr)] lg:px-8">
             <div className="max-w-3xl">
-              <span className="eyebrow">Knowledge Structure</span>
+              <span className="eyebrow">Knowledge Structure • ज्ञान संरचना</span>
               <h1 className="section-title mt-6">
                 Hindu scripture is a tradition, not a closed shelf.
               </h1>
@@ -137,16 +137,16 @@ export default function StructurePage() {
         <section className="px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-6 lg:grid-cols-3">
-              {structureSections.map((section) => (
-                <div key={section.title} className="surface-panel p-7">
+              {structureSections.map((section, index) => (
+                <div key={section.title} className="surface-panel group p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                   <div className="relative z-10">
-                    <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20">
                       <section.icon className="size-5" />
                     </div>
                     <p className="mt-5 text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
                       {section.subtitle}
                     </p>
-                    <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+                    <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground group-hover:text-primary transition-colors duration-300">
                       {section.title}
                     </h2>
                     <p className="mt-4 text-sm leading-7 text-muted-foreground">
@@ -175,7 +175,7 @@ export default function StructurePage() {
             <div className="surface-panel p-8 md:p-10">
               <div className="relative z-10">
                 <div className="max-w-3xl">
-                  <span className="eyebrow">Inside the Vedas</span>
+                  <span className="eyebrow">Inside the Vedas • वेद भीतर</span>
                   <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
                     Each Veda is layered, not singular.
                   </h2>
@@ -190,12 +190,12 @@ export default function StructurePage() {
                   {vedaLayers.map((layer) => (
                     <div
                       key={layer.name}
-                      className="rounded-[26px] border border-border/60 bg-background/75 p-5"
+                      className="group rounded-[26px] border border-border/60 bg-background/75 p-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/40"
                     >
-                      <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110">
                         <LibraryBig className="size-5" />
                       </div>
-                      <h3 className="mt-4 text-2xl font-semibold text-foreground">{layer.name}</h3>
+                      <h3 className="mt-4 text-2xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{layer.name}</h3>
                       <p className="mt-3 text-sm leading-7 text-muted-foreground">
                         {layer.description}
                       </p>

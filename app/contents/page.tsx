@@ -21,7 +21,7 @@ export default function ContentsPage() {
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.7fr)] lg:px-8">
             <div className="max-w-3xl">
-              <span className="eyebrow">Granthalaya</span>
+              <span className="eyebrow">Granthalaya • ग्रन्थालय</span>
               <h1 className="section-title mt-6">A cleaner catalog for timeless texts.</h1>
               <p className="section-copy mt-5">
                 Every shelf is now visible, readable, and anchor-linked. Use the catalog for

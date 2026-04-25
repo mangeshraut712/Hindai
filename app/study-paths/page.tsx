@@ -19,7 +19,7 @@ export default function StudyPathsPage() {
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
-              <span className="eyebrow">Guided Study Paths</span>
+              <span className="eyebrow">Guided Study Paths • मार्गिका</span>
               <h1 className="section-title mt-6">
                 Saved reading journeys for students and teachers.
               </h1>

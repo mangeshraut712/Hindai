@@ -55,7 +55,7 @@ export default async function AIGuidePage({ searchParams }: AIGuidePageProps) {
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
               <div className="max-w-3xl">
-                <span className="eyebrow">Guru AI • Gemma 4</span>
+                <span className="eyebrow">Guru AI • गुरु एआई</span>
                 <h1 className="section-title mt-6">
                   Ask, compare, and translate Indian scripture with local AI.
                 </h1>

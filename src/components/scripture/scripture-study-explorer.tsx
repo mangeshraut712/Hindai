@@ -11,7 +11,6 @@ import {
   BookOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { AIExplanation } from "@/components/ai/ai-explanation";
 import { ScriptureVerse } from "@/types/scripture";
 import { getLocalStorageItem, setLocalStorageItem } from "@/lib/utils";
 
@@ -374,18 +373,6 @@ export function ScriptureStudyExplorer({
                   <Sparkles className="size-4 text-primary" />
                   Gemma 4 grounded study pack
                 </span>
-              </div>
-
-              <div className="mt-8">
-                <AIExplanation
-                  verseId={selectedVerse.id}
-                  sanskrit={selectedVerse.sanskrit}
-                  translation={selectedVerse.translation.en}
-                  scripture={scriptureSlug}
-                  chapter={selectedVerse.chapter}
-                  verse={selectedVerse.verse}
-                  audience="student"
-                />
               </div>
             </div>
           </motion.article>

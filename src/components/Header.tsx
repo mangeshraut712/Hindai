@@ -41,13 +41,13 @@ const navItems = [
   { label: "Guru AI", script: "गुरु", href: "/ai-guide", icon: Sparkles },
   { label: "Sanskrit", script: "संस्कृत", href: "/sanskrit-nova", icon: Languages },
   { label: "Study Paths", script: "पाठ", href: "/study-paths" },
-  { label: "Daily", script: "दैनिक", href: "/daily" },
+  { label: "Quiz", script: "परीक्षा", href: "/quiz", icon: Trophy },
 ];
 
 const moreItems = [
-  { label: "Quiz", script: "परीक्षा", href: "/quiz", icon: Trophy },
-  { label: "Structure", script: "विन्यास", href: "/structure" },
-  { label: "Preface", script: "प्रस्तावना", href: "/preface" },
+  { label: "Daily", script: "दैनिक", href: "/daily", icon: Sun },
+  { label: "Structure", script: "विन्यास", href: "/structure", icon: BookOpen },
+  { label: "Preface", script: "प्रस्तावना", href: "/preface", icon: Sparkles },
 ];
 
 export function Header() {
@@ -123,15 +123,18 @@ export function Header() {
         </Link>
 
         <nav
-          className="bg-background/54 hidden items-center gap-1 rounded-full border border-border/60 p-1 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.15)] lg:flex"
+          className="bg-background/54 hidden items-center gap-1.5 rounded-2xl border border-border/60 px-2 py-1.5 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.15)] lg:flex"
           aria-label="Primary"
           suppressHydrationWarning
         >
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="nav-pill gap-2">
-                Scriptures
-                <ChevronDown className="size-4" />
+                <span className="flex flex-col items-start leading-tight">
+                  <span className="text-xs font-semibold">Scriptures</span>
+                  <span className="font-devanagari text-[10px] text-muted-foreground">ग्रन्थ</span>
+                </span>
+                <ChevronDown className="size-3.5 ml-1" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -169,24 +172,29 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className={`nav-pill group ${isActive(item.href) ? "nav-pill-active" : ""}`}
+              className={`nav-pill group flex flex-col items-center px-3 py-1.5 ${isActive(item.href) ? "nav-pill-active" : ""}`}
               onClick={() => handleNavigation(item.href, item.label)}
             >
-              <span className="inline-flex items-center gap-1.5">
+              <span className="flex items-center gap-1.5 text-xs font-semibold">
                 {item.icon ? (
-                  <item.icon className="size-4 text-primary/80 transition-colors group-hover:text-primary" />
+                  <item.icon className="size-3.5 text-primary/80 transition-colors group-hover:text-primary" />
                 ) : null}
                 {item.label}
               </span>
-              <span className="sr-only"> {item.script}</span>
+              <span className="font-devanagari text-[10px] text-muted-foreground transition-colors group-hover:text-primary/70">
+                {item.script}
+              </span>
             </Link>
           ))}
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="nav-pill gap-2">
-                More
-                <ChevronDown className="size-4" />
+                <span className="flex flex-col items-start leading-tight">
+                  <span className="text-xs font-semibold">More</span>
+                  <span className="font-devanagari text-[10px] text-muted-foreground">अधिक</span>
+                </span>
+                <ChevronDown className="size-3.5 ml-1" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -204,13 +212,15 @@ export function Header() {
                     className="flex items-center justify-between gap-3"
                     onClick={() => handleNavigation(item.href, item.label)}
                   >
-                    <span className="inline-flex items-center gap-2 text-sm font-semibold">
-                      {item.icon ? <item.icon className="size-4 text-primary" /> : null}
-                      {item.label}
-                    </span>
-                    <span className="font-devanagari text-xs text-muted-foreground">
-                      {item.script}
-                    </span>
+                    <div className="flex flex-col">
+                      <span className="flex items-center gap-2 text-sm font-semibold">
+                        {item.icon ? <item.icon className="size-4 text-primary" /> : null}
+                        {item.label}
+                      </span>
+                      <span className="font-devanagari text-xs text-muted-foreground">
+                        {item.script}
+                      </span>
+                    </div>
                   </Link>
                 </DropdownMenuItem>
               ))}
@@ -219,10 +229,12 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <div className="hidden items-center gap-1 xl:flex" aria-label="Study languages">
-            <span className="script-chip">EN</span>
-            <span className="script-chip font-devanagari">हिंदी</span>
-            <span className="script-chip font-devanagari">संस्कृत</span>
+          <div className="hidden items-center gap-1.5 rounded-full border border-border/60 bg-background/70 px-3 py-1.5 xl:flex" aria-label="Study languages">
+            <span className="text-[10px] font-semibold text-foreground">EN</span>
+            <span className="h-3 w-px bg-border/60"></span>
+            <span className="font-devanagari text-[10px] text-muted-foreground">हिंदी</span>
+            <span className="h-3 w-px bg-border/60"></span>
+            <span className="font-devanagari text-[10px] text-muted-foreground">संस्कृत</span>
           </div>
 
           <Button
@@ -233,7 +245,7 @@ export function Header() {
             aria-label="Open search dialog"
           >
             <Search className="size-4 text-primary/80" />
-            Search
+            <span className="text-xs">Search</span>
             <kbd className="hidden rounded-full border border-border/70 bg-background/80 px-2 py-0.5 text-[10px] font-medium text-muted-foreground lg:inline-flex">
               ⌘K
             </kbd>
@@ -276,11 +288,13 @@ export function Header() {
                   <span className="font-devanagari tracking-[0.16em] text-muted-foreground">
                     डिजिटल गुरुकुल
                   </span>
-                  <span className="mt-3 flex flex-wrap gap-2">
-                    <span className="script-chip">English</span>
-                    <span className="script-chip font-devanagari">हिंदी</span>
-                    <span className="script-chip font-devanagari">संस्कृत</span>
-                  </span>
+                  <div className="mt-3 flex items-center gap-1.5 rounded-full border border-border/60 bg-background/70 px-3 py-1.5 w-fit">
+                    <span className="text-[10px] font-semibold text-foreground">EN</span>
+                    <span className="h-3 w-px bg-border/60"></span>
+                    <span className="font-devanagari text-[10px] text-muted-foreground">हिंदी</span>
+                    <span className="h-3 w-px bg-border/60"></span>
+                    <span className="font-devanagari text-[10px] text-muted-foreground">संस्कृत</span>
+                  </div>
                 </SheetDescription>
               </SheetHeader>
 
