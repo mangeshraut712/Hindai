@@ -10,8 +10,7 @@ on:
     branches: [main, develop]
 
 env:
-  NODE_VERSION: "22"
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  NODE_VERSION: "25"
 
 jobs:
   # ==========================================
@@ -141,10 +140,8 @@ jobs:
   # No secrets needed — Vercel handles deployment via GitHub App
   #
   # Required Vercel Environment Variables:
-  #   GEMINI_API_KEY        — Google Generative Language API key (for hosted Gemma)
-  #   GEMMA_MODEL           — Model ID, e.g. "gemma-4-31b-it" or "gemma-4-26b-a4b-it"
-  #   OLLAMA_API_KEY        — API key for cloud Ollama (if using)
-  #   KAGGLE_API_TOKEN      — Kaggle API token (for model access)
-  #   OLLAMA_CLOUD_URL      — (Optional) Cloud Ollama endpoint URL
+  #   OPENROUTER_API_KEY    — OpenRouter API key for Gemma 4 access
+  #   OPENROUTER_URL       — OpenRouter API endpoint
+  #   OPENROUTER_MODEL     — Model ID, e.g. "google/gemma-4-31b-it:free"
   #   UPSTASH_REDIS_REST_URL    — (Optional) Redis for caching
   #   UPSTASH_REDIS_REST_TOKEN  — (Optional) Redis token

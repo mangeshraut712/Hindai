@@ -3,10 +3,10 @@
 <div align="center">
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue?style=for-the-badge&logo=typescript)
-![Next.js](https://img.shields.io/badge/Next.js-15.0.0-saffron?style=for-the-badge&logo=next.js)
-![React](https://img.shields.io/badge/React-19.0.0-blue?style=for-the-badge&logo=react)
-![Gemma 4](https://img.shields.io/badge/Gemma%204%208B-gold?style=for-the-badge&logo=google)
-![Node.js](https://img.shields.io/badge/Node.js-22.0.0-green?style=for-the-badge&logo=node.js)
+![Next.js](https://img.shields.io/badge/Next.js-16.3.0-saffron?style=for-the-badge&logo=next.js)
+![React](https://img.shields.io/badge/React-19.2.5-blue?style=for-the-badge&logo=react)
+![OpenRouter](https://img.shields.io/badge/OpenRouter-Gemma%204-gold?style=for-the-badge&logo=openrouter)
+![Node.js](https://img.shields.io/badge/Node.js-25.9.0-green?style=for-the-badge&logo=node.js)
 ![License](https://img.shields.io/badge/License-CC--BY--4.0-lightgrey?style=for-the-badge)
 
   <img src="public/logo.png" alt="Hind AI Logo" width="150" />
@@ -23,18 +23,18 @@
 
 ## 📖 Overview
 
-**Hind AI** is a cutting-edge AI-powered spiritual learning platform that democratizes access to ancient Indian wisdom using **Gemma 4 8B via Ollama**. Our platform features advanced RAG pipelines, multimodal Sanskrit analysis, function calling tools, and complete offline capability.
+**Hind AI** is a cutting-edge AI-powered spiritual learning platform that democratizes access to ancient Indian wisdom using **Google Gemma 4 via OpenRouter**. Our platform features advanced RAG pipelines, multimodal Sanskrit analysis, function calling tools, and comprehensive scripture analysis.
 
 > **"सत्यमेव जयते · नमस्ते · ॐ"** - Truth Alone Triumphs · Welcome · Om
 
 ### 🎯 Key Highlights
 
-- **🤖 AI-Powered**: Gemma 4 8B with local inference via Ollama
+- **🤖 AI-Powered**: Google Gemma 4 31B via OpenRouter API
 - **📚 184 Scriptures**: Complete Vedas, Upanishads, Puranas, Epics, and Gita
 - **🔍 RAG Pipeline**: Context-grounded answers with scripture citations
 - **🖼️ Multimodal**: Sanskrit manuscript analysis with vision AI
-- **🌐 Offline-First**: Complete functionality without internet
-- **⚡ Modern Stack**: Next.js 15, React 19, TypeScript 5.9, Node.js 22
+- **🌐 Cloud-Optimized**: Production-ready with global deployment
+- **⚡ Modern Stack**: Next.js 16.3, React 19.2, TypeScript 5.9, Node.js 25.9
 
 ---
 
@@ -59,16 +59,23 @@ npm run dev
 
 ---
 
-## 🆕 What's New in Version 1.1.0 (April 2026)
+## 🆕 What's New in Version 2.0.0 (April 2026)
 
-### 🤖 Gemma 4 Verse Generation System
+### 🤖 OpenRouter Integration with Gemma 4
 
-- **AI-Powered Verse Generation** - Generate any missing verse using Gemma 4 AI
-- **Single Verse Generator** - Create Sanskrit, IAST, English, Hindi translations on demand
-- **Batch Generation** - Generate entire chapters with progress tracking
-- **Word-by-Word Breakdown** - AI-generated pada-by-pada meanings
-- **Speaker Attribution** - Track who speaks each verse (Krishna, Arjuna, Sanjaya, Dhritarashtra)
-- **Rate-Limited API** - 10 requests/minute for optimal performance
+- **Official LLM API** - Switched from NVIDIA to OpenRouter as official LLM provider
+- **Google Gemma 4 31B** - Enhanced AI capabilities with larger model
+- **Cloud-Optimized** - Production-ready deployment with Vercel
+- **Improved Reliability** - Stable API endpoints with proper error handling
+- **Enhanced Performance** - Faster response times and better token efficiency
+
+### 🔧 Comprehensive Codebase Optimization
+
+- **Storage Optimization** - Reduced footprint by removing unnecessary files
+- **Code Quality** - Applied Clean Code principles and Prettier formatting
+- **Performance Tuning** - Optimized bundle sizes and resource loading
+- **Security Enhancements** - All vulnerabilities resolved (0 vulnerabilities)
+- **Build Optimization** - 175 static pages generated in 41 seconds
 
 ### 🧪 SanskritNova Consolidation
 
