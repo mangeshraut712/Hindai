@@ -37,7 +37,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Enhanced error logging
-    console.error("ErrorBoundary caught an error:", error, errorInfo);
+    // Error logged to Vercel Analytics
 
     // Track error in Vercel Analytics
     track("error_boundary", {
@@ -76,7 +76,7 @@ export class ErrorBoundary extends Component<Props, State> {
       version: process.env.NEXT_PUBLIC_VERSION || "1.0.0",
     };
 
-    console.error("Error Report:", JSON.stringify(errorReport, null, 2));
+    // Error report generated
   }
 
   private handleRetry = () => {
@@ -175,7 +175,7 @@ export function useErrorReporting() {
         timestamp: new Date().toISOString(),
       });
 
-      console.error("Manual error report:", error, context);
+      // Manual error report tracked
     },
   };
 }
