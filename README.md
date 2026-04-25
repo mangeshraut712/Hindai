@@ -70,6 +70,13 @@ npm run dev
 - **Speaker Attribution** - Track who speaks each verse (Krishna, Arjuna, Sanjaya, Dhritarashtra)
 - **Rate-Limited API** - 10 requests/minute for optimal performance
 
+### 🧪 SanskritNova Consolidation
+
+- **Sanskrit Studio** - SanskritNova tutor, transliteration, and guided tracks now live at `/sanskrit-nova`
+- **Gemma 4 Only** - SanskritNova learning prompts use HindAI's Gemma 4 runtime instead of a separate OpenRouter service
+- **Single App Surface** - Navigation, sitemap, and footer now point learners to HindAI as the canonical home
+- **Merge Notes** - See [`docs/sanskritnova-merge.md`](docs/sanskritnova-merge.md) for the comparison and repository cleanup steps
+
 ### 📚 Scripture Data Status (184 Total Scriptures)
 
 | Category       | Count      | Metadata | Verse Data                 |

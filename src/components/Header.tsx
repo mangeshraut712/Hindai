@@ -5,7 +5,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { BookOpen, ChevronDown, Menu, Moon, Search, Sparkles, Sun, Trophy } from "lucide-react";
+import {
+  BookOpen,
+  ChevronDown,
+  Languages,
+  Menu,
+  Moon,
+  Search,
+  Sparkles,
+  Sun,
+  Trophy,
+} from "lucide-react";
 import { track } from "@vercel/analytics";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,6 +39,7 @@ import { headerScriptures } from "@/lib/scripture-catalog";
 const navItems = [
   { label: "Library", script: "ग्रन्थालय", href: "/contents", icon: BookOpen },
   { label: "Guru AI", script: "गुरु", href: "/ai-guide", icon: Sparkles },
+  { label: "Sanskrit", script: "संस्कृत", href: "/sanskrit-nova", icon: Languages },
   { label: "Study Paths", script: "पाठ", href: "/study-paths" },
   { label: "Daily", script: "दैनिक", href: "/daily" },
 ];

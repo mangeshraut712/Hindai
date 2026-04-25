@@ -10,6 +10,7 @@ const footerGroups = [
     links: [
       { label: "Library", href: "/contents/" },
       { label: "Guru AI", href: "/ai-guide/" },
+      { label: "Sanskrit Studio", href: "/sanskrit-nova/" },
       { label: "Daily", href: "/daily/" },
       { label: "Study Paths", href: "/study-paths/" },
       { label: "Quiz", href: "/quiz/" },
@@ -40,8 +41,8 @@ export function Footer() {
             </h2>
           </div>
           <p className="max-w-xl text-sm leading-7 text-muted-foreground">
-            Hind AI brings scriptures, reflection, and AI-guided learning into one theme-aware
-            reading experience shaped for modern seekers.
+            Hind AI brings scriptures, SanskritNova learning tools, reflection, and AI-guided
+            learning into one theme-aware reading experience shaped for modern seekers.
           </p>
           <div className="flex items-center gap-3">
             <Link
@@ -84,7 +85,7 @@ export function Footer() {
           </p>
           <div className="flex items-center gap-2" aria-label="Features">
             <Sparkles className="size-3.5 text-primary" aria-hidden="true" />
-            <span>Hindi splash • Sanskrit-first details • Theme aware</span>
+            <span>Hindi splash • Sanskrit Studio • Theme aware</span>
           </div>
         </div>
       </div>
