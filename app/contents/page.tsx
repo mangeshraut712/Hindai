@@ -87,8 +87,8 @@ export default function ContentsPage() {
                           </p>
                         </div>
                         <div>
-                          <p className="font-devanagari text-xl text-primary">{item.sanskrit}</p>
-                          <h3 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+                          <p className="font-devanagari text-xl text-primary group-hover:scale-105 transition-transform duration-300">{item.sanskrit}</p>
+                          <h3 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground group-hover:text-primary transition-colors duration-300">
                             {item.name}
                           </h3>
                           <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">

@@ -34,7 +34,21 @@ export default function StudyPathsPage() {
 
         <section className="px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <StudyPathBoard />
+            <div className="surface-panel p-8 md:p-10">
+              <div className="relative z-10 max-w-3xl">
+                <span className="eyebrow">Learning Infrastructure</span>
+                <h2 className="section-title mt-6">
+                  Structured paths for consistent learning.
+                </h2>
+                <p className="section-copy mt-5">
+                  Study paths connect scripture structure, AI guidance, and progress tracking into
+                  reusable learning flows that work for both individual study and classroom teaching.
+                </p>
+              </div>
+            </div>
+            <div className="mt-12">
+              <StudyPathBoard />
+            </div>
           </div>
         </section>
       </main>

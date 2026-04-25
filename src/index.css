@@ -143,9 +143,14 @@
   }
 
   .surface-panel {
-    @apply relative overflow-hidden rounded-[28px] shadow-[0_30px_80px_-52px_rgba(15,23,42,0.34)] backdrop-blur-2xl;
+    @apply relative overflow-hidden rounded-[28px] shadow-[0_30px_80px_-52px_rgba(15,23,42,0.34)] backdrop-blur-2xl transition-all duration-300;
     background: hsl(var(--card) / 0.84);
     border: 1px solid hsl(var(--border) / 0.72);
+  }
+
+  .surface-panel:hover {
+    box-shadow: 0 36px 90px -58px rgba(15, 23, 42, 0.42);
+    border-color: hsl(var(--border) / 0.85);
   }
 
   .surface-panel::before {
@@ -156,12 +161,18 @@
     background:
       linear-gradient(180deg, hsl(var(--background) / 0.22), transparent 34%),
       radial-gradient(circle at top right, hsl(var(--accent) / 0.1), transparent 30%);
+    transition: opacity 0.3s ease;
   }
 
   .dark .surface-panel {
     background: hsl(var(--card) / 0.88);
     border-color: hsl(var(--border) / 0.82);
     box-shadow: 0 42px 100px -58px rgba(0, 0, 0, 0.68);
+  }
+
+  .dark .surface-panel:hover {
+    box-shadow: 0 48px 110px -62px rgba(0, 0, 0, 0.75);
+    border-color: hsl(var(--border) / 0.92);
   }
 
   .dark .surface-panel::before {
@@ -206,13 +217,14 @@
   }
 
   .scripture-row {
-    @apply relative grid gap-5 px-6 py-6 transition-colors duration-300 md:grid-cols-[160px_minmax(0,1fr)_180px] md:items-end md:px-8;
+    @apply relative grid gap-5 px-6 py-6 transition-all duration-300 md:grid-cols-[160px_minmax(0,1fr)_180px] md:items-end md:px-8;
   }
 
   .scripture-row::after {
     content: "";
     @apply pointer-events-none absolute inset-x-6 bottom-0 h-px md:inset-x-8;
     background: hsl(var(--border) / 0.7);
+    transition: opacity 0.3s ease;
   }
 
   .scripture-row:last-child::after {
@@ -221,18 +233,19 @@
 
   .scripture-row:hover {
     background: hsl(var(--secondary) / 0.45);
+    transform: translateX(4px);
   }
 
   .nav-pill {
-    @apply rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-foreground/70 transition-all duration-200 hover:border-border/70 hover:bg-background/70 hover:text-foreground;
+    @apply rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-foreground/70 transition-all duration-300 hover:border-border/70 hover:bg-background/70 hover:text-foreground hover:shadow-md;
   }
 
   .nav-pill-active {
-    @apply border-border/70 bg-background/80 text-foreground shadow-[0_14px_34px_-30px_rgba(15,23,42,0.4)];
+    @apply border-border/70 bg-background/80 text-foreground shadow-[0_14px_34px_-30px_rgba(15,23,42,0.4)] transition-all duration-300;
   }
 
   .script-chip {
-    @apply inline-flex items-center rounded-full border border-border/70 bg-background/70 px-3 py-1 text-xs font-medium text-muted-foreground;
+    @apply inline-flex items-center rounded-full border border-border/70 bg-background/70 px-3 py-1 text-xs font-medium text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:bg-primary/10 hover:text-primary;
   }
 
   .boot-splash-backdrop {
@@ -253,6 +266,17 @@
       hsl(var(--primary)) 50%,
       hsl(var(--accent)) 100%
     );
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
   }
 }
 

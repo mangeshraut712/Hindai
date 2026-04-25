@@ -207,23 +207,27 @@ export default function HomePage() {
             </div>
 
             <div className="mt-12 grid gap-6 lg:grid-cols-3">
-              {studyModes.map((mode) => (
-                <div
+              {studyModes.map((mode, index) => (
+                <motion.div
                   key={mode.title}
-                  className="surface-panel group p-7 transition-all duration-300 hover:shadow-2xl"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="surface-panel group p-7 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
                 >
                   <div className="relative z-10 space-y-5">
-                    <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
+                    <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20">
                       <mode.icon className="size-5" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-semibold text-foreground">{mode.title}</h3>
+                      <h3 className="text-2xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{mode.title}</h3>
                       <p className="mt-3 text-sm leading-7 text-muted-foreground">{mode.body}</p>
                       <div className="mt-4 flex flex-wrap gap-2">
                         {mode.features.map((feature) => (
                           <span
                             key={feature}
-                            className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
+                            className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary transition-all duration-300 hover:bg-primary/20 hover:scale-105"
                           >
                             {feature}
                           </span>
@@ -231,7 +235,7 @@ export default function HomePage() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -255,27 +259,35 @@ export default function HomePage() {
 
             <div className="surface-panel mt-12">
               <div className="relative z-10">
-                {featuredScriptures.map((scripture) => (
-                  <Link key={scripture.slug} href={scripture.href} className="scripture-row group">
-                    <div>
-                      <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-                        {scripture.category}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="font-devanagari text-xl text-primary">{scripture.sanskrit}</p>
-                      <h3 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground">
-                        {scripture.name}
-                      </h3>
-                      <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
-                        {scripture.description}
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-between gap-4 md:justify-end">
-                      <span className="text-sm text-muted-foreground">{scripture.highlight}</span>
-                      <ArrowRight className="size-4 text-primary transition-transform group-hover:translate-x-1" />
-                    </div>
-                  </Link>
+                {featuredScriptures.map((scripture, index) => (
+                  <motion.div
+                    key={scripture.slug}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.08 }}
+                  >
+                    <Link href={scripture.href} className="scripture-row group">
+                      <div>
+                        <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                          {scripture.category}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="font-devanagari text-xl text-primary group-hover:scale-105 transition-transform duration-300">{scripture.sanskrit}</p>
+                        <h3 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground group-hover:text-primary transition-colors duration-300">
+                          {scripture.name}
+                        </h3>
+                        <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
+                          {scripture.description}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between gap-4 md:justify-end">
+                        <span className="text-sm text-muted-foreground">{scripture.highlight}</span>
+                        <ArrowRight className="size-4 text-primary transition-transform group-hover:translate-x-2 group-hover:scale-110" />
+                      </div>
+                    </Link>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -362,13 +374,19 @@ export default function HomePage() {
             </div>
 
             <div className="mt-12 grid gap-8 lg:grid-cols-2">
-              <div className="surface-panel group p-8 transition-all duration-300 hover:shadow-xl">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="surface-panel group p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              >
                 <div className="relative z-10 space-y-6">
-                  <div className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-purple-600 transition-transform duration-300 group-hover:scale-110">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-purple-600 transition-all duration-300 group-hover:scale-110 group-hover:from-purple-500/30 group-hover:to-pink-500/30">
                     <Bot className="size-6" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-semibold text-foreground">AI-Powered Learning</h3>
+                    <h3 className="text-2xl font-semibold text-foreground group-hover:text-purple-600 transition-colors duration-300">AI-Powered Learning</h3>
                     <p className="mt-3 text-sm leading-7 text-muted-foreground">
                       Get personalized explanations, comparative analysis, and contextual insights
                       powered by Google Gemma 4. Ask questions in natural language and receive
@@ -376,29 +394,35 @@ export default function HomePage() {
                     </p>
                   </div>
                   <div className="space-y-3">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                      <div className="h-2 w-2 rounded-full bg-green-500 group-hover:scale-125 transition-transform duration-300"></div>
                       Real-time AI responses
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                      <div className="h-2 w-2 rounded-full bg-green-500 group-hover:scale-125 transition-transform duration-300"></div>
                       Multilingual support
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                      <div className="h-2 w-2 rounded-full bg-green-500 group-hover:scale-125 transition-transform duration-300"></div>
                       Contextual understanding
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="surface-panel group p-8 transition-all duration-300 hover:shadow-xl">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="surface-panel group p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              >
                 <div className="relative z-10 space-y-6">
-                  <div className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-500/20 text-blue-600 transition-transform duration-300 group-hover:scale-110">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-500/20 text-blue-600 transition-all duration-300 group-hover:scale-110 group-hover:from-blue-500/30 group-hover:to-cyan-500/30">
                     <Languages className="size-6" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-semibold text-foreground">
+                    <h3 className="text-2xl font-semibold text-foreground group-hover:text-blue-600 transition-colors duration-300">
                       Multilingual Experience
                     </h3>
                     <p className="mt-3 text-sm leading-7 text-muted-foreground">
@@ -408,21 +432,21 @@ export default function HomePage() {
                     </p>
                   </div>
                   <div className="space-y-3">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <div className="h-2 w-2 rounded-full bg-blue-500"></div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                      <div className="h-2 w-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform duration-300"></div>
                       Sanskrit (Devanagari)
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <div className="h-2 w-2 rounded-full bg-blue-500"></div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                      <div className="h-2 w-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform duration-300"></div>
                       Hindi translations
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <div className="h-2 w-2 rounded-full bg-blue-500"></div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                      <div className="h-2 w-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform duration-300"></div>
                       English explanations
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>

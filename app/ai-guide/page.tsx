@@ -100,13 +100,13 @@ export default async function AIGuidePage({ searchParams }: AIGuidePageProps) {
             />
 
             <div className="mt-10 grid gap-5 lg:grid-cols-3">
-              {guidePoints.map((point) => (
-                <div key={point.title} className="surface-panel p-6">
+              {guidePoints.map((point, index) => (
+                <div key={point.title} className="surface-panel group p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                   <div className="relative z-10">
-                    <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20">
                       <Sparkles className="size-5" />
                     </div>
-                    <h2 className="mt-5 text-2xl font-semibold text-foreground">{point.title}</h2>
+                    <h2 className="mt-5 text-2xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{point.title}</h2>
                     <p className="mt-3 text-sm leading-7 text-muted-foreground">{point.body}</p>
                   </div>
                 </div>
