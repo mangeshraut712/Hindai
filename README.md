@@ -158,6 +158,7 @@ npm run dev
 | Additional     | 30+ texts              | ✅ 100%         | ✅ API endpoints ready     |
 
 **New Texts Added:**
+
 - Agamas & Tantras
 - Brahma Sutras
 - Devi Mahatmya
