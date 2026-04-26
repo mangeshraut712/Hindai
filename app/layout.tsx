@@ -23,6 +23,7 @@ const manrope = Manrope({
   variable: "--font-manrope",
   display: "swap",
   preload: true,
+  weight: ["400", "500", "600", "700"],
 });
 
 const cormorant = Cormorant_Garamond({
@@ -167,6 +168,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" dir="ltr" className="relative scroll-smooth" suppressHydrationWarning>
       <head>
+        {/* Resource hints for performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://hindai.dev" />
+
         {/* Structured Data for WebSite */}
         <script
           type="application/ld+json"
