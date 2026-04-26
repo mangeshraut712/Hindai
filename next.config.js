@@ -97,6 +97,16 @@ const nextConfig = {
           },
         },
       };
+
+      // Reduce bundle size by removing unused exports
+      config.optimization.usedExports = true;
+      config.optimization.sideEffects = false;
+
+      // Enable module concatenation for better performance
+      config.optimization.concatenateModules = true;
+
+      // Improve chunk loading performance
+      config.optimization.runtimeChunk = "single";
     }
     return config;
   },
@@ -152,6 +162,15 @@ const nextConfig = {
           {
             key: "Cache-Control",
             value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=0, must-revalidate",
           },
         ],
       },

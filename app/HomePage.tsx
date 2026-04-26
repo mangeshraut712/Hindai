@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { CANONICAL_COUNTS } from "@/lib/data/canonical-counts";
 import { featuredScriptures, scriptureSections } from "@/lib/scripture-catalog";
 
-// Lazy load LearningProgress to reduce initial bundle
+// Lazy load heavy components
 const LearningProgress = lazy(() =>
   import("@/components/learning-progress").then((mod) => ({ default: mod.LearningProgress }))
 );
