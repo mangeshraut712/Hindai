@@ -16,17 +16,11 @@
     "type-check": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "vitest --config=config/vitest.config.ts",
-    "test:coverage": "vitest run --coverage --config=config/vitest.config.ts",
-    "test:ui": "vitest --ui --config=config/vitest.config.ts",
     "analyze": "ANALYZE=true npm run build",
     "lighthouse": "npx @lhci/cli@0.15.1 autorun",
     "performance": "npm run build && npx serve .next -p 3001",
     "security": "npm audit --audit-level moderate",
-    "cleanup": "rm -rf .next node_modules/.cache && npm cache clean --force && npm prune",
-    "test:e2e": "playwright test --project=chromium",
-    "test:e2e:ui": "playwright test --ui",
-    "test:e2e:report": "playwright show-report"
+    "cleanup": "rm -rf .next node_modules/.cache && npm cache clean --force && npm prune"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",
@@ -56,25 +50,17 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@playwright/test": "^1.49.1",
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.4",
-    "@testing-library/react": "^16.1.0",
-    "@testing-library/user-event": "^14.5.2",
     "@types/node": "^22.10.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "@vitejs/plugin-react": "^6.0.1",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.1",
     "eslint-config-next": "^15.0.0",
-    "jsdom": "^25.0.1",
     "postcss": "^8.5.10",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^3.4.19",
-    "typescript": "^5.9.3",
-    "vitest": "^4.1.5"
+    "typescript": "^5.9.3"
   },
   "overrides": {
     "tar": "^7.5.13",
