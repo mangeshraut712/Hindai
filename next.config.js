@@ -56,6 +56,7 @@ const nextConfig = {
     if (!isServer) {
       config.optimization.splitChunks = {
         chunks: "all",
+        maxSize: 244000, // 244KB max chunk size
         cacheGroups: {
           default: false,
           vendors: false,
@@ -64,24 +65,28 @@ const nextConfig = {
             chunks: "all",
             test: /[\\/]node_modules[\\/](framer-motion)/,
             priority: 20,
+            maxSize: 200000,
           },
           radix: {
             name: "radix",
             chunks: "all",
             test: /[\\/]node_modules[\\/](@radix-ui)/,
             priority: 15,
+            maxSize: 150000,
           },
           lucide: {
             name: "lucide",
             chunks: "all",
             test: /[\\/]node_modules[\\/](lucide-react)/,
             priority: 10,
+            maxSize: 100000,
           },
           commons: {
             name: "commons",
             chunks: "all",
             minChunks: 2,
             priority: 5,
+            maxSize: 200000,
           },
         },
       };
@@ -95,6 +100,9 @@ const nextConfig = {
 
       // Improve chunk loading performance
       config.optimization.runtimeChunk = "single";
+
+      // Enable compression
+      config.optimization.minimize = true;
     }
     return config;
   },
@@ -150,6 +158,15 @@ const nextConfig = {
           {
             key: "Cache-Control",
             value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/api/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=300, s-maxage=600",
           },
         ],
       },

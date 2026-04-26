@@ -23,20 +23,20 @@ const manrope = Manrope({
   variable: "--font-manrope",
   display: "swap",
   preload: true,
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
 });
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-cormorant",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600"],
   display: "swap",
   preload: false,
 });
 
 const notoSerifDevanagari = Noto_Serif_Devanagari({
   subsets: ["devanagari"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "700"],
   variable: "--font-devanagari",
   display: "swap",
   preload: false,
@@ -44,7 +44,7 @@ const notoSerifDevanagari = Noto_Serif_Devanagari({
 
 const notoSansDevanagari = Noto_Sans_Devanagari({
   subsets: ["devanagari"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600"],
   variable: "--font-hindi",
   display: "swap",
   preload: false,
@@ -52,7 +52,7 @@ const notoSansDevanagari = Noto_Sans_Devanagari({
 
 const notoSansTamil = Noto_Sans_Tamil({
   subsets: ["tamil"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600"],
   variable: "--font-tamil",
   display: "swap",
   preload: false,
@@ -60,7 +60,7 @@ const notoSansTamil = Noto_Sans_Tamil({
 
 const notoSansTelugu = Noto_Sans_Telugu({
   subsets: ["telugu"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600"],
   variable: "--font-telugu",
   display: "swap",
   preload: false,
@@ -174,11 +174,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="dns-prefetch" href="https://hindai.dev" />
         <link rel="dns-prefetch" href="https://vercel.com" />
 
-        {/* Preload critical font */}
-        <link
-          rel="preload"
-          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
-          as="style"
+        {/* Inline critical CSS to prevent FOUC */}
+        <style
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: `
+              * { box-sizing: border-box; }
+              html { scroll-behavior: smooth; }
+              body { margin: 0; padding: 0; }
+            `,
+          }}
         />
 
         {/* Structured Data for WebSite */}
