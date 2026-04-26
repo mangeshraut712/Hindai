@@ -16,6 +16,8 @@
     "type-check": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "test": "echo 'No unit tests configured yet - skipping'",
+    "test:e2e": "echo 'No E2E tests configured yet - skipping'",
     "analyze": "ANALYZE=true npm run build",
     "lighthouse": "npx @lhci/cli@0.15.1 autorun",
     "performance": "npm run build && npx serve .next -p 3001",
