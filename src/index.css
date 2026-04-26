@@ -40,38 +40,38 @@
 }
 
 .dark {
-  --background: 220 24% 8%;
-  --foreground: 42 30% 94%;
-  --card: 220 20% 12%;
-  --card-foreground: 42 30% 94%;
-  --popover: 220 20% 11%;
-  --popover-foreground: 42 30% 94%;
-  --primary: 31 92% 60%;
-  --primary-foreground: 220 24% 8%;
-  --secondary: 216 18% 18%;
-  --secondary-foreground: 42 24% 90%;
-  --muted: 216 16% 17%;
-  --muted-foreground: 39 16% 70%;
-  --accent: 174 48% 48%;
-  --accent-foreground: 220 24% 8%;
-  --destructive: 0 64% 50%;
-  --destructive-foreground: 36 34% 95%;
-  --border: 216 14% 27%;
-  --input: 216 14% 23%;
-  --ring: 32 94% 63%;
-  --chart-1: 220 70% 50%;
-  --chart-2: 160 60% 45%;
-  --chart-3: 30 80% 55%;
-  --chart-4: 280 65% 60%;
-  --chart-5: 340 75% 55%;
-  --sidebar-background: 28 16% 10%;
-  --sidebar-foreground: 36 26% 90%;
-  --sidebar-primary: 32 94% 63%;
-  --sidebar-primary-foreground: 24 18% 10%;
-  --sidebar-accent: 28 12% 16%;
-  --sidebar-accent-foreground: 36 26% 90%;
-  --sidebar-border: 28 12% 22%;
-  --sidebar-ring: 32 94% 63%;
+  --background: 220 24% 10%;
+  --foreground: 42 30% 96%;
+  --card: 220 20% 14%;
+  --card-foreground: 42 30% 96%;
+  --popover: 220 20% 13%;
+  --popover-foreground: 42 30% 96%;
+  --primary: 31 92% 65%;
+  --primary-foreground: 220 24% 10%;
+  --secondary: 216 18% 20%;
+  --secondary-foreground: 42 24% 92%;
+  --muted: 216 16% 19%;
+  --muted-foreground: 39 16% 75%;
+  --accent: 174 48% 52%;
+  --accent-foreground: 220 24% 10%;
+  --destructive: 0 64% 55%;
+  --destructive-foreground: 36 34% 96%;
+  --border: 216 14% 30%;
+  --input: 216 14% 26%;
+  --ring: 32 94% 68%;
+  --chart-1: 220 70% 55%;
+  --chart-2: 160 60% 50%;
+  --chart-3: 30 80% 60%;
+  --chart-4: 280 65% 65%;
+  --chart-5: 340 75% 60%;
+  --sidebar-background: 28 16% 12%;
+  --sidebar-foreground: 36 26% 92%;
+  --sidebar-primary: 32 94% 68%;
+  --sidebar-primary-foreground: 24 18% 12%;
+  --sidebar-accent: 28 12% 18%;
+  --sidebar-accent-foreground: 36 26% 92%;
+  --sidebar-border: 28 12% 24%;
+  --sidebar-ring: 32 94% 68%;
 }
 
 /* stylelint-disable at-rule-no-unknown */
