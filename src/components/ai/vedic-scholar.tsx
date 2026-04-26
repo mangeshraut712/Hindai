@@ -335,7 +335,7 @@ export function VedicScholar() {
             <Textarea
               ref={textareaRef}
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Ask about Hindu philosophy, scriptures, or spiritual practices..."
               className="min-h-[80px] resize-none border-2 border-border/60 focus:border-primary/50"
