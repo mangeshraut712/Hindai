@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/lib/i18n/context";
 import { PageProgress } from "@/components/page-progress";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { PageTransition } from "@/components/page-transition";
+import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
 import "@/index.css";
 
 const manrope = Manrope({
@@ -209,6 +210,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Suspense fallback={null}>
           <PageProgress />
         </Suspense>
+        <ServiceWorkerRegistration />
         <ErrorBoundary>
           <LanguageProvider>
             <Providers>
