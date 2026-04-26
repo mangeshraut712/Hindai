@@ -7,6 +7,7 @@ import { Providers } from "./providers";
 import { LanguageProvider } from "@/lib/i18n/context";
 import { PageProgress } from "@/components/page-progress";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { PageTransition } from "@/components/page-transition";
 import "@/index.css";
 
 const manrope = Manrope({
@@ -210,7 +211,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Suspense>
         <ErrorBoundary>
           <LanguageProvider>
-            <Providers>{children}</Providers>
+            <Providers>
+              <PageTransition>{children}</PageTransition>
+            </Providers>
           </LanguageProvider>
         </ErrorBoundary>
         {process.env.VERCEL === "1" && (
