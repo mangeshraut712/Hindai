@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   BookOpen,
   Type,
@@ -175,28 +176,28 @@ export function SanskritLearningHub() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-6 md:grid-cols-4">
+              <div className="grid gap-4 sm:gap-6 grid-cols-2 md:grid-cols-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-primary">{userProgress.totalLessons}</div>
-                  <div className="text-sm text-muted-foreground">Total Lessons</div>
+                  <div className="text-xl sm:text-2xl font-bold text-primary">{userProgress.totalLessons}</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">Total Lessons</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-600">
+                  <div className="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400">
                     {userProgress.completedLessons}
                   </div>
-                  <div className="text-sm text-muted-foreground">Completed</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">Completed</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-orange-600">
+                  <div className="text-xl sm:text-2xl font-bold text-orange-600 dark:text-orange-400">
                     {userProgress.currentStreak}
                   </div>
-                  <div className="text-sm text-muted-foreground">Day Streak</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">Day Streak</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">
+                  <div className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400">
                     {Math.round((userProgress.completedLessons / userProgress.totalLessons) * 100)}%
                   </div>
-                  <div className="text-sm text-muted-foreground">Progress</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">Progress</div>
                 </div>
               </div>
               <div className="mt-6">
@@ -216,16 +217,23 @@ export function SanskritLearningHub() {
 
           {/* Learning Modules */}
           <div>
-            <h2 className="mb-6 text-2xl font-bold">Learning Modules</h2>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {learningModules.map((module) => (
-                <Card
+            <h2 className="mb-6 text-xl sm:text-2xl font-bold">Learning Modules</h2>
+            <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {learningModules.map((module, index) => (
+                <motion.div
                   key={module.id}
-                  className={`cursor-pointer border-2 transition-all hover:shadow-md ${
-                    selectedModule?.id === module.id ? "border-primary ring-2 ring-primary" : ""
-                  } ${module.color}`}
-                  onClick={() => setSelectedModule(module)}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.08 }}
+                  whileHover={{ scale: 1.02, y: -4 }}
+                  whileTap={{ scale: 0.98 }}
                 >
+                  <Card
+                    className={`cursor-pointer border-2 transition-all hover:shadow-lg ${
+                      selectedModule?.id === module.id ? "border-primary ring-2 ring-primary shadow-md" : ""
+                    } ${module.color}`}
+                    onClick={() => setSelectedModule(module)}
+                  >
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between">
                       <div className="text-primary">{module.icon}</div>
@@ -271,6 +279,7 @@ export function SanskritLearningHub() {
                     </div>
                   </CardContent>
                 </Card>
+                </motion.div>
               ))}
             </div>
           </div>

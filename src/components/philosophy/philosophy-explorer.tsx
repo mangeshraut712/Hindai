@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { BookOpen, Users, Target, Eye, Brain, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -114,52 +115,60 @@ export function PhilosophyExplorer() {
                 While they differ in emphasis and methodology, they share the common goal of
                 understanding ultimate truth.
               </p>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {philosophySchools.map((school) => (
-                  <Card
+              <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                {philosophySchools.map((school, index) => (
+                  <motion.div
                     key={school.id}
-                    className={`cursor-pointer transition-all hover:shadow-md ${
-                      selectedSchool?.id === school.id ? "ring-2 ring-primary" : ""
-                    }`}
-                    onClick={() => setSelectedSchool(school)}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.08 }}
+                    whileHover={{ scale: 1.02, y: -4 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    <CardHeader className="pb-3">
-                      <div className="flex items-center gap-3">
-                        <div className="text-primary">{school.icon}</div>
-                        <div>
-                          <CardTitle className="text-lg">{school.name}</CardTitle>
-                          <p className="font-devanagari text-sm text-primary">{school.sanskrit}</p>
+                    <Card
+                      className={`cursor-pointer transition-all hover:shadow-lg ${
+                        selectedSchool?.id === school.id ? "ring-2 ring-primary shadow-md" : ""
+                      }`}
+                      onClick={() => setSelectedSchool(school)}
+                    >
+                      <CardHeader className="pb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="text-primary">{school.icon}</div>
+                          <div>
+                            <CardTitle className="text-base sm:text-lg">{school.name}</CardTitle>
+                            <p className="font-devanagari text-sm sm:text-base text-primary">{school.sanskrit}</p>
+                          </div>
                         </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="mb-3 text-sm text-muted-foreground">{school.description}</p>
-                      <div className="mb-3 flex flex-wrap gap-1">
-                        {school.principles.slice(0, 2).map((principle) => (
-                          <span
-                            key={principle}
-                            className="rounded bg-primary/10 px-2 py-1 text-xs text-primary"
-                          >
-                            {principle}
+                      </CardHeader>
+                      <CardContent>
+                        <p className="mb-3 text-xs sm:text-sm text-muted-foreground line-clamp-2">{school.description}</p>
+                        <div className="mb-3 flex flex-wrap gap-1">
+                          {school.principles.slice(0, 2).map((principle) => (
+                            <span
+                              key={principle}
+                              className="rounded bg-primary/10 px-2 py-1 text-xs text-primary"
+                            >
+                              {principle}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-muted-foreground">
+                            {school.founder}
                           </span>
-                        ))}
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-muted-foreground">
-                          Founder: {school.founder}
-                        </span>
-                        {school.apiAvailable ? (
-                          <span className="rounded bg-green-100 px-2 py-1 text-xs text-green-800">
-                            Available
-                          </span>
-                        ) : (
-                          <span className="rounded bg-orange-100 px-2 py-1 text-xs text-orange-800">
-                            Coming Soon
-                          </span>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
+                          {school.apiAvailable ? (
+                            <span className="rounded bg-green-100 dark:bg-green-900/30 px-2 py-1 text-xs text-green-800 dark:text-green-400">
+                              Available
+                            </span>
+                          ) : (
+                            <span className="rounded bg-orange-100 dark:bg-orange-900/30 px-2 py-1 text-xs text-orange-800 dark:text-orange-400">
+                              Coming Soon
+                            </span>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 ))}
               </div>
             </CardContent>

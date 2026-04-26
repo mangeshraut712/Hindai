@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Target, Layers, Users, Heart, Shield, Eye, BookOpen, TreePine } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -332,45 +333,53 @@ export function FrameworkExplorer() {
                 philosophy, ethics, and spiritual practice. They offer systematic approaches to
                 understanding human nature, purpose, and the path to liberation.
               </p>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {frameworks.map((framework) => (
-                  <Card
+              <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                {frameworks.map((framework, index) => (
+                  <motion.div
                     key={framework.id}
-                    className={`cursor-pointer transition-all hover:shadow-md ${
-                      selectedFramework?.id === framework.id ? "ring-2 ring-primary" : ""
-                    }`}
-                    onClick={() => setSelectedFramework(framework)}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.08 }}
+                    whileHover={{ scale: 1.02, y: -4 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    <CardHeader className="pb-3">
-                      <div className="flex items-center gap-3">
-                        <div className="text-primary">{framework.icon}</div>
-                        <div>
-                          <CardTitle className="text-lg">{framework.name}</CardTitle>
-                          <p className="font-devanagari text-sm text-primary">
-                            {framework.sanskrit}
-                          </p>
+                    <Card
+                      className={`cursor-pointer transition-all hover:shadow-lg ${
+                        selectedFramework?.id === framework.id ? "ring-2 ring-primary shadow-md" : ""
+                      }`}
+                      onClick={() => setSelectedFramework(framework)}
+                    >
+                      <CardHeader className="pb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="text-primary">{framework.icon}</div>
+                          <div>
+                            <CardTitle className="text-base sm:text-lg">{framework.name}</CardTitle>
+                            <p className="font-devanagari text-sm sm:text-base text-primary">
+                              {framework.sanskrit}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="mb-3 text-sm text-muted-foreground">{framework.description}</p>
-                      <div className="flex flex-wrap gap-1">
-                        {framework.elements.slice(0, 3).map((element, index) => (
-                          <span
-                            key={index}
-                            className={`rounded px-2 py-1 text-xs ${element.color}`}
-                          >
-                            {element.name}
-                          </span>
-                        ))}
-                        {framework.elements.length > 3 && (
-                          <span className="rounded bg-gray-100 px-2 py-1 text-xs text-gray-600">
-                            +{framework.elements.length - 3} more
-                          </span>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="mb-3 text-xs sm:text-sm text-muted-foreground line-clamp-2">{framework.description}</p>
+                        <div className="flex flex-wrap gap-1">
+                          {framework.elements.slice(0, 3).map((element, index) => (
+                            <span
+                              key={index}
+                              className={`rounded px-2 py-1 text-xs ${element.color}`}
+                            >
+                              {element.name}
+                            </span>
+                          ))}
+                          {framework.elements.length > 3 && (
+                            <span className="rounded bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs text-gray-600 dark:text-gray-400">
+                              +{framework.elements.length - 3}
+                            </span>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 ))}
               </div>
             </CardContent>

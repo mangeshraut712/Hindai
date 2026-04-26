@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Heart, Music, Star, BookOpen, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -167,48 +168,56 @@ export function StotraLibrary() {
                 qualities. These texts form the core of Hindu devotional practice, used for worship,
                 meditation, and spiritual growth.
               </p>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {stotraItems.map((stotra) => (
-                  <Card
+              <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                {stotraItems.map((stotra, index) => (
+                  <motion.div
                     key={stotra.id}
-                    className={`cursor-pointer transition-all hover:shadow-md ${
-                      selectedStotra?.id === stotra.id ? "ring-2 ring-primary" : ""
-                    }`}
-                    onClick={() => setSelectedStotra(stotra)}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.08 }}
+                    whileHover={{ scale: 1.02, y: -4 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    <CardHeader className="pb-3">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <div className={`rounded-lg p-2 ${getTypeColor(stotra.type)}`}>
-                            {getTypeIcon(stotra.type)}
-                          </div>
-                          <div>
-                            <CardTitle className="text-lg">{stotra.name}</CardTitle>
-                            <p className="font-devanagari text-sm text-primary">
-                              {stotra.sanskrit}
-                            </p>
+                    <Card
+                      className={`cursor-pointer transition-all hover:shadow-lg ${
+                        selectedStotra?.id === stotra.id ? "ring-2 ring-primary shadow-md" : ""
+                      }`}
+                      onClick={() => setSelectedStotra(stotra)}
+                    >
+                      <CardHeader className="pb-3">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div className={`rounded-lg p-2 ${getTypeColor(stotra.type)}`}>
+                              {getTypeIcon(stotra.type)}
+                            </div>
+                            <div>
+                              <CardTitle className="text-base sm:text-lg">{stotra.name}</CardTitle>
+                              <p className="font-devanagari text-sm sm:text-base text-primary">
+                                {stotra.sanskrit}
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="mb-3 text-sm text-muted-foreground">
-                        <strong>{stotra.deity}</strong> • {stotra.description}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="rounded bg-secondary px-2 py-1 text-xs capitalize">
-                          {stotra.type}
-                          {stotra.count && ` (${stotra.count})`}
-                        </span>
-                        {stotra.audioAvailable && (
-                          <span className="flex items-center gap-1 rounded bg-green-100 px-2 py-1 text-xs text-green-800">
-                            <Play className="size-3" />
-                            Audio
+                      </CardHeader>
+                      <CardContent>
+                        <p className="mb-3 text-xs sm:text-sm text-muted-foreground line-clamp-2">
+                          <strong>{stotra.deity}</strong> • {stotra.description}
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <span className="rounded bg-secondary px-2 py-1 text-xs capitalize">
+                            {stotra.type}
+                            {stotra.count && ` (${stotra.count})`}
                           </span>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
+                          {stotra.audioAvailable && (
+                            <span className="flex items-center gap-1 rounded bg-green-100 dark:bg-green-900/30 px-2 py-1 text-xs text-green-800 dark:text-green-400">
+                              <Play className="size-3" />
+                              <span className="hidden sm:inline">Audio</span>
+                            </span>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 ))}
               </div>
             </CardContent>

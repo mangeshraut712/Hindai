@@ -179,31 +179,37 @@ export function PilgrimageExplorer() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       {/* Tab Navigation */}
-      <div className="mb-8 flex gap-4">
-        <Button
-          variant={activeTab === "jyotirlingas" ? "premium" : "outline"}
-          onClick={() => setActiveTab("jyotirlingas")}
-          className="flex-1"
-        >
-          <Sparkles className="size-4" />
-          12 Jyotirlingas
-        </Button>
-        <Button
-          variant={activeTab === "shakti-peethas" ? "premium" : "outline"}
-          onClick={() => setActiveTab("shakti-peethas")}
-          className="flex-1"
-        >
-          <Sparkles className="size-4" />
-          51 Shakti Peethas
-        </Button>
+      <div className="mb-8 flex gap-3 sm:gap-4">
+        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1">
+          <Button
+            variant={activeTab === "jyotirlingas" ? "premium" : "outline"}
+            onClick={() => setActiveTab("jyotirlingas")}
+            className="w-full gap-2 text-sm sm:text-base"
+          >
+            <Sparkles className="size-4" />
+            <span className="hidden sm:inline">12 Jyotirlingas</span>
+            <span className="sm:hidden">Jyotirlingas</span>
+          </Button>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1">
+          <Button
+            variant={activeTab === "shakti-peethas" ? "premium" : "outline"}
+            onClick={() => setActiveTab("shakti-peethas")}
+            className="w-full gap-2 text-sm sm:text-base"
+          >
+            <Sparkles className="size-4" />
+            <span className="hidden sm:inline">51 Shakti Peethas</span>
+            <span className="sm:hidden">Shakti Peethas</span>
+          </Button>
+        </motion.div>
       </div>
 
       {/* Introduction */}
-      <div className="mb-12 surface-panel p-6">
-        <h2 className="text-2xl font-semibold text-foreground">
+      <div className="mb-12 surface-panel p-4 sm:p-6">
+        <h2 className="text-xl sm:text-2xl font-semibold text-foreground">
           {activeTab === "jyotirlingas" ? "The 12 Jyotirlingas" : "The 51 Shakti Peethas"}
         </h2>
-        <p className="mt-3 text-sm leading-7 text-muted-foreground">
+        <p className="mt-3 text-sm leading-6 sm:leading-7 text-muted-foreground">
           {activeTab === "jyotirlingas"
             ? "The Jyotirlingas are the 12 sacred abodes of Lord Shiva where He manifested as an infinite column of light (Jyoti). According to tradition, visiting all 12 Jyotirlingas liberates one from the cycle of birth and death. Each Jyotirlinga has unique mythology and significance, representing different aspects of Shiva's divine power."
             : "The Shakti Peethas are 51 sacred sites where parts of Sati's body fell when Lord Shiva performed the Tandava dance carrying her body. These sites are centers of Devi worship and represent the divine feminine power (Shakti). Each Peetha is associated with a specific body part of Sati and has unique mythology and spiritual significance."}
@@ -211,36 +217,39 @@ export function PilgrimageExplorer() {
       </div>
 
       {/* Grid */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {activeData.map((item, index) => (
           <motion.article
             key={item.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: index * 0.05 }}
-            className="surface-panel cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg"
+            whileHover={{ scale: 1.02, y: -4 }}
+            whileTap={{ scale: 0.98 }}
+            className="surface-panel cursor-pointer transition-all duration-300 hover:shadow-lg"
             onClick={() => setSelectedItem(item)}
           >
             <div className="relative z-10">
               <div className="flex items-start justify-between">
-                <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <MapPin className="size-6" />
+                <div className="flex size-10 sm:size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <MapPin className="size-5 sm:size-6" />
                 </div>
-                <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                <span className="rounded-full bg-primary/10 px-2 sm:px-3 py-1 text-xs font-medium text-primary">
                   #{item.id}
                 </span>
               </div>
-              <h3 className="mt-4 text-xl font-semibold text-foreground">{item.name}</h3>
-              <p className="font-devanagari text-lg text-primary">{item.sanskrit}</p>
-              <p className="mt-2 text-sm text-muted-foreground">{item.location}</p>
+              <h3 className="mt-3 sm:mt-4 text-lg sm:text-xl font-semibold text-foreground">{item.name}</h3>
+              <p className="font-devanagari text-base sm:text-lg text-primary">{item.sanskrit}</p>
+              <p className="mt-2 text-xs sm:text-sm text-muted-foreground">{item.location}</p>
               {activeTab === "shakti-peethas" && (
                 <p className="mt-1 text-xs text-muted-foreground">
                   Body Part: {(item as typeof shaktiPeethas[0]).bodyPart}
                 </p>
               )}
-              <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
+              <div className="mt-3 sm:mt-4 flex items-center gap-2 text-xs text-muted-foreground">
                 <Calendar className="size-3" />
-                <span>Best time: {item.bestTime}</span>
+                <span className="hidden sm:inline">Best time: {item.bestTime}</span>
+                <span className="sm:hidden">{item.bestTime}</span>
               </div>
             </div>
           </motion.article>
