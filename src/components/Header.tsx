@@ -37,12 +37,17 @@ import {
 import { SearchDialog } from "@/components/search";
 import { VoiceSearch } from "@/components/voice-search";
 import { headerScriptures } from "@/lib/scripture-catalog";
+import { useLanguage, SUPPORTED_LANGUAGES } from "@/lib/i18n/context";
 
 const navItems = [
   { label: "Library", script: "ग्रन्थालय", href: "/contents", icon: BookOpen },
   { label: "Guru AI", script: "गुरु", href: "/ai-guide", icon: Sparkles },
   { label: "Sanskrit", script: "संस्कृत", href: "/sanskrit-nova", icon: Languages },
   { label: "Tools", script: "उपकरण", href: "/sanskrit-tools", icon: Languages },
+  { label: "Learning", script: "अधिगम", href: "/learning", icon: BookOpen },
+  { label: "Philosophies", script: "दर्शन", href: "/philosophies", icon: BookOpen },
+  { label: "Frameworks", script: "संरचना", href: "/frameworks", icon: BookOpen },
+  { label: "Stotras", script: "स्तोत्र", href: "/stotras", icon: BookOpen },
   { label: "Panchanga", script: "पञ्चाङ्ग", href: "/panchanga", icon: Calendar },
   { label: "Pilgrimage", script: "तीर्थ", href: "/pilgrimage", icon: BookOpen },
   { label: "Audio", script: "आडियो", href: "/audio", icon: BookOpen },
@@ -62,6 +67,7 @@ export function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { language, setLanguage } = useLanguage();
 
   const isActive = (href: string) => pathname === href || pathname === `${href}/`;
 
@@ -236,16 +242,33 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <div
-            className="hidden items-center gap-1.5 rounded-full border border-border/60 bg-background/70 px-3 py-1.5 xl:flex"
-            aria-label="Study languages"
-          >
-            <span className="text-[10px] font-semibold text-foreground">EN</span>
-            <span className="h-3 w-px bg-border/60"></span>
-            <span className="font-devanagari text-[10px] text-muted-foreground">हिंदी</span>
-            <span className="h-3 w-px bg-border/60"></span>
-            <span className="font-devanagari text-[10px] text-muted-foreground">संस्कृत</span>
-          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                className="hidden gap-2 border-primary/30 transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 xl:inline-flex"
+              >
+                <Languages className="size-4 text-primary/80" />
+                <span className="text-xs">{language}</span>
+                <ChevronDown className="size-3" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="bg-background/92 w-40 rounded-[24px] border-border/70 p-2 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-2xl"
+            >
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <DropdownMenuItem
+                  key={lang}
+                  onClick={() => setLanguage(lang)}
+                  className={`rounded-2xl px-4 py-2 transition-colors hover:bg-primary/10 ${language === lang ? "bg-primary/10 text-primary" : ""}`}
+                >
+                  {lang}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           <Button
             variant="outline"

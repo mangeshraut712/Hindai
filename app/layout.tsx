@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
-import { Manrope, Cormorant_Garamond, Noto_Serif_Devanagari } from "next/font/google";
+import { Manrope, Cormorant_Garamond, Noto_Serif_Devanagari, Noto_Sans_Devanagari, Noto_Sans_Tamil, Noto_Sans_Telugu } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "./providers";
+import { LanguageProvider } from "@/lib/i18n/context";
 import { PageProgress } from "@/components/page-progress";
 import "@/index.css";
 
@@ -26,6 +27,30 @@ const notoSerifDevanagari = Noto_Serif_Devanagari({
   subsets: ["devanagari"],
   weight: ["400", "500", "700"],
   variable: "--font-devanagari",
+  display: "swap",
+  preload: false,
+});
+
+const notoSansDevanagari = Noto_Sans_Devanagari({
+  subsets: ["devanagari"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-hindi",
+  display: "swap",
+  preload: false,
+});
+
+const notoSansTamil = Noto_Sans_Tamil({
+  subsets: ["tamil"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-tamil",
+  display: "swap",
+  preload: false,
+});
+
+const notoSansTelugu = Noto_Sans_Telugu({
+  subsets: ["telugu"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-telugu",
   display: "swap",
   preload: false,
 });
@@ -177,12 +202,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body
         suppressHydrationWarning
-        className={`${manrope.variable} ${cormorant.variable} ${notoSerifDevanagari.variable} relative min-h-screen bg-background font-sans antialiased`}
+        className={`${manrope.variable} ${cormorant.variable} ${notoSerifDevanagari.variable} ${notoSansDevanagari.variable} ${notoSansTamil.variable} ${notoSansTelugu.variable} relative min-h-screen bg-background font-sans antialiased`}
       >
         <Suspense fallback={null}>
           <PageProgress />
         </Suspense>
-        <Providers>{children}</Providers>
+        <LanguageProvider>
+          <Providers>{children}</Providers>
+        </LanguageProvider>
         {process.env.VERCEL === "1" && (
           <>
             <Analytics />

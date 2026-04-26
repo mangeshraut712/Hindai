@@ -1,199 +1,410 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { BookOpen, ArrowRight, Sparkles, Play, CheckCircle } from "lucide-react";
+import {
+  BookOpen,
+  Type,
+  Brain,
+  FileText,
+  Target,
+  Award,
+  Clock,
+  Star,
+  CheckCircle,
+  Play,
+  ArrowRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 
-const learningPaths = [
+interface LearningModule {
+  id: string;
+  name: string;
+  description: string;
+  icon: React.ReactNode;
+  difficulty: "Beginner" | "Intermediate" | "Advanced";
+  duration: string;
+  lessons: number;
+  progress?: number;
+  features: string[];
+  color: string;
+}
+
+const learningModules: LearningModule[] = [
   {
-    id: "devanagari",
+    id: "devanagari-script",
     name: "Devanagari Script",
-    sanskrit: "देवनागरी लिपि",
-    level: "Beginner",
+    description:
+      "Master the Devanagari alphabet, conjunct consonants, and script reading proficiency.",
+    icon: <Type className="size-6" />,
+    difficulty: "Beginner",
     duration: "2-3 weeks",
     lessons: 15,
-    description: "Learn to read and write the Devanagari script. Master all 52 characters (13 vowels and 39 consonants) with proper stroke order and pronunciation.",
-    topics: ["Vowels (Swaras)", "Consonants (Vyanjanas)", "Conjuncts (Sanyuktaksharas)", "Matras (Vowel signs)", "Reading practice"],
+    progress: 0,
+    features: ["Alphabet recognition", "Writing practice", "Conjunct consonants", "Script reading"],
+    color: "bg-blue-50 border-blue-200",
   },
   {
-    id: "grammar-basics",
-    name: "Sanskrit Grammar Basics",
-    sanskrit: "संस्कृत व्याकरण",
-    level: "Beginner",
+    id: "basic-grammar",
+    name: "Basic Sanskrit Grammar",
+    description: "Learn fundamental grammar including nouns, verbs, cases, and sentence structure.",
+    icon: <BookOpen className="size-6" />,
+    difficulty: "Beginner",
     duration: "4-6 weeks",
     lessons: 25,
-    description: "Understand the fundamentals of Sanskrit grammar including sandhi, vibhakti, samasa, and sentence structure based on Panini's Ashtadhyayi.",
-    topics: ["Sandhi (word joining)", "Vibhakti (cases)", "Samasa (compounds)", "Karakas (relations)", "Sentence structure"],
+    progress: 0,
+    features: ["Noun declensions", "Verb conjugations", "Case system", "Basic syntax"],
+    color: "bg-green-50 border-green-200",
   },
   {
-    id: "vocabulary",
-    name: "Vocabulary Building",
-    sanskrit: "शब्द संग्रह",
-    level: "Intermediate",
+    id: "vocabulary-builder",
+    name: "Vocabulary Builder",
+    description:
+      "Build comprehensive vocabulary with scripture-based examples and contextual learning.",
+    icon: <Brain className="size-6" />,
+    difficulty: "Intermediate",
     duration: "Ongoing",
     lessons: 50,
-    description: "Build a strong Sanskrit vocabulary with 1000+ essential words organized by category. Learn word roots (dhatus) and word formation.",
-    topics: ["Common words", "Dhatu (verb roots)", "Upasarga (prefixes)", "Synonyms", "Antonyms"],
+    progress: 0,
+    features: [
+      "Spaced repetition",
+      "Contextual examples",
+      "Thematic categories",
+      "Pronunciation guide",
+    ],
+    color: "bg-purple-50 border-purple-200",
   },
   {
     id: "shloka-memorization",
     name: "Shloka Memorization",
-    sanskrit: "श्लोक स्मरण",
-    level: "All Levels",
+    description:
+      "Learn to memorize and recite Sanskrit verses using proven memorization techniques.",
+    icon: <Target className="size-6" />,
+    difficulty: "Intermediate",
     duration: "Ongoing",
-    lessons: 100,
-    description: "Memorize important shlokas from scriptures using spaced repetition. Includes Bhagavad Gita, Vishnu Sahasranama, and more.",
-    topics: ["Bhagavad Gita verses", "Stotras", "Mantras", "Daily practice", "Recitation techniques"],
+    lessons: 30,
+    progress: 0,
+    features: ["Spaced repetition", "Audio recitation", "Meaning breakdown", "Progress tracking"],
+    color: "bg-orange-50 border-orange-200",
+  },
+  {
+    id: "literature-appreciation",
+    name: "Literature Appreciation",
+    description: "Explore Sanskrit literary forms including poetry, prose, and dramatic works.",
+    icon: <FileText className="size-6" />,
+    difficulty: "Advanced",
+    duration: "8-12 weeks",
+    lessons: 20,
+    progress: 0,
+    features: ["Poetic forms", "Rhetorical devices", "Literary analysis", "Author studies"],
+    color: "bg-red-50 border-red-200",
   },
   {
     id: "advanced-grammar",
     name: "Advanced Grammar",
-    sanskrit: "उन्नत व्याकरण",
-    level: "Advanced",
-    duration: "8-12 weeks",
+    description: "Deep dive into complex grammatical concepts and traditional Sanskrit analysis.",
+    icon: <Award className="size-6" />,
+    difficulty: "Advanced",
+    duration: "12-16 weeks",
     lessons: 30,
-    description: "Deep dive into Paninian grammar with complex rules, kaarakas, and advanced sentence analysis. Learn to compose original Sanskrit.",
-    topics: ["Panini's sutras", "Kaarakas", "Avyayas (indeclinables)", "Composition", "Poetry analysis"],
+    progress: 0,
+    features: ["Compound words", "Sandhi rules", "Prosody", "Traditional commentaries"],
+    color: "bg-indigo-50 border-indigo-200",
+  },
+];
+
+interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  icon: React.ReactNode;
+  unlocked: boolean;
+}
+
+const achievements: Achievement[] = [
+  {
+    id: "first-lesson",
+    name: "First Steps",
+    description: "Complete your first Sanskrit lesson",
+    icon: <Play className="size-5" />,
+    unlocked: false,
   },
   {
-    id: "vedic-sanskrit",
-    name: "Vedic Sanskrit",
-    sanskrit: "वैदिक संस्कृत",
-    level: "Advanced",
-    duration: "6-8 weeks",
-    lessons: 20,
-    description: "Study the older form of Sanskrit used in the Vedas. Learn Vedic accents (svaras), meters (chandas), and Vedic-specific grammar.",
-    topics: ["Vedic accents", "Chandas (meters)", "Vedic grammar", "Rigveda study", "Chanting techniques"],
+    id: "script-master",
+    name: "Script Master",
+    description: "Complete Devanagari Script module",
+    icon: <Type className="size-5" />,
+    unlocked: false,
+  },
+  {
+    id: "vocabulary-500",
+    name: "Word Collector",
+    description: "Learn 500 Sanskrit words",
+    icon: <Brain className="size-5" />,
+    unlocked: false,
+  },
+  {
+    id: "shloka-reciter",
+    name: "Shloka Reciter",
+    description: "Memorize and recite 10 shlokas",
+    icon: <Target className="size-5" />,
+    unlocked: false,
   },
 ];
 
 export function SanskritLearningHub() {
-  const [selectedPath, setSelectedPath] = useState<typeof learningPaths[0] | null>(null);
+  const [selectedModule, setSelectedModule] = useState<LearningModule | null>(null);
+  const [userProgress] = useState({
+    totalLessons: 45,
+    completedLessons: 12,
+    currentStreak: 7,
+    longestStreak: 14,
+  });
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      {/* Introduction */}
-      <div className="mb-12 surface-panel p-6">
-        <h2 className="text-2xl font-semibold text-foreground">Structured Learning Paths</h2>
-        <p className="mt-3 text-sm leading-7 text-muted-foreground">
-          Choose your learning path based on your current level and goals. Each path is designed with clear
-          objectives, structured lessons, and practical exercises. Progress at your own pace with interactive
-          content and spaced repetition for memorization.
-        </p>
-      </div>
-
-      {/* Grid */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {learningPaths.map((path, index) => (
-          <motion.article
-            key={path.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.05 }}
-            className="surface-panel cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg"
-            onClick={() => setSelectedPath(path)}
-          >
-            <div className="relative z-10">
-              <div className="flex items-start justify-between">
-                <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <BookOpen className="size-6" />
+    <section className="px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="space-y-8">
+          {/* Learning Progress Overview */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Star className="size-5" />
+                Your Learning Journey
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-6 md:grid-cols-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-primary">{userProgress.totalLessons}</div>
+                  <div className="text-sm text-muted-foreground">Total Lessons</div>
                 </div>
-                <span
-                  className={cn(
-                    "rounded-full px-3 py-1 text-xs font-medium",
-                    path.level === "Beginner"
-                      ? "bg-green-500/10 text-green-600"
-                      : path.level === "Intermediate"
-                        ? "bg-yellow-500/10 text-yellow-600"
-                        : "bg-red-500/10 text-red-600"
-                  )}
-                >
-                  {path.level}
-                </span>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-green-600">
+                    {userProgress.completedLessons}
+                  </div>
+                  <div className="text-sm text-muted-foreground">Completed</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-orange-600">
+                    {userProgress.currentStreak}
+                  </div>
+                  <div className="text-sm text-muted-foreground">Day Streak</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-blue-600">
+                    {Math.round((userProgress.completedLessons / userProgress.totalLessons) * 100)}%
+                  </div>
+                  <div className="text-sm text-muted-foreground">Progress</div>
+                </div>
               </div>
-              <h3 className="mt-4 text-xl font-semibold text-foreground">{path.name}</h3>
-              <p className="font-devanagari text-lg text-primary">{path.sanskrit}</p>
-              <p className="mt-2 text-sm text-muted-foreground">{path.duration} • {path.lessons} lessons</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {path.topics.slice(0, 2).map((topic) => (
-                  <span
-                    key={topic}
-                    className="rounded-full border border-border/60 bg-background/75 px-2 py-1 text-xs text-muted-foreground"
-                  >
-                    {topic}
+              <div className="mt-6">
+                <div className="mb-2 flex justify-between text-sm">
+                  <span>Overall Progress</span>
+                  <span>
+                    {userProgress.completedLessons}/{userProgress.totalLessons} lessons
                   </span>
+                </div>
+                <Progress
+                  value={(userProgress.completedLessons / userProgress.totalLessons) * 100}
+                  className="h-2"
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Learning Modules */}
+          <div>
+            <h2 className="mb-6 text-2xl font-bold">Learning Modules</h2>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {learningModules.map((module) => (
+                <Card
+                  key={module.id}
+                  className={`cursor-pointer border-2 transition-all hover:shadow-md ${
+                    selectedModule?.id === module.id ? "border-primary ring-2 ring-primary" : ""
+                  } ${module.color}`}
+                  onClick={() => setSelectedModule(module)}
+                >
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between">
+                      <div className="text-primary">{module.icon}</div>
+                      <span
+                        className={`rounded px-2 py-1 text-xs font-medium ${
+                          module.difficulty === "Beginner"
+                            ? "bg-green-100 text-green-800"
+                            : module.difficulty === "Intermediate"
+                              ? "bg-yellow-100 text-yellow-800"
+                              : "bg-red-100 text-red-800"
+                        }`}
+                      >
+                        {module.difficulty}
+                      </span>
+                    </div>
+                    <CardTitle className="text-lg">{module.name}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="mb-4 text-sm text-muted-foreground">{module.description}</p>
+
+                    <div className="mb-4 space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Progress</span>
+                        <span>{module.progress || 0}%</span>
+                      </div>
+                      <Progress value={module.progress || 0} className="h-1" />
+                    </div>
+
+                    <div className="mb-3 flex items-center justify-between text-sm text-muted-foreground">
+                      <span className="flex items-center gap-1">
+                        <Clock className="size-4" />
+                        {module.duration}
+                      </span>
+                      <span>{module.lessons} lessons</span>
+                    </div>
+
+                    <div className="flex flex-wrap gap-1">
+                      {module.features.slice(0, 2).map((feature, index) => (
+                        <span key={index} className="rounded bg-background/60 px-2 py-1 text-xs">
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          {/* Detailed Module View */}
+          {selectedModule && (
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="text-primary">{selectedModule.icon}</div>
+                    <div>
+                      <CardTitle className="text-xl">{selectedModule.name}</CardTitle>
+                      <p className="text-sm text-muted-foreground">{selectedModule.description}</p>
+                    </div>
+                  </div>
+                  <Button>
+                    Start Learning
+                    <ArrowRight className="ml-2 size-4" />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid gap-4 md:grid-cols-3">
+                  <div className="rounded-lg bg-background/50 p-4 text-center">
+                    <div className="text-2xl font-bold text-primary">{selectedModule.lessons}</div>
+                    <div className="text-sm text-muted-foreground">Lessons</div>
+                  </div>
+                  <div className="rounded-lg bg-background/50 p-4 text-center">
+                    <div className="text-lg font-bold text-primary">{selectedModule.duration}</div>
+                    <div className="text-sm text-muted-foreground">Duration</div>
+                  </div>
+                  <div className="rounded-lg bg-background/50 p-4 text-center">
+                    <div className="text-lg font-bold text-primary">
+                      {selectedModule.difficulty}
+                    </div>
+                    <div className="text-sm text-muted-foreground">Level</div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="mb-3 font-semibold">What You'll Learn</h3>
+                  <div className="grid gap-2 md:grid-cols-2">
+                    {selectedModule.features.map((feature, index) => (
+                      <div key={index} className="flex items-center gap-2">
+                        <CheckCircle className="size-4 text-green-600" />
+                        <span className="text-sm">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {selectedModule.progress !== undefined && selectedModule.progress > 0 && (
+                  <div>
+                    <h3 className="mb-3 font-semibold">Your Progress</h3>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Module Progress</span>
+                        <span>{selectedModule.progress}%</span>
+                      </div>
+                      <Progress value={selectedModule.progress} className="h-2" />
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Achievements */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Award className="size-5" />
+                Achievements
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                {achievements.map((achievement) => (
+                  <div
+                    key={achievement.id}
+                    className={`rounded-lg border p-4 text-center ${
+                      achievement.unlocked
+                        ? "border-primary/20 bg-primary/5"
+                        : "border-muted bg-muted/50 opacity-60"
+                    }`}
+                  >
+                    <div className="mb-2 flex justify-center">
+                      <div
+                        className={`rounded-full p-2 ${
+                          achievement.unlocked ? "bg-primary text-primary-foreground" : "bg-muted"
+                        }`}
+                      >
+                        {achievement.icon}
+                      </div>
+                    </div>
+                    <h3 className="mb-1 text-sm font-semibold">{achievement.name}</h3>
+                    <p className="text-xs text-muted-foreground">{achievement.description}</p>
+                  </div>
                 ))}
               </div>
-            </div>
-          </motion.article>
-        ))}
-      </div>
+            </CardContent>
+          </Card>
 
-      {/* Detail Modal */}
-      {selectedPath && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-          onClick={() => setSelectedPath(null)}
-        >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="surface-panel max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-start justify-between">
-              <div>
-                <h2 className="text-3xl font-semibold text-foreground">{selectedPath.name}</h2>
-                <p className="font-devanagari text-2xl text-primary">{selectedPath.sanskrit}</p>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {selectedPath.level} • {selectedPath.duration} • {selectedPath.lessons} lessons
-                </p>
-              </div>
-              <Button variant="ghost" onClick={() => setSelectedPath(null)}>
-                ✕
-              </Button>
-            </div>
-
-            <div className="mt-6 space-y-6">
-              <div>
-                <h3 className="font-semibold text-foreground">Description</h3>
-                <p className="mt-2 text-sm leading-7 text-muted-foreground">{selectedPath.description}</p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-foreground">Topics Covered</h3>
-                <div className="mt-2 space-y-2">
-                  {selectedPath.topics.map((topic) => (
-                    <div
-                      key={topic}
-                      className="flex items-center gap-2 rounded-lg border border-border/60 bg-background/75 px-4 py-2 text-sm text-foreground"
-                    >
-                      <CheckCircle className="size-4 text-primary" />
-                      {topic}
-                    </div>
-                  ))}
+          {/* Learning Tips */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Learning Tips for Sanskrit</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div>
+                  <h3 className="mb-2 font-semibold">Study Techniques</h3>
+                  <ul className="space-y-1 text-sm text-muted-foreground">
+                    <li>• Practice daily for consistent progress</li>
+                    <li>• Focus on pronunciation from the beginning</li>
+                    <li>• Learn roots (dhatu) for vocabulary building</li>
+                    <li>• Use spaced repetition for memorization</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="mb-2 font-semibold">Common Challenges</h3>
+                  <ul className="space-y-1 text-sm text-muted-foreground">
+                    <li>• Master conjunct consonants early</li>
+                    <li>• Pay attention to sandhi rules</li>
+                    <li>• Practice verb conjugations systematically</li>
+                    <li>• Listen to traditional recitations</li>
+                  </ul>
                 </div>
               </div>
-
-              <div className="grid gap-3 md:grid-cols-2">
-                <Button variant="premium" className="w-full">
-                  Start Learning
-                  <Play className="size-4" />
-                </Button>
-                <Button variant="outline" className="w-full">
-                  <Sparkles className="size-4" />
-                  View Sample Lesson
-                </Button>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
   );
 }

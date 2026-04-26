@@ -50,25 +50,8 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export async function generateStaticParams() {
-  return scriptureCatalog.map((item) => ({ slug: item.slug }));
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const item = getScriptureCatalogItem(slug);
-
-  if (!item) {
-    return {
-      title: "Scripture Not Found",
-    };
-  }
-
-  return {
-    title: item.name,
-    description: item.description,
-  };
-}
+// Note: generateStaticParams and generateMetadata removed due to "use client" directive
+// These would need to be implemented in a server component wrapper if needed
 
 const guidedPrompts = (title: string) => [
   `Give me a beginner-friendly introduction to ${title}.`,
