@@ -155,7 +155,7 @@
     @apply relative overflow-hidden rounded-[28px] backdrop-blur-2xl transition-all duration-300;
     background: hsl(var(--card) / 0.92);
     border: 1px solid hsl(var(--border) / 0.65);
-    box-shadow: 
+    box-shadow:
       0 4px 6px -1px hsl(var(--saffron) / 0.08),
       0 2px 4px -2px hsl(var(--saffron) / 0.04),
       0 20px 60px -48px hsl(var(--royal-teal) / 0.12);
@@ -163,7 +163,7 @@
   }
 
   .surface-panel:hover {
-    box-shadow: 
+    box-shadow:
       0 8px 12px -1px hsl(var(--saffron) / 0.12),
       0 4px 8px -2px hsl(var(--saffron) / 0.08),
       0 36px 90px -58px hsl(var(--royal-teal) / 0.18);
@@ -191,14 +191,14 @@
   .dark .surface-panel {
     background: hsl(var(--card) / 0.88);
     border-color: hsl(var(--border) / 0.75);
-    box-shadow: 
+    box-shadow:
       0 4px 6px -1px hsl(var(--saffron) / 0.12),
       0 2px 4px -2px hsl(var(--saffron) / 0.08),
       0 42px 100px -58px hsl(var(--royal-teal) / 0.18);
   }
 
   .dark .surface-panel:hover {
-    box-shadow: 
+    box-shadow:
       0 8px 12px -1px hsl(var(--saffron) / 0.18),
       0 4px 8px -2px hsl(var(--saffron) / 0.12),
       0 48px 110px -62px hsl(var(--royal-teal) / 0.25);
