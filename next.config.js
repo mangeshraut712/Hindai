@@ -8,7 +8,6 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
-  swcMinify: true,
   // Bundle optimization
   experimental: {
     optimizePackageImports: [
@@ -21,21 +20,10 @@ const nextConfig = {
       "@radix-ui/react-slider",
     ],
     scrollRestoration: true,
-    optimizeCss: true,
     optimizeServerReact: true,
     staleTimes: {
       dynamic: 30,
       static: 180,
-    },
-    // Enable turbo for faster builds
-    turbo: {
-      rules: [
-        {
-          test: /\.svg$/,
-          loaders: ["@svgr/webpack"],
-          as: "*.js",
-        },
-      ],
     },
   },
   // Image optimization
