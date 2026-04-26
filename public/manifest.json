@@ -4,17 +4,31 @@
   "description": "🕉️ Your AI-powered spiritual companion for ancient Indian wisdom",
   "start_url": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "background_color": "#F5F0E6",
   "theme_color": "#FF9933",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "scope": "/",
   "lang": "en",
+  "dir": "ltr",
   "icons": [
     {
       "src": "/logo.png",
       "sizes": "688x702",
       "type": "image/png",
       "purpose": "maskable any"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "screenshots": [
@@ -38,21 +52,35 @@
       "short_name": "Guru",
       "description": "Ask your AI spiritual guide",
       "url": "/ai-guide",
-      "icons": [{ "src": "/logo.png", "sizes": "688x702" }]
+      "icons": [{ "src": "/logo.png", "sizes": "192x192" }]
     },
     {
       "name": "Granthalaya",
       "short_name": "Library",
       "description": "Browse sacred texts",
       "url": "/contents",
-      "icons": [{ "src": "/logo.png", "sizes": "688x702" }]
+      "icons": [{ "src": "/logo.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Vision Analysis",
+      "short_name": "Vision",
+      "description": "Analyze sacred images",
+      "url": "/vision",
+      "icons": [{ "src": "/logo.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Dharma Guide",
+      "short_name": "Dharma",
+      "description": "Spiritual guidance",
+      "url": "/dharma",
+      "icons": [{ "src": "/logo.png", "sizes": "192x192" }]
     },
     {
       "name": "Daily Wisdom",
       "short_name": "Wisdom",
       "description": "Today's spiritual teaching",
       "url": "/daily",
-      "icons": [{ "src": "/logo.png", "sizes": "688x702" }]
+      "icons": [{ "src": "/logo.png", "sizes": "192x192" }]
     }
   ],
   "related_applications": [],

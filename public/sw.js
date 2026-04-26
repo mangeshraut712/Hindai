@@ -3,23 +3,35 @@
  * PWA features: Offline support, background sync, push notifications
  */
 
-const CACHE_NAME = "hind-ai-v1";
+const CACHE_NAME = "hind-ai-v2";
 const STATIC_ASSETS = [
   "/",
   "/contents/",
   "/ai-guide/",
+  "/vision/",
+  "/dharma/",
+  "/sanskrit-nova/",
+  "/sanskrit-tools/",
+  "/learning/",
+  "/philosophies/",
+  "/frameworks/",
+  "/stotras/",
+  "/panchanga/",
+  "/pilgrimage/",
+  "/audio/",
+  "/daily/",
   "/quiz/",
   "/structure/",
   "/preface/",
-  "/icon-192x192.png",
-  "/icon-512x512.png",
+  "/logo.png",
+  "/manifest.json",
 ];
 
 // Install: Cache static assets
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS);
+      return cache.addAll(STATIC_ASSETS.map((url) => new Request(url, { cache: "reload" })));
     })
   );
   self.skipWaiting();
@@ -37,7 +49,7 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// Fetch: Cache-first strategy
+// Fetch: Network-first for HTML, Cache-first for assets
 self.addEventListener("fetch", (event) => {
   // Skip non-GET requests
   if (event.request.method !== "GET") return;
@@ -45,22 +57,41 @@ self.addEventListener("fetch", (event) => {
   // Skip API calls
   if (event.request.url.includes("/api/")) return;
 
+  const url = new URL(event.request.url);
+
+  // Network-first for HTML pages
+  if (url.pathname.endsWith(".html") || url.pathname === "/" || url.pathname.includes("/")) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, clone);
+          });
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // Cache-first for static assets
   event.respondWith(
     caches.match(event.request).then((response) => {
-      // Return cached version or fetch new
-      return (
-        response ||
-        fetch(event.request).then((fetchResponse) => {
-          // Cache successful responses
-          if (fetchResponse.ok) {
-            const clone = fetchResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, clone);
-            });
-          }
-          return fetchResponse;
-        })
-      );
+      if (response) {
+        return response;
+      }
+
+      return fetch(event.request).then((fetchResponse) => {
+        // Cache successful responses
+        if (fetchResponse.ok) {
+          const clone = fetchResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, clone);
+          });
+        }
+        return fetchResponse;
+      });
     })
   );
 });
@@ -79,14 +110,17 @@ self.addEventListener("push", (event) => {
   event.waitUntil(
     self.registration.showNotification(data.title || "Hind AI", {
       body: data.body || "Your daily wisdom is ready",
-      icon: "/icon-192x192.png",
-      badge: "/icon-72x72.png",
+      icon: "/logo.png",
+      badge: "/logo.png",
       tag: data.tag || "daily-wisdom",
-      requireInteraction: true,
+      requireInteraction: false,
       actions: [
         { action: "open", title: "Read" },
         { action: "dismiss", title: "Later" },
       ],
+      data: {
+        url: data.url || "/daily",
+      },
     })
   );
 });
@@ -95,8 +129,9 @@ self.addEventListener("push", (event) => {
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
 
-  if (event.action === "open") {
-    event.waitUntil(self.clients.openWindow("/daily"));
+  if (event.action === "open" || !event.action) {
+    const url = event.notification.data?.url || "/daily";
+    event.waitUntil(self.clients.openWindow(url));
   }
 });
 
