@@ -1,20 +1,58 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { VerseWithLayers } from "@/lib/database/schema";
+import { ScriptureVerse } from "@/types/scripture";
 
 interface VerseReaderProps {
-  verse: VerseWithLayers;
+  verse: VerseWithLayers | ScriptureVerse;
   onNext?: () => void;
   onPrevious?: () => void;
 }
 
 type TabType = "sanskrit" | "word-by-word" | "translation" | "commentary" | "anvaya";
 
+// Helper to normalize verse properties for both types
+const normalizeVerse = (verse: VerseWithLayers | ScriptureVerse) => {
+  // Check if it's ScriptureVerse (has direct properties)
+  if ("sanskrit" in verse && "transliteration" in verse) {
+    const scriptureVerse = verse as ScriptureVerse;
+    return {
+      chapter: scriptureVerse.chapter,
+      verse_num: scriptureVerse.verse,
+      pada: scriptureVerse.sukta, // Use sukta as pada for Vedas
+      sanskrit: scriptureVerse.sanskrit,
+      transliteration: scriptureVerse.transliteration,
+      wordByWord: scriptureVerse.wordByWord || scriptureVerse.padaArtha,
+      anvaya: scriptureVerse.translation?.sa,
+      translation: scriptureVerse.translation?.en,
+      commentary: scriptureVerse.commentary,
+      audio: undefined, // ScriptureVerse doesn't have audio
+    };
+  }
+  // VerseWithLayers
+  const verseWithLayers = verse as VerseWithLayers;
+  return {
+    chapter: verseWithLayers.chapter,
+    verse_num: verseWithLayers.verse_num,
+    pada: verseWithLayers.pada,
+    sanskrit: verseWithLayers.text_devanagari,
+    transliteration: verseWithLayers.text_iast,
+    wordByWord: verseWithLayers.word_analysis,
+    anvaya: verseWithLayers.anvaya,
+    translation: verseWithLayers.translations?.[0]?.text,
+    commentary: verseWithLayers.commentaries?.[0]?.text_en,
+    audio: verseWithLayers.audio,
+  };
+};
+
 export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderProps) {
   const [activeTab, setActiveTab] = useState<TabType>("sanskrit");
   const [audioSpeed, setAudioSpeed] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const normalizedVerse = normalizeVerse(verse);
 
   const tabs: { id: TabType; label: string }[] = [
     { id: "sanskrit", label: "Sanskrit" },
@@ -45,77 +83,69 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
   };
 
   return (
-    <div className="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-lg">
+    <div className="surface-panel p-6 md:p-8">
       {/* Header with navigation */}
-      <div className="mb-4 flex items-center justify-between">
-        <button
-          onClick={onPrevious}
-          className="rounded bg-gray-200 px-4 py-2 transition hover:bg-gray-300"
-        >
+      <div className="mb-6 flex items-center justify-between">
+        <Button variant="outline" onClick={onPrevious} disabled={!onPrevious}>
           ← Previous
-        </button>
+        </Button>
         <div className="text-center">
-          <p className="text-sm text-gray-600">
-            Chapter {verse.chapter}, Verse {verse.verse_num}
+          <p className="text-sm text-muted-foreground">
+            Chapter {normalizedVerse.chapter}, Verse {normalizedVerse.verse_num}
           </p>
-          {verse.pada && <p className="text-xs text-gray-500">Pāda {verse.pada}</p>}
+          {normalizedVerse.pada && (
+            <p className="text-xs text-muted-foreground">Pāda {normalizedVerse.pada}</p>
+          )}
         </div>
-        <button
-          onClick={onNext}
-          className="rounded bg-gray-200 px-4 py-2 transition hover:bg-gray-300"
-        >
+        <Button variant="outline" onClick={onNext} disabled={!onNext}>
           Next →
-        </button>
+        </Button>
       </div>
 
       {/* Audio Player */}
-      {verse.audio_url && (
-        <div className="mb-4 rounded-lg bg-gray-50 p-4">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={togglePlay}
-              className="rounded bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
-            >
+      {normalizedVerse.audio && normalizedVerse.audio.length > 0 && (
+        <div className="mb-6 rounded-lg border border-border/60 bg-background/75 p-4">
+          <div className="flex flex-wrap items-center gap-4">
+            <Button onClick={togglePlay} variant={isPlaying ? "secondary" : "default"}>
               {isPlaying ? "⏸ Pause" : "▶ Play"}
-            </button>
+            </Button>
             <div className="flex gap-2">
               {[0.5, 0.75, 1, 1.5].map((speed) => (
-                <button
+                <Button
                   key={speed}
+                  variant={audioSpeed === speed ? "default" : "outline"}
+                  size="sm"
                   onClick={() => handleSpeedChange(speed)}
-                  className={`rounded px-3 py-1 ${
-                    audioSpeed === speed ? "bg-blue-600 text-white" : "bg-gray-200"
-                  }`}
                 >
                   {speed}×
-                </button>
+                </Button>
               ))}
             </div>
-            {verse.audio?.some((a) => a.vedic_accents) && (
-              <span className="rounded bg-purple-100 px-2 py-1 text-xs text-purple-800">
+            {normalizedVerse.audio.some((a) => a.vedic_accents) && (
+              <span className="rounded bg-primary/10 px-2 py-1 text-xs text-primary">
                 Vedic Accents
               </span>
             )}
           </div>
           <audio
             id="verse-audio"
-            src={verse.audio_url}
+            src={normalizedVerse.audio[0].url}
             onEnded={() => setIsPlaying(false)}
-            className="mt-2 w-full"
+            className="mt-4 w-full"
           />
         </div>
       )}
 
       {/* Tab Navigation */}
-      <div className="mb-4 flex border-b">
+      <div className="mb-6 flex border-b border-border/60">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2 font-medium transition ${
+            className={`px-4 py-3 font-medium transition-colors ${
               activeTab === tab.id
-                ? "border-b-2 border-blue-600 text-blue-600"
-                : "text-gray-600 hover:text-gray-800"
+                ? "border-b-2 border-primary text-primary"
+                : "text-muted-foreground hover:text-foreground"
             }`}
           >
             {tab.label}
@@ -124,39 +154,40 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
       </div>
 
       {/* Tab Content */}
-      <div className="min-h-[200px]">
+      <div className="min-h-[300px]">
         {activeTab === "sanskrit" && (
-          <div className="space-y-4">
-            <div className="rounded-lg bg-amber-50 p-4 text-center font-sans text-2xl">
-              {verse.text_devanagari}
+          <div className="space-y-6">
+            <div className="rounded-lg border border-amber-200/40 bg-gradient-to-br from-amber-50/60 via-orange-50/40 to-rose-50/30 p-6 text-center dark:border-amber-800/20 dark:from-amber-950/25 dark:via-orange-950/15 dark:to-rose-950/10">
+              <p className="font-devanagari text-2xl leading-relaxed text-foreground drop-shadow-sm">
+                {normalizedVerse.sanskrit}
+              </p>
             </div>
-            <div className="rounded-lg bg-gray-50 p-4 text-center text-lg text-gray-700">
-              {verse.text_iast}
+            <div className="rounded-lg border border-border/60 bg-background/75 p-4 text-center">
+              <p className="text-lg text-muted-foreground">{normalizedVerse.transliteration}</p>
             </div>
-            {verse.meter && (
-              <p className="text-center text-sm text-gray-500">Meter: {verse.meter}</p>
-            )}
           </div>
         )}
 
         {activeTab === "word-by-word" && (
-          <div className="space-y-2">
-            {verse.word_analysis?.map((word, index) => (
+          <div className="space-y-3">
+            {normalizedVerse.wordByWord?.map((word: any, index: number) => (
               <div
                 key={index}
-                className="flex items-center gap-4 rounded bg-gray-50 p-3 transition hover:bg-gray-100"
+                className="flex items-center gap-4 rounded-lg border border-border/60 bg-background/75 p-4 transition-colors hover:bg-background/90"
               >
-                <span className="text-lg font-bold">{word.position}.</span>
+                <span className="text-lg font-bold text-primary">{index + 1}.</span>
                 <div className="flex-1">
-                  <div className="flex gap-4">
-                    <span className="text-xl">{word.word_devanagari}</span>
-                    <span className="text-gray-600">{word.word_iast}</span>
+                  <div className="flex items-center gap-4">
+                    <span className="font-devanagari text-xl">
+                      {word.sanskrit || word.word_devanagari || word.word}
+                    </span>
+                    <span className="text-muted-foreground">{word.iast || word.word_iast}</span>
                   </div>
-                  <div className="mt-1 text-sm text-gray-500">
-                    Lemma: {word.lemma} | {word.case} | {word.number} | {word.gender}
+                  <div className="mt-1 text-sm text-muted-foreground">
+                    {word.meaning || word.meaning_en}
                   </div>
                 </div>
-                <span className="text-blue-600">{word.meaning_en}</span>
+                <span className="font-medium text-primary">{word.meaning || word.meaning_en}</span>
               </div>
             ))}
           </div>
@@ -164,11 +195,13 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
 
         {activeTab === "anvaya" && (
           <div className="space-y-4">
-            <div className="rounded-lg bg-green-50 p-4">
-              <h3 className="mb-2 font-bold">Prose Word Order (Anvaya)</h3>
-              <p className="text-lg">{verse.anvaya || "Anvaya analysis not available"}</p>
+            <div className="rounded-lg border border-border/60 bg-background/75 p-6">
+              <h3 className="mb-3 font-semibold text-primary">Prose Word Order (Anvaya)</h3>
+              <p className="text-lg leading-relaxed">
+                {normalizedVerse.anvaya || "Anvaya analysis not available"}
+              </p>
             </div>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-muted-foreground">
               The Anvaya layer shows the prose word order, which helps understand how Sanskrit
               poetry inverts word order for meter and emphasis.
             </p>
@@ -177,56 +210,45 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
 
         {activeTab === "translation" && (
           <div className="space-y-4">
-            {verse.translations?.map((translation, index) => (
-              <div key={index} className="rounded-lg bg-blue-50 p-4">
-                <div className="mb-2 flex items-center justify-between">
-                  <span className="font-bold">{translation.translator_name}</span>
-                  <span className="text-sm text-gray-500">{translation.lang}</span>
-                </div>
-                {translation.tradition && (
-                  <span className="rounded bg-purple-100 px-2 py-1 text-xs text-purple-800">
-                    {translation.tradition}
-                  </span>
-                )}
-                <p className="mt-2">{translation.text}</p>
-              </div>
-            ))}
+            <div className="rounded-lg border border-border/60 bg-background/75 p-6">
+              <h3 className="mb-3 font-semibold text-primary">English Translation</h3>
+              <p className="text-lg leading-relaxed">
+                {normalizedVerse.translation || "Translation not available"}
+              </p>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Translation helps understand the meaning of the Sanskrit verse in modern language.
+            </p>
           </div>
         )}
 
         {activeTab === "commentary" && (
           <div className="space-y-4">
-            {verse.commentaries?.map((commentary, index) => (
-              <div key={index} className="rounded-lg bg-purple-50 p-4">
-                <div className="mb-2 flex items-center justify-between">
-                  <span className="font-bold">{commentary.acharya}</span>
-                  <span className="rounded bg-purple-200 px-2 py-1 text-sm text-purple-800">
-                    {commentary.school}
-                  </span>
-                </div>
-                {commentary.century && (
-                  <p className="text-xs text-gray-500">{commentary.century}</p>
-                )}
-                {commentary.text_sa && (
-                  <p className="mt-2 text-sm italic text-gray-700">{commentary.text_sa}</p>
-                )}
-                <p className="mt-2">{commentary.text_en}</p>
-                <p className="mt-2 text-xs text-gray-500">Source: {commentary.source}</p>
-              </div>
-            ))}
+            <div className="rounded-lg border border-border/60 bg-background/75 p-6">
+              <h3 className="mb-3 font-semibold text-primary">Commentary</h3>
+              <p className="text-lg leading-relaxed">
+                {normalizedVerse.commentary || "Commentary not available"}
+              </p>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Traditional commentary provides deeper insights and explanations from ancient
+              scholars.
+            </p>
           </div>
         )}
       </div>
 
       {/* Footer actions */}
-      <div className="mt-6 flex items-center justify-between border-t pt-4">
-        <button className="text-sm text-gray-600 transition hover:text-blue-600">
+      <div className="mt-8 flex items-center justify-between border-t border-border/60 pt-6">
+        <Button variant="ghost" size="sm">
           📝 Add Notes
-        </button>
-        <button className="text-sm text-gray-600 transition hover:text-blue-600">
+        </Button>
+        <Button variant="ghost" size="sm">
           🔖 Bookmark
-        </button>
-        <button className="text-sm text-gray-600 transition hover:text-blue-600">🔗 Share</button>
+        </Button>
+        <Button variant="ghost" size="sm">
+          🔗 Share
+        </Button>
       </div>
     </div>
   );

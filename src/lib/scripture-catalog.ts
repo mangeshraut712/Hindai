@@ -230,6 +230,34 @@ export const scriptureSections: ScriptureSection[] = [
           "Best approached slowly, aphorism by aphorism. Each sutra is compressed philosophy, not casual prose.",
       },
       {
+        slug: "nyaya-sutras",
+        name: "Nyaya Sutras",
+        sanskrit: "न्यायसूत्र",
+        category: "Philosophy",
+        description: "Gautama's foundational text on logic, epistemology, and debate.",
+        highlight: "Logic, epistemology, debate",
+        href: "/nyaya-sutras",
+        language: "Sanskrit",
+        approximateDate: "~200 BCE–200 CE",
+        keyConcepts: ["Logic", "Epistemology", "Debate", "Pramana"],
+        readingLens:
+          "Study the pramanas (valid means of knowledge) and the systematic approach to logical reasoning.",
+      },
+      {
+        slug: "brahma-sutras",
+        name: "Brahma Sutras",
+        sanskrit: "ब्रह्मसूत्र",
+        category: "Vedanta",
+        description: "Badarayana's systematic exposition of Vedanta philosophy.",
+        highlight: "Vedanta, Brahman, metaphysics",
+        href: "/brahma-sutras",
+        language: "Sanskrit",
+        approximateDate: "~200 BCE–200 CE",
+        keyConcepts: ["Brahman", "Vedanta", "Metaphysics", "Unity"],
+        readingLens:
+          "Best read with commentaries (Shankara, Ramanuja, Madhva) to understand different interpretive schools.",
+      },
+      {
         slug: "yoga-vasishtha",
         name: "Yoga Vasishtha",
         sanskrit: "योगवसिष्ठ",
@@ -273,6 +301,149 @@ export const scriptureSections: ScriptureSection[] = [
         keyConcepts: ["Conduct", "Ritual", "Household life"],
         readingLens:
           "Useful when comparing how lived dharma gets adapted across social and historical contexts.",
+      },
+    ],
+  },
+  {
+    id: "agamas-tantras",
+    title: "Agamas & Tantras",
+    description:
+      "Ritual manuals, temple architecture, and esoteric practices of Shaiva, Vaishnava, and Shakta traditions.",
+    items: [
+      {
+        slug: "agamas-tantras",
+        name: "Agamas & Tantras",
+        sanskrit: "आगम तन्त्र",
+        category: "Tantric",
+        description:
+          "Shaiva Agamas (28), Vaishnava Pancharatra Agamas, and Shakta Tantras covering temple worship, rituals, and philosophy.",
+        highlight: "Temple worship, rituals, esoteric",
+        href: "/agamas-tantras",
+        language: "Sanskrit",
+        approximateDate: "~500–1200 CE",
+        keyConcepts: ["Temple worship", "Rituals", "Esoteric", "Deity worship"],
+        readingLens:
+          "Essential for understanding temple traditions and ritual practices across different sampradayas.",
+      },
+    ],
+  },
+  {
+    id: "stotras-mantras",
+    title: "Stotras & Mantras",
+    description:
+      "Devotional hymns, sacred mantras, and praise literature for daily worship and spiritual practice.",
+    items: [
+      {
+        slug: "vishnu-sahasranama",
+        name: "Vishnu Sahasranama",
+        sanskrit: "विष्णुसहस्रनाम",
+        category: "Stotra",
+        description: "1000 sacred names of Vishnu from the Mahabharata, with word-by-word meanings.",
+        highlight: "1000 names, Vishnu, devotion",
+        href: "/vishnu-sahasranama",
+        language: "Sanskrit",
+        approximateDate: "~200 BCE–200 CE",
+        keyConcepts: ["Vishnu", "Names", "Devotion", "Mahabharata"],
+        readingLens:
+          "Chant daily for spiritual merit. Each name reveals a different aspect of the divine.",
+      },
+      {
+        slug: "sahasranama-collection",
+        name: "Sahasranama Collection",
+        sanskrit: "सहस्रनाम संग्रह",
+        category: "Stotra",
+        description: "Collection of Sahasranamas including Lalita Sahasranama, Shiva Sahasranama, and more.",
+        highlight: "Multiple Sahasranamas, devotion",
+        href: "/sahasranama",
+        language: "Sanskrit",
+        approximateDate: "Various",
+        keyConcepts: ["Devi", "Shiva", "Names", "Devotion"],
+        readingLens:
+          "Explore the different Sahasranamas to understand the diverse aspects of deities in Hindu tradition.",
+      },
+    ],
+  },
+  {
+    id: "minor-gitas",
+    title: "Minor Gitas",
+    description:
+      "Gita-style dialogues found in various Puranas and texts, expanding on the Bhagavad Gita's teachings.",
+    items: [
+      {
+        slug: "minor-gitas",
+        name: "Minor Gitas",
+        sanskrit: "गीताएँ",
+        category: "Dialogue",
+        description:
+          "Collection of Gitas including Ashtavakra Gita, Avadhuta Gita, Ribhu Gita, and others.",
+        highlight: "Non-duality, wisdom, liberation",
+        href: "/minor-gitas",
+        language: "Sanskrit",
+        approximateDate: "Various",
+        keyConcepts: ["Non-duality", "Wisdom", "Liberation", "Advaita"],
+        readingLens:
+          "These Gitas often focus on Advaita philosophy and direct experience of the Self.",
+      },
+    ],
+  },
+  {
+    id: "samskaras",
+    title: "Shodasha Samskaras",
+    description:
+      "The 16 sacraments of Hindu life from conception to death, marking important life transitions.",
+    items: [
+      {
+        slug: "shodasha-samskaras",
+        name: "Shodasha Samskaras",
+        sanskrit: "षोडश संस्कार",
+        category: "Ritual",
+        description:
+          "The 16 rites of passage including Garbhadhana (conception), Namakarana (naming), Upanayana (sacred thread), Vivaha (marriage), and Antyeshti (funeral).",
+        highlight: "16 rites, life transitions, rituals",
+        href: "/shodasha-samskaras",
+        language: "Sanskrit",
+        approximateDate: "Ancient tradition",
+        keyConcepts: ["Rituals", "Life transitions", "Dharma", "Ceremony"],
+        readingLens:
+          "Understanding these rituals provides insight into the Hindu worldview on life stages and spiritual progression.",
+      },
+    ],
+  },
+  {
+    id: "pilgrimage",
+    title: "Sacred Places",
+    description:
+      "Tirtha kshetras, Jyotirlingas, Shakti Peethas, and other sacred pilgrimage sites in Hindu tradition.",
+    items: [
+      {
+        slug: "jyotirlingas",
+        name: "12 Jyotirlingas",
+        sanskrit: "द्वादश ज्योतिर्लिंग",
+        category: "Pilgrimage",
+        description:
+          "The 12 sacred abodes of Shiva where He appeared as a column of light, including Kashi Vishwanath, Somnath, and Rameshwaram.",
+        highlight: "Shiva, pilgrimage, light",
+        href: "/jyotirlingas",
+        language: "Sanskrit",
+        approximateDate: "Ancient tradition",
+        keyConcepts: ["Shiva", "Pilgrimage", "Sacred geography", "Light"],
+        readingLens:
+          "Each Jyotirlinga has unique mythology and significance. Visiting all 12 is considered spiritually meritorious.",
+      },
+      {
+        slug: "shakti-peethas",
+        name: "51 Shakti Peethas",
+        sanskrit: "५१ शक्तिपीठ",
+        category: "Pilgrimage",
+        description:
+          "Sacred sites where parts of Sati's body fell, including Kamakhya, Kalighat, and Vaishno Devi.",
+        highlight: "Devi, pilgrimage, power",
+        href: "/shakti-peethas",
+        language: "Sanskrit",
+        approximateDate: "Ancient tradition",
+        keyConcepts: ["Devi", "Shakti", "Pilgrimage", "Mythology"],
+        readingLens:
+          "These sites represent the divine feminine power and are important centers of Shakta worship.",
       },
     ],
   },

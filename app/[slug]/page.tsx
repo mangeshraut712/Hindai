@@ -1,13 +1,26 @@
+"use client";
+
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, BookOpen, Clock3, Languages, Sparkles } from "lucide-react";
+import { useState } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  BookOpen,
+  Clock3,
+  Languages,
+  Sparkles,
+  Eye,
+  Book,
+} from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { getVerse, getVersesByScripture, scriptures } from "@/lib/data/scriptures";
 import { getScriptureCatalogItem, scriptureCatalog } from "@/lib/scripture-catalog";
+import VerseReader from "@/components/verse-reader/VerseReader";
 
 function ScriptureStudyExplorerFallback() {
   return <div className="surface-panel min-h-[400px] animate-pulse rounded-2xl" />;
@@ -70,6 +83,8 @@ export default async function ScripturePage({ params }: PageProps) {
   if (!item) {
     notFound();
   }
+
+  const [viewMode, setViewMode] = useState<"explorer" | "reader">("explorer");
 
   const detailed = scriptures.find((scripture) => scripture.id === slug);
   const verses = getVersesByScripture(slug);
@@ -183,25 +198,66 @@ export default async function ScripturePage({ params }: PageProps) {
           </div>
         </section>
 
+        {/* View Mode Toggle */}
+        {verses.length > 0 && (
+          <section className="border-b border-border/60 px-4 py-8 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl">
+              <div className="flex items-center justify-center gap-4">
+                <Button
+                  variant={viewMode === "explorer" ? "default" : "outline"}
+                  onClick={() => setViewMode("explorer")}
+                  className="flex items-center gap-2"
+                >
+                  <Eye className="size-4" />
+                  Study Explorer
+                </Button>
+                <Button
+                  variant={viewMode === "reader" ? "default" : "outline"}
+                  onClick={() => setViewMode("reader")}
+                  className="flex items-center gap-2"
+                >
+                  <Book className="size-4" />
+                  Verse Reader
+                </Button>
+              </div>
+              <p className="mt-4 text-center text-sm text-muted-foreground">
+                {viewMode === "explorer"
+                  ? "Browse verses with navigation and study tools"
+                  : "Read verses with tabbed layers (Sanskrit, Word-by-word, Translation, Commentary)"}
+              </p>
+            </div>
+          </section>
+        )}
+
         <section className="px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             {verses.length > 0 ? (
               <div className="space-y-10">
                 <div className="max-w-3xl">
                   <span className="eyebrow">Verse study • श्लोक अध्ययन</span>
-                  <h2 className="section-title mt-6">Read a verse, then deepen it with Gemma 4.</h2>
+                  <h2 className="section-title mt-6">
+                    {viewMode === "explorer"
+                      ? "Read a verse, then deepen it with Gemma 4."
+                      : "Explore verse layers with tabbed navigation."}
+                  </h2>
                   <p className="section-copy mt-5">
-                    Hind AI is stronger than a plain digital shelf when it turns a scripture page
-                    into a study surface: original text, transliteration, translation, then grounded
-                    AI explanation.
+                    {viewMode === "explorer"
+                      ? "Hind AI is stronger than a plain digital shelf when it turns a scripture page into a study surface: original text, transliteration, translation, then grounded AI explanation."
+                      : "The Verse Reader provides a focused tabbed interface for deep study of Sanskrit text, word-by-word analysis, translation, and commentary."}
                   </p>
                 </div>
 
-                <ScriptureStudyExplorer
-                  verses={verses}
-                  scriptureSlug={slug}
-                  scriptureHighlight={item.highlight}
-                />
+                {viewMode === "explorer" ? (
+                  <ScriptureStudyExplorer
+                    verses={verses}
+                    scriptureSlug={slug}
+                    scriptureHighlight={item.highlight}
+                  />
+                ) : (
+                  <div className="mx-auto max-w-4xl">
+                    <VerseReader verse={verses[0]} />
+                  </div>
+                )}
 
                 <div className="surface-panel p-6 md:p-8">
                   <div className="relative z-10 grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(280px,420px)] lg:items-start">

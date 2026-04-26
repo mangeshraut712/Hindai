@@ -42,7 +42,10 @@ const navItems = [
   { label: "Library", script: "ग्रन्थालय", href: "/contents", icon: BookOpen },
   { label: "Guru AI", script: "गुरु", href: "/ai-guide", icon: Sparkles },
   { label: "Sanskrit", script: "संस्कृत", href: "/sanskrit-nova", icon: Languages },
+  { label: "Tools", script: "उपकरण", href: "/sanskrit-tools", icon: Languages },
   { label: "Panchanga", script: "पञ्चाङ्ग", href: "/panchanga", icon: Calendar },
+  { label: "Pilgrimage", script: "तीर्थ", href: "/pilgrimage", icon: BookOpen },
+  { label: "Audio", script: "आडियो", href: "/audio", icon: BookOpen },
   { label: "Study Paths", script: "पाठ", href: "/study-paths" },
   { label: "Community", script: "समुदाय", href: "/community", icon: Users },
 ];
