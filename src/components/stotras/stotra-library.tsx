@@ -168,7 +168,7 @@ export function StotraLibrary() {
                 qualities. These texts form the core of Hindu devotional practice, used for worship,
                 meditation, and spiritual growth.
               </p>
-              <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" role="list" aria-label="Stotras and mantras">
                 {stotraItems.map((stotra, index) => (
                   <motion.div
                     key={stotra.id}
@@ -177,12 +177,23 @@ export function StotraLibrary() {
                     transition={{ duration: 0.4, delay: index * 0.08 }}
                     whileHover={{ scale: 1.02, y: -4 }}
                     whileTap={{ scale: 0.98 }}
+                    whileFocus={{ scale: 1.02, outline: "2px solid var(--primary)" }}
                   >
                     <Card
-                      className={`cursor-pointer transition-all hover:shadow-lg ${
+                      className={`cursor-pointer transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                         selectedStotra?.id === stotra.id ? "ring-2 ring-primary shadow-md" : ""
                       }`}
                       onClick={() => setSelectedStotra(stotra)}
+                      role="listitem"
+                      tabIndex={0}
+                      aria-label={`${stotra.name} (${stotra.sanskrit}) - ${stotra.deity}`}
+                      aria-pressed={selectedStotra?.id === stotra.id}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setSelectedStotra(stotra);
+                        }
+                      }}
                     >
                       <CardHeader className="pb-3">
                         <div className="flex items-center justify-between">

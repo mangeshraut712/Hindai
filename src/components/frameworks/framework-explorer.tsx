@@ -333,7 +333,7 @@ export function FrameworkExplorer() {
                 philosophy, ethics, and spiritual practice. They offer systematic approaches to
                 understanding human nature, purpose, and the path to liberation.
               </p>
-              <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" role="list" aria-label="Hindu frameworks">
                 {frameworks.map((framework, index) => (
                   <motion.div
                     key={framework.id}
@@ -342,12 +342,23 @@ export function FrameworkExplorer() {
                     transition={{ duration: 0.4, delay: index * 0.08 }}
                     whileHover={{ scale: 1.02, y: -4 }}
                     whileTap={{ scale: 0.98 }}
+                    whileFocus={{ scale: 1.02, outline: "2px solid var(--primary)" }}
                   >
                     <Card
-                      className={`cursor-pointer transition-all hover:shadow-lg ${
+                      className={`cursor-pointer transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                         selectedFramework?.id === framework.id ? "ring-2 ring-primary shadow-md" : ""
                       }`}
                       onClick={() => setSelectedFramework(framework)}
+                      role="listitem"
+                      tabIndex={0}
+                      aria-label={`${framework.name} (${framework.sanskrit}) - ${framework.description}`}
+                      aria-pressed={selectedFramework?.id === framework.id}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setSelectedFramework(framework);
+                        }
+                      }}
                     >
                       <CardHeader className="pb-3">
                         <div className="flex items-center gap-3">

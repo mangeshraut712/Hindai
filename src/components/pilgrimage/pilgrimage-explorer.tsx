@@ -185,8 +185,11 @@ export function PilgrimageExplorer() {
             variant={activeTab === "jyotirlingas" ? "premium" : "outline"}
             onClick={() => setActiveTab("jyotirlingas")}
             className="w-full gap-2 text-sm sm:text-base"
+            aria-pressed={activeTab === "jyotirlingas"}
+            aria-controls="pilgrimage-content"
+            role="tab"
           >
-            <Sparkles className="size-4" />
+            <Sparkles className="size-4" aria-hidden="true" />
             <span className="hidden sm:inline">12 Jyotirlingas</span>
             <span className="sm:hidden">Jyotirlingas</span>
           </Button>
@@ -196,8 +199,11 @@ export function PilgrimageExplorer() {
             variant={activeTab === "shakti-peethas" ? "premium" : "outline"}
             onClick={() => setActiveTab("shakti-peethas")}
             className="w-full gap-2 text-sm sm:text-base"
+            aria-pressed={activeTab === "shakti-peethas"}
+            aria-controls="pilgrimage-content"
+            role="tab"
           >
-            <Sparkles className="size-4" />
+            <Sparkles className="size-4" aria-hidden="true" />
             <span className="hidden sm:inline">51 Shakti Peethas</span>
             <span className="sm:hidden">Shakti Peethas</span>
           </Button>
@@ -205,7 +211,7 @@ export function PilgrimageExplorer() {
       </div>
 
       {/* Introduction */}
-      <div className="mb-12 surface-panel p-4 sm:p-6">
+      <div className="mb-12 surface-panel p-4 sm:p-6" id="pilgrimage-content" role="tabpanel">
         <h2 className="text-xl sm:text-2xl font-semibold text-foreground">
           {activeTab === "jyotirlingas" ? "The 12 Jyotirlingas" : "The 51 Shakti Peethas"}
         </h2>
@@ -217,7 +223,7 @@ export function PilgrimageExplorer() {
       </div>
 
       {/* Grid */}
-      <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" role="list" aria-label={`${activeTab === "jyotirlingas" ? "Jyotirlingas" : "Shakti Peethas"} list`}>
         {activeData.map((item, index) => (
           <motion.article
             key={item.id}
@@ -226,8 +232,18 @@ export function PilgrimageExplorer() {
             transition={{ duration: 0.4, delay: index * 0.05 }}
             whileHover={{ scale: 1.02, y: -4 }}
             whileTap={{ scale: 0.98 }}
-            className="surface-panel cursor-pointer transition-all duration-300 hover:shadow-lg"
+            whileFocus={{ scale: 1.02, outline: "2px solid var(--primary)" }}
+            className="surface-panel cursor-pointer transition-all duration-300 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             onClick={() => setSelectedItem(item)}
+            role="listitem"
+            tabIndex={0}
+            aria-label={`${item.name} (${item.sanskrit}) - ${item.location}`}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setSelectedItem(item);
+              }
+            }}
           >
             <div className="relative z-10">
               <div className="flex items-start justify-between">

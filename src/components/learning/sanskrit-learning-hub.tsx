@@ -218,7 +218,7 @@ export function SanskritLearningHub() {
           {/* Learning Modules */}
           <div>
             <h2 className="mb-6 text-xl sm:text-2xl font-bold">Learning Modules</h2>
-            <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" role="list" aria-label="Learning modules">
               {learningModules.map((module, index) => (
                 <motion.div
                   key={module.id}
@@ -227,12 +227,23 @@ export function SanskritLearningHub() {
                   transition={{ duration: 0.4, delay: index * 0.08 }}
                   whileHover={{ scale: 1.02, y: -4 }}
                   whileTap={{ scale: 0.98 }}
+                  whileFocus={{ scale: 1.02, outline: "2px solid var(--primary)" }}
                 >
                   <Card
-                    className={`cursor-pointer border-2 transition-all hover:shadow-lg ${
+                    className={`cursor-pointer border-2 transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                       selectedModule?.id === module.id ? "border-primary ring-2 ring-primary shadow-md" : ""
                     } ${module.color}`}
                     onClick={() => setSelectedModule(module)}
+                    role="listitem"
+                    tabIndex={0}
+                    aria-label={`${module.name} - ${module.description}`}
+                    aria-pressed={selectedModule?.id === module.id}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setSelectedModule(module);
+                      }
+                    }}
                   >
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between">

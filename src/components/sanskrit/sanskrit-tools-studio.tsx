@@ -129,8 +129,13 @@ export function SanskritToolsStudio() {
             transition={{ duration: 0.3, delay: index * 0.05 }}
             whileHover={{ scale: 1.03, y: -4 }}
             whileTap={{ scale: 0.97 }}
+            whileFocus={{ scale: 1.02, outline: "2px solid var(--primary)" }}
+            aria-label={`Select ${tool.label} tool: ${tool.desc}`}
+            aria-pressed={activeTool === tool.id}
+            role="tab"
+            tabIndex={0}
             className={cn(
-              "group relative flex flex-col items-center gap-3 rounded-2xl border p-6 transition-all duration-300",
+              "group relative flex flex-col items-center gap-3 rounded-2xl border p-6 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
               activeTool === tool.id
                 ? "border-primary/50 bg-gradient-to-br from-primary/10 to-primary/5 shadow-lg shadow-primary/10"
                 : "border-border/60 bg-card/75 hover:border-primary/30 hover:bg-secondary/70 hover:shadow-md"

@@ -115,7 +115,7 @@ export function PhilosophyExplorer() {
                 While they differ in emphasis and methodology, they share the common goal of
                 understanding ultimate truth.
               </p>
-              <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" role="list" aria-label="Philosophy schools">
                 {philosophySchools.map((school, index) => (
                   <motion.div
                     key={school.id}
@@ -124,12 +124,23 @@ export function PhilosophyExplorer() {
                     transition={{ duration: 0.4, delay: index * 0.08 }}
                     whileHover={{ scale: 1.02, y: -4 }}
                     whileTap={{ scale: 0.98 }}
+                    whileFocus={{ scale: 1.02, outline: "2px solid var(--primary)" }}
                   >
                     <Card
-                      className={`cursor-pointer transition-all hover:shadow-lg ${
+                      className={`cursor-pointer transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                         selectedSchool?.id === school.id ? "ring-2 ring-primary shadow-md" : ""
                       }`}
                       onClick={() => setSelectedSchool(school)}
+                      role="listitem"
+                      tabIndex={0}
+                      aria-label={`${school.name} (${school.sanskrit}) - ${school.description}`}
+                      aria-pressed={selectedSchool?.id === school.id}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setSelectedSchool(school);
+                        }
+                      }}
                     >
                       <CardHeader className="pb-3">
                         <div className="flex items-center gap-3">
