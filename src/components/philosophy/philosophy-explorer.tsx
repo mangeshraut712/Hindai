@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { BookOpen, Users, Target, Eye, Brain, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { triggerHapticOnPress } from "@/lib/haptics";
 
 interface PhilosophySchool {
   id: string;
@@ -130,7 +131,10 @@ export function PhilosophyExplorer() {
                       className={`cursor-pointer transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                         selectedSchool?.id === school.id ? "ring-2 ring-primary shadow-md" : ""
                       }`}
-                      onClick={() => setSelectedSchool(school)}
+                      onClick={() => {
+                        triggerHapticOnPress();
+                        setSelectedSchool(school);
+                      }}
                       role="listitem"
                       tabIndex={0}
                       aria-label={`${school.name} (${school.sanskrit}) - ${school.description}`}
@@ -138,6 +142,7 @@ export function PhilosophyExplorer() {
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
+                          triggerHapticOnPress();
                           setSelectedSchool(school);
                         }
                       }}

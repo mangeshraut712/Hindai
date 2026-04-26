@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { triggerHapticOnPress, triggerHapticOnSuccess, triggerHapticOnError } from "@/lib/haptics";
 
 type ToolTab =
   | "transliterate"
@@ -52,6 +53,7 @@ export function SanskritToolsStudio() {
 
   const handleProcess = async () => {
     if (!input.trim() || isLoading) return;
+    triggerHapticOnPress();
     setIsLoading(true);
     setCopied(false);
 
@@ -72,8 +74,10 @@ export function SanskritToolsStudio() {
 
       const data = await response.json();
       setOutput(JSON.stringify(data, null, 2));
+      triggerHapticOnSuccess();
     } catch (error) {
       setOutput(error instanceof Error ? error.message : "An error occurred");
+      triggerHapticOnError();
     } finally {
       setIsLoading(false);
     }
@@ -81,8 +85,10 @@ export function SanskritToolsStudio() {
 
   const copyOutput = async () => {
     if (!output) return;
+    triggerHapticOnPress();
     await navigator.clipboard.writeText(output);
     setCopied(true);
+    triggerHapticOnSuccess();
     setTimeout(() => setCopied(false), 1400);
   };
 
@@ -123,7 +129,10 @@ export function SanskritToolsStudio() {
           <motion.button
             key={tool.id}
             type="button"
-            onClick={() => setActiveTool(tool.id)}
+            onClick={() => {
+              triggerHapticOnPress();
+              setActiveTool(tool.id);
+            }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.05 }}

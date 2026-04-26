@@ -18,6 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { triggerHapticOnPress } from "@/lib/haptics";
 
 interface LearningModule {
   id: string;
@@ -233,7 +234,10 @@ export function SanskritLearningHub() {
                     className={`cursor-pointer border-2 transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                       selectedModule?.id === module.id ? "border-primary ring-2 ring-primary shadow-md" : ""
                     } ${module.color}`}
-                    onClick={() => setSelectedModule(module)}
+                    onClick={() => {
+                      triggerHapticOnPress();
+                      setSelectedModule(module);
+                    }}
                     role="listitem"
                     tabIndex={0}
                     aria-label={`${module.name} - ${module.description}`}
@@ -241,6 +245,7 @@ export function SanskritLearningHub() {
                     onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
+                        triggerHapticOnPress();
                         setSelectedModule(module);
                       }
                     }}

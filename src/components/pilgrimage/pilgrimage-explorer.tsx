@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { MapPin, Sparkles, Calendar, ArrowRight, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { triggerHapticOnPress } from "@/lib/haptics";
 
 const jyotirlingas = [
   {
@@ -183,7 +184,10 @@ export function PilgrimageExplorer() {
         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1">
           <Button
             variant={activeTab === "jyotirlingas" ? "premium" : "outline"}
-            onClick={() => setActiveTab("jyotirlingas")}
+            onClick={() => {
+              triggerHapticOnPress();
+              setActiveTab("jyotirlingas");
+            }}
             className="w-full gap-2 text-sm sm:text-base"
             aria-pressed={activeTab === "jyotirlingas"}
             aria-controls="pilgrimage-content"
@@ -197,7 +201,10 @@ export function PilgrimageExplorer() {
         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1">
           <Button
             variant={activeTab === "shakti-peethas" ? "premium" : "outline"}
-            onClick={() => setActiveTab("shakti-peethas")}
+            onClick={() => {
+              triggerHapticOnPress();
+              setActiveTab("shakti-peethas");
+            }}
             className="w-full gap-2 text-sm sm:text-base"
             aria-pressed={activeTab === "shakti-peethas"}
             aria-controls="pilgrimage-content"
@@ -234,13 +241,17 @@ export function PilgrimageExplorer() {
             whileTap={{ scale: 0.98 }}
             whileFocus={{ scale: 1.02, outline: "2px solid var(--primary)" }}
             className="surface-panel cursor-pointer transition-all duration-300 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            onClick={() => setSelectedItem(item)}
+            onClick={() => {
+              triggerHapticOnPress();
+              setSelectedItem(item);
+            }}
             role="listitem"
             tabIndex={0}
             aria-label={`${item.name} (${item.sanskrit}) - ${item.location}`}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
+                triggerHapticOnPress();
                 setSelectedItem(item);
               }
             }}

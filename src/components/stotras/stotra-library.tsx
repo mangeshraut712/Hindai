@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LALITA_SAHASRANAMA, SHIVA_SAHASRANAMA } from "@/lib/data/sahasranama-collection";
 import { VISHNU_SAHASRANAMA } from "@/lib/data/vishnu-sahasranama";
+import { triggerHapticOnPress } from "@/lib/haptics";
 
 interface StotraItem {
   id: string;
@@ -183,7 +184,10 @@ export function StotraLibrary() {
                       className={`cursor-pointer transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                         selectedStotra?.id === stotra.id ? "ring-2 ring-primary shadow-md" : ""
                       }`}
-                      onClick={() => setSelectedStotra(stotra)}
+                      onClick={() => {
+                        triggerHapticOnPress();
+                        setSelectedStotra(stotra);
+                      }}
                       role="listitem"
                       tabIndex={0}
                       aria-label={`${stotra.name} (${stotra.sanskrit}) - ${stotra.deity}`}
@@ -191,6 +195,7 @@ export function StotraLibrary() {
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
+                          triggerHapticOnPress();
                           setSelectedStotra(stotra);
                         }
                       }}

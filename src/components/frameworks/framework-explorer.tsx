@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Target, Layers, Users, Heart, Shield, Eye, BookOpen, TreePine } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { triggerHapticOnPress } from "@/lib/haptics";
 
 interface FrameworkItem {
   id: string;
@@ -348,7 +349,10 @@ export function FrameworkExplorer() {
                       className={`cursor-pointer transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                         selectedFramework?.id === framework.id ? "ring-2 ring-primary shadow-md" : ""
                       }`}
-                      onClick={() => setSelectedFramework(framework)}
+                      onClick={() => {
+                        triggerHapticOnPress();
+                        setSelectedFramework(framework);
+                      }}
                       role="listitem"
                       tabIndex={0}
                       aria-label={`${framework.name} (${framework.sanskrit}) - ${framework.description}`}
@@ -356,6 +360,7 @@ export function FrameworkExplorer() {
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
+                          triggerHapticOnPress();
                           setSelectedFramework(framework);
                         }
                       }}
