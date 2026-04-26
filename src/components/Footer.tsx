@@ -55,7 +55,7 @@ export function Footer() {
   return (
     <footer className="bg-background/88 relative overflow-hidden border-t border-border/60">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,hsl(var(--primary)/0.1),transparent_32%),radial-gradient(circle_at_80%_0%,hsl(var(--accent)/0.1),transparent_34%)]" />
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_repeat(4,minmax(0,0.8fr))] lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_repeat(2,minmax(0,1fr))] lg:gap-12 lg:px-8 xl:grid-cols-[1.2fr_repeat(4,minmax(0,0.8fr))]">
         <div className="space-y-6">
           <div>
             <p className="font-devanagari text-sm tracking-[0.28em] text-primary">

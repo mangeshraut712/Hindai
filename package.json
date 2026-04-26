@@ -17,7 +17,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "echo 'No unit tests configured yet - skipping'",
-    "test:e2e": "echo 'No E2E tests configured yet - skipping'",
+    "test:e2e": "playwright test",
     "analyze": "ANALYZE=true npm run build",
     "lighthouse": "npx @lhci/cli@0.15.1 autorun",
     "performance": "npm run build && npx serve .next -p 3001",
@@ -52,6 +52,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "@types/node": "^22.10.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

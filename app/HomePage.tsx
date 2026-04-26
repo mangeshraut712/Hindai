@@ -120,7 +120,7 @@ export default function HomePage() {
             aria-hidden="true"
           />
 
-          <div className="mx-auto grid min-h-[calc(100svh-5rem)] max-w-7xl items-end gap-14 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.9fr)] lg:px-8">
+          <div className="mx-auto grid min-h-[calc(100svh-5rem)] max-w-7xl items-end gap-8 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.9fr)] lg:gap-14 lg:px-8">
             <motion.div style={{ y: heroY }} className="relative z-10 max-w-3xl">
               <span className="eyebrow">Digital Gurukul • Gemma 4 • English · हिंदी · संस्कृत</span>
               <div className="mt-8 space-y-6">
@@ -243,7 +243,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
               {studyModes.map((mode, index) => (
                 <motion.div
                   key={mode.title}
@@ -338,7 +338,7 @@ export default function HomePage() {
         <section className="px-4 pb-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="surface-panel overflow-hidden bg-[linear-gradient(135deg,hsl(var(--foreground)),hsl(var(--secondary-foreground)))] text-background">
-              <div className="grid gap-10 px-6 py-10 md:px-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-end">
+              <div className="grid gap-10 px-6 py-10 md:px-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-end xl:gap-12">
                 <div className="relative z-10 max-w-xl space-y-5">
                   <span className="eyebrow border-white/15 bg-white/10 text-white/70">Guru AI</span>
                   <h2 className="font-serif text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
@@ -356,7 +356,7 @@ export default function HomePage() {
                   </Button>
                 </div>
 
-                <div className="relative z-10 grid gap-4 sm:grid-cols-2">
+                <div className="relative z-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
                   {scriptureSections.map((section) => (
                     <div
                       key={section.id}
@@ -417,7 +417,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="mt-12 grid gap-8 lg:grid-cols-2">
+            <div className="mt-12 grid gap-8 sm:grid-cols-1 lg:grid-cols-2">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
