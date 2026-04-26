@@ -17,28 +17,43 @@ const studyModes = [
     title: "Read by shelf",
     body: "Move through Vedas, epics, Puranas, and philosophy with clear structure rather than scattered links.",
     features: ["4 Vedas", "18 Puranas", "108 Upanishads", "2 Itihasas"],
-  },
-  {
-    icon: ScanSearch,
-    title: "Read by meaning",
-    body: "Browse with context, transliteration, and modern summaries instead of raw verse fragments.",
-    features: [
-      "Sanskrit + Hindi + English",
-      "Word-by-word breakdown",
-      "Historical context",
-      "Cross-references",
-    ],
+    href: "/contents",
   },
   {
     icon: Bot,
-    title: "Ask by intent",
-    body: "Use Guru AI when you need an explanation, comparison, or grounded entry point into a difficult idea.",
+    title: "Vedic AI Scholar",
+    body: "Deep theological discourse with Gemma 4. Ask questions about Vedas, Upanishads, and philosophy.",
     features: [
       "Gemma 4 powered",
-      "Verse-by-verse analysis",
-      "Comparative commentary",
-      "Personalized learning",
+      "Streaming responses",
+      "Scriptural references",
+      "Context-aware answers",
     ],
+    href: "/ai-guide",
+  },
+  {
+    icon: ScanSearch,
+    title: "Vision Analysis",
+    body: "Upload images of sacred texts, iconography, or temples for AI-powered interpretation.",
+    features: [
+      "Image recognition",
+      "Iconography analysis",
+      "Temple architecture",
+      "Yantra interpretation",
+    ],
+    href: "/vision",
+  },
+  {
+    icon: Languages,
+    title: "Smart Dharma Guide",
+    body: "Personalized spiritual guidance for daily rituals, meditation, fasting, and festivals.",
+    features: [
+      "Category selection",
+      "Streaming guidance",
+      "Vratas & Samskaras",
+      "Festival knowledge",
+    ],
+    href: "/dharma",
   },
 ];
 
@@ -228,7 +243,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="mt-12 grid gap-6 lg:grid-cols-3">
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {studyModes.map((mode, index) => (
                 <motion.div
                   key={mode.title}
@@ -236,29 +251,29 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="surface-panel group p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                  className="surface-panel group p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
                 >
-                  <div className="relative z-10 space-y-5">
+                  <Link href={mode.href} className="relative z-10 space-y-4">
                     <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20">
                       <mode.icon className="size-5" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
+                      <h3 className="text-xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
                         {mode.title}
                       </h3>
-                      <p className="mt-3 text-sm leading-7 text-muted-foreground">{mode.body}</p>
+                      <p className="mt-3 text-sm leading-6 text-muted-foreground">{mode.body}</p>
                       <div className="mt-4 flex flex-wrap gap-2">
                         {mode.features.map((feature) => (
                           <span
                             key={feature}
-                            className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary transition-all duration-300 hover:scale-105 hover:bg-primary/20"
+                            className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-medium text-primary transition-all duration-300 hover:scale-105 hover:bg-primary/20"
                           >
                             {feature}
                           </span>
                         ))}
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </motion.div>
               ))}
             </div>

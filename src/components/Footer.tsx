@@ -6,31 +6,48 @@ import { headerScriptures } from "@/lib/scripture-catalog";
 
 const footerGroups = [
   {
-    title: "Explore",
+    title: "AI Features",
     links: [
-      { label: "Library", href: "/contents" },
       { label: "Guru AI", href: "/ai-guide" },
-      { label: "Sanskrit Studio", href: "/sanskrit-nova" },
-      { label: "Sanskrit Tools", href: "/sanskrit-tools" },
-      { label: "Panchanga", href: "/panchanga" },
-      { label: "Pilgrimage", href: "/pilgrimage" },
-      { label: "Audio", href: "/audio" },
-      { label: "Philosophies", href: "/philosophies" },
-      { label: "Stotras", href: "/stotras" },
-      { label: "Frameworks", href: "/frameworks" },
-      { label: "Learning", href: "/learning" },
-      { label: "Daily", href: "/daily" },
-      { label: "Study Paths", href: "/study-paths" },
-      { label: "Quiz", href: "/quiz" },
-      { label: "Structure", href: "/structure" },
+      { label: "Vision Analysis", href: "/vision" },
+      { label: "Dharma Guide", href: "/dharma" },
     ],
   },
   {
-    title: "Scriptures",
-    links: headerScriptures.map((item) => ({
-      label: item.name,
-      href: item.href,
-    })),
+    title: "Learning",
+    links: [
+      { label: "Sanskrit Studio", href: "/sanskrit-nova" },
+      { label: "Sanskrit Tools", href: "/sanskrit-tools" },
+      { label: "Learning Hub", href: "/learning" },
+      { label: "Study Paths", href: "/study-paths" },
+    ],
+  },
+  {
+    title: "Culture",
+    links: [
+      { label: "Philosophies", href: "/philosophies" },
+      { label: "Frameworks", href: "/frameworks" },
+      { label: "Stotras", href: "/stotras" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Library", href: "/contents" },
+      { label: "Panchanga", href: "/panchanga" },
+      { label: "Pilgrimage", href: "/pilgrimage" },
+      { label: "Audio", href: "/audio" },
+    ],
+  },
+  {
+    title: "More",
+    links: [
+      { label: "Daily", href: "/daily" },
+      { label: "Quiz", href: "/quiz" },
+      { label: "Community", href: "/community" },
+      { label: "Structure", href: "/structure" },
+      { label: "Preface", href: "/preface" },
+    ],
   },
 ];
 
@@ -38,7 +55,7 @@ export function Footer() {
   return (
     <footer className="bg-background/88 relative overflow-hidden border-t border-border/60">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,hsl(var(--primary)/0.1),transparent_32%),radial-gradient(circle_at_80%_0%,hsl(var(--accent)/0.1),transparent_34%)]" />
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_repeat(4,minmax(0,0.8fr))] lg:px-8">
         <div className="space-y-6">
           <div>
             <p className="font-devanagari text-sm tracking-[0.28em] text-primary">

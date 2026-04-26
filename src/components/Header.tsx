@@ -42,20 +42,31 @@ import { useLanguage, SUPPORTED_LANGUAGES } from "@/lib/i18n/context";
 const navItems = [
   { label: "Library", script: "ग्रन्थालय", href: "/contents", icon: BookOpen },
   { label: "Guru AI", script: "गुरु", href: "/ai-guide", icon: Sparkles },
-  { label: "Sanskrit", script: "संस्कृत", href: "/sanskrit-nova", icon: Languages },
-  { label: "Tools", script: "उपकरण", href: "/sanskrit-tools", icon: Languages },
-  { label: "Learning", script: "अधिगम", href: "/learning", icon: BookOpen },
+  { label: "Vision", script: "दर्शन", href: "/vision", icon: Sparkles },
+  { label: "Dharma", script: "धर्म", href: "/dharma", icon: Sparkles },
+];
+
+const learningItems = [
+  { label: "Sanskrit Studio", script: "संस्कृत", href: "/sanskrit-nova", icon: Languages },
+  { label: "Sanskrit Tools", script: "उपकरण", href: "/sanskrit-tools", icon: Languages },
+  { label: "Learning Hub", script: "अधिगम", href: "/learning", icon: BookOpen },
+];
+
+const cultureItems = [
   { label: "Philosophies", script: "दर्शन", href: "/philosophies", icon: BookOpen },
   { label: "Frameworks", script: "संरचना", href: "/frameworks", icon: BookOpen },
   { label: "Stotras", script: "स्तोत्र", href: "/stotras", icon: BookOpen },
+];
+
+const resourcesItems = [
   { label: "Panchanga", script: "पञ्चाङ्ग", href: "/panchanga", icon: Calendar },
   { label: "Pilgrimage", script: "तीर्थ", href: "/pilgrimage", icon: BookOpen },
   { label: "Audio", script: "आडियो", href: "/audio", icon: BookOpen },
-  { label: "Study Paths", script: "पाठ", href: "/study-paths" },
-  { label: "Community", script: "समुदाय", href: "/community", icon: Users },
 ];
 
 const moreItems = [
+  { label: "Study Paths", script: "पाठ", href: "/study-paths", icon: BookOpen },
+  { label: "Community", script: "समुदाय", href: "/community", icon: Users },
   { label: "Quiz", script: "परीक्षा", href: "/quiz", icon: Trophy },
   { label: "Daily", script: "दैनिक", href: "/daily", icon: Sun },
   { label: "Structure", script: "विन्यास", href: "/structure", icon: BookOpen },
@@ -199,6 +210,126 @@ export function Header() {
               </span>
             </Link>
           ))}
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="nav-pill gap-2">
+                <span className="flex flex-col items-start leading-tight">
+                  <span className="text-xs font-semibold">Learning</span>
+                  <span className="font-devanagari text-[10px] text-muted-foreground">अध्ययन</span>
+                </span>
+                <ChevronDown className="ml-1 size-3.5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="bg-background/92 w-56 rounded-[24px] border-border/70 p-2 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-2xl"
+            >
+              {learningItems.map((item) => (
+                <DropdownMenuItem
+                  key={item.href}
+                  asChild
+                  className="rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
+                >
+                  <Link
+                    href={item.href}
+                    className="flex items-center justify-between gap-3"
+                    onClick={() => handleNavigation(item.href, item.label)}
+                  >
+                    <div className="flex flex-col">
+                      <span className="flex items-center gap-2 text-sm font-semibold">
+                        {item.icon ? <item.icon className="size-4 text-primary" /> : null}
+                        {item.label}
+                      </span>
+                      <span className="font-devanagari text-xs text-muted-foreground">
+                        {item.script}
+                      </span>
+                    </div>
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="nav-pill gap-2">
+                <span className="flex flex-col items-start leading-tight">
+                  <span className="text-xs font-semibold">Culture</span>
+                  <span className="font-devanagari text-[10px] text-muted-foreground">संस्कृति</span>
+                </span>
+                <ChevronDown className="ml-1 size-3.5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="bg-background/92 w-56 rounded-[24px] border-border/70 p-2 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-2xl"
+            >
+              {cultureItems.map((item) => (
+                <DropdownMenuItem
+                  key={item.href}
+                  asChild
+                  className="rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
+                >
+                  <Link
+                    href={item.href}
+                    className="flex items-center justify-between gap-3"
+                    onClick={() => handleNavigation(item.href, item.label)}
+                  >
+                    <div className="flex flex-col">
+                      <span className="flex items-center gap-2 text-sm font-semibold">
+                        {item.icon ? <item.icon className="size-4 text-primary" /> : null}
+                        {item.label}
+                      </span>
+                      <span className="font-devanagari text-xs text-muted-foreground">
+                        {item.script}
+                      </span>
+                    </div>
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="nav-pill gap-2">
+                <span className="flex flex-col items-start leading-tight">
+                  <span className="text-xs font-semibold">Resources</span>
+                  <span className="font-devanagari text-[10px] text-muted-foreground">संसाधन</span>
+                </span>
+                <ChevronDown className="ml-1 size-3.5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="bg-background/92 w-56 rounded-[24px] border-border/70 p-2 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-2xl"
+            >
+              {resourcesItems.map((item) => (
+                <DropdownMenuItem
+                  key={item.href}
+                  asChild
+                  className="rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
+                >
+                  <Link
+                    href={item.href}
+                    className="flex items-center justify-between gap-3"
+                    onClick={() => handleNavigation(item.href, item.label)}
+                  >
+                    <div className="flex flex-col">
+                      <span className="flex items-center gap-2 text-sm font-semibold">
+                        {item.icon ? <item.icon className="size-4 text-primary" /> : null}
+                        {item.label}
+                      </span>
+                      <span className="font-devanagari text-xs text-muted-foreground">
+                        {item.script}
+                      </span>
+                    </div>
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -367,10 +498,110 @@ export function Header() {
 
                 <div className="space-y-3">
                   <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
-                    Explore
+                    AI Features
                   </p>
                   <div className="grid gap-2">
-                    {[...navItems, ...moreItems].map((item) => (
+                    {navItems.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className={`rounded-[20px] border px-4 py-3 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5 ${
+                          isActive(item.href)
+                            ? "border-primary/45 bg-primary/10"
+                            : "border-border/60 bg-background/70"
+                        }`}
+                        onClick={() => handleNavigation(item.href, item.label)}
+                      >
+                        <p className="text-sm font-semibold text-foreground">{item.label}</p>
+                        <p className="mt-1 font-devanagari text-xs tracking-[0.12em] text-muted-foreground">
+                          {item.script}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+                    Learning
+                  </p>
+                  <div className="grid gap-2">
+                    {learningItems.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className={`rounded-[20px] border px-4 py-3 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5 ${
+                          isActive(item.href)
+                            ? "border-primary/45 bg-primary/10"
+                            : "border-border/60 bg-background/70"
+                        }`}
+                        onClick={() => handleNavigation(item.href, item.label)}
+                      >
+                        <p className="text-sm font-semibold text-foreground">{item.label}</p>
+                        <p className="mt-1 font-devanagari text-xs tracking-[0.12em] text-muted-foreground">
+                          {item.script}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+                    Culture
+                  </p>
+                  <div className="grid gap-2">
+                    {cultureItems.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className={`rounded-[20px] border px-4 py-3 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5 ${
+                          isActive(item.href)
+                            ? "border-primary/45 bg-primary/10"
+                            : "border-border/60 bg-background/70"
+                        }`}
+                        onClick={() => handleNavigation(item.href, item.label)}
+                      >
+                        <p className="text-sm font-semibold text-foreground">{item.label}</p>
+                        <p className="mt-1 font-devanagari text-xs tracking-[0.12em] text-muted-foreground">
+                          {item.script}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+                    Resources
+                  </p>
+                  <div className="grid gap-2">
+                    {resourcesItems.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className={`rounded-[20px] border px-4 py-3 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5 ${
+                          isActive(item.href)
+                            ? "border-primary/45 bg-primary/10"
+                            : "border-border/60 bg-background/70"
+                        }`}
+                        onClick={() => handleNavigation(item.href, item.label)}
+                      >
+                        <p className="text-sm font-semibold text-foreground">{item.label}</p>
+                        <p className="mt-1 font-devanagari text-xs tracking-[0.12em] text-muted-foreground">
+                          {item.script}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+                    More
+                  </p>
+                  <div className="grid gap-2">
+                    {moreItems.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
