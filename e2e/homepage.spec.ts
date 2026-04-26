@@ -51,7 +51,7 @@ test.describe('Homepage Layout Tests', () => {
     const footer = page.locator('footer');
     await expect(footer).toBeVisible();
     
-    // Check for footer grid (use first one)
+    // Check for footer grid - use the main grid container
     const footerGrid = footer.locator('.grid').first();
     await expect(footerGrid).toBeVisible();
   });
@@ -63,10 +63,15 @@ test.describe('Homepage Layout Tests', () => {
     const header = page.locator('header');
     await expect(header).toBeVisible();
     
-    // Check that navigation exists (not necessarily visible due to responsive design)
+    // Check that navigation links exist in the DOM
     const navLinks = header.locator('a[href]');
     const linkCount = await navLinks.count();
     expect(linkCount).toBeGreaterThan(0);
+    
+    // Check that at least one navigation link is visible
+    const visibleLinks = navLinks.filter({ visible: true });
+    const visibleCount = await visibleLinks.count();
+    expect(visibleCount).toBeGreaterThan(0);
   });
 
   test('should have no console errors', async ({ page }) => {
