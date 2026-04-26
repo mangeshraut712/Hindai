@@ -1,9 +1,13 @@
 /**
  * Hind AI Service Worker
  * PWA features: Offline support, background sync, push notifications
+ * Optimized for performance with aggressive caching
  */
 
-const CACHE_NAME = "hind-ai-v2";
+const CACHE_NAME = "hind-ai-v3";
+const STATIC_CACHE = "hind-ai-static-v3";
+const DYNAMIC_CACHE = "hind-ai-dynamic-v3";
+
 const STATIC_ASSETS = [
   "/",
   "/contents/",
@@ -30,7 +34,7 @@ const STATIC_ASSETS = [
 // Install: Cache static assets
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
+    caches.open(STATIC_CACHE).then((cache) => {
       return cache.addAll(STATIC_ASSETS.map((url) => new Request(url, { cache: "reload" })));
     })
   );
@@ -42,7 +46,9 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames.filter((name) => name !== CACHE_NAME).map((name) => caches.delete(name))
+        cacheNames
+          .filter((name) => name !== STATIC_CACHE && name !== DYNAMIC_CACHE)
+          .map((name) => caches.delete(name))
       );
     })
   );
@@ -59,26 +65,37 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(event.request.url);
 
-  // Network-first for HTML pages
+  // Stale-while-revalidate for HTML pages
   if (url.pathname.endsWith(".html") || url.pathname === "/" || url.pathname.includes("/")) {
     event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, clone);
-          });
+      caches.match(event.request).then((cached) => {
+        const fetchPromise = fetch(event.request).then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(DYNAMIC_CACHE).then((cache) => {
+              cache.put(event.request, clone);
+            });
+          }
           return response;
-        })
-        .catch(() => caches.match(event.request))
+        });
+        return cached || fetchPromise;
+      })
     );
     return;
   }
 
-  // Cache-first for static assets
+  // Cache-first for static assets with network fallback
   event.respondWith(
     caches.match(event.request).then((response) => {
       if (response) {
+        // Update cache in background
+        fetch(event.request).then((fetchResponse) => {
+          if (fetchResponse.ok) {
+            caches.open(STATIC_CACHE).then((cache) => {
+              cache.put(event.request, fetchResponse);
+            });
+          }
+        });
         return response;
       }
 
@@ -86,7 +103,7 @@ self.addEventListener("fetch", (event) => {
         // Cache successful responses
         if (fetchResponse.ok) {
           const clone = fetchResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
+          caches.open(STATIC_CACHE).then((cache) => {
             cache.put(event.request, clone);
           });
         }

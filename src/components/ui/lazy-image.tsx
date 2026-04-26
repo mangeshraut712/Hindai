@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 interface LazyImageProps extends Omit<ImageProps, "onLoad" | "onError"> {
   fallback?: string;
   className?: string;
+  priority?: boolean;
 }
 
 export function LazyImage({
@@ -11,6 +12,7 @@ export function LazyImage({
   alt,
   fallback = "/logo.png",
   className,
+  priority = false,
   ...props
 }: LazyImageProps) {
   return (
@@ -20,7 +22,9 @@ export function LazyImage({
         alt={alt}
         {...props}
         className={cn("transition-opacity duration-300", className)}
-        loading="lazy"
+        loading={priority ? "eager" : "lazy"}
+        priority={priority}
+        fetchPriority={priority ? "high" : "auto"}
         onError={(e) => {
           const target = e.target as HTMLImageElement;
           if (fallback) {

@@ -189,6 +189,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Structured Data for WebSite */}
         <script
           type="application/ld+json"
+          defer
           suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
@@ -214,6 +215,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Structured Data for Organization */}
         <script
           type="application/ld+json"
+          defer
           suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
