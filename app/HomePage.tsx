@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, lazy, Suspense } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Bot, Languages, Library, ScanSearch } from "lucide-react";
 import { Header } from "@/components/Header";
@@ -8,11 +8,6 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { CANONICAL_COUNTS } from "@/lib/data/canonical-counts";
 import { featuredScriptures, scriptureSections } from "@/lib/scripture-catalog";
-
-// Lazy load heavy components
-const LearningProgress = lazy(() =>
-  import("@/components/learning-progress").then((mod) => ({ default: mod.LearningProgress }))
-);
 
 const studyModes = [
   {
@@ -511,12 +506,6 @@ export default function HomePage() {
                 Monitor your learning journey with personalized progress tracking, achievements, and
                 insights into your study habits.
               </p>
-            </div>
-
-            <div className="mt-12">
-              <Suspense fallback={<div className="h-32 animate-pulse rounded-lg bg-muted" />}>
-                <LearningProgress />
-              </Suspense>
             </div>
           </div>
         </section>
