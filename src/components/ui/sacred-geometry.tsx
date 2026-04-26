@@ -24,8 +24,16 @@ export function SacredGeometry({ className, variant = "sriram", size = 200 }: Sa
           transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
         >
           {/* Outer circle */}
-          <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3" />
-          
+          <circle
+            cx="100"
+            cy="100"
+            r="95"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.3"
+          />
+
           {/* Sri Yantra triangles */}
           <polygon
             points="100,20 180,160 20,160"
@@ -41,11 +49,27 @@ export function SacredGeometry({ className, variant = "sriram", size = 200 }: Sa
             strokeWidth="1"
             opacity="0.4"
           />
-          
+
           {/* Inner circles */}
-          <circle cx="100" cy="100" r="40" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3" />
-          <circle cx="100" cy="100" r="20" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3" />
-          
+          <circle
+            cx="100"
+            cy="100"
+            r="40"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.3"
+          />
+          <circle
+            cx="100"
+            cy="100"
+            r="20"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.3"
+          />
+
           {/* Center point */}
           <circle cx="100" cy="100" r="5" fill="currentColor" opacity="0.5" />
         </motion.g>
@@ -68,14 +92,40 @@ export function SacredGeometry({ className, variant = "sriram", size = 200 }: Sa
           transition={{ duration: 1 }}
         >
           {/* Outer square */}
-          <rect x="10" y="10" width="180" height="180" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3" />
-          
+          <rect
+            x="10"
+            y="10"
+            width="180"
+            height="180"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.3"
+          />
+
           {/* Inner square */}
-          <rect x="30" y="30" width="140" height="140" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.4" />
-          
+          <rect
+            x="30"
+            y="30"
+            width="140"
+            height="140"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.4"
+          />
+
           {/* Circle */}
-          <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.4" />
-          
+          <circle
+            cx="100"
+            cy="100"
+            r="60"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.4"
+          />
+
           {/* Triangle */}
           <polygon
             points="100,40 160,140 40,140"
@@ -84,7 +134,7 @@ export function SacredGeometry({ className, variant = "sriram", size = 200 }: Sa
             strokeWidth="1"
             opacity="0.5"
           />
-          
+
           {/* Center */}
           <circle cx="100" cy="100" r="8" fill="currentColor" opacity="0.6" />
         </motion.g>
@@ -121,10 +171,18 @@ export function SacredGeometry({ className, variant = "sriram", size = 200 }: Sa
               transform={`rotate(${i * 45} ${100 + 70 * Math.cos((i * Math.PI) / 4)} ${100 + 70 * Math.sin((i * Math.PI) / 4)})`}
             />
           ))}
-          
+
           {/* Inner circle */}
-          <circle cx="100" cy="100" r="50" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.4" />
-          
+          <circle
+            cx="100"
+            cy="100"
+            r="50"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.4"
+          />
+
           {/* Inner petals */}
           {[...Array(8)].map((_, i) => (
             <ellipse
@@ -140,7 +198,7 @@ export function SacredGeometry({ className, variant = "sriram", size = 200 }: Sa
               transform={`rotate(${i * 45} ${100 + 35 * Math.cos((i * Math.PI) / 4)} ${100 + 35 * Math.sin((i * Math.PI) / 4)})`}
             />
           ))}
-          
+
           {/* Center */}
           <circle cx="100" cy="100" r="15" fill="currentColor" opacity="0.4" />
         </motion.g>
@@ -177,7 +235,7 @@ export function SacredGeometry({ className, variant = "sriram", size = 200 }: Sa
               transform={`rotate(${i * 30} ${100 + 60 * Math.cos((i * Math.PI) / 6)} ${100 + 60 * Math.sin((i * Math.PI) / 6)})`}
             />
           ))}
-          
+
           {/* Middle petals */}
           {[...Array(8)].map((_, i) => (
             <ellipse
@@ -193,7 +251,7 @@ export function SacredGeometry({ className, variant = "sriram", size = 200 }: Sa
               transform={`rotate(${i * 45} ${100 + 40 * Math.cos((i * Math.PI) / 4)} ${100 + 40 * Math.sin((i * Math.PI) / 4)})`}
             />
           ))}
-          
+
           {/* Inner petals */}
           {[...Array(4)].map((_, i) => (
             <ellipse
@@ -209,7 +267,7 @@ export function SacredGeometry({ className, variant = "sriram", size = 200 }: Sa
               transform={`rotate(${i * 90} ${100 + 20 * Math.cos((i * Math.PI) / 2)} ${100 + 20 * Math.sin((i * Math.PI) / 2)})`}
             />
           ))}
-          
+
           {/* Center */}
           <circle cx="100" cy="100" r="10" fill="currentColor" opacity="0.5" />
         </motion.g>

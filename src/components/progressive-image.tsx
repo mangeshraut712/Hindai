@@ -30,9 +30,7 @@ export function ProgressiveImage({
 
   return (
     <div className={cn("relative overflow-hidden bg-muted", className)}>
-      {isLoading && !error && (
-        <div className="absolute inset-0 animate-pulse bg-muted" />
-      )}
+      {isLoading && !error && <div className="absolute inset-0 animate-pulse bg-muted" />}
       {error ? (
         <div className="flex items-center justify-center bg-muted text-muted-foreground">
           <span className="text-sm">Failed to load image</span>
@@ -46,10 +44,7 @@ export function ProgressiveImage({
           priority={priority}
           placeholder={placeholder}
           blurDataURL={blurDataURL}
-          className={cn(
-            "transition-opacity duration-500",
-            isLoading ? "opacity-0" : "opacity-100"
-          )}
+          className={cn("transition-opacity duration-500", isLoading ? "opacity-0" : "opacity-100")}
           onLoad={() => setIsLoading(false)}
           onError={() => {
             setIsLoading(false);

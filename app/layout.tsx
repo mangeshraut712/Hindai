@@ -1,6 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
-import { Manrope, Cormorant_Garamond, Noto_Serif_Devanagari, Noto_Sans_Devanagari, Noto_Sans_Tamil, Noto_Sans_Telugu } from "next/font/google";
+import {
+  Manrope,
+  Cormorant_Garamond,
+  Noto_Serif_Devanagari,
+  Noto_Sans_Devanagari,
+  Noto_Sans_Tamil,
+  Noto_Sans_Telugu,
+} from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "./providers";

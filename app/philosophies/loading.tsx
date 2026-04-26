@@ -14,7 +14,7 @@ export default function PhilosophiesLoading() {
             transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
           >
             <div className="absolute inset-0 rounded-full border-4 border-primary/20" />
-            <div className="absolute inset-0 rounded-full border-4 border-t-primary border-r-primary border-b-transparent border-l-transparent" />
+            <div className="absolute inset-0 rounded-full border-4 border-b-transparent border-l-transparent border-r-primary border-t-primary" />
             <motion.div
               className="absolute inset-2 rounded-full border-2 border-primary/10"
               animate={{ rotate: -360 }}
@@ -24,7 +24,7 @@ export default function PhilosophiesLoading() {
               <BookOpen className="size-8 text-primary" />
             </div>
           </motion.div>
-          
+
           <div className="space-y-2">
             <motion.p
               className="text-lg font-semibold text-foreground"

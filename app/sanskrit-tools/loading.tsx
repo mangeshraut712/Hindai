@@ -28,7 +28,10 @@ export default function Loading() {
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                <div key={i} className="h-40 animate-pulse rounded-2xl border border-border/60 bg-primary/20" />
+                <div
+                  key={i}
+                  className="h-40 animate-pulse rounded-2xl border border-border/60 bg-primary/20"
+                />
               ))}
             </div>
             <div className="mt-8 h-96 animate-pulse rounded-2xl border border-border/60 bg-primary/20" />

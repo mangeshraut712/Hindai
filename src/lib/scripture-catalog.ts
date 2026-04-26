@@ -338,7 +338,8 @@ export const scriptureSections: ScriptureSection[] = [
         name: "Vishnu Sahasranama",
         sanskrit: "विष्णुसहस्रनाम",
         category: "Stotra",
-        description: "1000 sacred names of Vishnu from the Mahabharata, with word-by-word meanings.",
+        description:
+          "1000 sacred names of Vishnu from the Mahabharata, with word-by-word meanings.",
         highlight: "1000 names, Vishnu, devotion",
         href: "/vishnu-sahasranama",
         language: "Sanskrit",
@@ -352,7 +353,8 @@ export const scriptureSections: ScriptureSection[] = [
         name: "Sahasranama Collection",
         sanskrit: "सहस्रनाम संग्रह",
         category: "Stotra",
-        description: "Collection of Sahasranamas including Lalita Sahasranama, Shiva Sahasranama, and more.",
+        description:
+          "Collection of Sahasranamas including Lalita Sahasranama, Shiva Sahasranama, and more.",
         highlight: "Multiple Sahasranamas, devotion",
         href: "/sahasranama",
         language: "Sanskrit",

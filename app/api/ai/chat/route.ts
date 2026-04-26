@@ -48,35 +48,27 @@ export async function POST(req: NextRequest) {
     const { messages, stream = true, temperature = 0.7, maxTokens = 4096 } = body;
 
     if (!messages || messages.length === 0) {
-      return NextResponse.json(
-        { error: "Messages array is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Messages array is required" }, { status: 400 });
     }
 
     if (!OPENROUTER_API_KEY) {
-      return NextResponse.json(
-        { error: "OpenRouter API key is not configured" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "OpenRouter API key is not configured" }, { status: 500 });
     }
 
     // Add system prompt if not present
-    const messagesWithSystem = messages[0]?.role === "system"
-      ? messages
-      : [{ role: "system" as const, content: SYSTEM_PROMPT }, ...messages];
+    const messagesWithSystem =
+      messages[0]?.role === "system"
+        ? messages
+        : [{ role: "system" as const, content: SYSTEM_PROMPT }, ...messages];
 
     // Trim conversation to fit within context window
-    const trimmedMessages = contextManager.trimConversation(
-      messagesWithSystem,
-      SYSTEM_PROMPT
-    );
+    const trimmedMessages = contextManager.trimConversation(messagesWithSystem, SYSTEM_PROMPT);
 
     if (stream) {
       const response = await fetch(`${OPENROUTER_URL}/chat/completions`, {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+          Authorization: `Bearer ${OPENROUTER_API_KEY}`,
           "Content-Type": "application/json",
           "HTTP-Referer": process.env.NEXT_PUBLIC_APP_URL || "https://hindai.dev",
           "X-Title": "Hind AI - Vedic AI Scholar",
@@ -130,7 +122,9 @@ export async function POST(req: NextRequest) {
                     const parsed = JSON.parse(data);
                     const content = parsed.choices?.[0]?.delta?.content;
                     if (content) {
-                      controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content })}\n\n`));
+                      controller.enqueue(
+                        encoder.encode(`data: ${JSON.stringify({ content })}\n\n`)
+                      );
                     }
                   } catch (e) {
                     // Skip invalid JSON
@@ -150,7 +144,7 @@ export async function POST(req: NextRequest) {
         headers: {
           "Content-Type": "text/event-stream",
           "Cache-Control": "no-cache",
-          "Connection": "keep-alive",
+          Connection: "keep-alive",
         },
       });
     } else {
@@ -158,7 +152,7 @@ export async function POST(req: NextRequest) {
       const response = await fetch(`${OPENROUTER_URL}/chat/completions`, {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+          Authorization: `Bearer ${OPENROUTER_API_KEY}`,
           "Content-Type": "application/json",
           "HTTP-Referer": process.env.NEXT_PUBLIC_APP_URL || "https://hindai.dev",
           "X-Title": "Hind AI - Vedic AI Scholar",
@@ -185,9 +179,6 @@ export async function POST(req: NextRequest) {
     }
   } catch (error) {
     console.error("Chat API error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

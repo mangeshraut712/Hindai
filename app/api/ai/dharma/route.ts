@@ -38,22 +38,16 @@ export async function POST(req: NextRequest) {
     const { query, context, preferences } = await req.json();
 
     if (!query) {
-      return NextResponse.json(
-        { error: "Query is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Query is required" }, { status: 400 });
     }
 
     if (!OPENROUTER_API_KEY) {
-      return NextResponse.json(
-        { error: "OpenRouter API key is not configured" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "OpenRouter API key is not configured" }, { status: 500 });
     }
 
     // Build context-aware prompt
     let enhancedQuery = query;
-    
+
     if (context) {
       enhancedQuery = `Context: ${context}\n\nQuery: ${query}`;
     }
@@ -65,7 +59,7 @@ export async function POST(req: NextRequest) {
     const response = await fetch(`${OPENROUTER_URL}/chat/completions`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+        Authorization: `Bearer ${OPENROUTER_API_KEY}`,
         "Content-Type": "application/json",
         "HTTP-Referer": process.env.NEXT_PUBLIC_APP_URL || "https://hindai.dev",
         "X-Title": "Hind AI - Dharma Guide",
@@ -148,14 +142,11 @@ export async function POST(req: NextRequest) {
       headers: {
         "Content-Type": "text/event-stream",
         "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
+        Connection: "keep-alive",
       },
     });
   } catch (error) {
     console.error("Dharma Guide API error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

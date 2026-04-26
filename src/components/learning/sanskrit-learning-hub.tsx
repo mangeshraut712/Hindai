@@ -177,28 +177,30 @@ export function SanskritLearningHub() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 sm:gap-6 grid-cols-2 md:grid-cols-4">
+              <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4">
                 <div className="text-center">
-                  <div className="text-xl sm:text-2xl font-bold text-primary">{userProgress.totalLessons}</div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">Total Lessons</div>
+                  <div className="text-xl font-bold text-primary sm:text-2xl">
+                    {userProgress.totalLessons}
+                  </div>
+                  <div className="text-xs text-muted-foreground sm:text-sm">Total Lessons</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400">
+                  <div className="text-xl font-bold text-green-600 dark:text-green-400 sm:text-2xl">
                     {userProgress.completedLessons}
                   </div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">Completed</div>
+                  <div className="text-xs text-muted-foreground sm:text-sm">Completed</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xl sm:text-2xl font-bold text-orange-600 dark:text-orange-400">
+                  <div className="text-xl font-bold text-orange-600 dark:text-orange-400 sm:text-2xl">
                     {userProgress.currentStreak}
                   </div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">Day Streak</div>
+                  <div className="text-xs text-muted-foreground sm:text-sm">Day Streak</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400">
+                  <div className="text-xl font-bold text-blue-600 dark:text-blue-400 sm:text-2xl">
                     {Math.round((userProgress.completedLessons / userProgress.totalLessons) * 100)}%
                   </div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">Progress</div>
+                  <div className="text-xs text-muted-foreground sm:text-sm">Progress</div>
                 </div>
               </div>
               <div className="mt-6">
@@ -218,8 +220,12 @@ export function SanskritLearningHub() {
 
           {/* Learning Modules */}
           <div>
-            <h2 className="mb-6 text-xl sm:text-2xl font-bold">Learning Modules</h2>
-            <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" role="list" aria-label="Learning modules">
+            <h2 className="mb-6 text-xl font-bold sm:text-2xl">Learning Modules</h2>
+            <div
+              className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+              role="list"
+              aria-label="Learning modules"
+            >
               {learningModules.map((module, index) => (
                 <motion.div
                   key={module.id}
@@ -232,7 +238,9 @@ export function SanskritLearningHub() {
                 >
                   <Card
                     className={`cursor-pointer border-2 transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
-                      selectedModule?.id === module.id ? "border-primary ring-2 ring-primary shadow-md" : ""
+                      selectedModule?.id === module.id
+                        ? "border-primary shadow-md ring-2 ring-primary"
+                        : ""
                     } ${module.color}`}
                     onClick={() => {
                       triggerHapticOnPress();
@@ -250,51 +258,51 @@ export function SanskritLearningHub() {
                       }
                     }}
                   >
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between">
-                      <div className="text-primary">{module.icon}</div>
-                      <span
-                        className={`rounded px-2 py-1 text-xs font-medium ${
-                          module.difficulty === "Beginner"
-                            ? "bg-green-100 text-green-800"
-                            : module.difficulty === "Intermediate"
-                              ? "bg-yellow-100 text-yellow-800"
-                              : "bg-red-100 text-red-800"
-                        }`}
-                      >
-                        {module.difficulty}
-                      </span>
-                    </div>
-                    <CardTitle className="text-lg">{module.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="mb-4 text-sm text-muted-foreground">{module.description}</p>
-
-                    <div className="mb-4 space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span>Progress</span>
-                        <span>{module.progress || 0}%</span>
-                      </div>
-                      <Progress value={module.progress || 0} className="h-1" />
-                    </div>
-
-                    <div className="mb-3 flex items-center justify-between text-sm text-muted-foreground">
-                      <span className="flex items-center gap-1">
-                        <Clock className="size-4" />
-                        {module.duration}
-                      </span>
-                      <span>{module.lessons} lessons</span>
-                    </div>
-
-                    <div className="flex flex-wrap gap-1">
-                      {module.features.slice(0, 2).map((feature, index) => (
-                        <span key={index} className="rounded bg-background/60 px-2 py-1 text-xs">
-                          {feature}
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center justify-between">
+                        <div className="text-primary">{module.icon}</div>
+                        <span
+                          className={`rounded px-2 py-1 text-xs font-medium ${
+                            module.difficulty === "Beginner"
+                              ? "bg-green-100 text-green-800"
+                              : module.difficulty === "Intermediate"
+                                ? "bg-yellow-100 text-yellow-800"
+                                : "bg-red-100 text-red-800"
+                          }`}
+                        >
+                          {module.difficulty}
                         </span>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+                      </div>
+                      <CardTitle className="text-lg">{module.name}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="mb-4 text-sm text-muted-foreground">{module.description}</p>
+
+                      <div className="mb-4 space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>Progress</span>
+                          <span>{module.progress || 0}%</span>
+                        </div>
+                        <Progress value={module.progress || 0} className="h-1" />
+                      </div>
+
+                      <div className="mb-3 flex items-center justify-between text-sm text-muted-foreground">
+                        <span className="flex items-center gap-1">
+                          <Clock className="size-4" />
+                          {module.duration}
+                        </span>
+                        <span>{module.lessons} lessons</span>
+                      </div>
+
+                      <div className="flex flex-wrap gap-1">
+                        {module.features.slice(0, 2).map((feature, index) => (
+                          <span key={index} className="rounded bg-background/60 px-2 py-1 text-xs">
+                            {feature}
+                          </span>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
                 </motion.div>
               ))}
             </div>

@@ -174,13 +174,17 @@ export function AudioExplorer() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button variant="outline" className="w-full justify-between">
-                        {audioSupportedScriptures.find(s => s.slug === selectedScripture)?.name || "Select"}
+                        {audioSupportedScriptures.find((s) => s.slug === selectedScripture)?.name ||
+                          "Select"}
                         <ChevronDown className="size-4" />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                       {audioSupportedScriptures.map((scripture) => (
-                        <DropdownMenuItem key={scripture.slug} onClick={() => setSelectedScripture(scripture.slug)}>
+                        <DropdownMenuItem
+                          key={scripture.slug}
+                          onClick={() => setSelectedScripture(scripture.slug)}
+                        >
                           {scripture.name}
                         </DropdownMenuItem>
                       ))}
@@ -235,15 +239,18 @@ export function AudioExplorer() {
                           {selectedReciter || "Select"}
                           <ChevronDown className="size-4" />
                         </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      {availableReciters.map((reciter) => (
-                        <DropdownMenuItem key={reciter} onClick={() => setSelectedReciter(reciter)}>
-                          {reciter}
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        {availableReciters.map((reciter) => (
+                          <DropdownMenuItem
+                            key={reciter}
+                            onClick={() => setSelectedReciter(reciter)}
+                          >
+                            {reciter}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                 )}
               </div>

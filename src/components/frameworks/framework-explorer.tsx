@@ -334,7 +334,11 @@ export function FrameworkExplorer() {
                 philosophy, ethics, and spiritual practice. They offer systematic approaches to
                 understanding human nature, purpose, and the path to liberation.
               </p>
-              <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" role="list" aria-label="Hindu frameworks">
+              <div
+                className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+                role="list"
+                aria-label="Hindu frameworks"
+              >
                 {frameworks.map((framework, index) => (
                   <motion.div
                     key={framework.id}
@@ -347,7 +351,9 @@ export function FrameworkExplorer() {
                   >
                     <Card
                       className={`cursor-pointer transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
-                        selectedFramework?.id === framework.id ? "ring-2 ring-primary shadow-md" : ""
+                        selectedFramework?.id === framework.id
+                          ? "shadow-md ring-2 ring-primary"
+                          : ""
                       }`}
                       onClick={() => {
                         triggerHapticOnPress();
@@ -370,14 +376,16 @@ export function FrameworkExplorer() {
                           <div className="text-primary">{framework.icon}</div>
                           <div>
                             <CardTitle className="text-base sm:text-lg">{framework.name}</CardTitle>
-                            <p className="font-devanagari text-sm sm:text-base text-primary">
+                            <p className="font-devanagari text-sm text-primary sm:text-base">
                               {framework.sanskrit}
                             </p>
                           </div>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <p className="mb-3 text-xs sm:text-sm text-muted-foreground line-clamp-2">{framework.description}</p>
+                        <p className="mb-3 line-clamp-2 text-xs text-muted-foreground sm:text-sm">
+                          {framework.description}
+                        </p>
                         <div className="flex flex-wrap gap-1">
                           {framework.elements.slice(0, 3).map((element, index) => (
                             <span
@@ -388,7 +396,7 @@ export function FrameworkExplorer() {
                             </span>
                           ))}
                           {framework.elements.length > 3 && (
-                            <span className="rounded bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs text-gray-600 dark:text-gray-400">
+                            <span className="rounded bg-gray-100 px-2 py-1 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-400">
                               +{framework.elements.length - 3}
                             </span>
                           )}

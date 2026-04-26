@@ -73,10 +73,10 @@ export class ContextManager {
   ): Promise<string> {
     // This would call an LLM to summarize the conversation
     // For now, return a simple summary
-    const userMessages = messages.filter(m => m.role === "user");
+    const userMessages = messages.filter((m) => m.role === "user");
     const lastFewMessages = userMessages.slice(-3);
-    
-    return `Conversation summary: User asked about ${lastFewMessages.length} topics including ${lastFewMessages.map(m => m.content.substring(0, 50)).join(", ")}`;
+
+    return `Conversation summary: User asked about ${lastFewMessages.length} topics including ${lastFewMessages.map((m) => m.content.substring(0, 50)).join(", ")}`;
   }
 
   /**

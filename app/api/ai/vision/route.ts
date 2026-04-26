@@ -27,20 +27,14 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const image = formData.get("image") as File;
-    const query = formData.get("query") as string || "Analyze this image";
+    const query = (formData.get("query") as string) || "Analyze this image";
 
     if (!image) {
-      return NextResponse.json(
-        { error: "Image file is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Image file is required" }, { status: 400 });
     }
 
     if (!OPENROUTER_API_KEY) {
-      return NextResponse.json(
-        { error: "OpenRouter API key is not configured" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "OpenRouter API key is not configured" }, { status: 500 });
     }
 
     // Convert image to base64
@@ -51,7 +45,7 @@ export async function POST(req: NextRequest) {
     const response = await fetch(`${OPENROUTER_URL}/chat/completions`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+        Authorization: `Bearer ${OPENROUTER_API_KEY}`,
         "Content-Type": "application/json",
         "HTTP-Referer": process.env.NEXT_PUBLIC_APP_URL || "https://hindai.dev",
         "X-Title": "Hind AI - Vision Analysis",
@@ -104,9 +98,6 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     console.error("Vision API error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

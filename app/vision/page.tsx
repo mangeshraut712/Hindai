@@ -6,21 +6,24 @@ import dynamic from "next/dynamic";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
-const ScripturalAnalysis = dynamic(() => import("@/components/ai/scriptural-analysis").then((m) => m.ScripturalAnalysis), {
-  ssr: false,
-  loading: () => (
-    <div className="surface-panel min-h-[500px] animate-pulse rounded-2xl p-6">
-      <div className="h-8 w-48 rounded-lg bg-muted/60" />
-      <div className="mt-6 grid gap-4 lg:grid-cols-2">
-        <div className="h-64 rounded-lg bg-muted/60" />
-        <div className="space-y-4">
-          <div className="h-24 rounded-lg bg-muted/60" />
-          <div className="h-12 rounded-lg bg-muted/60" />
+const ScripturalAnalysis = dynamic(
+  () => import("@/components/ai/scriptural-analysis").then((m) => m.ScripturalAnalysis),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="surface-panel min-h-[500px] animate-pulse rounded-2xl p-6">
+        <div className="h-8 w-48 rounded-lg bg-muted/60" />
+        <div className="mt-6 grid gap-4 lg:grid-cols-2">
+          <div className="h-64 rounded-lg bg-muted/60" />
+          <div className="space-y-4">
+            <div className="h-24 rounded-lg bg-muted/60" />
+            <div className="h-12 rounded-lg bg-muted/60" />
+          </div>
         </div>
       </div>
-    </div>
-  ),
-});
+    ),
+  }
+);
 
 const features = [
   {
@@ -60,7 +63,9 @@ export default function VisionPage() {
                   See ancient wisdom through AI-powered vision.
                 </h1>
                 <p className="section-copy mt-5">
-                  Upload images of sacred texts, iconography, temple architecture, or ritual objects for intelligent analysis. Gemma 4's multimodal capabilities provide deep insights into Hindu visual heritage.
+                  Upload images of sacred texts, iconography, temple architecture, or ritual objects
+                  for intelligent analysis. Gemma 4's multimodal capabilities provide deep insights
+                  into Hindu visual heritage.
                 </p>
               </motion.div>
 

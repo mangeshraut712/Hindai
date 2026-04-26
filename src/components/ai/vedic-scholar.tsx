@@ -2,7 +2,17 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Sparkles, BookOpen, Copy, Check, Loader2, RefreshCw, ChevronDown, ChevronUp } from "lucide-react";
+import {
+  Send,
+  Sparkles,
+  BookOpen,
+  Copy,
+  Check,
+  Loader2,
+  RefreshCw,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -202,7 +212,7 @@ export function VedicScholar() {
         </CardHeader>
 
         <CardContent className="p-6">
-          <div className="mb-4 flex min-h-[400px] max-h-[600px] flex-col gap-4 overflow-y-auto rounded-lg border border-border/50 bg-background/50 p-4">
+          <div className="mb-4 flex max-h-[600px] min-h-[400px] flex-col gap-4 overflow-y-auto rounded-lg border border-border/50 bg-background/50 p-4">
             {messages.length === 0 ? (
               <div className="flex flex-1 flex-col items-center justify-center text-center">
                 <motion.div
@@ -219,7 +229,9 @@ export function VedicScholar() {
                 </motion.div>
                 <h3 className="mb-2 text-xl font-semibold">Welcome, Seeker of Wisdom</h3>
                 <p className="mb-6 max-w-md text-muted-foreground">
-                  Ask me anything about Hindu philosophy, scriptures, rituals, or spiritual practices. I draw from the Vedas, Upanishads, Bhagavad Gita, and other sacred texts.
+                  Ask me anything about Hindu philosophy, scriptures, rituals, or spiritual
+                  practices. I draw from the Vedas, Upanishads, Bhagavad Gita, and other sacred
+                  texts.
                 </p>
 
                 <AnimatePresence>
@@ -236,7 +248,11 @@ export function VedicScholar() {
                         onClick={() => setShowQuickQuestions(false)}
                         className="mb-4"
                       >
-                        {showQuickQuestions ? <ChevronUp className="mr-2 size-4" /> : <ChevronDown className="mr-2 size-4" />}
+                        {showQuickQuestions ? (
+                          <ChevronUp className="mr-2 size-4" />
+                        ) : (
+                          <ChevronDown className="mr-2 size-4" />
+                        )}
                         {showQuickQuestions ? "Hide" : "Show"} Quick Questions
                       </Button>
                       <div className="grid gap-2 sm:grid-cols-2">
@@ -277,9 +293,7 @@ export function VedicScholar() {
                     <div
                       className={cn(
                         "max-w-[80%] rounded-2xl p-4",
-                        message.role === "user"
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-muted"
+                        message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
                       )}
                     >
                       <div className="prose prose-sm dark:prose-invert max-w-none">
@@ -356,7 +370,8 @@ export function VedicScholar() {
           </div>
 
           <p className="mt-3 text-center text-xs text-muted-foreground">
-            Press Enter to send, Shift+Enter for new line • Responses powered by Gemma 4 via OpenRouter
+            Press Enter to send, Shift+Enter for new line • Responses powered by Gemma 4 via
+            OpenRouter
           </p>
         </CardContent>
       </Card>

@@ -73,7 +73,29 @@ npm run dev
 
 ---
 
-## 🆕 What's New in Version 2.1.0 (April 2026)
+## 🆕 What's New in Version 3.0.0 (April 2026)
+
+### 🤖 Comprehensive AI-Powered Features with Gemma 4
+
+- **Vedic AI Scholar** - Conversational interface for deep theological discourse on Vedas, Upanishads, Bhagavad Gita
+- **Streaming Responses** - Real-time AI responses with context window management for long conversations
+- **Expert Knowledge Base** - Comprehensive understanding of Hindu philosophy, Sanskrit grammar, Dharma, Karma, Moksha
+- **Scriptural References** - Context-aware citations from authentic sources
+- **Quick Questions** - Pre-built questions for common inquiries about Hindu philosophy
+- **Multimodal Scriptural Analysis** - Image upload for sacred text analysis, iconography recognition, temple architecture
+- **Smart Dharma Guide** - Personalized spiritual guidance with category selection (Daily Rituals, Meditation, Fasting, etc.)
+- **Context Window Management** - Intelligent token management for complex queries and long conversations
+
+### 🎨 Enhanced UI/UX with Ancient Aesthetics
+
+- **Sacred Geometry Components** - Sri Yantra, Mandala, Lotus patterns with animations
+- **Sophisticated Color Palette** - Sacred colors (saffron, vermilion, gold, indigo, peacock) for timeless design
+- **Light/Dark Mode Sacred Colors** - Enhanced contrast and readability in both modes
+- **Haptic Feedback** - Mobile haptic feedback for interactive elements
+- **Progressive Image Loading** - Blur-up effects for better perceived performance
+- **Error Boundaries** - Graceful error handling with Vercel Analytics integration
+- **Smooth Page Transitions** - Fade and scale animations for route changes
+- **Accessibility Enhancements** - ARIA labels, keyboard navigation, focus states across all components
 
 ### ⚡ Performance Optimization Suite
 
@@ -87,17 +109,9 @@ npm run dev
 - **Static Asset Caching** - 1-year immutable cache headers for `_next/static` and `/static` assets
 - **Build Performance** - Stale time optimizations for dynamic (30s) and static (180s) routes
 
-### 🎨 Enhanced User Experience
-
-- **Page Progress Indicator** - Gradient progress bar at top of page during route transitions
-- **Skeleton Loading States** - Consistent shimmer animations across all loading states
-- **Reduced Motion Support** - Comprehensive accessibility support for users who prefer reduced motion
-- **Optimized Scrollbars** - Thin, styled scrollbars with WebKit and Firefox support
-- **Layout Shift Prevention** - Aspect ratio reservation for images and media elements
-
 ### 🔧 Infrastructure Improvements
 
-- **Next.js 16.3.0 Canary** - Latest Next.js with App Router optimizations
+- **Next.js 16.3.0** - Latest Next.js with App Router optimizations
 - **React 19.2.5** - Concurrent React features with improved performance
 - **TypeScript 5.9.3** - Strict type checking with zero errors
 - **Package Import Optimization** - Optimized imports for Radix UI, Lucide, and Framer Motion
@@ -116,13 +130,7 @@ npm run dev
 - **Improved Reliability** - Stable API endpoints with proper error handling
 - **Enhanced Performance** - Faster response times and better token efficiency
 
-### 🧪 SanskritNova Consolidation
-
-- **Sanskrit Studio** - SanskritNova tutor, transliteration, and guided tracks now live at `/sanskrit-nova`
-- **Gemma 4 Only** - SanskritNova learning prompts use HindAI's Gemma 4 runtime instead of a separate OpenRouter service
-- **Single App Surface** - Navigation, sitemap, and footer now point learners to HindAI as the canonical home
-
-### 🔤 New Sanskrit Linguistic Tools
+### 🔤 Sanskrit Linguistic Tools
 
 - **Indic Transliteration** - Convert between Devanagari, IAST, SLP1, HK, and ITRANS scripts
 - **Vidyut Sandhi** - Sandhi splitting and morphological analysis
@@ -190,17 +198,41 @@ npm run dev
 
 ## ✨ Core Features
 
-### 🤖 Guru AI - Advanced Spiritual Chatbot
+### 🤖 Vedic AI Scholar - Advanced Spiritual Chatbot
 
 - **Gemma 4 31B Powered**: Google AI model via OpenRouter with enhanced capabilities (~3s response time)
-- **RAG Pipeline**: Context-grounded answers from scripture database with citations using vector search
-- **Function Calling**: Advanced tools - `search_verse()`, `find_related()`, `explain_sanskrit()`, `analyze_sandhi()`
-- **Real-time Sanskrit**: Devanagari rendering with Roman transliteration
-- **Streaming Responses**: Instant AI explanations with spiritual context
+- **Conversational Interface**: Deep theological discourse on Vedas, Upanishads, Bhagavad Gita, Puranas
+- **Streaming Responses**: Real-time AI responses with context window management
+- **Expert Knowledge Base**: Comprehensive understanding of Hindu philosophy, Sanskrit grammar, Dharma, Karma, Moksha
+- **Scriptural References**: Context-aware citations from authentic sources
+- **Quick Questions**: Pre-built questions for common inquiries about Hindu philosophy
+- **Copy Functionality**: Easy copying of AI responses for reference
+- **Conversation Management**: Clear conversation to start fresh
 - **Cultural Authenticity**: Proper pronunciation and traditional terminology
 - **Multilingual Support**: Sanskrit, Hindi, and English explanations
-- **Progress Tracking**: Personalized learning journey with achievements
-- **Commentary Analysis**: Multi-school commentary (Adi Shankara, Ramanuja, Madhva, etc.)
+
+### 🖼️ Multimodal Scriptural Analysis
+
+- **Image Upload**: Drag-and-drop support for sacred text images, iconography, temple architecture
+- **Gemma 4 Vision**: AI-powered Sanskrit character recognition and OCR
+- **Iconography Recognition**: Identify deities, symbols, and sacred imagery
+- **Temple Architecture**: Analyze temple structures, sculptures, and architectural elements
+- **Ritual Object Identification**: Identify yantras, mandalas, and ritual objects
+- **Custom Queries**: Ask specific questions about uploaded images
+- **Sample Queries**: Pre-built queries for common use cases
+- **Copy Functionality**: Easy copying of analysis results
+- **Research Tool**: Academic analysis of ancient Indian texts and art
+
+### 🧘 Smart Dharma Guide
+
+- **Personalized Guidance**: AI-powered spiritual guidance based on user inquiries
+- **Category Selection**: Daily Rituals, Meditation, Fasting, Mantra Practice, Pilgrimage, Festivals
+- **Streaming Responses**: Real-time guidance with context-aware recommendations
+- **Knowledge Base**: Vratas, Samskaras, Yajnas, Homas, Tirtha Yatra, Sadhana, Hindu festivals
+- **Quick Guides**: Pre-built guides for common spiritual practices
+- **Context-Aware**: Recommendations based on selected category
+- **Disclaimers**: Proper guidance for practices requiring qualified teachers
+- **Traditional Wisdom**: Balance traditional wisdom with contemporary understanding
 
 ### 📚 Digital Granthalaya - Scripture Library
 
@@ -222,7 +254,15 @@ npm run dev
 - **Document Processing**: Batch processing for large manuscript collections
 - **Secure Processing**: Safe object URL management with proper cleanup
 
-### 🎯 Personalized Learning Experience
+### � Sacred Geometry & Design
+
+- **Sacred Geometry Components**: Sri Yantra, Mandala, Lotus patterns with animations
+- **Sophisticated Color Palette**: Sacred colors (saffron, vermilion, gold, indigo, peacock)
+- **Light/Dark Mode**: Enhanced contrast and readability in both modes
+- **Timeless Design**: Ancient aesthetic elegance with modern web performance
+- **Responsive UI**: Mobile-optimized with haptic feedback
+
+### � Personalized Learning Experience
 
 - **Adaptive Quizzes**: AI-generated questions based on learning progress
 - **Study Paths**: Curated learning journeys (Veda → Upanishad → Gita)
@@ -324,12 +364,15 @@ Hind AI/
 ├── 📁 app/                          # Next.js App Router
 │   ├── api/                         # Backend API routes
 │   │   ├── ai/                      # AI endpoints
+│   │   │   ├── chat/                # Vedic AI Scholar (streaming)
+│   │   │   ├── vision/              # Multimodal scriptural analysis
+│   │   │   ├── dharma/              # Smart Dharma Guide
+│   │   │   ├── analyze/             # Verse analysis
 │   │   │   ├── generate/            # Main AI response
 │   │   │   ├── stream/              # Real-time streaming
 │   │   │   ├── multimodal/          # Sanskrit manuscript analysis
 │   │   │   ├── translate/           # Translation service
 │   │   │   ├── verse-generate/      # Verse generation
-│   │   │   ├── analyze/             # Manuscript analysis
 │   │   │   ├── quiz/                # AI-generated quizzes
 │   │   │   └── recommend/           # Scripture recommendations
 │   │   ├── sanskrit/                # Sanskrit linguistic tools
@@ -341,7 +384,13 @@ Hind AI/
 │   ├── [slug]/                      # Dynamic scripture pages
 │   │   ├── page.tsx                 # Scripture detail page
 │   │   └── loading.tsx              # Route loading skeleton
-│   ├── ai-guide/                    # Guru AI chatbot
+│   ├── ai-guide/                    # Vedic AI Scholar
+│   │   ├── page.tsx
+│   │   └── loading.tsx
+│   ├── vision/                      # Multimodal Scriptural Analysis
+│   │   ├── page.tsx
+│   │   └── loading.tsx
+│   ├── dharma/                      # Smart Dharma Guide
 │   │   ├── page.tsx
 │   │   └── loading.tsx
 │   ├── daily/                       # Daily wisdom
@@ -365,6 +414,9 @@ Hind AI/
 ├── 📁 src/
 │   ├── components/
 │   │   ├── ai/                      # AI components
+│   │   │   ├── vedic-scholar.tsx     # Vedic AI Scholar
+│   │   │   ├── scriptural-analysis.tsx # Multimodal analysis
+│   │   │   ├── dharma-guide.tsx     # Smart Dharma Guide
 │   │   │   ├── ai-chat.tsx
 │   │   │   ├── ai-explanation.tsx
 │   │   │   └── manuscript-analyzer.tsx
@@ -377,16 +429,24 @@ Hind AI/
 │   │   │   └── CommentaryBySchool.tsx
 │   │   ├── quiz/                    # Quiz components
 │   │   ├── ui/                      # shadcn/ui components
+│   │   │   ├── sacred-geometry.tsx  # Sacred geometry patterns
+│   │   │   ├── textarea.tsx         # Textarea component
+│   │   │   └── index.ts             # UI exports
 │   │   ├── Header.tsx
 │   │   ├── Footer.tsx
 │   │   ├── search.tsx
 │   │   ├── meditation-timer.tsx
 │   │   ├── voice-search.tsx
 │   │   ├── learning-progress.tsx
-│   │   └── page-progress.tsx         # Page transition indicator
+│   │   ├── page-progress.tsx         # Page transition indicator
+│   │   ├── error-boundary.tsx       # Error handling
+│   │   ├── page-transition.tsx      # Route transitions
+│   │   ├── service-worker-registration.tsx # PWA support
+│   │   └── progressive-image.tsx    # Image loading
 │   ├── lib/
 │   │   ├── ai/
 │   │   │   ├── gemma.ts             # Core Gemma 4 integration
+│   │   │   ├── context-manager.ts   # Context window management
 │   │   │   └── translation-languages.ts
 │   │   ├── audio/
 │   │   │   ├── tts.ts               # Google Cloud TTS
@@ -397,6 +457,7 @@ Hind AI/
 │   │   │   ├── vidyut/              # Sandhi & morphology
 │   │   │   ├── anvaya/              # Prose word order
 │   │   │   └── vibhakti/            # Grammatical cases
+│   │   ├── haptics.ts               # Haptic feedback utilities
 │   │   ├── vector/
 │   │   │   └── upstash.ts           # Vector search
 │   │   ├── data/
@@ -549,6 +610,70 @@ VERCEL_ANALYTICS_ID=your_vercel_analytics_id
 ---
 
 ## 📜 API Documentation
+
+### POST `/api/ai/chat`
+
+Generate streaming Gemma 4 responses for conversational AI.
+
+**Request:**
+
+```json
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "What is the concept of Dharma in Hinduism?"
+    }
+  ],
+  "stream": true,
+  "temperature": 0.7,
+  "maxTokens": 4096
+}
+```
+
+**Response:** Server-Sent Events (SSE) streaming
+
+### POST `/api/ai/vision`
+
+Analyze images of sacred texts, iconography, or temple architecture.
+
+**Request:** FormData with image file and query
+
+```json
+{
+  "image": "base64_encoded_image",
+  "query": "Identify the deity and explain the iconography"
+}
+```
+
+**Response:**
+
+```json
+{
+  "analysis": "Detailed AI analysis of the image...",
+  "query": "Identify the deity and explain the iconography",
+  "imageType": "image/png",
+  "imageSize": 1234567
+}
+```
+
+### POST `/api/ai/dharma`
+
+Generate personalized spiritual guidance.
+
+**Request:**
+
+```json
+{
+  "query": "What should I include in my daily spiritual practice?",
+  "context": "User is interested in Daily Rituals",
+  "preferences": {
+    "category": "Daily Rituals"
+  }
+}
+```
+
+**Response:** Server-Sent Events (SSE) streaming
 
 ### POST `/api/ai/generate`
 

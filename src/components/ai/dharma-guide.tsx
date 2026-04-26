@@ -2,7 +2,20 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Sparkles, BookOpen, Copy, Check, Loader2, RefreshCw, Heart, Calendar, Clock, Sun, Moon } from "lucide-react";
+import {
+  Send,
+  Sparkles,
+  BookOpen,
+  Copy,
+  Check,
+  Loader2,
+  RefreshCw,
+  Heart,
+  Calendar,
+  Clock,
+  Sun,
+  Moon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -240,7 +253,7 @@ export function DharmaGuide() {
             })}
           </div>
 
-          <div className="mb-4 flex min-h-[400px] max-h-[600px] flex-col gap-4 overflow-y-auto rounded-lg border border-border/50 bg-background/50 p-4">
+          <div className="mb-4 flex max-h-[600px] min-h-[400px] flex-col gap-4 overflow-y-auto rounded-lg border border-border/50 bg-background/50 p-4">
             {messages.length === 0 ? (
               <div className="flex flex-1 flex-col items-center justify-center text-center">
                 <motion.div
@@ -257,7 +270,9 @@ export function DharmaGuide() {
                 </motion.div>
                 <h3 className="mb-2 text-xl font-semibold">Your Personal Dharma Guide</h3>
                 <p className="mb-6 max-w-md text-muted-foreground">
-                  Receive personalized guidance on spiritual practices, rituals, meditation, and living a dharmic life. Ask about daily practices, fasting, festivals, or any aspect of Hindu spiritual life.
+                  Receive personalized guidance on spiritual practices, rituals, meditation, and
+                  living a dharmic life. Ask about daily practices, fasting, festivals, or any
+                  aspect of Hindu spiritual life.
                 </p>
 
                 <AnimatePresence>
@@ -268,7 +283,9 @@ export function DharmaGuide() {
                       exit={{ opacity: 0, y: -20 }}
                       className="w-full"
                     >
-                      <p className="mb-3 text-sm font-medium text-muted-foreground">Quick guides:</p>
+                      <p className="mb-3 text-sm font-medium text-muted-foreground">
+                        Quick guides:
+                      </p>
                       <div className="grid gap-2 sm:grid-cols-2">
                         {QUICK_GUIDES.map((guide, index) => (
                           <motion.button
@@ -307,9 +324,7 @@ export function DharmaGuide() {
                     <div
                       className={cn(
                         "max-w-[80%] rounded-2xl p-4",
-                        message.role === "user"
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-muted"
+                        message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
                       )}
                     >
                       <div className="prose prose-sm dark:prose-invert max-w-none">
@@ -367,7 +382,11 @@ export function DharmaGuide() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder={selectedCategory ? `Ask about ${selectedCategory}...` : "Ask about spiritual practices, rituals, or dharma..."}
+              placeholder={
+                selectedCategory
+                  ? `Ask about ${selectedCategory}...`
+                  : "Ask about spiritual practices, rituals, or dharma..."
+              }
               className="min-h-[80px] resize-none border-2 border-border/60 focus:border-primary/50"
               disabled={isLoading}
             />

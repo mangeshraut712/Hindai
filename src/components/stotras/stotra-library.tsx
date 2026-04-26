@@ -169,7 +169,11 @@ export function StotraLibrary() {
                 qualities. These texts form the core of Hindu devotional practice, used for worship,
                 meditation, and spiritual growth.
               </p>
-              <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" role="list" aria-label="Stotras and mantras">
+              <div
+                className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+                role="list"
+                aria-label="Stotras and mantras"
+              >
                 {stotraItems.map((stotra, index) => (
                   <motion.div
                     key={stotra.id}
@@ -182,7 +186,7 @@ export function StotraLibrary() {
                   >
                     <Card
                       className={`cursor-pointer transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
-                        selectedStotra?.id === stotra.id ? "ring-2 ring-primary shadow-md" : ""
+                        selectedStotra?.id === stotra.id ? "shadow-md ring-2 ring-primary" : ""
                       }`}
                       onClick={() => {
                         triggerHapticOnPress();
@@ -208,7 +212,7 @@ export function StotraLibrary() {
                             </div>
                             <div>
                               <CardTitle className="text-base sm:text-lg">{stotra.name}</CardTitle>
-                              <p className="font-devanagari text-sm sm:text-base text-primary">
+                              <p className="font-devanagari text-sm text-primary sm:text-base">
                                 {stotra.sanskrit}
                               </p>
                             </div>
@@ -216,7 +220,7 @@ export function StotraLibrary() {
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <p className="mb-3 text-xs sm:text-sm text-muted-foreground line-clamp-2">
+                        <p className="mb-3 line-clamp-2 text-xs text-muted-foreground sm:text-sm">
                           <strong>{stotra.deity}</strong> • {stotra.description}
                         </p>
                         <div className="flex items-center justify-between">
@@ -225,7 +229,7 @@ export function StotraLibrary() {
                             {stotra.count && ` (${stotra.count})`}
                           </span>
                           {stotra.audioAvailable && (
-                            <span className="flex items-center gap-1 rounded bg-green-100 dark:bg-green-900/30 px-2 py-1 text-xs text-green-800 dark:text-green-400">
+                            <span className="flex items-center gap-1 rounded bg-green-100 px-2 py-1 text-xs text-green-800 dark:bg-green-900/30 dark:text-green-400">
                               <Play className="size-3" />
                               <span className="hidden sm:inline">Audio</span>
                             </span>

@@ -22,10 +22,10 @@ export default function PilgrimagePage() {
               <span className="eyebrow">Tirtha Kshetra • तीर्थ क्षेत्र</span>
               <h1 className="section-title mt-6">Sacred Pilgrimage Sites</h1>
               <p className="section-copy mt-5">
-                Journey through the holy lands of Bharat. Explore the 12 Jyotirlingas where Shiva appeared
-                as infinite light, the 51 Shakti Peethas where Devi's grace manifested, and the Char
-                Dham that liberate the soul. Discover the stories, locations, and rituals of these sacred
-                tirthas.
+                Journey through the holy lands of Bharat. Explore the 12 Jyotirlingas where Shiva
+                appeared as infinite light, the 51 Shakti Peethas where Devi's grace manifested, and
+                the Char Dham that liberate the soul. Discover the stories, locations, and rituals
+                of these sacred tirthas.
               </p>
             </div>
           </div>

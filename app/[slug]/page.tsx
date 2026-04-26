@@ -5,14 +5,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { useState } from "react";
-import {
-  ArrowLeft,
-  ArrowRight,
-  BookOpen,
-  Clock3,
-  Languages,
-  Sparkles,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, Clock3, Languages, Sparkles } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -190,11 +183,11 @@ export default async function ScripturePage({ params }: PageProps) {
               <div className="space-y-10">
                 <div className="max-w-3xl">
                   <span className="eyebrow">Verse study • श्लोक अध्ययन</span>
-                  <h2 className="section-title mt-6">
-                    Read a verse, then deepen it with Gemma 4.
-                  </h2>
+                  <h2 className="section-title mt-6">Read a verse, then deepen it with Gemma 4.</h2>
                   <p className="section-copy mt-5">
-                    Hind AI is stronger than a plain digital shelf when it turns a scripture page into a study surface: original text, transliteration, translation, then grounded AI explanation.
+                    Hind AI is stronger than a plain digital shelf when it turns a scripture page
+                    into a study surface: original text, transliteration, translation, then grounded
+                    AI explanation.
                   </p>
                 </div>
 

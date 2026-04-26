@@ -67,7 +67,12 @@ export default function Loading() {
                   key={i}
                   className="h-12 w-48 rounded-full bg-gradient-to-r from-primary/20 to-primary/10"
                   animate={{ opacity: [0.3, 0.7, 0.3] }}
-                  transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.15, ease: "easeInOut" }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    delay: i * 0.15,
+                    ease: "easeInOut",
+                  }}
                 />
               ))}
             </div>

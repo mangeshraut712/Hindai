@@ -13,7 +13,8 @@ const jyotirlingas = [
     name: "Somnath",
     sanskrit: "सोमनाथ",
     location: "Prabhas Patan, Gujarat",
-    story: "The first Jyotirlinga, where Shiva appeared as an infinite column of light to end the dispute between Brahma and Vishnu.",
+    story:
+      "The first Jyotirlinga, where Shiva appeared as an infinite column of light to end the dispute between Brahma and Vishnu.",
     significance: "Destroyer of sins, bestower of liberation",
     bestTime: "October-March",
   },
@@ -22,7 +23,8 @@ const jyotirlingas = [
     name: "Mallikarjuna",
     sanskrit: "मल्लिकार्जुन",
     location: "Srisailam, Andhra Pradesh",
-    story: "Shiva and Parvati appeared here to please their son Kartikeya after he was angered by their marriage.",
+    story:
+      "Shiva and Parvati appeared here to please their son Kartikeya after he was angered by their marriage.",
     significance: "Fulfiller of desires, protector of devotees",
     bestTime: "October-February",
   },
@@ -31,7 +33,8 @@ const jyotirlingas = [
     name: "Mahakaleshwar",
     sanskrit: "महाकालेश्वर",
     location: "Ujjain, Madhya Pradesh",
-    story: "Shiva appeared here to protect his devotee from the demon Dushana, defeating him with the power of time.",
+    story:
+      "Shiva appeared here to protect his devotee from the demon Dushana, defeating him with the power of time.",
     significance: "Lord of time, conqueror of death",
     bestTime: "October-March",
   },
@@ -40,7 +43,8 @@ const jyotirlingas = [
     name: "Omkareshwar",
     sanskrit: "ओंकारेश्वर",
     location: "Mandhata, Madhya Pradesh",
-    story: "Shiva appeared here in the form of Omkara to bless the mountain Mandhata who performed severe penance.",
+    story:
+      "Shiva appeared here in the form of Omkara to bless the mountain Mandhata who performed severe penance.",
     significance: "Fulfiller of wishes, spiritual awakening",
     bestTime: "October-March",
   },
@@ -49,7 +53,8 @@ const jyotirlingas = [
     name: "Kedarnath",
     sanskrit: "केदारनाथ",
     location: "Uttarakhand",
-    story: "After the Mahabharata war, the Pandavas sought Shiva's forgiveness here. Shiva appeared as a bull and dived into the earth.",
+    story:
+      "After the Mahabharata war, the Pandavas sought Shiva's forgiveness here. Shiva appeared as a bull and dived into the earth.",
     significance: "Liberation from sins, spiritual peace",
     bestTime: "May-June, September-October",
   },
@@ -58,7 +63,8 @@ const jyotirlingas = [
     name: "Bhimashankar",
     sanskrit: "भीमाशंकर",
     location: "Pune, Maharashtra",
-    story: "Shiva appeared here to destroy the demon Bhima, who was tormenting the sages and devotees.",
+    story:
+      "Shiva appeared here to destroy the demon Bhima, who was tormenting the sages and devotees.",
     significance: "Destroyer of evil, protector of righteousness",
     bestTime: "October-March",
   },
@@ -67,7 +73,8 @@ const jyotirlingas = [
     name: "Vishwanath",
     sanskrit: "विश्वनाथ",
     location: "Varanasi, Uttar Pradesh",
-    story: "The most sacred Jyotirlinga, where Shiva appeared as the Lord of the Universe. Varanasi is considered the spiritual capital of India.",
+    story:
+      "The most sacred Jyotirlinga, where Shiva appeared as the Lord of the Universe. Varanasi is considered the spiritual capital of India.",
     significance: "Liberation (moksha), spiritual enlightenment",
     bestTime: "October-March",
   },
@@ -76,7 +83,8 @@ const jyotirlingas = [
     name: "Trimbakeshwar",
     sanskrit: "त्र्यम्बकेश्वर",
     location: "Nashik, Maharashtra",
-    story: "Shiva appeared here to please the sage Gautama, who was falsely accused of killing a cow. The Godavari river originates here.",
+    story:
+      "Shiva appeared here to please the sage Gautama, who was falsely accused of killing a cow. The Godavari river originates here.",
     significance: "Purification, fulfillment of desires",
     bestTime: "October-March",
   },
@@ -85,7 +93,8 @@ const jyotirlingas = [
     name: "Vaidyanath",
     sanskrit: "वैद्यनाथ",
     location: "Deoghar, Jharkhand",
-    story: "Shiva appeared here as a doctor (Vaidya) to cure Ravana, who performed severe penance to please him.",
+    story:
+      "Shiva appeared here as a doctor (Vaidya) to cure Ravana, who performed severe penance to please him.",
     significance: "Healing, health, and well-being",
     bestTime: "October-March",
   },
@@ -94,7 +103,8 @@ const jyotirlingas = [
     name: "Nageshwar",
     sanskrit: "नागेश्वर",
     location: "Dwarka, Gujarat",
-    story: "Shiva appeared here to protect his devotee Supriya from the demon Daruka, who imprisoned devotees of Shiva.",
+    story:
+      "Shiva appeared here to protect his devotee Supriya from the demon Daruka, who imprisoned devotees of Shiva.",
     significance: "Protection from enemies, fulfillment of wishes",
     bestTime: "October-March",
   },
@@ -103,7 +113,8 @@ const jyotirlingas = [
     name: "Rameshwaram",
     sanskrit: "रामेश्वर",
     location: "Rameswaram, Tamil Nadu",
-    story: "Rama worshipped Shiva here before crossing the ocean to Lanka. Shiva appeared to bless him and his mission.",
+    story:
+      "Rama worshipped Shiva here before crossing the ocean to Lanka. Shiva appeared to bless him and his mission.",
     significance: "Fulfillment of vows, success in endeavors",
     bestTime: "October-March",
   },
@@ -112,7 +123,8 @@ const jyotirlingas = [
     name: "Grishneshwar",
     sanskrit: "गृष्णेश्वर",
     location: "Ellora, Maharashtra",
-    story: "Shiva appeared here to bless the devout Kusuma, who performed severe penance after her husband was killed by her brother-in-law.",
+    story:
+      "Shiva appeared here to bless the devout Kusuma, who performed severe penance after her husband was killed by her brother-in-law.",
     significance: "Marital harmony, family peace",
     bestTime: "October-March",
   },
@@ -125,7 +137,8 @@ const shaktiPeethas = [
     sanskrit: "कामाख्या",
     location: "Guwahati, Assam",
     bodyPart: "Yoni (reproductive organ)",
-    story: "Where Sati's yoni fell. The temple represents the cosmic feminine power and is one of the most important Shakta centers.",
+    story:
+      "Where Sati's yoni fell. The temple represents the cosmic feminine power and is one of the most important Shakta centers.",
     significance: "Desire fulfillment, spiritual power",
     bestTime: "October-March",
   },
@@ -135,7 +148,8 @@ const shaktiPeethas = [
     sanskrit: "कालीघाट",
     location: "Kolkata, West Bengal",
     bodyPart: "Right toe",
-    story: "Where Sati's right toe fell. The temple is dedicated to Kali, the fierce form of Devi who destroys evil.",
+    story:
+      "Where Sati's right toe fell. The temple is dedicated to Kali, the fierce form of Devi who destroys evil.",
     significance: "Protection from evil, spiritual strength",
     bestTime: "October-March",
   },
@@ -145,7 +159,8 @@ const shaktiPeethas = [
     sanskrit: "वैष्णो देवी",
     location: "Jammu & Kashmir",
     bodyPart: "Head",
-    story: "Where Sati's head fell. Devi appeared here as Vaishno Devi to bless her devotee Bhairon Nath.",
+    story:
+      "Where Sati's head fell. Devi appeared here as Vaishno Devi to bless her devotee Bhairon Nath.",
     significance: "Fulfillment of wishes, spiritual liberation",
     bestTime: "March-July, September-October",
   },
@@ -155,7 +170,8 @@ const shaktiPeethas = [
     sanskrit: "ज्वालामुखी",
     location: "Kangra, Himachal Pradesh",
     bodyPart: "Tongue",
-    story: "Where Sati's tongue fell. The temple has eternal flames that have been burning for centuries without any fuel.",
+    story:
+      "Where Sati's tongue fell. The temple has eternal flames that have been burning for centuries without any fuel.",
     significance: "Knowledge, speech, divine wisdom",
     bestTime: "March-June, September-November",
   },
@@ -165,7 +181,8 @@ const shaktiPeethas = [
     sanskrit: "तारा तारिणी",
     location: "Berhampur, Odisha",
     bodyPart: "Breasts",
-    story: "Where Sati's breasts fell. The temple is dedicated to Tara and Tarini, forms of Devi representing cosmic motherhood.",
+    story:
+      "Where Sati's breasts fell. The temple is dedicated to Tara and Tarini, forms of Devi representing cosmic motherhood.",
     significance: "Motherly protection, nourishment",
     bestTime: "October-March",
   },
@@ -173,7 +190,7 @@ const shaktiPeethas = [
 
 export function PilgrimageExplorer() {
   const [activeTab, setActiveTab] = useState<"jyotirlingas" | "shakti-peethas">("jyotirlingas");
-  const [selectedItem, setSelectedItem] = useState<typeof jyotirlingas[0] | null>(null);
+  const [selectedItem, setSelectedItem] = useState<(typeof jyotirlingas)[0] | null>(null);
 
   const activeData = activeTab === "jyotirlingas" ? jyotirlingas : shaktiPeethas;
 
@@ -218,11 +235,11 @@ export function PilgrimageExplorer() {
       </div>
 
       {/* Introduction */}
-      <div className="mb-12 surface-panel p-4 sm:p-6" id="pilgrimage-content" role="tabpanel">
-        <h2 className="text-xl sm:text-2xl font-semibold text-foreground">
+      <div className="surface-panel mb-12 p-4 sm:p-6" id="pilgrimage-content" role="tabpanel">
+        <h2 className="text-xl font-semibold text-foreground sm:text-2xl">
           {activeTab === "jyotirlingas" ? "The 12 Jyotirlingas" : "The 51 Shakti Peethas"}
         </h2>
-        <p className="mt-3 text-sm leading-6 sm:leading-7 text-muted-foreground">
+        <p className="mt-3 text-sm leading-6 text-muted-foreground sm:leading-7">
           {activeTab === "jyotirlingas"
             ? "The Jyotirlingas are the 12 sacred abodes of Lord Shiva where He manifested as an infinite column of light (Jyoti). According to tradition, visiting all 12 Jyotirlingas liberates one from the cycle of birth and death. Each Jyotirlinga has unique mythology and significance, representing different aspects of Shiva's divine power."
             : "The Shakti Peethas are 51 sacred sites where parts of Sati's body fell when Lord Shiva performed the Tandava dance carrying her body. These sites are centers of Devi worship and represent the divine feminine power (Shakti). Each Peetha is associated with a specific body part of Sati and has unique mythology and spiritual significance."}
@@ -230,7 +247,11 @@ export function PilgrimageExplorer() {
       </div>
 
       {/* Grid */}
-      <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" role="list" aria-label={`${activeTab === "jyotirlingas" ? "Jyotirlingas" : "Shakti Peethas"} list`}>
+      <div
+        className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+        role="list"
+        aria-label={`${activeTab === "jyotirlingas" ? "Jyotirlingas" : "Shakti Peethas"} list`}
+      >
         {activeData.map((item, index) => (
           <motion.article
             key={item.id}
@@ -258,22 +279,24 @@ export function PilgrimageExplorer() {
           >
             <div className="relative z-10">
               <div className="flex items-start justify-between">
-                <div className="flex size-10 sm:size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <div className="flex size-10 items-center justify-center rounded-full bg-primary/10 text-primary sm:size-12">
                   <MapPin className="size-5 sm:size-6" />
                 </div>
-                <span className="rounded-full bg-primary/10 px-2 sm:px-3 py-1 text-xs font-medium text-primary">
+                <span className="rounded-full bg-primary/10 px-2 py-1 text-xs font-medium text-primary sm:px-3">
                   #{item.id}
                 </span>
               </div>
-              <h3 className="mt-3 sm:mt-4 text-lg sm:text-xl font-semibold text-foreground">{item.name}</h3>
-              <p className="font-devanagari text-base sm:text-lg text-primary">{item.sanskrit}</p>
-              <p className="mt-2 text-xs sm:text-sm text-muted-foreground">{item.location}</p>
+              <h3 className="mt-3 text-lg font-semibold text-foreground sm:mt-4 sm:text-xl">
+                {item.name}
+              </h3>
+              <p className="font-devanagari text-base text-primary sm:text-lg">{item.sanskrit}</p>
+              <p className="mt-2 text-xs text-muted-foreground sm:text-sm">{item.location}</p>
               {activeTab === "shakti-peethas" && (
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Body Part: {(item as typeof shaktiPeethas[0]).bodyPart}
+                  Body Part: {(item as (typeof shaktiPeethas)[0]).bodyPart}
                 </p>
               )}
-              <div className="mt-3 sm:mt-4 flex items-center gap-2 text-xs text-muted-foreground">
+              <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground sm:mt-4">
                 <Calendar className="size-3" />
                 <span className="hidden sm:inline">Best time: {item.bestTime}</span>
                 <span className="sm:hidden">{item.bestTime}</span>
@@ -295,7 +318,7 @@ export function PilgrimageExplorer() {
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="surface-panel max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8"
+            className="surface-panel max-h-[90vh] w-full max-w-2xl overflow-y-auto p-8"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between">
@@ -317,7 +340,9 @@ export function PilgrimageExplorer() {
 
               <div>
                 <h3 className="font-semibold text-foreground">Spiritual Significance</h3>
-                <p className="mt-2 text-sm leading-7 text-muted-foreground">{selectedItem.significance}</p>
+                <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                  {selectedItem.significance}
+                </p>
               </div>
 
               <div>

@@ -2,7 +2,17 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Upload, Image as ImageIcon, Loader2, Sparkles, BookOpen, Copy, Check, X, ZoomIn } from "lucide-react";
+import {
+  Upload,
+  Image as ImageIcon,
+  Loader2,
+  Sparkles,
+  BookOpen,
+  Copy,
+  Check,
+  X,
+  ZoomIn,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -155,7 +165,9 @@ export function ScripturalAnalysis() {
                 onDragOver={(e) => e.preventDefault()}
                 className={cn(
                   "relative flex min-h-[300px] flex-col items-center justify-center rounded-2xl border-2 border-dashed transition-all",
-                  preview ? "border-primary/50 bg-primary/5" : "border-border/60 bg-muted/30 hover:border-primary/30 hover:bg-muted/50"
+                  preview
+                    ? "border-primary/50 bg-primary/5"
+                    : "border-border/60 bg-muted/30 hover:border-primary/30 hover:bg-muted/50"
                 )}
               >
                 <input
@@ -195,9 +207,7 @@ export function ScripturalAnalysis() {
                     </motion.div>
                     <div>
                       <p className="text-lg font-semibold">Drop an image here</p>
-                      <p className="text-sm text-muted-foreground">
-                        or click to browse
-                      </p>
+                      <p className="text-sm text-muted-foreground">or click to browse</p>
                     </div>
                     <p className="text-xs text-muted-foreground">
                       Supports: PNG, JPG, WEBP (Max 10MB)
@@ -230,7 +240,7 @@ export function ScripturalAnalysis() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="What would you like to know about this image?"
-                  className="w-full rounded-lg border-2 border-border/60 bg-background/50 p-4 text-sm focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-ring/20 min-h-[100px] resize-none"
+                  className="min-h-[100px] w-full resize-none rounded-lg border-2 border-border/60 bg-background/50 p-4 text-sm focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-ring/20"
                 />
               </div>
 
@@ -306,8 +316,9 @@ export function ScripturalAnalysis() {
 
           <div className="mt-6 rounded-lg bg-muted/30 p-4">
             <p className="text-center text-xs text-muted-foreground">
-              <ZoomIn className="inline mr-1 size-3" />
-              Powered by Gemma 4's multimodal capabilities • Upload sacred texts, yantras, deity images, or temple architecture for detailed analysis
+              <ZoomIn className="mr-1 inline size-3" />
+              Powered by Gemma 4's multimodal capabilities • Upload sacred texts, yantras, deity
+              images, or temple architecture for detailed analysis
             </p>
           </div>
         </CardContent>

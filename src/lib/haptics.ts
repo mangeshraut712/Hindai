@@ -3,7 +3,9 @@
  * Uses the Web Vibration API where available
  */
 
-export function triggerHaptic(type: "light" | "medium" | "heavy" | "success" | "error" | "warning") {
+export function triggerHaptic(
+  type: "light" | "medium" | "heavy" | "success" | "error" | "warning"
+) {
   if (typeof navigator === "undefined" || !navigator.vibrate) {
     return;
   }
