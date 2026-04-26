@@ -34,5 +34,4 @@ describe("AnvayaAnalyzer", () => {
       expect(typeof result.explanation).toBe("string");
     });
   });
-
 });

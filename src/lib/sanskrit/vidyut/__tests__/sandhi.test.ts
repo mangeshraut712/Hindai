@@ -20,7 +20,7 @@ describe("VidyutProcessor", () => {
 
     it("should handle API errors with fallback", async () => {
       vi.mocked(fetch).mockRejectedValue(new Error("API error"));
-      
+
       const result = await VidyutProcessor.splitSandhi("रामो गच्छति");
       expect(result.words).toBeDefined();
       expect(Array.isArray(result.words)).toBe(true);
@@ -36,7 +36,7 @@ describe("VidyutProcessor", () => {
 
     it("should handle API errors with fallback", async () => {
       vi.mocked(fetch).mockRejectedValue(new Error("API error"));
-      
+
       const result = await VidyutProcessor.analyzeMorphology("रामः");
       expect(result.word).toBe("रामः");
       expect(result.lemma).toBeDefined();

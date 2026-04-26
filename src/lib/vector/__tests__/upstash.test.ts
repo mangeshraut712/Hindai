@@ -24,7 +24,7 @@ describe("Upstash Vector Search", () => {
 
     it("should use fallback when API fails", async () => {
       vi.mocked(fetch).mockRejectedValue(new Error("API error"));
-      
+
       const embedding = await generateEmbedding("राम");
       expect(Array.isArray(embedding)).toBe(true);
       expect(embedding.length).toBe(1536);

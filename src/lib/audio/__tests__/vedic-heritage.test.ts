@@ -21,7 +21,7 @@ describe("VedicHeritagePortal", () => {
 
     it("should handle API errors with fallback to Archive.org", async () => {
       vi.mocked(fetch).mockRejectedValue(new Error("API error"));
-      
+
       const result = await VedicHeritagePortal.getAudioForVerse("bhagavad-gita", 1, 1);
       if (result) {
         expect(result.source).toBeDefined();

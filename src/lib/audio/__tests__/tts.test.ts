@@ -25,7 +25,7 @@ describe("SanskritTTS", () => {
 
     it("should throw error on API failure", async () => {
       vi.mocked(fetch).mockRejectedValue(new Error("API error"));
-      
+
       await expect(SanskritTTS.generateAudio("राम")).rejects.toThrow("API error");
     });
   });

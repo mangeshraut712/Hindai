@@ -11,7 +11,7 @@ function Skeleton({ className }: { className?: string }) {
 export default function ScriptureLoading() {
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/72 px-4 py-3 backdrop-blur-2xl">
+      <header className="bg-background/72 sticky top-0 z-50 w-full border-b border-border/60 px-4 py-3 backdrop-blur-2xl">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between">
           <div className="flex items-center gap-3">
             <Skeleton className="size-11 rounded-full" />
@@ -46,7 +46,7 @@ export default function ScriptureLoading() {
                 <Skeleton className="h-8 w-28 rounded-full" />
               </div>
             </div>
-            <div className="rounded-[28px] border border-border/60 bg-card/84 p-6 backdrop-blur-2xl">
+            <div className="bg-card/84 rounded-[28px] border border-border/60 p-6 backdrop-blur-2xl">
               <Skeleton className="h-5 w-32 rounded-full" />
               <Skeleton className="mt-4 h-12 w-full" />
               <Skeleton className="mt-3 h-16 w-full" />

@@ -14,7 +14,7 @@ export default function AIGuideLoading() {
   return (
     <div className="flex min-h-screen flex-col">
       {/* Header Skeleton */}
-      <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/72 px-4 py-3 backdrop-blur-2xl">
+      <header className="bg-background/72 sticky top-0 z-50 w-full border-b border-border/60 px-4 py-3 backdrop-blur-2xl">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between">
           <div className="flex items-center gap-3">
             <Skeleton className="size-11 rounded-full" />
@@ -43,7 +43,7 @@ export default function AIGuideLoading() {
                 <Skeleton className="h-16 w-full max-w-xl" />
                 <Skeleton className="h-24 w-full max-w-lg" />
               </div>
-              <div className="rounded-[28px] border border-border/60 bg-card/84 p-6 backdrop-blur-2xl lg:ml-auto">
+              <div className="bg-card/84 rounded-[28px] border border-border/60 p-6 backdrop-blur-2xl lg:ml-auto">
                 <Skeleton className="h-5 w-24 rounded-full" />
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   {[...Array(4)].map((_, i) => (
@@ -58,7 +58,7 @@ export default function AIGuideLoading() {
         {/* Chat Section */}
         <section className="px-4 py-12 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <div className="rounded-[28px] border border-border/60 bg-card/84 p-6 backdrop-blur-2xl min-h-[500px]">
+            <div className="bg-card/84 min-h-[500px] rounded-[28px] border border-border/60 p-6 backdrop-blur-2xl">
               <div className="flex items-center gap-3">
                 <Sparkles className="size-5 animate-pulse text-muted-foreground" />
                 <Skeleton className="h-7 w-48" />
@@ -66,7 +66,7 @@ export default function AIGuideLoading() {
               <div className="mt-6 space-y-4">
                 {[...Array(4)].map((_, i) => (
                   <div key={i} className="flex gap-4">
-                    <Skeleton className="size-10 rounded-full shrink-0" />
+                    <Skeleton className="size-10 shrink-0 rounded-full" />
                     <div className="flex-1 space-y-2">
                       <Skeleton className="h-4 w-3/4 rounded-lg" />
                       <Skeleton className="h-4 w-1/2 rounded-lg" />
@@ -80,7 +80,7 @@ export default function AIGuideLoading() {
               {[...Array(3)].map((_, i) => (
                 <div
                   key={i}
-                  className="rounded-[28px] border border-border/60 bg-card/84 p-6 backdrop-blur-2xl"
+                  className="bg-card/84 rounded-[28px] border border-border/60 p-6 backdrop-blur-2xl"
                 >
                   <Skeleton className="size-11 rounded-full" />
                   <Skeleton className="mt-5 h-8 w-3/4" />

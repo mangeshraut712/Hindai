@@ -20,7 +20,7 @@ describe("VedicAccentEngine", () => {
 
     it("should handle API errors with fallback", async () => {
       vi.mocked(fetch).mockRejectedValue(new Error("API error"));
-      
+
       const result = await VedicAccentEngine.analyzeAccents("ॐ भूर्भुवः", "rigveda");
       expect(result.accents).toBeDefined();
       expect(Array.isArray(result.accents)).toBe(true);

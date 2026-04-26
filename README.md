@@ -184,53 +184,53 @@ npm run dev
 
 ### Core Framework
 
-| Technology     | Version | Purpose                                      |
-| -------------- | ------- | -------------------------------------------- |
-| **Next.js**    | 16.3.0  | React framework with App Router & RSC        |
+| Technology     | Version | Purpose                                       |
+| -------------- | ------- | --------------------------------------------- |
+| **Next.js**    | 16.3.0  | React framework with App Router & RSC         |
 | **React**      | 19.2.5  | UI library with concurrent features & Actions |
-| **TypeScript** | 5.9.3   | Type-safe JavaScript development             |
-| **Node.js**    | >=18.0  | JavaScript runtime with ESM support          |
+| **TypeScript** | 5.9.3   | Type-safe JavaScript development              |
+| **Node.js**    | >=18.0  | JavaScript runtime with ESM support           |
 
 ### AI & Machine Learning
 
-| Technology        | Purpose                              |
-| ----------------- | ------------------------------------ |
+| Technology        | Purpose                               |
+| ----------------- | ------------------------------------- |
 | **Gemma 4 31B**   | Google AI model via OpenRouter API    |
 | **OpenRouter**    | Cloud AI inference platform           |
 | **Upstash Redis** | Caching, rate limiting & vector store |
-| **Supabase**      | Database & real-time subscriptions     |
+| **Supabase**      | Database & real-time subscriptions    |
 
 ### UI & Styling
 
-| Technology          | Purpose                              |
-| ------------------- | ------------------------------------ |
-| **Tailwind CSS**    | Utility-first CSS framework           |
-| **shadcn/ui**       | Accessible component library          |
-| **Framer Motion**   | Animation library with GPU hints     |
-| **Radix UI**        | Low-level UI primitives               |
-| **Lucide React**    | Modern icon library                   |
-| **cmdk**            | Command palette for navigation        |
-| **next-themes**     | Dark mode with system preference      |
-| **class-variance-authority** | Component variant management |
+| Technology                   | Purpose                          |
+| ---------------------------- | -------------------------------- |
+| **Tailwind CSS**             | Utility-first CSS framework      |
+| **shadcn/ui**                | Accessible component library     |
+| **Framer Motion**            | Animation library with GPU hints |
+| **Radix UI**                 | Low-level UI primitives          |
+| **Lucide React**             | Modern icon library              |
+| **cmdk**                     | Command palette for navigation   |
+| **next-themes**              | Dark mode with system preference |
+| **class-variance-authority** | Component variant management     |
 
 ### State & Data
 
-| Technology         | Purpose                              |
-| ------------------ | ------------------------------------ |
-| **TanStack Query** | Data fetching & server state         |
-| **Zod**            | Runtime schema validation             |
-| **@upstash/ratelimit** | API rate limiting                  |
+| Technology             | Purpose                      |
+| ---------------------- | ---------------------------- |
+| **TanStack Query**     | Data fetching & server state |
+| **Zod**                | Runtime schema validation    |
+| **@upstash/ratelimit** | API rate limiting            |
 
 ### Sanskrit & Linguistic Tools
 
-| Technology         | Purpose                              |
-| ------------------ | ------------------------------------ |
-| **indic-transliteration** | Sanskrit script conversion    |
-| **Vidyut**         | Sandhi splitting & morphology        |
-| **Anvaya**         | Prose word order analysis            |
-| **Vedic Heritage Portal** | Vedic audio integration       |
-| **IIT Bombay Vedic Accent Engine** | Pitch accent analysis     |
-| **Google Cloud TTS** | Sanskrit audio synthesis           |
+| Technology                         | Purpose                       |
+| ---------------------------------- | ----------------------------- |
+| **indic-transliteration**          | Sanskrit script conversion    |
+| **Vidyut**                         | Sandhi splitting & morphology |
+| **Anvaya**                         | Prose word order analysis     |
+| **Vedic Heritage Portal**          | Vedic audio integration       |
+| **IIT Bombay Vedic Accent Engine** | Pitch accent analysis         |
+| **Google Cloud TTS**               | Sanskrit audio synthesis      |
 
 ### Development & Testing
 
@@ -244,21 +244,21 @@ npm run dev
 
 ### Performance & Monitoring
 
-| Technology                | Purpose                              |
-| ------------------------- | ------------------------------------ |
-| **Vercel Analytics**      | Real-time performance metrics        |
-| **Vercel Speed Insights** | Core Web Vitals monitoring           |
-| **@vercel/analytics**     | User analytics & engagement          |
-| **@vercel/speed-insights** | Performance optimization          |
+| Technology                 | Purpose                       |
+| -------------------------- | ----------------------------- |
+| **Vercel Analytics**       | Real-time performance metrics |
+| **Vercel Speed Insights**  | Core Web Vitals monitoring    |
+| **@vercel/analytics**      | User analytics & engagement   |
+| **@vercel/speed-insights** | Performance optimization      |
 
 ### Infrastructure
 
-| Technology                | Purpose                              |
-| ------------------------- | ------------------------------------ |
-| **Vercel**                | Edge deployment & global CDN         |
-| **Docker**                | Containerization & orchestration     |
-| **Upstash Vector**        | Semantic search & embeddings         |
-| **Supabase**              | PostgreSQL database & auth           |
+| Technology         | Purpose                          |
+| ------------------ | -------------------------------- |
+| **Vercel**         | Edge deployment & global CDN     |
+| **Docker**         | Containerization & orchestration |
+| **Upstash Vector** | Semantic search & embeddings     |
+| **Supabase**       | PostgreSQL database & auth       |
 
 ---
 
