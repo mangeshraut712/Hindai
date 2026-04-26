@@ -18,7 +18,6 @@ import {
   Trophy,
   Users,
 } from "lucide-react";
-import { track } from "@vercel/analytics";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -42,8 +41,6 @@ import { useLanguage, SUPPORTED_LANGUAGES } from "@/lib/i18n/context";
 const navItems = [
   { label: "Library", script: "ग्रन्थालय", href: "/contents", icon: BookOpen },
   { label: "Guru AI", script: "गुरु", href: "/ai-guide", icon: Sparkles },
-  { label: "Vision", script: "दर्शन", href: "/vision", icon: Sparkles },
-  { label: "Dharma", script: "धर्म", href: "/dharma", icon: Sparkles },
 ];
 
 const learningItems = [
@@ -87,7 +84,6 @@ export function Header() {
       if ((event.metaKey || event.ctrlKey) && event.key === "k") {
         event.preventDefault();
         setIsSearchOpen(true);
-        track("search_shortcut_used");
       }
     };
 
@@ -97,22 +93,18 @@ export function Header() {
 
   const handleSearchClick = () => {
     setIsSearchOpen(true);
-    track("search_button_clicked");
   };
 
   const handleThemeToggle = () => {
     const nextTheme = resolvedTheme === "dark" ? "light" : "dark";
     setTheme(nextTheme);
-    track("theme_toggled", { theme: nextTheme });
   };
 
   const handleNavigation = (href: string, label: string) => {
-    track("navigation_click", { destination: href, label });
     setIsOpen(false);
   };
 
   const handleVoiceSearch = (transcript: string) => {
-    track("voice_search_used", { query: transcript });
     setIsSearchOpen(true);
   };
 

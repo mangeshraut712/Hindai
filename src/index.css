@@ -4,86 +4,91 @@
 @tailwind utilities;
 
 :root {
-  --background: 42 42% 97%;
-  --foreground: 218 24% 14%;
-  --card: 42 38% 98%;
-  --card-foreground: 22 18% 14%;
-  --popover: 38 44% 97%;
-  --popover-foreground: 22 18% 14%;
-  --primary: 28 85% 55%;
-  --primary-foreground: 40 40% 98%;
-  --secondary: 206 24% 91%;
-  --secondary-foreground: 218 24% 18%;
-  --muted: 39 20% 90%;
-  --muted-foreground: 216 12% 38%;
-  --accent: 176 42% 38%;
-  --accent-foreground: 40 40% 98%;
+  /* Modern Indian Color Palette */
+  --background: 45 30% 98%;
+  --foreground: 220 24% 12%;
+  --card: 45 25% 96%;
+  --card-foreground: 220 24% 12%;
+  --popover: 45 30% 97%;
+  --popover-foreground: 220 24% 12%;
+  --primary: 24 85% 58%;
+  --primary-foreground: 45 30% 98%;
+  --secondary: 180 35% 92%;
+  --secondary-foreground: 220 24% 12%;
+  --muted: 45 20% 94%;
+  --muted-foreground: 220 16% 40%;
+  --accent: 38 75% 52%;
+  --accent-foreground: 45 30% 98%;
   --destructive: 0 72% 48%;
-  --destructive-foreground: 40 40% 98%;
-  --border: 36 18% 78%;
-  --input: 39 24% 88%;
-  --ring: 28 90% 58%;
+  --destructive-foreground: 45 30% 98%;
+  --border: 45 18% 85%;
+  --input: 45 22% 90%;
+  --ring: 24 85% 58%;
   --radius: 1.35rem;
-  --chart-1: 12 76% 61%;
-  --chart-2: 173 58% 39%;
-  --chart-3: 197 37% 24%;
-  --chart-4: 43 74% 66%;
-  --chart-5: 27 87% 67%;
-  --sidebar-background: 38 48% 97%;
-  --sidebar-foreground: 22 18% 18%;
-  --sidebar-primary: 28 90% 58%;
-  --sidebar-primary-foreground: 38 48% 98%;
-  --sidebar-accent: 36 28% 92%;
-  --sidebar-accent-foreground: 22 18% 18%;
-  --sidebar-border: 32 24% 84%;
-  --sidebar-ring: 28 90% 58%;
-  /* Sacred colors */
-  --saffron: 28 85% 55%;
+  --chart-1: 24 85% 58%;
+  --chart-2: 180 35% 52%;
+  --chart-3: 38 75% 52%;
+  --chart-4: 45 85% 55%;
+  --chart-5: 220 35% 52%;
+  --sidebar-background: 45 28% 96%;
+  --sidebar-foreground: 220 24% 12%;
+  --sidebar-primary: 24 85% 58%;
+  --sidebar-primary-foreground: 45 30% 98%;
+  --sidebar-accent: 45 22% 92%;
+  --sidebar-accent-foreground: 220 24% 12%;
+  --sidebar-border: 45 18% 85%;
+  --sidebar-ring: 24 85% 58%;
+  /* Sacred colors - Modern Indian palette */
+  --saffron: 24 85% 58%;
   --vermilion: 12 85% 60%;
-  --gold: 45 90% 55%;
-  --indigo: 240 60% 55%;
+  --gold: 45 85% 55%;
+  --indigo: 220 60% 52%;
   --peacock: 180 70% 45%;
+  --marigold: 38 85% 55%;
+  --royal-teal: 180 45% 42%;
 }
 
 .dark {
-  --background: 220 24% 10%;
-  --foreground: 42 30% 96%;
-  --card: 220 20% 14%;
-  --card-foreground: 42 30% 96%;
-  --popover: 220 20% 13%;
-  --popover-foreground: 42 30% 96%;
-  --primary: 31 92% 68%;
-  --primary-foreground: 220 24% 10%;
-  --secondary: 216 18% 20%;
-  --secondary-foreground: 42 24% 92%;
-  --muted: 216 16% 19%;
-  --muted-foreground: 39 16% 75%;
-  --accent: 174 48% 55%;
-  --accent-foreground: 220 24% 10%;
+  --background: 220 24% 8%;
+  --foreground: 45 30% 96%;
+  --card: 220 20% 12%;
+  --card-foreground: 45 30% 96%;
+  --popover: 220 18% 11%;
+  --popover-foreground: 45 30% 96%;
+  --primary: 28 90% 65%;
+  --primary-foreground: 220 24% 8%;
+  --secondary: 180 25% 18%;
+  --secondary-foreground: 45 30% 92%;
+  --muted: 220 16% 16%;
+  --muted-foreground: 45 18% 75%;
+  --accent: 38 65% 55%;
+  --accent-foreground: 220 24% 8%;
   --destructive: 0 64% 55%;
-  --destructive-foreground: 36 34% 96%;
-  --border: 216 14% 30%;
-  --input: 216 14% 26%;
-  --ring: 32 94% 70%;
-  --chart-1: 220 70% 50%;
-  --chart-2: 160 60% 45%;
-  --chart-3: 30 80% 55%;
-  --chart-4: 280 65% 60%;
-  --chart-5: 340 75% 55%;
-  --sidebar-background: 28 16% 12%;
-  --sidebar-foreground: 36 26% 92%;
-  --sidebar-primary: 32 94% 70%;
-  --sidebar-primary-foreground: 24 18% 12%;
-  --sidebar-accent: 28 12% 16%;
-  --sidebar-accent-foreground: 36 26% 92%;
-  --sidebar-border: 28 12% 24%;
-  --sidebar-ring: 32 94% 70%;
+  --destructive-foreground: 45 30% 96%;
+  --border: 220 14% 28%;
+  --input: 220 14% 24%;
+  --ring: 28 90% 65%;
+  --chart-1: 28 90% 65%;
+  --chart-2: 180 45% 52%;
+  --chart-3: 38 65% 55%;
+  --chart-4: 45 85% 60%;
+  --chart-5: 220 45% 52%;
+  --sidebar-background: 220 18% 10%;
+  --sidebar-foreground: 45 30% 92%;
+  --sidebar-primary: 28 90% 65%;
+  --sidebar-primary-foreground: 220 24% 8%;
+  --sidebar-accent: 220 14% 14%;
+  --sidebar-accent-foreground: 45 30% 92%;
+  --sidebar-border: 220 14% 22%;
+  --sidebar-ring: 28 90% 65%;
   /* Sacred colors (dark mode) */
-  --saffron: 31 92% 68%;
+  --saffron: 28 90% 65%;
   --vermilion: 12 90% 65%;
   --gold: 45 85% 60%;
-  --indigo: 240 70% 60%;
+  --indigo: 220 70% 60%;
   --peacock: 180 75% 50%;
+  --marigold: 38 85% 60%;
+  --royal-teal: 180 50% 48%;
 }
 
 /* stylelint-disable at-rule-no-unknown */
@@ -130,12 +135,16 @@
 @layer components {
   .eyebrow {
     @apply inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground backdrop-blur-xl;
-    border: 1px solid hsl(var(--border) / 0.7);
-    background: hsl(var(--background) / 0.78);
+    border: 1px solid hsl(var(--saffron) / 0.2);
+    background: hsl(var(--saffron) / 0.05);
   }
 
   .section-title {
     @apply font-serif text-4xl font-semibold tracking-[-0.025em] text-foreground sm:text-5xl md:text-6xl;
+    background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--saffron)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .section-copy {
@@ -143,15 +152,23 @@
   }
 
   .surface-panel {
-    @apply relative overflow-hidden rounded-[28px] shadow-[0_30px_80px_-52px_rgba(15,23,42,0.34)] backdrop-blur-2xl transition-all duration-300;
-    background: hsl(var(--card) / 0.84);
-    border: 1px solid hsl(var(--border) / 0.72);
+    @apply relative overflow-hidden rounded-[28px] backdrop-blur-2xl transition-all duration-300;
+    background: hsl(var(--card) / 0.92);
+    border: 1px solid hsl(var(--border) / 0.65);
+    box-shadow: 
+      0 4px 6px -1px hsl(var(--saffron) / 0.08),
+      0 2px 4px -2px hsl(var(--saffron) / 0.04),
+      0 20px 60px -48px hsl(var(--royal-teal) / 0.12);
     contain: layout style;
   }
 
   .surface-panel:hover {
-    box-shadow: 0 36px 90px -58px rgba(15, 23, 42, 0.42);
-    border-color: hsl(var(--border) / 0.85);
+    box-shadow: 
+      0 8px 12px -1px hsl(var(--saffron) / 0.12),
+      0 4px 8px -2px hsl(var(--saffron) / 0.08),
+      0 36px 90px -58px hsl(var(--royal-teal) / 0.18);
+    border-color: hsl(var(--saffron) / 0.25);
+    transform: translateY(-2px);
   }
 
   .surface-panel::before {
@@ -160,8 +177,8 @@
     inset: 0;
     pointer-events: none;
     background:
-      linear-gradient(180deg, hsl(var(--background) / 0.22), transparent 34%),
-      radial-gradient(circle at top right, hsl(var(--accent) / 0.1), transparent 30%);
+      linear-gradient(135deg, hsl(var(--saffron) / 0.06) 0%, transparent 50%),
+      radial-gradient(circle at top right, hsl(var(--marigold) / 0.08), transparent 40%);
     transition: opacity 0.3s ease;
   }
 
@@ -173,19 +190,25 @@
 
   .dark .surface-panel {
     background: hsl(var(--card) / 0.88);
-    border-color: hsl(var(--border) / 0.82);
-    box-shadow: 0 42px 100px -58px rgba(0, 0, 0, 0.68);
+    border-color: hsl(var(--border) / 0.75);
+    box-shadow: 
+      0 4px 6px -1px hsl(var(--saffron) / 0.12),
+      0 2px 4px -2px hsl(var(--saffron) / 0.08),
+      0 42px 100px -58px hsl(var(--royal-teal) / 0.18);
   }
 
   .dark .surface-panel:hover {
-    box-shadow: 0 48px 110px -62px rgba(0, 0, 0, 0.75);
-    border-color: hsl(var(--border) / 0.92);
+    box-shadow: 
+      0 8px 12px -1px hsl(var(--saffron) / 0.18),
+      0 4px 8px -2px hsl(var(--saffron) / 0.12),
+      0 48px 110px -62px hsl(var(--royal-teal) / 0.25);
+    border-color: hsl(var(--saffron) / 0.35);
   }
 
   .dark .surface-panel::before {
     background:
-      linear-gradient(180deg, hsl(var(--background) / 0.16), transparent 30%),
-      radial-gradient(circle at top right, hsl(var(--accent) / 0.1), transparent 26%);
+      linear-gradient(135deg, hsl(var(--saffron) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at top right, hsl(var(--marigold) / 0.12), transparent 40%);
   }
 
   .hero-mesh {
@@ -248,11 +271,22 @@
   }
 
   .nav-pill-active {
-    @apply border-border/70 bg-background/80 text-foreground shadow-[0_14px_34px_-30px_rgba(15,23,42,0.4)] transition-all duration-300;
+    @apply rounded-full border px-3 py-2 text-sm font-semibold text-foreground transition-all duration-300;
+    border-color: hsl(var(--saffron) / 0.4);
+    background: hsl(var(--saffron) / 0.1);
+    box-shadow: 0 14px 34px -30px hsl(var(--saffron) / 0.3);
   }
 
   .script-chip {
-    @apply inline-flex items-center rounded-full border border-border/70 bg-background/70 px-3 py-1 text-xs font-medium text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:bg-primary/10 hover:text-primary;
+    @apply inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium text-muted-foreground transition-all duration-300;
+    border-color: hsl(var(--border) / 0.7);
+    background: hsl(var(--background) / 0.7);
+  }
+
+  .script-chip:hover {
+    border-color: hsl(var(--saffron) / 0.4);
+    background: hsl(var(--saffron) / 0.1);
+    color: hsl(var(--primary));
   }
 
   .boot-splash-backdrop {
