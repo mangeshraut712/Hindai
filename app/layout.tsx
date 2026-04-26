@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "./providers";
 import { LanguageProvider } from "@/lib/i18n/context";
 import { PageProgress } from "@/components/page-progress";
+import { ErrorBoundary } from "@/components/error-boundary";
 import "@/index.css";
 
 const manrope = Manrope({
@@ -207,9 +208,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Suspense fallback={null}>
           <PageProgress />
         </Suspense>
-        <LanguageProvider>
-          <Providers>{children}</Providers>
-        </LanguageProvider>
+        <ErrorBoundary>
+          <LanguageProvider>
+            <Providers>{children}</Providers>
+          </LanguageProvider>
+        </ErrorBoundary>
         {process.env.VERCEL === "1" && (
           <>
             <Analytics />
