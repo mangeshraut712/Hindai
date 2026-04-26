@@ -56,7 +56,8 @@ const nextConfig = {
     if (!isServer) {
       config.optimization.splitChunks = {
         chunks: "all",
-        maxSize: 244000, // 244KB max chunk size
+        maxSize: 150000, // 150KB max chunk size - reduced from 244KB
+        minSize: 20000, // 20KB min chunk size
         cacheGroups: {
           default: false,
           vendors: false,
@@ -65,28 +66,28 @@ const nextConfig = {
             chunks: "all",
             test: /[\\/]node_modules[\\/](framer-motion)/,
             priority: 20,
-            maxSize: 200000,
+            maxSize: 100000, // 100KB max for framer
           },
           radix: {
             name: "radix",
             chunks: "all",
             test: /[\\/]node_modules[\\/](@radix-ui)/,
             priority: 15,
-            maxSize: 150000,
+            maxSize: 80000, // 80KB max for radix
           },
           lucide: {
             name: "lucide",
             chunks: "all",
             test: /[\\/]node_modules[\\/](lucide-react)/,
             priority: 10,
-            maxSize: 100000,
+            maxSize: 50000, // 50KB max for lucide
           },
           commons: {
             name: "commons",
             chunks: "all",
             minChunks: 2,
             priority: 5,
-            maxSize: 200000,
+            maxSize: 100000, // 100KB max for commons
           },
         },
       };
@@ -103,6 +104,9 @@ const nextConfig = {
 
       // Enable compression
       config.optimization.minimize = true;
+
+      // Enable aggressive tree shaking
+      config.optimization.providedExports = true;
     }
     return config;
   },

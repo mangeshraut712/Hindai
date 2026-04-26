@@ -2,7 +2,6 @@
 
 import { useRef, lazy, Suspense } from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Bot, Languages, Library, ScanSearch } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -98,17 +97,8 @@ const stats = [
 ];
 
 export default function HomePage() {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const heroY = useTransform(scrollYProgress, [0, 0.25], [0, -52]);
-  const panelY = useTransform(scrollYProgress, [0, 0.25], [0, 36]);
-
   return (
-    <div ref={containerRef} className="relative flex min-h-screen flex-col">
+    <div className="relative flex min-h-screen flex-col">
       <Header />
 
       <main className="flex-1">
@@ -125,7 +115,7 @@ export default function HomePage() {
           />
 
           <div className="mx-auto grid min-h-[calc(100svh-5rem)] max-w-7xl items-end gap-8 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.9fr)] lg:gap-14 lg:px-8">
-            <motion.div style={{ y: heroY }} className="relative z-10 max-w-3xl">
+            <div className="relative z-10 max-w-3xl">
               <span className="eyebrow">Digital Gurukul • Gemma 4 • English · हिंदी · संस्कृत</span>
               <div className="mt-8 space-y-6">
                 <div className="space-y-4">
@@ -189,9 +179,9 @@ export default function HomePage() {
                   <Link href="/study-paths">Open guided study paths</Link>
                 </Button>
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div style={{ y: panelY }} className="relative z-10 pb-6 lg:pb-0">
+            <div className="relative z-10 pb-6 lg:pb-0">
               <div className="surface-panel p-8 md:p-10">
                 <div className="relative z-10">
                   <span className="eyebrow">Opening invocation</span>
@@ -232,7 +222,7 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
@@ -249,12 +239,8 @@ export default function HomePage() {
 
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
               {studyModes.map((mode, index) => (
-                <motion.div
+                <div
                   key={mode.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="surface-panel group p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
                 >
                   <Link href={mode.href} className="relative z-10 space-y-4">
@@ -278,7 +264,7 @@ export default function HomePage() {
                       </div>
                     </div>
                   </Link>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -303,13 +289,7 @@ export default function HomePage() {
             <div className="surface-panel mt-12">
               <div className="relative z-10">
                 {featuredScriptures.map((scripture, index) => (
-                  <motion.div
-                    key={scripture.slug}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.08 }}
-                  >
+                  <div key={scripture.slug}>
                     <Link href={scripture.href} className="scripture-row group">
                       <div>
                         <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
@@ -332,7 +312,7 @@ export default function HomePage() {
                         <ArrowRight className="size-4 text-primary transition-transform group-hover:translate-x-2 group-hover:scale-110" />
                       </div>
                     </Link>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -422,13 +402,7 @@ export default function HomePage() {
             </div>
 
             <div className="mt-12 grid gap-8 sm:grid-cols-1 lg:grid-cols-2">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="surface-panel group p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              >
+              <div className="surface-panel group p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                 <div className="relative z-10 space-y-6">
                   <div className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-purple-600 transition-all duration-300 group-hover:scale-110 group-hover:from-purple-500/30 group-hover:to-pink-500/30">
                     <Bot className="size-6" />
@@ -458,15 +432,9 @@ export default function HomePage() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="surface-panel group p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              >
+              <div className="surface-panel group p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                 <div className="relative z-10 space-y-6">
                   <div className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-500/20 text-blue-600 transition-all duration-300 group-hover:scale-110 group-hover:from-blue-500/30 group-hover:to-cyan-500/30">
                     <Languages className="size-6" />
@@ -496,7 +464,7 @@ export default function HomePage() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -514,12 +482,8 @@ export default function HomePage() {
 
             <div className="mt-12 grid gap-6 md:grid-cols-3">
               {featuredVerses.map((verse, index) => (
-                <motion.div
+                <div
                   key={verse.source}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="surface-panel group p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
                   <div className="relative z-10 space-y-4">
@@ -532,7 +496,7 @@ export default function HomePage() {
                       <p className="text-xs font-semibold text-primary">{verse.source}</p>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

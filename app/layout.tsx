@@ -1,70 +1,70 @@
 import type { Metadata, Viewport } from "next";
-import { Suspense } from "react";
-import {
-  Manrope,
-  Cormorant_Garamond,
-  Noto_Serif_Devanagari,
-  Noto_Sans_Devanagari,
-  Noto_Sans_Tamil,
-  Noto_Sans_Telugu,
-} from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+// import {
+//   Manrope,
+//   Cormorant_Garamond,
+//   Noto_Serif_Devanagari,
+//   Noto_Sans_Devanagari,
+//   Noto_Sans_Tamil,
+//   Noto_Sans_Telugu,
+// } from "next/font/google";
+// import { Analytics } from "@vercel/analytics/react";
+// import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "./providers";
 import { LanguageProvider } from "@/lib/i18n/context";
-import { PageProgress } from "@/components/page-progress";
-import { ErrorBoundary } from "@/components/error-boundary";
-import { PageTransition } from "@/components/page-transition";
-import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
+// import { PageProgress } from "@/components/page-progress";
+// import { ErrorBoundary } from "@/components/error-boundary";
+// import { PageTransition } from "@/components/page-transition";
+// import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
 import "@/index.css";
 
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-manrope",
-  display: "swap",
-  preload: true,
-  weight: ["400", "500", "600"],
-});
+// Using system fonts for maximum performance
+// const manrope = Manrope({
+//   subsets: ["latin"],
+//   variable: "--font-manrope",
+//   display: "swap",
+//   preload: true,
+//   weight: ["400", "500", "600"],
+// });
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  variable: "--font-cormorant",
-  weight: ["400", "600"],
-  display: "swap",
-  preload: false,
-});
+// const cormorant = Cormorant_Garamond({
+//   subsets: ["latin"],
+//   variable: "--font-cormorant",
+//   weight: ["400", "600"],
+//   display: "swap",
+//   preload: false,
+// });
 
-const notoSerifDevanagari = Noto_Serif_Devanagari({
-  subsets: ["devanagari"],
-  weight: ["400", "700"],
-  variable: "--font-devanagari",
-  display: "swap",
-  preload: false,
-});
+// const notoSerifDevanagari = Noto_Serif_Devanagari({
+//   subsets: ["devanagari"],
+//   weight: ["400", "700"],
+//   variable: "--font-devanagari",
+//   display: "swap",
+//   preload: false,
+// });
 
-const notoSansDevanagari = Noto_Sans_Devanagari({
-  subsets: ["devanagari"],
-  weight: ["400", "600"],
-  variable: "--font-hindi",
-  display: "swap",
-  preload: false,
-});
+// const notoSansDevanagari = Noto_Sans_Devanagari({
+//   subsets: ["devanagari"],
+//   weight: ["400", "600"],
+//   variable: "--font-hindi",
+//   display: "swap",
+//   preload: false,
+// });
 
-const notoSansTamil = Noto_Sans_Tamil({
-  subsets: ["tamil"],
-  weight: ["400", "600"],
-  variable: "--font-tamil",
-  display: "swap",
-  preload: false,
-});
+// const notoSansTamil = Noto_Sans_Tamil({
+//   subsets: ["tamil"],
+//   weight: ["400", "600"],
+//   variable: "--font-tamil",
+//   display: "swap",
+//   preload: false,
+// });
 
-const notoSansTelugu = Noto_Sans_Telugu({
-  subsets: ["telugu"],
-  weight: ["400", "600"],
-  variable: "--font-telugu",
-  display: "swap",
-  preload: false,
-});
+// const notoSansTelugu = Noto_Sans_Telugu({
+//   subsets: ["telugu"],
+//   weight: ["400", "600"],
+//   variable: "--font-telugu",
+//   display: "swap",
+//   preload: false,
+// });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hindai.dev"),
@@ -169,10 +169,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" dir="ltr" className="relative scroll-smooth" suppressHydrationWarning>
       <head>
         {/* Resource hints for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://hindai.dev" />
-        <link rel="dns-prefetch" href="https://vercel.com" />
 
         {/* Inline critical CSS to prevent FOUC */}
         <style
@@ -185,76 +182,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `,
           }}
         />
-
-        {/* Structured Data for WebSite */}
-        <script
-          type="application/ld+json"
-          defer
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: "Hind AI",
-              alternateName: ["HindAI", "Hind AI Digital Library"],
-              url: "https://hindai.dev",
-              description:
-                "AI-powered digital museum of ancient Indian scriptures including Vedas, Upanishads, Puranas, and Epics.",
-              inLanguage: ["en", "hi", "sa"],
-              potentialAction: {
-                "@type": "SearchAction",
-                target: {
-                  "@type": "EntryPoint",
-                  urlTemplate: "https://hindai.dev/contents?q={search_term_string}",
-                },
-                "query-input": "required name=search_term_string",
-              },
-            }),
-          }}
-        />
-        {/* Structured Data for Organization */}
-        <script
-          type="application/ld+json"
-          defer
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "Hind AI",
-              url: "https://hindai.dev",
-              logo: "https://hindai.dev/logo.png",
-              sameAs: ["https://github.com/mangeshraut712/Hindai"],
-              contactPoint: {
-                "@type": "ContactPoint",
-                contactType: "customer support",
-                url: "https://hindai.dev/preface",
-              },
-            }),
-          }}
-        />
       </head>
       <body
         suppressHydrationWarning
-        className={`${manrope.variable} ${cormorant.variable} ${notoSerifDevanagari.variable} ${notoSansDevanagari.variable} ${notoSansTamil.variable} ${notoSansTelugu.variable} relative min-h-screen bg-background font-sans antialiased`}
+        className="relative min-h-screen bg-background font-sans antialiased"
+        style={{
+          fontFamily:
+            'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+        }}
       >
-        <Suspense fallback={null}>
-          <PageProgress />
-        </Suspense>
-        <ServiceWorkerRegistration />
-        <ErrorBoundary>
-          <LanguageProvider>
-            <Providers>
-              <PageTransition>{children}</PageTransition>
-            </Providers>
-          </LanguageProvider>
-        </ErrorBoundary>
-        {process.env.VERCEL === "1" && (
-          <Suspense fallback={null}>
-            <Analytics />
-            <SpeedInsights />
-          </Suspense>
-        )}
+        <LanguageProvider>
+          <Providers>{children}</Providers>
+        </LanguageProvider>
       </body>
     </html>
   );
