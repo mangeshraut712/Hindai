@@ -23,7 +23,7 @@
 
 <div align="center">
 
-![Home Page](home.png)
+![Home Page](public/Home.png)
 
 **Experience the modern interface for ancient wisdom**
 
