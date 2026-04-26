@@ -1,14 +1,37 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, BookOpen, Clock3, Languages, Sparkles } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { ScriptureStudyExplorer } from "@/components/scripture/scripture-study-explorer";
-import { VerseGenerator } from "@/components/scripture/verse-generator";
 import { getVerse, getVersesByScripture, scriptures } from "@/lib/data/scriptures";
 import { getScriptureCatalogItem, scriptureCatalog } from "@/lib/scripture-catalog";
+
+function ScriptureStudyExplorerFallback() {
+  return <div className="surface-panel min-h-[400px] animate-pulse rounded-2xl" />;
+}
+
+function VerseGeneratorFallback() {
+  return <div className="surface-panel min-h-[300px] animate-pulse rounded-2xl" />;
+}
+
+const ScriptureStudyExplorer = dynamic(
+  async () => {
+    const mod = await import("@/components/scripture/scripture-study-explorer");
+    return mod.ScriptureStudyExplorer;
+  },
+  { loading: ScriptureStudyExplorerFallback }
+);
+
+const VerseGenerator = dynamic(
+  async () => {
+    const mod = await import("@/components/scripture/verse-generator");
+    return mod.VerseGenerator;
+  },
+  { loading: VerseGeneratorFallback }
+);
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -62,7 +85,7 @@ export default async function ScripturePage({ params }: PageProps) {
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.72fr)] lg:px-8">
             <div className="max-w-4xl">
               <Link
-                href="/contents/"
+                href="/contents"
                 className="eyebrow transition-colors hover:border-primary/40 hover:text-foreground"
               >
                 <ArrowLeft className="size-4" />
@@ -146,13 +169,13 @@ export default async function ScripturePage({ params }: PageProps) {
                 </div>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Button variant="premium" asChild>
-                    <Link href="/ai-guide/">
+                    <Link href="/ai-guide">
                       Open Guru AI
                       <Sparkles className="size-4" />
                     </Link>
                   </Button>
                   <Button variant="outline" asChild>
-                    <Link href="/structure/">View scripture structure</Link>
+                    <Link href="/structure">View scripture structure</Link>
                   </Button>
                 </div>
               </div>
@@ -221,13 +244,13 @@ export default async function ScripturePage({ params }: PageProps) {
                     </p>
                     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                       <Button variant="premium" asChild>
-                        <Link href="/ai-guide/">
+                        <Link href="/ai-guide">
                           Ask Gemma about {item.name}
                           <ArrowRight className="size-4" />
                         </Link>
                       </Button>
                       <Button variant="outline" asChild>
-                        <Link href="/contents/">Return to the library</Link>
+                        <Link href="/contents">Return to the library</Link>
                       </Button>
                     </div>
                   </div>

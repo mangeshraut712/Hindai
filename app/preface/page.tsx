@@ -237,7 +237,7 @@ export default function PrefacePage() {
                   </p>
                 </div>
                 <Button variant="premium" size="lg" asChild>
-                  <Link href="/contents/">
+                  <Link href="/contents">
                     Begin exploring
                     <ArrowRight className="size-4" />
                   </Link>

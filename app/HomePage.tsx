@@ -8,6 +8,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { LearningProgress } from "@/components/learning-progress";
+import { CANONICAL_COUNTS } from "@/lib/data/canonical-counts";
 import { featuredScriptures, scriptureSections } from "@/lib/scripture-catalog";
 
 const studyModes = [
@@ -15,7 +16,7 @@ const studyModes = [
     icon: Library,
     title: "Read by shelf",
     body: "Move through Vedas, epics, Puranas, and philosophy with clear structure rather than scattered links.",
-    features: ["4 Vedas", "18 Puranas", "30 Upanishads", "2 Epics"],
+    features: ["4 Vedas", "18 Puranas", "108 Upanishads", "2 Itihasas"],
   },
   {
     icon: ScanSearch,
@@ -72,7 +73,7 @@ const featuredVerses = [
 
 const stats = [
   { value: "4", label: "Vedas" },
-  { value: "30", label: "Upanishads" },
+  { value: String(CANONICAL_COUNTS.upanishads), label: "Upanishads" },
   { value: "18", label: "Mahapuranas" },
   { value: "2", label: "Itihasas" },
 ];
@@ -127,7 +128,7 @@ export default function HomePage() {
                     losing atmosphere or context.
                   </p>
                   <p className="max-w-2xl text-sm leading-7 text-muted-foreground">
-                    Hindu scripture is a vast tradition built over millennia, broadly organized into
+                    Hindu scripture is a vast tradition built over millennia, broadly organized into{" "}
                     <strong>Shruti</strong> (revealed scripture) and <strong>Smriti</strong>{" "}
                     (remembered tradition), with the Bhagavad Gita, Upanishads, Puranas, and epics
                     all occupying distinct but connected places.
@@ -136,13 +137,13 @@ export default function HomePage() {
 
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Button variant="premium" size="xl" asChild>
-                    <Link href="/contents/">
+                    <Link href="/contents">
                       Explore the library
                       <ArrowRight className="size-4" />
                     </Link>
                   </Button>
                   <Button variant="outline" size="xl" asChild>
-                    <Link href="/ai-guide/">Ask Guru AI</Link>
+                    <Link href="/ai-guide">Ask Guru AI</Link>
                   </Button>
                 </div>
 
@@ -161,12 +162,12 @@ export default function HomePage() {
 
                 <div className="bg-background/72 rounded-[24px] border border-border/60 p-4 text-sm leading-7 text-muted-foreground">
                   <strong className="text-foreground">Reading map:</strong> Shruti includes the 4
-                  Vedas and their Upanishadic culmination. Smriti includes the 2 Itihasas, 18 Major
+                  Vedas and the traditional 108 Upanishads. Smriti includes the 2 Itihasas, 18 Major
                   Puranas, 18 Upa-Puranas, and the wider world of Shastras and Sutras.
                 </div>
 
                 <Button variant="outline" size="lg" asChild>
-                  <Link href="/study-paths/">Open guided study paths</Link>
+                  <Link href="/study-paths">Open guided study paths</Link>
                 </Button>
               </div>
             </motion.div>
@@ -276,7 +277,7 @@ export default function HomePage() {
                 </p>
               </div>
               <Button variant="outline" asChild>
-                <Link href="/contents/">Open full library</Link>
+                <Link href="/contents">Open full library</Link>
               </Button>
             </div>
 
@@ -333,7 +334,7 @@ export default function HomePage() {
                     Sanskrit line into a reading voice that feels thoughtful instead of synthetic.
                   </p>
                   <Button variant="premium" asChild>
-                    <Link href="/ai-guide/">
+                    <Link href="/ai-guide">
                       Open Guru AI
                       <ArrowRight className="size-4" />
                     </Link>
@@ -377,7 +378,7 @@ export default function HomePage() {
                   </p>
                 </div>
                 <Button variant="premium" size="lg" asChild>
-                  <Link href="/study-paths/">
+                  <Link href="/study-paths">
                     Explore study paths
                     <ArrowRight className="size-4" />
                   </Link>
@@ -390,11 +391,14 @@ export default function HomePage() {
         <section className="px-4 pb-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
-              <span className="eyebrow">Interactive Features • विशेषताएं</span>
-              <h2 className="section-title mt-6">Experience ancient wisdom in modern ways.</h2>
+              <span className="eyebrow">Sanskrit and calendar tools • विशेषताएं</span>
+              <h2 className="section-title mt-6">
+                Study grammar, time, and commentary in one flow.
+              </h2>
               <p className="section-copy mt-5">
-                Discover sacred texts through innovative features that make learning engaging,
-                interactive, and deeply meaningful.
+                Hind AI now connects Panchanga, Sanskrit analysis, script conversion, verse modes,
+                and school-aware commentary without repeating the same library and chat entry
+                points.
               </p>
             </div>
 

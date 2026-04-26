@@ -6,13 +6,14 @@ import { BookOpen, BookText, LibraryBig, ScrollText, Sparkles, Trees } from "luc
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { CANONICAL_COUNTS } from "@/lib/data/canonical-counts";
 
 const summaryStats = [
   { label: "Vedas", value: "4", note: "Rig, Yajur, Sama, Atharva" },
   {
     label: "Upanishads",
-    value: "30",
-    note: "documented philosophical texts",
+    value: String(CANONICAL_COUNTS.upanishads),
+    note: "traditional Muktika canon",
   },
   { label: "Mahapuranas", value: "18", note: "major Puranas" },
   { label: "Itihasas", value: "2", note: "Ramayana and Mahabharata" },
@@ -104,8 +105,8 @@ export default function StructurePage() {
                 <strong>Shruti</strong> and <strong>Smriti</strong>.
               </p>
               <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
-                The foundational body includes 4 Vedas, 30 documented Upanishads, 18 Major Puranas,
-                and 2 major Epics. This page is the structural map for that world.
+                The foundational map includes 4 Vedas, the traditional 108 Upanishads, 18 Major
+                Puranas, and 2 major Itihasas. This page is the structural map for that world.
               </p>
             </motion.div>
 

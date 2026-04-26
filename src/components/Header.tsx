@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
   BookOpen,
+  Calendar,
   ChevronDown,
   Languages,
   Menu,
@@ -41,6 +42,7 @@ const navItems = [
   { label: "Library", script: "ग्रन्थालय", href: "/contents", icon: BookOpen },
   { label: "Guru AI", script: "गुरु", href: "/ai-guide", icon: Sparkles },
   { label: "Sanskrit", script: "संस्कृत", href: "/sanskrit-nova", icon: Languages },
+  { label: "Panchanga", script: "पञ्चाङ्ग", href: "/panchanga", icon: Calendar },
   { label: "Study Paths", script: "पाठ", href: "/study-paths" },
   { label: "Community", script: "समुदाय", href: "/community", icon: Users },
 ];

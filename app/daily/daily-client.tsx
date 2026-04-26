@@ -409,7 +409,7 @@ export default function DailyWisdomClient() {
                     </Link>
                   </Button>
                   <Button variant="outline" size="lg" asChild>
-                    <Link href="/contents/">
+                    <Link href="/contents">
                       <BookOpen className="size-4" />
                       Browse library
                     </Link>

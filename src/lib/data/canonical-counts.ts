@@ -1,0 +1,18 @@
+export const CANONICAL_COUNTS = {
+  vedas: 4,
+  upanishads: 108,
+  mahapuranas: 18,
+  itihasas: 2,
+  yogaSutras: 196,
+  vishnuSahasranama: 1000,
+  lalitaSahasranama: 1000,
+  shivaSahasranama: 1000,
+  deviMahatmya: 700,
+  ramayanaKandas: 7,
+  mahabharataParvas: 18,
+  shaktiPeethas: 51,
+  jyotirlingas: 12,
+  samskaras: 16,
+  shaivaAgamas: 28,
+  dhatusTarget: 2000,
+} as const;

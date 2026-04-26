@@ -1,14 +1,17 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { Manrope, Cormorant_Garamond, Noto_Serif_Devanagari } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "./providers";
+import { PageProgress } from "@/components/page-progress";
 import "@/index.css";
 
 const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-manrope",
   display: "swap",
+  preload: true,
 });
 
 const cormorant = Cormorant_Garamond({
@@ -16,6 +19,7 @@ const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   weight: ["400", "500", "600", "700"],
   display: "swap",
+  preload: false,
 });
 
 const notoSerifDevanagari = Noto_Serif_Devanagari({
@@ -23,6 +27,7 @@ const notoSerifDevanagari = Noto_Serif_Devanagari({
   weight: ["400", "500", "700"],
   variable: "--font-devanagari",
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -125,8 +130,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       dir="ltr"
-      className="relative"
-      data-scroll-behavior="smooth"
+      className="relative scroll-smooth"
       suppressHydrationWarning
     >
       <head>
@@ -180,6 +184,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         suppressHydrationWarning
         className={`${manrope.variable} ${cormorant.variable} ${notoSerifDevanagari.variable} relative min-h-screen bg-background font-sans antialiased`}
       >
+        <Suspense fallback={null}>
+          <PageProgress />
+        </Suspense>
         <Providers>{children}</Providers>
         {process.env.VERCEL === "1" && (
           <>

@@ -2,9 +2,32 @@
 
 import { Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { AIChat } from "@/components/ai/ai-chat";
+
+const AIChat = dynamic(
+  () => import("@/components/ai/ai-chat").then((m) => m.AIChat),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="surface-panel min-h-[500px] animate-pulse rounded-2xl p-6">
+        <div className="h-8 w-48 rounded-lg bg-muted/60" />
+        <div className="mt-6 space-y-4">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="flex gap-4">
+              <div className="size-10 rounded-full bg-muted/60" />
+              <div className="flex-1 space-y-2">
+                <div className="h-4 w-3/4 rounded bg-muted/60" />
+                <div className="h-4 w-1/2 rounded bg-muted/60" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+  }
+);
 
 const guidePoints = [
   {

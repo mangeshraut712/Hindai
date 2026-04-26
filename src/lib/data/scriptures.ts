@@ -1074,7 +1074,7 @@ export const scriptures: Scripture[] = [
   },
 ];
 
-// ─── Principal Upanishads (30 documented with verified data) ───────────────────────
+// ─── Indexed Upanishad records from the traditional 108-text corpus ────────────────
 
 export const UPANISHADS = [
   {

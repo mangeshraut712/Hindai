@@ -1,11 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   typescript: {
     ignoreBuildErrors: false,
   },
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
+  productionBrowserSourceMaps: false,
   // Bundle optimization
   experimental: {
     optimizePackageImports: [
@@ -13,15 +15,24 @@ const nextConfig = {
       "@radix-ui/react-dropdown-menu",
       "lucide-react",
       "framer-motion",
+      "@radix-ui/react-progress",
+      "@radix-ui/react-scroll-area",
+      "@radix-ui/react-slider",
     ],
     scrollRestoration: true,
     optimizeCss: true,
     optimizeServerReact: true,
+    staleTimes: {
+      dynamic: 30,
+      static: 180,
+    },
   },
   // Image optimization
   images: {
     formats: ["image/webp", "image/avif"],
-    minimumCacheTTL: 60 * 60 * 24 * 7, // 7 days
+    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [
       {
         protocol: "https",
@@ -39,7 +50,7 @@ const nextConfig = {
   },
   // Static optimization
   trailingSlash: false,
-  // Security headers
+  // Security headers + performance headers
   async headers() {
     return [
       {
@@ -60,6 +71,28 @@ const nextConfig = {
           {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
+          },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+        ],
+      },
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
           },
         ],
       },

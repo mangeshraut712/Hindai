@@ -111,7 +111,7 @@ export default function QuizPage() {
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Button variant="premium" size="lg" asChild>
-                      <Link href="/ai-guide/">
+                      <Link href="/ai-guide">
                         Ask Guru AI
                         <Sparkles className="size-4" />
                       </Link>
@@ -119,7 +119,7 @@ export default function QuizPage() {
                   </motion.div>
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Button variant="outline" size="lg" asChild>
-                      <Link href="/study-paths/">
+                      <Link href="/study-paths">
                         Study paths
                         <ArrowRight className="size-4" />
                       </Link>

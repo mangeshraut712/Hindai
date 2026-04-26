@@ -291,7 +291,7 @@ export default function CommunityPage() {
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                     <Button variant="premium" size="lg" asChild>
-                      <Link href="/ai-guide/">
+                      <Link href="/ai-guide">
                         Start Learning
                         <Sparkles className="size-4" />
                       </Link>
@@ -304,7 +304,7 @@ export default function CommunityPage() {
                       className="border-white/20 bg-white/10 text-white hover:bg-white/20"
                       asChild
                     >
-                      <Link href="/contents/">
+                      <Link href="/contents">
                         Browse Library
                         <ArrowRight className="size-4" />
                       </Link>

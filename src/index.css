@@ -146,6 +146,7 @@
     @apply relative overflow-hidden rounded-[28px] shadow-[0_30px_80px_-52px_rgba(15,23,42,0.34)] backdrop-blur-2xl transition-all duration-300;
     background: hsl(var(--card) / 0.84);
     border: 1px solid hsl(var(--border) / 0.72);
+    contain: layout style;
   }
 
   .surface-panel:hover {
@@ -162,6 +163,12 @@
       linear-gradient(180deg, hsl(var(--background) / 0.22), transparent 34%),
       radial-gradient(circle at top right, hsl(var(--accent) / 0.1), transparent 30%);
     transition: opacity 0.3s ease;
+  }
+
+  /* Performance optimizations for below-fold content */
+  section + section {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 500px;
   }
 
   .dark .surface-panel {
@@ -330,5 +337,63 @@
 
   .animate-spin-slow {
     animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-sun,
+  .text-gradient {
+    animation: none !important;
+  }
+}
+
+/* GPU acceleration hints for animated elements */
+.hero-sun,
+.surface-panel,
+.scripture-row,
+.motion-safe {
+  will-change: transform;
+}
+
+/* Optimize compositing */
+.hero-mesh,
+.boot-splash-backdrop,
+.grain-mask {
+  will-change: opacity;
+}
+
+/* Touch-action for smooth mobile interactions */
+button,
+a,
+[role="button"] {
+  touch-action: manipulation;
+}
+
+/* Optimize paint containment for heavy sections */
+section {
+  contain: layout paint;
+}
+
+/* Reduce layout shifts by reserving space */
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: attr(width) / attr(height);
+}
+
+/* Smooth scrollbar for WebKit */
+@supports (scrollbar-width: thin) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary) / 0.3) hsl(var(--muted));
   }
 }

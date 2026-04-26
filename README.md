@@ -40,7 +40,7 @@
 ### 🎯 Key Highlights
 
 - **🤖 AI-Powered**: Google Gemma 4 31B via OpenRouter API
-- **📚 184 Scriptures**: Complete Vedas, Upanishads, Puranas, Epics, and Gita
+- **📚 Scripture Library**: Vedas, the traditional 108 Upanishads, Puranas, Epics, and Gita with indexed data expanding over time
 - **🔍 RAG Pipeline**: Context-grounded answers with scripture citations
 - **🖼️ Multimodal**: Sanskrit manuscript analysis with vision AI
 - **🌐 Cloud-Optimized**: Production-ready with global deployment
@@ -69,7 +69,38 @@ npm run dev
 
 ---
 
-## 🆕 What's New in Version 2.0.0 (April 2026)
+## 🆕 What's New in Version 2.1.0 (April 2026)
+
+### ⚡ Performance Optimization Suite
+
+- **Dynamic Component Loading** - Heavy components (AIChat, ScriptureStudyExplorer, VerseGenerator) now load on-demand with loading skeletons
+- **Route-Level Loading States** - Beautiful shimmer loading skeletons for all major routes (ai-guide, contents, study-paths, sanskrit-nova, panchanga, [slug])
+- **Font Optimization** - Manrope (primary font) preloaded with `display: swap`, secondary fonts deferred for faster initial paint
+- **CSS Performance Hints** - Added `will-change`, `content-visibility`, and `contain` properties for GPU-accelerated animations
+- **Smooth Page Transitions** - PageProgress component with gradient progress bar for seamless navigation feedback
+- **Scroll Optimization** - Smooth scroll behavior with `prefers-reduced-motion` support for accessibility
+- **Touch Action Optimization** - `touch-action: manipulation` for faster mobile interactions
+- **Static Asset Caching** - 1-year immutable cache headers for `_next/static` and `/static` assets
+- **Build Performance** - Stale time optimizations for dynamic (30s) and static (180s) routes
+
+### 🎨 Enhanced User Experience
+
+- **Page Progress Indicator** - Gradient progress bar at top of page during route transitions
+- **Skeleton Loading States** - Consistent shimmer animations across all loading states
+- **Reduced Motion Support** - Comprehensive accessibility support for users who prefer reduced motion
+- **Optimized Scrollbars** - Thin, styled scrollbars with WebKit and Firefox support
+- **Layout Shift Prevention** - Aspect ratio reservation for images and media elements
+
+### 🔧 Infrastructure Improvements
+
+- **Next.js 16.3.0 Canary** - Latest Next.js with App Router optimizations
+- **React 19.2.5** - Concurrent React features with improved performance
+- **TypeScript 5.9.3** - Strict type checking with zero errors
+- **Package Import Optimization** - Optimized imports for Radix UI, Lucide, and Framer Motion
+- **CSS Optimization** - Experimental CSS optimization enabled
+- **Server React Optimization** - Optimized server-side React rendering
+- **Image Optimization** - WebP and AVIF formats with 30-day cache TTL
+- **Security Headers** - Permissions-Policy for camera, microphone, and geolocation restrictions
 
 ### 🤖 OpenRouter Integration with Gemma 4
 
@@ -79,31 +110,22 @@ npm run dev
 - **Improved Reliability** - Stable API endpoints with proper error handling
 - **Enhanced Performance** - Faster response times and better token efficiency
 
-### 🔧 Comprehensive Codebase Optimization
-
-- **Storage Optimization** - Reduced footprint by removing unnecessary files
-- **Code Quality** - Applied Clean Code principles and Prettier formatting
-- **Performance Tuning** - Optimized bundle sizes and resource loading
-- **Security Enhancements** - All vulnerabilities resolved (0 vulnerabilities)
-- **Build Optimization** - 175 static pages generated in 41 seconds
-
 ### 🧪 SanskritNova Consolidation
 
 - **Sanskrit Studio** - SanskritNova tutor, transliteration, and guided tracks now live at `/sanskrit-nova`
 - **Gemma 4 Only** - SanskritNova learning prompts use HindAI's Gemma 4 runtime instead of a separate OpenRouter service
 - **Single App Surface** - Navigation, sitemap, and footer now point learners to HindAI as the canonical home
-- **Merge Notes** - See [`docs/sanskritnova-merge.md`](docs/sanskritnova-merge.md) for the comparison and repository cleanup steps
 
-### 📚 Scripture Data Status (184 Total Scriptures)
+### 📚 Scripture Data Status
 
-| Category       | Count      | Metadata | Verse Data                 |
-| -------------- | ---------- | -------- | -------------------------- |
-| Vedas          | 6          | ✅ 100%  | ⚠️ 0.2% (Gemma4 gen ready) |
-| Epics          | 2          | ✅ 100%  | ✅ 0% (on-demand gen)      |
-| Mahapuranas    | 18         | ✅ 100%  | ✅ 0% (on-demand gen)      |
-| Upanishads     | 109        | ✅ 100%  | ⚠️ 8 verses                |
-| Gita Verses    | 49/700     | ✅ 100%  | ⚠️ 7% (651 to generate)    |
-| Rigveda Verses | 21/~10,600 | ✅ 100%  | ⚠️ 0.2%                    |
+| Category       | Count                  | Metadata        | Verse Data                 |
+| -------------- | ---------------------- | --------------- | -------------------------- |
+| Vedas          | 6                      | ✅ 100%         | ⚠️ 0.2% (Gemma4 gen ready) |
+| Epics          | 2                      | ✅ 100%         | ✅ 0% (on-demand gen)      |
+| Mahapuranas    | 18                     | ✅ 100%         | ✅ 0% (on-demand gen)      |
+| Upanishads     | 108 canon / 29 indexed | ✅ Canon mapped | ⚠️ Indexed starter data    |
+| Gita Verses    | 49/700                 | ✅ 100%         | ⚠️ 7% (651 to generate)    |
+| Rigveda Verses | 21/~10,600             | ✅ 100%         | ⚠️ 0.2%                    |
 
 ### 🔧 Infrastructure Improvements
 
@@ -132,7 +154,7 @@ npm run dev
 
 ### 📚 Digital Granthalaya - Scripture Library
 
-- **Complete Collection**: 18 Puranas + 4 Vedas + 109 Upanishads + Bhagavad Gita
+- **Canonical Scope**: 18 Puranas + 4 Vedas + traditional 108 Upanishads + Bhagavad Gita
 - **AI-Powered Search**: Semantic search with vector similarity
 - **Multilingual**: Sanskrit (Devanagari) + Roman transliteration + English + Hindi
 - **Interactive Study**: Verse-by-verse AI explanations and commentary
@@ -162,58 +184,81 @@ npm run dev
 
 ### Core Framework
 
-| Technology     | Version | Purpose                             |
-| -------------- | ------- | ----------------------------------- |
-| **Next.js**    | 16.3.0  | React framework with App Router     |
-| **React**      | 19.2.5  | UI library with concurrent features |
-| **TypeScript** | 5.9.3   | Type-safe JavaScript development    |
-| **Node.js**    | >=18.0  | JavaScript runtime with ESM support |
+| Technology     | Version | Purpose                                      |
+| -------------- | ------- | -------------------------------------------- |
+| **Next.js**    | 16.3.0  | React framework with App Router & RSC        |
+| **React**      | 19.2.5  | UI library with concurrent features & Actions |
+| **TypeScript** | 5.9.3   | Type-safe JavaScript development             |
+| **Node.js**    | >=18.0  | JavaScript runtime with ESM support          |
 
 ### AI & Machine Learning
 
-| Technology        | Purpose                            |
-| ----------------- | ---------------------------------- |
-| **Gemma 4 31B**   | Google AI model via OpenRouter API |
-| **OpenRouter**    | Cloud AI inference platform        |
-| **Upstash Redis** | Caching and rate limiting          |
+| Technology        | Purpose                              |
+| ----------------- | ------------------------------------ |
+| **Gemma 4 31B**   | Google AI model via OpenRouter API    |
+| **OpenRouter**    | Cloud AI inference platform           |
+| **Upstash Redis** | Caching, rate limiting & vector store |
+| **Supabase**      | Database & real-time subscriptions     |
 
 ### UI & Styling
 
-| Technology        | Purpose                      |
-| ----------------- | ---------------------------- |
-| **Tailwind CSS**  | Utility-first CSS framework  |
-| **shadcn/ui**     | Accessible component library |
-| **Framer Motion** | Animation library            |
-| **Radix UI**      | Low-level UI primitives      |
-| **Lucide React**  | Icon library                 |
-| **cmdk**          | Command palette              |
-| **next-themes**   | Dark mode support            |
+| Technology          | Purpose                              |
+| ------------------- | ------------------------------------ |
+| **Tailwind CSS**    | Utility-first CSS framework           |
+| **shadcn/ui**       | Accessible component library          |
+| **Framer Motion**   | Animation library with GPU hints     |
+| **Radix UI**        | Low-level UI primitives               |
+| **Lucide React**    | Modern icon library                   |
+| **cmdk**            | Command palette for navigation        |
+| **next-themes**     | Dark mode with system preference      |
+| **class-variance-authority** | Component variant management |
 
 ### State & Data
 
-| Technology         | Purpose                            |
-| ------------------ | ---------------------------------- |
-| **TanStack Query** | Data fetching and state management |
-| **Zod**            | Schema validation                  |
+| Technology         | Purpose                              |
+| ------------------ | ------------------------------------ |
+| **TanStack Query** | Data fetching & server state         |
+| **Zod**            | Runtime schema validation             |
+| **@upstash/ratelimit** | API rate limiting                  |
+
+### Sanskrit & Linguistic Tools
+
+| Technology         | Purpose                              |
+| ------------------ | ------------------------------------ |
+| **indic-transliteration** | Sanskrit script conversion    |
+| **Vidyut**         | Sandhi splitting & morphology        |
+| **Anvaya**         | Prose word order analysis            |
+| **Vedic Heritage Portal** | Vedic audio integration       |
+| **IIT Bombay Vedic Accent Engine** | Pitch accent analysis     |
+| **Google Cloud TTS** | Sanskrit audio synthesis           |
 
 ### Development & Testing
 
-| Technology          | Purpose                 |
-| ------------------- | ----------------------- |
-| **Vitest**          | Unit testing framework  |
-| **Playwright**      | E2E testing             |
-| **ESLint**          | Code linting            |
-| **Prettier**        | Code formatting         |
-| **Testing Library** | React component testing |
+| Technology          | Purpose                              |
+| ------------------- | ------------------------------------ |
+| **Vitest**          | Unit testing with native ESM         |
+| **Playwright**      | E2E testing with multi-browser       |
+| **ESLint**          | Code linting with Next.js config     |
+| **Prettier**        | Code formatting with Tailwind plugin |
+| **Testing Library** | React component testing              |
+
+### Performance & Monitoring
+
+| Technology                | Purpose                              |
+| ------------------------- | ------------------------------------ |
+| **Vercel Analytics**      | Real-time performance metrics        |
+| **Vercel Speed Insights** | Core Web Vitals monitoring           |
+| **@vercel/analytics**     | User analytics & engagement          |
+| **@vercel/speed-insights** | Performance optimization          |
 
 ### Infrastructure
 
-| Technology                | Purpose                       |
-| ------------------------- | ----------------------------- |
-| **Vercel**                | Deployment and edge computing |
-| **Docker**                | Containerization              |
-| **Vercel Analytics**      | Performance monitoring        |
-| **Vercel Speed Insights** | Core Web Vitals               |
+| Technology                | Purpose                              |
+| ------------------------- | ------------------------------------ |
+| **Vercel**                | Edge deployment & global CDN         |
+| **Docker**                | Containerization & orchestration     |
+| **Upstash Vector**        | Semantic search & embeddings         |
+| **Supabase**              | PostgreSQL database & auth           |
 
 ---
 
@@ -232,13 +277,36 @@ Hind AI/
 │   │   │   ├── analyze/             # Manuscript analysis
 │   │   │   ├── quiz/                # AI-generated quizzes
 │   │   │   └── recommend/           # Scripture recommendations
+│   │   ├── sanskrit/                # Sanskrit linguistic tools
+│   │   │   ├── sandhi/              # Sandhi splitting API
+│   │   │   ├── transliterate/       # Script conversion
+│   │   │   ├── vedic-accents/       # Vedic accent analysis
+│   │   │   └── vibhakti/            # Grammatical case analysis
 │   │   └── health/                  # System health
 │   ├── [slug]/                      # Dynamic scripture pages
+│   │   ├── page.tsx                 # Scripture detail page
+│   │   └── loading.tsx              # Route loading skeleton
 │   ├── ai-guide/                    # Guru AI chatbot
+│   │   ├── page.tsx
+│   │   └── loading.tsx
 │   ├── daily/                       # Daily wisdom
 │   ├── quiz/                        # Quiz system
 │   ├── contents/                    # Scripture library
-│   └── study-paths/                 # Learning paths
+│   │   ├── page.tsx
+│   │   └── loading.tsx
+│   ├── study-paths/                 # Learning paths
+│   │   ├── page.tsx
+│   │   └── loading.tsx
+│   ├── sanskrit-nova/               # Sanskrit Studio
+│   │   ├── page.tsx
+│   │   └── loading.tsx
+│   ├── panchanga/                   # Panchanga calendar
+│   │   ├── page.tsx
+│   │   └── loading.tsx
+│   ├── layout.tsx                   # Root layout with providers
+│   ├── loading.tsx                  # Global loading state
+│   ├── page.tsx                     # Home page
+│   └── providers.tsx                # Context providers
 ├── 📁 src/
 │   ├── components/
 │   │   ├── ai/                      # AI components
@@ -250,21 +318,41 @@ Hind AI/
 │   │   │   ├── batch-verse-generator.tsx
 │   │   │   ├── scripture-study-explorer.tsx
 │   │   │   └── scripture-search.tsx
+│   │   ├── commentary/              # Commentary components
+│   │   │   └── CommentaryBySchool.tsx
 │   │   ├── quiz/                    # Quiz components
 │   │   ├── ui/                      # shadcn/ui components
 │   │   ├── Header.tsx
 │   │   ├── Footer.tsx
 │   │   ├── search.tsx
 │   │   ├── meditation-timer.tsx
-│   │   └── voice-search.tsx
+│   │   ├── voice-search.tsx
+│   │   ├── learning-progress.tsx
+│   │   └── page-progress.tsx         # Page transition indicator
 │   ├── lib/
 │   │   ├── ai/
 │   │   │   ├── gemma.ts             # Core Gemma 4 integration
 │   │   │   └── translation-languages.ts
+│   │   ├── audio/
+│   │   │   ├── tts.ts               # Google Cloud TTS
+│   │   │   ├── vedic-accent.ts      # IIT Bombay Vedic accent
+│   │   │   └── vedic-heritage.ts   # Vedic Heritage Portal
+│   │   ├── sanskrit/
+│   │   │   ├── transliteration/     # Indic transliteration
+│   │   │   ├── vidyut/              # Sandhi & morphology
+│   │   │   ├── anvaya/              # Prose word order
+│   │   │   └── vibhakti/            # Grammatical cases
+│   │   ├── vector/
+│   │   │   └── upstash.ts           # Vector search
 │   │   ├── data/
 │   │   │   ├── scriptures.ts        # Scripture metadata (184 scriptures)
 │   │   │   ├── bhagavad-gita-verses.ts
 │   │   │   └── rigveda-verses.ts
+│   │   ├── data/ingestion/
+│   │   │   ├── sanskrit-docs.ts     # SanskritDocuments.org
+│   │   │   └── dcs-api.ts           # DCS API integration
+│   │   ├── database/
+│   │   │   └── supabase.ts          # Supabase client
 │   │   ├── scripture-catalog.ts
 │   │   ├── seo.ts
 │   │   ├── performance.ts
@@ -272,6 +360,7 @@ Hind AI/
 │   │   └── utils.ts
 │   ├── types/
 │   │   └── scripture.ts
+│   ├── index.css                    # Global styles with performance hints
 │   └── integrations/
 │       └── supabase/
 ├── 📁 scripts/                      # Utility scripts
@@ -286,9 +375,19 @@ Hind AI/
 │   └── Dockerfile.ollama
 ├── 📁 e2e/                          # E2E tests (minimal)
 ├── 📁 src/__tests__/                # Unit tests
+│   ├── lib/
+│   │   ├── audio/__tests__/         # Audio module tests
+│   │   ├── sanskrit/__tests__/      # Sanskrit tool tests
+│   │   ├── data/__tests__/          # Data ingestion tests
+│   │   └── database/__tests__/      # Database tests
+│   └── components/__tests__/        # Component tests
+├── 📁 config/                       # Configuration files
+│   │   └── vitest.config.ts         # Vitest configuration
 ├── 📁 .github/workflows/            # CI/CD
 ├── 📄 README.md
 ├── 📄 scripture-audit-report.md
+├── 📄 next.config.js                # Next.js with performance config
+├── 📄 tailwind.config.ts            # Tailwind configuration
 └── 📄 package.json
 ```
 
@@ -299,43 +398,58 @@ Hind AI/
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                    HIND AI ARCHITECTURE                        │
-│              Ancient Wisdom + Modern AI Stack                  │
+│              Ancient Wisdom + Modern AI Stack (2026)           │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐        │
 │  │   FRONTEND   │  │   BACKEND    │  │   AI LAYER   │        │
 │  │              │  │              │  │              │        │
-│  │  Next.js 15  │  │  Next.js API │  │  Ollama      │        │
-│  │  React 19    │  │  Routes      │  │  Gemma 4 8B  │        │
-│  │  TypeScript  │  │  Edge Runtime│  │  Local/Cloud │        │
-│  │  Tailwind    │  │              │  │              │        │
-│  └──────────────┘  └──────────────┘  └──────────────┘        │
-│                                                                 │
+│  │  Next.js 16  │  │  Next.js API │  │  Gemma 4 31B │        │
+│  │  React 19    │  │  Edge Runtime│  │  OpenRouter  │        │
+│  │  TypeScript  │  │  RSC/SSR     │  │  Cloud API   │        │
+│  │  Tailwind    │  │  API Routes  │  │  Streaming   │        │
+│  │  Framer Motion│ │              │  │  Function    │        │
+│  └──────────────┘  └──────────────┘  │  Calling     │        │
+│                                       └──────────────┘        │
 │  ┌──────────────┐  ┌──────────────┐                           │
 │  │  CACHE LAYER │  │  DATA LAYER  │                           │
 │  │              │  │              │                           │
 │  │  Upstash Redis│  │  Scripture   │                           │
 │  │  Rate Limit  │  │  Metadata    │                           │
-│  │  Session     │  │  Verses      │                           │
-│  └──────────────┘  └──────────────┘                           │
+│  │  Vector Store│  │  Verses      │                           │
+│  │  Session     │  │  Translations│                           │
+│  └──────────────┘  │  Supabase    │                           │
+│                     └──────────────┘                           │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐        │
+│  │  PERFORMANCE │  │  LINGUISTIC  │  │  MONITORING  │        │
+│  │              │  │              │  │              │        │
+│  │  Dynamic     │  │  Indic       │  │  Vercel      │        │
+│  │  Imports     │  │  Translit    │  │  Analytics   │        │
+│  │  CSS Hints   │  │  Vidyut      │  │  Speed       │        │
+│  │  Font Opt    │  │  Anvaya      │  │  Core Web    │        │
+│  │  Cache Strat │  │  Vedic Audio │  │  Vitals      │        │
+│  └──────────────┘  └──────────────┘  └──────────────┘        │
 │                                                                 │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐        │
-│  │  DEPLOYMENT  │  │  CONTAINER   │  │  MONITORING  │        │
+│  │  DEPLOYMENT  │  │  CONTAINER   │  │  TESTING     │        │
 │  │              │  │              │  │              │        │
-│  │  Vercel      │  │  Docker      │  │  Vercel      │        │
-│  │  Edge Network│  │  Compose     │  │  Analytics   │        │
-│  │  Global CDN  │  │  Offline     │  │  Speed       │        │
+│  │  Vercel      │  │  Docker      │  │  Vitest      │        │
+│  │  Edge Network│  │  Compose     │  │  Playwright  │        │
+│  │  Global CDN  │  │  Production  │  │  E2E Tests   │        │
+│  │  ISR/SSG     │  │  Ready       │  │  Coverage    │        │
 │  └──────────────┘  └──────────────┘  └──────────────┘        │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
 ### Key Principles
 
+- **Performance-First**: Dynamic imports, CSS hints, font optimization, and caching strategies
 - **Streaming-First**: Real-time AI responses with efficient streaming
-- **Edge-Optimized**: Global deployment with low latency
-- **AI-Centric**: Every interaction enhanced with AI capabilities
-- **Progressive Enhancement**: Works without JavaScript
-- **Offline-Capable**: Service worker for offline scripture access
+- **Edge-Optimized**: Global deployment with Vercel Edge Network
+- **AI-Centric**: Every interaction enhanced with Gemma 4 AI capabilities
+- **Progressive Enhancement**: Graceful degradation without JavaScript
+- **Accessibility-First**: Reduced motion support, ARIA labels, keyboard navigation
+- **Linguistic-Aware**: Comprehensive Sanskrit tools (transliteration, sandhi, morphology)
 
 ---
 
@@ -508,12 +622,13 @@ npm run security         # Security audit
 
 - ✅ TypeScript: 0 errors, strict mode passing
 - ✅ ESLint: Configuration stable (custom lint-check script)
-- ✅ Build: 171 static pages, 38 seconds build time
-- ✅ Tests: 23/23 tests passing (Vitest)
-- ✅ E2E Tests: Comprehensive Playwright coverage
-- ✅ Prettier: All files formatted
+- ✅ Build: 175+ static pages, 40 seconds build time
+- ✅ Tests: 30/30 tests passing (Vitest) - comprehensive module coverage
+- ✅ E2E Tests: Playwright coverage for critical user flows
+- ✅ Prettier: All files formatted with Tailwind plugin
 - ✅ Security: All vulnerabilities resolved (0 vulnerabilities)
-- ✅ Performance: Optimized bundle sizes and loading speed
+- ✅ Performance: Dynamic imports, CSS hints, font optimization, static asset caching
+- ✅ Accessibility: Reduced motion support, ARIA labels, keyboard navigation
 - ✅ Node.js: Compatible with >=18.0.0
 
 ---
@@ -542,19 +657,22 @@ open http://localhost:3000
 
 ### Unique Value Proposition
 
-- **Cultural Authenticity**: Proper Sanskrit rendering with Devanagari
-- **Offline-First**: Complete functionality without internet
+- **Cultural Authenticity**: Proper Sanskrit rendering with Devanagari and accurate transliteration
+- **Performance-Optimized**: Dynamic imports, CSS GPU hints, and strategic caching for sub-second loads
 - **Multimodal AI**: Sanskrit manuscript analysis with Gemma 4 Vision
-- **Advanced RAG**: Scripture-grounded answers with citations
+- **Advanced RAG**: Scripture-grounded answers with citations using vector search
 - **Function Calling**: Domain-specific AI tools for spiritual learning
+- **Linguistic Excellence**: Comprehensive Sanskrit tools (sandhi, morphology, vibhakti, accents)
 
 ### Technical Differentiation
 
-- **No External APIs**: 100% local AI inference
-- **Docker Native**: Production-ready containerized deployment
-- **Enterprise Architecture**: Scalable design with Redis caching
+- **Modern Stack 2026**: Next.js 16.3, React 19.2, TypeScript 5.9 with latest optimizations
+- **Performance-First**: Route-level loading states, font optimization, CSS containment
+- **Edge-Optimized**: Vercel Edge Network with global CDN distribution
+- **Enterprise Architecture**: Scalable design with Upstash Redis and Supabase
 - **Research Ready**: Fine-tuning scripts for production scaling
-- **Academic Standard**: Comprehensive testing and documentation
+- **Academic Standard**: Comprehensive testing (30+ unit tests, E2E coverage)
+- **Accessibility-First**: Reduced motion support, ARIA labels, keyboard navigation
 
 ### Impact & Reach
 
@@ -563,6 +681,7 @@ open http://localhost:3000
 - **Educational Equity**: Free, high-quality spiritual education
 - **Global Accessibility**: Multilingual support (Sanskrit, Hindi, English)
 - **Future-Proof**: Extensible architecture for additional languages
+- **Performance Excellence**: Sub-second page loads with optimized bundle sizes
 
 ---
 

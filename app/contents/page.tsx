@@ -6,6 +6,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { CANONICAL_COUNTS } from "@/lib/data/canonical-counts";
 import { scriptureSections } from "@/lib/scripture-catalog";
 
 export default function ContentsPage() {
@@ -33,8 +34,8 @@ export default function ContentsPage() {
               <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
                 Hinduism does not have a fixed number of scriptures. This catalog is a practical
                 reading map through the better-known shelves: Shruti foundations such as the 4 Vedas
-                and 30 Upanishads, and Smriti traditions such as the 18 Major Puranas, 18
-                Upa-Puranas, and the 2 great epics.
+                and the traditional {CANONICAL_COUNTS.upanishads} Upanishads, and Smriti traditions
+                such as the 18 Major Puranas, 18 Upa-Puranas, and the 2 great epics.
               </p>
             </motion.div>
 
@@ -76,7 +77,7 @@ export default function ContentsPage() {
                   asChild
                   className="transition-all duration-300 hover:scale-105"
                 >
-                  <Link href="/structure/">View scripture structure</Link>
+                  <Link href="/structure">View scripture structure</Link>
                 </Button>
               </div>
             </motion.div>
@@ -152,7 +153,7 @@ export default function ContentsPage() {
                             asChild
                             className="transition-all duration-300 hover:scale-105 hover:bg-primary/10"
                           >
-                            <Link href="/ai-guide/">
+                            <Link href="/ai-guide">
                               Ask in Guru AI
                               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                             </Link>
@@ -189,7 +190,7 @@ export default function ContentsPage() {
                 </div>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Button variant="premium" size="lg" asChild>
-                    <Link href="/ai-guide/">
+                    <Link href="/ai-guide">
                       Open Guru AI
                       <Sparkles className="size-4" />
                     </Link>

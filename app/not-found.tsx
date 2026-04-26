@@ -55,7 +55,7 @@ export default function NotFound() {
             </Link>
           </Button>
           <Button variant="outline" asChild className="gap-2">
-            <Link href="/contents/">
+            <Link href="/contents">
               <Compass className="size-4" />
               Explore library
             </Link>

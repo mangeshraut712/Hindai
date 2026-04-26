@@ -1,11 +1,15 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StudyPathBoard } from "@/components/study-paths/study-path-board";
 
 export default function StudyPathsPage() {
+  useEffect(() => {
+    document.title = "Study Paths | Hind AI";
+  }, []);
   return (
     <div className="flex min-h-screen flex-col">
       <Header />

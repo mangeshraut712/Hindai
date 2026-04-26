@@ -8,13 +8,14 @@ const footerGroups = [
   {
     title: "Explore",
     links: [
-      { label: "Library", href: "/contents/" },
-      { label: "Guru AI", href: "/ai-guide/" },
-      { label: "Sanskrit Studio", href: "/sanskrit-nova/" },
-      { label: "Daily", href: "/daily/" },
-      { label: "Study Paths", href: "/study-paths/" },
-      { label: "Quiz", href: "/quiz/" },
-      { label: "Structure", href: "/structure/" },
+      { label: "Library", href: "/contents" },
+      { label: "Guru AI", href: "/ai-guide" },
+      { label: "Sanskrit Studio", href: "/sanskrit-nova" },
+      { label: "Panchanga", href: "/panchanga" },
+      { label: "Daily", href: "/daily" },
+      { label: "Study Paths", href: "/study-paths" },
+      { label: "Quiz", href: "/quiz" },
+      { label: "Structure", href: "/structure" },
     ],
   },
   {
