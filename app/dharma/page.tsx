@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
-const VedicScholar = dynamic(() => import("@/components/ai/vedic-scholar").then((m) => m.VedicScholar), {
+const DharmaGuide = dynamic(() => import("@/components/ai/dharma-guide").then((m) => m.DharmaGuide), {
   ssr: false,
   loading: () => (
     <div className="surface-panel min-h-[500px] animate-pulse rounded-2xl p-6">
@@ -28,20 +28,20 @@ const VedicScholar = dynamic(() => import("@/components/ai/vedic-scholar").then(
 
 const guidePoints = [
   {
-    title: "Ask in plain language",
-    body: "Use Guru AI the way you would speak to a teacher: direct questions, context when needed, and clear learning goals.",
+    title: "Personalized Practices",
+    body: "Receive tailored spiritual practices based on your goals, capacity, and current life circumstances.",
   },
   {
-    title: "Translate with Gemma 4",
-    body: "Move between Devanagari, transliteration, English, Hindi, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Gujarati, and Punjabi without leaving the study surface.",
+    title: "Ritual Guidance",
+    body: "Learn proper observance of daily rituals, fasting, festivals, and sacred ceremonies.",
   },
   {
-    title: "Stay grounded",
-    body: "Use the scripture catalog for navigation and Guru AI for explanation, comparison, translation, and guided reading.",
+    title: "Living Dharma",
+    body: "Understand how to apply dharmic principles in modern life for spiritual growth.",
   },
 ];
 
-export default function AIGuidePage() {
+export default function DharmaPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
@@ -59,14 +59,12 @@ export default function AIGuidePage() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="max-w-3xl"
               >
-                <span className="eyebrow">Guru AI • गुरु एआई</span>
+                <span className="eyebrow">Dharma Guide • धर्म मार्गदर्शक</span>
                 <h1 className="section-title mt-6">
-                  Ask, compare, and translate Indian scripture with local AI.
+                  Your personal guide to living dharmically.
                 </h1>
                 <p className="section-copy mt-5">
-                  Guru AI now combines grounded study prompts with an Indian-language translation
-                  tool, making it easier to move from Sanskrit or Devanagari lines into readable
-                  English or Indian-language explanations for many more learners.
+                  Receive personalized spiritual guidance for daily practices, rituals, meditation, and living a life aligned with Dharma. Powered by Gemma 4's advanced reasoning capabilities.
                 </p>
               </motion.div>
 
@@ -77,14 +75,14 @@ export default function AIGuidePage() {
                 className="surface-panel max-w-xl p-6 lg:ml-auto"
               >
                 <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
-                  Built for study
+                  Personalized Guidance
                 </p>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   {[
-                    "Real-time Gemma 4 answers",
-                    "Compare mode for parallel reading",
-                    "Translate Sanskrit and Devanagari",
-                    "Cleaner light and dark surfaces",
+                    "Daily ritual suggestions",
+                    "Fasting guidance",
+                    "Meditation techniques",
+                    "Festival observance",
                   ].map((item, index) => (
                     <motion.div
                       key={item}
@@ -110,7 +108,7 @@ export default function AIGuidePage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <VedicScholar />
+              <DharmaGuide />
             </motion.div>
 
             <motion.div

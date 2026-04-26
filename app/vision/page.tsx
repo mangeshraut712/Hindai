@@ -6,42 +6,38 @@ import dynamic from "next/dynamic";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
-const VedicScholar = dynamic(() => import("@/components/ai/vedic-scholar").then((m) => m.VedicScholar), {
+const ScripturalAnalysis = dynamic(() => import("@/components/ai/scriptural-analysis").then((m) => m.ScripturalAnalysis), {
   ssr: false,
   loading: () => (
     <div className="surface-panel min-h-[500px] animate-pulse rounded-2xl p-6">
       <div className="h-8 w-48 rounded-lg bg-muted/60" />
-      <div className="mt-6 space-y-4">
-        {[...Array(3)].map((_, i) => (
-          <div key={i} className="flex gap-4">
-            <div className="size-10 rounded-full bg-muted/60" />
-            <div className="flex-1 space-y-2">
-              <div className="h-4 w-3/4 rounded bg-muted/60" />
-              <div className="h-4 w-1/2 rounded bg-muted/60" />
-            </div>
-          </div>
-        ))}
+      <div className="mt-6 grid gap-4 lg:grid-cols-2">
+        <div className="h-64 rounded-lg bg-muted/60" />
+        <div className="space-y-4">
+          <div className="h-24 rounded-lg bg-muted/60" />
+          <div className="h-12 rounded-lg bg-muted/60" />
+        </div>
       </div>
     </div>
   ),
 });
 
-const guidePoints = [
+const features = [
   {
-    title: "Ask in plain language",
-    body: "Use Guru AI the way you would speak to a teacher: direct questions, context when needed, and clear learning goals.",
+    title: "Sacred Text Analysis",
+    body: "Upload images of Sanskrit manuscripts, ancient texts, or scriptures for AI-powered reading and translation.",
   },
   {
-    title: "Translate with Gemma 4",
-    body: "Move between Devanagari, transliteration, English, Hindi, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Gujarati, and Punjabi without leaving the study surface.",
+    title: "Iconography Recognition",
+    body: "Identify deities, symbols, and sacred imagery with detailed explanations of their significance.",
   },
   {
-    title: "Stay grounded",
-    body: "Use the scripture catalog for navigation and Guru AI for explanation, comparison, translation, and guided reading.",
+    title: "Temple Architecture",
+    body: "Analyze temple structures, sculptures, and architectural elements with historical context.",
   },
 ];
 
-export default function AIGuidePage() {
+export default function VisionPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
@@ -59,14 +55,12 @@ export default function AIGuidePage() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="max-w-3xl"
               >
-                <span className="eyebrow">Guru AI • गुरु एआई</span>
+                <span className="eyebrow">Vision Analysis • दृश्य विश्लेषण</span>
                 <h1 className="section-title mt-6">
-                  Ask, compare, and translate Indian scripture with local AI.
+                  See ancient wisdom through AI-powered vision.
                 </h1>
                 <p className="section-copy mt-5">
-                  Guru AI now combines grounded study prompts with an Indian-language translation
-                  tool, making it easier to move from Sanskrit or Devanagari lines into readable
-                  English or Indian-language explanations for many more learners.
+                  Upload images of sacred texts, iconography, temple architecture, or ritual objects for intelligent analysis. Gemma 4's multimodal capabilities provide deep insights into Hindu visual heritage.
                 </p>
               </motion.div>
 
@@ -77,14 +71,14 @@ export default function AIGuidePage() {
                 className="surface-panel max-w-xl p-6 lg:ml-auto"
               >
                 <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
-                  Built for study
+                  Powered by Gemma 4
                 </p>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   {[
-                    "Real-time Gemma 4 answers",
-                    "Compare mode for parallel reading",
-                    "Translate Sanskrit and Devanagari",
-                    "Cleaner light and dark surfaces",
+                    "Multimodal image analysis",
+                    "Sanskrit text recognition",
+                    "Iconography interpretation",
+                    "Temple architecture insights",
                   ].map((item, index) => (
                     <motion.div
                       key={item}
@@ -110,7 +104,7 @@ export default function AIGuidePage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <VedicScholar />
+              <ScripturalAnalysis />
             </motion.div>
 
             <motion.div
@@ -120,9 +114,9 @@ export default function AIGuidePage() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mt-10 grid gap-5 lg:grid-cols-3"
             >
-              {guidePoints.map((point, index) => (
+              {features.map((feature, index) => (
                 <motion.div
-                  key={point.title}
+                  key={feature.title}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -138,9 +132,9 @@ export default function AIGuidePage() {
                       <Sparkles className="size-5" />
                     </motion.div>
                     <h2 className="mt-5 text-2xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
-                      {point.title}
+                      {feature.title}
                     </h2>
-                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{point.body}</p>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{feature.body}</p>
                   </div>
                 </motion.div>
               ))}
