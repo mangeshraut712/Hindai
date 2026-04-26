@@ -256,7 +256,9 @@ export function Header() {
               <Button variant="ghost" size="sm" className="nav-pill gap-2">
                 <span className="flex flex-col items-start leading-tight">
                   <span className="text-xs font-semibold">Culture</span>
-                  <span className="font-devanagari text-[10px] text-muted-foreground">संस्कृति</span>
+                  <span className="font-devanagari text-[10px] text-muted-foreground">
+                    संस्कृति
+                  </span>
                 </span>
                 <ChevronDown className="ml-1 size-3.5" />
               </Button>
