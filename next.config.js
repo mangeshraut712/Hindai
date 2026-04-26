@@ -14,7 +14,6 @@ const nextConfig = {
       "@radix-ui/react-dialog",
       "@radix-ui/react-dropdown-menu",
       "lucide-react",
-      "framer-motion",
       "@radix-ui/react-progress",
       "@radix-ui/react-scroll-area",
       "@radix-ui/react-slider",
