@@ -38,14 +38,13 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Multimodal analysis error:", error);
-    return NextResponse.json({
-      response:
-        "Image received, but live Gemma 4 vision analysis is unavailable. Check the configured AI backend and retry.",
-      grounded: { verses: [], scriptures: [] },
-      model: "fallback-reference",
-      multimodal: true,
-      available: false,
-      error: error instanceof Error ? error.message : "Failed to analyze manuscript image",
-    });
+    return NextResponse.json(
+      {
+        multimodal: true,
+        available: false,
+        error: error instanceof Error ? error.message : "Failed to analyze manuscript image",
+      },
+      { status: 503 }
+    );
   }
 }

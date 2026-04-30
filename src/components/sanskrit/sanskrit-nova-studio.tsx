@@ -166,7 +166,7 @@ export function SanskritNovaStudio() {
           content:
             error instanceof Error
               ? error.message
-              : "Gemma 4 is unavailable. Check Ollama or hosted Gemma configuration.",
+              : "Gemma 4 is unavailable. Check the OpenRouter configuration.",
         },
       ]);
     } finally {

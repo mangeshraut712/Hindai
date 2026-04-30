@@ -4,8 +4,7 @@
  * Kaggle Competition: Gemma 4 - The Future of AI is Yours to Shape
  * Track: Future of Education + Digital Equity
  *
- * This module uses Gemma 4 via Ollama for local AI inference.
- * No external AI APIs (Gemini, OpenAI, etc.) are used.
+ * This module uses Gemma 4 through OpenRouter only.
  */
 
 import { Ratelimit } from "@upstash/ratelimit";
@@ -21,15 +20,19 @@ import {
   getTranslationLanguageLabel,
   type TranslationLanguage,
 } from "@/lib/ai/translation-languages";
+import {
+  getOpenRouterApiKey,
+  OPENROUTER_MODEL,
+  OPENROUTER_URL,
+  openRouterHeaders,
+} from "@/lib/ai/openrouter";
 import { scriptureCatalog } from "@/lib/scripture-catalog";
 
 /**
  * Gemma 4 Models - Exclusive Support
  *
- * Available models:
- * - gemma-4-31b-it: Dense model with thinking mode (free via Google AI Studio)
- * - gemma-4-26b-a4b-it: MoE model with 4B active parameters
- * - gemma4:latest: Local Ollama version (4B parameters, 8B quality)
+ * Available model:
+ * - google/gemma-4-31b-it:free via OpenRouter
  *
  * All models support:
  * - Native thinking/chain-of-thought for complex reasoning
@@ -37,11 +40,11 @@ import { scriptureCatalog } from "@/lib/scripture-catalog";
  * - Multimodal capabilities (text + images)
  * - JSON structured output
  */
-export const SUPPORTED_GEMMA_MODELS = ["gemma4:latest", "gemma4:31b-it-q4_K_M"] as const;
+export const SUPPORTED_GEMMA_MODELS = ["google/gemma-4-31b-it:free"] as const;
 
 export type GemmaModel = (typeof SUPPORTED_GEMMA_MODELS)[number];
 
-export const DEFAULT_GEMMA_MODEL: GemmaModel = "gemma4:latest";
+export const DEFAULT_GEMMA_MODEL: GemmaModel = "google/gemma-4-31b-it:free";
 export const GEMMA_MODEL = DEFAULT_GEMMA_MODEL;
 
 export function resolveGemmaModel(input: string | undefined): GemmaModel {
@@ -50,104 +53,13 @@ export function resolveGemmaModel(input: string | undefined): GemmaModel {
     : DEFAULT_GEMMA_MODEL;
 }
 
-// Configuration - Gemma 4 via Ollama (Kaggle Competition)
-const OLLAMA_API_KEY = process.env.OLLAMA_API_KEY;
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-const OPENROUTER_URL = process.env.OPENROUTER_URL || "https://openrouter.ai/api/v1";
-const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "anthropic/claude-3-haiku";
-const GEMINI_API_KEY =
-  process.env.GEMINI_API_KEY || process.env.GEMMA_API_KEY || process.env.GOOGLE_API_KEY;
-const OLLAMA_URL =
-  process.env.OLLAMA_CLOUD_URL ||
-  process.env.OLLAMA_URL ||
-  (process.env.VERCEL ? "https://ollama-cloud-service.vercel.app" : "http://127.0.0.1:11434");
-const REQUESTED_OLLAMA_MODEL = resolveGemmaModel(
-  process.env.OLLAMA_MODEL || process.env.GEMMA_MODEL
-);
-/**
- * Default hosted model - Gemma 4 31B Dense (thinking-enabled)
- * Free access via Google AI Studio API
- */
-const HOSTED_GEMMA_MODEL = process.env.GEMMA_MODEL || "gemma-4-31b-it";
-
-/**
- * Gemma 4 Agentic Configuration
- * Optimized for philosophical reasoning and scripture analysis
- */
-const GEMMA4_AGENTIC_CONFIG = {
-  // Dense 31B model - Full thinking mode
-  "gemma-4-31b-it": {
-    thinking: true,
-    thinking_budget: 2048, // Tokens reserved for reasoning
-    temperature: 0.3, // Lower for consistent, focused responses
-    topP: 0.85,
-    topK: 20,
-    maxOutputTokens: 4096,
-  },
-  // MoE 26B model - Efficient reasoning
-  "gemma-4-26b-a4b-it": {
-    thinking: true,
-    thinking_budget: 1536,
-    temperature: 0.4,
-    topP: 0.9,
-    topK: 30,
-    maxOutputTokens: 4096,
-  },
-} as const;
-
-/**
- * Get generation configuration for a specific Gemma 4 model
- * Applies agentic settings with thinking mode for enhanced reasoning
- */
-function getGemma4GenerationConfig(model: string) {
-  const isThinkingModel = model.includes("31b") || model.includes("26b");
-
-  // Check if we have a specific config for this model
-  const configKey = model as keyof typeof GEMMA4_AGENTIC_CONFIG;
-  if (GEMMA4_AGENTIC_CONFIG[configKey]) {
-    return GEMMA4_AGENTIC_CONFIG[configKey];
-  }
-
-  // Default config for other Gemma 4 variants
-  return {
-    temperature: 0.45,
-    topP: 0.9,
-    topK: 40,
-    maxOutputTokens: 2048,
-    // Enable thinking for capable models
-    ...(isThinkingModel
-      ? {
-          thinking: true,
-          thinking_budget: 1024,
-        }
-      : {}),
-  };
-}
-const USE_CLOUD_OLLAMA = Boolean(
-  process.env.VERCEL &&
-  (process.env.OLLAMA_CLOUD_URL ||
-    (process.env.OLLAMA_URL && process.env.OLLAMA_URL.startsWith("https://")))
-);
 const CACHE_TTL = 60 * 60 * 24; // 24 hours in seconds
 
-function getOllamaHeaders(): Record<string, string> {
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json",
-  };
-
-  if (OLLAMA_API_KEY) {
-    headers.Authorization = `Bearer ${OLLAMA_API_KEY}`;
-    headers["X-API-Key"] = OLLAMA_API_KEY;
-  }
-
-  return headers;
-}
-
 function isOpenRouterConfigured(): boolean {
-  return Boolean(OPENROUTER_API_KEY && OPENROUTER_MODEL);
+  return Boolean(getOpenRouterApiKey() && OPENROUTER_MODEL);
 }
 
-type GoogleGemmaPart =
+type OpenRouterGemmaPart =
   | { text: string }
   | {
       inline_data: {
@@ -156,85 +68,13 @@ type GoogleGemmaPart =
       };
     };
 
-async function generateWithGoogleGemma(
-  parts: GoogleGemmaPart[],
-  systemInstruction: string
-): Promise<string> {
-  if (!GEMINI_API_KEY) {
-    throw new Error("GEMINI_API_KEY is not configured.");
-  }
-
-  const primaryModel = await resolveHostedGemmaModel();
-  const candidateModels = [
-    primaryModel,
-    "gemma-4-31b-it",
-    "gemma-4-26b-a4b-it",
-    "gemma-3-27b-it",
-    "gemma-3-12b-it",
-    "gemma-3-4b-it",
-  ].filter((model, index, array) => array.indexOf(model) === index);
-
-  let lastError = "Unknown error";
-
-  for (const hostedModel of candidateModels) {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${hostedModel}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          system_instruction: {
-            parts: [{ text: systemInstruction }],
-          },
-          contents: [
-            {
-              role: "user",
-              parts: parts,
-            },
-          ],
-          generationConfig: {
-            ...getGemma4GenerationConfig(hostedModel),
-          },
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      lastError = await response.text().catch(() => "Unknown error");
-      continue;
-    }
-
-    const data = (await response.json()) as {
-      candidates?: Array<{
-        content?: {
-          parts?: Array<{ text?: string }>;
-        };
-      }>;
-    };
-
-    const text = (data.candidates || [])
-      .flatMap((candidate) => candidate.content?.parts || [])
-      .map((part) => part.text || "")
-      .join("")
-      .trim();
-
-    if (text) {
-      return text;
-    }
-
-    lastError = "Google Gemma returned an empty response.";
-  }
-
-  throw new Error(`Google Gemma error: ${lastError}`);
-}
-
 async function generateWithOpenRouter(
-  parts: GoogleGemmaPart[],
+  parts: OpenRouterGemmaPart[],
   systemInstruction: string
 ): Promise<string> {
-  if (!OPENROUTER_API_KEY) {
+  const apiKey = getOpenRouterApiKey();
+
+  if (!apiKey) {
     throw new Error("OPENROUTER_API_KEY is not configured.");
   }
 
@@ -254,14 +94,9 @@ async function generateWithOpenRouter(
     };
   });
 
-  const response = await fetch(`${OPENROUTER_URL}/chat/completions`, {
+  const response = await fetch(OPENROUTER_URL, {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${OPENROUTER_API_KEY}`,
-      "Content-Type": "application/json",
-      "HTTP-Referer": "https://hindai.dev",
-      "X-Title": "Hind AI",
-    },
+    headers: openRouterHeaders(apiKey, "Hind AI"),
     body: JSON.stringify({
       model: OPENROUTER_MODEL,
       messages: [
@@ -437,8 +272,6 @@ const hasRedisConfig = Boolean(
 const memoryState = globalThis as typeof globalThis & {
   __hindaiMemoryCache?: Map<string, { value: AIResponse; expiresAt: number }>;
   __hindaiMemoryRateLimit?: Map<string, MemoryRateLimitEntry>;
-  __hindaiOllamaModels?: { names: string[]; checkedAt: number };
-  __hindaiGoogleModels?: { names: string[]; checkedAt: number };
 };
 
 const memoryCache =
@@ -463,171 +296,8 @@ const ratelimit = redis
     })
   : null;
 
-// Gemma 4 is loaded via Ollama locally - no API keys needed
-// To setup: ollama pull gemma4:4b
-
-async function isOllamaAvailable(): Promise<boolean> {
-  const availableModels = await getAvailableOllamaModels();
-  return availableModels.length > 0;
-}
-
-async function getAvailableOllamaModels(): Promise<string[]> {
-  const cached = memoryState.__hindaiOllamaModels;
-  if (cached && Date.now() - cached.checkedAt < 10_000) {
-    return cached.names;
-  }
-
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 2500);
-
-  try {
-    const response = await fetch(`${OLLAMA_URL}/api/tags`, {
-      method: "GET",
-      signal: controller.signal,
-      cache: "no-store",
-    });
-
-    if (!response.ok) {
-      return [];
-    }
-
-    const data = (await response.json()) as {
-      models?: Array<{ name?: string; model?: string }>;
-    };
-    const names = (data.models || [])
-      .flatMap((model) => [model.name, model.model])
-      .filter((value): value is string => Boolean(value));
-
-    memoryState.__hindaiOllamaModels = {
-      names,
-      checkedAt: Date.now(),
-    };
-
-    return names;
-  } catch {
-    return [];
-  } finally {
-    clearTimeout(timeoutId);
-  }
-}
-
-async function resolveOllamaModel(): Promise<string> {
-  const availableModels = await getAvailableOllamaModels();
-
-  if (availableModels.includes(DEFAULT_GEMMA_MODEL)) {
-    return DEFAULT_GEMMA_MODEL;
-  }
-
-  if (availableModels.includes(REQUESTED_OLLAMA_MODEL)) {
-    return REQUESTED_OLLAMA_MODEL;
-  }
-
-  const supportedInstalledModel = SUPPORTED_GEMMA_MODELS.find((model) =>
-    availableModels.includes(model)
-  );
-
-  return supportedInstalledModel || REQUESTED_OLLAMA_MODEL;
-}
-
-function isGoogleGemmaConfigured(): boolean {
-  return Boolean(GEMINI_API_KEY && HOSTED_GEMMA_MODEL);
-}
-
-async function getAvailableGoogleGemmaModels(): Promise<string[]> {
-  if (!GEMINI_API_KEY) {
-    return [];
-  }
-
-  const cached = memoryState.__hindaiGoogleModels;
-  if (cached && Date.now() - cached.checkedAt < 60_000) {
-    return cached.names;
-  }
-
-  try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(GEMINI_API_KEY)}`
-    );
-
-    if (!response.ok) {
-      return [];
-    }
-
-    const data = (await response.json()) as {
-      models?: Array<{ name?: string }>;
-    };
-
-    const names = (data.models || [])
-      .map((model) => model.name?.replace(/^models\//, "") || "")
-      .filter(Boolean)
-      .filter((name) => name.startsWith("gemma-"));
-
-    memoryState.__hindaiGoogleModels = {
-      names,
-      checkedAt: Date.now(),
-    };
-
-    return names;
-  } catch {
-    return [];
-  }
-}
-
-async function resolveHostedGemmaModel(): Promise<string> {
-  const availableModels = await getAvailableGoogleGemmaModels();
-
-  // If the configured model is available, use it directly
-  if (availableModels.includes(HOSTED_GEMMA_MODEL)) {
-    return HOSTED_GEMMA_MODEL;
-  }
-
-  // Gemma 4 series: check for actual gemma-4 models first, then fall back
-  if (HOSTED_GEMMA_MODEL.startsWith("gemma-4")) {
-    const gemma4Model = availableModels.find((m) => m.startsWith("gemma-4"));
-    if (gemma4Model) return gemma4Model;
-  }
-
-  // If no models were fetched, return the configured model and let the API call handle the error
-  if (!availableModels.length) {
-    return HOSTED_GEMMA_MODEL;
-  }
-
-  // Ordered fallback chain: prefer Gemma 4, then Gemma 3, then any available
-  // Note: gemma-4 models may not be available via Google API yet
-  const fallbackOrder = [
-    "gemma-4-31b-it",
-    "gemma-4-26b-a4b-it",
-    "gemma-3-27b-it",
-    "gemma-3-12b-it",
-    "gemma-3-4b-it",
-    "gemma-3-1b-it",
-  ];
-
-  return fallbackOrder.find((model) => availableModels.includes(model)) || availableModels[0];
-}
-
-async function resolveGemmaBackend(): Promise<
-  "local" | "cloud" | "openrouter" | "google" | "none"
-> {
-  // Prioritize OpenRouter as the official LLM for reliability on Vercel
-  // Fallback to Ollama for local development or when OpenRouter is not configured
-
-  if (isOpenRouterConfigured()) {
-    return "openrouter";
-  }
-
-  if (USE_CLOUD_OLLAMA) {
-    // Vercel deployment: Use cloud Ollama service as fallback
-    if (await isOllamaAvailable()) {
-      return "cloud";
-    }
-    return isGoogleGemmaConfigured() ? "google" : "none";
-  } else {
-    // Local development: Use local Ollama as fallback
-    if (await isOllamaAvailable()) {
-      return "local";
-    }
-    return isGoogleGemmaConfigured() ? "google" : "none";
-  }
+async function resolveGemmaBackend(): Promise<"openrouter" | "none"> {
+  return isOpenRouterConfigured() ? "openrouter" : "none";
 }
 
 export function getCacheBackend(): "upstash" | "memory" {
@@ -831,28 +501,6 @@ function normalizePlainText(input: string): string {
     .replace(/```json|```/gi, "")
     .replace(/^\s*\*\s+/gm, "")
     .trim();
-}
-
-function parseOllamaStreamLine(line: string): string | null {
-  const parsed = JSON.parse(line) as {
-    error?: unknown;
-    response?: unknown;
-    message?: { content?: unknown };
-  };
-
-  if (typeof parsed.error === "string" && parsed.error.trim()) {
-    throw new Error(parsed.error);
-  }
-
-  if (typeof parsed.response === "string") {
-    return parsed.response;
-  }
-
-  if (parsed.message && typeof parsed.message.content === "string") {
-    return parsed.message.content;
-  }
-
-  return null;
 }
 
 function tokenize(input: string): string[] {
@@ -1170,18 +818,11 @@ export async function generateExplanation(
   try {
     const backend = await resolveGemmaBackend();
 
-    if (
-      backend === "local" ||
-      backend === "cloud" ||
-      backend === "openrouter" ||
-      backend === "google"
-    ) {
-      const resultText =
-        backend === "openrouter"
-          ? await generateWithOpenRouter([{ text: userPrompt }], GENERATE_SYSTEM_PROMPT)
-          : backend === "google"
-            ? await generateWithGoogleGemma([{ text: userPrompt }], GENERATE_SYSTEM_PROMPT)
-            : await generateLeanTextWithOllama(userPrompt);
+    if (backend === "openrouter") {
+      const resultText = await generateWithOpenRouter(
+        [{ text: userPrompt }],
+        GENERATE_SYSTEM_PROMPT
+      );
       const normalized = normalizePlainText(resultText);
       const validated: AIResponse = {
         explanation: normalized,
@@ -1200,9 +841,7 @@ export async function generateExplanation(
         },
       };
     } else {
-      throw new Error(
-        "Gemma is not configured. Set OLLAMA_URL or OLLAMA_CLOUD_URL for Ollama, OPENROUTER_API_KEY for OpenRouter, or GEMINI_API_KEY plus GEMMA_MODEL for hosted Gemma."
-      );
+      throw new Error("Gemma 4 is not configured. Set OPENROUTER_API_KEY for OpenRouter.");
     }
   } catch (error) {
     console.error("Gemma 4 generation error:", error);
@@ -1243,135 +882,11 @@ export async function* generateExplanationStream(
       return;
     }
 
-    if (backend === "google") {
-      const fullText = await generateWithGoogleGemma(
-        [{ text: userPrompt }],
-        STREAMING_SYSTEM_PROMPT
-      );
-
-      for (const sentence of fullText.split(/(?<=[.!?])\s+/)) {
-        const chunk = sentence.trim();
-        if (!chunk) continue;
-        yield `${chunk} `;
-      }
-
-      return;
-    }
-
-    if (backend === "local" || backend === "cloud") {
-      const model = await resolveOllamaModel();
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 120_000); // 120s for local model load
-
-      try {
-        const response = await fetch(`${OLLAMA_URL}/api/chat`, {
-          method: "POST",
-          headers: getOllamaHeaders(),
-          signal: controller.signal,
-          body: JSON.stringify({
-            model,
-            think: false,
-            stream: true,
-            messages: [
-              {
-                role: "system",
-                content: STREAMING_SYSTEM_PROMPT,
-              },
-              {
-                role: "user",
-                content: userPrompt,
-              },
-            ],
-            options: {
-              num_predict: 160,
-              temperature: 0.5,
-              top_k: 40,
-              top_p: 0.9,
-              repeat_penalty: 1.0, // Prevent repetition
-            },
-          }),
-        });
-
-        if (!response.ok) {
-          const errorText = await response.text().catch(() => "Unknown error");
-          console.error("Ollama streaming failure:", response.status, errorText);
-          throw new Error(`Ollama streaming failed: ${response.status}`);
-        }
-
-        if (!response.body) throw new Error("No response body from Ollama");
-
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let buffer = "";
-        let hasYieldedText = false;
-
-        while (true) {
-          const { done, value } = await reader.read();
-
-          if (done) {
-            // Flush any remaining buffer content
-            if (buffer.trim()) {
-              try {
-                const chunk = parseOllamaStreamLine(buffer.trim());
-                if (chunk !== null) {
-                  hasYieldedText ||= chunk.trim().length > 0;
-                  yield chunk;
-                }
-              } catch (error) {
-                if (error instanceof SyntaxError) {
-                  // ignore incomplete final chunk
-                  break;
-                }
-                throw error;
-              }
-            }
-            break;
-          }
-
-          if (value) {
-            buffer += decoder.decode(value, { stream: true });
-            const parts = buffer.split("\n");
-            buffer = parts.pop() ?? "";
-
-            for (const line of parts) {
-              const trimmed = line.trim();
-              if (!trimmed) continue;
-              try {
-                const chunk = parseOllamaStreamLine(trimmed);
-                if (chunk !== null) {
-                  hasYieldedText ||= chunk.trim().length > 0;
-                  yield chunk;
-                }
-              } catch (error) {
-                if (error instanceof SyntaxError) {
-                  // Ignore partial JSON parsing errors
-                  continue;
-                }
-                throw error;
-              }
-            }
-          }
-        }
-
-        if (!hasYieldedText) {
-          const fallbackText = await generateWithOllama(userPrompt);
-          const fallbackResponse = parseGemmaJsonResponse(fallbackText);
-          yield fallbackResponse.explanation || normalizePlainText(fallbackText);
-        }
-      } finally {
-        clearTimeout(timeoutId);
-      }
-    } else {
-      throw new Error(
-        "Gemma 4 via Ollama is not available. Please run: ollama pull gemma4:latest && ollama serve"
-      );
-    }
+    throw new Error("Gemma 4 is not configured. Set OPENROUTER_API_KEY for OpenRouter.");
   } catch (error: unknown) {
     if (error instanceof Error && error.name === "AbortError") {
-      console.warn("Model connection timed out after 120s.");
-      throw new Error(
-        "The scholarly analysis is taking longer than usual. Please ensure your local server has enough resources for the model."
-      );
+      console.warn("OpenRouter connection timed out.");
+      throw new Error("The OpenRouter Gemma 4 request timed out. Please try again.");
     } else {
       console.error("Streaming error:", error);
       if (error instanceof Error) {
@@ -1420,21 +935,14 @@ export async function checkGemmaAvailability(): Promise<{
   error?: string;
 }> {
   const backend = await resolveGemmaBackend();
-  const model =
-    backend === "none"
-      ? "none"
-      : backend === "openrouter"
-        ? OPENROUTER_MODEL
-        : backend === "google"
-          ? await resolveHostedGemmaModel()
-          : await resolveOllamaModel();
+  const model = backend === "openrouter" ? OPENROUTER_MODEL : "none";
 
   if (backend === "none") {
     return {
       available: false,
       type: "none",
       model: "none",
-      error: "Gemma 4 via Ollama is not available. Please run: ollama pull gemma4:latest",
+      error: "Gemma 4 via OpenRouter is not available. Set OPENROUTER_API_KEY.",
     };
   }
 
@@ -1465,127 +973,10 @@ export async function checkGemmaAvailability(): Promise<{
   }
 }
 
-/**
- * Helper for Ollama generation
- */
-async function generateWithOllama(prompt: string): Promise<string> {
-  return generateWithOllamaWithSystem(prompt, SYSTEM_PROMPT);
-}
-
-async function generateWithOllamaWithSystem(
-  prompt: string,
-  systemInstruction: string
-): Promise<string> {
-  const model = await resolveOllamaModel();
-  const response = await fetch(`${OLLAMA_URL}/api/chat`, {
-    method: "POST",
-    headers: getOllamaHeaders(),
-    body: JSON.stringify({
-      model,
-      think: false,
-      stream: false,
-      messages: [
-        {
-          role: "system",
-          content: systemInstruction,
-        },
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-      options: {
-        num_predict: 512,
-        temperature: 0.45,
-        top_k: 40,
-        top_p: 0.9,
-        // Native thinking mode for Gemma 4 via Ollama
-        ...(model.startsWith("gemma4") ? { think: true } : {}),
-      },
-    }),
-  });
-
-  if (!response.ok) throw new Error(`Ollama error: ${response.statusText}`);
-  const data = await response.json();
-  return data?.message?.content || data?.response || "";
-}
-
-async function generateLeanTextWithOllama(prompt: string): Promise<string> {
-  const model = await resolveOllamaModel();
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 60_000);
-
-  try {
-    const response = await fetch(`${OLLAMA_URL}/api/chat`, {
-      method: "POST",
-      headers: getOllamaHeaders(),
-      signal: controller.signal,
-      body: JSON.stringify({
-        model,
-        think: false,
-        stream: true,
-        messages: [
-          {
-            role: "system",
-            content: GENERATE_SYSTEM_PROMPT,
-          },
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
-        options: {
-          num_predict: 180,
-          temperature: 0.45,
-          top_k: 40,
-          top_p: 0.9,
-        },
-      }),
-    });
-
-    if (!response.ok || !response.body) {
-      throw new Error(`Ollama error: ${response.statusText}`);
-    }
-
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    let buffer = "";
-    let output = "";
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) {
-        if (buffer.trim()) {
-          const chunk = parseOllamaStreamLine(buffer.trim());
-          if (chunk) output += chunk;
-        }
-        break;
-      }
-
-      buffer += decoder.decode(value, { stream: true });
-      const parts = buffer.split("\n");
-      buffer = parts.pop() ?? "";
-
-      for (const line of parts) {
-        const trimmed = line.trim();
-        if (!trimmed) continue;
-        const chunk = parseOllamaStreamLine(trimmed);
-        if (chunk) output += chunk;
-      }
-    }
-
-    return output;
-  } finally {
-    clearTimeout(timeoutId);
-  }
-}
-
 export async function generateQuizQuestion(topic?: string): Promise<QuizQuestion> {
   const backend = await resolveGemmaBackend();
   if (backend === "none") {
-    throw new Error(
-      "Gemma is not configured. Set OLLAMA_URL or OLLAMA_CLOUD_URL for Ollama, or GEMINI_API_KEY plus GEMMA_MODEL for hosted Gemma."
-    );
+    throw new Error("Gemma 4 is not configured. Set OPENROUTER_API_KEY for OpenRouter.");
   }
 
   const prompt = topic?.trim().length
@@ -1611,12 +1002,7 @@ Rules:
 - difficulty must be easy, medium, or hard
 - do not wrap the JSON in markdown`;
 
-  const content =
-    backend === "openrouter"
-      ? await generateWithOpenRouter([{ text: prompt }], systemInstruction)
-      : backend === "google"
-        ? await generateWithGoogleGemma([{ text: prompt }], systemInstruction)
-        : await generateWithOllamaWithSystem(prompt, systemInstruction);
+  const content = await generateWithOpenRouter([{ text: prompt }], systemInstruction);
 
   const candidates = [
     content.trim(),
@@ -1661,55 +1047,18 @@ Response format (JSON):
   try {
     const backend = await resolveGemmaBackend();
 
-    if (backend === "local" || backend === "cloud") {
-      const model = await resolveOllamaModel();
-      const response = await fetch(`${OLLAMA_URL}/api/generate`, {
-        method: "POST",
-        headers: getOllamaHeaders(),
-        body: JSON.stringify({
-          model,
-          prompt,
-          stream: false,
-          format: "json",
-          options: {
-            num_predict: 220,
-            temperature: 0.35,
-            top_k: 40,
-            top_p: 0.9,
-          },
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Ollama error: ${response.statusText}`);
-      }
-
-      const data = (await response.json()) as { response?: string };
-      const resultText = data.response || "";
-      return parseTranslationPayload(resultText, sanskrit);
-    } else if (backend === "openrouter") {
+    if (backend === "openrouter") {
       const resultText = await generateWithOpenRouter(
         [{ text: prompt }],
         "You translate Indic scripture faithfully and return JSON only."
       );
       return parseTranslationPayload(resultText, sanskrit);
-    } else if (backend === "google") {
-      const resultText = await generateWithGoogleGemma(
-        [{ text: prompt }],
-        "You translate Indic scripture faithfully and return JSON only."
-      );
-      return parseTranslationPayload(resultText, sanskrit);
-    } else {
-      throw new Error(
-        "Gemma is not configured. Set OLLAMA_URL or OLLAMA_CLOUD_URL for Ollama, OPENROUTER_API_KEY for OpenRouter, or GEMINI_API_KEY plus GEMMA_MODEL for hosted Gemma."
-      );
     }
+
+    throw new Error("Gemma 4 is not configured. Set OPENROUTER_API_KEY for OpenRouter.");
   } catch (error) {
     console.error("Translation error:", error);
-    return {
-      translation: "[Translation failed - please try again]",
-      transliteration: sanskrit,
-    };
+    throw error;
   }
 }
 
@@ -1748,44 +1097,7 @@ export async function analyzeManuscriptImage(
     };
   }
 
-  if (backend === "google") {
-    const text = await generateWithGoogleGemma(
-      [
-        { text: query },
-        {
-          inline_data: {
-            mime_type: mimeType,
-            data: imageBase64,
-          },
-        },
-      ],
-      "You analyze Sanskrit manuscript images. Reply in plain text with a concise scholarly reading."
-    );
-
-    return {
-      response: {
-        explanation: normalizePlainText(text),
-        summary: normalizePlainText(text)
-          .split(/(?<=[.!?])\s+/)[0]
-          ?.slice(0, 180),
-      },
-      model: await resolveHostedGemmaModel(),
-    };
-  }
-
-  const result = await generateExplanation(
-    {
-      query: `${query}\n\n[IMAGE: ${imageBase64}]\n\nPlease analyze this Sanskrit manuscript image and provide insights.`,
-      language: "en",
-      mode: "explain",
-    },
-    "multimodal-user"
-  );
-
-  return {
-    response: result.response,
-    model: (await getAIStatus()).model,
-  };
+  throw new Error("Gemma 4 vision is not configured. Set OPENROUTER_API_KEY for OpenRouter.");
 }
 
 // ─── Verse Generation with Gemma 4 ──────────────────────────────────────────────
@@ -1883,33 +1195,14 @@ Important:
 - Word-by-word should cover all significant words`;
 
   try {
-    let responseText: string;
-
-    if (backend === "local" || backend === "cloud") {
-      responseText = await generateWithOllamaWithSystem(
-        prompt,
-        "You are a Sanskrit scholar specializing in Hindu scriptures. Generate accurate verse data."
-      );
-    } else if (backend === "openrouter") {
-      responseText = await generateWithOpenRouter(
-        [{ text: prompt }],
-        "You are a Sanskrit scholar specializing in Hindu scriptures. Generate accurate verse data."
-      );
-    } else if (backend === "google") {
-      responseText = await generateWithGoogleGemma(
-        [{ text: prompt }],
-        "You are a Sanskrit scholar specializing in Hindu scriptures. Generate accurate verse data."
-      );
-    } else {
-      // Fallback: return mock data for development
-      return {
-        verse: generateMockVerse(request),
-        mock: true,
-        rateLimit: rateLimitInfo,
-      };
+    if (backend !== "openrouter") {
+      throw new Error("Gemma 4 is not configured. Set OPENROUTER_API_KEY for OpenRouter.");
     }
 
-    // Parse the generated verse
+    const responseText = await generateWithOpenRouter(
+      [{ text: prompt }],
+      "You are a Sanskrit scholar specializing in Hindu scriptures. Generate accurate verse data."
+    );
     const parsed = parseGeneratedVerse(responseText, request);
 
     return {
@@ -1919,33 +1212,8 @@ Important:
     };
   } catch (error) {
     console.error("Verse generation error:", error);
-
-    // Return mock data on error for graceful degradation
-    return {
-      verse: generateMockVerse(request),
-      mock: true,
-      rateLimit: rateLimitInfo,
-    };
+    throw error;
   }
-}
-
-function generateMockVerse(request: VerseGenerationRequest): GeneratedVerse {
-  const verseId = `bg-${request.chapter}-${request.verse}`;
-
-  return {
-    id: verseId,
-    scriptureId: request.scriptureId,
-    chapter: request.chapter,
-    verse: request.verse,
-    sanskrit: "[Generated Sanskrit verse will appear here when AI is configured]",
-    transliteration: "[Transliteration will be generated]",
-    translation: {
-      en: `This is a placeholder for ${request.scriptureName} Chapter ${request.chapter}, Verse ${request.verse}. Please configure OLLAMA_URL, OPENROUTER_API_KEY, or GEMINI_API_KEY to enable AI verse generation.`,
-      hi: "[हिंदी अनुवाद यहाँ प्रदर्शित किया जाएगा]",
-    },
-    keyTerms: ["AI Generation", "Configuration Needed"],
-    speaker: request.speaker,
-  };
 }
 
 function parseGeneratedVerse(text: string, request: VerseGenerationRequest): GeneratedVerse {

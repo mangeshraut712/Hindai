@@ -594,14 +594,14 @@ UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
 VERCEL_ANALYTICS_ID=your_vercel_analytics_id
 ```
 
-### Cloud Ollama Setup for Vercel
+### Vercel AI Setup
 
-1. **Deploy cloud Ollama** (Ollama Cloud, self-hosted VPS, or Docker)
+1. **Create an OpenRouter API key**
 2. **Configure Vercel environment variables**:
    ```env
-   OLLAMA_CLOUD_URL=https://your-ollama-cloud.example.com
-   OLLAMA_API_KEY=your_api_key_here
-   OLLAMA_MODEL=gemma4:latest
+   OPENROUTER_API_KEY=your_openrouter_api_key
+   OPENROUTER_MODEL=google/gemma-4-31b-it:free
+   OPENROUTER_URL=https://openrouter.ai/api/v1
    ```
 3. **Deploy to Vercel**:
    ```bash
@@ -899,7 +899,7 @@ open http://localhost:3000
 ### Services
 
 - **Hind AI**: Next.js application
-- **Ollama**: AI model runtime
+- **OpenRouter**: Gemma 4 AI runtime
 - **Redis**: Caching and rate limiting
 
 ---
@@ -977,7 +977,7 @@ This project is licensed under the **Creative Commons Attribution 4.0 Internatio
 ## 🙏 Acknowledgments
 
 - **Google AI** - Gemma 4 models and AI research
-- **Ollama** - Local AI model runtime
+- **OpenRouter** - Hosted Gemma 4 inference
 - **Vercel** - Edge computing infrastructure
 - **Open Source Community** - Web technologies and libraries
 

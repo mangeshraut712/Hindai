@@ -33,16 +33,16 @@ function resolveOpenRouterChatUrl(url: string): string {
   return normalized.endsWith("/chat/completions") ? normalized : `${normalized}/chat/completions`;
 }
 
-function getOpenRouterApiKey(): string {
+export function getOpenRouterApiKey(): string {
   return (process.env.OPENROUTER_API_KEY || "").trim().replace(/^Bearer\s+/i, "");
 }
 
-function openRouterHeaders(apiKey: string) {
+export function openRouterHeaders(apiKey: string, title = "Hind AI Scripture Platform") {
   return {
     Authorization: `Bearer ${apiKey}`,
     "Content-Type": "application/json",
     "HTTP-Referer": "https://hindai-nine.vercel.app",
-    "X-Title": "Hind AI Scripture Platform",
+    "X-Title": title,
   };
 }
 
@@ -66,7 +66,7 @@ async function readOpenRouterJson(response: Response): Promise<OpenRouterRespons
 
 function unavailableExplanation(reason: string): string {
   return [
-    "AI service is currently unavailable, but the request was received successfully.",
+    "AI service is currently unavailable.",
     `Reason: ${reason}`,
     "Check OPENROUTER_API_KEY, OPENROUTER_URL, and OPENROUTER_MODEL before retrying live AI generation.",
   ].join(" ");
@@ -148,12 +148,7 @@ export async function generateExplanation(
   const model = OPENROUTER_MODEL;
 
   if (!apiKey) {
-    return {
-      response: { explanation: unavailableExplanation("OPENROUTER_API_KEY is not configured.") },
-      cached: false,
-      grounding: false,
-      rateLimit: false,
-    };
+    throw new Error("OPENROUTER_API_KEY is not configured.");
   }
 
   try {
@@ -186,16 +181,7 @@ export async function generateExplanation(
     };
   } catch (error) {
     console.error("OpenRouter API error:", error);
-    return {
-      response: {
-        explanation: unavailableExplanation(
-          error instanceof Error ? error.message : "Unknown error occurred"
-        ),
-      },
-      cached: false,
-      grounding: false,
-      rateLimit: false,
-    };
+    throw error;
   }
 }
 

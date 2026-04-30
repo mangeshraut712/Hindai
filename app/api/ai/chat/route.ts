@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { contextManager } from "@/lib/ai/context-manager";
-
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-const OPENROUTER_URL = process.env.OPENROUTER_URL || "https://openrouter.ai/api/v1";
-const MODEL = process.env.OPENROUTER_MODEL || "google/gemma-4-31b-it:free";
+import {
+  getOpenRouterApiKey,
+  OPENROUTER_MODEL,
+  OPENROUTER_URL,
+  openRouterHeaders,
+} from "@/lib/ai/openrouter";
 
 export const runtime = "edge";
 
@@ -51,7 +53,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Messages array is required" }, { status: 400 });
     }
 
-    if (!OPENROUTER_API_KEY) {
+    const apiKey = getOpenRouterApiKey();
+
+    if (!apiKey) {
       return NextResponse.json({ error: "OpenRouter API key is not configured" }, { status: 500 });
     }
 
@@ -65,16 +69,11 @@ export async function POST(req: NextRequest) {
     const trimmedMessages = contextManager.trimConversation(messagesWithSystem, SYSTEM_PROMPT);
 
     if (stream) {
-      const response = await fetch(`${OPENROUTER_URL}/chat/completions`, {
+      const response = await fetch(OPENROUTER_URL, {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${OPENROUTER_API_KEY}`,
-          "Content-Type": "application/json",
-          "HTTP-Referer": process.env.NEXT_PUBLIC_APP_URL || "https://hindai.dev",
-          "X-Title": "Hind AI - Vedic AI Scholar",
-        },
+        headers: openRouterHeaders(apiKey, "Hind AI - Vedic AI Scholar"),
         body: JSON.stringify({
-          model: MODEL,
+          model: OPENROUTER_MODEL,
           messages: trimmedMessages,
           stream: true,
           temperature,
@@ -149,16 +148,11 @@ export async function POST(req: NextRequest) {
       });
     } else {
       // Non-streaming response
-      const response = await fetch(`${OPENROUTER_URL}/chat/completions`, {
+      const response = await fetch(OPENROUTER_URL, {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${OPENROUTER_API_KEY}`,
-          "Content-Type": "application/json",
-          "HTTP-Referer": process.env.NEXT_PUBLIC_APP_URL || "https://hindai.dev",
-          "X-Title": "Hind AI - Vedic AI Scholar",
-        },
+        headers: openRouterHeaders(apiKey, "Hind AI - Vedic AI Scholar"),
         body: JSON.stringify({
-          model: MODEL,
+          model: OPENROUTER_MODEL,
           messages: trimmedMessages,
           stream: false,
           temperature,

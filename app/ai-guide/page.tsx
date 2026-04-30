@@ -64,7 +64,7 @@ export default function AIGuidePage() {
               >
                 <span className="eyebrow">Guru AI • गुरु एआई</span>
                 <h1 className="section-title mt-6">
-                  Ask, compare, and translate Indian scripture with local AI.
+                  Ask, compare, and translate Indian scripture with Gemma 4 via OpenRouter.
                 </h1>
                 <p className="section-copy mt-5">
                   Guru AI now combines grounded study prompts with an Indian-language translation

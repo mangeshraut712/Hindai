@@ -202,7 +202,7 @@ export function AIChat({
 
       if (!fullContent.trim()) {
         throw new Error(
-          "The local Gemma model did not return any text. Ensure Ollama is running and the model is loaded."
+          "Gemma 4 did not return any text. Ensure the OpenRouter backend is configured."
         );
       }
 
@@ -344,7 +344,7 @@ export function AIChat({
           <div className="flex flex-col">
             <span>AI Scripture Guide</span>
             <span className="mt-1 text-xs font-normal uppercase tracking-[0.24em] text-muted-foreground">
-              Explain, compare, and translate with local Gemma 4
+              Explain, compare, and translate with Gemma 4 via OpenRouter
             </span>
           </div>
           <span className="ml-auto rounded-full border border-border/70 bg-background/65 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
@@ -385,9 +385,9 @@ export function AIChat({
               <div className="bg-card/72 rounded-[22px] border border-border/60 p-4">
                 <p className="text-sm font-medium text-foreground">Indian language translation</p>
                 <p className="mt-2 text-sm leading-7 text-muted-foreground">
-                  Paste a Sanskrit or Devanagari line and let local Gemma 4 turn it into an
-                  accessible reading voice across English and major Indian languages, with
-                  transliteration when useful.
+                  Paste a Sanskrit or Devanagari line and let Gemma 4 turn it into an accessible
+                  reading voice across English and major Indian languages, with transliteration when
+                  useful.
                 </p>
               </div>
               <div className="bg-card/72 rounded-[22px] border border-border/60 p-4">
@@ -479,7 +479,7 @@ export function AIChat({
                       "Transliteration for pronunciation",
                       "English plus major Indian languages",
                       "Useful for mantras, verses, and short passages",
-                      "Powered entirely by local Gemma 4",
+                      "Powered entirely by Gemma 4 via OpenRouter",
                     ]
                   : [
                       "Beginner-friendly explanations",
@@ -713,7 +713,7 @@ export function AIChat({
         </div>
         <p className="mt-2 text-xs text-muted-foreground">
           {mode === "translate"
-            ? "Press Enter to translate • Shift+Enter for a new line • Powered by local Gemma 4"
+            ? "Press Enter to translate • Shift+Enter for a new line • Powered by Gemma 4"
             : "Press Enter to send • Compare mode is grounded in the selected texts • AI responses are generated in real-time"}
         </p>
       </CardContent>

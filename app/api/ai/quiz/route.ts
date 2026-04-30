@@ -35,24 +35,12 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("AI Quiz Generation Error:", error);
-    return NextResponse.json({
-      question: {
-        question: "Which concept is central to Karma Yoga in the Bhagavad Gita?",
-        options: [
-          "Acting with dedication without attachment to results",
-          "Avoiding all action completely",
-          "Seeking only ritual reward",
-          "Rejecting duty in daily life",
-        ],
-        correctAnswer: 0,
-        explanation:
-          "The Bhagavad Gita teaches disciplined action without attachment to the fruits of action.",
-        scripture: "Bhagavad Gita",
-        difficulty: "easy",
+    return NextResponse.json(
+      {
+        available: false,
+        error: error instanceof Error ? error.message : "Quiz generation failed.",
       },
-      model: "fallback-reference",
-      available: false,
-      error: error instanceof Error ? error.message : "Quiz generation failed.",
-    });
+      { status: 503 }
+    );
   }
 }

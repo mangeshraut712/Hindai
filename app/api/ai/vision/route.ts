@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-const OPENROUTER_URL = process.env.OPENROUTER_URL || "https://openrouter.ai/api/v1";
-const MODEL = process.env.OPENROUTER_MODEL || "google/gemma-4-31b-it:free";
+import {
+  getOpenRouterApiKey,
+  OPENROUTER_MODEL,
+  OPENROUTER_URL,
+  openRouterHeaders,
+} from "@/lib/ai/openrouter";
 
 export const runtime = "edge";
 
@@ -33,7 +35,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Image file is required" }, { status: 400 });
     }
 
-    if (!OPENROUTER_API_KEY) {
+    const apiKey = getOpenRouterApiKey();
+
+    if (!apiKey) {
       return NextResponse.json({ error: "OpenRouter API key is not configured" }, { status: 500 });
     }
 
@@ -42,16 +46,11 @@ export async function POST(req: NextRequest) {
     const base64 = Buffer.from(bytes).toString("base64");
     const dataUrl = `data:${image.type};base64,${base64}`;
 
-    const response = await fetch(`${OPENROUTER_URL}/chat/completions`, {
+    const response = await fetch(OPENROUTER_URL, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${OPENROUTER_API_KEY}`,
-        "Content-Type": "application/json",
-        "HTTP-Referer": process.env.NEXT_PUBLIC_APP_URL || "https://hindai.dev",
-        "X-Title": "Hind AI - Vision Analysis",
-      },
+      headers: openRouterHeaders(apiKey, "Hind AI - Vision Analysis"),
       body: JSON.stringify({
-        model: MODEL,
+        model: OPENROUTER_MODEL,
         messages: [
           {
             role: "system",

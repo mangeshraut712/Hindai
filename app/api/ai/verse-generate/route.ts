@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       verse: result.verse,
       generated: true,
-      source: result.mock ? "fallback-placeholder" : "gemma",
+      source: "gemma",
       model: aiStatus.model,
       mock: result.mock || false,
       rateLimit: result.rateLimit,

@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
       MODE_INSTRUCTIONS[resolvedMode],
       lang === "hi" ? "Respond primarily in Hindi when it remains clear." : "Respond in English.",
       "For Hindi responses, keep Sanskrit terms in Devanagari with brief English glosses only when helpful.",
-      "Avoid OpenRouter, Gemini-branded, or non-Gemma claims. Be concise and useful.",
+      "Avoid non-Gemma model claims. Be concise and useful.",
       `Input transliteration: ${transliterateToIast(message.trim())}`,
       `Learner request: ${message.trim()}`,
     ].join("\n");
