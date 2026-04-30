@@ -64,7 +64,7 @@ export default function ScriptureLoading() {
         </section>
 
         {/* Content */}
-        <section className="px-4 py-16 sm:px-6 lg:px-8">
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl space-y-10">
             <div className="max-w-3xl space-y-4">
               <Skeleton className="h-5 w-32 rounded-full" />

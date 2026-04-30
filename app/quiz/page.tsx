@@ -76,7 +76,7 @@ export default function QuizPage() {
 
         {/* ── Quiz System ── */}
         <motion.section
-          className="px-4 py-16 sm:px-6 lg:px-8"
+          className="px-4 py-20 sm:px-6 lg:px-8"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

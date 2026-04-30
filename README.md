@@ -3,7 +3,7 @@
 <div align="center">
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue?style=for-the-badge&logo=typescript)
-![Next.js](https://img.shields.io/badge/Next.js-16.3.0-saffron?style=for-the-badge&logo=next.js)
+![Next.js](https://img.shields.io/badge/Next.js-15.5.15-saffron?style=for-the-badge&logo=next.js)
 ![React](https://img.shields.io/badge/React-19.2.5-blue?style=for-the-badge&logo=react)
 ![OpenRouter](https://img.shields.io/badge/OpenRouter-Gemma%204-gold?style=for-the-badge&logo=openrouter)
 ![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18.0.0-green?style=for-the-badge&logo=node.js)
@@ -44,11 +44,11 @@
 - **🔍 RAG Pipeline**: Context-grounded answers with scripture citations using vector search
 - **🖼️ Multimodal**: Sanskrit manuscript analysis with vision AI
 - **🔤 Sanskrit Tools**: Comprehensive linguistic tools (transliteration, sandhi, morphology, vibhakti, accents)
-- **� Audio Features**: Vedic accent analysis, Google Cloud TTS, Vedic Heritage Portal integration
-- **� Cloud-Optimized**: Production-ready with global deployment on Vercel Edge Network
-- **⚡ Modern Stack**: Next.js 16.3, React 19.2, TypeScript 5.9, Node.js >=18.0
+- **🎵 Audio Features**: Vedic accent analysis, Google Cloud TTS, Vedic Heritage Portal integration
+- **☁️ Cloud-Optimized**: Production-ready with global deployment on Vercel Edge Network
+- **⚡ Modern Stack**: Next.js 15.5, React 19.2, TypeScript 5.9, Node.js >=18.0
 - **♿ Accessible**: Reduced motion support, ARIA labels, keyboard navigation
-- **🚀 Performance**: Dynamic imports, CSS GPU hints, route-level loading states
+- **🚀 Performance**: Dynamic imports, scoped motion and responsive layout fixes, route-level loading states
 
 ---
 
@@ -73,7 +73,19 @@ npm run dev
 
 ---
 
-## 🆕 What's New in Version 3.0.0 (April 2026)
+## 🆕 What's New in Version 3.1.0 (April 2026)
+
+### 🎨 Frontend Polish & Commit Readiness
+
+- **Navigation IA refresh** - Consolidated desktop navigation into Scriptures, AI Features, Learning, Culture, Resources, and More.
+- **Responsive header fix** - Desktop navigation now starts at the `xl` breakpoint to avoid tablet overflow.
+- **Mobile hero improvement** - Primary homepage actions appear earlier in the first viewport.
+- **Boot splash refinement** - Homepage splash is shorter, respects reduced motion, and only appears once per session.
+- **Rendering cleanup** - Removed global `content-visibility` and broad section containment that caused blank full-page captures.
+- **Footer alignment** - Footer groups now mirror the primary navigation, including AI routes.
+- **E2E readiness** - Restored Playwright config/specs and moved local E2E server to port `3100` to avoid local port conflicts.
+
+## 🆕 What Changed in Version 3.0.0
 
 ### 🤖 Comprehensive AI-Powered Features with Gemma 4
 
@@ -102,7 +114,7 @@ npm run dev
 - **Dynamic Component Loading** - Heavy components (AIChat, ScriptureStudyExplorer, VerseGenerator) now load on-demand with loading skeletons
 - **Route-Level Loading States** - Beautiful shimmer loading skeletons for all major routes (ai-guide, contents, study-paths, sanskrit-nova, panchanga, [slug])
 - **Font Optimization** - Manrope (primary font) preloaded with `display: swap`, secondary fonts deferred for faster initial paint
-- **CSS Performance Hints** - Added `will-change`, `content-visibility`, and `contain` properties for GPU-accelerated animations
+- **Scoped Motion & Rendering** - Reduced broad GPU/rendering hints and kept motion scoped to active UI states
 - **Smooth Page Transitions** - PageProgress component with gradient progress bar for seamless navigation feedback
 - **Scroll Optimization** - Smooth scroll behavior with `prefers-reduced-motion` support for accessibility
 - **Touch Action Optimization** - `touch-action: manipulation` for faster mobile interactions
@@ -111,7 +123,7 @@ npm run dev
 
 ### 🔧 Infrastructure Improvements
 
-- **Next.js 16.3.0** - Latest Next.js with App Router optimizations
+- **Next.js 15.5.15** - Latest Next.js with App Router optimizations
 - **React 19.2.5** - Concurrent React features with improved performance
 - **TypeScript 5.9.3** - Strict type checking with zero errors
 - **Package Import Optimization** - Optimized imports for Radix UI, Lucide, and Framer Motion
@@ -120,7 +132,7 @@ npm run dev
 - **Image Optimization** - WebP and AVIF formats with 30-day cache TTL
 - **Security Headers** - Permissions-Policy for camera, microphone, and geolocation restrictions
 - **CI/CD Pipeline** - GitHub Actions workflow with quality checks, testing, and E2E tests
-- **Build Performance** - 175+ static pages generated in ~40 seconds
+- **Build Performance** - 63 app routes generated successfully in the latest production build
 
 ### 🤖 OpenRouter Integration with Gemma 4
 
@@ -185,11 +197,11 @@ npm run dev
 
 - ✅ TypeScript: 0 errors, strict mode passing
 - ✅ Prettier: All files formatted with Tailwind plugin
-- ✅ Build: 175+ static pages, 40 seconds build time
-- ✅ Tests: 30+ unit tests passing (Vitest) with comprehensive module coverage
+- ✅ Build: 63 app routes generated successfully
+- ✅ Tests: Playwright suite restored with 275 listed E2E tests
 - ✅ E2E Tests: Playwright coverage for critical user flows
-- ✅ Security: All vulnerabilities resolved (0 vulnerabilities)
-- ✅ Performance: Dynamic imports, CSS hints, font optimization, static asset caching
+- ✅ Security: Security audit available via npm run security
+- ✅ Performance: Dynamic imports, scoped motion, font loading, static asset caching
 - ✅ Accessibility: Reduced motion support, ARIA labels, keyboard navigation
 - ✅ Node.js: Compatible with >=18.0.0
 - ✅ CI/CD: GitHub Actions workflow passing with quality checks
@@ -254,7 +266,7 @@ npm run dev
 - **Document Processing**: Batch processing for large manuscript collections
 - **Secure Processing**: Safe object URL management with proper cleanup
 
-### � Sacred Geometry & Design
+### 🎨 Sacred Geometry & Design
 
 - **Sacred Geometry Components**: Sri Yantra, Mandala, Lotus patterns with animations
 - **Sophisticated Color Palette**: Sacred colors (saffron, vermilion, gold, indigo, peacock)
@@ -262,7 +274,7 @@ npm run dev
 - **Timeless Design**: Ancient aesthetic elegance with modern web performance
 - **Responsive UI**: Mobile-optimized with haptic feedback
 
-### � Personalized Learning Experience
+### 🧭 Personalized Learning Experience
 
 - **Adaptive Quizzes**: AI-generated questions based on learning progress
 - **Study Paths**: Curated learning journeys (Veda → Upanishad → Gita)
@@ -281,7 +293,7 @@ npm run dev
 
 | Technology     | Version | Purpose                                       |
 | -------------- | ------- | --------------------------------------------- |
-| **Next.js**    | 16.3.0  | React framework with App Router & RSC         |
+| **Next.js**    | 15.5.15 | React framework with App Router & RSC         |
 | **React**      | 19.2.5  | UI library with concurrent features & Actions |
 | **TypeScript** | 5.9.3   | Type-safe JavaScript development              |
 | **Node.js**    | >=18.0  | JavaScript runtime with ESM support           |
@@ -329,13 +341,11 @@ npm run dev
 
 ### Development & Testing
 
-| Technology          | Purpose                              |
-| ------------------- | ------------------------------------ |
-| **Vitest**          | Unit testing with native ESM         |
-| **Playwright**      | E2E testing with multi-browser       |
-| **ESLint**          | Code linting with Next.js config     |
-| **Prettier**        | Code formatting with Tailwind plugin |
-| **Testing Library** | React component testing              |
+| Technology     | Purpose                                             |
+| -------------- | --------------------------------------------------- |
+| **Playwright** | E2E testing with multi-browser                      |
+| **lint-check** | TypeScript, Prettier, and basic code quality checks |
+| **Prettier**   | Code formatting with Tailwind plugin                |
 
 ### Performance & Monitoring
 
@@ -489,16 +499,7 @@ Hind AI/
 │   ├── docker-compose.yml
 │   ├── Dockerfile
 │   └── Dockerfile.ollama
-├── 📁 e2e/                          # E2E tests (minimal)
-├── 📁 src/__tests__/                # Unit tests
-│   ├── lib/
-│   │   ├── audio/__tests__/         # Audio module tests
-│   │   ├── sanskrit/__tests__/      # Sanskrit tool tests
-│   │   ├── data/__tests__/          # Data ingestion tests
-│   │   └── database/__tests__/      # Database tests
-│   └── components/__tests__/        # Component tests
-├── 📁 config/                       # Configuration files
-│   │   └── vitest.config.ts         # Vitest configuration
+├── 📁 e2e/                          # Playwright E2E tests
 ├── 📁 .github/workflows/            # CI/CD
 ├── 📄 README.md
 ├── 📄 scripture-audit-report.md
@@ -520,7 +521,7 @@ Hind AI/
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐        │
 │  │   FRONTEND   │  │   BACKEND    │  │   AI LAYER   │        │
 │  │              │  │              │  │              │        │
-│  │  Next.js 16  │  │  Next.js API │  │  Gemma 4 31B │        │
+│  │  Next.js 15  │  │  Next.js API │  │  Gemma 4 31B │        │
 │  │  React 19    │  │  Edge Runtime│  │  OpenRouter  │        │
 │  │  TypeScript  │  │  RSC/SSR     │  │  Cloud API   │        │
 │  │  Tailwind    │  │  API Routes  │  │  Streaming   │        │
@@ -549,10 +550,10 @@ Hind AI/
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐        │
 │  │  DEPLOYMENT  │  │  CONTAINER   │  │  TESTING     │        │
 │  │              │  │              │  │              │        │
-│  │  Vercel      │  │  Docker      │  │  Vitest      │        │
+│  │  Vercel      │  │  Docker      │  │  Playwright  │        │
 │  │  Edge Network│  │  Compose     │  │  Playwright  │        │
 │  │  Global CDN  │  │  Production  │  │  E2E Tests   │        │
-│  │  ISR/SSG     │  │  Ready       │  │  Coverage    │        │
+│  │  ISR/SSG     │  │  Ready       │  │  Smoke Tests │        │
 │  └──────────────┘  └──────────────┘  └──────────────┘        │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -859,12 +860,11 @@ Get Upanishad texts and metadata.
 npm run dev              # Start development server
 npm run build            # Production build
 npm run start            # Start production server
-npm run lint             # Run ESLint
+npm run lint             # Run TypeScript, Prettier, and basic quality checks
 npm run type-check       # TypeScript strict mode check
 npm run format           # Prettier formatting
-npm run test             # Run Vitest tests
-npm run test:coverage    # Generate coverage report
-npm run test:e2e         # Run Playwright E2E tests
+npm run test             # Placeholder until unit tests are configured
+npm run test:e2e         # Run Playwright E2E tests on port 3100
 npm run analyze          # Bundle analysis
 npm run security         # Security audit
 ```
@@ -872,13 +872,13 @@ npm run security         # Security audit
 ### Quality Status
 
 - ✅ TypeScript: 0 errors, strict mode passing
-- ✅ ESLint: Configuration stable (custom lint-check script)
-- ✅ Build: 175+ static pages, 40 seconds build time
-- ✅ Tests: 30/30 tests passing (Vitest) - comprehensive module coverage
-- ✅ E2E Tests: Playwright coverage for critical user flows
+- ✅ Lint: Custom `lint-check` script validates TypeScript, Prettier, and basic code quality
+- ✅ Build: 63 app routes generated successfully
+- ✅ Tests: No unit test suite configured yet; E2E coverage is handled by Playwright
+- ✅ E2E Tests: Playwright coverage for critical user flows; 275 tests listed across 5 files
 - ✅ Prettier: All files formatted with Tailwind plugin
-- ✅ Security: All vulnerabilities resolved (0 vulnerabilities)
-- ✅ Performance: Dynamic imports, CSS hints, font optimization, static asset caching
+- ✅ Security: Audit available via `npm run security`
+- ✅ Performance: Dynamic imports, scoped motion, font loading, static asset caching
 - ✅ Accessibility: Reduced motion support, ARIA labels, keyboard navigation
 - ✅ Node.js: Compatible with >=18.0.0
 
@@ -909,7 +909,7 @@ open http://localhost:3000
 ### Unique Value Proposition
 
 - **Cultural Authenticity**: Proper Sanskrit rendering with Devanagari and accurate transliteration
-- **Performance-Optimized**: Dynamic imports, CSS GPU hints, and strategic caching for sub-second loads
+- **Performance-Optimized**: Dynamic imports, scoped motion and responsive layout fixes, and strategic caching for sub-second loads
 - **Multimodal AI**: Sanskrit manuscript analysis with Gemma 4 Vision
 - **Advanced RAG**: Scripture-grounded answers with citations using vector search
 - **Function Calling**: Domain-specific AI tools for spiritual learning
@@ -917,12 +917,12 @@ open http://localhost:3000
 
 ### Technical Differentiation
 
-- **Modern Stack 2026**: Next.js 16.3, React 19.2, TypeScript 5.9 with latest optimizations
-- **Performance-First**: Route-level loading states, font optimization, CSS containment
+- **Modern Stack 2026**: Next.js 15.5, React 19.2, TypeScript 5.9
+- **Performance-First**: Route-level loading states, font optimization, scoped rendering and stable responsive layouts
 - **Edge-Optimized**: Vercel Edge Network with global CDN distribution
 - **Enterprise Architecture**: Scalable design with Upstash Redis and Supabase
 - **Research Ready**: Fine-tuning scripts for production scaling
-- **Academic Standard**: Comprehensive testing (30+ unit tests, E2E coverage)
+- **Academic Standard**: Playwright E2E coverage for critical pages and responsive states
 - **Accessibility-First**: Reduced motion support, ARIA labels, keyboard navigation
 
 ### Impact & Reach

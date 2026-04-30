@@ -2,17 +2,8 @@
 
 import Link from "next/link";
 import { Github, Sparkles } from "lucide-react";
-import { headerScriptures } from "@/lib/scripture-catalog";
 
 const footerGroups = [
-  {
-    title: "AI Features",
-    links: [
-      { label: "Guru AI", href: "/ai-guide" },
-      { label: "Vision Analysis", href: "/vision" },
-      { label: "Dharma Guide", href: "/dharma" },
-    ],
-  },
   {
     title: "Learning",
     links: [
@@ -20,6 +11,14 @@ const footerGroups = [
       { label: "Sanskrit Tools", href: "/sanskrit-tools" },
       { label: "Learning Hub", href: "/learning" },
       { label: "Study Paths", href: "/study-paths" },
+    ],
+  },
+  {
+    title: "AI",
+    links: [
+      { label: "Guru AI", href: "/ai-guide" },
+      { label: "Vision", href: "/vision" },
+      { label: "Dharma", href: "/dharma" },
     ],
   },
   {
@@ -53,10 +52,10 @@ const footerGroups = [
 
 export function Footer() {
   return (
-    <footer className="bg-background/88 relative overflow-hidden border-t border-border/60">
+    <footer className="relative overflow-hidden border-t border-border/60 bg-background/90">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,hsl(var(--primary)/0.1),transparent_32%),radial-gradient(circle_at_80%_0%,hsl(var(--accent)/0.1),transparent_34%)]" />
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_repeat(2,minmax(0,1fr))] lg:gap-12 lg:px-8 xl:grid-cols-[1.2fr_repeat(4,minmax(0,0.8fr))]">
-        <div className="space-y-6">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:grid-cols-2 md:grid-cols-3 lg:px-8 xl:grid-cols-[1.4fr_repeat(5,minmax(0,1fr))] xl:gap-12">
+        <div className="space-y-6 sm:col-span-2 md:col-span-3 xl:col-span-1">
           <div>
             <p className="font-devanagari text-sm tracking-[0.28em] text-primary">
               सत्यमेव जयते · नमस्ते · ॐ
@@ -104,14 +103,10 @@ export function Footer() {
       </div>
 
       <div className="border-t border-border/60">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col px-4 py-5 text-xs text-muted-foreground sm:items-center sm:justify-center sm:px-6 lg:px-8">
           <p>
             © {new Date().getFullYear()} Hind AI. Designed for reflection, reading, and inquiry.
           </p>
-          <div className="flex items-center gap-2" aria-label="Features">
-            <Sparkles className="size-3.5 text-primary" aria-hidden="true" />
-            <span>Hindi splash • Sanskrit Studio • Theme aware</span>
-          </div>
         </div>
       </div>
     </footer>

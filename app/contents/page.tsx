@@ -84,7 +84,7 @@ export default function ContentsPage() {
           </div>
         </section>
 
-        <section className="px-4 py-16 sm:px-6 lg:px-8">
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl space-y-16">
             {scriptureSections.map((section, sectionIndex) => (
               <motion.section
@@ -121,7 +121,7 @@ export default function ContentsPage() {
                         transition={{ duration: 0.4, delay: index * 0.08 }}
                       >
                         <div>
-                          <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                          <p className="border-l-2 border-primary/20 pl-2 text-[11px] uppercase tracking-[0.28em] text-muted-foreground md:border-0 md:pl-0">
                             {item.category}
                           </p>
                         </div>
@@ -129,7 +129,7 @@ export default function ContentsPage() {
                           <p className="font-devanagari text-xl text-primary transition-transform duration-300 group-hover:scale-105">
                             {item.sanskrit}
                           </p>
-                          <h3 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground transition-colors duration-300 group-hover:text-primary">
+                          <h3 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-foreground transition-colors duration-300 group-hover:text-primary">
                             {item.name}
                           </h3>
                           <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
@@ -169,7 +169,7 @@ export default function ContentsPage() {
         </section>
 
         <motion.section
-          className="px-4 pb-20 sm:px-6 lg:px-8"
+          className="px-4 pb-24 sm:px-6 lg:px-8"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

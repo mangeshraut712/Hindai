@@ -37,7 +37,7 @@ export default function StudyPathsPage() {
           </div>
         </section>
 
-        <section className="px-4 py-16 sm:px-6 lg:px-8">
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <motion.div
               initial={{ opacity: 0, y: 30 }}

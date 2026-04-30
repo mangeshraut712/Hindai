@@ -24,7 +24,7 @@ export default function Loading() {
           </div>
         </section>
 
-        <section className="px-4 py-12 sm:px-6 lg:px-8">
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (

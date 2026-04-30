@@ -1,11 +1,13 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode } from "react";
-import { Language } from "./types";
+import { Language, Translation } from "./types";
+import { TRANSLATIONS } from "./translations";
 
 type LanguageContextType = {
   language: Language;
   setLanguage: (lang: Language) => void;
+  dictionary: Translation[];
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -16,7 +18,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>("English");
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage }}>
+    <LanguageContext.Provider value={{ language, setLanguage, dictionary: TRANSLATIONS }}>
       {children}
     </LanguageContext.Provider>
   );

@@ -20,7 +20,7 @@ export default function PanchangaLoading() {
         </div>
       </header>
 
-      <main className="flex-1 px-4 py-12 sm:px-6 lg:px-8">
+      <main className="flex-1 px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-5xl space-y-10">
           <div className="grid gap-6 lg:grid-cols-2">
             <div className="bg-card/84 rounded-[28px] border border-border/60 p-6 backdrop-blur-2xl">

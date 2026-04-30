@@ -98,7 +98,7 @@ export default function PrefacePage() {
         </section>
 
         {/* ── Scripture organization ── */}
-        <section className="px-4 py-16 sm:px-6 lg:px-8">
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="surface-panel p-8 md:p-10">
               <div className="relative z-10">
@@ -142,7 +142,7 @@ export default function PrefacePage() {
         </section>
 
         {/* ── Features ── */}
-        <section className="px-4 pb-16 sm:px-6 lg:px-8">
+        <section className="px-4 pb-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
               <span className="eyebrow">What you&apos;ll find here • यहाँ क्या है</span>

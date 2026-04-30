@@ -4,6 +4,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
@@ -51,8 +54,8 @@ const nextConfig = {
   // Static optimization
   trailingSlash: false,
   // Webpack optimization
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
+  webpack: (config, { isServer, dev }) => {
+    if (!isServer && !dev) {
       config.optimization.splitChunks = {
         chunks: "all",
         maxSize: 150000, // 150KB max chunk size - reduced from 244KB

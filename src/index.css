@@ -123,7 +123,6 @@
   h4,
   .font-ancient {
     font-family: var(--font-cormorant), serif;
-    font-weight: 600;
     letter-spacing: -0.03em;
   }
 
@@ -168,7 +167,7 @@
       0 4px 8px -2px hsl(var(--saffron) / 0.08),
       0 36px 90px -58px hsl(var(--royal-teal) / 0.18);
     border-color: hsl(var(--saffron) / 0.25);
-    transform: translateY(-2px);
+    /* Hover lift handled by Tailwind hover:-translate-y-1 on individual cards */
   }
 
   .surface-panel::before {
@@ -182,10 +181,17 @@
     transition: opacity 0.3s ease;
   }
 
-  /* Performance optimizations for below-fold content */
-  section + section {
-    content-visibility: auto;
-    contain-intrinsic-size: 0 500px;
+  /* Dark mode section-title contrast improvement */
+  .dark .section-title {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--foreground)) 0%,
+      hsl(var(--saffron)) 60%,
+      hsl(var(--marigold)) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .dark .surface-panel {
@@ -247,7 +253,13 @@
   }
 
   .scripture-row {
-    @apply relative grid gap-5 px-6 py-6 transition-all duration-300 md:grid-cols-[160px_minmax(0,1fr)_180px] md:items-end md:px-8;
+    @apply relative grid gap-2 px-6 py-6 transition-all duration-300 md:grid-cols-[160px_minmax(0,1fr)_180px] md:items-end md:gap-5 md:px-8;
+    outline-offset: -2px;
+  }
+
+  .scripture-row:focus-visible {
+    outline: 2px solid hsl(var(--saffron) / 0.6);
+    border-radius: 12px;
   }
 
   .scripture-row::after {
@@ -267,11 +279,11 @@
   }
 
   .nav-pill {
-    @apply rounded-full border border-transparent px-3 py-2 text-sm font-semibold text-foreground/70 transition-all duration-300 hover:border-border/70 hover:bg-background/70 hover:text-foreground hover:shadow-md;
+    @apply rounded-full border border-transparent text-sm font-semibold text-foreground/70 transition-all duration-300 hover:border-border/70 hover:bg-background/70 hover:text-foreground hover:shadow-md;
   }
 
   .nav-pill-active {
-    @apply rounded-full border px-3 py-2 text-sm font-semibold text-foreground transition-all duration-300;
+    @apply rounded-full border text-sm font-semibold text-foreground transition-all duration-300;
     border-color: hsl(var(--saffron) / 0.4);
     background: hsl(var(--saffron) / 0.1);
     box-shadow: 0 14px 34px -30px hsl(var(--saffron) / 0.3);
@@ -388,19 +400,10 @@
   }
 }
 
-/* GPU acceleration hints for animated elements */
-.hero-sun,
-.surface-panel,
-.scripture-row,
-.motion-safe {
-  will-change: transform;
-}
-
-/* Optimize compositing */
-.hero-mesh,
-.boot-splash-backdrop,
-.grain-mask {
-  will-change: opacity;
+/* GPU acceleration — scoped to active animation only */
+.hero-sun:hover,
+.hero-mesh:hover {
+  will-change: auto;
 }
 
 /* Touch-action for smooth mobile interactions */
@@ -410,18 +413,13 @@ a,
   touch-action: manipulation;
 }
 
-/* Optimize paint containment for heavy sections */
-section {
-  contain: layout paint;
-}
-
 /* Reduce layout shifts by reserving space */
 img,
 svg,
 video {
   max-width: 100%;
   height: auto;
-  aspect-ratio: attr(width) / attr(height);
+  /* Note: aspect-ratio: attr() is not browser-supported; use explicit values or Next.js Image */
 }
 
 /* Smooth scrollbar for WebKit */
@@ -443,7 +441,7 @@ video {
   input,
   textarea,
   select {
-    font-size: 16px !important;
+    font-size: 16px;
   }
 }
 
@@ -465,9 +463,9 @@ video {
 
 /* Mobile-specific optimizations */
 @media (max-width: 768px) {
-  /* Improve tap targets on mobile */
+  /* Improve tap targets on mobile — scoped to interactive controls only */
   button,
-  a,
+  nav a,
   [role="button"] {
     min-height: 44px;
     min-width: 44px;
@@ -502,15 +500,11 @@ video {
   }
 }
 
-/* Dark mode media query support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-  }
+/* Color scheme synced with class-based dark mode */
+:root {
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color-scheme: light;
-  }
+.dark {
+  color-scheme: dark;
 }

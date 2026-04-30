@@ -35,7 +35,7 @@ export default function Loading() {
         <div className="hero-sun -left-20 top-10 size-56 opacity-80" aria-hidden="true" />
         <div className="hero-sun right-0 top-20 size-72 opacity-60" aria-hidden="true" />
 
-        <div className="mx-auto grid min-h-[calc(100svh-5rem)] max-w-7xl items-end gap-14 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.9fr)] lg:px-8">
+        <div className="mx-auto grid min-h-[max(600px,75svh)] max-w-7xl items-center gap-14 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.9fr)] lg:px-8">
           <div className="relative z-10 max-w-3xl space-y-8">
             <ShimmerBlock className="h-7 w-40 rounded-full" />
             <div className="space-y-4">
@@ -85,8 +85,8 @@ export default function Loading() {
               <ShimmerBlock className="h-14 w-full max-w-md sm:h-16" />
               <ShimmerBlock className="h-20 w-full max-w-xl" />
             </div>
-            <div className="grid gap-6 lg:grid-cols-3">
-              {[...Array(3)].map((_, i) => (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {[...Array(4)].map((_, i) => (
                 <div key={i} className="surface-panel p-7">
                   <div className="relative z-10 space-y-5">
                     <ShimmerBlock className="size-12 rounded-full" />

@@ -1,10 +1,6 @@
-"use client";
-
-import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { useState } from "react";
 import { ArrowLeft, ArrowRight, BookOpen, Clock3, Languages, Sparkles } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -177,7 +173,7 @@ export default async function ScripturePage({ params }: PageProps) {
           </div>
         </section>
 
-        <section className="px-4 py-16 sm:px-6 lg:px-8">
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             {verses.length > 0 ? (
               <div className="space-y-10">

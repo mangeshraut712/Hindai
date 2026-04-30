@@ -51,7 +51,7 @@ criticalFiles.forEach((file) => {
       issuesFound.push(`${file}: Contains TODO/FIXME comments`);
     }
 
-    if (content.includes("any") && !file.includes("test")) {
+    if (content.match(/:\s*any\b/) && !file.includes("test")) {
       issuesFound.push(`${file}: Contains 'any' type`);
     }
   }

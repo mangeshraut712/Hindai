@@ -1,6 +1,5 @@
 "use client";
 
-import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Bot, Languages, Library, ScanSearch } from "lucide-react";
 import { Header } from "@/components/Header";
@@ -19,8 +18,8 @@ const studyModes = [
   },
   {
     icon: Bot,
-    title: "Vedic AI Scholar",
-    body: "Deep theological discourse with Gemma 4. Ask questions about Vedas, Upanishads, and philosophy.",
+    title: "Guru AI",
+    body: "Ask the text what it means, not just where it sits.",
     features: [
       "Gemma 4 powered",
       "Streaming responses",
@@ -109,7 +108,7 @@ export default function HomePage() {
             aria-hidden="true"
           />
 
-          <div className="mx-auto grid min-h-[calc(100svh-5rem)] max-w-7xl items-end gap-8 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.9fr)] lg:gap-14 lg:px-8">
+          <div className="mx-auto grid min-h-[max(600px,75svh)] max-w-7xl items-center gap-8 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.9fr)] lg:gap-14 lg:px-8">
             <div className="relative z-10 max-w-3xl">
               <span className="eyebrow">Digital Gurukul • Gemma 4 • English · हिंदी · संस्कृत</span>
               <div className="mt-8 space-y-6">
@@ -131,12 +130,6 @@ export default function HomePage() {
                     difficult questions, and move between Sanskrit, Hindi, and English without
                     losing atmosphere or context.
                   </p>
-                  <p className="max-w-2xl text-sm leading-7 text-muted-foreground">
-                    Hindu scripture is a vast tradition built over millennia, broadly organized into{" "}
-                    <strong>Shruti</strong> (revealed scripture) and <strong>Smriti</strong>{" "}
-                    (remembered tradition), with the Bhagavad Gita, Upanishads, Puranas, and epics
-                    all occupying distinct but connected places.
-                  </p>
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row">
@@ -150,6 +143,13 @@ export default function HomePage() {
                     <Link href="/ai-guide">Ask Guru AI</Link>
                   </Button>
                 </div>
+
+                <p className="max-w-2xl text-sm leading-7 text-muted-foreground">
+                  Hindu scripture is a vast tradition built over millennia, broadly organized into{" "}
+                  <strong>Shruti</strong> (revealed scripture) and <strong>Smriti</strong>{" "}
+                  (remembered tradition), with the Bhagavad Gita, Upanishads, Puranas, and epics all
+                  occupying distinct but connected places.
+                </p>
 
                 <dl className="flex flex-wrap gap-8 border-t border-border/60 pt-7">
                   {stats.map((stat) => (
@@ -221,7 +221,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="px-4 py-24 sm:px-6 lg:px-8">
+        <section className="px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
               <span className="eyebrow">How the interface works • इंटरफ़ेस</span>
@@ -243,7 +243,7 @@ export default function HomePage() {
                       <mode.icon className="size-5" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
+                      <h3 className="text-2xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
                         {mode.title}
                       </h3>
                       <p className="mt-3 text-sm leading-6 text-muted-foreground">{mode.body}</p>
@@ -265,7 +265,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="px-4 pb-24 sm:px-6 lg:px-8">
+        <section className="px-4 pb-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div className="max-w-3xl">
@@ -287,7 +287,7 @@ export default function HomePage() {
                   <div key={scripture.slug}>
                     <Link href={scripture.href} className="scripture-row group">
                       <div>
-                        <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                        <p className="border-l-2 border-primary/20 pl-2 text-[11px] uppercase tracking-[0.28em] text-muted-foreground md:border-0 md:pl-0">
                           {scripture.category}
                         </p>
                       </div>
@@ -295,7 +295,7 @@ export default function HomePage() {
                         <p className="font-devanagari text-xl text-primary transition-transform duration-300 group-hover:scale-105">
                           {scripture.sanskrit}
                         </p>
-                        <h3 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground transition-colors duration-300 group-hover:text-primary">
+                        <h3 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-foreground transition-colors duration-300 group-hover:text-primary">
                           {scripture.name}
                         </h3>
                         <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
@@ -314,49 +314,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="px-4 pb-24 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div className="surface-panel overflow-hidden bg-[linear-gradient(135deg,hsl(var(--foreground)),hsl(var(--secondary-foreground)))] text-background">
-              <div className="grid gap-10 px-6 py-10 md:px-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-end xl:gap-12">
-                <div className="relative z-10 max-w-xl space-y-5">
-                  <span className="eyebrow border-white/15 bg-white/10 text-white/70">Guru AI</span>
-                  <h2 className="font-serif text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
-                    Ask the text what it means, not just where it sits.
-                  </h2>
-                  <p className="text-white/72 text-base leading-7">
-                    Use Gemma 4 to explain karma, compare commentarial ideas, or translate a
-                    Sanskrit line into a reading voice that feels thoughtful instead of synthetic.
-                  </p>
-                  <Button variant="premium" asChild>
-                    <Link href="/ai-guide">
-                      Open Guru AI
-                      <ArrowRight className="size-4" />
-                    </Link>
-                  </Button>
-                </div>
-
-                <div className="relative z-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
-                  {scriptureSections.map((section) => (
-                    <div
-                      key={section.id}
-                      className="border-white/12 bg-white/6 rounded-[28px] border p-5 backdrop-blur-xl"
-                    >
-                      <p className="text-[11px] uppercase tracking-[0.28em] text-white/55">
-                        {section.title}
-                      </p>
-                      <p className="mt-3 text-lg font-semibold text-white">
-                        {section.items.length} curated entries
-                      </p>
-                      <p className="mt-3 text-sm leading-6 text-white/65">{section.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="px-4 pb-24 sm:px-6 lg:px-8">
+        <section className="px-4 pb-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="surface-panel p-8 md:p-10">
               <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -382,7 +340,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="px-4 pb-24 sm:px-6 lg:px-8">
+        <section className="px-4 pb-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
               <span className="eyebrow">Sanskrit and calendar tools • विशेषताएं</span>
@@ -464,7 +422,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="px-4 pb-24 sm:px-6 lg:px-8">
+        <section className="px-4 pb-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
               <span className="eyebrow">Featured Verses • श्लोक संग्रह</span>

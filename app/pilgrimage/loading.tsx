@@ -59,7 +59,7 @@ export default function Loading() {
           </div>
         </section>
 
-        <section className="px-4 py-12 sm:px-6 lg:px-8">
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="mb-8 flex gap-4">
               {[1, 2].map((i) => (

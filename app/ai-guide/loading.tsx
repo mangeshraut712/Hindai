@@ -56,7 +56,7 @@ export default function AIGuideLoading() {
         </section>
 
         {/* Chat Section */}
-        <section className="px-4 py-12 sm:px-6 lg:px-8">
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="bg-card/84 min-h-[500px] rounded-[28px] border border-border/60 p-6 backdrop-blur-2xl">
               <div className="flex items-center gap-3">

@@ -102,7 +102,7 @@ export default function CommunityPage() {
         </section>
 
         {/* ── Features ── */}
-        <section className="px-4 py-16 sm:px-6 lg:px-8">
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -138,7 +138,7 @@ export default function CommunityPage() {
                       <feature.icon className="size-5" />
                     </motion.div>
                     <div>
-                      <h3 className="text-lg font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
+                      <h3 className="text-xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
                         {feature.title}
                       </h3>
                       <p className="mt-2 font-devanagari text-xs text-muted-foreground">
@@ -156,12 +156,12 @@ export default function CommunityPage() {
         </section>
 
         {/* ── Upcoming Events ── */}
-        <section className="px-4 py-16 sm:px-6 lg:px-8">
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.9fr)]">
               <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
                 className="max-w-3xl"
@@ -175,8 +175,8 @@ export default function CommunityPage() {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="surface-panel p-6"
@@ -218,7 +218,7 @@ export default function CommunityPage() {
         </section>
 
         {/* ── Guidelines ── */}
-        <section className="px-4 py-16 sm:px-6 lg:px-8">
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -265,7 +265,7 @@ export default function CommunityPage() {
 
         {/* ── CTA ── */}
         <motion.section
-          className="px-4 pb-20 sm:px-6 lg:px-8"
+          className="px-4 pb-24 sm:px-6 lg:px-8"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

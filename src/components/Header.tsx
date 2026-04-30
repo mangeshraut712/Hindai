@@ -9,6 +9,8 @@ import {
   BookOpen,
   Calendar,
   ChevronDown,
+  Compass,
+  Eye,
   Languages,
   Menu,
   Moon,
@@ -38,9 +40,10 @@ import { VoiceSearch } from "@/components/voice-search";
 import { headerScriptures } from "@/lib/scripture-catalog";
 import { useLanguage, SUPPORTED_LANGUAGES } from "@/lib/i18n/context";
 
-const navItems = [
-  { label: "Library", script: "ग्रन्थालय", href: "/contents", icon: BookOpen },
+const aiFeaturesItems = [
   { label: "Guru AI", script: "गुरु", href: "/ai-guide", icon: Sparkles },
+  { label: "Vision", script: "दृष्टि", href: "/vision", icon: Eye },
+  { label: "Dharma", script: "धर्म", href: "/dharma", icon: Compass },
 ];
 
 const learningItems = [
@@ -56,6 +59,7 @@ const cultureItems = [
 ];
 
 const resourcesItems = [
+  { label: "Library", script: "ग्रन्थालय", href: "/contents", icon: BookOpen },
   { label: "Panchanga", script: "पञ्चाङ्ग", href: "/panchanga", icon: Calendar },
   { label: "Pilgrimage", script: "तीर्थ", href: "/pilgrimage", icon: BookOpen },
   { label: "Audio", script: "आडियो", href: "/audio", icon: BookOpen },
@@ -100,7 +104,7 @@ export function Header() {
     setTheme(nextTheme);
   };
 
-  const handleNavigation = (href: string, label: string) => {
+  const handleNavigation = () => {
     setIsOpen(false);
   };
 
@@ -109,12 +113,12 @@ export function Header() {
   };
 
   return (
-    <header className="supports-[backdrop-filter]:bg-background/72 sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-2xl">
-      <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-2xl supports-[backdrop-filter]:bg-background/75">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
           className="group flex min-w-0 items-center gap-3"
-          onClick={() => handleNavigation("/", "Home")}
+          onClick={() => handleNavigation()}
         >
           <div className="relative flex size-11 items-center justify-center overflow-hidden rounded-full border-2 border-primary/30 bg-gradient-to-br from-primary/10 to-primary/5 text-primary shadow-[0_18px_42px_-30px_rgba(25,88,50,0.25)] transition-all duration-300 group-hover:border-primary/50 group-hover:shadow-[0_18px_42px_-30px_rgba(25,88,50,0.35)]">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -139,231 +143,208 @@ export function Header() {
         </Link>
 
         <nav
-          className="bg-background/54 hidden items-center gap-1.5 rounded-2xl border border-border/60 px-2 py-1.5 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.15)] lg:flex"
+          className="hidden items-center gap-1.5 rounded-2xl border border-border/60 bg-background/60 px-2 py-1.5 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.15)] xl:flex"
           aria-label="Primary"
           suppressHydrationWarning
         >
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="nav-pill gap-2">
-                <span className="flex flex-col items-start leading-tight">
-                  <span className="text-xs font-semibold">Scriptures</span>
-                  <span className="font-devanagari text-[10px] text-muted-foreground">ग्रन्थ</span>
-                </span>
-                <ChevronDown className="ml-1 size-3.5" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="start"
-              className="bg-background/88 w-80 rounded-[24px] border-border/70 p-2 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-2xl"
-            >
-              <div className="px-3 pb-2 pt-1">
-                <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-                  प्रमुख ग्रन्थ · Featured Texts
-                </p>
+          <div className="group relative">
+            <Button variant="ghost" size="sm" className="nav-pill gap-2">
+              <span className="flex flex-col items-start leading-tight">
+                <span className="text-xs font-semibold">Scriptures</span>
+                <span className="font-devanagari text-[10px] text-muted-foreground">ग्रन्थ</span>
+              </span>
+              <ChevronDown className="ml-1 size-3.5 transition-transform duration-200 group-hover:rotate-180" />
+            </Button>
+            <div className="invisible absolute left-0 top-full z-50 w-80 pt-2 group-hover:visible">
+              <div className="flex -translate-y-2 flex-col rounded-[24px] border border-border/70 bg-background/95 p-2 opacity-0 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-3xl transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="px-3 pb-2 pt-1">
+                  <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+                    प्रमुख ग्रन्थ · Featured Texts
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  {headerScriptures.map((item) => (
+                    <Link
+                      key={item.slug}
+                      href={item.href}
+                      className="flex flex-col gap-1 rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
+                    >
+                      <span className="font-devanagari text-base text-foreground">
+                        {item.sanskrit}
+                      </span>
+                      <span className="text-sm font-semibold text-foreground">{item.name}</span>
+                      <span className="text-xs text-muted-foreground">{item.highlight}</span>
+                    </Link>
+                  ))}
+                </div>
               </div>
-              {headerScriptures.map((item) => (
-                <DropdownMenuItem
-                  key={item.slug}
-                  asChild
-                  className="rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
-                >
-                  <Link
-                    href={item.href}
-                    className="flex flex-col gap-1"
-                    onClick={() => handleNavigation(item.href, item.name)}
-                  >
-                    <span className="font-devanagari text-base text-foreground">
-                      {item.sanskrit}
-                    </span>
-                    <span className="text-sm font-semibold text-foreground">{item.name}</span>
-                    <span className="text-xs text-muted-foreground">{item.highlight}</span>
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+            </div>
+          </div>
 
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`nav-pill group flex flex-col items-center px-3 py-1.5 ${isActive(item.href) ? "nav-pill-active" : ""}`}
-              onClick={() => handleNavigation(item.href, item.label)}
-            >
-              <span className="flex items-center gap-1.5 text-xs font-semibold">
-                {item.icon ? (
-                  <item.icon className="size-3.5 text-primary/80 transition-colors group-hover:text-primary" />
-                ) : null}
-                {item.label}
+          <div className="group relative">
+            <Button variant="ghost" size="sm" className="nav-pill gap-2">
+              <span className="flex flex-col items-start leading-tight">
+                <span className="text-xs font-semibold">AI Features</span>
+                <span className="font-devanagari text-[10px] text-muted-foreground">प्रज्ञा</span>
               </span>
-              <span className="font-devanagari text-[10px] text-muted-foreground transition-colors group-hover:text-primary/70">
-                {item.script}
+              <ChevronDown className="ml-1 size-3.5 transition-transform duration-200 group-hover:rotate-180" />
+            </Button>
+            <div className="invisible absolute left-0 top-full z-50 w-56 pt-2 group-hover:visible">
+              <div className="flex -translate-y-2 flex-col rounded-[24px] border border-border/70 bg-background/95 p-2 opacity-0 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-3xl transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="flex flex-col">
+                  {aiFeaturesItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="flex items-center justify-between gap-3 rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
+                    >
+                      <div className="flex flex-col">
+                        <span className="flex items-center gap-2 text-sm font-semibold">
+                          {item.icon ? <item.icon className="size-4 text-primary" /> : null}
+                          {item.label}
+                        </span>
+                        <span className="font-devanagari text-xs text-muted-foreground">
+                          {item.script}
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="group relative">
+            <Button variant="ghost" size="sm" className="nav-pill gap-2">
+              <span className="flex flex-col items-start leading-tight">
+                <span className="text-xs font-semibold">Learning</span>
+                <span className="font-devanagari text-[10px] text-muted-foreground">अध्ययन</span>
               </span>
-            </Link>
-          ))}
+              <ChevronDown className="ml-1 size-3.5 transition-transform duration-200 group-hover:rotate-180" />
+            </Button>
+            <div className="invisible absolute left-0 top-full z-50 w-56 pt-2 group-hover:visible">
+              <div className="flex -translate-y-2 flex-col rounded-[24px] border border-border/70 bg-background/95 p-2 opacity-0 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-3xl transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="flex flex-col">
+                  {learningItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="flex items-center justify-between gap-3 rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
+                    >
+                      <div className="flex flex-col">
+                        <span className="flex items-center gap-2 text-sm font-semibold">
+                          {item.icon ? <item.icon className="size-4 text-primary" /> : null}
+                          {item.label}
+                        </span>
+                        <span className="font-devanagari text-xs text-muted-foreground">
+                          {item.script}
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="nav-pill gap-2">
-                <span className="flex flex-col items-start leading-tight">
-                  <span className="text-xs font-semibold">Learning</span>
-                  <span className="font-devanagari text-[10px] text-muted-foreground">अध्ययन</span>
-                </span>
-                <ChevronDown className="ml-1 size-3.5" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className="bg-background/92 w-56 rounded-[24px] border-border/70 p-2 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-2xl"
-            >
-              {learningItems.map((item) => (
-                <DropdownMenuItem
-                  key={item.href}
-                  asChild
-                  className="rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
-                >
-                  <Link
-                    href={item.href}
-                    className="flex items-center justify-between gap-3"
-                    onClick={() => handleNavigation(item.href, item.label)}
-                  >
-                    <div className="flex flex-col">
-                      <span className="flex items-center gap-2 text-sm font-semibold">
-                        {item.icon ? <item.icon className="size-4 text-primary" /> : null}
-                        {item.label}
-                      </span>
-                      <span className="font-devanagari text-xs text-muted-foreground">
-                        {item.script}
-                      </span>
-                    </div>
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="group relative">
+            <Button variant="ghost" size="sm" className="nav-pill gap-2">
+              <span className="flex flex-col items-start leading-tight">
+                <span className="text-xs font-semibold">Culture</span>
+                <span className="font-devanagari text-[10px] text-muted-foreground">संस्कृति</span>
+              </span>
+              <ChevronDown className="ml-1 size-3.5 transition-transform duration-200 group-hover:rotate-180" />
+            </Button>
+            <div className="invisible absolute left-1/2 top-full z-50 w-56 -translate-x-1/2 pt-2 group-hover:visible">
+              <div className="flex -translate-y-2 flex-col rounded-[24px] border border-border/70 bg-background/95 p-2 opacity-0 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-3xl transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="flex flex-col">
+                  {cultureItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="flex items-center justify-between gap-3 rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
+                    >
+                      <div className="flex flex-col">
+                        <span className="flex items-center gap-2 text-sm font-semibold">
+                          {item.icon ? <item.icon className="size-4 text-primary" /> : null}
+                          {item.label}
+                        </span>
+                        <span className="font-devanagari text-xs text-muted-foreground">
+                          {item.script}
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="nav-pill gap-2">
-                <span className="flex flex-col items-start leading-tight">
-                  <span className="text-xs font-semibold">Culture</span>
-                  <span className="font-devanagari text-[10px] text-muted-foreground">
-                    संस्कृति
-                  </span>
-                </span>
-                <ChevronDown className="ml-1 size-3.5" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className="bg-background/92 w-56 rounded-[24px] border-border/70 p-2 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-2xl"
-            >
-              {cultureItems.map((item) => (
-                <DropdownMenuItem
-                  key={item.href}
-                  asChild
-                  className="rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
-                >
-                  <Link
-                    href={item.href}
-                    className="flex items-center justify-between gap-3"
-                    onClick={() => handleNavigation(item.href, item.label)}
-                  >
-                    <div className="flex flex-col">
-                      <span className="flex items-center gap-2 text-sm font-semibold">
-                        {item.icon ? <item.icon className="size-4 text-primary" /> : null}
-                        {item.label}
-                      </span>
-                      <span className="font-devanagari text-xs text-muted-foreground">
-                        {item.script}
-                      </span>
-                    </div>
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="group relative">
+            <Button variant="ghost" size="sm" className="nav-pill gap-2">
+              <span className="flex flex-col items-start leading-tight">
+                <span className="text-xs font-semibold">Resources</span>
+                <span className="font-devanagari text-[10px] text-muted-foreground">संसाधन</span>
+              </span>
+              <ChevronDown className="ml-1 size-3.5 transition-transform duration-200 group-hover:rotate-180" />
+            </Button>
+            <div className="invisible absolute right-0 top-full z-50 w-56 pt-2 group-hover:visible">
+              <div className="flex -translate-y-2 flex-col rounded-[24px] border border-border/70 bg-background/95 p-2 opacity-0 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-3xl transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="flex flex-col">
+                  {resourcesItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="flex items-center justify-between gap-3 rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
+                    >
+                      <div className="flex flex-col">
+                        <span className="flex items-center gap-2 text-sm font-semibold">
+                          {item.icon ? <item.icon className="size-4 text-primary" /> : null}
+                          {item.label}
+                        </span>
+                        <span className="font-devanagari text-xs text-muted-foreground">
+                          {item.script}
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="nav-pill gap-2">
-                <span className="flex flex-col items-start leading-tight">
-                  <span className="text-xs font-semibold">Resources</span>
-                  <span className="font-devanagari text-[10px] text-muted-foreground">संसाधन</span>
-                </span>
-                <ChevronDown className="ml-1 size-3.5" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className="bg-background/92 w-56 rounded-[24px] border-border/70 p-2 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-2xl"
-            >
-              {resourcesItems.map((item) => (
-                <DropdownMenuItem
-                  key={item.href}
-                  asChild
-                  className="rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
-                >
-                  <Link
-                    href={item.href}
-                    className="flex items-center justify-between gap-3"
-                    onClick={() => handleNavigation(item.href, item.label)}
-                  >
-                    <div className="flex flex-col">
-                      <span className="flex items-center gap-2 text-sm font-semibold">
-                        {item.icon ? <item.icon className="size-4 text-primary" /> : null}
-                        {item.label}
-                      </span>
-                      <span className="font-devanagari text-xs text-muted-foreground">
-                        {item.script}
-                      </span>
-                    </div>
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="nav-pill gap-2">
-                <span className="flex flex-col items-start leading-tight">
-                  <span className="text-xs font-semibold">More</span>
-                  <span className="font-devanagari text-[10px] text-muted-foreground">अधिक</span>
-                </span>
-                <ChevronDown className="ml-1 size-3.5" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className="bg-background/92 w-56 rounded-[24px] border-border/70 p-2 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-2xl"
-            >
-              {moreItems.map((item) => (
-                <DropdownMenuItem
-                  key={item.href}
-                  asChild
-                  className="rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
-                >
-                  <Link
-                    href={item.href}
-                    className="flex items-center justify-between gap-3"
-                    onClick={() => handleNavigation(item.href, item.label)}
-                  >
-                    <div className="flex flex-col">
-                      <span className="flex items-center gap-2 text-sm font-semibold">
-                        {item.icon ? <item.icon className="size-4 text-primary" /> : null}
-                        {item.label}
-                      </span>
-                      <span className="font-devanagari text-xs text-muted-foreground">
-                        {item.script}
-                      </span>
-                    </div>
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="group relative">
+            <Button variant="ghost" size="sm" className="nav-pill gap-2">
+              <span className="flex flex-col items-start leading-tight">
+                <span className="text-xs font-semibold">More</span>
+                <span className="font-devanagari text-[10px] text-muted-foreground">अधिक</span>
+              </span>
+              <ChevronDown className="ml-1 size-3.5 transition-transform duration-200 group-hover:rotate-180" />
+            </Button>
+            <div className="invisible absolute right-0 top-full z-50 w-56 pt-2 group-hover:visible">
+              <div className="flex -translate-y-2 flex-col rounded-[24px] border border-border/70 bg-background/95 p-2 opacity-0 shadow-[0_20px_60px_-48px_rgba(25,88,50,0.2)] backdrop-blur-3xl transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="flex flex-col">
+                  {moreItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="flex items-center justify-between gap-3 rounded-2xl px-4 py-3 transition-colors hover:bg-primary/10"
+                    >
+                      <div className="flex flex-col">
+                        <span className="flex items-center gap-2 text-sm font-semibold">
+                          {item.icon ? <item.icon className="size-4 text-primary" /> : null}
+                          {item.label}
+                        </span>
+                        <span className="font-devanagari text-xs text-muted-foreground">
+                          {item.script}
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
@@ -424,7 +405,7 @@ export function Header() {
           </Button>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="lg:hidden">
+            <SheetTrigger asChild className="xl:hidden">
               <Button
                 variant="ghost"
                 size="icon"
@@ -446,14 +427,20 @@ export function Header() {
                   <span className="font-devanagari tracking-[0.16em] text-muted-foreground">
                     डिजिटल गुरुकुल
                   </span>
-                  <div className="mt-3 flex w-fit items-center gap-1.5 rounded-full border border-border/60 bg-background/70 px-3 py-1.5">
-                    <span className="text-[10px] font-semibold text-foreground">EN</span>
-                    <span className="h-3 w-px bg-border/60"></span>
-                    <span className="font-devanagari text-[10px] text-muted-foreground">हिंदी</span>
-                    <span className="h-3 w-px bg-border/60"></span>
-                    <span className="font-devanagari text-[10px] text-muted-foreground">
-                      संस्कृत
-                    </span>
+                  <div className="mt-3 flex w-fit items-center gap-1.5 rounded-full border border-border/60 bg-background/70 px-1.5 py-1">
+                    {SUPPORTED_LANGUAGES.map((lang, i) => (
+                      <button
+                        key={lang}
+                        onClick={() => setLanguage(lang)}
+                        className={`rounded-full px-2.5 py-1 text-[10px] font-semibold transition-colors ${
+                          language === lang
+                            ? "bg-primary/15 text-primary"
+                            : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        {lang === "English" ? "EN" : lang}
+                      </button>
+                    ))}
                   </div>
                 </SheetDescription>
               </SheetHeader>
@@ -481,7 +468,7 @@ export function Header() {
                         key={item.slug}
                         href={item.href}
                         className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5"
-                        onClick={() => handleNavigation(item.href, item.name)}
+                        onClick={() => handleNavigation()}
                       >
                         <p className="font-devanagari text-sm text-primary">{item.sanskrit}</p>
                         <p className="mt-1 text-sm font-semibold text-foreground">{item.name}</p>
@@ -495,7 +482,7 @@ export function Header() {
                     AI Features
                   </p>
                   <div className="grid gap-2">
-                    {navItems.map((item) => (
+                    {aiFeaturesItems.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
@@ -504,7 +491,7 @@ export function Header() {
                             ? "border-primary/45 bg-primary/10"
                             : "border-border/60 bg-background/70"
                         }`}
-                        onClick={() => handleNavigation(item.href, item.label)}
+                        onClick={() => handleNavigation()}
                       >
                         <p className="text-sm font-semibold text-foreground">{item.label}</p>
                         <p className="mt-1 font-devanagari text-xs tracking-[0.12em] text-muted-foreground">
@@ -529,7 +516,7 @@ export function Header() {
                             ? "border-primary/45 bg-primary/10"
                             : "border-border/60 bg-background/70"
                         }`}
-                        onClick={() => handleNavigation(item.href, item.label)}
+                        onClick={() => handleNavigation()}
                       >
                         <p className="text-sm font-semibold text-foreground">{item.label}</p>
                         <p className="mt-1 font-devanagari text-xs tracking-[0.12em] text-muted-foreground">
@@ -554,7 +541,7 @@ export function Header() {
                             ? "border-primary/45 bg-primary/10"
                             : "border-border/60 bg-background/70"
                         }`}
-                        onClick={() => handleNavigation(item.href, item.label)}
+                        onClick={() => handleNavigation()}
                       >
                         <p className="text-sm font-semibold text-foreground">{item.label}</p>
                         <p className="mt-1 font-devanagari text-xs tracking-[0.12em] text-muted-foreground">
@@ -579,7 +566,7 @@ export function Header() {
                             ? "border-primary/45 bg-primary/10"
                             : "border-border/60 bg-background/70"
                         }`}
-                        onClick={() => handleNavigation(item.href, item.label)}
+                        onClick={() => handleNavigation()}
                       >
                         <p className="text-sm font-semibold text-foreground">{item.label}</p>
                         <p className="mt-1 font-devanagari text-xs tracking-[0.12em] text-muted-foreground">
@@ -604,7 +591,7 @@ export function Header() {
                             ? "border-primary/45 bg-primary/10"
                             : "border-border/60 bg-background/70"
                         }`}
-                        onClick={() => handleNavigation(item.href, item.label)}
+                        onClick={() => handleNavigation()}
                       >
                         <p className="text-sm font-semibold text-foreground">{item.label}</p>
                         <p className="mt-1 font-devanagari text-xs tracking-[0.12em] text-muted-foreground">

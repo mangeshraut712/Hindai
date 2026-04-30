@@ -9,7 +9,6 @@ export function SiteBootSplash() {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [hasShownThisLoad, setHasShownThisLoad] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -24,18 +23,18 @@ export function SiteBootSplash() {
       return;
     }
 
-    if (hasShownThisLoad) {
+    if (window.sessionStorage.getItem("hindai.bootSplash.seen") === "true") {
       return;
     }
 
+    window.sessionStorage.setItem("hindai.bootSplash.seen", "true");
     setVisible(true);
-    setHasShownThisLoad(true);
     const fallbackTimer = window.setTimeout(() => {
       setVisible(false);
-    }, 6200);
+    }, 2400);
 
     return () => window.clearTimeout(fallbackTimer);
-  }, [hasShownThisLoad, mounted, pathname]);
+  }, [mounted, pathname]);
 
   if (!mounted) {
     return null;
@@ -66,7 +65,7 @@ export function SiteBootSplash() {
           >
             <AppleHelloEffectHindi
               className="h-auto w-[min(72vw,28rem)] md:w-[min(56vw,34rem)]"
-              durationScale={0.8}
+              durationScale={0.3}
               onAnimationComplete={handleAnimationComplete}
             />
             <div className="space-y-2">

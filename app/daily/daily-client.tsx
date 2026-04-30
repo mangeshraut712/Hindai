@@ -230,7 +230,7 @@ export default function DailyWisdomClient() {
         </section>
 
         {/* ── Wisdom Card ── */}
-        <section className="px-4 py-16 sm:px-6 lg:px-8">
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl">
             {/* Navigation */}
             <div className="mb-8 flex items-center justify-between">
@@ -385,7 +385,7 @@ export default function DailyWisdomClient() {
         </section>
 
         {/* ── CTA ── */}
-        <section className="px-4 pb-20 sm:px-6 lg:px-8">
+        <section className="px-4 pb-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="surface-panel p-8 md:p-10">
               <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">

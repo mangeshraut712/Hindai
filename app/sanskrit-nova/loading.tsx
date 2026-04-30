@@ -20,7 +20,7 @@ export default function SanskritNovaLoading() {
         </div>
       </header>
 
-      <main className="flex-1 px-4 py-12 sm:px-6 lg:px-8">
+      <main className="flex-1 px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl space-y-10">
           <div className="space-y-4">
             <Skeleton className="h-6 w-32 rounded-full" />
