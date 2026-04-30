@@ -88,44 +88,12 @@ export async function checkOpenRouterAvailability(): Promise<AIStatus> {
     };
   }
 
-  try {
-    const response = await fetch(OPENROUTER_URL, {
-      method: "POST",
-      headers: {
-        ...openRouterHeaders(apiKey),
-      },
-      body: JSON.stringify({
-        model,
-        messages: [
-          {
-            role: "user",
-            content: "Hello, this is a health check. Please respond with 'OK'.",
-          },
-        ],
-        max_tokens: 5,
-        temperature: 0.1,
-      }),
-    });
-
-    if (response.ok) {
-      const data = await readOpenRouterJson(response);
-      return {
-        available: true,
-        type: "openrouter",
-        model: data.model || model,
-        cacheBackend: "openrouter",
-      };
-    } else {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-  } catch (error) {
-    return {
-      available: false,
-      type: "openrouter",
-      model,
-      error: error instanceof Error ? error.message : "Unknown error",
-    };
-  }
+  return {
+    available: true,
+    type: "openrouter",
+    model,
+    cacheBackend: "openrouter",
+  };
 }
 
 /**
