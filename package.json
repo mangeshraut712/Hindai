@@ -76,6 +76,7 @@
     "serialize-javascript": "^7.0.5",
     "terser": "^5.39.0",
     "@tootallnate/once": "^3.0.1",
+    "ws": "^8.20.1",
     "next": {
       "postcss": "^8.5.10"
     }
