@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import VerseReader from "./VerseReader";
 import { VerseWithLayers } from "@/lib/database/schema";
 
@@ -24,11 +24,22 @@ export default function VerseMode({
   const [notes, setNotes] = useState("");
   const [showNotes, setShowNotes] = useState(false);
 
-  useEffect(() => {
-    loadVerse();
+  const loadUserProgress = useCallback(async () => {
+    try {
+      const response = await fetch(
+        `/api/user/progress?scripture_id=${scriptureId}&chapter=${currentChapter}&verse=${currentVerse}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setIsBookmarked(data.progress?.bookmarked || false);
+        setNotes(data.progress?.notes || "");
+      }
+    } catch {
+      console.error("Failed to load user progress");
+    }
   }, [currentChapter, currentVerse, scriptureId]);
 
-  const loadVerse = async () => {
+  const loadVerse = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -48,22 +59,11 @@ export default function VerseMode({
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentChapter, currentVerse, loadUserProgress, scriptureId]);
 
-  const loadUserProgress = async () => {
-    try {
-      const response = await fetch(
-        `/api/user/progress?scripture_id=${scriptureId}&chapter=${currentChapter}&verse=${currentVerse}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setIsBookmarked(data.progress?.bookmarked || false);
-        setNotes(data.progress?.notes || "");
-      }
-    } catch (err) {
-      console.error("Failed to load user progress");
-    }
-  };
+  useEffect(() => {
+    loadVerse();
+  }, [loadVerse]);
 
   const handleNext = () => {
     setCurrentVerse((prev) => prev + 1);
@@ -90,7 +90,7 @@ export default function VerseMode({
       if (response.ok) {
         setIsBookmarked(!isBookmarked);
       }
-    } catch (err) {
+    } catch {
       console.error("Failed to bookmark verse");
     }
   };
@@ -110,7 +110,7 @@ export default function VerseMode({
       if (response.ok) {
         setShowNotes(false);
       }
-    } catch (err) {
+    } catch {
       console.error("Failed to save notes");
     }
   };

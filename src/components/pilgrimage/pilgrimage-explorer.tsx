@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Sparkles, Calendar, ArrowRight, Filter } from "lucide-react";
+import { MapPin, Sparkles, Calendar, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { triggerHapticOnPress } from "@/lib/haptics";
 
 const jyotirlingas = [
@@ -197,7 +196,7 @@ export function PilgrimageExplorer() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       {/* Tab Navigation */}
-      <div className="mb-8 flex gap-3 sm:gap-4">
+      <div className="mb-8 flex gap-3 sm:gap-4" role="tablist" aria-label="Pilgrimage categories">
         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1">
           <Button
             variant={activeTab === "jyotirlingas" ? "premium" : "outline"}
@@ -206,7 +205,7 @@ export function PilgrimageExplorer() {
               setActiveTab("jyotirlingas");
             }}
             className="w-full gap-2 text-sm sm:text-base"
-            aria-pressed={activeTab === "jyotirlingas"}
+            aria-selected={activeTab === "jyotirlingas"}
             aria-controls="pilgrimage-content"
             role="tab"
           >
@@ -223,7 +222,7 @@ export function PilgrimageExplorer() {
               setActiveTab("shakti-peethas");
             }}
             className="w-full gap-2 text-sm sm:text-base"
-            aria-pressed={activeTab === "shakti-peethas"}
+            aria-selected={activeTab === "shakti-peethas"}
             aria-controls="pilgrimage-content"
             role="tab"
           >

@@ -52,7 +52,7 @@ export class VedicHeritagePortal {
           sampradaya: data.sampradaya,
         };
       }
-    } catch (error) {
+    } catch {
       console.warn("Vedic Heritage Portal API not available");
     }
 
@@ -92,7 +92,7 @@ export class VedicHeritagePortal {
           };
         }
       }
-    } catch (error) {
+    } catch {
       console.warn("Archive.org API not available");
     }
 
@@ -127,7 +127,7 @@ export class VedicHeritagePortal {
           reciter: data.reciter,
         };
       }
-    } catch (error) {
+    } catch {
       console.warn("Namami.org API not available");
     }
 
@@ -198,7 +198,7 @@ export class VedicHeritagePortal {
         const data = await response.json();
         return data.reciters || [];
       }
-    } catch (error) {
+    } catch {
       console.warn("Could not fetch reciters");
     }
 
@@ -226,7 +226,7 @@ export class VedicHeritagePortal {
         const data = await response.json();
         return data.sampradayas || commonSampradayas;
       }
-    } catch (error) {
+    } catch {
       console.warn("Could not fetch sampradayas");
     }
 
@@ -276,7 +276,7 @@ export class VedicHeritagePortal {
           sampradaya: data.sampradaya,
         };
       }
-    } catch (error) {
+    } catch {
       console.warn("Could not fetch audio with preferences");
     }
 

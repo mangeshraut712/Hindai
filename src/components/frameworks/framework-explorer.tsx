@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Target, Layers, Users, Heart, Shield, Eye, BookOpen, TreePine } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Target, Layers, Users, Heart, Shield, TreePine } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { triggerHapticOnPress } from "@/lib/haptics";
 
@@ -359,7 +358,7 @@ export function FrameworkExplorer() {
                         triggerHapticOnPress();
                         setSelectedFramework(framework);
                       }}
-                      role="listitem"
+                      role="button"
                       tabIndex={0}
                       aria-label={`${framework.name} (${framework.sanskrit}) - ${framework.description}`}
                       aria-pressed={selectedFramework?.id === framework.id}

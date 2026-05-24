@@ -23,9 +23,9 @@ export default function AudioPage() {
               <h1 className="section-title mt-6">Vedic Recitations with Accent Visualization</h1>
               <p className="section-copy mt-5">
                 Experience authentic Vedic chanting with visual accent markers. Listen to
-                traditional reciters from IIT Bombay's Vedic Accent Engine, Vedic Heritage Portal,
-                and Archive.org collections. Perfect your pronunciation with speed controls and
-                accent guides.
+                traditional reciters from IIT Bombay&apos;s Vedic Accent Engine, Vedic Heritage
+                Portal, and Archive.org collections. Perfect your pronunciation with speed controls
+                and accent guides.
               </p>
             </div>
           </div>

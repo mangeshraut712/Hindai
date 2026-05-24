@@ -123,7 +123,7 @@ export async function POST(req: NextRequest) {
                   if (content) {
                     controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content })}\n\n`));
                   }
-                } catch (e) {
+                } catch {
                   // Skip invalid JSON
                 }
               }

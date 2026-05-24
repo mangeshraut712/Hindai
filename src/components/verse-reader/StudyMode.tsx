@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { VerseWithLayers } from "@/lib/database/schema";
-import { FlashcardProgress } from "@/lib/database/schema";
 
 interface StudyModeProps {
   scriptureId: string;
@@ -22,12 +21,7 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
   const [quality, setQuality] = useState<number | null>(null);
   const [reviewed, setReviewed] = useState<Set<number>>(new Set());
 
-  useEffect(() => {
-    loadVerses();
-    loadStreak();
-  }, [scriptureId, chapter]);
-
-  const loadVerses = async () => {
+  const loadVerses = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -45,19 +39,24 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [chapter, scriptureId]);
 
-  const loadStreak = async () => {
+  const loadStreak = useCallback(async () => {
     try {
       const response = await fetch("/api/user/streak");
       if (response.ok) {
         const data = await response.json();
         setStreak(data.streak || 0);
       }
-    } catch (err) {
+    } catch {
       console.error("Failed to load streak");
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    loadVerses();
+    loadStreak();
+  }, [loadStreak, loadVerses]);
 
   const handleRate = async (rating: number) => {
     const currentVerse = verses[currentIndex];
@@ -95,7 +94,7 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
           setCurrentIndex((prev) => prev + 1);
         }
       }, 500);
-    } catch (err) {
+    } catch {
       console.error("Failed to save review");
     }
   };
@@ -351,7 +350,7 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
           <li>• Hide the translation first, try to recall the meaning</li>
           <li>• Use word-by-word to understand grammar</li>
           <li>• Rate honestly for optimal spaced repetition</li>
-          <li>• Review cards marked "Again" (0-2) more frequently</li>
+          <li>• Review cards marked &quot;Again&quot; (0-2) more frequently</li>
           <li>• Maintain your streak by studying daily</li>
         </ul>
       </div>

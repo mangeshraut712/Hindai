@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Play, Pause, SkipBack, SkipForward, Volume2, Settings, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -40,15 +40,7 @@ export function AudioExplorer() {
     ["rigveda", "samaveda", "yajurveda", "atharvaveda", "bhagavad-gita"].includes(item.slug)
   );
 
-  useEffect(() => {
-    loadVerse();
-  }, [selectedScripture, selectedChapter, selectedVerse]);
-
-  useEffect(() => {
-    loadAvailableReciters();
-  }, [selectedScripture]);
-
-  const loadAvailableReciters = async () => {
+  const loadAvailableReciters = useCallback(async () => {
     try {
       const reciters = await VedicAccentEngine.getReciters(
         selectedScripture as "rigveda" | "samaveda"
@@ -60,9 +52,9 @@ export function AudioExplorer() {
     } catch (error) {
       console.error("Failed to load reciters:", error);
     }
-  };
+  }, [selectedReciter, selectedScripture]);
 
-  const loadVerse = async () => {
+  const loadVerse = useCallback(async () => {
     setIsLoading(true);
     try {
       // For now, we'll use placeholder text. In a real implementation,
@@ -106,7 +98,15 @@ export function AudioExplorer() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [selectedChapter, selectedScripture, selectedVerse]);
+
+  useEffect(() => {
+    loadVerse();
+  }, [loadVerse]);
+
+  useEffect(() => {
+    loadAvailableReciters();
+  }, [loadAvailableReciters]);
 
   const togglePlayback = () => {
     const audioElement = document.getElementById("verse-audio") as HTMLAudioElement;

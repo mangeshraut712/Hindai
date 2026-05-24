@@ -136,7 +136,7 @@ export function QuizSystem() {
       } else {
         throw new Error(data.error || "Quiz generation failed");
       }
-    } catch (error) {
+    } catch {
       // Quiz generation error tracked
     } finally {
       setIsGenerating(false);

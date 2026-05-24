@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { VerseWithLayers } from "@/lib/database/schema";
 
 interface ListenModeProps {
@@ -18,9 +18,26 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
   const [error, setError] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  const loadChapter = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(`/api/scriptures/${scriptureId}/verses?chapter=${chapter}`);
+      if (!response.ok) {
+        throw new Error("Failed to load chapter");
+      }
+      const data = await response.json();
+      setVerses(data.verses || []);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to load chapter");
+    } finally {
+      setLoading(false);
+    }
+  }, [chapter, scriptureId]);
+
   useEffect(() => {
     loadChapter();
-  }, [scriptureId, chapter]);
+  }, [loadChapter]);
 
   useEffect(() => {
     // Auto-advance to next verse when current audio ends
@@ -71,23 +88,6 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
       return () => clearTimeout(timeout);
     }
   }, [sleepTimer]);
-
-  const loadChapter = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(`/api/scriptures/${scriptureId}/verses?chapter=${chapter}`);
-      if (!response.ok) {
-        throw new Error("Failed to load chapter");
-      }
-      const data = await response.json();
-      setVerses(data.verses || []);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load chapter");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const togglePlay = () => {
     setIsPlaying(!isPlaying);

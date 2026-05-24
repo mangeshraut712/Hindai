@@ -7,38 +7,29 @@ import { AppleHelloEffectHindi } from "@/components/apple-hello-effect-hindi";
 
 export function SiteBootSplash() {
   const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted || pathname !== "/") {
-      return;
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === "undefined" || pathname !== "/") {
+      return false;
     }
-
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
+      return false;
     }
-
     if (window.sessionStorage.getItem("hindai.bootSplash.seen") === "true") {
-      return;
+      return false;
     }
-
     window.sessionStorage.setItem("hindai.bootSplash.seen", "true");
-    setVisible(true);
+    return true;
+  });
+
+  useEffect(() => {
+    if (!visible) return;
+
     const fallbackTimer = window.setTimeout(() => {
       setVisible(false);
     }, 2400);
 
     return () => window.clearTimeout(fallbackTimer);
-  }, [mounted, pathname]);
-
-  if (!mounted) {
-    return null;
-  }
+  }, [visible]);
 
   const handleAnimationComplete = () => {
     window.setTimeout(() => setVisible(false), 380);

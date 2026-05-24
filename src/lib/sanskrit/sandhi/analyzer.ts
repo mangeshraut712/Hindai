@@ -29,7 +29,7 @@ export class SandhiAnalyzer {
    */
   private static splitCompound(text: string): string[] {
     const words: string[] = [];
-    let remaining = text;
+    const remaining = text;
 
     // Try to split at common sandhi junctions
     const junctions = this.findSandhiJunctions(remaining);

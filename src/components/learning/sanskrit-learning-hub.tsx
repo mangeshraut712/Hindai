@@ -246,7 +246,7 @@ export function SanskritLearningHub() {
                       triggerHapticOnPress();
                       setSelectedModule(module);
                     }}
-                    role="listitem"
+                    role="button"
                     tabIndex={0}
                     aria-label={`${module.name} - ${module.description}`}
                     aria-pressed={selectedModule?.id === module.id}
@@ -345,7 +345,7 @@ export function SanskritLearningHub() {
                 </div>
 
                 <div>
-                  <h3 className="mb-3 font-semibold">What You'll Learn</h3>
+                  <h3 className="mb-3 font-semibold">What You&apos;ll Learn</h3>
                   <div className="grid gap-2 md:grid-cols-2">
                     {selectedModule.features.map((feature, index) => (
                       <div key={index} className="flex items-center gap-2">

@@ -56,7 +56,7 @@ export class VidyutProcessor {
       if (response.ok) {
         return response.json();
       }
-    } catch (error) {
+    } catch {
       console.warn("Vidyut API not available, using fallback");
     }
 
@@ -78,7 +78,7 @@ export class VidyutProcessor {
       if (response.ok) {
         return response.json();
       }
-    } catch (error) {
+    } catch {
       console.warn("Vidyut API not available, using fallback");
     }
 

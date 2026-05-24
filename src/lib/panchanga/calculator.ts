@@ -155,9 +155,6 @@ export class PanchangaCalculator {
   private static calculateSunriseSunset(date: Date) {
     // Simplified sunrise/sunset calculation
     const month = date.getMonth();
-    const baseSunrise = "06:00";
-    const baseSunset = "18:00";
-
     // Adjust for season (simplified)
     const seasonalOffset = Math.sin(((month - 3) / 12) * Math.PI * 2) * 60; // minutes
     const sunriseHour = 6 + seasonalOffset / 60;

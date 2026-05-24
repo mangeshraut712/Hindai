@@ -1,7 +1,7 @@
 // Hindu Festivals Data
 // Major festivals with dates, puja vidhi, and significance
 
-import { Festival, FestivalType } from "./types";
+import { Festival } from "./types";
 
 export const FESTIVALS: Festival[] = [
   {

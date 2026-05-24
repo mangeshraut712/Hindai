@@ -84,7 +84,7 @@ export class VibhaktiAnalyzer {
   /**
    * Calculate confidence score for the analysis
    */
-  private static calculateConfidence(word: string, vibhakti: Vibhakti): number {
+  private static calculateConfidence(word: string, _vibhakti: Vibhakti): number {
     const wordLower = word.toLowerCase();
 
     // Check if ending matches known pattern

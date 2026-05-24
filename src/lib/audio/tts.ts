@@ -116,7 +116,7 @@ export class SanskritTTS {
       try {
         const result = await this.generateAudio(text, config);
         results.push(result);
-      } catch (error) {
+      } catch {
         console.error(`Failed to generate audio for text: ${text}`);
       }
     }
@@ -141,7 +141,11 @@ export class SanskritTTS {
   /**
    * Cache audio in Supabase Storage
    */
-  static async cacheAudio(verseId: string, audioData: string, config: TTSConfig): Promise<string> {
+  static async cacheAudio(
+    verseId: string,
+    _audioData: string,
+    _config: TTSConfig
+  ): Promise<string> {
     // In production, upload to Supabase Storage
     // For now, return a mock URL
     return `https://storage.example.com/audio/${verseId}.mp3`;
@@ -150,7 +154,7 @@ export class SanskritTTS {
   /**
    * Check if cached audio exists
    */
-  static async getCachedAudio(verseId: string): Promise<string | null> {
+  static async getCachedAudio(_verseId: string): Promise<string | null> {
     // In production, check Supabase Storage
     // For now, return null
     return null;

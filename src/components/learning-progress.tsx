@@ -23,7 +23,7 @@ export function LearningProgress() {
 
   useEffect(() => {
     // Simulate loading user progress
-    const savedStats = localStorage.getItem("hindai-learning-stats");
+    const savedStats = localStorage.getItem("hindai-learning-stats:v1");
     if (savedStats) {
       setStats(JSON.parse(savedStats));
     } else {
@@ -36,7 +36,7 @@ export function LearningProgress() {
         timeSpent: 120,
       };
       setStats(demoStats);
-      localStorage.setItem("hindai-learning-stats", JSON.stringify(demoStats));
+      localStorage.setItem("hindai-learning-stats:v1", JSON.stringify(demoStats));
     }
   }, []);
 
@@ -114,15 +114,15 @@ export function LearningProgress() {
           <div className="text-sm font-medium text-foreground">Recent Activity</div>
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <div className="h-2 w-2 rounded-full bg-green-500"></div>
+              <div className="size-2 rounded-full bg-green-500"></div>
               Completed Bhagavad Gita Chapter 2
             </div>
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <div className="h-2 w-2 rounded-full bg-blue-500"></div>
+              <div className="size-2 rounded-full bg-blue-500"></div>
               Started Yoga Sutras study
             </div>
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <div className="h-2 w-2 rounded-full bg-purple-500"></div>
+              <div className="size-2 rounded-full bg-purple-500"></div>
               7-day study streak achieved!
             </div>
           </div>

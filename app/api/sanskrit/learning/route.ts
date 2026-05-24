@@ -9,7 +9,6 @@ import {
 } from "@/lib/sanskrit/learning/flashcards";
 import { FEATURE_COVERAGE } from "@/lib/data/feature-coverage";
 import { SpacedRepetitionSystem } from "@/lib/sanskrit/learning/spaced-repetition";
-import { LearningProgress } from "@/lib/sanskrit/learning/types";
 
 export async function GET(request: NextRequest) {
   try {

@@ -308,7 +308,7 @@ export function getCacheBackend(): "upstash" | "memory" {
  * System prompt for scripture analysis - OPTIMIZED for Gemma 4
  * Leverages native thinking mode and system instructions for coherent reasoning
  */
-const SYSTEM_PROMPT = `You are "Hind AI", an expert digital scholar specializing in Ancient Indian Scriptures and Vedic wisdom.
+const _SYSTEM_PROMPT = `You are "Hind AI", an expert digital scholar specializing in Ancient Indian Scriptures and Vedic wisdom.
 
 Your expertise includes:
 - Vedic literature (Rigveda, Samaveda, Yajurveda, Atharvaveda)
@@ -349,7 +349,7 @@ Keep the answer under 220 words.
 Be direct, readable, and grounded.
 If the available notes are sparse, say so briefly instead of inventing citations.`;
 
-function parseGemmaJsonResponse(resultText: string): AIResponse {
+function _parseGemmaJsonResponse(resultText: string): AIResponse {
   const keyedObject = extractParsableObjectByKey(resultText, "explanation");
   if (keyedObject) {
     return coerceAIResponseObject(keyedObject);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Upload,
@@ -180,9 +181,12 @@ export function ScripturalAnalysis() {
 
                 {preview ? (
                   <div className="relative h-full w-full p-4">
-                    <img
+                    <Image
                       src={preview}
                       alt="Preview"
+                      width={640}
+                      height={420}
+                      unoptimized
                       className="h-full w-full rounded-lg object-contain"
                     />
                     <Button
@@ -317,8 +321,8 @@ export function ScripturalAnalysis() {
           <div className="mt-6 rounded-lg bg-muted/30 p-4">
             <p className="text-center text-xs text-muted-foreground">
               <ZoomIn className="mr-1 inline size-3" />
-              Powered by Gemma 4's multimodal capabilities • Upload sacred texts, yantras, deity
-              images, or temple architecture for detailed analysis
+              Powered by Gemma 4&apos;s multimodal capabilities • Upload sacred texts, yantras,
+              deity images, or temple architecture for detailed analysis
             </p>
           </div>
         </CardContent>

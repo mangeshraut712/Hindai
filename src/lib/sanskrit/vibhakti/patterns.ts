@@ -1,6 +1,6 @@
 // Vibhakti Patterns for Sanskrit Case Endings
 
-import { VibhaktiPattern, Vibhakti, Gender, Number } from "./types";
+import { VibhaktiPattern, Vibhakti } from "./types";
 
 export const VIBHAKTI_PATTERNS: VibhaktiPattern[] = [
   // Masculine - Singular

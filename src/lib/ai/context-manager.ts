@@ -1,9 +1,3 @@
-interface ConversationContext {
-  messages: Array<{ role: string; content: string }>;
-  maxTokens: number;
-  currentTokenCount: number;
-}
-
 export class ContextManager {
   private maxContextTokens: number;
   private estimatedTokensPerChar: number = 0.25; // Rough estimate: 4 chars ≈ 1 token
@@ -42,7 +36,7 @@ export class ContextManager {
       return [{ role: "system", content: systemPrompt }];
     }
 
-    let trimmedMessages: Array<{ role: string; content: string }> = [];
+    const trimmedMessages: Array<{ role: string; content: string }> = [];
     let currentTokens = 0;
 
     // Add system message first

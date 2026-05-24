@@ -64,8 +64,8 @@ export default function VisionPage() {
                 </h1>
                 <p className="section-copy mt-5">
                   Upload images of sacred texts, iconography, temple architecture, or ritual objects
-                  for intelligent analysis. Gemma 4's multimodal capabilities provide deep insights
-                  into Hindu visual heritage.
+                  for intelligent analysis. Gemma 4&apos;s multimodal capabilities provide deep
+                  insights into Hindu visual heritage.
                 </p>
               </motion.div>
 

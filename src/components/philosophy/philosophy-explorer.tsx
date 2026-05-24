@@ -139,7 +139,7 @@ export function PhilosophyExplorer() {
                         triggerHapticOnPress();
                         setSelectedSchool(school);
                       }}
-                      role="listitem"
+                      role="button"
                       tabIndex={0}
                       aria-label={`${school.name} (${school.sanskrit}) - ${school.description}`}
                       aria-pressed={selectedSchool?.id === school.id}

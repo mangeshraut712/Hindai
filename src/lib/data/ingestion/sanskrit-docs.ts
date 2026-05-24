@@ -1,7 +1,7 @@
 // Data Ingestion Pipeline for SanskritDocuments.org
 // Handles downloading and parsing Sanskrit texts from sanskritdocuments.org
 
-import { Scripture, Verse, Translation } from "@/lib/database/schema";
+import { Scripture, Verse } from "@/lib/database/schema";
 
 export interface SanskritDocument {
   id: string;
@@ -45,7 +45,7 @@ export class SanskritDocumentsIngestor {
     let currentChapter = 1;
     let currentVerse = 1;
 
-    lines.forEach((line, index) => {
+    lines.forEach((line) => {
       const trimmed = line.trim();
 
       // Detect chapter markers (common patterns)

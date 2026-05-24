@@ -3,7 +3,13 @@
 import { ThemeProvider } from "next-themes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
-import { SiteBootSplash } from "@/components/site-boot-splash";
+import dynamic from "next/dynamic";
+import { MotionConfig } from "framer-motion";
+
+const SiteBootSplash = dynamic(
+  () => import("@/components/site-boot-splash").then((m) => m.SiteBootSplash),
+  { ssr: false }
+);
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -21,8 +27,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-        <SiteBootSplash />
-        {children}
+        <MotionConfig reducedMotion="user">
+          <SiteBootSplash />
+          {children}
+        </MotionConfig>
       </ThemeProvider>
     </QueryClientProvider>
   );

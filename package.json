@@ -67,12 +67,10 @@
   },
   "overrides": {
     "tar": "^7.5.13",
-    "minimatch": "^10.2.3",
     "path-to-regexp": "^8.3.1",
     "smol-toml": "^1.6.1",
     "srvx": "^0.11.13",
     "undici": "^6.23.1",
-    "ajv": "^8.17.1",
     "uuid": "^14.0.0",
     "send": "^0.19.0",
     "serialize-javascript": "^7.0.5",

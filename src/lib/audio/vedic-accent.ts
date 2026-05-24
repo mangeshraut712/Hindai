@@ -45,7 +45,7 @@ export class VedicAccentEngine {
           audioUrl: data.audioUrl,
         };
       }
-    } catch (error) {
+    } catch {
       console.warn("IIT Bombay Vedic Accent API not available, using fallback");
     }
 
@@ -108,7 +108,7 @@ export class VedicAccentEngine {
    */
   private static fallbackAccentAnalysis(
     text: string,
-    veda: "rigveda" | "samaveda"
+    _veda: "rigveda" | "samaveda"
   ): VedicAccentResult {
     const syllables = this.splitIntoSyllables(text);
     const accents: VedicAccent[] = [];
@@ -257,7 +257,7 @@ export class VedicAccentEngine {
       try {
         const result = await this.analyzeAccents(verse.text, verse.veda);
         results.push(result);
-      } catch (error) {
+      } catch {
         console.error(`Failed to analyze verse: ${verse.text}`);
       }
     }

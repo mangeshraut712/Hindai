@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { VerseWithLayers } from "@/lib/database/schema";
 
 interface ChapterModeProps {
@@ -17,11 +17,37 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
   const [readingProgress, setReadingProgress] = useState(0);
   const [chapterSummary, setChapterSummary] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadChapter();
-  }, [scriptureId, chapter]);
+  const loadChapterSummary = useCallback(async () => {
+    try {
+      const response = await fetch(`/api/scriptures/${scriptureId}/summary?chapter=${chapter}`);
+      if (response.ok) {
+        const data = await response.json();
+        setChapterSummary(data.summary);
+      }
+    } catch {
+      console.error("Failed to load chapter summary");
+    }
+  }, [chapter, scriptureId]);
 
-  const loadChapter = async () => {
+  const loadReadingProgress = useCallback(
+    async (totalVerses: number) => {
+      try {
+        const response = await fetch(
+          `/api/user/progress?scripture_id=${scriptureId}&chapter=${chapter}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          const completed = data.progress?.filter((p: any) => p.completed).length || 0;
+          setReadingProgress(totalVerses > 0 ? (completed / totalVerses) * 100 : 0);
+        }
+      } catch {
+        console.error("Failed to load reading progress");
+      }
+    },
+    [chapter, scriptureId]
+  );
+
+  const loadChapter = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -30,47 +56,24 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
         throw new Error("Failed to load chapter");
       }
       const data = await response.json();
-      setVerses(data.verses || []);
+      const loadedVerses = data.verses || [];
+      setVerses(loadedVerses);
 
       // Load chapter summary
       await loadChapterSummary();
 
       // Load reading progress
-      await loadReadingProgress();
+      await loadReadingProgress(loadedVerses.length);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load chapter");
     } finally {
       setLoading(false);
     }
-  };
+  }, [chapter, loadChapterSummary, loadReadingProgress, scriptureId]);
 
-  const loadChapterSummary = async () => {
-    try {
-      const response = await fetch(`/api/scriptures/${scriptureId}/summary?chapter=${chapter}`);
-      if (response.ok) {
-        const data = await response.json();
-        setChapterSummary(data.summary);
-      }
-    } catch (err) {
-      console.error("Failed to load chapter summary");
-    }
-  };
-
-  const loadReadingProgress = async () => {
-    try {
-      const response = await fetch(
-        `/api/user/progress?scripture_id=${scriptureId}&chapter=${chapter}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        const completed = data.progress?.filter((p: any) => p.completed).length || 0;
-        const total = verses.length;
-        setReadingProgress(total > 0 ? (completed / total) * 100 : 0);
-      }
-    } catch (err) {
-      console.error("Failed to load reading progress");
-    }
-  };
+  useEffect(() => {
+    loadChapter();
+  }, [loadChapter]);
 
   const toggleVerse = (verseNum: number) => {
     setExpandedVerse(expandedVerse === verseNum ? null : verseNum);
@@ -88,8 +91,8 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
           completed: true,
         }),
       });
-      await loadReadingProgress();
-    } catch (err) {
+      await loadReadingProgress(verses.length);
+    } catch {
       console.error("Failed to mark verse as read");
     }
   };

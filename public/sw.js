@@ -4,7 +4,6 @@
  * Optimized for performance with aggressive caching
  */
 
-const CACHE_NAME = "hind-ai-v3";
 const STATIC_CACHE = "hind-ai-static-v3";
 const DYNAMIC_CACHE = "hind-ai-dynamic-v3";
 

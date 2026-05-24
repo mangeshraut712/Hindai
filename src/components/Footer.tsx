@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Sparkles } from "lucide-react";
+import { Github } from "lucide-react";
 
 const footerGroups = [
   {
@@ -24,6 +24,7 @@ const footerGroups = [
   {
     title: "Culture",
     links: [
+      { label: "Daily Sadhana", href: "/sadhana" },
       { label: "Philosophies", href: "/philosophies" },
       { label: "Frameworks", href: "/frameworks" },
       { label: "Stotras", href: "/stotras" },
@@ -65,8 +66,8 @@ export function Footer() {
             </h2>
           </div>
           <p className="max-w-xl text-sm leading-7 text-muted-foreground">
-            Hind AI brings scriptures, SanskritNova learning tools, reflection, and AI-guided
-            learning into one theme-aware reading experience shaped for modern seekers.
+            Hind AI brings scriptures, SanskritNova learning tools, daily sadhana, reflection, and
+            AI-guided learning into one theme-aware reading experience shaped for modern seekers.
           </p>
           <div className="flex items-center gap-3">
             <Link

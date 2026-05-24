@@ -164,7 +164,11 @@ export function SanskritToolsStudio() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       {/* Tool Selection */}
-      <div className="mb-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div
+        className="mb-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+        role="tablist"
+        aria-label="Sanskrit tools"
+      >
         {tools.map((tool, index) => (
           <motion.button
             key={tool.id}
@@ -180,7 +184,7 @@ export function SanskritToolsStudio() {
             whileTap={{ scale: 0.97 }}
             whileFocus={{ scale: 1.02, outline: "2px solid var(--primary)" }}
             aria-label={`Select ${tool.label} tool: ${tool.desc}`}
-            aria-pressed={activeTool === tool.id}
+            aria-selected={activeTool === tool.id}
             role="tab"
             tabIndex={0}
             className={cn(

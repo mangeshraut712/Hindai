@@ -26,8 +26,18 @@ try {
   process.exit(1);
 }
 
+// Check ESLint
+console.log("3️⃣ ESLint Checks:");
+try {
+  execSync("npx eslint .", { stdio: "inherit" });
+  console.log("✅ ESLint check passed\n");
+} catch (error) {
+  console.log("❌ ESLint check failed\n");
+  process.exit(1);
+}
+
 // Basic code quality checks
-console.log("3️⃣ Basic Code Quality Checks:");
+console.log("4️⃣ Basic Code Quality Checks:");
 
 const criticalFiles = [
   "app/page.tsx",
@@ -65,6 +75,7 @@ if (issuesFound.length > 0) {
   console.log("✅ No obvious code quality issues found\n");
 }
 
-console.log("🎉 Alternative code quality checks completed!");
-console.log("📝 Note: ESLint is temporarily disabled due to AJV schema compatibility issue");
-console.log("🔧 Code quality is maintained through TypeScript, Prettier, and manual checks");
+console.log("🎉 Code quality checks completed!");
+console.log(
+  "🔧 Code quality is maintained through TypeScript, ESLint, Prettier, and custom checks"
+);

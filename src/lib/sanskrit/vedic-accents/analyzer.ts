@@ -186,7 +186,7 @@ export class VedicAccentAnalyzer {
   /**
    * Calculate confidence score for the analysis
    */
-  private static calculateConfidence(word: string, accents: AccentPattern[]): number {
+  private static calculateConfidence(word: string, _accents: AccentPattern[]): number {
     const wordLower = word.toLowerCase();
 
     // High confidence if word is in known database

@@ -4,7 +4,7 @@
  * This module uses Google Gemma 4 via OpenRouter for AI inference.
  */
 
-export const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || "google/gemma-4-31b-it:free";
+export const OPENROUTER_MODEL = "google/gemma-4-31b-it:free";
 const OPENROUTER_BASE_URL = process.env.OPENROUTER_URL || "https://openrouter.ai/api/v1";
 export const OPENROUTER_URL = resolveOpenRouterChatUrl(OPENROUTER_BASE_URL);
 
@@ -110,7 +110,7 @@ export async function generateExplanation(
     mode?: string;
     audience?: string;
   },
-  userId?: string
+  _userId?: string
 ) {
   const apiKey = getOpenRouterApiKey();
   const model = OPENROUTER_MODEL;
@@ -167,7 +167,7 @@ export async function* generateExplanationStream(
     mode?: string;
     audience?: string;
   },
-  userId?: string
+  _userId?: string
 ) {
   const apiKey = getOpenRouterApiKey();
   const model = OPENROUTER_MODEL;

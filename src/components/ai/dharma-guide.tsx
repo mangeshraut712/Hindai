@@ -135,7 +135,7 @@ export function DharmaGuide() {
                     return updated;
                   });
                 }
-              } catch (e) {
+              } catch {
                 // Skip invalid JSON
               }
             }

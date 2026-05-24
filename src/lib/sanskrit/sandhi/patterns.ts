@@ -1,6 +1,6 @@
 // Sandhi Patterns for Sanskrit Phonological Combination
 
-import { SandhiPattern, SandhiType } from "./types";
+import { SandhiPattern } from "./types";
 
 export const SANDHI_PATTERNS: SandhiPattern[] = [
   // Vowel Sandhi (Svara Sandhi)

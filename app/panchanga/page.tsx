@@ -302,6 +302,7 @@ export default function PanchangaPage() {
                   </h2>
                 </div>
                 <Button variant="outline" asChild>
+                  {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                   <a href="/api/panchanga?upcoming=true&count=12">Open festival data</a>
                 </Button>
               </div>

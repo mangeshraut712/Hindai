@@ -1,13 +1,36 @@
 import type { Metadata, Viewport } from "next";
+import { Manrope, Cormorant_Garamond, Noto_Serif_Devanagari } from "next/font/google";
 // import { Analytics } from "@vercel/analytics/react";
 // import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "./providers";
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import { LanguageProvider } from "@/lib/i18n/context";
 // import { PageProgress } from "@/components/page-progress";
 // import { ErrorBoundary } from "@/components/error-boundary";
 // import { PageTransition } from "@/components/page-transition";
 // import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
 import "@/index.css";
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+  weight: ["400", "500", "600"],
+  display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-cormorant",
+  weight: ["400", "600"],
+  display: "swap",
+});
+
+const devanagari = Noto_Serif_Devanagari({
+  subsets: ["devanagari"],
+  variable: "--font-devanagari",
+  weight: ["400", "700"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hindai.dev"),
@@ -109,20 +132,17 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" dir="ltr" className="relative scroll-smooth" suppressHydrationWarning>
+    <html
+      lang="en"
+      dir="ltr"
+      className={`${manrope.variable} ${cormorant.variable} ${devanagari.variable} relative scroll-smooth`}
+      suppressHydrationWarning
+    >
       <head>
-        {/* Google Fonts — preconnect for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Cormorant+Garamond:wght@400;600&family=Noto+Serif+Devanagari:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
-
         {/* Resource hints */}
         <link rel="dns-prefetch" href="https://hindai.dev" />
 
-        {/* Inline critical CSS — font variables + FOUC prevention */}
+        {/* Inline critical CSS — FOUC prevention */}
         <style
           suppressHydrationWarning
           dangerouslySetInnerHTML={{
@@ -130,11 +150,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               * { box-sizing: border-box; }
               html { scroll-behavior: smooth; }
               body { margin: 0; padding: 0; }
-              :root {
-                --font-manrope: 'Manrope', system-ui, -apple-system, sans-serif;
-                --font-cormorant: 'Cormorant Garamond', Georgia, serif;
-                --font-devanagari: 'Noto Serif Devanagari', serif;
-              }
             `,
           }}
         />
@@ -143,6 +158,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         suppressHydrationWarning
         className="relative min-h-screen bg-background font-sans antialiased"
       >
+        <GoogleAnalytics />
         <LanguageProvider>
           <Providers>{children}</Providers>
         </LanguageProvider>

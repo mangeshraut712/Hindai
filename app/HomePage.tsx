@@ -1,14 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Bot, Languages, Library, ScanSearch } from "lucide-react";
+import { ArrowRight, Bot, Languages, Library, ScanSearch, TimerReset } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { CANONICAL_COUNTS } from "@/lib/data/canonical-counts";
-import { featuredScriptures, scriptureSections } from "@/lib/scripture-catalog";
+import { featuredScriptures } from "@/lib/scripture-catalog";
 
 const studyModes = [
+  {
+    icon: TimerReset,
+    title: "Daily sadhana",
+    body: "Use a digital japa mala for mantra counting, sankalpa goals, and private session history.",
+    features: ["108 count", "Local history", "Sankalpa goals", "Practice loop"],
+    href: "/sadhana",
+  },
   {
     icon: Library,
     title: "Read by shelf",
@@ -192,12 +199,16 @@ export default function HomePage() {
 
                   <div className="mt-10 space-y-3">
                     {sampleQuestions.map((question) => (
-                      <div
+                      <Link
                         key={question}
-                        className="text-foreground/84 rounded-[24px] border border-border/60 bg-background/75 px-4 py-3 text-sm shadow-[0_20px_45px_-36px_rgba(15,23,42,0.4)]"
+                        href={`/ai-guide?q=${encodeURIComponent(question)}`}
+                        className="text-foreground/84 group block cursor-pointer rounded-[24px] border border-border/60 bg-background/75 px-4 py-3 text-sm shadow-[0_20px_45px_-36px_rgba(15,23,42,0.4)] transition-all duration-300 hover:translate-x-1 hover:border-primary/50 hover:bg-primary/5"
                       >
-                        {question}
-                      </div>
+                        <span className="flex items-center justify-between gap-2">
+                          <span>{question}</span>
+                          <ArrowRight className="size-4 shrink-0 -translate-x-2 text-primary opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+                        </span>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -221,7 +232,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="px-4 py-16 sm:px-6 lg:px-8">
+        <section className="reveal-on-scroll px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
               <span className="eyebrow">How the interface works • इंटरफ़ेस</span>
@@ -232,8 +243,8 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
-              {studyModes.map((mode, index) => (
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+              {studyModes.map((mode) => (
                 <div
                   key={mode.title}
                   className="surface-panel group p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
@@ -265,7 +276,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="px-4 pb-20 sm:px-6 lg:px-8">
+        <section className="reveal-on-scroll px-4 pb-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div className="max-w-3xl">
@@ -283,7 +294,7 @@ export default function HomePage() {
 
             <div className="surface-panel mt-12">
               <div className="relative z-10">
-                {featuredScriptures.map((scripture, index) => (
+                {featuredScriptures.map((scripture) => (
                   <div key={scripture.slug}>
                     <Link href={scripture.href} className="scripture-row group">
                       <div>
@@ -314,7 +325,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="px-4 pb-20 sm:px-6 lg:px-8">
+        <section className="reveal-on-scroll px-4 pb-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="surface-panel p-8 md:p-10">
               <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -340,7 +351,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="px-4 pb-20 sm:px-6 lg:px-8">
+        <section className="reveal-on-scroll px-4 pb-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
               <span className="eyebrow">Sanskrit and calendar tools • विशेषताएं</span>
@@ -422,7 +433,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="px-4 pb-20 sm:px-6 lg:px-8">
+        <section className="reveal-on-scroll px-4 pb-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
               <span className="eyebrow">Featured Verses • श्लोक संग्रह</span>
@@ -433,11 +444,11 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {featuredVerses.map((verse, index) => (
+            <div className="scrollbar-thin mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6 md:grid md:grid-cols-3 md:overflow-x-visible md:pb-0">
+              {featuredVerses.map((verse) => (
                 <div
                   key={verse.source}
-                  className="surface-panel group p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="surface-panel group min-w-[85vw] shrink-0 snap-center p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl md:min-w-0 md:shrink"
                 >
                   <div className="relative z-10 space-y-4">
                     <p className="font-devanagari text-lg leading-relaxed text-primary transition-transform duration-300 group-hover:scale-105">
@@ -455,7 +466,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="px-4 pb-24 sm:px-6 lg:px-8">
+        <section className="reveal-on-scroll px-4 pb-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="max-w-3xl">
               <span className="eyebrow">Your Learning Journey • आपकी यात्रा</span>

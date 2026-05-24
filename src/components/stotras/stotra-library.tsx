@@ -192,7 +192,7 @@ export function StotraLibrary() {
                         triggerHapticOnPress();
                         setSelectedStotra(stotra);
                       }}
-                      role="listitem"
+                      role="button"
                       tabIndex={0}
                       aria-label={`${stotra.name} (${stotra.sanskrit}) - ${stotra.deity}`}
                       aria-pressed={selectedStotra?.id === stotra.id}

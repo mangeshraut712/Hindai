@@ -17,6 +17,7 @@ import {
   Search,
   Sparkles,
   Sun,
+  TimerReset,
   Trophy,
   Users,
 } from "lucide-react";
@@ -53,6 +54,7 @@ const learningItems = [
 ];
 
 const cultureItems = [
+  { label: "Sadhana", script: "साधना", href: "/sadhana", icon: TimerReset },
   { label: "Philosophies", script: "दर्शन", href: "/philosophies", icon: BookOpen },
   { label: "Frameworks", script: "संरचना", href: "/frameworks", icon: BookOpen },
   { label: "Stotras", script: "स्तोत्र", href: "/stotras", icon: BookOpen },
@@ -108,7 +110,7 @@ export function Header() {
     setIsOpen(false);
   };
 
-  const handleVoiceSearch = (transcript: string) => {
+  const handleVoiceSearch = () => {
     setIsSearchOpen(true);
   };
 
@@ -428,7 +430,7 @@ export function Header() {
                     डिजिटल गुरुकुल
                   </span>
                   <div className="mt-3 flex w-fit items-center gap-1.5 rounded-full border border-border/60 bg-background/70 px-1.5 py-1">
-                    {SUPPORTED_LANGUAGES.map((lang, i) => (
+                    {SUPPORTED_LANGUAGES.map((lang) => (
                       <button
                         key={lang}
                         onClick={() => setLanguage(lang)}

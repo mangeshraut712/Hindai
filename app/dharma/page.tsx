@@ -66,8 +66,8 @@ export default function DharmaPage() {
                 <h1 className="section-title mt-6">Your personal guide to living dharmically.</h1>
                 <p className="section-copy mt-5">
                   Receive personalized spiritual guidance for daily practices, rituals, meditation,
-                  and living a life aligned with Dharma. Powered by Gemma 4's advanced reasoning
-                  capabilities.
+                  and living a life aligned with Dharma. Powered by Gemma 4&apos;s advanced
+                  reasoning capabilities.
                 </p>
               </motion.div>
 
