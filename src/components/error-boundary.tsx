@@ -89,7 +89,7 @@ export class ErrorBoundary extends Component<Props, State> {
           <div className="mx-4 w-full max-w-md">
             <div className="rounded-lg bg-white p-6 text-center shadow-lg dark:bg-gray-900">
               <div className="mb-4 flex justify-center">
-                <AlertTriangle className="h-16 w-16 text-red-500" />
+                <AlertTriangle className="size-16 text-red-500" />
               </div>
 
               <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
@@ -106,12 +106,12 @@ export class ErrorBoundary extends Component<Props, State> {
                   onClick={this.handleRetry}
                   className="w-full bg-orange-600 hover:bg-orange-700"
                 >
-                  <RefreshCw className="mr-2 h-4 w-4" />
+                  <RefreshCw className="mr-2 size-4" />
                   Try Again
                 </Button>
 
                 <Button onClick={this.handleGoHome} variant="outline" className="w-full">
-                  <Home className="mr-2 h-4 w-4" />
+                  <Home className="mr-2 size-4" />
                   Go Home
                 </Button>
               </div>

@@ -5,10 +5,10 @@ import { useEffect } from "react";
 export function ServiceWorkerRegistration() {
   useEffect(() => {
     if (typeof window === "undefined" || !("serviceWorker" in navigator)) {
-      return () => {};
+      return;
     }
 
-    const handleLoad = () => {
+    const registerSW = () => {
       navigator.serviceWorker
         .register("/sw.js")
         .then((registration) => {
@@ -19,9 +19,18 @@ export function ServiceWorkerRegistration() {
         });
     };
 
-    window.addEventListener("load", handleLoad);
+    let hasListener = false;
+    if (document.readyState === "complete") {
+      registerSW();
+    } else {
+      window.addEventListener("load", registerSW);
+      hasListener = true;
+    }
+
     return () => {
-      window.removeEventListener("load", handleLoad);
+      if (hasListener) {
+        window.removeEventListener("load", registerSW);
+      }
     };
   }, []);
 

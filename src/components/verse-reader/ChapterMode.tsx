@@ -156,6 +156,7 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
         <div className="mb-4 flex border-b">
           {["sanskrit", "translation", "commentary"].map((tab) => (
             <button
+              type="button"
               key={tab}
               onClick={() => setActiveTab(tab as any)}
               className={`px-4 py-2 font-medium transition ${
@@ -191,6 +192,7 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
                 </div>
                 <div className="flex items-center gap-2">
                   <button
+                    type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       markAsRead(verse.verse_num);
@@ -270,6 +272,7 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
       <div className="mt-6 flex justify-between">
         {chapter > 1 && (
           <button
+            type="button"
             onClick={() =>
               (window.location.href = `/scriptures/${scriptureId}/chapter/${chapter - 1}`)
             }
@@ -279,6 +282,7 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
           </button>
         )}
         <button
+          type="button"
           onClick={() =>
             (window.location.href = `/scriptures/${scriptureId}/chapter/${chapter + 1}`)
           }

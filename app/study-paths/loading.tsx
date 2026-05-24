@@ -16,7 +16,7 @@ export default function StudyPathsLoading() {
           <Skeleton className="size-11 rounded-full" />
           <div className="flex items-center gap-3">
             <Skeleton className="hidden h-9 w-24 rounded-full lg:block" />
-            <Skeleton className="h-9 w-9 rounded-full" />
+            <Skeleton className="size-9 rounded-full" />
           </div>
         </div>
       </header>

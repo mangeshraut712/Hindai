@@ -114,14 +114,14 @@ export function VerseGenerator({
           <div className="mb-3 flex items-center gap-2">
             {isMock ? (
               <>
-                <AlertCircle className="h-4 w-4 text-amber-500" />
+                <AlertCircle className="size-4 text-amber-500" />
                 <span className="text-xs font-medium text-amber-600">
                   Demo Mode - AI Not Configured
                 </span>
               </>
             ) : (
               <>
-                <CheckCircle className="h-4 w-4 text-emerald-500" />
+                <CheckCircle className="size-4 text-emerald-500" />
                 <span className="text-xs font-medium text-emerald-600">
                   {source === "local-index"
                     ? "Retrieved from scripture index"
@@ -237,12 +237,12 @@ export function VerseGenerator({
       <Button type="submit" disabled={isGenerating} variant="premium" className="w-full gap-2">
         {isGenerating ? (
           <>
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <Loader2 className="size-4 animate-spin" />
             Generating with Gemma 4...
           </>
         ) : (
           <>
-            <Sparkles className="h-4 w-4" />
+            <Sparkles className="size-4" />
             Generate Verse/Scripture
           </>
         )}
@@ -251,7 +251,7 @@ export function VerseGenerator({
       {error && (
         <div className="surface-panel border-l-4 border-l-red-500 p-3">
           <div className="flex items-start gap-2">
-            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-500" />
+            <AlertCircle className="mt-0.5 size-4 shrink-0 text-red-500" />
             <div>
               <p className="text-sm font-medium text-red-600">Generation Failed</p>
               <p className="text-xs text-muted-foreground">{error}</p>

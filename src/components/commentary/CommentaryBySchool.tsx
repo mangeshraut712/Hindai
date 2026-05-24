@@ -126,7 +126,7 @@ export default function CommentaryBySchool({ commentaries, verseText }: Commenta
             type="checkbox"
             checked={compareMode}
             onChange={(e) => setCompareMode(e.target.checked)}
-            className="h-5 w-5"
+            className="size-5"
           />
           <span className="font-medium">Compare all schools</span>
         </label>
@@ -137,6 +137,7 @@ export default function CommentaryBySchool({ commentaries, verseText }: Commenta
         <div className="flex flex-wrap gap-2 border-b">
           {availableSchools.map((school) => (
             <button
+              type="button"
               key={school}
               onClick={() => setSelectedSchool(school)}
               className={`px-4 py-2 font-medium transition ${

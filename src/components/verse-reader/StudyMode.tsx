@@ -184,12 +184,14 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
       {/* View options */}
       <div className="mb-4 flex gap-2">
         <button
+          type="button"
           onClick={toggleSanskrit}
           className={`rounded px-3 py-1 ${showSanskrit ? "bg-blue-600 text-white" : "bg-gray-200"}`}
         >
           Sanskrit
         </button>
         <button
+          type="button"
           onClick={toggleTranslation}
           className={`rounded px-3 py-1 ${
             showTranslation ? "bg-blue-600 text-white" : "bg-gray-200"
@@ -198,6 +200,7 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
           Translation
         </button>
         <button
+          type="button"
           onClick={toggleWordByWord}
           className={`rounded px-3 py-1 ${
             showWordByWord ? "bg-blue-600 text-white" : "bg-gray-200"
@@ -206,6 +209,7 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
           Word-by-word
         </button>
         <button
+          type="button"
           onClick={shuffleVerses}
           className="rounded bg-purple-100 px-3 py-1 text-purple-800 hover:bg-purple-200"
         >
@@ -270,6 +274,7 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
               <div className="flex gap-2">
                 {[0, 1, 2, 3, 4, 5].map((rating) => (
                   <button
+                    type="button"
                     key={rating}
                     onClick={() => handleRate(rating)}
                     className={`rounded px-4 py-2 transition ${
@@ -306,6 +311,7 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
       {/* Navigation */}
       <div className="mb-6 flex items-center justify-between">
         <button
+          type="button"
           onClick={() => goToVerse(Math.max(0, currentIndex - 1))}
           disabled={currentIndex === 0}
           className="rounded bg-gray-200 px-4 py-2 transition hover:bg-gray-300 disabled:opacity-50"
@@ -313,6 +319,7 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
           ← Previous
         </button>
         <button
+          type="button"
           onClick={() => goToVerse(Math.min(verses.length - 1, currentIndex + 1))}
           disabled={currentIndex === verses.length - 1}
           className="rounded bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700 disabled:opacity-50"
@@ -327,6 +334,7 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
         <div className="sm:grid-cols-20 grid grid-cols-10 gap-1">
           {verses.map((verse, index) => (
             <button
+              type="button"
               key={verse.id}
               onClick={() => goToVerse(index)}
               className={`rounded p-2 text-xs transition ${

@@ -284,6 +284,7 @@ export function QuizSystem() {
           <div className="space-y-2 px-6 py-5 md:px-8">
             {question.options.map((option, index) => (
               <button
+                type="button"
                 key={index}
                 className={cn(
                   "flex w-full items-center gap-3 rounded-2xl border px-4 py-3.5 text-left text-sm transition-all",

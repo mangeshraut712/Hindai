@@ -171,8 +171,8 @@ export function MeditationTimer({ className }: MeditationTimerProps) {
           </div>
 
           {/* Progress Circle */}
-          <div className="relative mx-auto h-36 w-36">
-            <svg className="h-full w-full -rotate-90 transform" viewBox="0 0 100 100">
+          <div className="relative mx-auto size-36">
+            <svg className="size-full -rotate-90 transform" viewBox="0 0 100 100">
               <circle
                 cx="50"
                 cy="50"
@@ -230,17 +230,17 @@ export function MeditationTimer({ className }: MeditationTimerProps) {
         <div className="flex justify-center gap-2">
           {!isActive ? (
             <Button onClick={handleStart} variant="premium" size="lg" className="gap-2">
-              <Play className="h-4 w-4" />
+              <Play className="size-4" />
               Begin
             </Button>
           ) : (
             <>
               <Button onClick={handlePause} variant="outline" size="lg" className="gap-2">
-                <Pause className="h-4 w-4" />
+                <Pause className="size-4" />
                 {isPaused ? "Resume" : "Pause"}
               </Button>
               <Button onClick={handleReset} variant="outline" size="lg" className="gap-2">
-                <RotateCcw className="h-4 w-4" />
+                <RotateCcw className="size-4" />
                 Reset
               </Button>
             </>
@@ -254,9 +254,9 @@ export function MeditationTimer({ className }: MeditationTimerProps) {
             aria-label={soundEnabled ? "Disable bell sound" : "Enable bell sound"}
           >
             {soundEnabled ? (
-              <Volume2 className="h-4 w-4 text-primary" />
+              <Volume2 className="size-4 text-primary" />
             ) : (
-              <VolumeX className="h-4 w-4 text-muted-foreground" />
+              <VolumeX className="size-4 text-muted-foreground" />
             )}
           </Button>
         </div>

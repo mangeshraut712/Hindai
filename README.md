@@ -73,6 +73,17 @@ npm run dev
 
 ---
 
+## 🆕 What's New in Version 3.2.0 (May 2026)
+
+### 🧘‍♂️ Daily Sadhana Hub & Devotional Tech
+
+- **Digital Japa Mala & Counter**: Fully interactive 108-bead digital Japa counter with custom target selectors (27, 54, 108) and local storage session history tracking.
+- **📅 Astro-Panchanga Recommendations**: Computes dynamic astrological guidelines based on current Vara (weekday) and Tithi (lunar day) with direct counter preset injection.
+- **🤖 Gemma 4 Sadhana Routine Generator**: Real-time streaming assistant powered by `google/gemma-4-31b-it:free` that generates and customizes daily spiritual plans.
+- **🔔 Upcoming Vrats & Festivals**: Visual reminders with expanding Puja Vidhi details, spiritual significance, and browser Notification API integration.
+- **🛡️ Full Security Overhaul**: Overrode and patched critical/moderate dependency security issues (`ws` memory disclosure vulnerability and `brace-expansion` DoS vector) achieving **0 security audit warnings**.
+- **✅ React Review Quality Fixes**: Addressed the service worker lifecycle registration leak and cleaned up code quality flags.
+
 ## 🆕 What's New in Version 3.1.0 (April 2026)
 
 ### 🎨 Frontend Polish & Commit Readiness

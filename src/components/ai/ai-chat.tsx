@@ -339,7 +339,7 @@ export function AIChat({
       <CardHeader className="border-b border-border/60 bg-background/55 px-6 py-5 backdrop-blur-xl">
         <CardTitle className="flex items-center gap-3 text-lg">
           <div className="flex size-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-            <Sparkles className="h-5 w-5" />
+            <Sparkles className="size-5" />
           </div>
           <div className="flex flex-col">
             <span>AI Scripture Guide</span>
@@ -549,9 +549,9 @@ export function AIChat({
                   )}
                 >
                   {message.role === "user" ? (
-                    <User className="h-4 w-4" />
+                    <User className="size-4" />
                   ) : (
-                    <Bot className="h-4 w-4" />
+                    <Bot className="size-4" />
                   )}
                 </div>
 
@@ -617,7 +617,7 @@ export function AIChat({
                       <ul className="mt-1 space-y-0.5">
                         {message.citations.map((cite, i) => (
                           <li key={i} className="flex items-center gap-1">
-                            <BookOpen className="h-3 w-3" />
+                            <BookOpen className="size-3" />
                             {cite}
                           </li>
                         ))}
@@ -630,7 +630,7 @@ export function AIChat({
 
             {isLoading && (
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Loader2 className="h-4 w-4 animate-spin" />
+                <Loader2 className="size-4 animate-spin" />
                 {mode === "translate" ? "Gemma 4 is translating..." : "Gemma 4 is thinking..."}
               </div>
             )}
@@ -696,16 +696,16 @@ export function AIChat({
             className={cn(mode === "translate" ? "px-5" : "")}
           >
             {isLoading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
+              <Loader2 className="size-4 animate-spin" />
             ) : (
               <>
                 {mode === "translate" ? (
                   <>
-                    <Languages className="h-4 w-4" />
+                    <Languages className="size-4" />
                     Translate
                   </>
                 ) : (
-                  <Send className="h-4 w-4" />
+                  <Send className="size-4" />
                 )}
               </>
             )}

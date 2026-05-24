@@ -160,6 +160,7 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
         {/* Playback controls */}
         <div className="mt-4 flex items-center justify-between">
           <button
+            type="button"
             onClick={togglePlay}
             className="flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-white transition hover:bg-blue-700"
           >
@@ -170,6 +171,7 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
             <span className="text-sm text-gray-600">Speed:</span>
             {[0.5, 0.75, 1, 1.25, 1.5].map((speed) => (
               <button
+                type="button"
                 key={speed}
                 onClick={() => handleSpeedChange(speed)}
                 className={`rounded px-3 py-1 ${
@@ -197,7 +199,11 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
               <option value="60">1 hour</option>
             </select>
             {sleepTimer && (
-              <button onClick={clearSleepTimer} className="text-sm text-red-600 hover:text-red-800">
+              <button
+                type="button"
+                onClick={clearSleepTimer}
+                className="text-sm text-red-600 hover:text-red-800"
+              >
                 ✕
               </button>
             )}
@@ -250,6 +256,7 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
         <div className="grid grid-cols-5 gap-2 sm:grid-cols-10">
           {verses.map((verse, index) => (
             <button
+              type="button"
               key={verse.id}
               onClick={() => goToVerse(index)}
               className={`rounded p-2 text-center transition ${
@@ -269,6 +276,7 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
       {/* Navigation */}
       <div className="flex justify-between">
         <button
+          type="button"
           onClick={() => goToVerse(Math.max(0, currentVerseIndex - 1))}
           disabled={currentVerseIndex === 0}
           className="rounded bg-gray-200 px-4 py-2 transition hover:bg-gray-300 disabled:opacity-50"
@@ -276,6 +284,7 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
           ← Previous
         </button>
         <button
+          type="button"
           onClick={() => goToVerse(Math.min(verses.length - 1, currentVerseIndex + 1))}
           disabled={currentVerseIndex === verses.length - 1}
           className="rounded bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700 disabled:opacity-50"
@@ -291,7 +300,7 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
             type="checkbox"
             checked={isPlaying}
             onChange={(e) => setIsPlaying(e.target.checked)}
-            className="h-5 w-5"
+            className="size-5"
           />
           <span className="font-medium">Auto-play verses</span>
         </label>

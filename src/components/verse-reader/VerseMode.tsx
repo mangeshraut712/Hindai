@@ -160,12 +160,14 @@ export default function VerseMode({
         </h1>
         <div className="mt-2 flex gap-2">
           <button
+            type="button"
             onClick={() => setShowNotes(!showNotes)}
             className="rounded bg-gray-100 px-3 py-1 text-sm transition hover:bg-gray-200"
           >
             📝 {showNotes ? "Hide Notes" : "Show Notes"}
           </button>
           <button
+            type="button"
             onClick={handleBookmark}
             className={`rounded px-3 py-1 text-sm transition ${
               isBookmarked ? "bg-yellow-100 text-yellow-800" : "bg-gray-100 hover:bg-gray-200"
@@ -187,6 +189,7 @@ export default function VerseMode({
           />
           <div className="mt-2 flex justify-end">
             <button
+              type="button"
               onClick={handleSaveNotes}
               className="rounded bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
             >
@@ -204,18 +207,21 @@ export default function VerseMode({
         <h3 className="mb-2 font-bold">Quick Navigation</h3>
         <div className="flex flex-wrap gap-2">
           <button
+            type="button"
             onClick={() => jumpToVerse(currentChapter, 1)}
             className="rounded border bg-white px-3 py-1 transition hover:bg-gray-100"
           >
             Verse 1
           </button>
           <button
+            type="button"
             onClick={() => jumpToVerse(currentChapter, Math.max(1, currentVerse - 10))}
             className="rounded border bg-white px-3 py-1 transition hover:bg-gray-100"
           >
             -10
           </button>
           <button
+            type="button"
             onClick={() => jumpToVerse(currentChapter, currentVerse + 10)}
             className="rounded border bg-white px-3 py-1 transition hover:bg-gray-100"
           >
@@ -240,6 +246,7 @@ export default function VerseMode({
         <div className="flex flex-wrap gap-2">
           {currentChapter > 1 && (
             <button
+              type="button"
               onClick={() => jumpToVerse(currentChapter - 1, 1)}
               className="rounded border bg-white px-3 py-1 transition hover:bg-gray-100"
             >
@@ -247,6 +254,7 @@ export default function VerseMode({
             </button>
           )}
           <button
+            type="button"
             onClick={() => jumpToVerse(currentChapter + 1, 1)}
             className="rounded border bg-white px-3 py-1 transition hover:bg-gray-100"
           >

@@ -46,7 +46,7 @@ export default function AudioLoading() {
             {[1, 2, 3].map((i) => (
               <motion.div
                 key={i}
-                className="h-2 w-2 rounded-full bg-primary"
+                className="size-2 rounded-full bg-primary"
                 animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.2, ease: "easeInOut" }}
               />

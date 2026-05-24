@@ -52,8 +52,8 @@ export default function DharmaPage() {
       <main className="flex-1">
         <section className="hero-mesh relative overflow-hidden border-b border-border/60">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
-          <div className="hero-sun -left-20 top-10 h-56 w-56 opacity-80" aria-hidden="true" />
-          <div className="hero-sun right-0 top-20 h-72 w-72 opacity-60" aria-hidden="true" />
+          <div className="hero-sun -left-20 top-10 size-56 opacity-80" aria-hidden="true" />
+          <div className="hero-sun right-0 top-20 size-72 opacity-60" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
               <motion.div

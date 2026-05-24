@@ -369,7 +369,7 @@ export function AudioExplorer() {
             <Card>
               <CardContent className="py-8">
                 <div className="text-center">
-                  <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
+                  <div className="mx-auto mb-4 size-8 animate-spin rounded-full border-b-2 border-primary"></div>
                   <p>Loading audio and accent analysis...</p>
                 </div>
               </CardContent>

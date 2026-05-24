@@ -27,7 +27,7 @@ export default function AIGuideLoading() {
             <Skeleton className="hidden h-9 w-24 rounded-full lg:block" />
             <Skeleton className="hidden h-9 w-24 rounded-full lg:block" />
             <Skeleton className="hidden h-9 w-28 rounded-full sm:block" />
-            <Skeleton className="h-9 w-9 rounded-full" />
+            <Skeleton className="size-9 rounded-full" />
           </div>
         </div>
       </header>

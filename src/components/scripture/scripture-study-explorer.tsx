@@ -264,6 +264,7 @@ export function ScriptureStudyExplorer({
               <div className="mt-8 flex flex-wrap gap-1.5">
                 {chapterVerses.map((verse) => (
                   <button
+                    type="button"
                     key={verse.id}
                     onClick={() => setSelectedVerseId(verse.id)}
                     className={`inline-flex size-9 items-center justify-center rounded-xl text-sm font-medium transition-all ${

@@ -23,8 +23,8 @@ export default function Loading() {
             <ShimmerBlock className="hidden h-9 w-24 rounded-full lg:block" />
             <ShimmerBlock className="hidden h-9 w-24 rounded-full lg:block" />
             <ShimmerBlock className="hidden h-9 w-28 rounded-full sm:block" />
-            <ShimmerBlock className="h-9 w-9 rounded-full" />
-            <ShimmerBlock className="h-9 w-9 rounded-full" />
+            <ShimmerBlock className="size-9 rounded-full" />
+            <ShimmerBlock className="size-9 rounded-full" />
           </div>
         </div>
       </header>

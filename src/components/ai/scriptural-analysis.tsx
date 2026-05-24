@@ -180,14 +180,14 @@ export function ScripturalAnalysis() {
                 />
 
                 {preview ? (
-                  <div className="relative h-full w-full p-4">
+                  <div className="relative size-full p-4">
                     <Image
                       src={preview}
                       alt="Preview"
                       width={640}
                       height={420}
                       unoptimized
-                      className="h-full w-full rounded-lg object-contain"
+                      className="size-full rounded-lg object-contain"
                     />
                     <Button
                       variant="destructive"
@@ -260,6 +260,7 @@ export function ScripturalAnalysis() {
                     <div className="flex flex-wrap gap-2">
                       {SAMPLE_QUERIES.map((sampleQuery) => (
                         <button
+                          type="button"
                           key={sampleQuery}
                           onClick={() => handleSampleQuery(sampleQuery)}
                           className="rounded-full border border-border/60 bg-background/50 px-3 py-1.5 text-xs text-foreground transition-all hover:border-primary/50 hover:bg-primary/10"

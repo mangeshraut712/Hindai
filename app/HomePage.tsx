@@ -383,15 +383,15 @@ export default function HomePage() {
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
-                      <div className="h-2 w-2 rounded-full bg-green-500 transition-transform duration-300 group-hover:scale-125"></div>
+                      <div className="size-2 rounded-full bg-green-500 transition-transform duration-300 group-hover:scale-125"></div>
                       Real-time AI responses
                     </div>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
-                      <div className="h-2 w-2 rounded-full bg-green-500 transition-transform duration-300 group-hover:scale-125"></div>
+                      <div className="size-2 rounded-full bg-green-500 transition-transform duration-300 group-hover:scale-125"></div>
                       Multilingual support
                     </div>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
-                      <div className="h-2 w-2 rounded-full bg-green-500 transition-transform duration-300 group-hover:scale-125"></div>
+                      <div className="size-2 rounded-full bg-green-500 transition-transform duration-300 group-hover:scale-125"></div>
                       Contextual understanding
                     </div>
                   </div>
@@ -415,15 +415,15 @@ export default function HomePage() {
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
-                      <div className="h-2 w-2 rounded-full bg-blue-500 transition-transform duration-300 group-hover:scale-125"></div>
+                      <div className="size-2 rounded-full bg-blue-500 transition-transform duration-300 group-hover:scale-125"></div>
                       Sanskrit (Devanagari)
                     </div>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
-                      <div className="h-2 w-2 rounded-full bg-blue-500 transition-transform duration-300 group-hover:scale-125"></div>
+                      <div className="size-2 rounded-full bg-blue-500 transition-transform duration-300 group-hover:scale-125"></div>
                       Hindi translations
                     </div>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
-                      <div className="h-2 w-2 rounded-full bg-blue-500 transition-transform duration-300 group-hover:scale-125"></div>
+                      <div className="size-2 rounded-full bg-blue-500 transition-transform duration-300 group-hover:scale-125"></div>
                       English explanations
                     </div>
                   </div>

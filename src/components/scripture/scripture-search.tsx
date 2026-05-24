@@ -117,6 +117,7 @@ export function ScriptureSearch() {
             <h3 className="mb-2 text-lg font-medium">No scriptures found</h3>
             <p className="mb-4 text-muted-foreground">Try different search terms</p>
             <button
+              type="button"
               onClick={() => setQuery("")}
               className="rounded-md border border-border bg-background px-4 py-2 text-sm hover:bg-accent"
             >

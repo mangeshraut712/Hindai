@@ -140,6 +140,7 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
       <div className="mb-6 flex border-b border-border/60">
         {tabs.map((tab) => (
           <button
+            type="button"
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-3 font-medium transition-colors ${

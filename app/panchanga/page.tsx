@@ -65,7 +65,7 @@ export default function PanchangaPage() {
         <Header />
         <main className="flex flex-1 items-center justify-center">
           <div className="text-center">
-            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
+            <div className="inline-block size-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
             <p className="mt-4 text-muted-foreground">{error ?? "Calculating Panchanga..."}</p>
           </div>
         </main>

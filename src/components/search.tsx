@@ -146,7 +146,7 @@ export function SearchDialog({
         <DialogHeader className="border-b border-border/60 px-5 py-4">
           <DialogTitle className="flex items-center gap-2.5 text-base font-semibold">
             <div className="flex size-8 items-center justify-center rounded-full bg-primary/10">
-              <SearchIcon className="h-4 w-4 text-primary" />
+              <SearchIcon className="size-4 text-primary" />
             </div>
             Search Scriptures
           </DialogTitle>
@@ -156,7 +156,7 @@ export function SearchDialog({
         </DialogHeader>
         <div className="p-5">
           <div className="relative">
-            <SearchIcon className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <SearchIcon className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Search by name, description, Sanskrit, or category..."
               value={query}
@@ -168,13 +168,13 @@ export function SearchDialog({
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute right-2 top-1/2 h-7 w-7 -translate-y-1/2 rounded-full hover:bg-muted"
+                className="absolute right-2 top-1/2 size-7 -translate-y-1/2 rounded-full hover:bg-muted"
                 onClick={() => {
                   setQuery("");
                   setResults([]);
                 }}
               >
-                <X className="h-4 w-4" />
+                <X className="size-4" />
               </Button>
             ) : null}
           </div>
@@ -183,7 +183,7 @@ export function SearchDialog({
             {isLoading ? (
               <div className="flex items-center justify-center py-10">
                 <div className="flex flex-col items-center gap-3">
-                  <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                  <Loader2 className="size-6 animate-spin text-primary" />
                   <p className="text-xs text-muted-foreground">Searching scriptures...</p>
                 </div>
               </div>
@@ -197,7 +197,7 @@ export function SearchDialog({
                       className="group flex cursor-pointer items-start gap-3 rounded-2xl px-3 py-3 transition-colors hover:bg-secondary/50"
                     >
                       <div className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        <BookOpen className="h-4 w-4" />
+                        <BookOpen className="size-4" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="font-medium text-foreground">{result.title}</p>
@@ -237,6 +237,7 @@ export function SearchDialog({
                 <div className="mt-5 flex flex-wrap justify-center gap-2">
                   {["Rigveda", "Bhagavad Gita", "Upanishads", "Karma"].map((suggestion) => (
                     <button
+                      type="button"
                       key={suggestion}
                       onClick={() => handleSearch(suggestion)}
                       className="rounded-full border border-border/60 bg-background/75 px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-secondary/50 hover:text-foreground"

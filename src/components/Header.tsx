@@ -432,6 +432,7 @@ export function Header() {
                   <div className="mt-3 flex w-fit items-center gap-1.5 rounded-full border border-border/60 bg-background/70 px-1.5 py-1">
                     {SUPPORTED_LANGUAGES.map((lang) => (
                       <button
+                        type="button"
                         key={lang}
                         onClick={() => setLanguage(lang)}
                         className={`rounded-full px-2.5 py-1 text-[10px] font-semibold transition-colors ${
