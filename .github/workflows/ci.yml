@@ -32,6 +32,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
@@ -50,6 +52,11 @@ jobs:
 
       - name: Type check
         run: npm run type-check
+
+      - name: React Doctor Quality Audit
+        run: |
+          npx react-doctor install --yes
+          npx react-doctor@latest --verbose --diff
 
   # ==========================================
   # Unit & Integration Tests

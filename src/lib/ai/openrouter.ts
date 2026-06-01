@@ -4,7 +4,14 @@
  * This module uses Google Gemma 4 via OpenRouter for AI inference.
  */
 
-export const OPENROUTER_MODEL = "google/gemma-4-31b-it:free";
+import { buildHindAISystemPrompt, HINDAI_GEMMA_MODEL } from "@/lib/ai/gemma-capabilities";
+
+function resolveOpenRouterModel() {
+  const configured = (process.env.OPENROUTER_MODEL || "").trim();
+  return configured.startsWith("google/gemma") ? configured : HINDAI_GEMMA_MODEL;
+}
+
+export const OPENROUTER_MODEL = resolveOpenRouterModel();
 const OPENROUTER_BASE_URL = process.env.OPENROUTER_URL || "https://openrouter.ai/api/v1";
 export const OPENROUTER_URL = resolveOpenRouterChatUrl(OPENROUTER_BASE_URL);
 
@@ -26,6 +33,11 @@ type OpenRouterResponse = {
   error?: {
     message?: string;
   };
+};
+
+type OpenRouterMessage = {
+  role: "system" | "user" | "assistant";
+  content: string;
 };
 
 function resolveOpenRouterChatUrl(url: string): string {
@@ -70,6 +82,82 @@ function unavailableExplanation(reason: string): string {
     `Reason: ${reason}`,
     "Check OPENROUTER_API_KEY, OPENROUTER_URL, and OPENROUTER_MODEL before retrying live AI generation.",
   ].join(" ");
+}
+
+function buildStudyMessages(params: {
+  query: string;
+  scriptureId?: string;
+  compareScriptureIds?: string[];
+  chapter?: number;
+  verse?: number;
+  language?: string;
+  mode?: string;
+  audience?: string;
+}): OpenRouterMessage[] {
+  const contextLines = [
+    params.scriptureId ? `Current scripture: ${params.scriptureId}` : null,
+    params.chapter ? `Chapter: ${params.chapter}` : null,
+    params.verse ? `Verse: ${params.verse}` : null,
+    params.compareScriptureIds?.length
+      ? `Compare with: ${params.compareScriptureIds.join(", ")}`
+      : null,
+  ].filter(Boolean);
+
+  return [
+    {
+      role: "system",
+      content: buildHindAISystemPrompt({
+        mode: params.mode,
+        audience: params.audience,
+        language: params.language,
+      }),
+    },
+    {
+      role: "user",
+      content: [
+        contextLines.length ? `Study context:\n${contextLines.join("\n")}` : null,
+        "User request:",
+        params.query,
+      ]
+        .filter(Boolean)
+        .join("\n\n"),
+    },
+  ];
+}
+
+function extractStreamText(buffer: string): { text: string; rest: string; done: boolean } {
+  const events = buffer.split("\n\n");
+  const rest = events.pop() ?? "";
+  let text = "";
+  let done = false;
+
+  for (const event of events) {
+    const lines = event.split("\n");
+    for (const line of lines) {
+      if (!line.startsWith("data: ")) continue;
+
+      const data = line.slice(6).trim();
+      if (!data) continue;
+      if (data === "[DONE]") {
+        done = true;
+        continue;
+      }
+
+      try {
+        const parsed = JSON.parse(data) as {
+          choices?: Array<{
+            delta?: { content?: string };
+            message?: { content?: string };
+          }>;
+        };
+        text += parsed.choices?.[0]?.delta?.content ?? parsed.choices?.[0]?.message?.content ?? "";
+      } catch {
+        text += data;
+      }
+    }
+  }
+
+  return { text, rest, done };
 }
 
 /**
@@ -127,14 +215,9 @@ export async function generateExplanation(
       },
       body: JSON.stringify({
         model,
-        messages: [
-          {
-            role: "user",
-            content: params.query,
-          },
-        ],
-        max_tokens: 1000,
-        temperature: 0.7,
+        messages: buildStudyMessages(params),
+        max_tokens: 1600,
+        temperature: 0.55,
       }),
     });
 
@@ -185,14 +268,9 @@ export async function* generateExplanationStream(
       },
       body: JSON.stringify({
         model,
-        messages: [
-          {
-            role: "user",
-            content: params.query,
-          },
-        ],
-        max_tokens: 1000,
-        temperature: 0.7,
+        messages: buildStudyMessages(params),
+        max_tokens: 1600,
+        temperature: 0.55,
         stream: true,
       }),
     });
@@ -206,11 +284,28 @@ export async function* generateExplanationStream(
 
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
+    let buffer = "";
 
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
-      yield decoder.decode(value);
+      buffer += decoder.decode(value, { stream: true });
+      const parsed = extractStreamText(buffer);
+      buffer = parsed.rest;
+      if (parsed.text) {
+        yield parsed.text;
+      }
+      if (parsed.done) {
+        return;
+      }
+    }
+
+    buffer += decoder.decode();
+    if (buffer.trim()) {
+      const parsed = extractStreamText(`${buffer}\n\n`);
+      if (parsed.text) {
+        yield parsed.text;
+      }
     }
   } catch (error) {
     yield unavailableExplanation(error instanceof Error ? error.message : "Unknown error");

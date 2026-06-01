@@ -84,13 +84,15 @@ function readJson<T>(key: string, fallback: T): T {
   }
 }
 
+const indianDateTimeFormat = new Intl.DateTimeFormat("en-IN", {
+  day: "numeric",
+  month: "short",
+  hour: "numeric",
+  minute: "2-digit",
+});
+
 function formatDate(value: string) {
-  return new Intl.DateTimeFormat("en-IN", {
-    day: "numeric",
-    month: "short",
-    hour: "numeric",
-    minute: "2-digit",
-  }).format(new Date(value));
+  return indianDateTimeFormat.format(new Date(value));
 }
 
 export function MantraCounter() {
@@ -235,7 +237,7 @@ export function MantraCounter() {
   };
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
+    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]" data-hydrated={hydrated}>
       <Card className="overflow-hidden">
         <CardHeader className="border-b border-border/60">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">

@@ -21,7 +21,8 @@ test.describe("Sadhana page", () => {
   });
 
   test("counts chants, changes goals, and saves a session", async ({ page }) => {
-    // Wait for page hydration by checking default goal
+    // Wait for page hydration
+    await expect(page.locator('[data-hydrated="true"]')).toBeVisible();
     await expect(page.getByText("of 108")).toBeVisible();
 
     await page.getByRole("button", { name: /^54$/ }).click();

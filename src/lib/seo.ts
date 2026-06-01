@@ -16,7 +16,7 @@ export const organizationStructuredData: StructuredData = {
     "World's most authoritative digital platform for Vedic and Hindu scriptures powered by Gemma 4 AI",
   url: "https://hindai.dev",
   logo: "https://hindai.dev/og_home.png",
-  sameAs: ["https://github.com/mangeshraut712/Hindai", "https://twitter.com/hindai_dev"],
+  sameAs: ["https://twitter.com/hindai_dev"],
   founder: {
     "@type": "Person",
     name: "Hind AI Team",
