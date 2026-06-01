@@ -55,7 +55,7 @@ jobs:
 
       - name: React Doctor Quality Audit
         run: |
-          npx react-doctor install --yes
+          npx react-doctor install --yes || true
           npx react-doctor@latest --verbose --diff
 
   # ==========================================

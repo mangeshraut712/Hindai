@@ -24,7 +24,7 @@
     "security": "npm audit --audit-level moderate",
     "cleanup": "rm -rf .next node_modules/.cache && npm cache clean --force && npm prune",
     "doctor": "npx react-doctor@latest",
-    "postinstall": "npx react-doctor install --yes"
+    "postinstall": "npx react-doctor install --yes || true"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",
