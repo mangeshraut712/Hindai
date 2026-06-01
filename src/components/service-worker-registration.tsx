@@ -5,7 +5,7 @@ import { useEffect } from "react";
 export function ServiceWorkerRegistration() {
   useEffect(() => {
     if (typeof window === "undefined" || !("serviceWorker" in navigator)) {
-      return;
+      return () => {};
     }
 
     const registerSW = () => {
