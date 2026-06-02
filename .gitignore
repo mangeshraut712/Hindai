@@ -89,3 +89,8 @@ bin/
 test-results/
 playwright-report/
 playwright/.cache/
+
+# AI Agents
+.agents/
+.agent/
+.claude/
