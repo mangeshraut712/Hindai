@@ -2,7 +2,10 @@ import { defineConfig, devices } from "@playwright/test";
 
 const chromiumProject = {
   name: "chromium",
-  use: { ...devices["Desktop Chrome"] },
+  use: {
+    ...devices["Desktop Chrome"],
+    ...(process.env.PLAYWRIGHT_CHROMIUM_CHANNEL === "chrome" ? { channel: "chrome" as const } : {}),
+  },
 };
 
 const playwrightPort =

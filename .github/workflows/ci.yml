@@ -140,6 +140,8 @@ jobs:
     permissions:
       contents: read
     continue-on-error: true
+    env:
+      PLAYWRIGHT_CHROMIUM_CHANNEL: chrome
 
     steps:
       - name: Checkout repository
@@ -155,9 +157,9 @@ jobs:
         timeout-minutes: 10
         run: npm ci --legacy-peer-deps
 
-      - name: Install Playwright Chromium
-        timeout-minutes: 10
-        run: npx playwright install chromium
+      - name: Verify system Chrome
+        timeout-minutes: 2
+        run: google-chrome --version
 
       - name: Run E2E tests
         timeout-minutes: 15
