@@ -1,0 +1,39 @@
+# CODEOWNERS - Default reviewers for Hind AI
+# Each line is a file pattern followed by one or more owners.
+# These owners will be requested for review whenever a PR touches the matching path.
+
+# Default owners for everything in the repo
+*                           @mangeshraut712
+
+# Frontend (App Router pages, components, styles)
+app/                        @mangeshraut712
+src/components/             @mangeshraut712
+src/index.css               @mangeshraut712
+tailwind.config.ts          @mangeshraut712
+
+# Backend / API / server logic
+app/api/                    @mangeshraut712
+src/lib/                    @mangeshraut712
+src/integrations/           @mangeshraut712
+
+# AI & Sanskrit-specific logic
+src/lib/ai/                 @mangeshraut712
+src/lib/sanskrit/           @mangeshraut712
+src/lib/data/               @mangeshraut712
+src/lib/panchanga/          @mangeshraut712
+
+# Configuration & infrastructure
+next.config.js              @mangeshraut712
+vercel.json                 @mangeshraut712
+.github/                    @mangeshraut712
+docker/                     @mangeshraut712
+
+# Tests & quality
+e2e/                        @mangeshraut712
+scripts/                    @mangeshraut712
+
+# Documentation
+README.md                   @mangeshraut712
+CONTRIBUTING.md             @mangeshraut712
+SECURITY.md                 @mangeshraut712
+LICENSE                     @mangeshraut712

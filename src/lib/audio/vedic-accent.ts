@@ -191,11 +191,39 @@ export class VedicAccentEngine {
   }
 
   /**
-   * Display text with color-coded accents
+   * Escape user-controlled text before injecting it into HTML markup.
+   *
+   * Prevents XSS when the output is later rendered with
+   * `dangerouslySetInnerHTML`. Always call this helper (or an equivalent
+   * sanitizer) before injecting any user-controlled text into the DOM via
+   * raw HTML.
+   *
+   * Uses numeric character references so the output is identical across
+   * environments regardless of how the source file is encoded or processed
+   * by tooling.
+   */
+  private static escapeHtml(input: string): string {
+    // Order matters: escape & first so we don't double-encode entities
+    // produced by later replacements.
+    return input
+      .replace(/&/g, "&#38;")
+      .replace(/</g, "&#60;")
+      .replace(/>/g, "&#62;")
+      .replace(/"/g, "&#34;")
+      .replace(/'/g, "&#39;");
+  }
+
+  /**
+   * Display text with color-coded accents.
+   *
+   * SECURITY: The input is HTML-escaped before accent marks are wrapped in
+   * styled spans, so the output is safe to render with `dangerouslySetInnerHTML`.
+   * Always call this helper (or an equivalent sanitizer) before injecting any
+   * user-controlled text into the DOM via raw HTML.
    */
   static getColoredText(markedText: string): string {
-    // Replace accent marks with colored spans
-    return markedText
+    const safe = VedicAccentEngine.escapeHtml(markedText);
+    return safe
       .replace(/´/g, '<span class="text-red-600">´</span>')
       .replace(/`/g, '<span class="text-green-600">`</span>')
       .replace(/\^/g, '<span class="text-blue-600">^</span>');

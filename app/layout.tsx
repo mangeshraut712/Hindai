@@ -1,14 +1,15 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope, Cormorant_Garamond, Noto_Serif_Devanagari } from "next/font/google";
-// import { Analytics } from "@vercel/analytics/react";
-// import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Suspense } from "react";
 import { Providers } from "./providers";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import { LanguageProvider } from "@/lib/i18n/context";
-// import { PageProgress } from "@/components/page-progress";
-// import { ErrorBoundary } from "@/components/error-boundary";
-// import { PageTransition } from "@/components/page-transition";
-// import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
+import { PageProgress } from "@/components/page-progress";
+import { ErrorBoundary } from "@/components/error-boundary";
+import { PageTransition } from "@/components/page-transition";
+import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
 import "@/index.css";
 
 const manrope = Manrope({
@@ -143,25 +144,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="dns-prefetch" href="https://hindai.dev" />
 
         {/* Inline critical CSS — FOUC prevention */}
-        <style
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{
-            __html: `
-              * { box-sizing: border-box; }
-              html { scroll-behavior: smooth; }
-              body { margin: 0; padding: 0; }
-            `,
-          }}
-        />
+        <style suppressHydrationWarning>
+          {`
+            * { box-sizing: border-box; }
+            html { scroll-behavior: smooth; }
+            body { margin: 0; padding: 0; }
+          `}
+        </style>
       </head>
       <body
         suppressHydrationWarning
         className="relative min-h-screen bg-background font-sans antialiased"
       >
         <GoogleAnalytics />
+        <Suspense fallback={null}>
+          <PageProgress />
+        </Suspense>
+        <ServiceWorkerRegistration />
         <LanguageProvider>
-          <Providers>{children}</Providers>
+          <Providers>
+            <ErrorBoundary>
+              <PageTransition>{children}</PageTransition>
+            </ErrorBoundary>
+          </Providers>
         </LanguageProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

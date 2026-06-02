@@ -73,6 +73,26 @@ npm run dev
 
 ---
 
+## 🆕 What's New in Version 3.3.0 (June 2026)
+
+### 🛡️ Security, Quality, and CI Hardening
+
+- **🔒 XSS fix in Vedic accent renderer** — `VedicAccentEngine.getColoredText()` now HTML-escapes its input before injecting it into the DOM via `dangerouslySetInnerHTML`. Previously a user-controlled Sanskrit string could carry `<script>` or `<img onerror=…>` payloads straight into the page.
+- **🐛 Hydration fix in `SiteBootSplash`** — Refactored the splash-screen visibility check to read `window.sessionStorage` inside a `useEffect` (client-only) instead of the `useState` initializer. This eliminates a guaranteed hydration warning and the flash-of-incorrect-content on first visit.
+- **✅ Build now enforces quality** — Flipped `ignoreBuildErrors: true → false` and `ignoreDuringBuilds: true → false` in `next.config.js`. `tsc --noEmit`, `eslint`, and `prettier --check` are now blocking on CI.
+- **🟢 Re-enabled dead features in `app/layout.tsx`** — Wired back in `<Analytics />`, `<SpeedInsights />`, `<PageProgress />` (wrapped in `<Suspense>`), `<ErrorBoundary>`, `<PageTransition />`, and `<ServiceWorkerRegistration />`. They were commented out and not running in production.
+- **🧰 CI pinned to Node 20 LTS** — `.github/workflows/ci.yml` was using the unreleased `NODE_VERSION: "24"`. Aligned it to `"20"` so it matches `.nvmrc` and Vercel's production runtime.
+- **📁 Project hygiene** — Added `.nvmrc` (Node 20), `CONTRIBUTING.md` (full contributor guide), and `.github/CODEOWNERS` (auto-assigned reviewers).
+
+### ✅ Quality Status
+
+| Check                                   | Result                       |
+| --------------------------------------- | ---------------------------- |
+| `npx tsc --noEmit`                      | 0 errors                     |
+| `npm run lint` (TS + Prettier + ESLint) | All pass                     |
+| `npx next build`                        | 66 routes generated in ~13s  |
+| `git status`                            | Only intended changes staged |
+
 ## 🆕 What's New in Version 3.2.0 (May 2026)
 
 ### 🧘‍♂️ Daily Sadhana Hub & Devotional Tech

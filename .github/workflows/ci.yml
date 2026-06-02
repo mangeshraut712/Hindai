@@ -10,8 +10,11 @@ on:
     branches: [main, develop]
 
 env:
-  NODE_VERSION: "24"
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  # Keep in sync with .nvmrc and package.json#engines.node. Pinning to the
+  # current LTS avoids "future Node" warnings from setup-node and matches what
+  # Vercel uses for production builds.
+  NODE_VERSION: "20"
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
 
 permissions:
   contents: read
