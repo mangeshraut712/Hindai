@@ -28,12 +28,12 @@ export default function NotFound() {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="relative z-10 max-w-2xl text-center"
       >
-        <span className="eyebrow mx-auto">404 — Path not found</span>
+        <span className="eyebrow mx-auto">404 - Path not found</span>
 
         <div className="mt-8 space-y-4">
           <p className="font-devanagari text-4xl text-primary sm:text-5xl">नासदासीन्नो सदासीत्</p>
           <p className="text-sm italic text-muted-foreground">
-            &ldquo;Then even nothingness was not, nor existence.&rdquo; — Nasadiya Sukta, Rigveda
+            &ldquo;Then even nothingness was not, nor existence.&rdquo; (Nasadiya Sukta, Rigveda
             10.129
           </p>
         </div>

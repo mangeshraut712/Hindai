@@ -38,7 +38,7 @@ export default function FrameworksLoading() {
               animate={{ opacity: [0.3, 0.7, 0.3] }}
               transition={{ duration: 2, repeat: Infinity, delay: 0.5, ease: "easeInOut" }}
             >
-              Exploring core concepts...
+              Exploring core concepts…
             </motion.p>
           </div>
 

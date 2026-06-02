@@ -38,7 +38,7 @@ export default function AudioLoading() {
               animate={{ opacity: [0.3, 0.7, 0.3] }}
               transition={{ duration: 2, repeat: Infinity, delay: 0.5, ease: "easeInOut" }}
             >
-              Preparing sacred recitations...
+              Preparing sacred recitations…
             </motion.p>
           </div>
 

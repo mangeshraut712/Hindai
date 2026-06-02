@@ -19,17 +19,17 @@ export function VoiceSearch({
 }: VoiceSearchProps) {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const [isSupported, setIsSupported] = useState(false);
+  const [isSupported] = useState(() => {
+    return (
+      typeof window !== "undefined" &&
+      ("webkitSpeechRecognition" in window || "SpeechRecognition" in window)
+    );
+  });
   const recognitionRef = useRef<any>(null);
 
   useEffect(() => {
     // Check if speech recognition is supported
-    if (
-      typeof window !== "undefined" &&
-      ("webkitSpeechRecognition" in window || "SpeechRecognition" in window)
-    ) {
-      setIsSupported(true);
-
+    if (isSupported) {
       // Initialize speech recognition
       const recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
 
@@ -79,7 +79,7 @@ export function VoiceSearch({
         recognitionRef.current.stop();
       }
     };
-  }, [onResult]);
+  }, [onResult, isSupported]);
 
   const toggleListening = () => {
     if (!recognitionRef.current) return;

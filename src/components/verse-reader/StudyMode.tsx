@@ -21,25 +21,18 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
   const [quality, setQuality] = useState<number | null>(null);
   const [reviewed, setReviewed] = useState<Set<number>>(new Set());
 
-  const loadVerses = useCallback(async () => {
+  const [prevProps, setPrevProps] = useState({ scriptureId, chapter });
+
+  if (scriptureId !== prevProps.scriptureId || chapter !== prevProps.chapter) {
+    setPrevProps({ scriptureId, chapter });
     setLoading(true);
     setError(null);
-    try {
-      const url = chapter
-        ? `/api/scriptures/${scriptureId}/verses?chapter=${chapter}`
-        : `/api/scriptures/${scriptureId}/verses`;
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Failed to load verses");
-      }
-      const data = await response.json();
-      setVerses(data.verses || []);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load verses");
-    } finally {
-      setLoading(false);
-    }
-  }, [chapter, scriptureId]);
+    setVerses([]);
+    setCurrentIndex(0);
+    setReviewed(new Set());
+    setSessionProgress(0);
+    setQuality(null);
+  }
 
   const loadStreak = useCallback(async () => {
     try {
@@ -54,9 +47,40 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
   }, []);
 
   useEffect(() => {
-    loadVerses();
     loadStreak();
-  }, [loadStreak, loadVerses]);
+  }, [loadStreak]);
+
+  useEffect(() => {
+    let active = true;
+
+    (async () => {
+      try {
+        const url = chapter
+          ? `/api/scriptures/${scriptureId}/verses?chapter=${chapter}`
+          : `/api/scriptures/${scriptureId}/verses`;
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Failed to load verses");
+        }
+        const data = await response.json();
+        if (active) {
+          setVerses(data.verses || []);
+        }
+      } catch (err) {
+        if (active) {
+          setError(err instanceof Error ? err.message : "Failed to load verses");
+        }
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [scriptureId, chapter]);
 
   const handleRate = async (rating: number) => {
     const currentVerse = verses[currentIndex];

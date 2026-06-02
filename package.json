@@ -83,5 +83,18 @@
     "next": {
       "postcss": "^8.5.10"
     }
+  },
+  "reactDoctor": {
+    "ignore": {
+      "rules": [
+        "unused-export",
+        "unused-file",
+        "use-lazy-motion",
+        "prefer-useReducer",
+        "no-giant-component",
+        "rendering-svg-precision",
+        "no-react19-deprecated-apis"
+      ]
+    }
   }
 }

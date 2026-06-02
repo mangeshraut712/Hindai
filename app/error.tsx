@@ -34,7 +34,7 @@ export default function Error({
         <div className="mt-8 space-y-6">
           <p className="font-devanagari text-4xl text-primary sm:text-5xl">अहं ब्रह्मास्मि</p>
           <p className="text-sm italic text-muted-foreground">
-            &ldquo;I am Brahman&rdquo; — Brihadaranyaka Upanishad 1.4.10
+            &ldquo;I am Brahman&rdquo; (Brihadaranyaka Upanishad 1.4.10)
           </p>
         </div>
 
@@ -77,7 +77,7 @@ export default function Error({
                 &ldquo;You have a right to perform your prescribed duty, but you are not entitled to
                 the fruits of action.&rdquo;
               </blockquote>
-              <p className="mt-2 text-xs text-muted-foreground">— Bhagavad Gita 2.47</p>
+              <p className="mt-2 text-xs text-muted-foreground">- Bhagavad Gita 2.47</p>
             </div>
           </div>
         </div>

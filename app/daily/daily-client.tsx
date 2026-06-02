@@ -191,7 +191,7 @@ export default function DailyWisdomClient() {
                 <h1 className="section-title mt-6">Begin each day with timeless wisdom.</h1>
                 <p className="section-copy mt-5">
                   A new Sanskrit verse, its meaning, and a meditation prompt drawn from the Vedas,
-                  Upanishads, and Bhagavad Gita — every day.
+                  Upanishads, and Bhagavad Gita - every day.
                 </p>
                 <p className="mt-4 text-sm leading-7 text-muted-foreground">
                   {new Date().toLocaleDateString("en-IN", {
@@ -319,7 +319,7 @@ export default function DailyWisdomClient() {
                       transition={{ delay: 0.5 }}
                       className="text-sm font-semibold tracking-[0.08em] text-primary"
                     >
-                      — {currentWisdom.source}
+                      - {currentWisdom.source}
                     </motion.p>
                   </div>
                 </div>

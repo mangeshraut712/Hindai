@@ -219,7 +219,7 @@ export function QuizSystem() {
           </div>
           <p className="mt-5 text-base text-muted-foreground">{message}</p>
           <p className="mt-2 text-sm text-muted-foreground">
-            You scored {Math.round(percentage)}% — {score} correct out of {quizQuestions.length}{" "}
+            You scored {Math.round(percentage)}% - {score} correct out of {quizQuestions.length}{" "}
             questions
           </p>
           <Button onClick={handleRestart} variant="premium" className="mt-7 gap-2">

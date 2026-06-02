@@ -44,8 +44,19 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-// Note: generateStaticParams and generateMetadata removed due to "use client" directive
-// These would need to be implemented in a server component wrapper if needed
+export async function generateMetadata({ params }: PageProps) {
+  const { slug } = await params;
+  const item = getScriptureCatalogItem(slug);
+  if (!item) {
+    return {
+      title: "Scripture Not Found | Hind AI",
+    };
+  }
+  return {
+    title: `${item.name} (${item.sanskrit}) | Hind AI`,
+    description: `Read and study ${item.name} (${item.sanskrit}) with translation, word-by-word analysis, and Gemma 4 AI commentary.`,
+  };
+}
 
 const guidedPrompts = (title: string) => [
   `Give me a beginner-friendly introduction to ${title}.`,

@@ -54,6 +54,7 @@ test.describe("Sadhana page", () => {
 
   test("is reachable from homepage discovery cards", async ({ page }) => {
     await page.goto("/");
+    await page.waitForLoadState("networkidle");
 
     await page.getByRole("link", { name: /Daily sadhana Use a digital/i }).click();
     await expect(page).toHaveURL(/\/sadhana$/);
