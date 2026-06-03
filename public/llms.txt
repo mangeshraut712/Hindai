@@ -1,0 +1,18 @@
+# Hind AI
+
+> A calm, theme-aware digital gurukul and library of ancient Indian scriptures powered by AI.
+
+## Key Features
+- **Scripture Shelves**: Direct access to Vedas, Upanishads, Bhagavad Gita, Puranas, and Epics.
+- **Guru AI**: Streaming-based context-aware scriptural question answering.
+- **Sadhana**: Mantra Japa counter and digital meditation tools.
+- **Sanskrit Studio**: Translators, transliterations, dictionaries, and vocabulary analyzers.
+- **Dharma Guide**: Structured context on rituals, festivals, and practices.
+
+## Primary Routes
+- [Library Shelf](https://hindai-nine.vercel.app/contents): Explore cataloged ancient texts.
+- [Guru AI Guide](https://hindai-nine.vercel.app/ai-guide): Interact with the scriptural assistant.
+- [Daily Sadhana](https://hindai-nine.vercel.app/sadhana): Use the digital japa count tool.
+- [Vision Analysis](https://hindai-nine.vercel.app/vision): Upload images of scripts and temples.
+- [Dharma Guide](https://hindai-nine.vercel.app/dharma): Guidelines on spiritual paths.
+- [Stotras Library](https://hindai-nine.vercel.app/stotras): Chant and listen to devotional hymns.

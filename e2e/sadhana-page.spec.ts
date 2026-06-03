@@ -56,7 +56,11 @@ test.describe("Sadhana page", () => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
 
-    await page.getByRole("link", { name: /Daily sadhana Use a digital/i }).click();
-    await expect(page).toHaveURL(/\/sadhana$/);
+    const link = page.getByRole("link", { name: /Daily sadhana Use a digital/i });
+    await expect(link).toBeVisible();
+    await expect(async () => {
+      await link.click({ force: true });
+      await expect(page).toHaveURL(/\/sadhana$/, { timeout: 1000 });
+    }).toPass();
   });
 });

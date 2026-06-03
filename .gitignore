@@ -94,3 +94,7 @@ playwright/.cache/
 .agents/
 .agent/
 .claude/
+
+
+#Ignore windsurf AI rules
+.windsurfrules

@@ -168,8 +168,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </ErrorBoundary>
           </Providers>
         </LanguageProvider>
-        <Analytics />
-        <SpeedInsights />
+        {process.env.VERCEL && (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        )}
       </body>
     </html>
   );

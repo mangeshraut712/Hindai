@@ -19,13 +19,15 @@ export function VoiceSearch({
 }: VoiceSearchProps) {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const [isSupported] = useState(() => {
-    return (
-      typeof window !== "undefined" &&
-      ("webkitSpeechRecognition" in window || "SpeechRecognition" in window)
-    );
-  });
+  const [isSupported, setIsSupported] = useState(false);
   const recognitionRef = useRef<any>(null);
+
+  useEffect(() => {
+    setIsSupported(
+      typeof window !== "undefined" &&
+        ("webkitSpeechRecognition" in window || "SpeechRecognition" in window)
+    );
+  }, []);
 
   useEffect(() => {
     // Check if speech recognition is supported

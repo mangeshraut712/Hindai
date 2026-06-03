@@ -12,7 +12,7 @@ const nextConfig = {
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
-  productionBrowserSourceMaps: false,
+  productionBrowserSourceMaps: true,
   // Bundle optimization
   experimental: {
     optimizePackageImports: [

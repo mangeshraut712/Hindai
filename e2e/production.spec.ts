@@ -219,12 +219,13 @@ test.describe("Production Site - Accessibility", () => {
   test("should have alt text for images", async ({ page }) => {
     await page.goto(BASE_URL);
 
-    const images = page.locator('img:not([alt=""])');
+    const images = page.locator("img:not([alt])");
     const imageCount = await images.count();
 
     // Log images without alt text
     if (imageCount > 0) {
       console.warn(`Found ${imageCount} images without alt text`);
     }
+    expect(imageCount).toBe(0);
   });
 });
