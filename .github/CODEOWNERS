@@ -26,7 +26,6 @@ src/lib/panchanga/          @mangeshraut712
 next.config.js              @mangeshraut712
 vercel.json                 @mangeshraut712
 .github/                    @mangeshraut712
-docker/                     @mangeshraut712
 
 # Tests & quality
 e2e/                        @mangeshraut712

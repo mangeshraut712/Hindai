@@ -42,13 +42,6 @@ google-api-key.json
 google-credentials.json
 service-account.json
 
-# All API key patterns
-*api-key*
-*apikey*
-*api_key*
-*secret*
-*token*
-
 # Vercel
 .vercel
 
@@ -63,6 +56,7 @@ service-account.json
 .factory/
 .trae/
 .windsurf/
+.devin/
 *.swp
 *.swo
 
@@ -93,13 +87,7 @@ playwright/.cache/
 # AI Agents
 .agents/
 .agent/
-.claude/
-.devin/
 
-
-#Ignore windsurf AI rules
+# Windsurf / Codacy local helper files
 .windsurfrules
-
-
-#Ignore vscode AI rules
 .github/instructions/codacy.instructions.md

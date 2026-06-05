@@ -6,7 +6,7 @@
 ![Next.js](https://img.shields.io/badge/Next.js-15.5.15-saffron?style=for-the-badge&logo=next.js)
 ![React](https://img.shields.io/badge/React-19.2.5-blue?style=for-the-badge&logo=react)
 ![OpenRouter](https://img.shields.io/badge/OpenRouter-Gemma%204-gold?style=for-the-badge&logo=openrouter)
-![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18.0.0-green?style=for-the-badge&logo=node.js)
+![Node.js](https://img.shields.io/badge/Node.js-%3E%3D20.0.0-green?style=for-the-badge&logo=node.js)
 ![License](https://img.shields.io/badge/License-CC--BY--4.0-lightgrey?style=for-the-badge)
 
   <img src="public/logo.png" alt="Hind AI Logo" width="150" />
@@ -46,7 +46,7 @@
 - **🔤 Sanskrit Tools**: Comprehensive linguistic tools (transliteration, sandhi, morphology, vibhakti, accents)
 - **🎵 Audio Features**: Vedic accent analysis, Google Cloud TTS, Vedic Heritage Portal integration
 - **☁️ Cloud-Optimized**: Production-ready with global deployment on Vercel Edge Network
-- **⚡ Modern Stack**: Next.js 15.5, React 19.2, TypeScript 5.9, Node.js >=18.0
+- **⚡ Modern Stack**: Next.js 15.5, React 19.2, TypeScript 5.9, Node.js >=20.0
 - **♿ Accessible**: Reduced motion support, ARIA labels, keyboard navigation
 - **🚀 Performance**: Dynamic imports, scoped motion and responsive layout fixes, route-level loading states
 
@@ -246,13 +246,13 @@ npm run dev
 
 - ✅ TypeScript: 0 errors, strict mode passing
 - ✅ Prettier: All files formatted with Tailwind plugin
-- ✅ Build: 63 app routes generated successfully
-- ✅ Tests: Playwright suite restored with 275 listed E2E tests
+- ✅ Build: 66 app routes generated successfully
+- ✅ Tests: Playwright E2E suite covers homepage, AI guide, contents, responsive, production, sadhana, and stotras flows
 - ✅ E2E Tests: Playwright coverage for critical user flows
 - ✅ Security: Security audit available via npm run security
 - ✅ Performance: Dynamic imports, scoped motion, font loading, static asset caching
 - ✅ Accessibility: Reduced motion support, ARIA labels, keyboard navigation
-- ✅ Node.js: Compatible with >=18.0.0
+- ✅ Node.js: Compatible with >=20.0.0
 - ✅ CI/CD: GitHub Actions workflow passing with quality checks
 
 ---
@@ -407,12 +407,11 @@ npm run dev
 
 ### Infrastructure
 
-| Technology         | Purpose                          |
-| ------------------ | -------------------------------- |
-| **Vercel**         | Edge deployment & global CDN     |
-| **Docker**         | Containerization & orchestration |
-| **Upstash Vector** | Semantic search & embeddings     |
-| **Supabase**       | PostgreSQL database & auth       |
+| Technology         | Purpose                      |
+| ------------------ | ---------------------------- |
+| **Vercel**         | Edge deployment & global CDN |
+| **Upstash Vector** | Semantic search & embeddings |
+| **Supabase**       | PostgreSQL database & auth   |
 
 ---
 
@@ -538,17 +537,10 @@ Hind AI/
 │   ├── index.css                    # Global styles with performance hints
 │   └── integrations/
 │       └── supabase/
-├── 📁 scripts/                      # Utility scripts
-│   ├── fine-tune-gemma4.py          # Unsloth fine-tuning
-│   ├── audit.js
-│   ├── fetch_bg.js
-│   ├── generate_bg.js
-│   └── generate_rv.js
-├── 📁 docker/                       # Docker configuration
-│   ├── docker-compose.yml
-│   ├── Dockerfile
-│   └── Dockerfile.ollama
-├── 📁 e2e/                          # Playwright E2E tests
+├── 📁 scripts/                      # Lint orchestration and local React Doctor install
+│   ├── lint-check.js
+│   └── react-doctor-install.js
+├── 📁 e2e/                          # Playwright E2E smoke and regression coverage
 ├── 📁 .github/workflows/            # CI/CD
 ├── 📄 README.md
 ├── 📄 scripture-audit-report.md
@@ -922,34 +914,14 @@ npm run security         # Security audit
 
 - ✅ TypeScript: 0 errors, strict mode passing
 - ✅ Lint: Custom `lint-check` script validates TypeScript, Prettier, and basic code quality
-- ✅ Build: 63 app routes generated successfully
+- ✅ Build: 66 app routes generated successfully
 - ✅ Tests: No unit test suite configured yet; E2E coverage is handled by Playwright
-- ✅ E2E Tests: Playwright coverage for critical user flows; 275 tests listed across 5 files
+- ✅ E2E Tests: Playwright coverage for critical user flows across 7 spec files
 - ✅ Prettier: All files formatted with Tailwind plugin
 - ✅ Security: Audit available via `npm run security`
 - ✅ Performance: Dynamic imports, scoped motion, font loading, static asset caching
 - ✅ Accessibility: Reduced motion support, ARIA labels, keyboard navigation
-- ✅ Node.js: Compatible with >=18.0.0
-
----
-
-## 🐳 Docker Deployment
-
-### Quick Start with Docker
-
-```bash
-# Build and start all services
-docker-compose up -d
-
-# Access the application
-open http://localhost:3000
-```
-
-### Services
-
-- **Hind AI**: Next.js application
-- **OpenRouter**: Gemma 4 AI runtime
-- **Redis**: Caching and rate limiting
+- ✅ Node.js: Compatible with >=20.0.0
 
 ---
 
