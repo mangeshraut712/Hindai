@@ -73,6 +73,19 @@ npm run dev
 
 ---
 
+## 🆕 What's New in Version 3.4.1 (June 2026)
+
+### ⚡ React Doctor 100/100 Core Score Optimization & Vercel Log Cleanup
+
+- **💯 Perfect Codebase Health Score** — Achieved a perfect **100/100 React Doctor score** by refactoring the browser SpeechRecognition capability check inside `VoiceSearch` using React's native `useSyncExternalStore` hook. This eliminates initial mount layout/paint flicker warnings (`useEffect` setState flashes on mount) while preserving correct client-side support checks.
+- **🔒 Vercel Deployment Clutter & Warning Elimination** — Resolved build warnings and deployment errors in the server logs:
+  - Refactored streaming API routes (`/api/ai/chat`, `/api/ai/dharma`, `/api/ai/vision`) from the Vercel `"edge"` runtime to `"nodejs"`. This completely eliminates the Next.js build warning: `⚠ Using edge runtime on a page currently disables static generation for that page`, while keeping streaming responses and Buffer decoding highly robust.
+  - Pinned the `engines.node` version in `package.json` to `"20.x"` (matching `.nvmrc` and Vercel's Node 20 LTS runtime) to solve the automatic upgrade warning.
+  - Optimized the post-installation script `scripts/react-doctor-install.js` to automatically bypass development audits and exit with `0` under CI, Vercel, and production environments, eliminating exit-code `1` warning logs.
+- **🧹 Repository Housekeeping** — Pruned stale `docker/` configuration files (including `Dockerfile`, `Dockerfile.ollama`, and `docker-compose.yml`) and removed unneeded project clutter, aligning with the pure Vercel serverless runtime.
+
+---
+
 ## 🆕 What's New in Version 3.4.0 (June 2026)
 
 ### ⚡ DevTools Audit, Performance, and Agentic Optimization
@@ -563,7 +576,7 @@ Hind AI/
 │  │   FRONTEND   │  │   BACKEND    │  │   AI LAYER   │        │
 │  │              │  │              │  │              │        │
 │  │  Next.js 15  │  │  Next.js API │  │  Gemma 4 31B │        │
-│  │  React 19    │  │  Edge Runtime│  │  OpenRouter  │        │
+│  │  React 19    │  │  Serverless  │  │  OpenRouter  │        │
 │  │  TypeScript  │  │  RSC/SSR     │  │  Cloud API   │        │
 │  │  Tailwind    │  │  API Routes  │  │  Streaming   │        │
 │  │  Framer Motion│ │              │  │  Function    │        │
@@ -589,12 +602,12 @@ Hind AI/
 │  └──────────────┘  └──────────────┘  └──────────────┘        │
 │                                                                 │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐        │
-│  │  DEPLOYMENT  │  │  CONTAINER   │  │  TESTING     │        │
+│  │  DEPLOYMENT  │  │    CI/CD     │  │  TESTING     │        │
 │  │              │  │              │  │              │        │
-│  │  Vercel      │  │  Docker      │  │  Playwright  │        │
-│  │  Edge Network│  │  Compose     │  │  Playwright  │        │
-│  │  Global CDN  │  │  Production  │  │  E2E Tests   │        │
-│  │  ISR/SSG     │  │  Ready       │  │  Smoke Tests │        │
+│  │  Vercel      │  │  GitHub      │  │  Playwright  │        │
+│  │  Serverless  │  │  Actions     │  │  Playwright  │        │
+│  │  Global CDN  │  │  Automated   │  │  E2E Tests   │        │
+│  │  ISR/SSG     │  │  Checks      │  │  Smoke Tests │        │
 │  └──────────────┘  └──────────────┘  └──────────────┘        │
 └─────────────────────────────────────────────────────────────────┘
 ```
