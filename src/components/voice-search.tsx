@@ -1,10 +1,19 @@
 // src/components/voice-search.tsx
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useSyncExternalStore } from "react";
 import { Mic, MicOff, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { track } from "@vercel/analytics";
+
+const emptySubscribe = () => () => {};
+const getSpeechSupport = () => {
+  return (
+    typeof window !== "undefined" &&
+    ("webkitSpeechRecognition" in window || "SpeechRecognition" in window)
+  );
+};
+const getServerSupport = () => false;
 
 interface VoiceSearchProps {
   onResult: (transcript: string) => void;
@@ -19,15 +28,8 @@ export function VoiceSearch({
 }: VoiceSearchProps) {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const [isSupported, setIsSupported] = useState(false);
+  const isSupported = useSyncExternalStore(emptySubscribe, getSpeechSupport, getServerSupport);
   const recognitionRef = useRef<any>(null);
-
-  useEffect(() => {
-    setIsSupported(
-      typeof window !== "undefined" &&
-        ("webkitSpeechRecognition" in window || "SpeechRecognition" in window)
-    );
-  }, []);
 
   useEffect(() => {
     // Check if speech recognition is supported
