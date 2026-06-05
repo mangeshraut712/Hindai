@@ -2,10 +2,14 @@
 
 const { spawnSync } = require("node:child_process");
 
-const isCi = process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
+const isCi =
+  process.env.CI === "true" ||
+  process.env.GITHUB_ACTIONS === "true" ||
+  process.env.VERCEL === "1" ||
+  process.env.NODE_ENV === "production";
 
 if (isCi) {
-  console.log("Skipping React Doctor agent install in CI.");
+  console.log("Skipping React Doctor agent install in CI/production/Vercel.");
   process.exit(0);
 }
 

@@ -6,7 +6,7 @@ import {
   openRouterHeaders,
 } from "@/lib/ai/openrouter";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 const DHARMA_SYSTEM_PROMPT = `You are a Dharma Guide, a wise and compassionate spiritual advisor well-versed in Hindu philosophy, rituals, and spiritual practices. Your expertise includes:
 

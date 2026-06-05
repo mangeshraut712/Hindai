@@ -6,7 +6,7 @@ import {
   openRouterHeaders,
 } from "@/lib/ai/openrouter";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 const VISION_SYSTEM_PROMPT = `You are an expert in Hindu iconography, Sanskrit manuscripts, and ancient Indian art. Your expertise includes:
 

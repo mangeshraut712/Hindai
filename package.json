@@ -5,7 +5,7 @@
   "description": "Hind AI - AI-Powered Digital Library of Ancient Indian Scriptures",
   "packageManager": "npm@11.12.1",
   "engines": {
-    "node": ">=20.0.0",
+    "node": "20.x",
     "npm": ">=9.0.0"
   },
   "scripts": {

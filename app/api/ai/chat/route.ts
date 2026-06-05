@@ -8,7 +8,7 @@ import {
   openRouterHeaders,
 } from "@/lib/ai/openrouter";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 interface ChatMessage {
   role: "system" | "user" | "assistant";
