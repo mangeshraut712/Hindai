@@ -61,7 +61,7 @@
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.1",
     "eslint-config-next": "^15.0.0",
-    "postcss": "^8.5.10",
+    "postcss": "^8.5.18",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "react-doctor": "^0.2.16",
