@@ -62,9 +62,17 @@ jobs:
       - name: Type check
         run: npm run type-check
 
-      - name: React Doctor Quality Audit
+      - name: React Doctor Quality Audit (pull request)
+        if: github.event_name == 'pull_request'
         timeout-minutes: 10
-        run: npm run doctor -- --verbose --diff
+        run: npm run doctor -- --verbose --scope changed --base "origin/${{ github.base_ref }}"
+
+      - name: React Doctor Quality Audit (push)
+        if: github.event_name == 'push'
+        timeout-minutes: 10
+        run: |
+          BASE_SHA="$(git rev-parse HEAD^)"
+          npm run doctor -- --verbose --scope changed --base "$BASE_SHA"
 
   # ==========================================
   # Unit & Integration Tests
