@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-const BASE_URL = "https://hindai-nine.vercel.app";
+const BASE_URL = `http://localhost:${process.env.PLAYWRIGHT_PORT ?? "3100"}`;
 
 test.describe("Production Site - Homepage", () => {
   test("should load homepage successfully", async ({ page }) => {
