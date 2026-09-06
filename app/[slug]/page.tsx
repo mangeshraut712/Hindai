@@ -6,7 +6,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { getVerse, getVersesByScripture, scriptures } from "@/lib/data/scriptures";
-import { getScriptureCatalogItem } from "@/lib/scripture-catalog";
+import { getScriptureCatalogItem, scriptureCatalog } from "@/lib/scripture-catalog";
 
 function ScriptureStudyExplorerFallback() {
   return <div className="surface-panel min-h-[400px] animate-pulse rounded-2xl" />;
@@ -43,6 +43,10 @@ const VerseReaderWrapper = dynamic(
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
+
+export function generateStaticParams() {
+  return scriptureCatalog.map((item) => ({ slug: item.slug }));
+}
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;

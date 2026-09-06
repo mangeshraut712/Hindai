@@ -53,7 +53,7 @@ export function openRouterHeaders(apiKey: string, title = "Hind AI Scripture Pla
   return {
     Authorization: `Bearer ${apiKey}`,
     "Content-Type": "application/json",
-    "HTTP-Referer": "https://hindai-nine.vercel.app",
+    "HTTP-Referer": "https://mangeshraut712.github.io/Hindai/",
     "X-Title": title,
   };
 }

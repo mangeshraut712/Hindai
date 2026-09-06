@@ -9,8 +9,9 @@ export function ServiceWorkerRegistration() {
     }
 
     const registerSW = () => {
+      const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
       navigator.serviceWorker
-        .register("/sw.js")
+        .register(`${basePath}/sw.js`)
         .then((registration) => {
           console.log("Service Worker registered successfully:", registration.scope);
         })

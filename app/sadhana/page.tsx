@@ -9,6 +9,7 @@ import { FestivalReminders } from "@/components/sadhana/festival-reminders";
 import { SadhanaGenerator } from "@/components/sadhana/sadhana-generator";
 import { Button } from "@/components/ui/button";
 import { generateBreadcrumbStructuredData } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Daily Sadhana, Mantra Counter and Japa Tracker",
@@ -25,13 +26,13 @@ export const metadata: Metadata = {
     "Sanatan Dharma practice",
   ],
   alternates: {
-    canonical: "https://hindai.dev/sadhana",
+    canonical: `${SITE_URL}/sadhana`,
   },
   openGraph: {
     title: "Daily Sadhana, Mantra Counter and Japa Tracker | Hind AI",
     description:
       "A calm daily Hindu practice hub with mantra counting, sankalpa goals, session history, scripture links, and Gemma 4 guided study.",
-    url: "https://hindai.dev/sadhana",
+    url: `${SITE_URL}/sadhana`,
     siteName: "Hind AI",
     locale: "en_IN",
     type: "website",
@@ -48,8 +49,8 @@ export const metadata: Metadata = {
 
 const structuredData = [
   generateBreadcrumbStructuredData([
-    { name: "Home", url: "https://hindai.dev" },
-    { name: "Daily Sadhana", url: "https://hindai.dev/sadhana" },
+    { name: "Home", url: SITE_URL },
+    { name: "Daily Sadhana", url: `${SITE_URL}/sadhana` },
   ]),
   {
     "@context": "https://schema.org",
@@ -57,7 +58,7 @@ const structuredData = [
     name: "Hind AI Daily Sadhana",
     applicationCategory: "LifestyleApplication",
     operatingSystem: "Web",
-    url: "https://hindai.dev/sadhana",
+    url: `${SITE_URL}/sadhana`,
     description:
       "A digital japa mala and Hindu sadhana tracker for mantra counting, sankalpa goals, and daily spiritual practice.",
     inLanguage: ["en-IN", "hi-IN", "sa-IN"],

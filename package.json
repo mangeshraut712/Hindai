@@ -1,5 +1,6 @@
 {
   "name": "hind-ai",
+  "homepage": "https://mangeshraut712.github.io/Hindai/",
   "private": true,
   "version": "1.0.0",
   "description": "Hind AI - AI-Powered Digital Library of Ancient Indian Scriptures",
@@ -11,6 +12,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:pages": "node scripts/build-github-pages.js",
     "start": "next start",
     "lint": "node scripts/lint-check.js",
     "type-check": "tsc --noEmit",

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import HomePage from "./HomePage";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Hind AI - Your Digital Gurukul for Ancient Wisdom | AI-Powered Scripture Study",
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     title: "Hind AI - Digital Gurukul of Sanatana Dharma",
     description:
       "Your personal AI Guru for ancient Indian wisdom. Interactive learning, guided paths, and spiritual insights powered by Google Gemma 4.",
-    url: "https://hindai.dev",
+    url: SITE_URL,
     siteName: "Hind AI",
     images: [
       {

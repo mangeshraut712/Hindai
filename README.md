@@ -13,7 +13,7 @@
 
 **🧘‍♂️ Your AI Guru for Ancient Wisdom | ज्ञान से मोक्ष तक (From Knowledge to Liberation)**
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-Visit-blue?style=for-the-badge)](https://hindai-nine.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-Visit-blue?style=for-the-badge)](https://mangeshraut712.github.io/Hindai/)
 [![GitHub Stars](https://img.shields.io/github/stars/mangeshraut712/Hindai?style=for-the-badge)](https://github.com/mangeshraut712/Hindai)
 [![GitHub Issues](https://img.shields.io/github/issues/mangeshraut712/Hindai?style=for-the-badge)](https://github.com/mangeshraut712/Hindai/issues)
 
@@ -648,18 +648,34 @@ UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
 VERCEL_ANALYTICS_ID=your_vercel_analytics_id
 ```
 
-### Vercel AI Setup
+### GitHub Pages (production)
+
+The public site is a Next.js static export on GitHub Pages:
+
+- Live URL: [https://mangeshraut712.github.io/Hindai/](https://mangeshraut712.github.io/Hindai/)
+- Build: `npm run build:pages` (`output: 'export'`, `basePath: '/Hindai'`)
+- Deploy: `.github/workflows/pages.yml` on push to `main`
+
+**Static export blockers (not available on GitHub Pages):**
+
+- App Router `/api/*` Route Handlers (Node/serverless only). The Pages build stashes `app/api` so `next build` can export HTML. Use `next dev` for local API work.
+- `next.config.js` `headers()` (unsupported with `output: 'export'`)
+- Next.js image optimization (Pages uses `images.unoptimized: true`)
+- AI streaming, chat, quiz, panchanga JSON, and similar `/api` features return 404 on Pages
+
+```bash
+npm run build:pages
+npx --yes serve@14 out
+```
+
+### Local AI / OpenRouter
 
 1. **Create an OpenRouter API key**
-2. **Configure Vercel environment variables**:
+2. **Set environment variables** (used by `next dev`, not by GitHub Pages):
    ```env
    OPENROUTER_API_KEY=your_openrouter_api_key
    OPENROUTER_MODEL=google/gemma-4-31b-it:free
    OPENROUTER_URL=https://openrouter.ai/api/v1
-   ```
-3. **Deploy to Vercel**:
-   ```bash
-   vercel --prod
    ```
 
 ---

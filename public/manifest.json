@@ -2,30 +2,30 @@
   "name": "Hind AI - Digital Gurukul",
   "short_name": "Hind AI",
   "description": "🕉️ Your AI-powered spiritual companion for ancient Indian wisdom",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
   "background_color": "#F5F0E6",
   "theme_color": "#FF9933",
   "orientation": "any",
-  "scope": "/",
+  "scope": "./",
   "lang": "en",
   "dir": "ltr",
   "icons": [
     {
-      "src": "/logo.png",
+      "src": "./logo.png",
       "sizes": "688x702",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/logo.png",
+      "src": "./logo.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/logo.png",
+      "src": "./logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
@@ -33,13 +33,13 @@
   ],
   "screenshots": [
     {
-      "src": "/screenshot-wide.png",
+      "src": "./screenshot-wide.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide"
     },
     {
-      "src": "/screenshot-narrow.png",
+      "src": "./screenshot-narrow.png",
       "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow"
@@ -51,36 +51,36 @@
       "name": "Guru AI",
       "short_name": "Guru",
       "description": "Ask your AI spiritual guide",
-      "url": "/ai-guide",
-      "icons": [{ "src": "/logo.png", "sizes": "192x192" }]
+      "url": "./ai-guide",
+      "icons": [{ "src": "./logo.png", "sizes": "192x192" }]
     },
     {
       "name": "Granthalaya",
       "short_name": "Library",
       "description": "Browse sacred texts",
-      "url": "/contents",
-      "icons": [{ "src": "/logo.png", "sizes": "192x192" }]
+      "url": "./contents",
+      "icons": [{ "src": "./logo.png", "sizes": "192x192" }]
     },
     {
       "name": "Vision Analysis",
       "short_name": "Vision",
       "description": "Analyze sacred images",
-      "url": "/vision",
-      "icons": [{ "src": "/logo.png", "sizes": "192x192" }]
+      "url": "./vision",
+      "icons": [{ "src": "./logo.png", "sizes": "192x192" }]
     },
     {
       "name": "Dharma Guide",
       "short_name": "Dharma",
       "description": "Spiritual guidance",
-      "url": "/dharma",
-      "icons": [{ "src": "/logo.png", "sizes": "192x192" }]
+      "url": "./dharma",
+      "icons": [{ "src": "./logo.png", "sizes": "192x192" }]
     },
     {
       "name": "Daily Wisdom",
       "short_name": "Wisdom",
       "description": "Today's spiritual teaching",
-      "url": "/daily",
-      "icons": [{ "src": "/logo.png", "sizes": "192x192" }]
+      "url": "./daily",
+      "icons": [{ "src": "./logo.png", "sizes": "192x192" }]
     }
   ],
   "related_applications": [],

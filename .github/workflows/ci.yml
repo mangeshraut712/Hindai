@@ -11,8 +11,7 @@ on:
 
 env:
   # Keep in sync with .nvmrc and package.json#engines.node. Pinning to the
-  # current LTS avoids "future Node" warnings from setup-node and matches what
-  # Vercel uses for production builds.
+  # current LTS avoids "future Node" warnings from setup-node.
   NODE_VERSION: "20"
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
 
@@ -128,14 +127,14 @@ jobs:
         timeout-minutes: 10
         run: npm ci --legacy-peer-deps
 
-      - name: Build application
-        run: npm run build
+      - name: Build GitHub Pages export
+        run: npm run build:pages
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v5
         with:
           name: build
-          path: .next/
+          path: out/
           retention-days: 7
           if-no-files-found: ignore
 
@@ -186,16 +185,11 @@ jobs:
           if-no-files-found: ignore
 
   # ==========================================
-  # Deploy (Vercel GitHub Integration handles this automatically)
+  # Deploy (GitHub Pages)
   # ==========================================
-  # Note: Connect your repo to Vercel for auto-deployment on push to main
-  # No secrets needed — Vercel handles deployment via GitHub App
+  # Static export is built in this workflow and deployed by
+  # `.github/workflows/pages.yml` on push to main.
   #
-  # Required Vercel Environment Variables:
-  #   OPENROUTER_API_KEY    — OpenRouter API key for Gemma 4 access
-  #   OPENROUTER_URL       — OpenRouter API endpoint
-  #   OPENROUTER_MODEL     — Model ID, e.g. "google/gemma-4-31b-it:free"
-  #   UPSTASH_REDIS_REST_URL    — (Optional) Redis for caching
-  #   UPSTASH_REDIS_REST_TOKEN  — (Optional) Redis token
-  #   SUPABASE_URL         — (Optional) Supabase database URL
-  #   SUPABASE_ANON_KEY    — (Optional) Supabase anonymous key
+  # App Router `/api/*` route handlers cannot run on GitHub Pages (no Node
+  # server). They remain available under `next dev` / a Node host. The Pages
+  # build stashes `app/api` for `output: 'export'` only.
