@@ -1,7 +1,10 @@
 import { MetadataRoute } from "next";
 import { scriptureCatalog } from "@/lib/scripture-catalog";
+import { SITE_URL } from "@/lib/site";
 
-const baseUrl = "https://hindai.dev";
+export const dynamic = "force-static";
+
+const baseUrl = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

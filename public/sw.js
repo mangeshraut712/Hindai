@@ -4,30 +4,32 @@
  * Optimized for performance with aggressive caching
  */
 
-const STATIC_CACHE = "hind-ai-static-v3";
-const DYNAMIC_CACHE = "hind-ai-dynamic-v3";
+const STATIC_CACHE = "hind-ai-static-v4";
+const DYNAMIC_CACHE = "hind-ai-dynamic-v4";
+
+const SCOPE_BASE = self.location.pathname.replace(/\/sw\.js$/, "") || "";
 
 const STATIC_ASSETS = [
-  "/",
-  "/contents/",
-  "/ai-guide/",
-  "/vision/",
-  "/dharma/",
-  "/sanskrit-nova/",
-  "/sanskrit-tools/",
-  "/learning/",
-  "/philosophies/",
-  "/frameworks/",
-  "/stotras/",
-  "/panchanga/",
-  "/pilgrimage/",
-  "/audio/",
-  "/daily/",
-  "/quiz/",
-  "/structure/",
-  "/preface/",
-  "/logo.png",
-  "/manifest.json",
+  `${SCOPE_BASE}/`,
+  `${SCOPE_BASE}/contents/`,
+  `${SCOPE_BASE}/ai-guide/`,
+  `${SCOPE_BASE}/vision/`,
+  `${SCOPE_BASE}/dharma/`,
+  `${SCOPE_BASE}/sanskrit-nova/`,
+  `${SCOPE_BASE}/sanskrit-tools/`,
+  `${SCOPE_BASE}/learning/`,
+  `${SCOPE_BASE}/philosophies/`,
+  `${SCOPE_BASE}/frameworks/`,
+  `${SCOPE_BASE}/stotras/`,
+  `${SCOPE_BASE}/panchanga/`,
+  `${SCOPE_BASE}/pilgrimage/`,
+  `${SCOPE_BASE}/audio/`,
+  `${SCOPE_BASE}/daily/`,
+  `${SCOPE_BASE}/quiz/`,
+  `${SCOPE_BASE}/structure/`,
+  `${SCOPE_BASE}/preface/`,
+  `${SCOPE_BASE}/logo.png`,
+  `${SCOPE_BASE}/manifest.json`,
 ];
 
 // Install: Cache static assets

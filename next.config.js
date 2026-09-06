@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+const isGithubPages = process.env.GITHUB_PAGES === "true";
+const githubPagesBasePath = "/Hindai";
+
 const nextConfig = {
   reactStrictMode: true,
   // Enforce TypeScript at build time. ESLint is run separately by `npm run lint`
@@ -13,6 +16,16 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   productionBrowserSourceMaps: true,
+  ...(isGithubPages
+    ? {
+        output: "export",
+        basePath: githubPagesBasePath,
+        assetPrefix: githubPagesBasePath,
+        trailingSlash: true,
+      }
+    : {
+        trailingSlash: false,
+      }),
   // Bundle optimization
   experimental: {
     optimizePackageImports: [
@@ -30,8 +43,9 @@ const nextConfig = {
       static: 180,
     },
   },
-  // Image optimization
+  // Image optimization (must be unoptimized for `output: 'export'`)
   images: {
+    unoptimized: isGithubPages,
     formats: ["image/webp", "image/avif"],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
     dangerouslyAllowSVG: true,
@@ -51,10 +65,12 @@ const nextConfig = {
         protocol: "https",
         hostname: "avatars.githubusercontent.com",
       },
+      {
+        protocol: "https",
+        hostname: "mangeshraut712.github.io",
+      },
     ],
   },
-  // Static optimization
-  trailingSlash: false,
   // Webpack optimization
   webpack: (config, { isServer, dev }) => {
     if (!isServer && !dev) {
@@ -114,8 +130,11 @@ const nextConfig = {
     }
     return config;
   },
-  // Security headers + performance headers
-  async headers() {
+};
+
+if (!isGithubPages) {
+  // Custom headers are not supported with `output: 'export'`.
+  nextConfig.headers = async function headers() {
     return [
       {
         source: "/(.*)",
@@ -188,7 +207,7 @@ const nextConfig = {
         ],
       },
     ];
-  },
-};
+  };
+}
 
 module.exports = nextConfig;

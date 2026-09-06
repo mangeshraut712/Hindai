@@ -1,5 +1,6 @@
 // src/lib/seo.ts
 import { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
 export interface StructuredData {
   "@context": string;
@@ -14,8 +15,8 @@ export const organizationStructuredData: StructuredData = {
   name: "Hind AI",
   description:
     "World's most authoritative digital platform for Vedic and Hindu scriptures powered by Gemma 4 AI",
-  url: "https://hindai.dev",
-  logo: "https://hindai.dev/og_home.png",
+  url: SITE_URL,
+  logo: `${SITE_URL}/og_home.png`,
   sameAs: ["https://twitter.com/hindai_dev"],
   founder: {
     "@type": "Person",
@@ -46,10 +47,10 @@ export const websiteStructuredData: StructuredData = {
   name: "Hind AI - World's Leading Vedic Scripture Platform",
   description:
     "AI-Powered Digital Library of Ancient Indian Scriptures with Gemma 4 analysis, cross-scriptural connections, and linguistic breakdowns",
-  url: "https://hindai.dev",
+  url: SITE_URL,
   potentialAction: {
     "@type": "SearchAction",
-    target: "https://hindai.dev/search?q={search_term_string}",
+    target: `${SITE_URL}/search?q={search_term_string}`,
     "query-input": "required name=search_term_string",
   },
   keywords: [
@@ -96,11 +97,11 @@ export function generateScriptureStructuredData(
     name: scripture.name,
     description: scripture.description,
     inLanguage: scripture.language,
-    url: `https://hindai.dev/${scripture.name.toLowerCase().replace(/\s+/g, "-")}`,
+    url: `${SITE_URL}/${scripture.name.toLowerCase().replace(/\s+/g, "-")}`,
     provider: {
       "@type": "Organization",
       name: "Hind AI",
-      url: "https://hindai.dev",
+      url: SITE_URL,
     },
   };
 
@@ -154,7 +155,7 @@ export function generateMetadata(
   image?: string,
   structuredData?: StructuredData[]
 ): Metadata {
-  const baseUrl = "https://hindai.dev";
+  const baseUrl = SITE_URL;
   const url = path ? `${baseUrl}${path}` : baseUrl;
   const ogImage = image || `${baseUrl}/Home.png`;
 

@@ -10,7 +10,7 @@ export default defineConfig({
   workers: process.env.CI ? 2 : undefined,
   reporter: "html",
   use: {
-    baseURL: "https://hindai-nine.vercel.app",
+    baseURL: "https://mangeshraut712.github.io/Hindai/",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     actionTimeout: 10000,

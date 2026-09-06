@@ -10,6 +10,7 @@ import { PageProgress } from "@/components/page-progress";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { PageTransition } from "@/components/page-transition";
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
+import { SITE_URL } from "@/lib/site";
 import "@/index.css";
 
 const manrope = Manrope({
@@ -34,7 +35,7 @@ const devanagari = Noto_Serif_Devanagari({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hindai.dev"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Hind AI - AI-Powered Digital Library of Ancient Indian Scriptures",
     template: "%s | Hind AI",
@@ -63,7 +64,7 @@ export const metadata: Metadata = {
     "Machine Learning",
     "Digital Library",
   ],
-  authors: [{ name: "Hind AI Team", url: "https://hindai.dev" }],
+  authors: [{ name: "Hind AI Team", url: SITE_URL }],
   creator: "Hind AI",
   publisher: "Hind AI",
   robots: {
@@ -81,7 +82,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     alternateLocale: ["hi_IN", "sa_IN"],
-    url: "https://hindai.dev",
+    url: SITE_URL,
     siteName: "Hind AI",
     title: "Hind AI - AI-Powered Digital Library of Ancient Indian Scriptures",
     description:
@@ -102,11 +103,11 @@ export const metadata: Metadata = {
     images: ["/Home.png"],
   },
   alternates: {
-    canonical: "https://hindai.dev",
+    canonical: SITE_URL,
     languages: {
-      "en-IN": "https://hindai.dev",
-      "hi-IN": "https://hindai.dev",
-      "sa-IN": "https://hindai.dev",
+      "en-IN": SITE_URL,
+      "hi-IN": SITE_URL,
+      "sa-IN": SITE_URL,
     },
   },
   category: "Education",
@@ -141,7 +142,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <head>
         {/* Resource hints */}
-        <link rel="dns-prefetch" href="https://hindai.dev" />
+        <link rel="dns-prefetch" href={SITE_URL} />
 
         {/* Inline critical CSS — FOUC prevention */}
         <style suppressHydrationWarning>
