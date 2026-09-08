@@ -14,19 +14,33 @@ permissions:
 jobs:
   deploy:
     name: Deploy Cloudflare Worker
-    if: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Check Cloudflare credentials
+        id: gate
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "has_token=false" >> "$GITHUB_OUTPUT"
+            echo "CLOUDFLARE_API_TOKEN is not set; skipping Worker deploy."
+          else
+            echo "has_token=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout repository
+        if: steps.gate.outputs.has_token == 'true'
         uses: actions/checkout@v5
 
       - name: Setup Node.js
+        if: steps.gate.outputs.has_token == 'true'
         uses: actions/setup-node@v5
         with:
           node-version: "20"
 
       - name: Deploy hindai-gemma
+        if: steps.gate.outputs.has_token == 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
