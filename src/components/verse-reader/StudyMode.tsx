@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { VerseWithLayers } from "@/lib/database/schema";
+import { getLocalStreak, recordLocalReview } from "@/lib/progress/local-progress";
+import { listLocalVerses } from "@/lib/scripture/local-scripture-api";
 
 interface StudyModeProps {
   scriptureId: string;
@@ -34,80 +36,34 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
     setQuality(null);
   }
 
-  const loadStreak = useCallback(async () => {
-    try {
-      const response = await fetch("/api/user/streak");
-      if (response.ok) {
-        const data = await response.json();
-        setStreak(data.streak || 0);
-      }
-    } catch {
-      console.error("Failed to load streak");
-    }
+  useEffect(() => {
+    setStreak(getLocalStreak());
   }, []);
 
   useEffect(() => {
-    loadStreak();
-  }, [loadStreak]);
-
-  useEffect(() => {
-    let active = true;
-
-    (async () => {
-      try {
-        const url = chapter
-          ? `/api/scriptures/${scriptureId}/verses?chapter=${chapter}`
-          : `/api/scriptures/${scriptureId}/verses`;
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error("Failed to load verses");
-        }
-        const data = await response.json();
-        if (active) {
-          setVerses(data.verses || []);
-        }
-      } catch (err) {
-        if (active) {
-          setError(err instanceof Error ? err.message : "Failed to load verses");
-        }
-      } finally {
-        if (active) {
-          setLoading(false);
-        }
+    try {
+      const loaded = listLocalVerses(scriptureId, chapter);
+      setVerses(loaded);
+      if (!loaded.length) {
+        setError("No verses available in the local scripture index.");
       }
-    })();
-
-    return () => {
-      active = false;
-    };
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to load verses");
+    } finally {
+      setLoading(false);
+    }
   }, [scriptureId, chapter]);
 
-  const handleRate = async (rating: number) => {
+  const handleRate = (rating: number) => {
     const currentVerse = verses[currentIndex];
     if (!currentVerse) return;
 
     try {
-      await fetch("/api/sanskrit/learning", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "review",
-          userId: "current-user", // Would come from auth
-          flashcardId: currentVerse.id,
-          quality: rating,
-        }),
-      });
-
+      const nextStreak = recordLocalReview(rating);
       setReviewed(new Set([...reviewed, currentIndex]));
       setSessionProgress((prev) => prev + 1);
       setQuality(rating);
-
-      // Update streak if rating >= 3
-      if (rating >= 3) {
-        setStreak((prev) => prev + 1);
-      } else {
-        setStreak(0);
-      }
+      setStreak(nextStreak);
 
       // Move to next card after short delay
       setTimeout(() => {

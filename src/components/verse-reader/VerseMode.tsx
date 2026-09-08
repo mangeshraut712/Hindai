@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import VerseReader from "./VerseReader";
 import { VerseWithLayers } from "@/lib/database/schema";
+import { getLocalProgress, saveLocalProgress } from "@/lib/progress/local-progress";
+import { getLocalVerse } from "@/lib/scripture/local-scripture-api";
 
 interface VerseModeProps {
   scriptureId: string;
@@ -24,41 +26,26 @@ export default function VerseMode({
   const [notes, setNotes] = useState("");
   const [showNotes, setShowNotes] = useState(false);
 
-  const loadUserProgress = useCallback(async () => {
-    try {
-      const response = await fetch(
-        `/api/user/progress?scripture_id=${scriptureId}&chapter=${currentChapter}&verse=${currentVerse}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setIsBookmarked(data.progress?.bookmarked || false);
-        setNotes(data.progress?.notes || "");
-      }
-    } catch {
-      console.error("Failed to load user progress");
-    }
+  const loadUserProgress = useCallback(() => {
+    const progress = getLocalProgress(scriptureId, currentChapter, currentVerse);
+    setIsBookmarked(progress?.bookmarked || false);
+    setNotes(progress?.notes || "");
   }, [currentChapter, currentVerse, scriptureId]);
 
-  const loadVerse = useCallback(async () => {
+  const loadVerse = useCallback(() => {
     setLoading(true);
     setError(null);
-    try {
-      const response = await fetch(
-        `/api/scriptures/${scriptureId}/verses?chapter=${currentChapter}&verse=${currentVerse}`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to load verse");
-      }
-      const data = await response.json();
-      setVerse(data.verse);
-
-      // Load user progress
-      await loadUserProgress();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load verse");
-    } finally {
+    const nextVerse = getLocalVerse(scriptureId, currentChapter, currentVerse);
+    if (!nextVerse) {
+      setVerse(null);
+      setError("This verse is not in the local scripture index.");
       setLoading(false);
+      return;
     }
+
+    setVerse(nextVerse);
+    loadUserProgress();
+    setLoading(false);
   }, [currentChapter, currentVerse, loadUserProgress, scriptureId]);
 
   useEffect(() => {
@@ -75,44 +62,25 @@ export default function VerseMode({
     }
   };
 
-  const handleBookmark = async () => {
-    try {
-      const response = await fetch("/api/user/progress", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          scripture_id: scriptureId,
-          chapter: currentChapter,
-          verse_num: currentVerse,
-          bookmarked: !isBookmarked,
-        }),
-      });
-      if (response.ok) {
-        setIsBookmarked(!isBookmarked);
-      }
-    } catch {
-      console.error("Failed to bookmark verse");
-    }
+  const handleBookmark = () => {
+    const next = !isBookmarked;
+    saveLocalProgress({
+      scripture_id: scriptureId,
+      chapter: currentChapter,
+      verse_num: currentVerse,
+      bookmarked: next,
+    });
+    setIsBookmarked(next);
   };
 
-  const handleSaveNotes = async () => {
-    try {
-      const response = await fetch("/api/user/progress", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          scripture_id: scriptureId,
-          chapter: currentChapter,
-          verse_num: currentVerse,
-          notes,
-        }),
-      });
-      if (response.ok) {
-        setShowNotes(false);
-      }
-    } catch {
-      console.error("Failed to save notes");
-    }
+  const handleSaveNotes = () => {
+    saveLocalProgress({
+      scripture_id: scriptureId,
+      chapter: currentChapter,
+      verse_num: currentVerse,
+      notes,
+    });
+    setShowNotes(false);
   };
 
   const jumpToVerse = (chapter: number, verse: number) => {

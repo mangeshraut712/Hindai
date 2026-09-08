@@ -2,6 +2,10 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { VerseWithLayers } from "@/lib/database/schema";
+import { listLocalProgress, saveLocalProgress } from "@/lib/progress/local-progress";
+import { getLocalChapterSummary, listLocalVerses } from "@/lib/scripture/local-scripture-api";
+
+type ChapterTab = "sanskrit" | "translation" | "commentary";
 
 interface ChapterModeProps {
   scriptureId: string;
@@ -13,57 +17,35 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expandedVerse, setExpandedVerse] = useState<number | null>(null);
-  const [activeTab, setActiveTab] = useState<"sanskrit" | "translation" | "commentary">("sanskrit");
+  const [activeTab, setActiveTab] = useState<ChapterTab>("sanskrit");
   const [readingProgress, setReadingProgress] = useState(0);
   const [chapterSummary, setChapterSummary] = useState<string | null>(null);
 
-  const loadChapterSummary = useCallback(async () => {
-    try {
-      const response = await fetch(`/api/scriptures/${scriptureId}/summary?chapter=${chapter}`);
-      if (response.ok) {
-        const data = await response.json();
-        setChapterSummary(data.summary);
-      }
-    } catch {
-      console.error("Failed to load chapter summary");
-    }
+  const loadChapterSummary = useCallback(() => {
+    setChapterSummary(getLocalChapterSummary(scriptureId, chapter));
   }, [chapter, scriptureId]);
 
   const loadReadingProgress = useCallback(
-    async (totalVerses: number) => {
-      try {
-        const response = await fetch(
-          `/api/user/progress?scripture_id=${scriptureId}&chapter=${chapter}`
-        );
-        if (response.ok) {
-          const data = await response.json();
-          const completed = data.progress?.filter((p: any) => p.completed).length || 0;
-          setReadingProgress(totalVerses > 0 ? (completed / totalVerses) * 100 : 0);
-        }
-      } catch {
-        console.error("Failed to load reading progress");
-      }
+    (totalVerses: number) => {
+      const completed = listLocalProgress(scriptureId, chapter).filter(
+        (record) => record.completed
+      ).length;
+      setReadingProgress(totalVerses > 0 ? (completed / totalVerses) * 100 : 0);
     },
     [chapter, scriptureId]
   );
 
-  const loadChapter = useCallback(async () => {
+  const loadChapter = useCallback(() => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/scriptures/${scriptureId}/verses?chapter=${chapter}`);
-      if (!response.ok) {
-        throw new Error("Failed to load chapter");
-      }
-      const data = await response.json();
-      const loadedVerses = data.verses || [];
+      const loadedVerses = listLocalVerses(scriptureId, chapter);
       setVerses(loadedVerses);
-
-      // Load chapter summary
-      await loadChapterSummary();
-
-      // Load reading progress
-      await loadReadingProgress(loadedVerses.length);
+      if (!loadedVerses.length) {
+        setError("This chapter is not in the local scripture index.");
+      }
+      loadChapterSummary();
+      loadReadingProgress(loadedVerses.length);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load chapter");
     } finally {
@@ -79,22 +61,14 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
     setExpandedVerse(expandedVerse === verseNum ? null : verseNum);
   };
 
-  const markAsRead = async (verseNum: number) => {
-    try {
-      await fetch("/api/user/progress", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          scripture_id: scriptureId,
-          chapter,
-          verse_num: verseNum,
-          completed: true,
-        }),
-      });
-      await loadReadingProgress(verses.length);
-    } catch {
-      console.error("Failed to mark verse as read");
-    }
+  const markAsRead = (verseNum: number) => {
+    saveLocalProgress({
+      scripture_id: scriptureId,
+      chapter,
+      verse_num: verseNum,
+      completed: true,
+    });
+    loadReadingProgress(verses.length);
   };
 
   if (loading) {
@@ -154,11 +128,11 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
       {/* Tab navigation for expanded view */}
       {expandedVerse !== null && (
         <div className="mb-4 flex border-b">
-          {["sanskrit", "translation", "commentary"].map((tab) => (
+          {(["sanskrit", "translation", "commentary"] as const).map((tab) => (
             <button
               type="button"
               key={tab}
-              onClick={() => setActiveTab(tab as any)}
+              onClick={() => setActiveTab(tab)}
               className={`px-4 py-2 font-medium transition ${
                 activeTab === tab
                   ? "border-b-2 border-blue-600 text-blue-600"

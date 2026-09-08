@@ -16,6 +16,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { sanskritTracks } from "@/lib/sanskrit/tracks";
+import { runSanskritTool } from "@/lib/sanskrit/run-tool";
+import { ServerFeatureNotice } from "@/components/ai/server-feature-notice";
+import { appFetch } from "@/lib/runtime/app-fetch";
 
 type StudioMode = "learn" | "translate" | "analyze" | "grounded" | "agentic";
 type StudioTab = "tutor" | "transliterate" | "tracks";
@@ -131,7 +134,7 @@ export function SanskritNovaStudio() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/sanskrit/chat", {
+      const response = await appFetch("/api/sanskrit/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message, mode, lang: language }),
@@ -182,18 +185,12 @@ export function SanskritNovaStudio() {
     setCopied(false);
 
     try {
-      const response = await fetch("/api/sanskrit/transliterate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text }),
-      });
-      const payload = (await response.json().catch(() => null)) as {
+      const payload = runSanskritTool("transliterate", text) as {
         iast?: string;
-        error?: string;
-      } | null;
+      };
 
-      if (!response.ok || !payload?.iast) {
-        throw new Error(payload?.error || "Transliteration failed.");
+      if (!payload.iast) {
+        throw new Error("Transliteration failed.");
       }
 
       setTransliterationResult(payload.iast);
@@ -252,6 +249,9 @@ export function SanskritNovaStudio() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mb-6">
+        <ServerFeatureNotice feature="Gemma 4 Sanskrit tutor" />
+      </div>
       <div className="mb-6 flex flex-wrap gap-2">
         {[
           { id: "tutor" as const, label: "Tutor Studio", icon: Sparkles },

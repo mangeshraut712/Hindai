@@ -5,6 +5,8 @@ import { Sparkles, Play, Check, Copy, AlertCircle, RefreshCw } from "lucide-reac
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { trackEvent } from "@/lib/analytics";
+import { ServerFeatureNotice } from "@/components/ai/server-feature-notice";
+import { appFetch } from "@/lib/runtime/app-fetch";
 
 type DeityOption = {
   id: string;
@@ -129,7 +131,7 @@ Include the following structured details:
 Provide the response in a beautiful, readable format. Do not add metadata or conversational fluff at the beginning or end. Keep the tone respectful, authentic, and scholarly.`;
 
     try {
-      const response = await fetch("/api/ai/chat", {
+      const response = await appFetch("/api/ai/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -214,6 +216,9 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
 
   return (
     <Card className="overflow-hidden border-border/70 shadow-lg">
+      <div className="px-6 pt-6">
+        <ServerFeatureNotice feature="Guru AI sadhana generator" />
+      </div>
       <CardHeader className="border-b border-border/60 bg-gradient-to-r from-primary/5 to-accent/5 py-6">
         <div className="flex items-center gap-2">
           <Sparkles className="size-5 animate-pulse text-primary" />

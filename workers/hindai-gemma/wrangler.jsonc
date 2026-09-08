@@ -1,0 +1,14 @@
+{
+  "name": "hindai-gemma",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "ai": {
+    "binding": "AI",
+  },
+  "vars": {
+    "GEMMA_MODEL": "@cf/google/gemma-4-26b-a4b-it",
+    "OPENROUTER_MODEL": "google/gemma-4-31b-it:free",
+  },
+}
