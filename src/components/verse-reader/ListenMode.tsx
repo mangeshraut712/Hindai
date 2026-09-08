@@ -293,7 +293,7 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
       {/* Verse list with progress */}
       <div className="mb-6">
         <h3 className="mb-2 font-bold">Chapter Verses</h3>
-        <div className="grid grid-cols-5 gap-2 sm:grid-cols-10">
+        <div className="grid grid-cols-4 gap-2 sm:grid-cols-10">
           {verses.map((verse, index) => (
             <button
               type="button"

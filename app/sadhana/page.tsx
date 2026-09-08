@@ -118,7 +118,7 @@ export default function SadhanaPage() {
           <div className="relative z-10 mx-auto max-w-7xl">
             <div className="max-w-4xl">
               <span className="eyebrow">Daily sadhana • जप साधना • Digital mala</span>
-              <h1 className="mt-7 font-serif text-5xl font-semibold tracking-[-0.045em] text-foreground sm:text-6xl lg:text-7xl">
+              <h1 className="mt-7 font-serif text-4xl font-semibold tracking-[-0.045em] text-foreground sm:text-6xl lg:text-7xl">
                 A daily practice hub for mantra, reflection, and scripture.
               </h1>
               <p className="section-copy mt-6 max-w-3xl">
@@ -174,7 +174,7 @@ export default function SadhanaPage() {
               </p>
             </div>
 
-            <div className="grid gap-5 md:grid-cols-3">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {practiceLinks.map((item) => (
                 <Link key={item.href} href={item.href} className="surface-panel group p-6">
                   <div className="relative z-10">

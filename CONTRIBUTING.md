@@ -88,6 +88,7 @@ Open <http://localhost:3000> in your browser.
 | `npm run type-check`   | Strict TypeScript check (`tsc --noEmit`)           |
 | `npm run format`       | Format all files with Prettier                     |
 | `npm run format:check` | Verify formatting without writing                  |
+| `npm run test`         | Run all `src/**/*.test.ts` unit tests              |
 | `npm run test:e2e`     | Run Playwright E2E tests                           |
 | `npm run security`     | Run an `npm audit`                                 |
 
@@ -122,7 +123,7 @@ e2e/                # Playwright E2E tests
 scripts/            # Build/utility scripts
 ```
 
-For a deeper tour, see the [README](./README.md).
+For a deeper tour, see the [README](./README.md). Architecture and coding contract: [docs/engineering.md](./docs/engineering.md).
 
 ---
 
@@ -134,6 +135,7 @@ For a deeper tour, see the [README](./README.md).
 - Prefer **functional, declarative React** — hooks over class components when possible.
 - Use **`cn(...)`** from `@/lib/utils` for conditional class names.
 - Keep components **small and focused**. If a component exceeds ~300 lines, split it.
+- Follow **[docs/engineering.md](./docs/engineering.md)** — layered architecture, static Pages constraints, tests beside domain code.
 - **Accessibility matters** — use semantic HTML, ARIA labels, and keyboard
   navigation. Always test with reduced motion enabled.
 - Respect **`prefers-reduced-motion`** when adding animations.
@@ -182,6 +184,7 @@ Examples:
 2. **Run all checks** locally:
    ```bash
    npm run lint
+   npm test
    npm run build
    npm run test:e2e   # if your change affects UI
    ```

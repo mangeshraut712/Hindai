@@ -101,6 +101,8 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+    max-width: 100%;
   }
 
   body {
@@ -110,6 +112,9 @@
       "calt" 1;
     background: hsl(var(--background));
     min-height: 100vh;
+    overflow-x: clip;
+    max-width: 100%;
+    overflow-wrap: anywhere;
     /* iOS safe area support */
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
@@ -133,13 +138,13 @@
 
 @layer components {
   .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground backdrop-blur-xl;
+    @apply inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase leading-snug tracking-[0.14em] text-muted-foreground backdrop-blur-xl sm:px-4 sm:tracking-[0.22em];
     border: 1px solid hsl(var(--saffron) / 0.2);
     background: hsl(var(--saffron) / 0.05);
   }
 
   .section-title {
-    @apply font-serif text-4xl font-semibold tracking-[-0.025em] text-foreground sm:text-5xl md:text-6xl;
+    @apply font-serif text-3xl font-semibold tracking-[-0.025em] text-foreground sm:text-5xl md:text-6xl;
     background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--saffron)) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -151,7 +156,7 @@
   }
 
   .surface-panel {
-    @apply relative overflow-hidden rounded-[28px] backdrop-blur-2xl transition-all duration-300;
+    @apply relative min-w-0 overflow-hidden rounded-[28px] backdrop-blur-2xl transition-all duration-300;
     background: hsl(var(--card) / 0.92);
     border: 1px solid hsl(var(--border) / 0.65);
     box-shadow:
@@ -489,12 +494,11 @@ video {
 
 /* Mobile-specific optimizations */
 @media (max-width: 768px) {
-  /* Improve tap targets on mobile — scoped to interactive controls only */
+  /* Height-only tap targets so icon buttons do not inflate the header */
   button,
   nav a,
   [role="button"] {
     min-height: 44px;
-    min-width: 44px;
   }
 
   /* Optimize images for mobile */

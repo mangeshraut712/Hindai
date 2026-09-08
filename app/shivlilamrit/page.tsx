@@ -11,6 +11,8 @@ import { bookPath, firstPageForSlug } from "@/lib/data/shivlilamrit/book";
 import { listPothi } from "@/lib/data/shivlilamrit/pothi";
 import { SITE_URL } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Shivlilamrit — all-India Shravan pothi",
   description:
@@ -27,7 +29,7 @@ export default function ShivlilamritIndexPage() {
       <main className="flex-1">
         <section className="pothi-garbha relative overflow-hidden border-b border-amber-700/40">
           <div className="pothi-rangoli absolute inset-0" aria-hidden="true" />
-          <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8">
+          <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:px-8">
             <div>
               <span className="eyebrow text-amber-200/90">ॐ नमः शिवाय · All India · Read or listen</span>
               <h1 className="mt-6 font-serif text-4xl text-amber-50 sm:text-5xl">Shivlilamrit Kathasar, as a living pothi</h1>
@@ -44,7 +46,7 @@ export default function ShivlilamritIndexPage() {
                 still in copyright — we mapped its order from your photos, then filled the reader
                 with Shridhar’s public-domain ovis and original Hind AI katha-sar.
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="relative z-10 mt-8 flex flex-wrap gap-3">
                 <Link
                   href={bookPath(1)}
                   className="inline-flex h-11 items-center rounded-full bg-amber-300 px-7 text-sm font-semibold text-stone-900"
@@ -65,8 +67,8 @@ export default function ShivlilamritIndexPage() {
                 </Link>
               </div>
             </div>
-            <div className="flex items-center justify-center">
-              <div className="pothi-paat w-72 rotate-[-4deg]">
+            <div className="pointer-events-none flex items-center justify-center">
+              <div className="pothi-paat w-full max-w-72 rotate-[-4deg]">
                 <div className="pothi-leaf px-5 py-8 text-center">
                   <ShivaLingam className="mx-auto h-40 w-full text-primary" />
                   <p className="mt-4 font-devanagari text-xl">सचित्र श्रीशिवलीलामृत कथासार</p>

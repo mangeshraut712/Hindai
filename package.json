@@ -18,7 +18,7 @@
     "type-check": "tsc --noEmit",
     "format": "node node_modules/prettier/bin/prettier.cjs --write .",
     "format:check": "node node_modules/prettier/bin/prettier.cjs --check .",
-    "test": "tsx --tsconfig tsconfig.json --test src/lib/scripture/local-scripture-api.test.ts src/lib/progress/local-progress.test.ts src/lib/sanskrit/run-tool.test.ts src/lib/panchanga/local-panchanga.test.ts src/lib/data/ganesh-aarti-sangrah.test.ts src/lib/data/shivlilamrit/catalog.test.ts",
+    "test": "node scripts/run-unit-tests.js",
     "test:e2e": "playwright test",
     "worker:dev": "npx wrangler@4 dev --config workers/hindai-gemma/wrangler.jsonc",
     "worker:deploy": "npx wrangler@4 deploy --config workers/hindai-gemma/wrangler.jsonc",

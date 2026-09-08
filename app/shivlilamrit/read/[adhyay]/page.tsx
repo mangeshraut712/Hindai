@@ -6,6 +6,8 @@ import { firstPageForSlug, slugFromAdhyayParam } from "@/lib/data/shivlilamrit/b
 import { getExtra, listPothi } from "@/lib/data/shivlilamrit/pothi";
 import { SITE_URL } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 type PageProps = {
   params: Promise<{ adhyay: string }>;
 };

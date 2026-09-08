@@ -49,6 +49,7 @@
 - **⚡ Modern Stack**: Next.js 15.5, React 19.2, TypeScript 5.9, Node.js >=20.0
 - **♿ Accessible**: Reduced motion support, ARIA labels, keyboard navigation
 - **🚀 Performance**: Dynamic imports, scoped motion and responsive layout fixes, route-level loading states
+- **🧱 Engineering**: Layered routes / UI / domain / Worker. See [docs/engineering.md](./docs/engineering.md).
 
 ---
 

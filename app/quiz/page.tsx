@@ -36,7 +36,7 @@ export default function QuizPage() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="max-w-3xl"
               >
-                <span className="eyebrow">Pariksha • परीक्षा</span>
+                <span className="eyebrow">Pariksha • Gemma 4 quiz</span>
                 <h1 className="section-title mt-6">Test your knowledge of ancient wisdom.</h1>
                 <p className="section-copy mt-5">
                   AI-generated questions from the Bhagavad Gita, Yoga Sutras, Upanishads, and the

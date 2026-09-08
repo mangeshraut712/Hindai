@@ -90,11 +90,13 @@ export function AartiReader({ item }: { item: AartiItem }) {
           {isPlaying ? <Pause className="size-4" /> : <Play className="size-4" />}
           {isPlaying ? "Pause" : "Listen"}
         </Button>
-        <p className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Volume2 className="size-4" />
-          {item.audioUrl && !audioError
-            ? (item.audioLabel ?? "Recorded audio")
-            : "Spoken recitation in the browser if a recording is unavailable"}
+        <p className="flex min-w-0 items-start gap-2 text-sm leading-6 text-muted-foreground">
+          <Volume2 className="mt-0.5 size-4 shrink-0" />
+          <span className="min-w-0">
+            {item.audioUrl && !audioError
+              ? (item.audioLabel ?? "Recorded audio")
+              : "Spoken recitation in the browser if a recording is unavailable"}
+          </span>
         </p>
       </div>
 

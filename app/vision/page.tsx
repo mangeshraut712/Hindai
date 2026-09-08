@@ -58,7 +58,7 @@ export default function VisionPage() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="max-w-3xl"
               >
-                <span className="eyebrow">Vision Analysis • दृश्य विश्लेषण</span>
+                <span className="eyebrow">Vision • Gemma 4 image study</span>
                 <h1 className="section-title mt-6">
                   See ancient wisdom through AI-powered vision.
                 </h1>

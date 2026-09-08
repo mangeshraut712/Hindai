@@ -62,7 +62,7 @@ export default function DharmaPage() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="max-w-3xl"
               >
-                <span className="eyebrow">Dharma Guide • धर्म मार्गदर्शक</span>
+                <span className="eyebrow">Dharma Guide • Gemma 4</span>
                 <h1 className="section-title mt-6">Your personal guide to living dharmically.</h1>
                 <p className="section-copy mt-5">
                   Receive personalized spiritual guidance for daily practices, rituals, meditation,

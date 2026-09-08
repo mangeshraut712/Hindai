@@ -233,7 +233,7 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
       </CardHeader>
 
       <CardContent className="p-6">
-        <form onSubmit={handleGenerate} className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+        <form onSubmit={handleGenerate} className="grid min-w-0 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {/* Deity selection */}
           <div className="space-y-2">
             <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">

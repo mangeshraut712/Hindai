@@ -126,7 +126,7 @@ function HomeHero() {
         aria-hidden="true"
       />
 
-      <div className="mx-auto grid min-h-[max(600px,75svh)] max-w-7xl items-center gap-8 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.9fr)] lg:gap-14 lg:px-8">
+      <div className="mx-auto grid min-h-[max(600px,75svh)] max-w-7xl items-center gap-8 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-14 lg:px-8">
         <div className="relative z-10 max-w-3xl">
           <span className="eyebrow">Digital Gurukul • Gemma 4 • English · हिंदी · संस्कृत</span>
           <div className="mt-8 space-y-6">
@@ -137,7 +137,7 @@ function HomeHero() {
               <p className="font-devanagari text-lg tracking-[0.18em] text-muted-foreground">
                 सत्यमेव जयते · नमस्ते · ॐ
               </p>
-              <h1 className="font-serif text-5xl font-semibold tracking-[-0.05em] text-foreground sm:text-6xl lg:text-7xl">
+              <h1 className="font-serif text-4xl font-semibold tracking-[-0.05em] text-foreground sm:text-6xl lg:text-7xl">
                 Ancient wisdom,
                 <br />
                 rendered with
@@ -194,12 +194,12 @@ function HomeHero() {
           </div>
         </div>
 
-        <div className="relative z-10 pb-6 lg:pb-0">
+        <div className="relative z-10 pb-6 lg:pb-20">
           <div className="surface-panel relative overflow-hidden border-primary/20 bg-background/40 p-8 shadow-[0_32px_80px_-48px_rgba(249,115,22,0.25)] transition-all duration-500 hover:border-primary/45 md:p-10">
             <div className="relative z-10">
               <span className="eyebrow">Opening invocation</span>
               <div className="mt-8 space-y-4">
-                <p className="select-none font-devanagari text-4xl leading-tight tracking-wide text-primary transition-all duration-300 sm:text-5xl">
+                <p className="select-none font-devanagari text-3xl leading-tight tracking-wide text-primary transition-all duration-300 sm:text-5xl">
                   असतो मा सद्गमय
                 </p>
                 <p className="max-w-md text-base leading-7 text-muted-foreground">
@@ -215,8 +215,8 @@ function HomeHero() {
                     href={`/ai-guide?q=${encodeURIComponent(question)}`}
                     className="text-foreground/84 group block cursor-pointer rounded-[24px] border border-border/60 bg-background/75 px-4 py-3 text-sm shadow-[0_20px_45px_-36px_rgba(15,23,42,0.4)] transition-all duration-300 hover:translate-x-1 hover:border-primary/50 hover:bg-primary/5"
                   >
-                    <span className="flex items-center justify-between gap-2">
-                      <span>{question}</span>
+                    <span className="flex min-w-0 items-center justify-between gap-2">
+                      <span className="min-w-0 text-pretty">{question}</span>
                       <ArrowRight className="size-4 shrink-0 -translate-x-2 text-primary opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
                     </span>
                   </Link>
@@ -328,14 +328,14 @@ function InterfaceModes() {
           {studyModes.map((mode) => (
             <div
               key={mode.title}
-              className="surface-panel group p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+              className="surface-panel group min-w-0 p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-6"
             >
               <Link href={mode.href} className="relative z-10 space-y-4">
                 <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20">
                   <mode.icon className="size-5" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
+                  <h3 className="text-xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary sm:text-2xl">
                     {mode.title}
                   </h3>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">{mode.body}</p>
@@ -542,10 +542,10 @@ function FeaturedVerses() {
           {featuredVerses.map((verse) => (
             <div
               key={verse.source}
-              className="surface-panel group min-w-[85vw] shrink-0 snap-center border-accent/20 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl md:min-w-0 md:shrink"
+              className="surface-panel group min-w-[min(20rem,calc(100vw-2.5rem))] shrink-0 snap-center border-accent/20 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl md:min-w-0 md:shrink"
             >
               <div className="relative z-10 space-y-4">
-                <p className="font-devanagari text-lg leading-relaxed text-primary transition-transform duration-300 group-hover:scale-105">
+                <p className="font-devanagari text-lg leading-relaxed text-pretty text-primary">
                   {verse.sanskrit}
                 </p>
                 <p className="text-xs italic text-muted-foreground">{verse.transliteration}</p>

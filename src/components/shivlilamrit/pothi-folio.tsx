@@ -7,10 +7,8 @@ import { Button } from "@/components/ui/button";
 import { MandirDiya, ringGhanta } from "@/components/shivlilamrit/mandir-paat";
 import { ShivaLingam } from "@/components/shivlilamrit/shiva-lingam";
 import {
-  type ChapterKatha,
   type ReaderLocale,
   type ReaderTheme,
-  getChapter,
   readerLocaleLabel,
   readerThemeLabel,
 } from "@/lib/data/shivlilamrit/catalog";
@@ -24,9 +22,8 @@ import {
   type Folio,
 } from "@/lib/data/shivlilamrit/book";
 import { kathaParagraphs, oviDisplay } from "@/lib/data/shivlilamrit/locales";
+import { kathaForFolio, loadFolioVerses } from "@/lib/data/shivlilamrit/folio-content";
 import { browserSpeechLang, prepareRecitation } from "@/lib/data/shivlilamrit/recitation";
-import { loadChapterOvis } from "@/lib/data/shivlilamrit/load-ovis";
-import { getExtra } from "@/lib/data/shivlilamrit/pothi";
 import { appUrl } from "@/lib/runtime/app-fetch";
 import { BASE_PATH } from "@/lib/site";
 
@@ -41,27 +38,6 @@ function isTheme(value: string): value is ReaderTheme {
 
 function isLocale(value: string): value is ReaderLocale {
   return LOCALES.includes(value as ReaderLocale);
-}
-
-async function loadVerses(folio: Folio): Promise<string[]> {
-  if (folio.kind !== "ovis") {
-    return [];
-  }
-  if (folio.chapterId) {
-    return loadChapterOvis(folio.chapterId);
-  }
-  if (folio.slug === "nitya-ovis") {
-    const closing = await loadChapterOvis(15);
-    return closing.slice(-42);
-  }
-  return getExtra(folio.slug)?.verses ?? [];
-}
-
-function kathaForFolio(folio: Folio): ChapterKatha {
-  if (folio.chapterId) {
-    return getChapter(folio.chapterId).katha;
-  }
-  return getExtra(folio.slug)?.katha ?? { mr: [], en: [] };
 }
 
 function pickVoice(locale: ReaderLocale): SpeechSynthesisVoice | undefined {
@@ -125,7 +101,7 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
 
   useEffect(() => {
     let cancelled = false;
-    void loadVerses(folio).then((loaded) => {
+    void loadFolioVerses(folio).then((loaded) => {
       if (!cancelled) {
         setVerses(loaded);
       }
@@ -301,7 +277,7 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
     >
       {mandir ? <div className="pothi-rangoli pointer-events-none absolute inset-0" /> : null}
       {mandir ? (
-        <div className="relative z-10 mx-auto flex max-w-4xl items-end justify-between px-8 pt-5">
+        <div className="relative z-10 mx-auto flex max-w-4xl items-end justify-between px-4 pt-5 sm:px-8">
           <MandirDiya />
           <MandirDiya />
         </div>
@@ -309,11 +285,11 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
 
       <div className="relative z-10 mx-auto max-w-3xl px-3 pb-8 sm:px-6">
         <div className={mandir ? "pothi-paat" : undefined}>
-          <header className="flex items-center justify-between gap-3 px-4 py-3 text-xs sm:text-sm">
-            <Link href="/shivlilamrit" className="opacity-80">
+          <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 px-3 py-3 text-xs sm:px-4 sm:text-sm">
+            <Link href="/shivlilamrit" className="inline-flex min-h-11 items-center opacity-80">
               Close
             </Link>
-            <p className="font-devanagari text-center leading-snug">{heading}</p>
+            <p className="min-w-0 text-center font-devanagari leading-snug">{heading}</p>
             <Button size="sm" variant="outline" onClick={() => setSettings((open) => !open)}>
               <Settings2 className="size-4" />
               Type
@@ -352,13 +328,13 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
           ) : null}
 
           <article
-            className={`${leafClass} min-h-[70dvh] px-6 py-8 sm:px-10`}
+            className={`${leafClass} min-h-[70dvh] px-4 py-8 sm:px-10`}
             style={{ fontSize: `${font}px`, lineHeight: 1.9 }}
           >
             {folio.kind === "cover" ? (
               <div className="flex min-h-[60dvh] flex-col items-center justify-center text-center">
                 <ShivaLingam className="h-40 w-40 text-primary" />
-                <h1 className="mt-6 font-devanagari text-4xl">सचित्र श्रीशिवलीलामृत</h1>
+                <h1 className="mt-6 px-1 font-devanagari text-2xl sm:text-4xl">सचित्र श्रीशिवलीलामृत</h1>
                 <p className="mt-3 font-serif text-lg">A living pothi · १५ adhyays</p>
                 <p className="mt-8 text-sm opacity-70">Turn the page for the contents, then the grantha in print order.</p>
               </div>
@@ -366,7 +342,7 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
 
             {folio.kind === "contents" ? (
               <div>
-                <h1 className="font-serif text-3xl">अनुक्रमणिका</h1>
+                <h1 className="font-serif text-2xl sm:text-3xl">अनुक्रमणिका</h1>
                 <p className="mt-2 text-sm opacity-70">Contents of this pothi, with folio numbers. This is a leaf, not a sidebar.</p>
                 <ol className="mt-6 list-none space-y-2 p-0 text-[0.72em] leading-7">
                   {contentsRows().map((row) => (
@@ -392,7 +368,7 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
                 {folio.special ? (
                   <p className="text-center text-xs font-semibold uppercase tracking-[0.18em]">Rudra adhyay</p>
                 ) : null}
-                <h1 className="font-serif text-3xl">{heading}</h1>
+                <h1 className="font-serif text-2xl sm:text-3xl">{heading}</h1>
                 {kathaLines.map((para, index) => (
                   <p key={`k-${index}`} className={activeLine === index ? "pothi-ovi-active" : undefined}>
                     {para}
@@ -404,11 +380,11 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
             {folio.kind === "ovis" ? (
               <ol className="list-none space-y-7 p-0 font-devanagari">
                 {pageOvis.map((ovi, index) => (
-                  <li key={ovi.n} className={`flex gap-4 ${activeLine === index ? "pothi-ovi-active" : ""}`}>
-                    <span className="mt-1 w-10 shrink-0 text-right text-sm opacity-50">
+                  <li key={ovi.n} className={`flex min-w-0 gap-3 sm:gap-4 ${activeLine === index ? "pothi-ovi-active" : ""}`}>
+                    <span className="mt-1 w-8 shrink-0 text-right text-sm opacity-50 sm:w-10">
                       {toDevanagariNumeral(ovi.n)}
                     </span>
-                    <p>
+                    <p className="min-w-0 text-pretty">
                       {oviDisplay(ovi.text, locale)} ॥{ovi.n}॥
                     </p>
                   </li>
@@ -417,7 +393,7 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
             ) : null}
           </article>
 
-          <footer className="px-4 py-4">
+          <footer className="px-3 py-4 sm:px-4">
             <p className="text-center font-devanagari text-sm">
               पृष्ठ {toDevanagariNumeral(page)} / {toDevanagariNumeral(total)}
               <span className="mx-2 opacity-50">·</span>
@@ -434,12 +410,18 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
                 {folio.kind === "katha" ? "Katha-sar" : folio.kind === "contents" ? "Contents leaf" : "Cover"}
               </p>
             )}
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
-              <Button variant="outline" disabled={page <= 1} onClick={() => go(page - 1)}>
-                <ChevronLeft className="size-4" />
-                Previous page
-              </Button>
-              <div className="flex flex-wrap gap-2">
+            <div className="mt-4 flex flex-col gap-3">
+              <div className="grid grid-cols-2 gap-2">
+                <Button className="min-w-0" variant="outline" disabled={page <= 1} onClick={() => go(page - 1)}>
+                  <ChevronLeft className="size-4" />
+                  Previous
+                </Button>
+                <Button className="min-w-0" variant="outline" disabled={page >= total} onClick={() => go(page + 1)}>
+                  Next
+                  <ChevronRight className="size-4" />
+                </Button>
+              </div>
+              <div className="flex flex-wrap items-center justify-center gap-2">
                 <Button size="sm" variant="outline" onClick={() => go(2)}>
                   Contents
                 </Button>
@@ -454,10 +436,6 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
                   <Bell className="size-4" />
                 </Button>
               </div>
-              <Button variant="outline" disabled={page >= total} onClick={() => go(page + 1)}>
-                Next page
-                <ChevronRight className="size-4" />
-              </Button>
             </div>
             <p className="mt-3 text-center text-[11px] opacity-60">
               Speech: {engine === "sarvam-bulbul-v3" ? "Sarvam Bulbul v3 (mr/hi/en-IN)" : "browser Indian voice"} ·

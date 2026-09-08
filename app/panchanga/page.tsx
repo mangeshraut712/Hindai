@@ -10,27 +10,23 @@ import { getLocalPanchanga, getLocalUpcomingFestivals } from "@/lib/panchanga/lo
 import { Festival, Panchanga } from "@/lib/panchanga/types";
 
 export default function PanchangaPage() {
-  const [panchanga, setPanchanga] = useState<Panchanga | null>(null);
-  const [festivals, setFestivals] = useState<Festival[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [selectedDate, setSelectedDate] = useState(() => new Date());
+  const [panchanga, setPanchanga] = useState<Panchanga | null>(() => getLocalPanchanga(new Date()));
+  const [festivals, setFestivals] = useState<Festival[]>(() => getLocalUpcomingFestivals(6));
   const [error, setError] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState(new Date());
 
   useEffect(() => {
     fetchPanchanga(selectedDate);
   }, [selectedDate]);
 
-  const fetchPanchanga = async (date: Date) => {
-    setLoading(true);
+  const fetchPanchanga = (date: Date) => {
     setError(null);
     try {
       setPanchanga(getLocalPanchanga(date));
       setFestivals(getLocalUpcomingFestivals(6));
-    } catch (error) {
-      console.error("Failed to fetch Panchanga:", error);
+    } catch (caught) {
+      console.error("Failed to fetch Panchanga:", caught);
       setError("Unable to load calendar details right now.");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -49,16 +45,13 @@ export default function PanchangaPage() {
     });
   };
 
-  if (loading || !panchanga) {
+  if (!panchanga) {
     return (
       <div className="flex min-h-screen flex-col">
         <Header />
-        <main className="flex flex-1 items-center justify-center">
+        <main className="flex min-h-[50vh] flex-1 items-center justify-center px-4">
           <div className="text-center">
-            {!error && (
-              <div className="inline-block size-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
-            )}
-            <p className="mt-4 text-muted-foreground">{error ?? "Calculating Panchanga..."}</p>
+            <p className="mt-4 text-muted-foreground">{error ?? "Unable to load calendar details right now."}</p>
             {error && (
               <Button className="mt-4" onClick={() => fetchPanchanga(selectedDate)}>
                 Try again
@@ -104,7 +97,7 @@ export default function PanchangaPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="mb-8 flex items-center justify-between"
+              className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
             >
               <Button variant="outline" onClick={() => handleDateChange(-1)}>
                 Previous Day

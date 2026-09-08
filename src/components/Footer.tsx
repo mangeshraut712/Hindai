@@ -5,7 +5,15 @@ import { ArrowRight } from "lucide-react";
 
 const footerGroups = [
   {
-    title: "Learning",
+    title: "Ask AI",
+    links: [
+      { label: "Guru AI", href: "/ai-guide" },
+      { label: "Vision", href: "/vision" },
+      { label: "Dharma Guide", href: "/dharma" },
+    ],
+  },
+  {
+    title: "Learn",
     links: [
       { label: "Sanskrit Studio", href: "/sanskrit-nova" },
       { label: "Sanskrit Tools", href: "/sanskrit-tools" },
@@ -14,29 +22,20 @@ const footerGroups = [
     ],
   },
   {
-    title: "AI",
-    links: [
-      { label: "Guru AI", href: "/ai-guide" },
-      { label: "Vision", href: "/vision" },
-      { label: "Dharma", href: "/dharma" },
-    ],
-  },
-  {
-    title: "Culture",
+    title: "Practice",
     links: [
       { label: "Daily Sadhana", href: "/sadhana" },
-      { label: "Philosophies", href: "/philosophies" },
-      { label: "Frameworks", href: "/frameworks" },
       { label: "Stotras", href: "/stotras" },
       { label: "Ganesh Aarti", href: "/ganesh-aarti" },
       { label: "Shivlilamrit", href: "/shivlilamrit" },
+      { label: "Panchanga", href: "/panchanga" },
     ],
   },
   {
-    title: "Resources",
+    title: "Library",
     links: [
-      { label: "Library", href: "/contents" },
-      { label: "Panchanga", href: "/panchanga" },
+      { label: "Catalog", href: "/contents" },
+      { label: "Philosophies", href: "/philosophies" },
       { label: "Pilgrimage", href: "/pilgrimage" },
       { label: "Audio", href: "/audio" },
     ],
@@ -45,9 +44,10 @@ const footerGroups = [
     title: "More",
     links: [
       { label: "Guide", href: "/guide" },
-      { label: "Daily", href: "/daily" },
       { label: "Quiz", href: "/quiz" },
+      { label: "Daily", href: "/daily" },
       { label: "Community", href: "/community" },
+      { label: "Frameworks", href: "/frameworks" },
       { label: "Structure", href: "/structure" },
       { label: "Preface", href: "/preface" },
     ],
@@ -58,8 +58,8 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-border/60 bg-background/90">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,hsl(var(--primary)/0.1),transparent_32%),radial-gradient(circle_at_80%_0%,hsl(var(--accent)/0.1),transparent_34%)]" />
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.4fr_repeat(5,minmax(0,1fr))] lg:px-8 xl:gap-12">
-        <div className="space-y-6 sm:col-span-2 md:col-span-3 lg:col-span-1">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[minmax(0,1.4fr)_repeat(5,minmax(0,1fr))] lg:px-8 xl:gap-12">
+        <div className="min-w-0 space-y-6 sm:col-span-2 md:col-span-3 lg:col-span-1">
           <div>
             <p className="font-devanagari text-sm tracking-[0.28em] text-primary">
               सत्यमेव जयते · नमस्ते · ॐ
@@ -72,7 +72,7 @@ export function Footer() {
             Hind AI brings scriptures, SanskritNova learning tools, daily sadhana, reflection, and
             AI-guided learning into one theme-aware reading experience shaped for modern seekers.
           </p>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/guide"
               className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-background/75 px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-primary/35 hover:bg-secondary/80"
@@ -85,7 +85,7 @@ export function Footer() {
         </div>
 
         {footerGroups.map((group) => (
-          <div key={group.title} className="space-y-4">
+          <div key={group.title} className="min-w-0 space-y-4">
             <h3 className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
               {group.title}
             </h3>
