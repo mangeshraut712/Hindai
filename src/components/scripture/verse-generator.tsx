@@ -5,6 +5,9 @@ import { Sparkles, Loader2, CheckCircle, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { getVerse } from "@/lib/data/scriptures";
+import { appFetch } from "@/lib/runtime/app-fetch";
+import { HAS_SERVER_API } from "@/lib/runtime/capabilities";
 
 interface VerseGeneratorProps {
   scriptureId: string;
@@ -72,7 +75,34 @@ export function VerseGenerator({
     setSource(null);
 
     try {
-      const response = await fetch("/api/ai/verse-generate", {
+      const localVerse = getVerse(scriptureId, nextChapter, nextVerse);
+      if (localVerse) {
+        const verse = {
+          id: localVerse.id,
+          scriptureId: localVerse.scriptureId,
+          chapter: localVerse.chapter,
+          verse: localVerse.verse,
+          sanskrit: localVerse.sanskrit,
+          transliteration: localVerse.transliteration,
+          translation: localVerse.translation,
+          wordByWord: localVerse.wordByWord,
+          keyTerms: localVerse.keyTerms,
+          speaker: localVerse.speaker,
+        };
+        setGeneratedVerse(verse);
+        setIsMock(false);
+        setSource("local-index");
+        onVerseGenerated?.(verse);
+        return;
+      }
+
+      if (!HAS_SERVER_API) {
+        throw new Error(
+          "This verse is not in the local index, and Gemma generation is unavailable on the static host."
+        );
+      }
+
+      const response = await appFetch("/api/ai/verse-generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

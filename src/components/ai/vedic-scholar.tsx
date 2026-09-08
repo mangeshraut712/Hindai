@@ -18,6 +18,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { triggerHapticOnPress, triggerHapticOnSuccess } from "@/lib/haptics";
+import { ServerFeatureNotice } from "@/components/ai/server-feature-notice";
+import { appFetch } from "@/lib/runtime/app-fetch";
 
 interface Message {
   role: "user" | "assistant";
@@ -70,7 +72,7 @@ export function VedicScholar() {
       setShowQuickQuestions(false);
 
       try {
-        const response = await fetch("/api/ai/chat", {
+        const response = await appFetch("/api/ai/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -192,6 +194,9 @@ export function VedicScholar() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
+      <div className="mb-4">
+        <ServerFeatureNotice feature="Vedic AI Scholar" />
+      </div>
       <Card className="border-2 border-primary/20 bg-gradient-to-br from-background via-background to-primary/5">
         <CardHeader className="border-b border-border/50">
           <div className="flex items-center justify-between">

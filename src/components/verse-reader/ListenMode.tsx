@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { VerseWithLayers } from "@/lib/database/schema";
+import { listLocalVerses } from "@/lib/scripture/local-scripture-api";
 
 interface ListenModeProps {
   scriptureId: string;
@@ -18,16 +19,15 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
   const [error, setError] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const loadChapter = useCallback(async () => {
+  const loadChapter = useCallback(() => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/scriptures/${scriptureId}/verses?chapter=${chapter}`);
-      if (!response.ok) {
-        throw new Error("Failed to load chapter");
+      const loaded = listLocalVerses(scriptureId, chapter);
+      setVerses(loaded);
+      if (!loaded.length) {
+        setError("This chapter is not in the local scripture index.");
       }
-      const data = await response.json();
-      setVerses(data.verses || []);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load chapter");
     } finally {
@@ -88,6 +88,43 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
       return () => clearTimeout(timeout);
     }
   }, [sleepTimer]);
+
+  const speakCurrentVerse = useCallback(() => {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+      return;
+    }
+
+    const verse = verses[currentVerseIndex];
+    if (!verse) {
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(
+      `${verse.text_iast}. ${verse.translations?.[0]?.text ?? ""}`
+    );
+    utterance.rate = playbackSpeed;
+    utterance.onend = () => {
+      if (currentVerseIndex < verses.length - 1) {
+        setCurrentVerseIndex((prev) => prev + 1);
+      } else {
+        setIsPlaying(false);
+      }
+    };
+    window.speechSynthesis.speak(utterance);
+  }, [currentVerseIndex, playbackSpeed, verses]);
+
+  useEffect(() => {
+    if (!isPlaying || verses[currentVerseIndex]?.audio_url) {
+      return;
+    }
+    speakCurrentVerse();
+    return () => {
+      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, [currentVerseIndex, isPlaying, speakCurrentVerse, verses]);
 
   const togglePlay = () => {
     setIsPlaying(!isPlaying);
@@ -154,7 +191,10 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
             className="w-full"
           />
         ) : (
-          <p className="text-gray-500">No audio available for this verse</p>
+          <p className="text-gray-500">
+            No recorded audio in the local index. Play uses the browser speech voice for
+            transliteration and translation.
+          </p>
         )}
 
         {/* Playback controls */}

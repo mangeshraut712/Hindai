@@ -20,6 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { triggerHapticOnPress, triggerHapticOnSuccess, triggerHapticOnError } from "@/lib/haptics";
+import { runSanskritTool } from "@/lib/sanskrit/run-tool";
 
 type ToolTab =
   | "transliterate"
@@ -97,22 +98,8 @@ export function SanskritToolsStudio() {
     setIsLoading(true);
     setCopied(false);
 
-    // Simulate processing for better UX feedback
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
     try {
-      const endpoint = `/api/sanskrit/${activeTool === "transliterate" ? "transliterate" : activeTool}`;
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: input }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Processing failed");
-      }
-
-      const data = await response.json();
+      const data = runSanskritTool(activeTool, input);
       setOutput(JSON.stringify(data, null, 2));
       triggerHapticOnSuccess();
     } catch (error) {

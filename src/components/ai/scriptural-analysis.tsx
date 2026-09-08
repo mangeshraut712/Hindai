@@ -18,6 +18,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { triggerHapticOnPress, triggerHapticOnSuccess } from "@/lib/haptics";
+import { ServerFeatureNotice } from "@/components/ai/server-feature-notice";
+import { appFetch } from "@/lib/runtime/app-fetch";
 
 interface AnalysisResult {
   analysis: string;
@@ -83,7 +85,7 @@ export function ScripturalAnalysis() {
     formData.append("query", query);
 
     try {
-      const response = await fetch("/api/ai/vision", {
+      const response = await appFetch("/api/ai/vision", {
         method: "POST",
         body: formData,
       });
@@ -132,6 +134,9 @@ export function ScripturalAnalysis() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
+      <div className="mb-4">
+        <ServerFeatureNotice feature="Manuscript vision analysis" />
+      </div>
       <Card className="border-2 border-primary/20 bg-gradient-to-br from-background via-background to-primary/5">
         <CardHeader className="border-b border-border/50">
           <div className="flex items-center gap-3">

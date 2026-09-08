@@ -45,7 +45,7 @@
 - **🖼️ Multimodal**: Sanskrit manuscript analysis with vision AI
 - **🔤 Sanskrit Tools**: Comprehensive linguistic tools (transliteration, sandhi, morphology, vibhakti, accents)
 - **🎵 Audio Features**: Vedic accent analysis, Google Cloud TTS, Vedic Heritage Portal integration
-- **☁️ Cloud-Optimized**: Production-ready with global deployment on Vercel Edge Network
+- **☁️ Static-first live site**: GitHub Pages serves the local scripture index, Panchanga, Sanskrit tools, quiz, and study UI. Gemma 4 chat still needs `npm run dev` plus `OPENROUTER_API_KEY`.
 - **⚡ Modern Stack**: Next.js 15.5, React 19.2, TypeScript 5.9, Node.js >=20.0
 - **♿ Accessible**: Reduced motion support, ARIA labels, keyboard navigation
 - **🚀 Performance**: Dynamic imports, scoped motion and responsive layout fixes, route-level loading states
@@ -70,6 +70,8 @@ npm run dev
 
 # Open http://localhost:3000
 ```
+
+The public demo at [mangeshraut712.github.io/Hindai](https://mangeshraut712.github.io/Hindai/) is a static export. Scripture tools run locally. Gemma 4 chat goes to the durable Cloudflare Worker in `workers/hindai-gemma` (Workers AI `@cf/google/gemma-4-26b-a4b-it`, optional OpenRouter 31B).
 
 ---
 

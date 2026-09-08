@@ -6,6 +6,7 @@ import { Calendar, Clock, Sun, Moon, Star, Sparkles } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { getLocalPanchanga, getLocalUpcomingFestivals } from "@/lib/panchanga/local-panchanga";
 import { Festival, Panchanga } from "@/lib/panchanga/types";
 
 export default function PanchangaPage() {
@@ -23,19 +24,8 @@ export default function PanchangaPage() {
     setLoading(true);
     setError(null);
     try {
-      const [panchangaResponse, festivalResponse] = await Promise.all([
-        fetch(`/api/panchanga?date=${encodeURIComponent(date.toISOString())}`),
-        fetch("/api/panchanga?upcoming=true&count=6"),
-      ]);
-
-      if (!panchangaResponse.ok || !festivalResponse.ok) {
-        throw new Error("Panchanga service returned an error");
-      }
-
-      const panchangaData = await panchangaResponse.json();
-      const festivalData = await festivalResponse.json();
-      setPanchanga(panchangaData.panchanga);
-      setFestivals(festivalData.festivals ?? []);
+      setPanchanga(getLocalPanchanga(date));
+      setFestivals(getLocalUpcomingFestivals(6));
     } catch (error) {
       console.error("Failed to fetch Panchanga:", error);
       setError("Unable to load calendar details right now.");
@@ -65,8 +55,15 @@ export default function PanchangaPage() {
         <Header />
         <main className="flex flex-1 items-center justify-center">
           <div className="text-center">
-            <div className="inline-block size-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
+            {!error && (
+              <div className="inline-block size-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
+            )}
             <p className="mt-4 text-muted-foreground">{error ?? "Calculating Panchanga..."}</p>
+            {error && (
+              <Button className="mt-4" onClick={() => fetchPanchanga(selectedDate)}>
+                Try again
+              </Button>
+            )}
           </div>
         </main>
         <Footer />
@@ -301,9 +298,11 @@ export default function PanchangaPage() {
                     Upcoming festivals with puja vidhi.
                   </h2>
                 </div>
-                <Button variant="outline" asChild>
-                  {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                  <a href="/api/panchanga?upcoming=true&count=12">Open festival data</a>
+                <Button
+                  variant="outline"
+                  onClick={() => setFestivals(getLocalUpcomingFestivals(12))}
+                >
+                  Show more festivals
                 </Button>
               </div>
 

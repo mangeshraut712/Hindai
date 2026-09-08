@@ -14,6 +14,8 @@ import {
 } from "@/lib/ai/translation-languages";
 import { cn } from "@/lib/utils";
 import { scriptureCatalog } from "@/lib/scripture-catalog";
+import { ServerFeatureNotice } from "@/components/ai/server-feature-notice";
+import { appFetch } from "@/lib/runtime/app-fetch";
 
 interface Message {
   id: string;
@@ -141,7 +143,7 @@ export function AIChat({
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/ai/stream", {
+      const response = await appFetch("/api/ai/stream", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -250,7 +252,7 @@ export function AIChat({
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/ai/translate", {
+      const response = await appFetch("/api/ai/translate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -353,6 +355,9 @@ export function AIChat({
         </CardTitle>
       </CardHeader>
 
+      <div className="px-6 pt-4">
+        <ServerFeatureNotice feature="AI Scripture Guide" />
+      </div>
       <ScrollArea ref={scrollRef} className="flex-1 px-6 py-6">
         <div className="mb-6 space-y-5 rounded-[28px] border border-border/60 bg-background/70 p-5 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.35)] backdrop-blur-xl">
           <div className="flex flex-wrap items-center gap-2">

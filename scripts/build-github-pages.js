@@ -47,6 +47,9 @@ const stashed = stashApi();
 process.env.GITHUB_PAGES = "true";
 process.env.NEXT_PUBLIC_BASE_PATH = BASE_PATH;
 process.env.NEXT_PUBLIC_SITE_URL = SITE_URL;
+process.env.NEXT_PUBLIC_API_BASE =
+  process.env.NEXT_PUBLIC_API_BASE || "https://hindai-gemma.mangeshraut712.workers.dev";
+process.env.NEXT_PUBLIC_HAS_SERVER_API = process.env.NEXT_PUBLIC_API_BASE ? "true" : "false";
 
 let status = 1;
 

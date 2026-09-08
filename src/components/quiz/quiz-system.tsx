@@ -5,6 +5,9 @@ import { CheckCircle, XCircle, ArrowRight, Trophy, BookOpen, Sparkles } from "lu
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
+import { ServerFeatureNotice } from "@/components/ai/server-feature-notice";
+import { HAS_SERVER_API } from "@/lib/runtime/capabilities";
+import { appFetch } from "@/lib/runtime/app-fetch";
 
 interface Question {
   id: string;
@@ -107,7 +110,7 @@ export function QuizSystem() {
   const generateAIQuiz = async () => {
     setIsGenerating(true);
     try {
-      const response = await fetch("/api/ai/quiz", {
+      const response = await appFetch("/api/ai/quiz", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -232,10 +235,13 @@ export function QuizSystem() {
 
   return (
     <>
+      <div className="mb-5">
+        <ServerFeatureNotice feature="Gemma 4 quiz generation" />
+      </div>
       <div className="mb-5 flex justify-center">
         <Button
           onClick={generateAIQuiz}
-          disabled={isGenerating}
+          disabled={isGenerating || !HAS_SERVER_API}
           variant="outline"
           className="gap-2"
         >

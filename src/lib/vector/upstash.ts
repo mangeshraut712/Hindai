@@ -5,9 +5,30 @@
 // For now, we'll create a mock implementation
 // In production: npm install @upstash/vector
 
+type VectorRecord = {
+  id: string;
+  vector: number[];
+  metadata?: VectorData;
+};
+
+type QueryOptions = {
+  vector: number[];
+  topK?: number;
+  includeMetadata?: boolean;
+  includeVector?: boolean;
+  filter?: Record<string, string | number | undefined>;
+};
+
 interface MockIndex {
-  upsert: (data: any) => Promise<void>;
-  query: (options: any) => Promise<any[]>;
+  upsert: (data: VectorRecord | VectorRecord[]) => Promise<void>;
+  query: (options: QueryOptions) => Promise<
+    Array<{
+      id: string;
+      score: number;
+      metadata?: VectorData;
+      vector?: number[];
+    }>
+  >;
   delete: (id: string) => Promise<void>;
 }
 
@@ -33,7 +54,7 @@ export interface VectorData {
   text_devanagari: string;
   text_iast: string;
   translation?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, string | number | boolean>;
 }
 
 export interface SearchResult {
@@ -43,26 +64,11 @@ export interface SearchResult {
 }
 
 /**
- * Generate embedding for Sanskrit text
- * In production, this would use an embedding model like OpenAI's text-embedding-ada-002
- * or a specialized Sanskrit embedding model
+ * Local lexical embedding used when no vector service is configured.
+ * This is not a neural embedding and must not be labeled as one in the UI.
  */
 export async function generateEmbedding(text: string): Promise<number[]> {
-  // Placeholder implementation
-  // In production, call an embedding API
-  try {
-    const response = await fetch("/api/embeddings", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text }),
-    });
-    const data = await response.json();
-    return data.embedding;
-  } catch (error) {
-    console.error("Failed to generate embedding:", error);
-    // Return a simple hash-based embedding as fallback
-    return simpleHashEmbedding(text);
-  }
+  return simpleHashEmbedding(text);
 }
 
 /**
@@ -133,7 +139,7 @@ export async function searchVerses(
     vector: embedding,
     topK,
     includeMetadata: true,
-    filter: filter as any,
+    filter,
   });
 
   return results.map((result) => ({
@@ -188,32 +194,26 @@ export async function getSimilarity(verseId1: string, verseId2: string): Promise
   const result1 = await index.query({
     vector: new Array(1536).fill(0), // Placeholder
     topK: 1,
-    filter: { id: verseId1 } as any,
+    filter: { id: verseId1 },
     includeVector: true,
   });
 
   const result2 = await index.query({
     vector: new Array(1536).fill(0), // Placeholder
     topK: 1,
-    filter: { id: verseId2 } as any,
+    filter: { id: verseId2 },
     includeVector: true,
   });
 
-  if (!result1[0]?.vector || !result2[0]?.vector) {
+  const vector1 = result1[0]?.vector;
+  const vector2 = result2[0]?.vector;
+  if (!vector1 || !vector2) {
     return 0;
   }
 
-  // Calculate cosine similarity
-  const dotProduct = result1[0].vector.reduce(
-    (sum: number, val: number, i: number) => sum + val * result2[0].vector[i],
-    0
-  );
-  const magnitude1 = Math.sqrt(
-    result1[0].vector.reduce((sum: number, val: number) => sum + val * val, 0)
-  );
-  const magnitude2 = Math.sqrt(
-    result2[0].vector.reduce((sum: number, val: number) => sum + val * val, 0)
-  );
+  const dotProduct = vector1.reduce((sum, val, i) => sum + val * (vector2[i] ?? 0), 0);
+  const magnitude1 = Math.sqrt(vector1.reduce((sum, val) => sum + val * val, 0));
+  const magnitude2 = Math.sqrt(vector2.reduce((sum, val) => sum + val * val, 0));
 
   return dotProduct / (magnitude1 * magnitude2);
 }
