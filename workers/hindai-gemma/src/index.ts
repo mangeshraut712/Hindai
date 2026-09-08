@@ -13,6 +13,7 @@ type Env = {
   GEMMA_MODEL: string;
   OPENROUTER_MODEL: string;
   OPENROUTER_API_KEY?: string;
+  SARVAM_API_KEY?: string;
 };
 
 const ALLOWED_ORIGINS = [
@@ -397,6 +398,7 @@ const worker = {
             "/api/ai/translate",
             "/api/ai/quiz",
             "/api/sanskrit/chat",
+            "/api/pothi/speak",
           ],
         },
         {},
@@ -410,6 +412,47 @@ const worker = {
 
     try {
       const body = (await request.json().catch(() => ({}))) as Record<string, unknown>;
+
+      if (path === "/api/pothi/speak") {
+        const text = typeof body.text === "string" ? body.text.trim() : "";
+        const locale = body.locale === "en" ? "en-IN" : body.locale === "hi" || body.locale === "roman" ? "hi-IN" : "mr-IN";
+        const speaker = locale === "en-IN" ? "shubh" : "ritu";
+        if (!text) {
+          return json({ error: "Text is required." }, { status: 400 }, origin);
+        }
+        if (!env.SARVAM_API_KEY) {
+          return json({ engine: "browser", fallback: true }, {}, origin);
+        }
+        const sarvam = await fetch("https://api.sarvam.ai/text-to-speech", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "api-subscription-key": env.SARVAM_API_KEY,
+          },
+          body: JSON.stringify({
+            text: text.slice(0, 2400),
+            language_code: locale,
+            model: "bulbul:v3",
+            speaker,
+            pace: 0.82,
+            output_audio_codec: "mp3",
+          }),
+        });
+        if (!sarvam.ok) {
+          const detail = await sarvam.text();
+          return json(
+            { engine: "browser", fallback: true, error: detail.slice(0, 240) },
+            {},
+            origin
+          );
+        }
+        const payload = (await sarvam.json()) as { audios?: string[] };
+        const base64 = payload.audios?.[0];
+        if (!base64) {
+          return json({ engine: "browser", fallback: true }, {}, origin);
+        }
+        return json({ mime: "audio/mpeg", base64, engine: "sarvam-bulbul-v3" }, {}, origin);
+      }
 
       if (path === "/api/ai/chat") {
         const userText = latestUserText(body);

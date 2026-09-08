@@ -1,4 +1,6 @@
 import { MetadataRoute } from "next";
+import { listGaneshAartiSlugs } from "@/lib/data/ganesh-aarti-sangrah";
+import { listPothi } from "@/lib/data/shivlilamrit/pothi";
 import { scriptureCatalog } from "@/lib/scripture-catalog";
 import { SITE_URL } from "@/lib/site";
 
@@ -80,6 +82,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/stotras`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/ganesh-aarti`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    ...listGaneshAartiSlugs().map((slug) => ({
+      url: `${baseUrl}/ganesh-aarti/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+    {
+      url: `${baseUrl}/shivlilamrit`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/shivlilamrit/book`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    ...listPothi().map((entry) => ({
+      url: `${baseUrl}/shivlilamrit/read/${entry.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: entry.slug === "11" ? 0.85 : 0.7,
+    })),
     ...scriptureCatalog.map((item) => ({
       url: `${baseUrl}${item.href}`,
       lastModified: new Date(),

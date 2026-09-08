@@ -102,6 +102,28 @@ const stotraItems: StotraItem[] = [
     audioAvailable: true,
   },
   {
+    id: "ganesh-aarti-sangrah",
+    name: "Ganesh Marathi Aarti Sangrah",
+    sanskrit: "जय गणेश आरती संग्रह",
+    deity: "Ganesha",
+    description:
+      "Dagdusheth Halwai Marathi aarti book: Sukhakarta, Devi, Shiva, Vitthal, Datta, Atharvashirsha, and temple prayers with audio and translation.",
+    type: "stotra",
+    href: "/ganesh-aarti",
+    audioAvailable: true,
+  },
+  {
+    id: "shivlilamrit",
+    name: "Shivlilamrit",
+    sanskrit: "श्री शिवलीलामृत",
+    deity: "Shiva",
+    description:
+      "Sant Shridhar Swami’s Marathi ovi grantha as an Apple Books-style Shravan reader. Adhyay 11 is the Rudra chapter.",
+    type: "stotra",
+    href: "/shivlilamrit",
+    audioAvailable: true,
+  },
+  {
     id: "soundaryalahari",
     name: "Soundaryalahari",
     sanskrit: "सौन्दर्यलहरी",

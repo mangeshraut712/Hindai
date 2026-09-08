@@ -28,6 +28,8 @@ const footerGroups = [
       { label: "Philosophies", href: "/philosophies" },
       { label: "Frameworks", href: "/frameworks" },
       { label: "Stotras", href: "/stotras" },
+      { label: "Ganesh Aarti", href: "/ganesh-aarti" },
+      { label: "Shivlilamrit", href: "/shivlilamrit" },
     ],
   },
   {

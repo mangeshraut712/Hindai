@@ -67,6 +67,8 @@ const cultureItems: NavItem[] = [
   { label: "Philosophies", script: "दर्शन", href: "/philosophies", icon: BookOpen },
   { label: "Frameworks", script: "संरचना", href: "/frameworks", icon: BookOpen },
   { label: "Stotras", script: "स्तोत्र", href: "/stotras", icon: BookOpen },
+  { label: "Ganesh Aarti", script: "आरती", href: "/ganesh-aarti", icon: BookOpen },
+  { label: "Shivlilamrit", script: "शिव", href: "/shivlilamrit", icon: BookOpen },
 ];
 
 const resourcesItems: NavItem[] = [

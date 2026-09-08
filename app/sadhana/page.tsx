@@ -84,6 +84,18 @@ const practiceLinks = [
     icon: Sparkles,
   },
   {
+    title: "Ganesh aarti sangrah",
+    body: "Read the Marathi Ganesh aarti book with recitation, IAST, and English.",
+    href: "/ganesh-aarti",
+    icon: Sparkles,
+  },
+  {
+    title: "Shivlilamrit for Shravan",
+    body: "Fifteen adhyays as a digital pothi, with adhyay 11 highlighted for rudraksha and Mahananda.",
+    href: "/shivlilamrit",
+    icon: Sparkles,
+  },
+  {
     title: "Ask Guru AI",
     body: "Use Gemma 4 guidance for meanings, context, pronunciation help, and practice notes.",
     href: "/ai-guide?q=Create%20a%20simple%20daily%20sadhana%20routine",

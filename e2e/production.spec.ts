@@ -124,6 +124,8 @@ test.describe("Production Site - Navigation Pages", () => {
     { path: "/sanskrit-nova", title: /Sanskrit|Hind AI/ },
     { path: "/sanskrit-tools", title: /Sanskrit|Hind AI/ },
     { path: "/stotras", title: /Stotras|Hind AI/ },
+    { path: "/ganesh-aarti", title: /Ganesh Marathi Aarti|Hind AI/ },
+    { path: "/shivlilamrit", title: /Shivlilamrit|Hind AI/ },
     { path: "/study-paths", title: /Study|Hind AI/ },
   ];
 
