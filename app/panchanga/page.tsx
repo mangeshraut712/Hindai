@@ -114,13 +114,11 @@ export default function PanchangaPage() {
                 Next Day
               </Button>
             </motion.div>
-
             {error ? (
               <div className="mb-8 rounded-[24px] border border-destructive/20 bg-destructive/10 p-4 text-sm text-destructive">
                 {error}
               </div>
             ) : null}
-
             {/* Panchanga Grid */}
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {/* Tithi */}
@@ -281,7 +279,6 @@ export default function PanchangaPage() {
                 </div>
               </motion.div>
             </div>
-
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -314,49 +311,52 @@ export default function PanchangaPage() {
                 {festivals.map((festival) => {
                   const deepHref = deepFestivalHref(festival.id);
                   return (
-                  <article
-                    key={festival.id}
-                    className="rounded-[24px] border border-border/60 bg-background/75 p-5"
-                  >
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                      <div>
-                        <p className="font-devanagari text-xl text-primary">{festival.sanskrit}</p>
-                        <h3 className="mt-1 text-xl font-semibold text-foreground">
-                          {festival.name}
-                        </h3>
+                    <article
+                      key={festival.id}
+                      className="rounded-[24px] border border-border/60 bg-background/75 p-5"
+                    >
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                        <div>
+                          <p className="font-devanagari text-xl text-primary">
+                            {festival.sanskrit}
+                          </p>
+                          <h3 className="mt-1 text-xl font-semibold text-foreground">
+                            {festival.name}
+                          </h3>
+                        </div>
+                        <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                          {new Date(festival.date).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                          })}
+                        </span>
                       </div>
-                      <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                        {new Date(festival.date).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </span>
-                    </div>
-                    <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                      {festival.description}
-                    </p>
-                    <div className="mt-4 space-y-3 text-sm leading-6">
-                      <p>
-                        <span className="font-semibold text-foreground">Puja vidhi: </span>
-                        <span className="text-muted-foreground">{festival.pujaVidhi}</span>
+                      <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                        {festival.description}
                       </p>
-                      <p>
-                        <span className="font-semibold text-foreground">Significance: </span>
-                        <span className="text-muted-foreground">{festival.significance}</span>
-                      </p>
-                      {deepHref ? (
+                      <div className="mt-4 space-y-3 text-sm leading-6">
                         <p>
-                          <Link href={deepHref} className="font-semibold text-primary">
-                            Read the deep festival page →
-                          </Link>
+                          <span className="font-semibold text-foreground">Puja vidhi: </span>
+                          <span className="text-muted-foreground">{festival.pujaVidhi}</span>
                         </p>
-                      ) : null}
-                    </div>
-                  </article>
+                        <p>
+                          <span className="font-semibold text-foreground">Significance: </span>
+                          <span className="text-muted-foreground">{festival.significance}</span>
+                        </p>
+                        {deepHref ? (
+                          <p>
+                            <Link href={deepHref} className="font-semibold text-primary">
+                              Read the deep festival page →
+                            </Link>
+                          </p>
+                        ) : null}
+                      </div>
+                    </article>
                   );
                 })}
               </div>
-            </motion.div>          </div>
+            </motion.div>{" "}
+          </div>
         </section>
       </main>
 

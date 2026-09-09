@@ -64,4 +64,15 @@ for (const file of files) {
 
 const before = results.reduce((s, r) => s + r.before, 0);
 const after = results.reduce((s, r) => s + r.after, 0);
-console.log(JSON.stringify({ count: results.length, beforeMB: +(before / 1e6).toFixed(1), afterMB: +(after / 1e6).toFixed(1), sample: results.slice(0, 8) }, null, 2));
+console.log(
+  JSON.stringify(
+    {
+      count: results.length,
+      beforeMB: +(before / 1e6).toFixed(1),
+      afterMB: +(after / 1e6).toFixed(1),
+      sample: results.slice(0, 8),
+    },
+    null,
+    2
+  )
+);

@@ -1,12 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import {
-  UTSAVS,
-  getUtsavBySlug,
-  upcomingUtsavs,
-  utsavSlugs,
-  utsavsByMonth,
-} from "./utsav";
+import { UTSAVS, getUtsavBySlug, upcomingUtsavs, utsavSlugs, utsavsByMonth } from "./utsav";
 
 test("utsav catalog has unique slugs, ISO dates, and deep fields", () => {
   const slugs = utsavSlugs();
@@ -37,8 +31,16 @@ test("utsav catalog has unique slugs, ISO dates, and deep fields", () => {
   assert.ok(getUtsavBySlug("ganesh-chaturthi")?.image?.includes("/festivals/"));
   assert.equal(getUtsavBySlug("maha-shivaratri")?.image, "/festivals/maha-shivaratri.webp");
   assert.equal(getUtsavBySlug("janmashtami")?.image, "/festivals/janmashtami.webp");
-  assert.ok(utsavsByMonth().get("October")?.some((item) => item.slug === "sharad-navaratri"));
-  assert.ok(utsavsByMonth().get("March")?.some((item) => item.slug === "ugadi-gudi-padwa"));
+  assert.ok(
+    utsavsByMonth()
+      .get("October")
+      ?.some((item) => item.slug === "sharad-navaratri")
+  );
+  assert.ok(
+    utsavsByMonth()
+      .get("March")
+      ?.some((item) => item.slug === "ugadi-gudi-padwa")
+  );
 });
 
 test("upcoming utsavs respect a civil from-date", () => {

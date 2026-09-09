@@ -405,7 +405,8 @@ export const SHAKTI_PEETHAS: ShaktiPeetha[] = [
     deviName: "Bhavani",
     bhairavaName: "Local kshetra pairing",
     listStatus: "peetha-disputed",
-    story: "Bhavani remembered in Maratha memory with the sword gift motif — tradition, not a dated inventory.",
+    story:
+      "Bhavani remembered in Maratha memory with the sword gift motif — tradition, not a dated inventory.",
     puranaStory:
       "Bhavani mahatmya of Tuljapur. Shivaji’s sword-legend is regional history mixed with bhakti, not a Purana verse.",
     history: "A Yadava-to-Maratha hill shrine in the Deccan.",

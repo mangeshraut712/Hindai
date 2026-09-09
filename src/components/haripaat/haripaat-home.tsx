@@ -61,7 +61,9 @@ export function HaripaatHome() {
                           {leaf.titleMr}
                           {leaf.special ? " · मुख्य" : ""}
                         </Link>
-                        <p className="mt-1 text-xs leading-5 text-muted-foreground">{leaf.titleEn}</p>
+                        <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                          {leaf.titleEn}
+                        </p>
                       </td>
                       <td className="py-3 text-right">
                         <Link

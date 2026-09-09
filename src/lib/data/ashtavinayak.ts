@@ -59,7 +59,10 @@ export const ASHTAVINAYAK: AshtavinayakSite[] = [
     history: "A Bhima-river shrine on the usual second halt. Approach changes with monsoon water.",
     today:
       "Ferry or bridge depending on season. Carry water for the heat. Second in the printed order after Morgaon.",
-    doList: ["Check river approach before you commit a timetable", "Keep the queue calm on the ghats"],
+    doList: [
+      "Check river approach before you commit a timetable",
+      "Keep the queue calm on the ghats",
+    ],
     dontList: ["Do not swim in the Bhima as ‘tirtha sport’ without local advice"],
     sources: ["Siddhatek Ganapati living temple", "Ashtavinayak order books"],
   },
@@ -75,7 +78,8 @@ export const ASHTAVINAYAK: AshtavinayakSite[] = [
     puranaStory:
       "Named for the child-devotee Ballāl whose stubborn bhakti, in Konkan tellings, draws Gaṇeśa’s grace against a cruel village headman. The story teaches that devotion can be young and still serious.",
     history: "A Raigad-district Ganapati on the western arc of the circuit.",
-    today: "Western-side halt. Roads from Khopoli / Pali town are the real navigation — not mythic shortcuts.",
+    today:
+      "Western-side halt. Roads from Khopoli / Pali town are the real navigation — not mythic shortcuts.",
     doList: ["Read Ballāl’s story once before darshan", "Respect village temple closing hours"],
     dontList: ["Do not confuse this Pali with other Indian towns of the same name"],
     sources: ["Ballaleshwar Pali mahatmya (tradition)", "Raigad temple geography"],
@@ -111,7 +115,9 @@ export const ASHTAVINAYAK: AshtavinayakSite[] = [
       "Chintāmaṇi is the wish-jewel name. Local tellings link Kapila and a jewel-theft cycle to Gaṇeśa’s settling worry — chintā — into clarity. Again: mahātmya ethics, not a gemstone inventory.",
     history: "Near Pune; an accessible fifth halt on the usual circuit.",
     today: "Easy Pune-side visit. Weekday mornings are kinder than Sunday noon.",
-    doList: ["Combine thoughtfully with Pune logistics — do not rush five temples in one breathless afternoon"],
+    doList: [
+      "Combine thoughtfully with Pune logistics — do not rush five temples in one breathless afternoon",
+    ],
     dontList: ["Do not treat ‘wish-jewel’ as a lottery ticket theology"],
     sources: ["Chintamani Theur", "Ashtavinayak order"],
   },
@@ -128,8 +134,12 @@ export const ASHTAVINAYAK: AshtavinayakSite[] = [
       "Girijātmaj — son of the Mountain Goddess — is worshipped in a cave. The katha of Pārvatī’s child and the archaeology of Buddhist chaitya caves share one hill without cancelling each other.",
     history:
       "A cave shrine in a Buddhist-era hill complex; the Ganapati occupies a chaitya cave. That layered rock history is checkable.",
-    today: "Steps up the hill. Carry water; mind knees and monsoon slip. Archaeology boards and the living murti coexist.",
-    doList: ["Climb with respect for both cave heritage and the murti", "Wear shoes you can remove at the cave mouth"],
+    today:
+      "Steps up the hill. Carry water; mind knees and monsoon slip. Archaeology boards and the living murti coexist.",
+    doList: [
+      "Climb with respect for both cave heritage and the murti",
+      "Wear shoes you can remove at the cave mouth",
+    ],
     dontList: ["Do not carve or litter in protected cave areas"],
     sources: ["Girijatmaj Lenyadri", "Lenyadri cave archaeology notes"],
   },

@@ -42,7 +42,9 @@ export function GurukulHero({
       <div className="absolute inset-x-0 bottom-0 mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
         <p className="eyebrow">{eyebrow}</p>
         <h1 className="mt-4 max-w-3xl font-serif text-4xl text-foreground sm:text-5xl">{title}</h1>
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">{copy}</p>
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
+          {copy}
+        </p>
         {actions ? <div className="mt-6 flex flex-wrap gap-3">{actions}</div> : null}
         <p className="mt-4 text-[11px] tracking-wide text-muted-foreground/80">
           Artist impression · not a photograph of a living temple murti

@@ -253,19 +253,19 @@ Hosting moved off paused Vercel onto **GitHub Pages + Cloudflare Worker** (2026)
 
 ### Performance & Monitoring
 
-| Technology                 | Purpose                                         |
-| -------------------------- | ----------------------------------------------- |
-| **GitHub Pages + CI**      | Static export verified on every `main` push     |
-| **Cloudflare Worker logs** | Gemma gateway observability                     |
-| **Playwright**             | E2E coverage for culture and study flows        |
+| Technology                 | Purpose                                     |
+| -------------------------- | ------------------------------------------- |
+| **GitHub Pages + CI**      | Static export verified on every `main` push |
+| **Cloudflare Worker logs** | Gemma gateway observability                 |
+| **Playwright**             | E2E coverage for culture and study flows    |
 
 ### Infrastructure
 
-| Technology            | Purpose                                      |
-| --------------------- | -------------------------------------------- |
-| **GitHub Pages**      | Static site export and public hosting        |
-| **Cloudflare Worker** | Gemma gateway (`workers/hindai-gemma`)       |
-| **GitHub Actions**    | CI quality gates and Pages deploy on `main`  |
+| Technology            | Purpose                                     |
+| --------------------- | ------------------------------------------- |
+| **GitHub Pages**      | Static site export and public hosting       |
+| **Cloudflare Worker** | Gemma gateway (`workers/hindai-gemma`)      |
+| **GitHub Actions**    | CI quality gates and Pages deploy on `main` |
 
 ---
 

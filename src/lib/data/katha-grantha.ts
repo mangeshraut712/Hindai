@@ -191,10 +191,7 @@ export const KATHA_GRANTHAS: KathaGrantha[] = [
           "Puri’s ratha gave English the word juggernaut — a reminder that Indian ritual entered world language as living force, not as museum dust.",
           "Ekadashi fasting twice a month is the quiet drum under the famous festivals. If you only visit Char Dham once, still keep one ekadashi as a listening day for the Gītā or a name of Viṣṇu.",
         ],
-        sources: [
-          "Char Dham pilgrimage geography",
-          "Living ekadashi custom in Vaishnava homes",
-        ],
+        sources: ["Char Dham pilgrimage geography", "Living ekadashi custom in Vaishnava homes"],
       },
     ],
   },
@@ -247,10 +244,7 @@ export const KATHA_GRANTHAS: KathaGrantha[] = [
           "Each halt keeps a local mahātmya: peacock legends, ballala devotion, hill caves, river crossings. Read one local story per halt, then walk. That is how geography becomes memory.",
           "Obstacle-removal that cannot wait in a queue has already failed the lesson.",
         ],
-        sources: [
-          "Ashtavinayak circuit living pilgrimage",
-          "Hind AI /ganesha map and place pages",
-        ],
+        sources: ["Ashtavinayak circuit living pilgrimage", "Hind AI /ganesha map and place pages"],
       },
     ],
   },

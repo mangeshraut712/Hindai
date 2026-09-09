@@ -38,7 +38,9 @@ export function KathaHome() {
                 />
                 <div>
                   <p className="font-devanagari text-primary">{item.sanskrit}</p>
-                  <h3 className="mt-1 font-serif text-2xl group-hover:text-primary">{item.title}</h3>
+                  <h3 className="mt-1 font-serif text-2xl group-hover:text-primary">
+                    {item.title}
+                  </h3>
                   <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
                     {item.tagline}
                   </p>

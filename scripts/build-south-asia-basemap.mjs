@@ -9,8 +9,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
-const input =
-  process.argv[2] || path.join(root, "scripts/tmp/ne_50m_admin_0_countries.geojson");
+const input = process.argv[2] || path.join(root, "scripts/tmp/ne_50m_admin_0_countries.geojson");
 
 const BOUNDS = { minLat: 5.5, maxLat: 37.5, minLng: 60, maxLng: 98 };
 const SOFT = { minLng: 55, maxLng: 102, minLat: 3, maxLat: 40 };
@@ -136,9 +135,7 @@ function pathsFor(features, names, tol) {
 
 if (!fs.existsSync(input)) {
   console.error(`Missing GeoJSON: ${input}`);
-  console.error(
-    "Download Natural Earth 50m admin 0 countries GeoJSON into scripts/tmp/ first."
-  );
+  console.error("Download Natural Earth 50m admin 0 countries GeoJSON into scripts/tmp/ first.");
   process.exit(1);
 }
 

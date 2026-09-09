@@ -45,7 +45,13 @@ export function GurukulDiagrams() {
                 </text>
               </g>
             ))}
-            <text x="160" y="140" textAnchor="middle" className="fill-muted-foreground" fontSize="10">
+            <text
+              x="160"
+              y="140"
+              textAnchor="middle"
+              className="fill-muted-foreground"
+              fontSize="10"
+            >
               + Haripaat (daily Hari patha)
             </text>
           </svg>
@@ -70,7 +76,15 @@ export function GurukulDiagrams() {
 
         <DiagramCard title="Char Dham corners" subtitle="Four living Vaishnava gates">
           <svg viewBox="0 0 320 160" className="h-auto w-full text-primary" aria-hidden="true">
-            <rect x="20" y="20" width="280" height="120" rx="12" fill="none" stroke="currentColor" />
+            <rect
+              x="20"
+              y="20"
+              width="280"
+              height="120"
+              rx="12"
+              fill="none"
+              stroke="currentColor"
+            />
             <circle cx="160" cy="40" r="10" fill="currentColor" />
             <text x="160" y="62" textAnchor="middle" fontSize="10" className="fill-foreground">
               Badrinath
@@ -116,7 +130,13 @@ export function GurukulDiagrams() {
                 </g>
               );
             })}
-            <text x="160" y="96" textAnchor="middle" fontSize="10" className="fill-muted-foreground">
+            <text
+              x="160"
+              y="96"
+              textAnchor="middle"
+              fontSize="10"
+              className="fill-muted-foreground"
+            >
               Morgaon → … → Mahaganapati
             </text>
           </svg>
@@ -163,7 +183,11 @@ export function GurukulDiagrams() {
           </p>
         </DiagramCard>
 
-        <DiagramCard title="Haripaat weekly rhythm" subtitle="Name · ekadashi · rest" className="lg:col-span-2">
+        <DiagramCard
+          title="Haripaat weekly rhythm"
+          subtitle="Name · ekadashi · rest"
+          className="lg:col-span-2"
+        >
           <svg viewBox="0 0 640 100" className="h-auto w-full text-primary" aria-hidden="true">
             {["Dawn Name", "Tulsi", "Ekadashi", "Gita seed", "Vitthal", "Peace", "Begin again"].map(
               (label, i) => (
