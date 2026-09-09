@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { VerseWithLayers } from "@/lib/database/schema";
 import { getLocalStreak, recordLocalReview } from "@/lib/progress/local-progress";
 import { listLocalVerses } from "@/lib/scripture/local-scripture-api";
@@ -10,15 +10,32 @@ interface StudyModeProps {
   chapter?: number;
 }
 
+function versesForStudy(
+  scriptureId: string,
+  chapter?: number
+): { verses: VerseWithLayers[]; error: string | null } {
+  try {
+    const loaded = listLocalVerses(scriptureId, chapter);
+    return {
+      verses: loaded,
+      error: loaded.length ? null : "No verses available in the local scripture index.",
+    };
+  } catch (err) {
+    return {
+      verses: [],
+      error: err instanceof Error ? err.message : "Failed to load verses",
+    };
+  }
+}
+
 export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
-  const [verses, setVerses] = useState<VerseWithLayers[]>([]);
+  const [verses, setVerses] = useState(() => versesForStudy(scriptureId, chapter).verses);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showTranslation, setShowTranslation] = useState(false);
   const [showSanskrit, setShowSanskrit] = useState(true);
   const [showWordByWord, setShowWordByWord] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [streak, setStreak] = useState(0);
+  const [error, setError] = useState(() => versesForStudy(scriptureId, chapter).error);
+  const [streak, setStreak] = useState(() => getLocalStreak());
   const [sessionProgress, setSessionProgress] = useState(0);
   const [quality, setQuality] = useState<number | null>(null);
   const [reviewed, setReviewed] = useState<Set<number>>(new Set());
@@ -26,33 +43,15 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
   const [prevProps, setPrevProps] = useState({ scriptureId, chapter });
 
   if (scriptureId !== prevProps.scriptureId || chapter !== prevProps.chapter) {
+    const next = versesForStudy(scriptureId, chapter);
     setPrevProps({ scriptureId, chapter });
-    setLoading(true);
-    setError(null);
-    setVerses([]);
+    setError(next.error);
+    setVerses(next.verses);
     setCurrentIndex(0);
     setReviewed(new Set());
     setSessionProgress(0);
     setQuality(null);
   }
-
-  useEffect(() => {
-    setStreak(getLocalStreak());
-  }, []);
-
-  useEffect(() => {
-    try {
-      const loaded = listLocalVerses(scriptureId, chapter);
-      setVerses(loaded);
-      if (!loaded.length) {
-        setError("No verses available in the local scripture index.");
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load verses");
-    } finally {
-      setLoading(false);
-    }
-  }, [scriptureId, chapter]);
 
   const handleRate = (rating: number) => {
     const currentVerse = verses[currentIndex];
@@ -107,17 +106,6 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
   };
 
   const currentVerse = verses[currentIndex];
-
-  if (loading) {
-    return (
-      <div className="mx-auto max-w-4xl p-6">
-        <div className="animate-pulse">
-          <div className="mb-4 h-8 rounded bg-gray-200"></div>
-          <div className="h-64 rounded bg-gray-200"></div>
-        </div>
-      </div>
-    );
-  }
 
   if (error) {
     return (

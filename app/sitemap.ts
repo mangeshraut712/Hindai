@@ -1,5 +1,11 @@
 import { MetadataRoute } from "next";
+import { listAshtavinayakSlugs } from "@/lib/data/ashtavinayak";
+import { listCharDhamSlugs } from "@/lib/data/char-dham";
 import { listGaneshAartiSlugs } from "@/lib/data/ganesh-aarti-sangrah";
+import { listJyotirlingaSlugs } from "@/lib/data/jyotirlingas";
+import { kathaSlugs } from "@/lib/data/katha-grantha";
+import { listShaktiPeethaSlugs } from "@/lib/data/shakti-peethas";
+import { utsavSlugs } from "@/lib/data/utsav";
 import { listPothi } from "@/lib/data/shivlilamrit/pothi";
 import { scriptureCatalog } from "@/lib/scripture-catalog";
 import { SITE_URL } from "@/lib/site";
@@ -119,6 +125,54 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/mahadev`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    ...listJyotirlingaSlugs().map((slug) => ({
+      url: `${baseUrl}/mahadev/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+    {
+      url: `${baseUrl}/devi`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    ...listShaktiPeethaSlugs().map((slug) => ({
+      url: `${baseUrl}/devi/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
+    })),
+    {
+      url: `${baseUrl}/vishnu`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    ...listCharDhamSlugs().map((slug) => ({
+      url: `${baseUrl}/vishnu/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+    {
+      url: `${baseUrl}/ganesha`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.75,
+    },
+    ...listAshtavinayakSlugs().map((slug) => ({
+      url: `${baseUrl}/ganesha/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+    {
       url: `${baseUrl}/audio`,
       lastModified: new Date(),
       changeFrequency: "monthly",
@@ -148,6 +202,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/festivals`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    ...utsavSlugs().map((slug) => ({
+      url: `${baseUrl}/festivals/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+    {
+      url: `${baseUrl}/katha`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    ...kathaSlugs().map((slug) => ({
+      url: `${baseUrl}/katha/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    })),
     {
       url: `${baseUrl}/stotras`,
       lastModified: new Date(),

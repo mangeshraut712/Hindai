@@ -8,6 +8,10 @@ export async function loadFolioVerses(folio: Folio): Promise<string[]> {
   if (folio.kind !== "ovis") {
     return [];
   }
+  return loadStoryVerses(folio);
+}
+
+export async function loadStoryVerses(folio: Folio): Promise<string[]> {
   if (folio.chapterId) {
     return loadChapterOvis(folio.chapterId);
   }

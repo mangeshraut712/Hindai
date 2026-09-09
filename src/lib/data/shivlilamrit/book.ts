@@ -1,7 +1,8 @@
-import { isChapterId, type ChapterId } from "./catalog";
+import { CHAPTER_IDS, getChapter, isChapterId, type ChapterId } from "./catalog";
 import { getExtra, listPothi, type PothiEntry } from "./pothi";
 
-export const OVIS_PER_PAGE = 4;
+export const PRINT_CONTENTS_PAGE = 8;
+export const PRINT_ADHYAY_ONE_PAGE = 9;
 
 export const OVI_COUNTS: Record<ChapterId, number> = {
   1: 148,
@@ -21,7 +22,7 @@ export const OVI_COUNTS: Record<ChapterId, number> = {
   15: 324,
 };
 
-export type FolioKind = "cover" | "contents" | "katha" | "ovis";
+export type FolioKind = "cover" | "title" | "contents" | "katha" | "ovis";
 
 export interface Folio {
   page: number;
@@ -42,6 +43,7 @@ export interface ContentsRow {
   titleEn: string;
   kind: FolioKind | "section";
   slug: string;
+  chapterId?: ChapterId;
 }
 
 const DEVANAGARI_DIGITS = ["०", "१", "२", "३", "४", "५", "६", "७", "८", "९"] as const;
@@ -63,11 +65,34 @@ function verseCountFor(entry: PothiEntry): number {
   return getExtra(entry.slug)?.verses.length ?? 0;
 }
 
-function oviPageCount(total: number): number {
-  return total > 0 ? Math.ceil(total / OVIS_PER_PAGE) : 0;
-}
-
 let cachedSpine: Folio[] | null = null;
+
+function pushEntry(folios: Folio[], entry: PothiEntry): void {
+  folios.push({
+    page: folios.length + 1,
+    kind: "katha",
+    slug: entry.slug,
+    titleMr: entry.titleMr,
+    titleEn: entry.titleEn,
+    chapterId: entry.chapterId,
+    special: entry.chapterId === 11,
+  });
+  const verses = verseCountFor(entry);
+  if (verses > 0) {
+    folios.push({
+      page: folios.length + 1,
+      kind: "ovis",
+      slug: entry.slug,
+      titleMr: entry.titleMr,
+      titleEn: entry.titleEn,
+      chapterId: entry.chapterId,
+      special: entry.chapterId === 11,
+      oviFrom: 1,
+      oviTo: verses,
+      oviTotal: verses,
+    });
+  }
+}
 
 export function buildSpine(): Folio[] {
   if (cachedSpine) {
@@ -83,41 +108,37 @@ export function buildSpine(): Folio[] {
     },
     {
       page: 2,
-      kind: "contents",
-      slug: "contents",
-      titleMr: "अनुक्रमणिका",
-      titleEn: "Contents",
+      kind: "title",
+      slug: "title",
+      titleMr: "श्रीशिवलीलामृत कथासार",
+      titleEn: "Title page",
     },
   ];
 
-  for (const entry of listPothi()) {
+  for (const entry of listPothi().filter((item) => item.kind === "front")) {
+    pushEntry(folios, entry);
+  }
+
+  while (folios.length < PRINT_CONTENTS_PAGE - 1) {
     folios.push({
       page: folios.length + 1,
-      kind: "katha",
-      slug: entry.slug,
-      titleMr: entry.titleMr,
-      titleEn: entry.titleEn,
-      chapterId: entry.chapterId,
-      special: entry.chapterId === 11,
+      kind: "title",
+      slug: "front-leaf",
+      titleMr: "श्रीशिवलीलामृत कथासार",
+      titleEn: "Front leaf",
     });
-    const verses = verseCountFor(entry);
-    const leaves = oviPageCount(verses);
-    for (let leaf = 0; leaf < leaves; leaf += 1) {
-      const oviFrom = leaf * OVIS_PER_PAGE + 1;
-      const oviTo = Math.min(verses, oviFrom + OVIS_PER_PAGE - 1);
-      folios.push({
-        page: folios.length + 1,
-        kind: "ovis",
-        slug: entry.slug,
-        titleMr: entry.titleMr,
-        titleEn: entry.titleEn,
-        chapterId: entry.chapterId,
-        special: entry.chapterId === 11,
-        oviFrom,
-        oviTo,
-        oviTotal: verses,
-      });
-    }
+  }
+
+  folios.push({
+    page: PRINT_CONTENTS_PAGE,
+    kind: "contents",
+    slug: "contents",
+    titleMr: "अनुक्रमणिका",
+    titleEn: "Contents",
+  });
+
+  for (const entry of listPothi().filter((item) => item.kind !== "front")) {
+    pushEntry(folios, entry);
   }
 
   cachedSpine = folios;
@@ -132,20 +153,195 @@ export function getFolio(page: number): Folio | undefined {
   return buildSpine()[page - 1];
 }
 
+export type PageViewMode = "one" | "two";
+
+export function isPageViewMode(value: string): value is PageViewMode {
+  return value === "one" || value === "two";
+}
+
+export function pagesForView(page: number, mode: PageViewMode): number[] {
+  const safe = Math.min(Math.max(1, page), folioCount());
+  switch (mode) {
+    case "one":
+      return [safe];
+    case "two": {
+      const right = safe + 1;
+      return right <= folioCount() ? [safe, right] : [safe];
+    }
+    default: {
+      const _exhaustive: never = mode;
+      return _exhaustive;
+    }
+  }
+}
+
+export function nextViewPage(page: number, mode: PageViewMode): number {
+  switch (mode) {
+    case "one":
+      return Math.min(page + 1, folioCount());
+    case "two":
+      return Math.min(page + 2, folioCount());
+    default: {
+      const _exhaustive: never = mode;
+      return _exhaustive;
+    }
+  }
+}
+
+export function prevViewPage(page: number, mode: PageViewMode): number {
+  switch (mode) {
+    case "one":
+      return Math.max(page - 1, 1);
+    case "two":
+      return Math.max(page - 2, 1);
+    default: {
+      const _exhaustive: never = mode;
+      return _exhaustive;
+    }
+  }
+}
+
+export function storyPages(): number[] {
+  const pages: number[] = [];
+  for (const folio of buildSpine()) {
+    if (folio.kind === "ovis") {
+      continue;
+    }
+    pages.push(folio.page);
+  }
+  return pages;
+}
+
+export function nextStoryPage(page: number): number {
+  const next = storyPages().find((stop) => stop > page);
+  return next ?? page;
+}
+
+export function prevStoryPage(page: number): number {
+  const prev = [...storyPages()].reverse().find((stop) => stop < page);
+  return prev ?? 1;
+}
+
+export function storyFolio(page: number): Folio {
+  const folio = getFolio(page) ?? getFolio(1)!;
+  if (folio.kind !== "ovis") {
+    return folio;
+  }
+  return getFolio(firstPageForSlug(folio.slug)) ?? folio;
+}
+
 export function firstPageForSlug(slug: string): number {
   const match = buildSpine().find((folio) => folio.slug === slug && folio.kind === "katha");
   return match?.page ?? 1;
 }
 
+export function firstOviPageForSlug(slug: string): number {
+  const match = buildSpine().find((folio) => folio.slug === slug && folio.kind === "ovis");
+  return match?.page ?? firstPageForSlug(slug);
+}
+
+export interface JumpTarget {
+  page: number;
+  label: string;
+}
+
+export function folioStatusLabel(folio: Folio): string {
+  switch (folio.kind) {
+    case "cover":
+      return "Cover";
+    case "title":
+      return "Title page";
+    case "contents":
+      return "Contents";
+    case "katha":
+      return folio.chapterId
+        ? `Adhyay ${folio.chapterId} · opening katha`
+        : "Front or closing note";
+    case "ovis":
+      if (folio.oviFrom && folio.oviTo && folio.oviTotal) {
+        const chapter = folio.chapterId ? `Adhyay ${folio.chapterId} · ` : "";
+        return `${chapter}Ovis ${folio.oviFrom}–${folio.oviTo} of ${folio.oviTotal}`;
+      }
+      return "Ovis";
+    default: {
+      const _exhaustive: never = folio.kind;
+      return _exhaustive;
+    }
+  }
+}
+
+export function searchJumpTargets(query: string): JumpTarget[] {
+  const needle = query.trim().toLowerCase();
+  if (!needle) {
+    return [];
+  }
+  return contentsRows()
+    .filter((row) => row.chapterId)
+    .filter((row) => {
+      const haystack = [
+        row.titleMr,
+        row.titleEn,
+        row.slug,
+        row.chapterId ? `adhyay ${row.chapterId}` : "",
+        row.chapterId ? `अध्याय ${toDevanagariNumeral(row.chapterId)}` : "",
+        row.chapterId ? String(row.chapterId) : "",
+      ]
+        .join(" ")
+        .toLowerCase();
+      return haystack.includes(needle);
+    })
+    .map((row) => ({
+      page: row.page,
+      label: row.chapterId ? `Adhyay ${row.chapterId} · ${row.titleEn}` : row.titleEn,
+    }));
+}
+
+export function resolveJumpQuery(query: string): number | undefined {
+  const raw = query.trim();
+  if (!raw) {
+    return undefined;
+  }
+  const named = raw.match(/^(?:adhyay|adhyaya|dhyay|अध्याय)\s*(\d{1,2})$/i);
+  if (named) {
+    const id = Number(named[1]);
+    if (isChapterId(id)) {
+      return firstPageForSlug(String(id));
+    }
+  }
+  const leaf = raw.match(/^(?:p|page|leaf|पृष्ठ)\s*(\d+)$/i);
+  if (leaf) {
+    return parseBookPage(leaf[1]);
+  }
+  if (/^\d+$/.test(raw)) {
+    const value = Number(raw);
+    if (isChapterId(value)) {
+      return firstPageForSlug(String(value));
+    }
+    return parseBookPage(raw);
+  }
+  return searchJumpTargets(raw)[0]?.page;
+}
+
+export function adhyayJumpOptions(): Array<{ id: ChapterId; page: number; label: string }> {
+  return CHAPTER_IDS.map((id) => ({
+    id,
+    page: firstPageForSlug(String(id)),
+    label: `${id} · ${getChapter(id).titleEn}`,
+  }));
+}
+
 export function contentsRows(): ContentsRow[] {
   return buildSpine()
-    .filter((folio) => folio.kind === "katha" || folio.kind === "cover" || folio.kind === "contents")
+    .filter((folio) => folio.kind === "katha" && folio.chapterId)
     .map((folio) => ({
       page: folio.page,
-      titleMr: folio.titleMr,
-      titleEn: folio.titleEn,
+      titleMr: folio.chapterId
+        ? `अध्याय ${toDevanagariNumeral(folio.chapterId)} · ${folio.titleMr}`
+        : folio.titleMr,
+      titleEn: folio.chapterId ? `Adhyay ${folio.chapterId} · ${folio.titleEn}` : folio.titleEn,
       kind: folio.kind,
       slug: folio.slug,
+      chapterId: folio.chapterId,
     }));
 }
 

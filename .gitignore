@@ -92,3 +92,4 @@ playwright/.cache/
 # Windsurf / Codacy local helper files
 .windsurfrules
 .github/instructions/codacy.instructions.md
+scripts/tmp/

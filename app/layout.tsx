@@ -3,6 +3,7 @@ import { Manrope, Cormorant_Garamond, Noto_Serif_Devanagari } from "next/font/go
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Suspense } from "react";
+import Script from "next/script";
 import { Providers } from "./providers";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import { LanguageProvider } from "@/lib/i18n/context";
@@ -144,12 +145,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Resource hints */}
         <link rel="dns-prefetch" href={SITE_URL} />
 
-        {/* Inline critical CSS — FOUC prevention */}
+        {/* Inline critical CSS — dark-first FOUC prevention */}
         <style suppressHydrationWarning>
           {`
             * { box-sizing: border-box; }
-            html { scroll-behavior: smooth; }
-            body { margin: 0; padding: 0; }
+            html { scroll-behavior: smooth; color-scheme: dark; }
+            body { margin: 0; padding: 0; background: hsl(222 28% 7%); color: hsl(40 28% 96%); }
           `}
         </style>
       </head>
@@ -157,6 +158,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         suppressHydrationWarning
         className="relative min-h-screen bg-background font-sans antialiased"
       >
+        <Script src="/strip-injected-dom-attrs.js" strategy="beforeInteractive" />
         <GoogleAnalytics />
         <Suspense fallback={null}>
           <PageProgress />

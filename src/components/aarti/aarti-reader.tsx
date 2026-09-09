@@ -21,12 +21,12 @@ export function AartiReader({ item }: { item: AartiItem }) {
   const spoken = useMemo(() => item.verses.map((verse) => verse.original).join("। "), [item]);
 
   useEffect(() => {
-    setIsPlaying(false);
-    setAudioError(false);
-    if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-    }
-  }, [item.slug]);
+    return () => {
+      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
 
   const stopSpeech = () => {
     if (typeof window !== "undefined" && "speechSynthesis" in window) {

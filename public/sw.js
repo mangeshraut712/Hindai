@@ -4,8 +4,8 @@
  * Optimized for performance with aggressive caching
  */
 
-const STATIC_CACHE = "hind-ai-static-v4";
-const DYNAMIC_CACHE = "hind-ai-dynamic-v4";
+const STATIC_CACHE = "hind-ai-static-v5";
+const DYNAMIC_CACHE = "hind-ai-dynamic-v5";
 
 const SCOPE_BASE = self.location.pathname.replace(/\/sw\.js$/, "") || "";
 
@@ -58,29 +58,34 @@ self.addEventListener("activate", (event) => {
 
 // Fetch: Network-first for HTML, Cache-first for assets
 self.addEventListener("fetch", (event) => {
-  // Skip non-GET requests
   if (event.request.method !== "GET") return;
 
-  // Skip API calls
-  if (event.request.url.includes("/api/")) return;
-
   const url = new URL(event.request.url);
+  if (url.pathname.includes("/api/")) return;
+  if (url.hostname === "localhost" || url.hostname === "127.0.0.1") return;
+  if (url.pathname.includes("/_next/") || url.searchParams.has("_rsc")) return;
 
-  // Stale-while-revalidate for HTML pages
-  if (url.pathname.endsWith(".html") || url.pathname === "/" || url.pathname.includes("/")) {
+  const isDocument = event.request.mode === "navigate" || event.request.destination === "document";
+
+  if (isDocument) {
     event.respondWith(
-      caches.match(event.request).then((cached) => {
-        const fetchPromise = fetch(event.request).then((response) => {
+      fetch(event.request)
+        .then((response) => {
           if (response.ok) {
             const clone = response.clone();
-            caches.open(DYNAMIC_CACHE).then((cache) => {
-              cache.put(event.request, clone);
+            void caches.open(DYNAMIC_CACHE).then((cache) => {
+              void cache.put(event.request, clone);
             });
           }
           return response;
-        });
-        return cached || fetchPromise;
-      })
+        })
+        .catch(() =>
+          caches
+            .match(event.request)
+            .then(
+              (cached) => cached ?? new Response("Offline", { status: 503, statusText: "Offline" })
+            )
+        )
     );
     return;
   }

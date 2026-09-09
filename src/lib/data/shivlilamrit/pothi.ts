@@ -189,9 +189,7 @@ export const POTHI_EXTRAS: ExtraLeaf[] = [
     "daridrya",
     "दारिद्र्यदुःखदहन शिवस्तोत्रम्",
     "Stotra that burns the sorrow of want",
-    [
-      "वसिष्ठ-प्रोक्त दारिद्र्यदहन स्तोत्र सार्वजनिक आहे. छापील पुस्तकात ते परिशिष्टात येते.",
-    ],
+    ["वसिष्ठ-प्रोक्त दारिद्र्यदहन स्तोत्र सार्वजनिक आहे. छापील पुस्तकात ते परिशिष्टात येते."],
     [
       "The Daridrya-duhkha-dahana stotra is a public Sanskrit hymn; the paperback reprints it in the appendix.",
     ],
@@ -209,9 +207,7 @@ export const POTHI_EXTRAS: ExtraLeaf[] = [
     [
       "याज्ञवल्क्यप्रोक्त शिवरक्षास्तोत्र सार्वजनिक आहे. छापील कथासारच्या शेवटच्या पानांवर ते संपूर्ण छापले आहे.",
     ],
-    [
-      "Yajnavalkya’s Shiva-raksha stotra is public domain. The photographed book ends with it.",
-    ],
+    ["Yajnavalkya’s Shiva-raksha stotra is public domain. The photographed book ends with it."],
     [
       "चरितं देवदेवस्य महादेवस्य पावनम्",
       "अपारं परमोदारं चतुर्वर्गस्य साधनम्",
@@ -234,14 +230,14 @@ export function listPothi(): PothiEntry[] {
     titleEn: chapter.titleEn,
     chapterId: chapter.id,
   }));
-  const back: PothiEntry[] = POTHI_EXTRAS.filter((item) => item.slug !== "nityapath" && item.slug !== "phalashruti").map(
-    (item) => ({
-      slug: item.slug,
-      kind: "back" as const,
-      titleMr: item.titleMr,
-      titleEn: item.titleEn,
-    })
-  );
+  const back: PothiEntry[] = POTHI_EXTRAS.filter(
+    (item) => item.slug !== "nityapath" && item.slug !== "phalashruti"
+  ).map((item) => ({
+    slug: item.slug,
+    kind: "back" as const,
+    titleMr: item.titleMr,
+    titleEn: item.titleEn,
+  }));
   return [...front, ...adhyays, ...back];
 }
 

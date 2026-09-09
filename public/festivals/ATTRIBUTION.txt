@@ -1,0 +1,10 @@
+Festival images are original Hind AI illustrations generated for this site.
+They are artist impressions of season, ritual mood, and landscape matched to each festival’s content.
+They are not photographs of living temples, priests, pilgrims, or copyrighted artworks,
+and they should not be treated as documentary images.
+
+Mapped files (content-matched):
+makar-sankranti, vasant-panchami, maha-shivaratri, holi, ugadi, rama-navami,
+hanuman-jayanti, solar-new-year, akshaya-tritiya, buddha-purnima, guru-purnima, onam,
+raksha-bandhan, janmashtami, ganesh-chaturthi, navaratri, dussehra,
+karwa-chauth, diwali, govardhan-puja, bhai-dooj, chhath, kartik-purnima

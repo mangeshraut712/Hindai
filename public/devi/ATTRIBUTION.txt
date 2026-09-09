@@ -1,0 +1,7 @@
+Artist impressions generated for Hind AI. Not photographs of temples or people.
+Devi peetha / yatra images are original Hind AI illustrations.
+Artist impressions of landscape and ritual mood — not photographs of living temples or pilgrims.
+
+Mapped peetha / yatra files under peethas/:
+kamakhya, kalighat, hinglaj, vaishno-devi
+Other peetha pages fall back to /devi/hero.png until dedicated art exists.

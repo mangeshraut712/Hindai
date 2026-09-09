@@ -11,14 +11,22 @@ import {
 } from "./catalog";
 import { kathaParagraphs } from "./locales";
 import { loadChapterOvis } from "./load-ovis";
-import { firstPageForSlug, folioCount, getFolio, toDevanagariNumeral } from "./book";
+import {
+  contentsRows,
+  firstPageForSlug,
+  folioCount,
+  getFolio,
+  resolveJumpQuery,
+  searchJumpTargets,
+  toDevanagariNumeral,
+} from "./book";
 import { listPothi } from "./pothi";
 
 test("fifteen adhyays including special Rudra chapter 11", () => {
   assert.deepEqual(listChapterIds(), [...CHAPTER_IDS]);
   assert.equal(SHIVLILAMRIT_CHAPTERS.length, 15);
   assert.equal(getChapter(11).special, true);
-  assert.match(getChapter(3).titleMr, /प्रियव्रत/);
+  assert.match(getChapter(3).titleMr, /रजक/);
   assert.match(getChapter(11).titleMr, /रुद्राक्ष/);
   assert.equal(SHIVLILAMRIT_CHAPTERS.filter((chapter) => chapter.special).length, 1);
   assert.equal(isChapterId(0), false);
@@ -59,13 +67,28 @@ test("reader themes are exhaustive", () => {
 
 test("sequential pothi has contents as a numbered leaf", () => {
   assert.equal(getFolio(1)?.kind, "cover");
-  assert.equal(getFolio(2)?.kind, "contents");
+  assert.equal(getFolio(2)?.kind, "title");
+  assert.equal(getFolio(8)?.kind, "contents");
   assert.equal(toDevanagariNumeral(11), "११");
-  assert.ok(folioCount() > 700);
+  assert.ok(folioCount() > 40);
+  assert.ok(folioCount() < 90);
   const eleven = firstPageForSlug("11");
   assert.equal(getFolio(eleven)?.kind, "katha");
   assert.equal(getFolio(eleven)?.chapterId, 11);
   assert.equal(getFolio(eleven + 1)?.kind, "ovis");
+  const toc = contentsRows();
+  assert.equal(firstPageForSlug("1"), 9);
+  assert.equal(getFolio(9)?.chapterId, 1);
+  assert.equal(getFolio(10)?.kind, "ovis");
+  assert.equal(getFolio(10)?.oviFrom, 1);
+  assert.equal(getFolio(firstPageForSlug("4"))?.chapterId, 4);
+  assert.notEqual(firstPageForSlug("4"), 141);
+  assert.equal(resolveJumpQuery("4"), firstPageForSlug("4"));
+  assert.equal(resolveJumpQuery("adhyay 4"), firstPageForSlug("4"));
+  assert.equal(resolveJumpQuery("dhyay 4"), firstPageForSlug("4"));
+  assert.equal(searchJumpTargets("gokarna")[0]?.page, firstPageForSlug("3"));
+  assert.ok(toc.some((row) => row.chapterId === 1 && row.titleMr.includes("अध्याय १")));
+  assert.equal(toc.filter((row) => row.chapterId === 1).length, 1);
 });
 
 test("pan-India katha locales", () => {

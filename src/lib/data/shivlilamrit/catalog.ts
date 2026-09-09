@@ -28,7 +28,8 @@ export const SHIVLILAMRIT_SOURCE_NOTE = {
   year: "१७१८ (बारामती, काशी विश्वेश्वर परिसर)",
   metre: "ओवी",
   root: "स्कंद पुराण — ब्रह्मोत्तर खंड, काही भाग लिंग व शिव पुराण",
-  oviCountNote: "पारंपरिक गणना चौदा अध्यायांत सुमारे २४५३ ओव्या; पंधरावा अध्याय सार/कवी-निवेदन म्हणून ग्रंथपारायणात वाचला जातो.",
+  oviCountNote:
+    "पारंपरिक गणना चौदा अध्यायांत सुमारे २४५३ ओव्या; पंधरावा अध्याय सार/कवी-निवेदन म्हणून ग्रंथपारायणात वाचला जातो.",
 } as const;
 
 /**
@@ -38,7 +39,7 @@ export const SHIVLILAMRIT_SOURCE_NOTE = {
 export const SHIVLILAMRIT_CHAPTERS: ShivlilamritChapter[] = [
   {
     id: 1,
-    titleMr: "शिवमाहात्म्य व दाशार्ह राजाचा उद्धार",
+    titleMr: "शिवमाहात्म्य, दाशार्ह राजांचा उद्धार",
     titleEn: "Shiva’s greatness and King Dasharha",
     kathaTitleMr: "पंचाक्षरी मंत्राने राजोद्धार",
     shravan: "पहिल्या सोमवारी अध्याय १. पंचाक्षरी जपाने पारायण सुरू करा.",
@@ -48,7 +49,7 @@ export const SHIVLILAMRIT_CHAPTERS: ShivlilamritChapter[] = [
       mr: [
         "श्रीधरस्वामी गणेश, शारदा आणि गुरुवंदनानंतर शिवाच्या निर्गुण-सगुण रूपाचे स्तवन करतात. ओवी स्कंदपुराणातील ब्रह्मोत्तर कथेला मराठीत आणते.",
         "दाशार्ह राजा काम व राज्याभिमानाने अधोगतीकडे जातो. पंचाक्षरी उपासक कलावतीच्या संगतीने त्याला आपले पाप कळते. गर्गमुनींकडून शिवदीक्षा घेऊन तो पंचाक्षरी जपतो आणि उद्धार पावतो.",
-        "अध्यायाचा सार: शिव केवळ मंदिरात नाही — नाम, गुरु आणि पश्चात्ताप हेच द्वार आहे."
+        "अध्यायाचा सार: शिव केवळ मंदिरात नाही — नाम, गुरु आणि पश्चात्ताप हेच द्वार आहे.",
       ],
       en: [
         "Shridhar opens with homage to Ganesha, Sharada, and the guru, then praises Shiva beyond and within form. The ovis retell the Brahmottara khanda in Marathi.",
@@ -59,8 +60,8 @@ export const SHIVLILAMRIT_CHAPTERS: ShivlilamritChapter[] = [
   },
   {
     id: 2,
-    titleMr: "पारधी आख्यान व माघी शिवरात्र",
-    titleEn: "The hunter’s story and Magha Shivaratri",
+    titleMr: "शिवशक्ति-माहात्म्य, व्याधाची कथा",
+    titleEn: "Shiva-shakti mahatmya and the hunter’s tale",
     kathaTitleMr: "अज्ञानानेही झालेले शिवपूजन",
     shravan: "माघ कृष्ण चतुर्दशी / महाशिवरात्रीला हा अध्याय श्रवण करा.",
     saptahDay: "सोमवार",
@@ -80,29 +81,29 @@ export const SHIVLILAMRIT_CHAPTERS: ShivlilamritChapter[] = [
   },
   {
     id: 3,
-    titleMr: "प्रियव्रत राजाची कथा, श्रीगोकर्णमहाबळेश्वर महात्म्य",
-    titleEn: "King Priyavrata and Gokarna Mahabaleshwar",
+    titleMr: "शिवभक्त रजकाची कथा, श्रीगोकर्णमहाबळेश्वर माहात्म्य",
+    titleEn: "The devoted washerman and Gokarna Mahabaleshwar",
     kathaTitleMr: "आत्मलिंग समुद्रतीरी स्थिर",
     shravan: "छापील पोथीत अध्याय तिसरा येथे सुरू होतो. गोकर्ण दर्शन मनात ठेवा.",
     saptahDay: "मंगळवार",
     special: false,
     katha: {
       mr: [
-        "तुमच्या छापील कथासारात अध्याय तिसऱ्याचे शीर्षक प्रियव्रत राजा आणि श्रीगोकर्णमहाबळेश्वर आहे — वेबवरील काही याद्यांतील कल्मषपाद नाही.",
-        "प्रियव्रत राजाची कथा आत्मलिंग व रावणाच्या उचलण्याच्या लीलेशी जोडली जाते. लिंग गोकर्णी महाबळेश्वर रूपाने स्थिर होते. पश्चिम समुद्राचे हे क्षेत्र ज्योतिर्लिंग-महिमा म्हणून वाचा.",
+        "छापील अनुक्रमणिकेत अध्याय तिसरा शिवभक्त रजक आणि श्रीगोकर्णमहाबळेश्वर आहे — वेबवरील प्रियव्रत किंवा कल्मषपाद यादी नाही.",
+        "रजकाची भक्ती आणि आत्मलिंग-लीला गोकर्णी महाबळेश्वर रूपाने स्थिर होते. पश्चिम समुद्राचे हे क्षेत्र ज्योतिर्लिंग-महिमा म्हणून वाचा.",
         "श्रावणात हा अध्याय तीर्थ म्हणून वाचा: शरीर गोकर्णी न गेले तरी नामाने क्षेत्र जवळ येते.",
       ],
       en: [
-        "In the photographed Kathasar, adhyay 3 is Priyavrata and Gokarna Mahabaleshwar — not the web list that put Kalmashapada here.",
-        "Priyavrata’s tale meets the Atmalinga and Ravana’s attempt to lift it. The linga stays as Mahabaleshwar on the western shore.",
+        "The printed contents list adhyay 3 as the devoted washerman and Gokarna Mahabaleshwar — not the web list that put Priyavrata or Kalmashapada here.",
+        "The washerman’s bhakti meets the Atmalinga. The linga stays as Mahabaleshwar on the western shore.",
         "Read it in Shravan as a pilgrimage of the name when the body cannot go to Gokarna.",
       ],
     },
   },
   {
     id: 4,
-    titleMr: "चित्रसेन-कुमुद्वती, चंद्रसेन-श्रीकर",
-    titleEn: "Chitrasena–Kumudvati; Chandrasena–Shrikar",
+    titleMr: "प्रियदर्शन आणि सुमती, चंदांगद आणि श्रीमंत",
+    titleEn: "Priyadarshan and Sumati; Chandangad and Shrimat",
     kathaTitleMr: "प्रदक्षिणा आणि दांपत्यभक्ती",
     shravan: "मंदिरात किंवा घरी लिंगाला शांत प्रदक्षिणा करा.",
     saptahDay: "मंगळवार",
@@ -110,7 +111,7 @@ export const SHIVLILAMRIT_CHAPTERS: ShivlilamritChapter[] = [
     katha: {
       mr: [
         "विमर्षण आणि कुमुद्वतीच्या कथेत शिवलिंगाची प्रदक्षिणा हा मुख्य उपाय आहे. यंत्र नाही, गर्व नाही — फक्त पावलांनी केलेले स्मरण.",
-        "सार: शरीर फिरते तसे मनही शिवाभोवती फिरू द्या. श्रावणातील रोजची छोटी प्रदक्षिणा या अध्यायाचे साधे फळ आहे."
+        "सार: शरीर फिरते तसे मनही शिवाभोवती फिरू द्या. श्रावणातील रोजची छोटी प्रदक्षिणा या अध्यायाचे साधे फळ आहे.",
       ],
       en: [
         "The story of Vimarshana and Kumudvati turns on pradakshina — walking around the linga with a quiet mind.",
@@ -120,7 +121,7 @@ export const SHIVLILAMRIT_CHAPTERS: ShivlilamritChapter[] = [
   },
   {
     id: 5,
-    titleMr: "धर्मगुप्त आख्यान",
+    titleMr: "धर्मगुप्त-आख्यान",
     titleEn: "The Dharmagupta narrative",
     kathaTitleMr: "प्रदोष व हरवलेले वैभव",
     shravan: "प्रदोषकाळी (त्रयोदशी संध्या) अध्याय ५ वाचा किंवा ऐका.",
@@ -139,7 +140,7 @@ export const SHIVLILAMRIT_CHAPTERS: ShivlilamritChapter[] = [
   },
   {
     id: 6,
-    titleMr: "सिमंतिनी आख्यान",
+    titleMr: "सीमंतिनी-आख्यान",
     titleEn: "The Simantini narrative",
     kathaTitleMr: "सोमवार व्रताचे घर",
     shravan: "श्रावण सोमवार हा अध्याय वाचण्याचा मुख्य दिवस.",
@@ -158,8 +159,8 @@ export const SHIVLILAMRIT_CHAPTERS: ShivlilamritChapter[] = [
   },
   {
     id: 7,
-    titleMr: "सुमेधा-सोमदत्त, मदन-पिंगला, सुमती-भद्रायू",
-    titleEn: "Sumedha–Somadatta, Madana–Pingala, Sumati–Bhadrayu",
+    titleMr: "सुमेधा आणि सोमदत्त, मदन आणि पिंगला, सुमती आणि भद्रायु",
+    titleEn: "Sumedha and Somadatta; Madana and Pingala; Sumati and Bhadrayu",
     kathaTitleMr: "पुत्रप्राप्ती आणि शिवभक्ती",
     shravan: "कुटुंबासोबत वाचन: व्रताचे फळ घरभर पसरावे.",
     saptahDay: "गुरुवार",
@@ -177,7 +178,7 @@ export const SHIVLILAMRIT_CHAPTERS: ShivlilamritChapter[] = [
   },
   {
     id: 8,
-    titleMr: "भद्रायू आख्यान",
+    titleMr: "भद्रायु-आख्यान",
     titleEn: "The Bhadrayu narrative",
     kathaTitleMr: "राजपुत्राचे शिवपरीक्षण",
     shravan: "लांब कथा: एका बैठकीत शांतपणे वाचा.",
@@ -196,8 +197,8 @@ export const SHIVLILAMRIT_CHAPTERS: ShivlilamritChapter[] = [
   },
   {
     id: 9,
-    titleMr: "ब्रह्मराक्षस, ब्राह्मण व शबर दांपत्य उद्धार",
-    titleEn: "Brahmarakshasa, and the Shabara couple",
+    titleMr: "श्वेतकेतु, ब्राह्मण आणि शबर दंपतीचा उद्धार",
+    titleEn: "Shvetaketu, and the deliverance of the Brahmana and Shabara couple",
     kathaTitleMr: "भस्मधारणा आणि अस्पृश्य भक्ती",
     shravan: "विभूती धारण करणारे हा अध्याय विशेष मानीत.",
     saptahDay: "शुक्रवार",
@@ -215,7 +216,7 @@ export const SHIVLILAMRIT_CHAPTERS: ShivlilamritChapter[] = [
   },
   {
     id: 10,
-    titleMr: "शारदा आख्यान",
+    titleMr: "शारदा-आख्यान",
     titleEn: "The Sharada narrative",
     kathaTitleMr: "गौरी-शंकर एक व्रत",
     shravan: "मंगळागौरी / उमामहेश्वर दिनी हा अध्याय.",
@@ -234,10 +235,11 @@ export const SHIVLILAMRIT_CHAPTERS: ShivlilamritChapter[] = [
   },
   {
     id: 11,
-    titleMr: "रुद्राक्ष-माहात्म्य, भद्रसेन आख्यान",
-    titleEn: "Rudraksha mahatmya and Bhadrasen",
+    titleMr: "रुद्राक्ष-महात्म्य, भद्रायु-आख्यान, अजामेळ-मुक्ती",
+    titleEn: "Rudraksha mahatmya, Bhadrayu, and Ajamila’s liberation",
     kathaTitleMr: "अकरावा — श्रवणाचा हृदय-अध्याय",
-    shravan: "एकादशी, प्रदोष, महाशिवरात्री किंवा श्रावण सोमवारी अध्याय ११ तीनदा श्रवण करण्याची प्रथा आहे.",
+    shravan:
+      "एकादशी, प्रदोष, महाशिवरात्री किंवा श्रावण सोमवारी अध्याय ११ तीनदा श्रवण करण्याची प्रथा आहे.",
     saptahDay: "शनिवार",
     special: true,
     katha: {
@@ -257,27 +259,27 @@ export const SHIVLILAMRIT_CHAPTERS: ShivlilamritChapter[] = [
   },
   {
     id: 12,
-    titleMr: "बहुला उद्धार, भस्मासुर-वध",
-    titleEn: "Bahula’s deliverance and the fall of Bhasmasura",
+    titleMr: "उपमन्यु, बकुलाचा उद्धार, भस्मासुर-वध",
+    titleEn: "Upamanyu, Bakula’s deliverance, and the fall of Bhasmasura",
     kathaTitleMr: "गाय, सत्य, भस्म",
     shravan: "अहिंसा आठवण: बहुला गायेच्या कथेने दिन सुरू करा.",
     saptahDay: "शनिवार",
     special: false,
     katha: {
       mr: [
-        "बहुला गाय आणि तिच्या रक्षकांची कथा सत्य व अहिंसेवर उभी आहे. भस्मासुराची कथा दाखवते की वरही अहंकाराला भस्म करतो.",
+        "उपमन्युची भक्ती आणि बकुला गायेच्या रक्षकांची कथा सत्य व अहिंसेवर उभी आहे. भस्मासुराची कथा दाखवते की वरही अहंकाराला भस्म करतो.",
         "शिवाची राख देणारी आणि राखेने स्वतःला जाळणारी शक्ती एकच आहे — विवेकाने धारण करा.",
       ],
       en: [
-        "Bahula the cow stands for truth and non-harm. Bhasmasura shows a boon that burns the proud.",
+        "Upamanyu’s devotion and Bakula the cow stand for truth and non-harm. Bhasmasura shows a boon that burns the proud.",
         "The same ash that marks a devotee can consume arrogance. Wear it with viveka.",
       ],
     },
   },
   {
     id: 13,
-    titleMr: "दक्षयज्ञ, त्रिपुर, पार्वती-परिणय व स्कंद",
-    titleEn: "Daksha’s yajna, Tripura, the marriage, Skanda",
+    titleMr: "विनायकाचा जन्म, तारकासुराचा वध",
+    titleEn: "The birth of Vinayaka and the slaying of Tarakasura",
     kathaTitleMr: "क्रोध-यज्ञ ते कुमार",
     shravan: "श्रावण शुक्रवार / गौरी-शंकर कथा म्हणून हा अध्याय.",
     saptahDay: "रविवार",
@@ -295,8 +297,8 @@ export const SHIVLILAMRIT_CHAPTERS: ShivlilamritChapter[] = [
   },
   {
     id: 14,
-    titleMr: "भिक्षेस पार्वती, श्रियाळ-चांगूणा सत्त्वपरीक्षा",
-    titleEn: "Parvati as a beggar; Shriyal and Changuna",
+    titleMr: "मर्कंडाचा जन्म, मार्कंडेय-कथा, शिव-पार्वती विवाह, दक्षयज्ञाचा विध्वंस, त्रिपुरासुर-वध",
+    titleEn: "Markandeya, the marriage, Daksha’s yajna, and Tripura",
     kathaTitleMr: "कठोर भक्तीची कसोटी",
     shravan: "पारायण समाप्तीच्या आधीचा भावपूर्ण अध्याय.",
     saptahDay: "रविवार",
@@ -314,8 +316,8 @@ export const SHIVLILAMRIT_CHAPTERS: ShivlilamritChapter[] = [
   },
   {
     id: 15,
-    titleMr: "शंकराचार्य आख्यान, कवीचे निवेदन",
-    titleEn: "Shankaracharya’s story and the poet’s dedication",
+    titleMr: "शंकर-आख्यान, कवीचे शेवटचे निवेदन",
+    titleEn: "The Shankara narrative and the poet’s closing",
     kathaTitleMr: "उद्यापन व नित्यपाठ",
     shravan: "सप्ताहाच्या शेवटच्या रात्री किंवा सोमवारी पूर्ण ग्रंथाचे समर्पण.",
     saptahDay: "रविवार रात्र / उद्यापन",
@@ -339,28 +341,32 @@ export const PARAYAN_METHODS = [
     title: "श्रावण पंधरा दिवस",
     titleEn: "Fifteen days of Shravan",
     body: "पंधरा दिवस, दररोज एक अध्याय. सोमवार १ पासून सुरू करणे सोईस्कर. अकरावा एकादशी किंवा प्रदोषाला तीनदा श्रवण करण्याची चाल आहे.",
-    bodyEn: "One adhyay a day for fifteen days. Monday start is common. Adhyay 11 is often heard three times on ekadashi or pradosha.",
+    bodyEn:
+      "One adhyay a day for fifteen days. Monday start is common. Adhyay 11 is often heard three times on ekadashi or pradosha.",
   },
   {
     id: "saptah",
     title: "सप्ताह पारायण",
     titleEn: "Seven-day parayan",
     body: "सोमवार १–२, मंगळवार ३–४, बुधवार ५–६, गुरुवार ७–८, शुक्रवार ९–१०, शनिवार ११–१२, रविवार १३–१४, रात्री १५ व उद्यापन. दीप तेवत ठेवा; मोठ्याने वाचन चालते.",
-    bodyEn: "Mon 1–2 through Sun 13–14, chapter 15 at night, then udyapan. Keep a lamp; reading aloud is the custom.",
+    bodyEn:
+      "Mon 1–2 through Sun 13–14, chapter 15 at night, then udyapan. Keep a lamp; reading aloud is the custom.",
   },
   {
     id: "adhyay-11",
     title: "केवळ अकरावा",
     titleEn: "Adhyay 11 alone",
     body: "रोज अकरावा तीनदा, किंवा शिवरात्री/श्रावण सोमवार एकाग्र श्रवण. परंपरा म्हणते एकादश रुद्र प्रसन्न होतात — हे श्रद्धेचे वचन आहे, वैद्यकीय दावा नाही.",
-    bodyEn: "Hear the eleventh three times daily, or once with full attention on Shivaratri or a Shravan Monday. Tradition links it to Rudra — faith, not a medical claim.",
+    bodyEn:
+      "Hear the eleventh three times daily, or once with full attention on Shivaratri or a Shravan Monday. Tradition links it to Rudra — faith, not a medical claim.",
   },
   {
     id: "nitya-42",
     title: "नित्य बेचाळीस ओव्या",
     titleEn: "Forty-two daily ovis",
     body: "पूर्ण ग्रंथ न जमल्यास शेवटच्या सुमारे ४२ ओव्या स्नानानंतर वाचा. हा संक्षेप आहे, पर्याय नाही की ग्रंथ वाचू नये.",
-    bodyEn: "If the whole grantha will not fit the day, recite about forty-two closing ovis after a bath. This is a short path, not a reason to skip the book.",
+    bodyEn:
+      "If the whole grantha will not fit the day, recite about forty-two closing ovis after a bath. This is a short path, not a reason to skip the book.",
   },
 ] as const;
 

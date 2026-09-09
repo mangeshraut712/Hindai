@@ -38,6 +38,11 @@ export default function GaneshAartiIndexPage() {
                 and crown. We do not copy that Trust photograph. The drawing here keeps the same
                 shastric marks: four arms, ekadanta, modaka, goad, noose, and mouse.
               </p>
+              <p className="mt-4 text-sm">
+                <Link href="/ganesha" className="font-semibold text-primary">
+                  Ashtavinayak map →
+                </Link>
+              </p>
             </div>
             <div className="surface-panel flex items-center justify-center rounded-3xl p-6">
               <GaneshaMurti className="h-72 w-full text-primary" />

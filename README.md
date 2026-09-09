@@ -39,16 +39,15 @@
 
 ### 🎯 Key Highlights
 
-- **🤖 AI-Powered**: Google Gemma 4 31B via OpenRouter API with function calling
+- **🤖 AI-Powered**: Google Gemma 4 via Cloudflare Worker (Workers AI) with optional OpenRouter 31B
 - **📚 Scripture Library**: Vedas, 108 Upanishads, 18 Puranas, Epics, Gita, and 30+ additional texts
-- **🔍 RAG Pipeline**: Context-grounded answers with scripture citations using vector search
-- **🖼️ Multimodal**: Sanskrit manuscript analysis with vision AI
-- **🔤 Sanskrit Tools**: Comprehensive linguistic tools (transliteration, sandhi, morphology, vibhakti, accents)
-- **🎵 Audio Features**: Vedic accent analysis, Google Cloud TTS, Vedic Heritage Portal integration
-- **☁️ Static-first live site**: GitHub Pages serves the local scripture index, Panchanga, Sanskrit tools, quiz, and study UI. Gemma 4 chat still needs `npm run dev` plus `OPENROUTER_API_KEY`.
+- **🗺️ Culture & Tirtha**: Mahadev (12 Jyotirlingas), Devi peethas, Vishnu Char Dham, Ganesha Ashtavinayak — mapped with honest list-status labels
+- **🪔 Festivals encyclopedia**: Deep utsav pages (origin → living practice → temple do/don’t) with Panchanga dates derived from one catalog
+- **📖 Katha grantha**: Book-depth stories for Mahadev, Devi, Vishnu, and Ganesha
+- **🕉️ Shivlilamrit**: Numbered pothi reader with recitation support
+- **🔤 Sanskrit Tools**: Transliteration, sandhi, morphology, vibhakti, Vedic accents
+- **☁️ Static-first live site**: GitHub Pages serves scripture, tirtha, festivals, katha, Panchanga, and study UI. Gemma goes through `workers/hindai-gemma`.
 - **⚡ Modern Stack**: Next.js 15.5, React 19.2, TypeScript 5.9, Node.js >=20.0
-- **♿ Accessible**: Reduced motion support, ARIA labels, keyboard navigation
-- **🚀 Performance**: Dynamic imports, scoped motion and responsive layout fixes, route-level loading states
 - **🧱 Engineering**: Layered routes / UI / domain / Worker. See [docs/engineering.md](./docs/engineering.md).
 
 ---
@@ -58,7 +57,7 @@
 ```bash
 # Clone the repository
 git clone https://github.com/mangeshraut712/Hindai.git
-cd HindAI
+cd Hindai
 
 # Install dependencies
 npm install
@@ -72,208 +71,48 @@ npm run dev
 # Open http://localhost:3000
 ```
 
-The public demo at [mangeshraut712.github.io/Hindai](https://mangeshraut712.github.io/Hindai/) is a static export. Scripture tools run locally. Gemma 4 chat goes to the durable Cloudflare Worker in `workers/hindai-gemma` (Workers AI `@cf/google/gemma-4-26b-a4b-it`, optional OpenRouter 31B).
+The public demo at [mangeshraut712.github.io/Hindai](https://mangeshraut712.github.io/Hindai/) is a static export. Scripture, tirtha, festivals, and katha run fully offline in the Pages build. Gemma chat goes to the durable Cloudflare Worker in `workers/hindai-gemma` (Workers AI `@cf/google/gemma-4-26b-a4b-it`, optional OpenRouter 31B).
+
+Useful local commands:
+
+```bash
+npm run type-check
+npm test
+npm run lint
+npm run build:pages
+```
 
 ---
 
-## 🆕 What's New in Version 3.4.1 (June 2026)
+## 🆕 What's New (September 2026) — Culture platform depth
 
-### ⚡ React Doctor 100/100 Core Score Optimization & Vercel Log Cleanup
+### Tirtha, festivals, and honest katha
 
-- **💯 Perfect Codebase Health Score** — Achieved a perfect **100/100 React Doctor score** by refactoring the browser SpeechRecognition capability check inside `VoiceSearch` using React's native `useSyncExternalStore` hook. This eliminates initial mount layout/paint flicker warnings (`useEffect` setState flashes on mount) while preserving correct client-side support checks.
-- **🔒 Vercel Deployment Clutter & Warning Elimination** — Resolved build warnings and deployment errors in the server logs:
-  - Refactored streaming API routes (`/api/ai/chat`, `/api/ai/dharma`, `/api/ai/vision`) from the Vercel `"edge"` runtime to `"nodejs"`. This completely eliminates the Next.js build warning: `⚠ Using edge runtime on a page currently disables static generation for that page`, while keeping streaming responses and Buffer decoding highly robust.
-  - Pinned the `engines.node` version in `package.json` to `"20.x"` (matching `.nvmrc` and Vercel's Node 20 LTS runtime) to solve the automatic upgrade warning.
-  - Optimized the post-installation script `scripts/react-doctor-install.js` to automatically bypass development audits and exit with `0` under CI, Vercel, and production environments, eliminating exit-code `1` warning logs.
-- **🧹 Repository Housekeeping** — Pruned stale `docker/` configuration files (including `Dockerfile`, `Dockerfile.ollama`, and `docker-compose.yml`) and removed unneeded project clutter, aligning with the pure Vercel serverless runtime.
+- **Places by tradition** — `/mahadev`, `/devi`, `/vishnu`, `/ganesha` with South Asia map pins, deep place articles, and tradition primers (`tradition-deep`).
+- **Festivals encyclopedia** — `/festivals` and `/festivals/[slug]` with katha vs living custom vs civil-date labels; Buddha Purnima marked Buddhist; miracle-claim calendar copy removed.
+- **Single festival source** — Panchanga thin cards derive from `src/lib/data/utsav.ts` only (no parallel EXTRA list).
+- **Katha grantha** — `/katha` book-depth stories for four deities.
+- **Shivlilamrit** — pothi + print-edition reading paths kept in the Practice nav.
+- **Artist impressions** — AI art under `public/{festivals,devi,ganesha,vishnu,mahadev,jyotirlingas,...}` with ATTRIBUTION files; never sold as temple photography.
+- **Truth hygiene** — peetha list-status (`peetha-common` / `peetha-disputed` / `major-yatra`); Vaishno Devi not forced into the classical 51.
+- **Engineering** — layered routes / UI / domain documented in [docs/engineering.md](./docs/engineering.md); Cursor rule in `.cursor/rules/long-term-engineering.mdc`.
 
----
+### Earlier releases (condensed)
 
-## 🆕 What's New in Version 3.4.0 (June 2026)
-
-### ⚡ DevTools Audit, Performance, and Agentic Optimization
-
-- **🎛️ Hydration Mismatch Resolution** — Resolved the critical `Minified React error #418` in header actions by moving the SpeechRecognition browser capability check from the `useState` initializer to a client-side `useEffect` mount hook in `VoiceSearch`.
-- **⚡ LCP Performance Boost** — Eliminated the initial 2.7-second animation block on the first page paint by setting `initial={false}` on `AnimatePresence` in `PageTransition`. This reduces raw Largest Contentful Paint (LCP) delays under 1.5s.
-- **🔍 Production Browser Source Maps** — Enabled `productionBrowserSourceMaps: true` in `next.config.js` to generate JavaScript source maps for production, fixing the Lighthouse source maps check and achieving a **100/100 Best Practices** score.
-- **🤖 Agentic Crawling & Search** — Implemented standard-compliant `llms.txt` and `llms-full.txt` files inside the `/public` directory to guide AI search crawlers, resulting in a **100/100 Agentic Browsing** score.
-- **🛠️ Local 404 Analytics Errors Resolution** — Wrapped Vercel `<Analytics />` and `<SpeedInsights />` scripts in a `process.env.VERCEL` check. This prevents throwing 404 script request console errors on localhost and cleans up dev server testing.
-- **📈 Verified Lighthouse Scores**:
-  - Best Practices: 🟢 **100 / 100**
-  - Accessibility: 🟢 **100 / 100**
-  - SEO: 🟢 **100 / 100**
-  - Agentic Browsing: 🟢 **100 / 100**
-  - Performance: 🟡 **75 / 100** (up from 59)
-
----
-
-## 🆕 What's New in Version 3.3.0 (June 2026)
-
-### 🛡️ Security, Quality, and CI Hardening
-
-- **🔒 XSS fix in Vedic accent renderer** — `VedicAccentEngine.getColoredText()` now HTML-escapes its input before injecting it into the DOM via `dangerouslySetInnerHTML`. Previously a user-controlled Sanskrit string could carry `<script>` or `<img onerror=…>` payloads straight into the page.
-- **🐛 Hydration fix in `SiteBootSplash`** — Refactored the splash-screen visibility check to read `window.sessionStorage` inside a `useEffect` (client-only) instead of the `useState` initializer. This eliminates a guaranteed hydration warning and the flash-of-incorrect-content on first visit.
-- **✅ Build now enforces quality** — Flipped `ignoreBuildErrors: true → false` and `ignoreDuringBuilds: true → false` in `next.config.js`. `tsc --noEmit`, `eslint`, and `prettier --check` are now blocking on CI.
-- **🟢 Re-enabled dead features in `app/layout.tsx`** — Wired back in `<Analytics />`, `<SpeedInsights />`, `<PageProgress />` (wrapped in `<Suspense>`), `<ErrorBoundary>`, `<PageTransition />`, and `<ServiceWorkerRegistration />`. They were commented out and not running in production.
-- **🧰 CI pinned to Node 20 LTS** — `.github/workflows/ci.yml` was using the unreleased `NODE_VERSION: "24"`. Aligned it to `"20"` so it matches `.nvmrc` and Vercel's production runtime.
-- **📁 Project hygiene** — Added `.nvmrc` (Node 20), `CONTRIBUTING.md` (full contributor guide), and `.github/CODEOWNERS` (auto-assigned reviewers).
-
-### ✅ Quality Status
-
-| Check                                   | Result                       |
-| --------------------------------------- | ---------------------------- |
-| `npx tsc --noEmit`                      | 0 errors                     |
-| `npm run lint` (TS + Prettier + ESLint) | All pass                     |
-| `npx next build`                        | 66 routes generated in ~13s  |
-| `git status`                            | Only intended changes staged |
-
-## 🆕 What's New in Version 3.2.0 (May 2026)
-
-### 🧘‍♂️ Daily Sadhana Hub & Devotional Tech
-
-- **Digital Japa Mala & Counter**: Fully interactive 108-bead digital Japa counter with custom target selectors (27, 54, 108) and local storage session history tracking.
-- **📅 Astro-Panchanga Recommendations**: Computes dynamic astrological guidelines based on current Vara (weekday) and Tithi (lunar day) with direct counter preset injection.
-- **🤖 Gemma 4 Sadhana Routine Generator**: Real-time streaming assistant powered by `google/gemma-4-31b-it:free` that generates and customizes daily spiritual plans.
-- **🔔 Upcoming Vrats & Festivals**: Visual reminders with expanding Puja Vidhi details, spiritual significance, and browser Notification API integration.
-- **🛡️ Full Security Overhaul**: Overrode and patched critical/moderate dependency security issues (`ws` memory disclosure vulnerability and `brace-expansion` DoS vector) achieving **0 security audit warnings**.
-- **✅ React Review Quality Fixes**: Addressed the service worker lifecycle registration leak and cleaned up code quality flags.
-
-## 🆕 What's New in Version 3.1.0 (April 2026)
-
-### 🎨 Frontend Polish & Commit Readiness
-
-- **Navigation IA refresh** - Consolidated desktop navigation into Scriptures, AI Features, Learning, Culture, Resources, and More.
-- **Responsive header fix** - Desktop navigation now starts at the `xl` breakpoint to avoid tablet overflow.
-- **Mobile hero improvement** - Primary homepage actions appear earlier in the first viewport.
-- **Boot splash refinement** - Homepage splash is shorter, respects reduced motion, and only appears once per session.
-- **Rendering cleanup** - Removed global `content-visibility` and broad section containment that caused blank full-page captures.
-- **Footer alignment** - Footer groups now mirror the primary navigation, including AI routes.
-- **E2E readiness** - Restored Playwright config/specs and moved local E2E server to port `3100` to avoid local port conflicts.
-
-## 🆕 What Changed in Version 3.0.0
-
-### 🤖 Comprehensive AI-Powered Features with Gemma 4
-
-- **Vedic AI Scholar** - Conversational interface for deep theological discourse on Vedas, Upanishads, Bhagavad Gita
-- **Streaming Responses** - Real-time AI responses with context window management for long conversations
-- **Expert Knowledge Base** - Comprehensive understanding of Hindu philosophy, Sanskrit grammar, Dharma, Karma, Moksha
-- **Scriptural References** - Context-aware citations from authentic sources
-- **Quick Questions** - Pre-built questions for common inquiries about Hindu philosophy
-- **Multimodal Scriptural Analysis** - Image upload for sacred text analysis, iconography recognition, temple architecture
-- **Smart Dharma Guide** - Personalized spiritual guidance with category selection (Daily Rituals, Meditation, Fasting, etc.)
-- **Context Window Management** - Intelligent token management for complex queries and long conversations
-
-### 🎨 Enhanced UI/UX with Ancient Aesthetics
-
-- **Sacred Geometry Components** - Sri Yantra, Mandala, Lotus patterns with animations
-- **Sophisticated Color Palette** - Sacred colors (saffron, vermilion, gold, indigo, peacock) for timeless design
-- **Light/Dark Mode Sacred Colors** - Enhanced contrast and readability in both modes
-- **Haptic Feedback** - Mobile haptic feedback for interactive elements
-- **Progressive Image Loading** - Blur-up effects for better perceived performance
-- **Error Boundaries** - Graceful error handling with Vercel Analytics integration
-- **Smooth Page Transitions** - Fade and scale animations for route changes
-- **Accessibility Enhancements** - ARIA labels, keyboard navigation, focus states across all components
-
-### ⚡ Performance Optimization Suite
-
-- **Dynamic Component Loading** - Heavy components (AIChat, ScriptureStudyExplorer, VerseGenerator) now load on-demand with loading skeletons
-- **Route-Level Loading States** - Beautiful shimmer loading skeletons for all major routes (ai-guide, contents, study-paths, sanskrit-nova, panchanga, [slug])
-- **Font Optimization** - Manrope (primary font) preloaded with `display: swap`, secondary fonts deferred for faster initial paint
-- **Scoped Motion & Rendering** - Reduced broad GPU/rendering hints and kept motion scoped to active UI states
-- **Smooth Page Transitions** - PageProgress component with gradient progress bar for seamless navigation feedback
-- **Scroll Optimization** - Smooth scroll behavior with `prefers-reduced-motion` support for accessibility
-- **Touch Action Optimization** - `touch-action: manipulation` for faster mobile interactions
-- **Static Asset Caching** - 1-year immutable cache headers for `_next/static` and `/static` assets
-- **Build Performance** - Stale time optimizations for dynamic (30s) and static (180s) routes
-
-### 🔧 Infrastructure Improvements
-
-- **Next.js 15.5.15** - Latest Next.js with App Router optimizations
-- **React 19.2.5** - Concurrent React features with improved performance
-- **TypeScript 5.9.3** - Strict type checking with zero errors
-- **Package Import Optimization** - Optimized imports for Radix UI, Lucide, and Framer Motion
-- **CSS Optimization** - Experimental CSS optimization enabled
-- **Server React Optimization** - Optimized server-side React rendering
-- **Image Optimization** - WebP and AVIF formats with 30-day cache TTL
-- **Security Headers** - Permissions-Policy for camera, microphone, and geolocation restrictions
-- **CI/CD Pipeline** - GitHub Actions workflow with quality checks, testing, and E2E tests
-- **Build Performance** - 63 app routes generated successfully in the latest production build
-
-### 🤖 OpenRouter Integration with Gemma 4
-
-- **Official LLM API** - Switched from NVIDIA to OpenRouter as official LLM provider
-- **Google Gemma 4 31B** - Enhanced AI capabilities with larger model
-- **Cloud-Optimized** - Production-ready deployment with Vercel
-- **Improved Reliability** - Stable API endpoints with proper error handling
-- **Enhanced Performance** - Faster response times and better token efficiency
-
-### 🔤 Sanskrit Linguistic Tools
-
-- **Indic Transliteration** - Convert between Devanagari, IAST, SLP1, HK, and ITRANS scripts
-- **Vidyut Sandhi** - Sandhi splitting and morphological analysis
-- **Anvaya Analyzer** - Prose word order analysis for Sanskrit verses
-- **Vibhakti Analyzer** - Grammatical case analysis and declension patterns
-- **Vedic Accents** - Pitch accent analysis using IIT Bombay Vedic Accent Engine
-- **Dhatu Database** - Sanskrit root words and their derivatives
-- **Samasa Analyzer** - Compound word analysis and patterns
-
-### 🎵 Audio & Pronunciation Features
-
-- **Google Cloud TTS** - Sanskrit text-to-speech synthesis
-- **Vedic Heritage Portal** - Integration for Vedic audio recitations
-- **IIT Bombay Vedic Accent Engine** - Pitch accent analysis for proper chanting
-- **Audio API Endpoints** - RESTful APIs for audio generation and analysis
-
-### 🗄️ Database & Vector Search
-
-- **Supabase Integration** - PostgreSQL database for user data and real-time subscriptions
-- **Upstash Vector** - Semantic search with vector embeddings for scripture similarity
-- **Data Ingestion** - SanskritDocuments.org and DCS API integration for scripture data
-
-### 📚 Scripture Data Status
-
-| Category       | Count                  | Metadata        | Verse Data                 |
-| -------------- | ---------------------- | --------------- | -------------------------- |
-| Vedas          | 6                      | ✅ 100%         | ⚠️ 0.2% (Gemma4 gen ready) |
-| Epics          | 2                      | ✅ 100%         | ✅ 0% (on-demand gen)      |
-| Mahapuranas    | 18                     | ✅ 100%         | ✅ 0% (on-demand gen)      |
-| Upanishads     | 108 canon / 29 indexed | ✅ Canon mapped | ⚠️ Indexed starter data    |
-| Gita Verses    | 49/700                 | ✅ 100%         | ⚠️ 7% (651 to generate)    |
-| Rigveda Verses | 21/~10,600             | ✅ 100%         | ⚠️ 0.2%                    |
-| Additional     | 30+ texts              | ✅ 100%         | ✅ API endpoints ready     |
-
-**New Texts Added:**
-
-- Agamas & Tantras
-- Brahma Sutras
-- Devi Mahatmya
-- Jyotirlingas
-- Mahabharata
-- Minor Gitas
-- Nyaya Sutras
-- Ramayana
-- Sahasranama Collection
-- Shakti Peethas
-- Shodasha Samskaras
-- Vishnu Sahasranama
-- Yoga Sutras
-
-### 🔧 Infrastructure Improvements
-
-- ✅ TypeScript: 0 errors, strict mode passing
-- ✅ Prettier: All files formatted with Tailwind plugin
-- ✅ Build: 66 app routes generated successfully
-- ✅ Tests: Playwright E2E suite covers homepage, AI guide, contents, responsive, production, sadhana, and stotras flows
-- ✅ E2E Tests: Playwright coverage for critical user flows
-- ✅ Security: Security audit available via npm run security
-- ✅ Performance: Dynamic imports, scoped motion, font loading, static asset caching
-- ✅ Accessibility: Reduced motion support, ARIA labels, keyboard navigation
-- ✅ Node.js: Compatible with >=20.0.0
-- ✅ CI/CD: GitHub Actions workflow passing with quality checks
+Hosting moved off paused Vercel onto **GitHub Pages + Cloudflare Worker** (2026). Prior work also covered Sadhana / Panchanga, React Doctor / hydration fixes, XSS escaping in Vedic accent rendering, Sanskrit linguistic tools, and CI quality gates (`tsc`, lint, Pages export). See git history for full changelogs.
 
 ---
 
 ## ✨ Core Features
+
+### 🗺️ Culture, Tirtha & Festivals
+
+- **South Asia tirtha map** — Jyotirlingas, peethas, Char Dham, and Ashtavinayak on one basemap (`/pilgrimage`)
+- **Tradition homes** — `/mahadev`, `/devi`, `/vishnu`, `/ganesha` with deep articles and primers
+- **Festivals encyclopedia** — `/festivals/[slug]` covers katha, living practice, temple etiquette, do/don’t, sources
+- **Katha grantha** — `/katha/{mahadev,devi,vishnu,ganesha}` for longer on-platform reading
+- **Truth labels** — katha vs custom vs civil dates; peetha list-status; AI art captioned as artist impressions
+- **Panchanga link-through** — thin calendar cards deep-link into the utsav encyclopedia
 
 ### 🤖 Vedic AI Scholar - Advanced Spiritual Chatbot
 
@@ -361,7 +200,7 @@ The public demo at [mangeshraut712.github.io/Hindai](https://mangeshraut712.gith
 | **Next.js**    | 15.5.15 | React framework with App Router & RSC         |
 | **React**      | 19.2.5  | UI library with concurrent features & Actions |
 | **TypeScript** | 5.9.3   | Type-safe JavaScript development              |
-| **Node.js**    | >=18.0  | JavaScript runtime with ESM support           |
+| **Node.js**    | >=20.0  | JavaScript runtime with ESM support           |
 
 ### AI & Machine Learning
 
@@ -414,155 +253,48 @@ The public demo at [mangeshraut712.github.io/Hindai](https://mangeshraut712.gith
 
 ### Performance & Monitoring
 
-| Technology                 | Purpose                       |
-| -------------------------- | ----------------------------- |
-| **Vercel Analytics**       | Real-time performance metrics |
-| **Vercel Speed Insights**  | Core Web Vitals monitoring    |
-| **@vercel/analytics**      | User analytics & engagement   |
-| **@vercel/speed-insights** | Performance optimization      |
+| Technology                 | Purpose                                         |
+| -------------------------- | ----------------------------------------------- |
+| **GitHub Pages + CI**      | Static export verified on every `main` push     |
+| **Cloudflare Worker logs** | Gemma gateway observability                     |
+| **Playwright**             | E2E coverage for culture and study flows        |
 
 ### Infrastructure
 
-| Technology         | Purpose                      |
-| ------------------ | ---------------------------- |
-| **Vercel**         | Edge deployment & global CDN |
-| **Upstash Vector** | Semantic search & embeddings |
-| **Supabase**       | PostgreSQL database & auth   |
+| Technology            | Purpose                                      |
+| --------------------- | -------------------------------------------- |
+| **GitHub Pages**      | Static site export and public hosting        |
+| **Cloudflare Worker** | Gemma gateway (`workers/hindai-gemma`)       |
+| **GitHub Actions**    | CI quality gates and Pages deploy on `main`  |
 
 ---
 
 ## 📂 Project Structure
 
 ```
-Hind AI/
-├── 📁 app/                          # Next.js App Router
-│   ├── api/                         # Backend API routes
-│   │   ├── ai/                      # AI endpoints
-│   │   │   ├── chat/                # Vedic AI Scholar (streaming)
-│   │   │   ├── vision/              # Multimodal scriptural analysis
-│   │   │   ├── dharma/              # Smart Dharma Guide
-│   │   │   ├── analyze/             # Verse analysis
-│   │   │   ├── generate/            # Main AI response
-│   │   │   ├── stream/              # Real-time streaming
-│   │   │   ├── multimodal/          # Sanskrit manuscript analysis
-│   │   │   ├── translate/           # Translation service
-│   │   │   ├── verse-generate/      # Verse generation
-│   │   │   ├── quiz/                # AI-generated quizzes
-│   │   │   └── recommend/           # Scripture recommendations
-│   │   ├── sanskrit/                # Sanskrit linguistic tools
-│   │   │   ├── sandhi/              # Sandhi splitting API
-│   │   │   ├── transliterate/       # Script conversion
-│   │   │   ├── vedic-accents/       # Vedic accent analysis
-│   │   │   └── vibhakti/            # Grammatical case analysis
-│   │   └── health/                  # System health
-│   ├── [slug]/                      # Dynamic scripture pages
-│   │   ├── page.tsx                 # Scripture detail page
-│   │   └── loading.tsx              # Route loading skeleton
-│   ├── ai-guide/                    # Vedic AI Scholar
-│   │   ├── page.tsx
-│   │   └── loading.tsx
-│   ├── vision/                      # Multimodal Scriptural Analysis
-│   │   ├── page.tsx
-│   │   └── loading.tsx
-│   ├── dharma/                      # Smart Dharma Guide
-│   │   ├── page.tsx
-│   │   └── loading.tsx
-│   ├── daily/                       # Daily wisdom
-│   ├── quiz/                        # Quiz system
-│   ├── contents/                    # Scripture library
-│   │   ├── page.tsx
-│   │   └── loading.tsx
-│   ├── study-paths/                 # Learning paths
-│   │   ├── page.tsx
-│   │   └── loading.tsx
-│   ├── sanskrit-nova/               # Sanskrit Studio
-│   │   ├── page.tsx
-│   │   └── loading.tsx
-│   ├── panchanga/                   # Panchanga calendar
-│   │   ├── page.tsx
-│   │   └── loading.tsx
-│   ├── layout.tsx                   # Root layout with providers
-│   ├── loading.tsx                  # Global loading state
-│   ├── page.tsx                     # Home page
-│   └── providers.tsx                # Context providers
-├── 📁 src/
-│   ├── components/
-│   │   ├── ai/                      # AI components
-│   │   │   ├── vedic-scholar.tsx     # Vedic AI Scholar
-│   │   │   ├── scriptural-analysis.tsx # Multimodal analysis
-│   │   │   ├── dharma-guide.tsx     # Smart Dharma Guide
-│   │   │   ├── ai-chat.tsx
-│   │   │   ├── ai-explanation.tsx
-│   │   │   └── manuscript-analyzer.tsx
-│   │   ├── scripture/               # Scripture components
-│   │   │   ├── verse-generator.tsx
-│   │   │   ├── batch-verse-generator.tsx
-│   │   │   ├── scripture-study-explorer.tsx
-│   │   │   └── scripture-search.tsx
-│   │   ├── commentary/              # Commentary components
-│   │   │   └── CommentaryBySchool.tsx
-│   │   ├── quiz/                    # Quiz components
-│   │   ├── ui/                      # shadcn/ui components
-│   │   │   ├── sacred-geometry.tsx  # Sacred geometry patterns
-│   │   │   ├── textarea.tsx         # Textarea component
-│   │   │   └── index.ts             # UI exports
-│   │   ├── Header.tsx
-│   │   ├── Footer.tsx
-│   │   ├── search.tsx
-│   │   ├── meditation-timer.tsx
-│   │   ├── voice-search.tsx
-│   │   ├── learning-progress.tsx
-│   │   ├── page-progress.tsx         # Page transition indicator
-│   │   ├── error-boundary.tsx       # Error handling
-│   │   ├── page-transition.tsx      # Route transitions
-│   │   ├── service-worker-registration.tsx # PWA support
-│   │   └── progressive-image.tsx    # Image loading
-│   ├── lib/
-│   │   ├── ai/
-│   │   │   ├── gemma.ts             # Core Gemma 4 integration
-│   │   │   ├── context-manager.ts   # Context window management
-│   │   │   └── translation-languages.ts
-│   │   ├── audio/
-│   │   │   ├── tts.ts               # Google Cloud TTS
-│   │   │   ├── vedic-accent.ts      # IIT Bombay Vedic accent
-│   │   │   └── vedic-heritage.ts   # Vedic Heritage Portal
-│   │   ├── sanskrit/
-│   │   │   ├── transliteration/     # Indic transliteration
-│   │   │   ├── vidyut/              # Sandhi & morphology
-│   │   │   ├── anvaya/              # Prose word order
-│   │   │   └── vibhakti/            # Grammatical cases
-│   │   ├── haptics.ts               # Haptic feedback utilities
-│   │   ├── vector/
-│   │   │   └── upstash.ts           # Vector search
-│   │   ├── data/
-│   │   │   ├── scriptures.ts        # Scripture metadata (184 scriptures)
-│   │   │   ├── bhagavad-gita-verses.ts
-│   │   │   └── rigveda-verses.ts
-│   │   ├── data/ingestion/
-│   │   │   ├── sanskrit-docs.ts     # SanskritDocuments.org
-│   │   │   └── dcs-api.ts           # DCS API integration
-│   │   ├── database/
-│   │   │   └── supabase.ts          # Supabase client
-│   │   ├── scripture-catalog.ts
-│   │   ├── seo.ts
-│   │   ├── performance.ts
-│   │   ├── study-paths.ts
-│   │   └── utils.ts
-│   ├── types/
-│   │   └── scripture.ts
-│   ├── index.css                    # Global styles with performance hints
-│   └── integrations/
-│       └── supabase/
-├── 📁 scripts/                      # Lint orchestration and local React Doctor install
-│   ├── lint-check.js
-│   └── react-doctor-install.js
-├── 📁 e2e/                          # Playwright E2E smoke and regression coverage
-├── 📁 .github/workflows/            # CI/CD
-├── 📄 README.md
-├── 📄 scripture-audit-report.md
-├── 📄 next.config.js                # Next.js with performance config
-├── 📄 tailwind.config.ts            # Tailwind configuration
-└── 📄 package.json
+Hindai/
+├── app/                         # Next.js App Router (thin pages)
+│   ├── api/                     # Local AI/Sanskrit routes (not on Pages)
+│   ├── mahadev|devi|vishnu|ganesha/  # Tradition homes + [slug] articles
+│   ├── festivals/               # Utsav encyclopedia
+│   ├── katha/                   # Book-depth grantha
+│   ├── pilgrimage/              # South Asia tirtha map
+│   ├── shivlilamrit/            # Pothi + print reading
+│   ├── panchanga|sadhana|…      # Practice & study routes
+│   └── sitemap.ts
+├── src/
+│   ├── components/              # UI (tirtha, utsav, katha, shivlilamrit, …)
+│   └── lib/
+│       ├── data/                # Catalogs: utsav, peethas, jyotirlingas, …
+│       ├── ai/                  # Gemma client helpers
+│       ├── panchanga/           # Thin calendar derived from utsav
+│       └── site-nav.ts          # Header + Footer nav source of truth
+├── public/                      # Artist impressions + ATTRIBUTION.txt
+├── workers/hindai-gemma/        # Production Gemma Worker
+├── scripts/                     # Pages build, basemap, lint, tests
+├── e2e/                         # Playwright
+├── docs/engineering.md
+└── .cursor/rules/long-term-engineering.mdc
 ```
 
 ---

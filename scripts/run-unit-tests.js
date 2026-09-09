@@ -24,13 +24,9 @@ if (files.length === 0) {
   process.exit(1);
 }
 
-const result = spawnSync(
-  "npx",
-  ["tsx", "--tsconfig", "tsconfig.json", "--test", ...files],
-  {
-    stdio: "inherit",
-    shell: process.platform === "win32",
-  }
-);
+const result = spawnSync("npx", ["tsx", "--tsconfig", "tsconfig.json", "--test", ...files], {
+  stdio: "inherit",
+  shell: process.platform === "win32",
+});
 
 process.exit(result.status === null ? 1 : result.status);

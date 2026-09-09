@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Bell, ChevronLeft, ChevronRight, Pause, Play, Settings2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Columns2, Pause, Play, Search, Settings2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { MandirDiya, ringGhanta } from "@/components/shivlilamrit/mandir-paat";
-import { ShivaLingam } from "@/components/shivlilamrit/shiva-lingam";
+import { PrintLeaf } from "@/components/shivlilamrit/print-leaf";
+import { PrintBookShop } from "@/components/shivlilamrit/print-book-shop";
+import { usePothiSpeech } from "@/components/shivlilamrit/use-pothi-speech";
 import {
   type ReaderLocale,
   type ReaderTheme,
@@ -13,19 +14,25 @@ import {
   readerThemeLabel,
 } from "@/lib/data/shivlilamrit/catalog";
 import {
-  bookPath,
+  type PageViewMode,
+  PRINT_CONTENTS_PAGE,
+  adhyayJumpOptions,
   contentsRows,
+  firstPageForSlug,
   folioCount,
+  folioStatusLabel,
   getFolio,
+  isPageViewMode,
+  nextViewPage,
+  pagesForView,
   parseBookPage,
+  prevViewPage,
+  resolveJumpQuery,
+  searchJumpTargets,
   toDevanagariNumeral,
-  type Folio,
 } from "@/lib/data/shivlilamrit/book";
 import { kathaParagraphs, oviDisplay } from "@/lib/data/shivlilamrit/locales";
-import { kathaForFolio, loadFolioVerses } from "@/lib/data/shivlilamrit/folio-content";
-import { browserSpeechLang, prepareRecitation } from "@/lib/data/shivlilamrit/recitation";
-import { appUrl } from "@/lib/runtime/app-fetch";
-import { BASE_PATH } from "@/lib/site";
+import { kathaForFolio, loadStoryVerses } from "@/lib/data/shivlilamrit/folio-content";
 
 const FONT_STEPS = [18, 20, 22, 24, 28] as const;
 const THEMES: ReaderTheme[] = ["mandir", "paper", "sepia", "night"];
@@ -40,38 +47,48 @@ function isLocale(value: string): value is ReaderLocale {
   return LOCALES.includes(value as ReaderLocale);
 }
 
-function pickVoice(locale: ReaderLocale): SpeechSynthesisVoice | undefined {
-  const wanted = browserSpeechLang(locale);
-  const voices = window.speechSynthesis.getVoices();
-  const prefix = wanted.slice(0, 2);
-  return (
-    voices.find((voice) => voice.lang === wanted) ??
-    voices.find((voice) => voice.lang.startsWith(prefix) && voice.lang.includes("IN")) ??
-    voices.find((voice) => voice.lang.startsWith(prefix))
+function writePageQuery(page: number): void {
+  const url = new URL(window.location.href);
+  url.searchParams.set("p", String(page));
+  History.prototype.replaceState.call(
+    window.history,
+    window.history.state,
+    "",
+    `${url.pathname}${url.search}`
   );
 }
 
 export function PothiFolio({ initialPage }: { initialPage: number }) {
   const total = folioCount();
   const [page, setPage] = useState(initialPage);
-  const folio = getFolio(page) ?? getFolio(1)!;
-  const [theme, setTheme] = useState<ReaderTheme>("mandir");
+  const [viewMode, setViewMode] = useState<PageViewMode>("one");
+  const [theme, setTheme] = useState<ReaderTheme>("night");
   const [locale, setLocale] = useState<ReaderLocale>("mr");
   const [font, setFont] = useState<(typeof FONT_STEPS)[number]>(22);
   const [settings, setSettings] = useState(false);
-  const [playing, setPlaying] = useState(false);
-  const [throughBook, setThroughBook] = useState(false);
-  const [activeLine, setActiveLine] = useState<number | null>(null);
-  const [engine, setEngine] = useState<"sarvam-bulbul-v3" | "browser">("browser");
-  const [verses, setVerses] = useState<string[]>([]);
-  const continueRef = useRef(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [versesBySlug, setVersesBySlug] = useState<Record<string, string[]>>({});
+  const [jumpQuery, setJumpQuery] = useState("");
+  const pageRef = useRef(page);
+  const viewModeRef = useRef(viewMode);
+  pageRef.current = page;
+  viewModeRef.current = viewMode;
+
+  const visiblePages = useMemo(() => pagesForView(page, viewMode), [page, viewMode]);
+  const folios = useMemo(
+    () => visiblePages.map((item) => getFolio(item)).filter((item) => item !== undefined),
+    [visiblePages]
+  );
 
   useEffect(() => {
-    const raw = new URLSearchParams(window.location.search).get("p");
-    if (raw) {
-      setPage(parseBookPage(raw));
-    }
+    const applyQuery = () => {
+      const raw = new URLSearchParams(window.location.search).get("p");
+      if (raw) {
+        setPage(parseBookPage(raw));
+      }
+    };
+    applyQuery();
+    window.addEventListener("popstate", applyQuery);
+    return () => window.removeEventListener("popstate", applyQuery);
   }, []);
 
   useEffect(() => {
@@ -80,7 +97,12 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
       return;
     }
     try {
-      const saved = JSON.parse(raw) as { theme?: string; locale?: string; font?: number };
+      const saved = JSON.parse(raw) as {
+        theme?: string;
+        locale?: string;
+        font?: number;
+        viewMode?: string;
+      };
       if (saved.theme && isTheme(saved.theme)) {
         setTheme(saved.theme);
       }
@@ -90,358 +112,354 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
       if (FONT_STEPS.includes(saved.font as (typeof FONT_STEPS)[number])) {
         setFont(saved.font as (typeof FONT_STEPS)[number]);
       }
+      if (saved.viewMode && isPageViewMode(saved.viewMode)) {
+        setViewMode(saved.viewMode);
+      }
     } catch {
       return;
     }
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ theme, locale, font, page }));
-  }, [theme, locale, font, page]);
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ theme, locale, font, viewMode }));
+  }, [theme, locale, font, viewMode]);
 
   useEffect(() => {
     let cancelled = false;
-    void loadFolioVerses(folio).then((loaded) => {
-      if (!cancelled) {
-        setVerses(loaded);
+    for (const folio of folios) {
+      if (folio.kind !== "ovis") {
+        continue;
       }
-    });
+      void loadStoryVerses(folio).then((loaded) => {
+        if (cancelled) {
+          return;
+        }
+        setVersesBySlug((current) => ({ ...current, [folio.slug]: loaded }));
+      });
+    }
     return () => {
       cancelled = true;
     };
-  }, [folio]);
+  }, [folios]);
+
+  const speakLines = useMemo(() => {
+    const lines: string[] = [];
+    for (const folio of folios) {
+      if (folio.kind === "cover" || folio.kind === "title") {
+        lines.push("श्री शिवलीलामृत कथासार। ॐ नमः शिवाय।");
+        continue;
+      }
+      if (folio.kind === "contents") {
+        lines.push(
+          "अनुक्रमणिका। " +
+            contentsRows()
+              .map((row) => row.titleMr)
+              .join("। ")
+        );
+        continue;
+      }
+      if (folio.kind === "katha") {
+        lines.push(...kathaParagraphs(kathaForFolio(folio), locale, folio.chapterId, folio.slug));
+        continue;
+      }
+      const verses = versesBySlug[folio.slug] ?? [];
+      lines.push(...verses.map((text) => oviDisplay(text, locale)));
+    }
+    return lines;
+  }, [folios, locale, versesBySlug]);
+
+  const { playing, activeLine, status, speak, stop } = usePothiSpeech(speakLines, locale);
 
   const go = useCallback(
     (next: number) => {
+      stop();
       const safe = Math.min(Math.max(1, next), total);
       setPage(safe);
-      window.history.replaceState(null, "", `${BASE_PATH}${bookPath(safe)}`);
+      writePageQuery(safe);
     },
-    [total]
+    [stop, total]
   );
-
-  const pageOvis = useMemo(() => {
-    if (folio.kind !== "ovis" || !folio.oviFrom || !folio.oviTo) {
-      return [];
-    }
-    return verses.slice(folio.oviFrom - 1, folio.oviTo).map((text, index) => ({
-      n: (folio.oviFrom ?? 1) + index,
-      text,
-    }));
-  }, [folio, verses]);
-
-  const kathaLines = useMemo(() => {
-    if (folio.kind !== "katha") {
-      return [];
-    }
-    return kathaParagraphs(kathaForFolio(folio), locale, folio.chapterId, folio.slug);
-  }, [folio, locale]);
-
-  const speakLines = useMemo(() => {
-    if (folio.kind === "cover") {
-      return ["श्री शिवलीलामृत कथासार। ॐ नमः शिवाय।"];
-    }
-    if (folio.kind === "contents") {
-      return ["अनुक्रमणिका। " + contentsRows().map((row) => row.titleMr).join("। ")];
-    }
-    if (folio.kind === "katha") {
-      return kathaLines;
-    }
-    return pageOvis.map((ovi) => oviDisplay(ovi.text, locale));
-  }, [folio.kind, kathaLines, locale, pageOvis]);
-
-  const stopSpeech = useCallback(() => {
-    if ("speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-    }
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.src = "";
-    }
-    setPlaying(false);
-    setActiveLine(null);
-  }, []);
-
-  useEffect(() => {
-    stopSpeech();
-  }, [page, locale, stopSpeech]);
-
-  const speakBrowser = useCallback(
-    (lines: string[]) => {
-      const voice = pickVoice(locale);
-      lines.forEach((line, index) => {
-        const utterance = new SpeechSynthesisUtterance(prepareRecitation(line, locale));
-        utterance.lang = browserSpeechLang(locale);
-        utterance.rate = 0.78;
-        if (voice) {
-          utterance.voice = voice;
-        }
-        utterance.onstart = () => setActiveLine(index);
-        utterance.onend = () => {
-          if (index === lines.length - 1) {
-            setPlaying(false);
-            setActiveLine(null);
-            if (throughBook && page < total) {
-              continueRef.current = true;
-              go(page + 1);
-            }
-          }
-        };
-        window.speechSynthesis.speak(utterance);
-      });
-      setEngine("browser");
-      setPlaying(true);
-    },
-    [go, locale, page, throughBook, total]
-  );
-
-  const speak = async () => {
-    if (playing) {
-      stopSpeech();
-      return;
-    }
-    const joined = speakLines.map((line) => prepareRecitation(line, locale)).join("। ");
-    try {
-      const response = await fetch(appUrl("/api/pothi/speak"), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: joined, locale }),
-      });
-      const payload = (await response.json()) as {
-        base64?: string;
-        mime?: string;
-        engine?: string;
-        fallback?: boolean;
-      };
-      if (payload.base64 && payload.mime) {
-        const bytes = Uint8Array.from(atob(payload.base64), (char) => char.charCodeAt(0));
-        const blob = new Blob([bytes], { type: payload.mime });
-        const url = URL.createObjectURL(blob);
-        const audio = new Audio(url);
-        audioRef.current = audio;
-        audio.onended = () => {
-          setPlaying(false);
-          if (throughBook && page < total) {
-            continueRef.current = true;
-            go(page + 1);
-          }
-        };
-        await audio.play();
-        setEngine("sarvam-bulbul-v3");
-        setPlaying(true);
-        return;
-      }
-    } catch {
-      // Browser recitation below.
-    }
-    if ("speechSynthesis" in window) {
-      speakBrowser(speakLines);
-    }
-  };
-
-  useEffect(() => {
-    if (!continueRef.current) {
-      return;
-    }
-    continueRef.current = false;
-    void speak();
-  }, [page]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "ArrowRight") {
-        go(page + 1);
+        go(nextViewPage(pageRef.current, viewModeRef.current));
       } else if (event.key === "ArrowLeft") {
-        go(page - 1);
+        go(prevViewPage(pageRef.current, viewModeRef.current));
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go, page]);
+  }, [go]);
 
-  const mandir = theme === "mandir";
-  const heading = locale === "en" || locale === "roman" ? folio.titleEn : folio.titleMr;
-  const leafClass = mandir
-    ? "pothi-leaf"
-    : theme === "night"
-      ? "pothi-leaf-night rounded-[1.4rem]"
-      : "rounded-[1.4rem] bg-[#fffaf0] text-[#3a2412]";
+  const jumpHits = useMemo(() => searchJumpTargets(jumpQuery).slice(0, 6), [jumpQuery]);
+  const lead = folios[0];
+  if (!lead) {
+    return null;
+  }
+  const heading = (item: (typeof folios)[number]) =>
+    locale === "en" || locale === "roman" ? item.titleEn : item.titleMr;
+  const chapterHint = lead.chapterId ? `अध्याय ${toDevanagariNumeral(lead.chapterId)}` : null;
+  const nextPage = nextViewPage(page, viewMode);
+  const prevPage = prevViewPage(page, viewMode);
+  const paper =
+    theme === "night"
+      ? "bg-[#12110f] text-[#e8e0d0]"
+      : theme === "sepia"
+        ? "bg-[#ebe0c8] text-[#3a2c1c]"
+        : theme === "mandir"
+          ? "bg-[#1a100c] text-[#f3e6c8]"
+          : "bg-[#f4f1ea] text-[#2c2118]";
+  const nightLeaf = theme === "night" || theme === "mandir";
+
+  let lineCursor = 0;
+  const leafOffsets: number[] = [];
+  for (const folio of folios) {
+    leafOffsets.push(lineCursor);
+    if (folio.kind === "cover" || folio.kind === "title" || folio.kind === "contents") {
+      lineCursor += 1;
+    } else if (folio.kind === "katha") {
+      lineCursor += kathaParagraphs(
+        kathaForFolio(folio),
+        locale,
+        folio.chapterId,
+        folio.slug
+      ).length;
+    } else {
+      lineCursor += versesBySlug[folio.slug]?.length ?? 0;
+    }
+  }
 
   return (
-    <div
-      className={
-        mandir
-          ? "pothi-garbha relative min-h-[100dvh] overflow-hidden"
-          : `min-h-[100dvh] ${theme === "night" ? "bg-[#12110f] text-[#e8e0d0]" : "bg-[#e8d5b5] text-[#3f2a14]"}`
-      }
-    >
-      {mandir ? <div className="pothi-rangoli pointer-events-none absolute inset-0" /> : null}
-      {mandir ? (
-        <div className="relative z-10 mx-auto flex max-w-4xl items-end justify-between px-4 pt-5 sm:px-8">
-          <MandirDiya />
-          <MandirDiya />
-        </div>
-      ) : null}
-
-      <div className="relative z-10 mx-auto max-w-3xl px-3 pb-8 sm:px-6">
-        <div className={mandir ? "pothi-paat" : undefined}>
-          <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 px-3 py-3 text-xs sm:px-4 sm:text-sm">
-            <Link href="/shivlilamrit" className="inline-flex min-h-11 items-center opacity-80">
-              Close
-            </Link>
-            <p className="min-w-0 text-center font-devanagari leading-snug">{heading}</p>
+    <div className="min-h-[calc(100dvh-4rem)] bg-background text-foreground">
+      <div
+        className={`mx-auto px-4 py-5 sm:px-6 ${viewMode === "two" ? "max-w-6xl" : "max-w-3xl"}`}
+      >
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-border/70 bg-card px-3 py-3 sm:px-4">
+          <Link
+            href="/shivlilamrit"
+            className="inline-flex min-h-11 items-center text-sm text-muted-foreground hover:text-foreground"
+          >
+            Close
+          </Link>
+          <p className="min-w-0 text-center font-devanagari text-sm leading-snug text-foreground">
+            {chapterHint ? `${chapterHint} · ${heading(lead)}` : heading(lead)}
+          </p>
+          <div className="flex gap-2">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setViewMode((current) => (current === "one" ? "two" : "one"))}
+              data-testid="pothi-view-mode"
+            >
+              <Columns2 className="size-4" />
+              {viewMode === "two" ? "One page" : "Two pages"}
+            </Button>
             <Button size="sm" variant="outline" onClick={() => setSettings((open) => !open)}>
               <Settings2 className="size-4" />
               Type
             </Button>
-          </header>
+          </div>
+        </div>
 
-          {settings ? (
-            <div className="flex flex-wrap gap-2 px-4 pb-3">
-              {THEMES.map((item) => (
-                <Button key={item} size="sm" variant={theme === item ? "default" : "outline"} onClick={() => setTheme(item)}>
-                  {readerThemeLabel(item)}
-                </Button>
-              ))}
-              {LOCALES.map((item) => (
-                <Button key={item} size="sm" variant={locale === item ? "default" : "outline"} onClick={() => setLocale(item)}>
-                  {readerLocaleLabel(item)}
-                </Button>
-              ))}
+        {settings ? (
+          <div className="mb-4 flex flex-wrap gap-2 rounded-2xl border border-border/70 bg-card p-3">
+            {THEMES.map((item) => (
               <Button
+                key={item}
                 size="sm"
-                variant="outline"
-                onClick={() => setFont(FONT_STEPS[Math.max(0, FONT_STEPS.indexOf(font) - 1)] ?? 18)}
+                variant={theme === item ? "default" : "outline"}
+                onClick={() => setTheme(item)}
               >
-                A−
+                {readerThemeLabel(item)}
               </Button>
+            ))}
+            {LOCALES.map((item) => (
               <Button
+                key={item}
                 size="sm"
-                variant="outline"
-                onClick={() =>
-                  setFont(FONT_STEPS[Math.min(FONT_STEPS.length - 1, FONT_STEPS.indexOf(font) + 1)] ?? 28)
-                }
+                variant={locale === item ? "default" : "outline"}
+                onClick={() => {
+                  stop();
+                  setLocale(item);
+                }}
               >
-                A+
+                {readerLocaleLabel(item)}
               </Button>
-            </div>
+            ))}
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setFont(FONT_STEPS[Math.max(0, FONT_STEPS.indexOf(font) - 1)] ?? 18)}
+            >
+              A−
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() =>
+                setFont(
+                  FONT_STEPS[Math.min(FONT_STEPS.length - 1, FONT_STEPS.indexOf(font) + 1)] ?? 28
+                )
+              }
+            >
+              A+
+            </Button>
+          </div>
+        ) : null}
+
+        <form
+          className="mb-4"
+          onSubmit={(event) => {
+            event.preventDefault();
+            const next = resolveJumpQuery(jumpQuery);
+            if (next) {
+              go(next);
+              setJumpQuery("");
+            }
+          }}
+        >
+          <label className="flex min-h-11 items-center gap-2 rounded-2xl border border-border/70 bg-card px-3 text-sm text-foreground">
+            <Search className="size-4 shrink-0 text-muted-foreground" />
+            <input
+              className="min-h-11 min-w-0 flex-1 bg-transparent text-foreground outline-none placeholder:text-muted-foreground"
+              value={jumpQuery}
+              onChange={(event) => setJumpQuery(event.target.value)}
+              placeholder="Adhyay 4, Gokarna, or page 20"
+              aria-label="Search or jump to adhyay"
+              data-testid="pothi-jump"
+            />
+            <Button type="submit" size="sm" variant="outline">
+              Go
+            </Button>
+          </label>
+          {jumpHits.length > 0 && jumpQuery.trim() && !/^\d+$/.test(jumpQuery.trim()) ? (
+            <ul className="m-0 mt-2 list-none space-y-1 rounded-2xl border border-border/70 bg-card p-2 text-sm">
+              {jumpHits.map((hit) => (
+                <li key={`${hit.page}-${hit.label}`}>
+                  <button
+                    type="button"
+                    className="w-full rounded-md px-3 py-2 text-left text-foreground hover:bg-secondary"
+                    onClick={() => {
+                      go(hit.page);
+                      setJumpQuery("");
+                    }}
+                  >
+                    {hit.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
           ) : null}
+        </form>
 
-          <article
-            className={`${leafClass} min-h-[70dvh] px-4 py-8 sm:px-10`}
-            style={{ fontSize: `${font}px`, lineHeight: 1.9 }}
+        <div className="mb-4 flex flex-wrap items-center gap-2 rounded-2xl border border-border/70 bg-card px-3 py-3">
+          <label className="inline-flex min-h-11 items-center gap-2 text-sm text-foreground">
+            <span className="text-muted-foreground">Adhyay</span>
+            <select
+              className="min-h-11 max-w-[min(100%,20rem)] rounded-md border border-border bg-background px-3 text-sm text-foreground"
+              value={lead.chapterId ?? ""}
+              onChange={(event) => {
+                const id = event.target.value;
+                if (id) {
+                  go(
+                    adhyayJumpOptions().find((item) => String(item.id) === id)?.page ??
+                      firstPageForSlug("1")
+                  );
+                }
+              }}
+              aria-label="Jump to adhyay"
+            >
+              <option value="">Front</option>
+              {adhyayJumpOptions().map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <Button size="sm" variant="outline" onClick={() => go(PRINT_CONTENTS_PAGE)}>
+            Contents
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => void speak()}
+            data-testid="pothi-listen"
           >
-            {folio.kind === "cover" ? (
-              <div className="flex min-h-[60dvh] flex-col items-center justify-center text-center">
-                <ShivaLingam className="h-40 w-40 text-primary" />
-                <h1 className="mt-6 px-1 font-devanagari text-2xl sm:text-4xl">सचित्र श्रीशिवलीलामृत</h1>
-                <p className="mt-3 font-serif text-lg">A living pothi · १५ adhyays</p>
-                <p className="mt-8 text-sm opacity-70">Turn the page for the contents, then the grantha in print order.</p>
-              </div>
-            ) : null}
+            {playing ? <Pause className="size-4" /> : <Play className="size-4" />}
+            {playing ? "Pause" : "Listen"}
+          </Button>
+          {status ? <p className="w-full text-xs text-muted-foreground">{status}</p> : null}
+        </div>
 
-            {folio.kind === "contents" ? (
-              <div>
-                <h1 className="font-serif text-2xl sm:text-3xl">अनुक्रमणिका</h1>
-                <p className="mt-2 text-sm opacity-70">Contents of this pothi, with folio numbers. This is a leaf, not a sidebar.</p>
-                <ol className="mt-6 list-none space-y-2 p-0 text-[0.72em] leading-7">
-                  {contentsRows().map((row) => (
-                    <li key={`${row.slug}-${row.page}`}>
-                      <button
-                        type="button"
-                        className="flex w-full items-baseline gap-2 text-left"
-                        onClick={() => go(row.page)}
-                      >
-                        <span className="font-devanagari">{row.titleMr}</span>
-                        <span className="min-w-0 flex-1 border-b border-dotted border-current/30" />
-                        <span className="font-devanagari">{toDevanagariNumeral(row.page)}</span>
-                        <span className="opacity-60">/{row.page}</span>
-                      </button>
-                    </li>
-                  ))}
-                </ol>
+        <div
+          className={`pothi-reader-paper rounded-2xl p-3 sm:p-4 ${paper}`}
+          data-theme={theme}
+          data-night-leaf={nightLeaf ? "true" : "false"}
+        >
+          <div
+            className={viewMode === "two" && folios.length > 1 ? "pdf-spread" : undefined}
+            style={{ fontSize: `${font}px` }}
+          >
+            {folios.map((folio, index) => (
+              <div className="pdf-frame" key={folio.page}>
+                <PrintLeaf
+                  folio={folio}
+                  locale={locale}
+                  heading={heading(folio)}
+                  kathaLines={
+                    folio.kind === "katha"
+                      ? kathaParagraphs(kathaForFolio(folio), locale, folio.chapterId, folio.slug)
+                      : []
+                  }
+                  ovis={
+                    folio.kind === "ovis"
+                      ? (versesBySlug[folio.slug] ?? []).map((text, oviIndex) => ({
+                          n: oviIndex + 1,
+                          text,
+                        }))
+                      : []
+                  }
+                  ovisLoading={folio.kind === "ovis" && !(folio.slug in versesBySlug)}
+                  activeLine={activeLine}
+                  lineOffset={leafOffsets[index] ?? 0}
+                  onJump={go}
+                  onStartAdhyay1={() => go(firstPageForSlug("1"))}
+                />
               </div>
-            ) : null}
+            ))}
+          </div>
+        </div>
 
-            {folio.kind === "katha" ? (
-              <div className="space-y-5 font-devanagari">
-                {folio.special ? (
-                  <p className="text-center text-xs font-semibold uppercase tracking-[0.18em]">Rudra adhyay</p>
-                ) : null}
-                <h1 className="font-serif text-2xl sm:text-3xl">{heading}</h1>
-                {kathaLines.map((para, index) => (
-                  <p key={`k-${index}`} className={activeLine === index ? "pothi-ovi-active" : undefined}>
-                    {para}
-                  </p>
-                ))}
-              </div>
-            ) : null}
-
-            {folio.kind === "ovis" ? (
-              <ol className="list-none space-y-7 p-0 font-devanagari">
-                {pageOvis.map((ovi, index) => (
-                  <li key={ovi.n} className={`flex min-w-0 gap-3 sm:gap-4 ${activeLine === index ? "pothi-ovi-active" : ""}`}>
-                    <span className="mt-1 w-8 shrink-0 text-right text-sm opacity-50 sm:w-10">
-                      {toDevanagariNumeral(ovi.n)}
-                    </span>
-                    <p className="min-w-0 text-pretty">
-                      {oviDisplay(ovi.text, locale)} ॥{ovi.n}॥
-                    </p>
-                  </li>
-                ))}
-              </ol>
-            ) : null}
-          </article>
-
-          <footer className="px-3 py-4 sm:px-4">
-            <p className="text-center font-devanagari text-sm">
-              पृष्ठ {toDevanagariNumeral(page)} / {toDevanagariNumeral(total)}
-              <span className="mx-2 opacity-50">·</span>
-              <span className="opacity-80">
-                {page} / {total}
-              </span>
-            </p>
-            {folio.kind === "ovis" && folio.oviFrom && folio.oviTo ? (
-              <p className="mt-1 text-center text-xs opacity-70">
-                Ovis {folio.oviFrom}–{folio.oviTo} of {folio.oviTotal}
-              </p>
-            ) : (
-              <p className="mt-1 text-center text-xs opacity-70">
-                {folio.kind === "katha" ? "Katha-sar" : folio.kind === "contents" ? "Contents leaf" : "Cover"}
-              </p>
-            )}
-            <div className="mt-4 flex flex-col gap-3">
-              <div className="grid grid-cols-2 gap-2">
-                <Button className="min-w-0" variant="outline" disabled={page <= 1} onClick={() => go(page - 1)}>
-                  <ChevronLeft className="size-4" />
-                  Previous
-                </Button>
-                <Button className="min-w-0" variant="outline" disabled={page >= total} onClick={() => go(page + 1)}>
-                  Next
-                  <ChevronRight className="size-4" />
-                </Button>
-              </div>
-              <div className="flex flex-wrap items-center justify-center gap-2">
-                <Button size="sm" variant="outline" onClick={() => go(2)}>
-                  Contents
-                </Button>
-                <Button size="sm" variant="outline" onClick={() => void speak()}>
-                  {playing ? <Pause className="size-4" /> : <Play className="size-4" />}
-                  {playing ? "Pause" : "Listen"}
-                </Button>
-                <Button size="sm" variant={throughBook ? "default" : "outline"} onClick={() => setThroughBook((value) => !value)}>
-                  Through pothi
-                </Button>
-                <Button size="sm" variant="outline" onClick={ringGhanta} aria-label="Temple bell">
-                  <Bell className="size-4" />
-                </Button>
-              </div>
-            </div>
-            <p className="mt-3 text-center text-[11px] opacity-60">
-              Speech: {engine === "sarvam-bulbul-v3" ? "Sarvam Bulbul v3 (mr/hi/en-IN)" : "browser Indian voice"} ·
-              Gemma is the study model, not TTS
-            </p>
-          </footer>
+        <div className="mt-5 rounded-2xl border border-border/70 bg-card px-3 py-4 sm:px-4">
+          <p className="text-center font-devanagari text-sm text-foreground">
+            पृष्ठ {toDevanagariNumeral(lead.page)}
+            {folios[1] ? `–${toDevanagariNumeral(folios[1].page)}` : ""} · {folioStatusLabel(lead)}
+          </p>
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <Button
+              className="min-w-0"
+              variant="outline"
+              disabled={prevPage === page}
+              onClick={() => go(prevPage)}
+              data-testid="pothi-prev"
+            >
+              <ChevronLeft className="size-4" />
+              Previous
+            </Button>
+            <Button
+              className="min-w-0"
+              variant="outline"
+              disabled={nextPage === page}
+              onClick={() => go(nextPage)}
+              data-testid="pothi-next"
+            >
+              Next
+              <ChevronRight className="size-4" />
+            </Button>
+          </div>
+          <PrintBookShop compact />
         </div>
       </div>
     </div>

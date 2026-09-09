@@ -12,14 +12,27 @@ const NAME_HINTS: Array<[RegExp, string]> = [
   [/श्रीधर/g, "श्री धर"],
   [/रुद्राक्ष/g, "रुद्राक्ष"],
   [/भद्रसेन/g, "भद्र सेन"],
+  [/भद्रायु/g, "भद्र आयु"],
   [/महानंदा/g, "महा नंदा"],
   [/गोकर्ण/g, "गो कर्ण"],
   [/महाबळेश्वर/g, "महा बलेश्वर"],
   [/सिमंतिनी/g, "सीमंतिनी"],
+  [/नमोजी/g, "नमो जी"],
+  [/पंचाक्षरी/g, "पंच अक्षरी"],
+  [/दाशार्ह/g, "दाशार्ह"],
+  [/अजामेळ/g, "अजामिल"],
+  [/उपमन्यु/g, "उप मन्यु"],
+  [/मार्कंडेय/g, "मार्कंडेय"],
+  [/तारकासुर/g, "तारक असुर"],
+  [/भस्मासुर/g, "भस्म असुर"],
 ];
 
 export function prepareRecitation(text: string, locale: ReaderLocale): string {
-  let spoken = text.replace(/॥/g, PAUSE).replace(/\s+/g, " ").trim();
+  let spoken = text
+    .replace(/॥\s*\d+\s*॥/g, PAUSE)
+    .replace(/॥/g, PAUSE)
+    .replace(/\s+/g, " ")
+    .trim();
   if (locale === "en" || locale === "roman") {
     return spoken;
   }
@@ -27,6 +40,43 @@ export function prepareRecitation(text: string, locale: ReaderLocale): string {
     spoken = spoken.replace(pattern, replacement);
   }
   return spoken;
+}
+
+export function recitationChunks(lines: string[], locale: ReaderLocale, maxChars = 1800): string[] {
+  const chunks: string[] = [];
+  let current = "";
+  for (const line of lines) {
+    const prepared = prepareRecitation(line, locale);
+    if (!prepared) {
+      continue;
+    }
+    if (current && current.length + prepared.length + 2 > maxChars) {
+      chunks.push(current);
+      current = prepared;
+    } else {
+      current = current ? `${current}${PAUSE}${prepared}` : prepared;
+    }
+  }
+  if (current) {
+    chunks.push(current);
+  }
+  return chunks;
+}
+
+export function pickIndianVoice(
+  voices: SpeechSynthesisVoice[],
+  locale: ReaderLocale
+): SpeechSynthesisVoice | undefined {
+  const wanted = browserSpeechLang(locale);
+  const prefix = wanted.slice(0, 2).toLowerCase();
+  const indian = voices.filter((voice) => /[-_]IN$/i.test(voice.lang) || /india/i.test(voice.name));
+  return (
+    voices.find((voice) => voice.lang === wanted) ??
+    voices.find((voice) => voice.lang.toLowerCase().startsWith(`${prefix}-in`)) ??
+    indian.find((voice) => voice.lang.toLowerCase().startsWith(prefix)) ??
+    voices.find((voice) => voice.lang.toLowerCase().startsWith("hi")) ??
+    indian[0]
+  );
 }
 
 export function sarvamLanguage(locale: ReaderLocale): "mr-IN" | "hi-IN" | "en-IN" {

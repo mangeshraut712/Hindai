@@ -26,6 +26,15 @@ const ALLOWED_ORIGINS = [
 const HINDAI_SYSTEM =
   "You are Hind AI, a Gemma 4 powered digital gurukul for ancient Indian scripture study. Give accurate, humble, source-aware guidance. Include Devanagari with transliteration when useful. Do not invent citations.";
 
+function firstSseDataPayload(event: string): string | undefined {
+  for (const line of event.split("\n")) {
+    if (line.startsWith("data: ")) {
+      return line.slice(6).trim();
+    }
+  }
+  return undefined;
+}
+
 const DHARMA_SYSTEM = `${HINDAI_SYSTEM}
 
 You are also a Dharma Guide. Cover Purusharthas, daily rituals, vratas, samskaras, sadhana, festivals, and pilgrimage. Prefer safe, practical advice and tell the reader to consult a qualified teacher for intense practice or major life decisions.`;
@@ -323,9 +332,7 @@ async function streamAsPlain(
           const events = buffer.split("\n\n");
           buffer = events.pop() ?? "";
           for (const event of events) {
-            const line = event.split("\n").find((item) => item.startsWith("data: "));
-            if (!line) continue;
-            const data = line.slice(6).trim();
+            const data = firstSseDataPayload(event);
             if (!data || data === "[DONE]") continue;
             try {
               const parsed = JSON.parse(data) as { content?: string };
@@ -415,7 +422,12 @@ const worker = {
 
       if (path === "/api/pothi/speak") {
         const text = typeof body.text === "string" ? body.text.trim() : "";
-        const locale = body.locale === "en" ? "en-IN" : body.locale === "hi" || body.locale === "roman" ? "hi-IN" : "mr-IN";
+        const locale =
+          body.locale === "en"
+            ? "en-IN"
+            : body.locale === "hi" || body.locale === "roman"
+              ? "hi-IN"
+              : "mr-IN";
         const speaker = locale === "en-IN" ? "shubh" : "ritu";
         if (!text) {
           return json({ error: "Text is required." }, { status: 400 }, origin);

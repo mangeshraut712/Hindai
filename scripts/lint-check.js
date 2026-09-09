@@ -29,7 +29,7 @@ try {
 // Check ESLint
 console.log("3️⃣ ESLint Checks:");
 try {
-  execSync("npx eslint .", { stdio: "inherit" });
+  execSync("npx eslint app src workers e2e", { stdio: "inherit" });
   console.log("✅ ESLint check passed\n");
 } catch (error) {
   console.log("❌ ESLint check failed\n");

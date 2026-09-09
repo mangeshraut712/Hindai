@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { gemmaCapabilityPillars, hindAIUseCases } from "@/lib/ai/gemma-capabilities";
 import { CANONICAL_COUNTS } from "@/lib/data/canonical-counts";
 import { featuredScriptures } from "@/lib/scripture-catalog";
+import { EXPLORE_DESTINATIONS } from "@/lib/site-nav";
 
 const studyModes = [
   {
@@ -545,7 +546,7 @@ function FeaturedVerses() {
               className="surface-panel group min-w-[min(20rem,calc(100vw-2.5rem))] shrink-0 snap-center border-accent/20 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl md:min-w-0 md:shrink"
             >
               <div className="relative z-10 space-y-4">
-                <p className="font-devanagari text-lg leading-relaxed text-pretty text-primary">
+                <p className="text-pretty font-devanagari text-lg leading-relaxed text-primary">
                   {verse.sanskrit}
                 </p>
                 <p className="text-xs italic text-muted-foreground">{verse.transliteration}</p>
@@ -839,6 +840,40 @@ function LearningJourney() {
   );
 }
 
+function ExploreWhereToGo() {
+  return (
+    <section className="border-b border-border bg-card/40 px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              Start here
+            </p>
+            <h2 className="mt-2 font-serif text-2xl text-foreground sm:text-3xl">
+              Eight clear doors into Hind AI
+            </h2>
+          </div>
+          <Link href="/guide" className="text-sm font-semibold text-primary">
+            How the site fits together →
+          </Link>
+        </div>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {EXPLORE_DESTINATIONS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="rounded-2xl border border-border bg-background px-4 py-4 text-foreground transition-colors hover:border-primary/45 hover:bg-primary/5"
+            >
+              <p className="text-base font-semibold">{item.label}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{item.hint}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function HomePage() {
   return (
     <div className="relative flex min-h-screen flex-col">
@@ -846,6 +881,7 @@ export default function HomePage() {
 
       <main className="flex-1">
         <HomeHero />
+        <ExploreWhereToGo />
         <ProductIntro />
         <InterfaceModes />
         <ScriptureShelves />

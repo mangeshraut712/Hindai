@@ -1,0 +1,17 @@
+---
+description: Long-term architecture, clean code, and testable changes for Hind AI.
+alwaysApply: true
+---
+
+# Long-term engineering
+
+This repository is not vibe-coded. Prefer a small, correct change that matches existing layers over a clever shortcut.
+
+- Put routes in `app/`, UI in `src/components/`, catalogs and pure logic in `src/lib/`. Do not call paid APIs or put secrets in client components.
+- GitHub Pages is a static export. Page modules must stay statically renderable. Keep `app/api` usable locally; production Gemma and TTS go through `workers/hindai-gemma`.
+- Use clear names, small functions, and TypeScript types. No `any`. Exhaust `switch` on unions with a `never` default.
+- Place unit tests next to domain code as `*.test.ts`. Add or update Playwright specs when a user-visible flow changes.
+- Do not add a new framework, UI kit, or state library when the current Next.js + React pattern already works.
+- Delete dead code you replace. Do not leave parallel implementations.
+
+Read `docs/engineering.md` and `CONTRIBUTING.md` before large changes.

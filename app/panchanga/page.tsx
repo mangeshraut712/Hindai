@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Calendar, Clock, Sun, Moon, Star, Sparkles } from "lucide-react";
 import { Header } from "@/components/Header";
@@ -8,6 +9,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { getLocalPanchanga, getLocalUpcomingFestivals } from "@/lib/panchanga/local-panchanga";
 import { Festival, Panchanga } from "@/lib/panchanga/types";
+import { deepFestivalHref } from "@/lib/data/utsav";
 
 export default function PanchangaPage() {
   const [selectedDate, setSelectedDate] = useState(() => new Date());
@@ -51,7 +53,9 @@ export default function PanchangaPage() {
         <Header />
         <main className="flex min-h-[50vh] flex-1 items-center justify-center px-4">
           <div className="text-center">
-            <p className="mt-4 text-muted-foreground">{error ?? "Unable to load calendar details right now."}</p>
+            <p className="mt-4 text-muted-foreground">
+              {error ?? "Unable to load calendar details right now."}
+            </p>
             {error && (
               <Button className="mt-4" onClick={() => fetchPanchanga(selectedDate)}>
                 Try again
@@ -290,6 +294,13 @@ export default function PanchangaPage() {
                   <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-foreground">
                     Upcoming festivals with puja vidhi.
                   </h2>
+                  <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">
+                    Want origin stories, temple etiquette, and do/don’t? Open the{" "}
+                    <Link href="/festivals" className="font-semibold text-primary">
+                      deep Festivals encyclopedia
+                    </Link>
+                    .
+                  </p>
                 </div>
                 <Button
                   variant="outline"
@@ -300,7 +311,9 @@ export default function PanchangaPage() {
               </div>
 
               <div className="mt-8 grid gap-4 md:grid-cols-2">
-                {festivals.map((festival) => (
+                {festivals.map((festival) => {
+                  const deepHref = deepFestivalHref(festival.id);
+                  return (
                   <article
                     key={festival.id}
                     className="rounded-[24px] border border-border/60 bg-background/75 p-5"
@@ -331,12 +344,19 @@ export default function PanchangaPage() {
                         <span className="font-semibold text-foreground">Significance: </span>
                         <span className="text-muted-foreground">{festival.significance}</span>
                       </p>
+                      {deepHref ? (
+                        <p>
+                          <Link href={deepHref} className="font-semibold text-primary">
+                            Read the deep festival page →
+                          </Link>
+                        </p>
+                      ) : null}
                     </div>
                   </article>
-                ))}
+                  );
+                })}
               </div>
-            </motion.div>
-          </div>
+            </motion.div>          </div>
         </section>
       </main>
 

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PothiFolio } from "@/components/shivlilamrit/pothi-folio";
+import { Suspense } from "react";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { BookReader } from "@/components/shivlilamrit/book-reader";
 import { isChapterId } from "@/lib/data/shivlilamrit/catalog";
 import { firstPageForSlug, slugFromAdhyayParam } from "@/lib/data/shivlilamrit/book";
 import { getExtra, listPothi } from "@/lib/data/shivlilamrit/pothi";
@@ -42,5 +45,17 @@ export default async function ShivlilamritReadPage({ params }: PageProps) {
   if (!getExtra(slug) && !isChapterId(Number(slug))) {
     notFound();
   }
-  return <PothiFolio initialPage={firstPageForSlug(slug)} />;
+  return (
+    <div className="flex min-h-screen flex-col">
+      <Header />
+      <main className="flex-1">
+        <Suspense
+          fallback={<p className="p-8 text-center text-sm text-muted-foreground">Opening pothi…</p>}
+        >
+          <BookReader fallbackPage={firstPageForSlug(slug)} />
+        </Suspense>
+      </main>
+      <Footer />
+    </div>
+  );
 }

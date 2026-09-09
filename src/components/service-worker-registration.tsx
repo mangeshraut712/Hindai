@@ -9,6 +9,14 @@ export function ServiceWorkerRegistration() {
     }
 
     const registerSW = () => {
+      if (process.env.NODE_ENV !== "production") {
+        void navigator.serviceWorker.getRegistrations().then((registrations) => {
+          for (const registration of registrations) {
+            void registration.unregister();
+          }
+        });
+        return;
+      }
       const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
       navigator.serviceWorker
         .register(`${basePath}/sw.js`)

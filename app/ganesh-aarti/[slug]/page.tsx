@@ -76,7 +76,7 @@ export default async function GaneshAartiDetailPage({ params }: PageProps) {
               <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.iconography}</p>
             </div>
           </aside>
-          <AartiReader item={item} />
+          <AartiReader key={item.slug} item={item} />
         </section>
       </main>
       <Footer />

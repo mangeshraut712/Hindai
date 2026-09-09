@@ -19,6 +19,12 @@ const ROUTES = [
   "/philosophies",
   "/frameworks",
   "/pilgrimage",
+  "/mahadev",
+  "/mahadev/somnath",
+  "/devi",
+  "/devi/kamakhya",
+  "/vishnu",
+  "/ganesha",
   "/audio",
   "/quiz",
   "/daily",
@@ -114,7 +120,7 @@ async function collectLayoutFindings(page: Page, route: string): Promise<LayoutF
 test.describe("Layout audit", () => {
   for (const viewport of VIEWPORTS) {
     test(`${viewport.name} pages stay inside the viewport`, async ({ page }) => {
-        test.setTimeout(240000);
+      test.setTimeout(240000);
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
       const all: LayoutFinding[] = [];
       for (const route of ROUTES) {

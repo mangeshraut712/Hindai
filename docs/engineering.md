@@ -4,13 +4,13 @@ Hind AI is a Next.js 15 App Router site with a static GitHub Pages export and a 
 
 ## Layers
 
-| Layer | Lives in | Responsibility |
-| --- | --- | --- |
-| Routes | `app/` | Pages, metadata, static params. Keep page files thin. |
-| UI | `src/components/` | Presentation and interaction. No network SDKs, no scripture catalogs. |
-| Domain | `src/lib/data/`, `src/lib/scripture/`, `src/lib/sanskrit/` | Catalogs, readers, transliteration, local indexes. |
-| AI gateway | `src/lib/ai/`, `workers/hindai-gemma/` | Gemma only. Browser `appFetch` uses the Worker by default (`NEXT_PUBLIC_API_BASE`). Local `app/api` is for OpenRouter when that env is set empty and a key is present. |
-| Hosting | `scripts/build-github-pages.js`, `workers/` | Pages cannot run `app/api`. Worker mirrors the routes the static site needs. |
+| Layer      | Lives in                                                   | Responsibility                                                                                                                                                         |
+| ---------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Routes     | `app/`                                                     | Pages, metadata, static params. Keep page files thin.                                                                                                                  |
+| UI         | `src/components/`                                          | Presentation and interaction. No network SDKs, no scripture catalogs.                                                                                                  |
+| Domain     | `src/lib/data/`, `src/lib/scripture/`, `src/lib/sanskrit/` | Catalogs, readers, transliteration, local indexes.                                                                                                                     |
+| AI gateway | `src/lib/ai/`, `workers/hindai-gemma/`                     | Gemma only. Browser `appFetch` uses the Worker by default (`NEXT_PUBLIC_API_BASE`). Local `app/api` is for OpenRouter when that env is set empty and a key is present. |
+| Hosting    | `scripts/build-github-pages.js`, `workers/`                | Pages cannot run `app/api`. Worker mirrors the routes the static site needs.                                                                                           |
 
 ## Rules
 

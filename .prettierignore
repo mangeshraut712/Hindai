@@ -1,6 +1,9 @@
 node_modules/
 .next/
+out/
 coverage/
 playwright-report/
 test-results/
 .lighthouseci/
+src/lib/data/shivlilamrit/chapters/*.json
+

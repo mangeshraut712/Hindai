@@ -12,13 +12,13 @@
   --popover: 45 30% 97%;
   --popover-foreground: 220 24% 12%;
   --primary: 24 85% 58%;
-  --primary-foreground: 45 30% 98%;
+  --primary-foreground: 24 40% 12%;
   --secondary: 180 35% 92%;
   --secondary-foreground: 220 24% 12%;
   --muted: 45 20% 94%;
-  --muted-foreground: 220 16% 40%;
+  --muted-foreground: 220 18% 32%;
   --accent: 38 75% 52%;
-  --accent-foreground: 45 30% 98%;
+  --accent-foreground: 38 40% 12%;
   --destructive: 0 72% 48%;
   --destructive-foreground: 45 30% 98%;
   --border: 45 18% 85%;
@@ -49,46 +49,46 @@
 }
 
 .dark {
-  --background: 220 24% 8%;
-  --foreground: 45 30% 96%;
-  --card: 220 20% 12%;
-  --card-foreground: 45 30% 96%;
-  --popover: 220 18% 11%;
-  --popover-foreground: 45 30% 96%;
-  --primary: 28 90% 65%;
-  --primary-foreground: 220 24% 8%;
-  --secondary: 180 25% 18%;
-  --secondary-foreground: 45 30% 92%;
-  --muted: 220 16% 16%;
-  --muted-foreground: 45 18% 75%;
-  --accent: 38 65% 55%;
-  --accent-foreground: 220 24% 8%;
-  --destructive: 0 64% 55%;
-  --destructive-foreground: 45 30% 96%;
-  --border: 220 14% 28%;
-  --input: 220 14% 24%;
-  --ring: 28 90% 65%;
-  --chart-1: 28 90% 65%;
-  --chart-2: 180 45% 52%;
-  --chart-3: 38 65% 55%;
+  --background: 222 28% 7%;
+  --foreground: 40 28% 96%;
+  --card: 222 22% 11%;
+  --card-foreground: 40 28% 96%;
+  --popover: 222 24% 10%;
+  --popover-foreground: 40 28% 96%;
+  --primary: 28 92% 62%;
+  --primary-foreground: 222 28% 8%;
+  --secondary: 200 18% 16%;
+  --secondary-foreground: 40 24% 92%;
+  --muted: 222 16% 14%;
+  --muted-foreground: 40 14% 78%;
+  --accent: 38 70% 54%;
+  --accent-foreground: 222 28% 8%;
+  --destructive: 0 68% 58%;
+  --destructive-foreground: 40 28% 96%;
+  --border: 222 14% 22%;
+  --input: 222 14% 18%;
+  --ring: 28 92% 62%;
+  --chart-1: 28 92% 62%;
+  --chart-2: 180 48% 52%;
+  --chart-3: 38 70% 54%;
   --chart-4: 45 85% 60%;
-  --chart-5: 220 45% 52%;
-  --sidebar-background: 220 18% 10%;
-  --sidebar-foreground: 45 30% 92%;
-  --sidebar-primary: 28 90% 65%;
-  --sidebar-primary-foreground: 220 24% 8%;
-  --sidebar-accent: 220 14% 14%;
-  --sidebar-accent-foreground: 45 30% 92%;
-  --sidebar-border: 220 14% 22%;
-  --sidebar-ring: 28 90% 65%;
+  --chart-5: 220 48% 58%;
+  --sidebar-background: 222 24% 9%;
+  --sidebar-foreground: 40 24% 92%;
+  --sidebar-primary: 28 92% 62%;
+  --sidebar-primary-foreground: 222 28% 8%;
+  --sidebar-accent: 222 16% 13%;
+  --sidebar-accent-foreground: 40 24% 92%;
+  --sidebar-border: 222 14% 18%;
+  --sidebar-ring: 28 92% 62%;
   /* Sacred colors (dark mode) */
-  --saffron: 28 90% 65%;
-  --vermilion: 12 90% 65%;
-  --gold: 45 85% 60%;
-  --indigo: 220 70% 60%;
-  --peacock: 180 75% 50%;
-  --marigold: 38 85% 60%;
-  --royal-teal: 180 50% 48%;
+  --saffron: 28 92% 62%;
+  --vermilion: 12 90% 64%;
+  --gold: 45 86% 58%;
+  --indigo: 220 70% 62%;
+  --peacock: 180 72% 48%;
+  --marigold: 38 86% 58%;
+  --royal-teal: 180 48% 46%;
 }
 
 /* stylelint-disable at-rule-no-unknown */
@@ -138,17 +138,23 @@
 
 @layer components {
   .eyebrow {
-    @apply inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase leading-snug tracking-[0.14em] text-muted-foreground backdrop-blur-xl sm:px-4 sm:tracking-[0.22em];
-    border: 1px solid hsl(var(--saffron) / 0.2);
-    background: hsl(var(--saffron) / 0.05);
+    @apply inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase leading-snug tracking-[0.14em] text-foreground/90 backdrop-blur-xl sm:px-4 sm:tracking-[0.22em];
+    border: 1px solid hsl(var(--saffron) / 0.35);
+    background: hsl(var(--background) / 0.72);
   }
 
   .section-title {
     @apply font-serif text-3xl font-semibold tracking-[-0.025em] text-foreground sm:text-5xl md:text-6xl;
     background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--saffron)) 100%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
+    color: hsl(var(--foreground));
+  }
+
+  @supports (-webkit-background-clip: text) or (background-clip: text) {
+    .section-title {
+      -webkit-text-fill-color: transparent;
+    }
   }
 
   .section-copy {
@@ -195,8 +201,14 @@
       hsl(var(--marigold)) 100%
     );
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
+    color: hsl(var(--foreground));
+  }
+
+  @supports (-webkit-background-clip: text) or (background-clip: text) {
+    .dark .section-title {
+      -webkit-text-fill-color: transparent;
+    }
   }
 
   .dark .surface-panel {
@@ -551,11 +563,17 @@ video {
   background-image:
     radial-gradient(circle at 12% 18%, rgba(232, 197, 71, 0.12) 0 1px, transparent 2px),
     radial-gradient(circle at 88% 22%, rgba(232, 197, 71, 0.1) 0 1px, transparent 2px),
-    repeating-radial-gradient(circle at 50% 8%, transparent 0 28px, rgba(201, 162, 39, 0.05) 29px 30px);
+    repeating-radial-gradient(
+      circle at 50% 8%,
+      transparent 0 28px,
+      rgba(201, 162, 39, 0.05) 29px 30px
+    );
   opacity: 0.85;
 }
 
 .pothi-paat {
+  position: relative;
+  z-index: 1;
   margin-top: 0.5rem;
   border: 10px solid #c9a227;
   border-radius: 1.5rem;
@@ -568,12 +586,299 @@ video {
   padding: 0.85rem;
 }
 
-.pothi-leaf {
+.pothi-stage {
+  perspective: 1800px;
+  perspective-origin: 50% 28%;
+}
+
+.pothi-book {
+  position: relative;
+  transform: rotateX(4deg) rotateY(-7deg);
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 28px 40px rgba(40, 20, 8, 0.28));
+}
+
+.pothi-book-stack {
+  pointer-events: none;
+  position: absolute;
+  inset: 10px -14px -10px 18px;
+  z-index: 0;
   border-radius: 1.15rem;
+  background: linear-gradient(90deg, #cbb48a, #f4ead4 8%, #efe2c4 92%, #b89a68);
+  box-shadow:
+    18px 22px 0 -12px #e8d7b0,
+    28px 32px 0 -20px #d8c49a;
+}
+
+.pothi-book-spine {
+  pointer-events: none;
+  position: absolute;
+  top: 8%;
+  bottom: 8%;
+  left: -0.85rem;
+  z-index: 2;
+  width: 1rem;
+  border-radius: 0.28rem 0 0 0.28rem;
+  background: linear-gradient(90deg, #2a140c, #8a5a28 55%, #d4b45a);
+  box-shadow: inset -3px 0 6px rgba(0, 0, 0, 0.35);
+  transform: rotateY(70deg);
+  transform-origin: right center;
+}
+
+.pothi-paat-plain {
+  border-color: hsl(var(--border));
   background:
-    linear-gradient(180deg, #fff6e4 0%, #f3e0bc 100%);
-  color: #3a2412;
-  box-shadow: inset 0 0 0 1px rgba(120, 70, 20, 0.18);
+    linear-gradient(180deg, hsl(var(--card) / 0.4), transparent 22%),
+    repeating-linear-gradient(90deg, hsl(var(--muted)) 0 2px, hsl(var(--card)) 2px 9px);
+}
+
+.tirtha-map-shell {
+  width: 100%;
+}
+
+.tirtha-map-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.tirtha-map {
+  width: 100%;
+  aspect-ratio: 120 / 100;
+  max-height: min(72vh, 40rem);
+  height: auto;
+  border-radius: 1.25rem;
+  border: 1px solid hsl(var(--border) / 0.7);
+  background: hsl(210 28% 14%);
+}
+
+:root:not(.dark) .tirtha-map {
+  background: hsl(205 32% 88%);
+}
+
+.tirtha-sea-stop-a {
+  stop-color: hsl(205 40% 18%);
+}
+
+.tirtha-sea-stop-b {
+  stop-color: hsl(210 36% 12%);
+}
+
+:root:not(.dark) .tirtha-sea-stop-a {
+  stop-color: hsl(205 42% 82%);
+}
+
+:root:not(.dark) .tirtha-sea-stop-b {
+  stop-color: hsl(210 36% 74%);
+}
+
+.tirtha-map-sea {
+  fill: hsl(210 30% 16%);
+}
+
+.tirtha-map-neighbors {
+  fill: hsl(220 14% 18%);
+  stroke: hsl(var(--border) / 0.35);
+  stroke-width: 0.22;
+}
+
+:root:not(.dark) .tirtha-map-neighbors {
+  fill: hsl(40 12% 78%);
+}
+
+.tirtha-map-land {
+  fill: hsl(32 18% 22%);
+  stroke: hsl(28 70% 55% / 0.45);
+  stroke-width: 0.28;
+}
+
+:root:not(.dark) .tirtha-map-land {
+  fill: hsl(40 28% 90%);
+  stroke: hsl(24 60% 42% / 0.35);
+}
+
+.dark .tirtha-map-land {
+  fill: hsl(30 16% 24%);
+  stroke: hsl(28 80% 58% / 0.5);
+}
+
+.tirtha-map-label {
+  fill: hsl(var(--muted-foreground) / 0.55);
+  font-size: 2.4px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.tirtha-map-trail {
+  stroke: hsl(var(--primary));
+  stroke-width: 0.55;
+  stroke-dasharray: 1.4 0.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.85;
+}
+
+.tirtha-map-num {
+  font-size: 2.4px;
+  font-weight: 600;
+  fill: hsl(var(--foreground));
+  paint-order: stroke;
+  stroke: hsl(var(--background));
+  stroke-width: 0.45px;
+}
+
+.tirtha-map-pin {
+  cursor: pointer;
+}
+
+.tirtha-map-count {
+  margin: 0;
+  font-size: 0.75rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.tirtha-map-mini {
+  max-height: 14rem;
+  aspect-ratio: 120 / 100;
+}
+
+@media (max-width: 640px) {
+  .tirtha-map {
+    max-height: min(58vh, 28rem);
+  }
+}
+
+.pdf-spread {
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 960px) {
+  .pdf-spread {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+}
+
+.pdf-frame {
+  border: 1px solid rgba(60, 40, 20, 0.12);
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(40, 24, 8, 0.06);
+}
+
+.pdf-sheet {
+  padding: 1.75rem 1.35rem 2.25rem;
+  color: #2c2118;
+}
+
+.pothi-reader-paper[data-night-leaf="true"] .pdf-frame {
+  border-color: rgba(232, 224, 208, 0.14);
+  background: #1a1814;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.pothi-reader-paper[data-night-leaf="true"] .pdf-sheet {
+  color: #e8e0d0;
+}
+
+.pdf-cover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1rem 1.5rem;
+}
+
+.pdf-cover-art {
+  width: min(100%, 22rem);
+  height: auto;
+}
+
+.pdf-start {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  border-radius: 0.35rem;
+  background: hsl(var(--primary));
+  padding: 0 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: hsl(var(--primary-foreground));
+}
+
+.pdf-running {
+  margin: 0 0 1.25rem;
+  text-align: center;
+  font-size: 0.78em;
+  letter-spacing: 0.03em;
+  opacity: 0.75;
+}
+
+.pdf-title {
+  display: flex;
+  min-height: 40vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.pdf-toc {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.92em;
+  line-height: 1.75;
+}
+
+.pdf-toc-row {
+  display: flex;
+  width: 100%;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.2rem 0;
+  text-align: left;
+}
+
+.pdf-toc-dots {
+  min-width: 0;
+  flex: 1;
+  border-bottom: 1px dotted rgba(60, 40, 20, 0.35);
+}
+
+.pdf-story h1 {
+  margin: 0 0 1rem;
+  text-align: center;
+  font-size: 1.15em;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.pdf-chapter {
+  margin: 0 0 0.65rem;
+  text-align: center;
+  font-size: 0.92em;
+}
+
+.pdf-story p {
+  margin: 0 0 0.95em;
+  text-align: justify;
+  line-height: 1.8;
+}
+
+.pdf-muted {
+  text-align: center;
+  opacity: 0.7;
+}
+
+@media (max-width: 640px) {
+  .pdf-sheet {
+    padding: 1.1rem 0.85rem 1.6rem;
+  }
 }
 
 .pothi-leaf-night {
@@ -626,5 +931,15 @@ video {
 @media (prefers-reduced-motion: reduce) {
   .pothi-diya-flame {
     animation: none;
+  }
+
+  .pothi-book {
+    transform: none;
+    filter: none;
+  }
+
+  .pothi-book-stack,
+  .pothi-book-spine {
+    display: none;
   }
 }
