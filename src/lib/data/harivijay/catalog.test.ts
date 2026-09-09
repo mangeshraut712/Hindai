@@ -19,7 +19,8 @@ test("Harivijay has 36 unique adhyays with bilingual katha", () => {
     assert.ok(chapter.titleEn.length > 2);
     assert.ok(chapter.katha.mr.length >= 2);
     assert.ok(chapter.katha.en.length >= 2);
-    assert.ok(BEAT_IMAGE[chapter.beat].startsWith("/harivijay/"));
+    // Canonical shared assets may live under festivals/ or vishnu/.
+    assert.match(BEAT_IMAGE[chapter.beat], /^\/(harivijay|festivals|vishnu)\//);
   }
 });
 

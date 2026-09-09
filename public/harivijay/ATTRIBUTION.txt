@@ -1,14 +1,13 @@
 Harivijay digital pothi art — Hind AI
 
-cover.png
+cover.webp
   Artist impression generated for Hind AI (grantha cover mood).
   Not a photograph of a living temple, murti, priest, or pilgrim.
   Not a scan of any modern publisher’s illustrated Kathasar plates.
 
-beat-janmashtami.png, beat-govardhan.png, hero.png
-  Artist impressions already used elsewhere on Hind AI for Krishna /
-  Vishnu festival and tradition surfaces; reused here as story beats.
-  Same honesty rule: not photographs of living rites.
+Story beats
+  Reuse canonical site assets (festivals/, vishnu/) — no duplicate copies
+  under /harivijay/. Same honesty rule: not photographs of living rites.
 
 Reading text on /harivijay
   Public-domain classical tradition (Shridhar’s Marathi ovi grantha as

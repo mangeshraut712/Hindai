@@ -715,16 +715,17 @@ export const PARAYAN_METHODS = [
   },
 ] as const;
 
+/** Canonical media only — no duplicate copies under /harivijay/beat-*. */
 export const BEAT_IMAGE: Record<StoryBeat, string> = {
-  gokul: "/harivijay/beat-janmashtami.webp",
-  mathura: "/harivijay/hero.webp",
-  birth: "/harivijay/beat-janmashtami.webp",
+  gokul: "/festivals/janmashtami.webp",
+  mathura: "/harivijay/cover.webp",
+  birth: "/festivals/janmashtami.webp",
   vrindavan: "/harivijay/cover.webp",
-  govardhan: "/harivijay/beat-govardhan.webp",
+  govardhan: "/festivals/govardhan-puja.webp",
   rasa: "/harivijay/cover.webp",
-  dwarka: "/harivijay/hero.webp",
-  kurukshetra: "/harivijay/hero.webp",
-  prabhas: "/harivijay/hero.webp",
+  dwarka: "/vishnu/char-dham/dwarka.webp",
+  kurukshetra: "/harivijay/cover.webp",
+  prabhas: "/vishnu/hero.webp",
   close: "/harivijay/cover.webp",
 };
 

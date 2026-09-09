@@ -1,9 +1,10 @@
 Ramvijay digital pothi art — Hind AI
 
-cover.png / hero assets
-  Artist impressions for Hind AI (Rama grantha mood), or reused Vishnu /
-  festival art already on the site. Not photographs of living temples or rites.
-  Not scans of modern publisher plates.
+cover.webp
+  Artist impression for Hind AI (Rama grantha mood). Used for hub cover
+  and chapter folio art — single canonical asset (no duplicate hero copy).
+  Not a photograph of a living temple or rite.
+  Not a scan of modern publisher plates.
 
 Reading text on /ramvijay
   Original Hind AI katha-sar on public-domain Shridhar / Rāmāyaṇa motifs.

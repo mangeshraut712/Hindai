@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { HARIPAAT_LEAVES, HARIPAAT_SOURCE_NOTE } from "@/lib/data/haripaat/catalog";
 import { bookPath, firstPageForLeaf, toDevanagariNumeral } from "@/lib/data/haripaat/book";
@@ -8,7 +7,7 @@ export function HaripaatHome() {
   return (
     <div>
       <GurukulHero
-        src="/haripaat/hero.webp"
+        src="/haripaat/cover.webp"
         alt="Artist impression of Vitthal/Krishna for Haripaat — not a photograph of a living murti"
         eyebrow="ॐ नमो भगवते वासुदेवाय · हरिपाठ"
         title="Daily Hari patha for the household"
@@ -78,15 +77,6 @@ export function HaripaatHome() {
                 </tbody>
               </table>
             </div>
-          </div>
-          <div className="flex justify-center border-t border-border/70 px-5 py-8">
-            <Image
-              src="/haripaat/cover.webp"
-              alt="Haripaat cover — artist impression"
-              width={480}
-              height={640}
-              className="h-auto w-40 rounded-md object-contain opacity-90"
-            />
           </div>
         </div>
       </section>

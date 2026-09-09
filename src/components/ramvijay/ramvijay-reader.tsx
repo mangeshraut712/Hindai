@@ -151,7 +151,7 @@ export function RamvijayReader({ initialPage }: { initialPage: number }) {
         {leaf.kind === "adhyay" ? (
           <div className="px-5 py-8 sm:px-8">
             <Image
-              src="/ramvijay/hero.webp"
+              src="/festivals/rama-navami.webp"
               alt={`Artist impression for ${leaf.chapter.titleEn}`}
               width={1200}
               height={700}

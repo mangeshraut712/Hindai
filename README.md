@@ -9,7 +9,7 @@
 ![Node.js](https://img.shields.io/badge/Node.js-%3E%3D20.0.0-green?style=for-the-badge&logo=node.js)
 ![License](https://img.shields.io/badge/License-CC--BY--4.0-lightgrey?style=for-the-badge)
 
-  <img src="public/logo.png" alt="Hind AI Logo" width="150" />
+  <img src="public/logo.webp" alt="Hind AI Logo" width="150" />
 
 **🧘‍♂️ Your AI Guru for Ancient Wisdom | ज्ञान से मोक्ष तक (From Knowledge to Liberation)**
 
@@ -23,7 +23,7 @@
 
 <div align="center">
 
-![Home Page](public/Home.png)
+![Home Page](public/Home.webp)
 
 **Experience the modern interface for ancient wisdom**
 

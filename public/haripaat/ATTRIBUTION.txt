@@ -1,3 +1,4 @@
 Haripaat art — Hind AI
-cover.webp / hero.webp: Artist impressions generated for Hind AI (Vitthal/Krishna mood).
-Not photographs of living temple murtis.
+cover.webp: Artist impression generated for Hind AI (Vitthal/Krishna mood).
+Used for both the hub hero and the pothi cover (single canonical asset).
+Not a photograph of a living temple murti.
