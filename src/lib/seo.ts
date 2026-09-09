@@ -16,7 +16,7 @@ export const organizationStructuredData: StructuredData = {
   description:
     "World's most authoritative digital platform for Vedic and Hindu scriptures powered by Gemma 4 AI",
   url: SITE_URL,
-  logo: `${SITE_URL}/og_home.png`,
+  logo: `${SITE_URL}/Home.webp`,
   sameAs: ["https://twitter.com/hindai_dev"],
   founder: {
     "@type": "Person",
@@ -157,7 +157,7 @@ export function generateMetadata(
 ): Metadata {
   const baseUrl = SITE_URL;
   const url = path ? `${baseUrl}${path}` : baseUrl;
-  const ogImage = image || `${baseUrl}/Home.png`;
+  const ogImage = image || `${baseUrl}/Home.webp`;
 
   const metadata: Metadata = {
     title: {

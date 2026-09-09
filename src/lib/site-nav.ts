@@ -97,9 +97,27 @@ export const SITE_NAV_GROUPS: SiteNavGroup[] = [
         icon: BookOpen,
       },
       {
+        label: "Haripaat",
+        hint: "Daily Hari reading",
+        href: "/haripaat",
+        icon: BookOpen,
+      },
+      {
         label: "Shivlilamrit",
         hint: "Shravan pothi reader",
         href: "/shivlilamrit",
+        icon: BookOpen,
+      },
+      {
+        label: "Harivijay",
+        hint: "Krishna pothi · Shridhar",
+        href: "/harivijay",
+        icon: BookOpen,
+      },
+      {
+        label: "Ramvijay",
+        hint: "Rama pothi · Shridhar",
+        href: "/ramvijay",
         icon: BookOpen,
       },
       {
@@ -269,7 +287,7 @@ export const EXPLORE_DESTINATIONS = [
   {
     label: "Practice",
     href: "/sadhana",
-    hint: "Sadhana, aarti, Shivlilamrit",
+    hint: "Sadhana, aarti, Haripaat, pothis",
   },
   {
     label: "Ask AI",

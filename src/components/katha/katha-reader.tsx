@@ -19,7 +19,7 @@ export function KathaReader({ grantha }: { grantha: KathaGrantha }) {
           className="h-[22rem] w-full object-cover sm:h-[28rem]"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/85 to-black/50" />
+        <div className="theme-media-veil absolute inset-0" />
         <div className="absolute inset-x-0 bottom-0 mx-auto max-w-3xl px-4 pb-10 sm:px-6">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
             Katha grantha
@@ -31,9 +31,7 @@ export function KathaReader({ grantha }: { grantha: KathaGrantha }) {
       </section>
 
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-        <p className="rounded-2xl border border-amber-500/30 bg-amber-950/20 px-4 py-3 text-sm leading-7 text-amber-50/90">
-          {grantha.note}
-        </p>
+        <p className="theme-callout rounded-2xl px-4 py-3 text-sm leading-7">{grantha.note}</p>
 
         <nav className="mt-10" aria-label="Chapter list">
           <h2 className="font-serif text-2xl">Chapters</h2>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { MapMarker, SacredTradition } from "@/lib/data/sacred-geography";
 import { GEOGRAPHY_AUDIT_NOTE, projectSouthAsia } from "@/lib/data/sacred-geography";
@@ -102,7 +102,7 @@ export function SacredMap({
 }) {
   const [filter, setFilter] = useState<SacredTradition | "all">(tradition);
   const [trailId, setTrailId] = useState<string>("");
-  const [activeId, setActiveId] = useState<string>(highlightId ?? "");
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const markers = useMemo(() => {
     return trailId ? trailMarkers(trailId) : markersForTradition(filter);
@@ -110,15 +110,11 @@ export function SacredMap({
 
   const placed = useMemo(() => placeMarkers(markers), [markers]);
 
-  useEffect(() => {
-    if (highlightId) {
-      setActiveId(highlightId);
-      return;
-    }
-    if (!markers.some((item) => item.id === activeId)) {
-      setActiveId(markers[0]?.id ?? "");
-    }
-  }, [markers, activeId, highlightId]);
+  const activeId =
+    (highlightId && markers.some((item) => item.id === highlightId) ? highlightId : null) ??
+    (selectedId && markers.some((item) => item.id === selectedId) ? selectedId : null) ??
+    markers[0]?.id ??
+    "";
 
   const active = markers.find((item) => item.id === activeId) ?? markers[0];
   const activeTrail = STORY_TRAILS.find((item) => item.id === trailId);
@@ -274,11 +270,11 @@ export function SacredMap({
                       role="button"
                       tabIndex={0}
                       aria-label={`${marker.name}, ${marker.locationLabel}`}
-                      onClick={() => setActiveId(marker.id)}
+                      onClick={() => setSelectedId(marker.id)}
                       onKeyDown={(event) => {
                         if (event.key === "Enter" || event.key === " ") {
                           event.preventDefault();
-                          setActiveId(marker.id);
+                          setSelectedId(marker.id);
                         }
                       }}
                     />
@@ -316,12 +312,12 @@ export function SacredMap({
                 {active.lat.toFixed(3)}°N, {active.lng.toFixed(3)}°E
               </p>
               {active.listStatus === "major-yatra" ? (
-                <p className="mt-3 text-xs text-amber-800 dark:text-amber-200">
+                <p className="theme-note mt-3 text-xs">
                   Living yatra — not counted as a secure Puranic peetha here
                 </p>
               ) : null}
               {active.listStatus === "peetha-disputed" ? (
-                <p className="mt-3 text-xs text-amber-800 dark:text-amber-200">
+                <p className="theme-note mt-3 text-xs">
                   List assignment is disputed; the pin is the living temple
                 </p>
               ) : null}

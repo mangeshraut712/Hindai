@@ -92,8 +92,8 @@ export default function VerseMode({
     return (
       <div className="mx-auto max-w-4xl p-6">
         <div className="animate-pulse">
-          <div className="mb-4 h-8 rounded bg-gray-200"></div>
-          <div className="h-64 rounded bg-gray-200"></div>
+          <div className="theme-chip mb-4 h-8 rounded"></div>
+          <div className="theme-chip h-64 rounded"></div>
         </div>
       </div>
     );
@@ -112,8 +112,8 @@ export default function VerseMode({
   if (!verse) {
     return (
       <div className="mx-auto max-w-4xl p-6">
-        <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-          <p className="text-gray-600">Verse not found</p>
+        <div className="rounded-lg border border-border bg-muted p-4">
+          <p className="text-muted-foreground">Verse not found</p>
         </div>
       </div>
     );
@@ -123,14 +123,14 @@ export default function VerseMode({
     <div className="mx-auto max-w-4xl p-6">
       {/* Scripture header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">
+        <h1 className="text-2xl font-bold text-foreground">
           Chapter {currentChapter}, Verse {currentVerse}
         </h1>
         <div className="mt-2 flex gap-2">
           <button
             type="button"
             onClick={() => setShowNotes(!showNotes)}
-            className="rounded bg-gray-100 px-3 py-1 text-sm transition hover:bg-gray-200"
+            className="rounded bg-muted px-3 py-1 text-sm transition hover:bg-muted"
           >
             📝 {showNotes ? "Hide Notes" : "Show Notes"}
           </button>
@@ -138,7 +138,7 @@ export default function VerseMode({
             type="button"
             onClick={handleBookmark}
             className={`rounded px-3 py-1 text-sm transition ${
-              isBookmarked ? "bg-yellow-100 text-yellow-800" : "bg-gray-100 hover:bg-gray-200"
+              isBookmarked ? "theme-callout" : "bg-muted hover:bg-muted"
             }`}
           >
             🔖 {isBookmarked ? "Bookmarked" : "Bookmark"}
@@ -159,7 +159,7 @@ export default function VerseMode({
             <button
               type="button"
               onClick={handleSaveNotes}
-              className="rounded bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
+              className="theme-chip-active rounded px-4 py-2 transition"
             >
               Save Notes
             </button>
@@ -171,27 +171,27 @@ export default function VerseMode({
       <VerseReader verse={verse} onNext={handleNext} onPrevious={handlePrevious} />
 
       {/* Quick navigation */}
-      <div className="mt-6 rounded-lg bg-gray-50 p-4">
+      <div className="mt-6 rounded-lg bg-muted p-4">
         <h3 className="mb-2 font-bold">Quick Navigation</h3>
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => jumpToVerse(currentChapter, 1)}
-            className="rounded border bg-white px-3 py-1 transition hover:bg-gray-100"
+            className="rounded border bg-card px-3 py-1 transition hover:bg-muted"
           >
             Verse 1
           </button>
           <button
             type="button"
             onClick={() => jumpToVerse(currentChapter, Math.max(1, currentVerse - 10))}
-            className="rounded border bg-white px-3 py-1 transition hover:bg-gray-100"
+            className="rounded border bg-card px-3 py-1 transition hover:bg-muted"
           >
             -10
           </button>
           <button
             type="button"
             onClick={() => jumpToVerse(currentChapter, currentVerse + 10)}
-            className="rounded border bg-white px-3 py-1 transition hover:bg-gray-100"
+            className="rounded border bg-card px-3 py-1 transition hover:bg-muted"
           >
             +10
           </button>
@@ -203,20 +203,20 @@ export default function VerseMode({
               onChange={(e) => jumpToVerse(currentChapter, parseInt(e.target.value) || 1)}
               className="w-20 rounded border px-2 py-1"
             />
-            <span className="text-sm text-gray-600">Go to verse</span>
+            <span className="text-sm text-muted-foreground">Go to verse</span>
           </div>
         </div>
       </div>
 
       {/* Chapter navigation */}
-      <div className="mt-4 rounded-lg bg-gray-50 p-4">
+      <div className="mt-4 rounded-lg bg-muted p-4">
         <h3 className="mb-2 font-bold">Chapter Navigation</h3>
         <div className="flex flex-wrap gap-2">
           {currentChapter > 1 && (
             <button
               type="button"
               onClick={() => jumpToVerse(currentChapter - 1, 1)}
-              className="rounded border bg-white px-3 py-1 transition hover:bg-gray-100"
+              className="rounded border bg-card px-3 py-1 transition hover:bg-muted"
             >
               ← Chapter {currentChapter - 1}
             </button>
@@ -224,7 +224,7 @@ export default function VerseMode({
           <button
             type="button"
             onClick={() => jumpToVerse(currentChapter + 1, 1)}
-            className="rounded border bg-white px-3 py-1 transition hover:bg-gray-100"
+            className="rounded border bg-card px-3 py-1 transition hover:bg-muted"
           >
             Chapter {currentChapter + 1} →
           </button>

@@ -15,6 +15,8 @@ export interface CharDhamSite {
   today: string;
   circuitNote: string;
   sources: string[];
+  /** Living shrine sharing this pin (e.g. Vimala inside Puri). */
+  relatedPeetha?: { slug: string; name: string };
 }
 
 export const CHAR_DHAM_ORDER_NOTE =
@@ -30,7 +32,7 @@ export const CHAR_DHAM: CharDhamSite[] = [
     state: "Uttarakhand",
     lat: 30.744,
     lng: 79.491,
-    image: "/vishnu/char-dham/badrinath.png",
+    image: "/vishnu/char-dham/badrinath.webp",
     puranaStory:
       "Vishnu as Badarīnārāyaṇa in the Himalaya, associated with Nara-Nārāyaṇa tapas under the badari tree. Vaishnava mahātmya frames the cold valley as a place where dual forms of the divine practise austerity for the world’s sake — tradition, not a dated diary.",
     history:
@@ -49,7 +51,7 @@ export const CHAR_DHAM: CharDhamSite[] = [
     state: "Odisha",
     lat: 19.805,
     lng: 85.818,
-    image: "/vishnu/char-dham/puri.png",
+    image: "/vishnu/char-dham/puri.webp",
     puranaStory:
       "Krishna as Jagannātha with Balabhadra and Subhadrā. Wooden images are periodically renewed (nabakalebara) — a documented ritual fact inside a larger Purāṇic ocean of stories about the lord of the world who rides a public cart.",
     history:
@@ -58,6 +60,7 @@ export const CHAR_DHAM: CharDhamSite[] = [
       "Entry rules for the inner temple are strict. Vimala’s shrine in the same compound is the Shakta peetha of this pin.",
     circuitNote: "Eastern Char Dham. Same coordinates as the Vimala peetha inside the complex.",
     sources: ["Jagannath temple, Puri", "Nabakalebara as temple custom"],
+    relatedPeetha: { slug: "vimala", name: "Vimala" },
   },
   {
     id: 3,
@@ -68,7 +71,7 @@ export const CHAR_DHAM: CharDhamSite[] = [
     state: "Gujarat",
     lat: 22.239,
     lng: 68.968,
-    image: "/vishnu/char-dham/dwarka.png",
+    image: "/vishnu/char-dham/dwarka.webp",
     puranaStory:
       "Krishna’s western city on the sea. The sea-taking of Dvārakā is mahātmya; underwater archaeology is a separate, checkable argument. Pilgrims meet a living Dwarkadhish flag-ritual, not a sealed underwater palace tour.",
     history:
@@ -87,7 +90,7 @@ export const CHAR_DHAM: CharDhamSite[] = [
     state: "Tamil Nadu",
     lat: 9.288,
     lng: 79.317,
-    image: "/vishnu/char-dham/rameswaram.png",
+    image: "/vishnu/char-dham/rameswaram.webp",
     puranaStory:
       "Rāma worships Śiva at Setu after the Lanka war — a rare public braid of Vaishnava and Shaiva devotion on one island. The same pin is a Jyotirlinga and a Char Dham. Two traditions, one corridor of stone.",
     history: "Ramanathaswamy temple with long pillared corridors; Chola-Pandya-Nayaka work.",

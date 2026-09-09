@@ -47,10 +47,10 @@ test("Devi catalog does not fake Vaishno Devi or Panchkula as secure peethas", (
   assert.ok(SHAKTI_PEETHAS.length < 51);
   assert.ok(SHAKTI_PEETHAS.some((item) => item.country === "Pakistan"));
   assert.ok(SHAKTI_PEETHAS.some((item) => item.country === "Nepal"));
-  assert.equal(getShaktiPeethaBySlug("kamakhya")?.image, "/devi/peethas/kamakhya.png");
-  assert.equal(getShaktiPeethaBySlug("kalighat")?.image, "/devi/peethas/kalighat.png");
-  assert.equal(getShaktiPeethaBySlug("hinglaj")?.image, "/devi/peethas/hinglaj.png");
-  assert.equal(getShaktiPeethaBySlug("vaishno-devi")?.image, "/devi/peethas/vaishno-devi.png");
+  assert.equal(getShaktiPeethaBySlug("kamakhya")?.image, "/devi/peethas/kamakhya.webp");
+  assert.equal(getShaktiPeethaBySlug("kalighat")?.image, "/devi/peethas/kalighat.webp");
+  assert.equal(getShaktiPeethaBySlug("hinglaj")?.image, "/devi/peethas/hinglaj.webp");
+  assert.equal(getShaktiPeethaBySlug("vaishno-devi")?.image, "/devi/peethas/vaishno-devi.webp");
   for (const item of SHAKTI_PEETHAS) {
     assert.ok(item.puranaStory.length > 40, item.slug);
     assert.ok(item.history.length > 40, item.slug);

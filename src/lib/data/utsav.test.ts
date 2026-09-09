@@ -32,11 +32,11 @@ test("utsav catalog has unique slugs, ISO dates, and deep fields", () => {
   assert.equal(getUtsavBySlug("govardhan-puja")?.dateISO, "2026-11-10");
   assert.equal(getUtsavBySlug("buddha-purnima")?.dateISO, "2026-05-01");
   assert.equal(getUtsavBySlug("buddha-purnima")?.tradition, "buddhist");
-  assert.equal(getUtsavBySlug("buddha-purnima")?.image, "/festivals/buddha-purnima.png");
-  assert.equal(getUtsavBySlug("govardhan-puja")?.image, "/festivals/govardhan-puja.png");
+  assert.equal(getUtsavBySlug("buddha-purnima")?.image, "/festivals/buddha-purnima.webp");
+  assert.equal(getUtsavBySlug("govardhan-puja")?.image, "/festivals/govardhan-puja.webp");
   assert.ok(getUtsavBySlug("ganesh-chaturthi")?.image?.includes("/festivals/"));
-  assert.equal(getUtsavBySlug("maha-shivaratri")?.image, "/festivals/maha-shivaratri.png");
-  assert.equal(getUtsavBySlug("janmashtami")?.image, "/festivals/janmashtami.png");
+  assert.equal(getUtsavBySlug("maha-shivaratri")?.image, "/festivals/maha-shivaratri.webp");
+  assert.equal(getUtsavBySlug("janmashtami")?.image, "/festivals/janmashtami.webp");
   assert.ok(utsavsByMonth().get("October")?.some((item) => item.slug === "sharad-navaratri"));
   assert.ok(utsavsByMonth().get("March")?.some((item) => item.slug === "ugadi-gudi-padwa"));
 });

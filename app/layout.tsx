@@ -90,7 +90,7 @@ export const metadata: Metadata = {
       "Discover ancient Indian wisdom through AI-powered exploration. A modern digital library for Vedas, Upanishads, Epics, and Puranas.",
     images: [
       {
-        url: "/Home.png",
+        url: "/Home.webp",
         width: 1200,
         height: 630,
         alt: "Hind AI - Ancient Indian Scriptures with AI",
@@ -101,7 +101,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Hind AI - AI-Powered Digital Library",
     description: "Discover ancient Indian wisdom through AI-powered exploration.",
-    images: ["/Home.png"],
+    images: ["/Home.webp"],
   },
   alternates: {
     canonical: SITE_URL,
@@ -114,8 +114,8 @@ export const metadata: Metadata = {
   category: "Education",
   classification: "Religious & Spiritual",
   icons: {
-    icon: [{ url: "/logo.png", type: "image/png" }],
-    apple: [{ url: "/logo.png", sizes: "180x180" }],
+    icon: [{ url: "/logo.webp", type: "image/webp" }],
+    apple: [{ url: "/logo.webp", sizes: "180x180" }],
   },
   manifest: "/manifest.json",
 };
@@ -127,8 +127,8 @@ export const viewport: Viewport = {
   minimumScale: 1,
   userScalable: true,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f1e8" },
-    { media: "(prefers-color-scheme: dark)", color: "#16110d" },
+    { media: "(prefers-color-scheme: light)", color: "#faf8f5" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f131a" },
   ],
   viewportFit: "cover",
 };
@@ -145,12 +145,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Resource hints */}
         <link rel="dns-prefetch" href={SITE_URL} />
 
-        {/* Inline critical CSS — dark-first FOUC prevention */}
+        {/* Inline critical CSS — mirrors token themes before hydration */}
         <style suppressHydrationWarning>
           {`
             * { box-sizing: border-box; }
-            html { scroll-behavior: smooth; color-scheme: dark; }
-            body { margin: 0; padding: 0; background: hsl(222 28% 7%); color: hsl(40 28% 96%); }
+            html { scroll-behavior: smooth; color-scheme: light; }
+            html.dark { color-scheme: dark; }
+            body {
+              margin: 0;
+              padding: 0;
+              background: hsl(40 18% 98%);
+              color: hsl(222 30% 12%);
+            }
+            html.dark body {
+              background: hsl(222 28% 7%);
+              color: hsl(40 28% 96%);
+            }
           `}
         </style>
       </head>

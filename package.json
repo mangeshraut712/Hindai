@@ -6,7 +6,7 @@
   "description": "Hind AI - AI-Powered Digital Library of Ancient Indian Scriptures",
   "packageManager": "npm@11.12.1",
   "engines": {
-    "node": "20.x",
+    "node": ">=20",
     "npm": ">=9.0.0"
   },
   "scripts": {
@@ -49,7 +49,7 @@
     "framer-motion": "^11.11.17",
     "lucide-react": "^0.468.0",
     "motion": "^11.15.0",
-    "next": "^15.5.18",
+    "next": "15.5.25",
     "next-themes": "^0.4.4",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",

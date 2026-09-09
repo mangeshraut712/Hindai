@@ -120,8 +120,8 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
   if (verses.length === 0) {
     return (
       <div className="mx-auto max-w-4xl p-6">
-        <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-          <p className="text-gray-600">No verses available for study</p>
+        <div className="rounded-lg border border-border bg-muted p-4">
+          <p className="text-muted-foreground">No verses available for study</p>
         </div>
       </div>
     );
@@ -132,19 +132,19 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Study Mode</h1>
-          <p className="text-gray-600">
+          <h1 className="text-2xl font-bold text-foreground">Study Mode</h1>
+          <p className="text-muted-foreground">
             {chapter ? `Chapter ${chapter}` : "All verses"} ({currentIndex + 1} / {verses.length})
           </p>
         </div>
         <div className="flex items-center gap-4">
           <div className="text-center">
             <div className="text-2xl font-bold text-orange-600">{streak}</div>
-            <div className="text-xs text-gray-500">Streak</div>
+            <div className="text-xs text-muted-foreground">Streak</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">{sessionProgress}</div>
-            <div className="text-xs text-gray-500">Reviewed</div>
+            <div className="text-2xl font-bold text-primary">{sessionProgress}</div>
+            <div className="text-xs text-muted-foreground">Reviewed</div>
           </div>
         </div>
       </div>
@@ -154,52 +154,44 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
         <button
           type="button"
           onClick={toggleSanskrit}
-          className={`rounded px-3 py-1 ${showSanskrit ? "bg-blue-600 text-white" : "bg-gray-200"}`}
+          className={`rounded px-3 py-1 ${showSanskrit ? "theme-chip-active" : "theme-chip"}`}
         >
           Sanskrit
         </button>
         <button
           type="button"
           onClick={toggleTranslation}
-          className={`rounded px-3 py-1 ${
-            showTranslation ? "bg-blue-600 text-white" : "bg-gray-200"
-          }`}
+          className={`rounded px-3 py-1 ${showTranslation ? "theme-chip-active" : "theme-chip"}`}
         >
           Translation
         </button>
         <button
           type="button"
           onClick={toggleWordByWord}
-          className={`rounded px-3 py-1 ${
-            showWordByWord ? "bg-blue-600 text-white" : "bg-gray-200"
-          }`}
+          className={`rounded px-3 py-1 ${showWordByWord ? "theme-chip-active" : "theme-chip"}`}
         >
           Word-by-word
         </button>
-        <button
-          type="button"
-          onClick={shuffleVerses}
-          className="rounded bg-purple-100 px-3 py-1 text-purple-800 hover:bg-purple-200"
-        >
+        <button type="button" onClick={shuffleVerses} className="theme-chip rounded">
           🔀 Shuffle
         </button>
       </div>
 
       {/* Flashcard */}
       {currentVerse && (
-        <div className="mb-6 rounded-lg border-2 border-gray-200 bg-white p-6 shadow-lg">
+        <div className="mb-6 rounded-lg border-2 border-border bg-card p-6 shadow-lg">
           {/* Verse number */}
-          <div className="mb-4 text-sm text-gray-500">
+          <div className="mb-4 text-sm text-muted-foreground">
             Chapter {currentVerse.chapter}, Verse {currentVerse.verse_num}
           </div>
 
           {/* Sanskrit text */}
           {showSanskrit && (
             <div className="mb-4">
-              <div className="rounded-lg bg-amber-50 p-4 text-center font-sans text-2xl">
+              <div className="theme-panel-soft rounded-lg p-4 text-center font-sans text-2xl">
                 {currentVerse.text_devanagari}
               </div>
-              <div className="mt-2 rounded-lg bg-gray-50 p-4 text-center text-lg text-gray-700">
+              <div className="mt-2 rounded-lg bg-muted p-4 text-center text-lg text-foreground/80">
                 {currentVerse.text_iast}
               </div>
             </div>
@@ -207,15 +199,15 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
 
           {/* Word-by-word */}
           {showWordByWord && currentVerse.word_analysis && (
-            <div className="mb-4 rounded-lg bg-green-50 p-4">
+            <div className="theme-success mb-4 rounded-lg p-4">
               <h3 className="mb-2 font-bold">Word-by-word</h3>
               <div className="space-y-2">
                 {currentVerse.word_analysis.map((word, index) => (
                   <div key={index} className="flex items-center gap-3">
                     <span className="font-bold">{word.position}.</span>
                     <span className="text-lg">{word.word_devanagari}</span>
-                    <span className="text-gray-600">({word.word_iast})</span>
-                    <span className="text-blue-600">→ {word.meaning_en}</span>
+                    <span className="text-muted-foreground">({word.word_iast})</span>
+                    <span className="text-primary">→ {word.meaning_en}</span>
                   </div>
                 ))}
               </div>
@@ -238,7 +230,7 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
           {/* Rating buttons */}
           {quality === null && (
             <div className="mt-6 border-t pt-4">
-              <p className="mb-3 text-sm text-gray-600">How well did you remember?</p>
+              <p className="mb-3 text-sm text-muted-foreground">How well did you remember?</p>
               <div className="flex gap-2">
                 {[0, 1, 2, 3, 4, 5].map((rating) => (
                   <button
@@ -249,7 +241,7 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
                       rating <= 2
                         ? "bg-red-100 text-red-800 hover:bg-red-200"
                         : rating <= 3
-                          ? "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
+                          ? "theme-callout hover:bg-yellow-200"
                           : "bg-green-100 text-green-800 hover:bg-green-200"
                     }`}
                   >
@@ -257,7 +249,7 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
                   </button>
                 ))}
               </div>
-              <div className="mt-2 flex justify-between text-xs text-gray-500">
+              <div className="mt-2 flex justify-between text-xs text-muted-foreground">
                 <span>0-2: Again</span>
                 <span>3: Good</span>
                 <span>4-5: Easy</span>
@@ -282,7 +274,7 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
           type="button"
           onClick={() => goToVerse(Math.max(0, currentIndex - 1))}
           disabled={currentIndex === 0}
-          className="rounded bg-gray-200 px-4 py-2 transition hover:bg-gray-300 disabled:opacity-50"
+          className="theme-chip rounded px-4 py-2 transition hover:bg-muted disabled:opacity-50"
         >
           ← Previous
         </button>
@@ -290,7 +282,7 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
           type="button"
           onClick={() => goToVerse(Math.min(verses.length - 1, currentIndex + 1))}
           disabled={currentIndex === verses.length - 1}
-          className="rounded bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700 disabled:opacity-50"
+          className="theme-chip-active rounded px-4 py-2 transition disabled:opacity-50"
         >
           Next →
         </button>
@@ -307,10 +299,10 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
               onClick={() => goToVerse(index)}
               className={`rounded p-2 text-xs transition ${
                 index === currentIndex
-                  ? "bg-blue-600 text-white"
+                  ? "theme-chip-active"
                   : reviewed.has(index)
-                    ? "bg-green-500 text-white"
-                    : "bg-gray-200 hover:bg-gray-300"
+                    ? "theme-success0 text-white"
+                    : "theme-chip hover:bg-muted"
               }`}
             >
               {verse.verse_num}
@@ -322,7 +314,7 @@ export default function StudyMode({ scriptureId, chapter }: StudyModeProps) {
       {/* Study tips */}
       <div className="rounded-lg border border-purple-200 bg-purple-50 p-4">
         <h3 className="mb-2 font-bold">Study Tips</h3>
-        <ul className="space-y-1 text-sm text-gray-700">
+        <ul className="space-y-1 text-sm text-foreground/80">
           <li>• Hide the translation first, try to recall the meaning</li>
           <li>• Use word-by-word to understand grammar</li>
           <li>• Rate honestly for optimal spaced repetition</li>

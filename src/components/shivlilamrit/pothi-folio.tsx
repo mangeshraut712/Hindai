@@ -310,8 +310,7 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
 
         <form
           className="mb-4"
-          onSubmit={(event) => {
-            event.preventDefault();
+          action={() => {
             const next = resolveJumpQuery(jumpQuery);
             if (next) {
               go(next);
@@ -330,7 +329,7 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
               data-testid="pothi-jump"
             />
             <Button type="submit" size="sm" variant="outline">
-              Go
+              Jump to page
             </Button>
           </label>
           {jumpHits.length > 0 && jumpQuery.trim() && !/^\d+$/.test(jumpQuery.trim()) ? (

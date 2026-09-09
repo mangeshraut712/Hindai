@@ -28,7 +28,7 @@ const STATIC_ASSETS = [
   `${SCOPE_BASE}/quiz/`,
   `${SCOPE_BASE}/structure/`,
   `${SCOPE_BASE}/preface/`,
-  `${SCOPE_BASE}/logo.png`,
+  `${SCOPE_BASE}/logo.webp`,
   `${SCOPE_BASE}/manifest.json`,
 ];
 
@@ -133,8 +133,8 @@ self.addEventListener("push", (event) => {
   event.waitUntil(
     self.registration.showNotification(data.title || "Hind AI", {
       body: data.body || "Your daily wisdom is ready",
-      icon: "/logo.png",
-      badge: "/logo.png",
+      icon: "/logo.webp",
+      badge: "/logo.webp",
       tag: data.tag || "daily-wisdom",
       requireInteraction: false,
       actions: [

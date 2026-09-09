@@ -42,7 +42,7 @@ export const JYOTIRLINGAS: Jyotirlinga[] = [
     sanskrit: "सोमनाथ",
     location: "Prabhas Patan, Gir Somnath",
     state: "Gujarat",
-    image: "/jyotirlingas/somnath.png",
+    image: "/jyotirlingas/somnath.webp",
     stotraPlace: "Saurashtra",
     story:
       "Tradition holds that Soma, the moon, worshipped Shiva here after a curse and Shiva remained as Somnath, lord of the moon.",
@@ -71,7 +71,7 @@ export const JYOTIRLINGAS: Jyotirlinga[] = [
     sanskrit: "मल्लिकार्जुन",
     location: "Srisailam, Nallamala hills",
     state: "Andhra Pradesh",
-    image: "/jyotirlingas/mallikarjuna.png",
+    image: "/jyotirlingas/mallikarjuna.webp",
     stotraPlace: "Sri Shaila",
     story:
       "Tradition names Shiva here Mallikarjuna and Parvati Bhramaramba. The hill is both a Jyotirlinga and a major Shakti seat.",
@@ -99,7 +99,7 @@ export const JYOTIRLINGAS: Jyotirlinga[] = [
     sanskrit: "महाकालेश्वर",
     location: "Ujjain (Avanti), Shipra",
     state: "Madhya Pradesh",
-    image: "/jyotirlingas/mahakaleshwar.png",
+    image: "/jyotirlingas/mahakaleshwar.webp",
     stotraPlace: "Ujjayini",
     story:
       "Shaiva katha says Shiva rose as Mahakala to protect Ujjain from the demon Dushana. The linga is worshipped as dakshinamukhi, facing south.",
@@ -127,7 +127,7 @@ export const JYOTIRLINGAS: Jyotirlinga[] = [
     sanskrit: "ओंकारेश्वर",
     location: "Mandhata island, Narmada, Khandwa district",
     state: "Madhya Pradesh",
-    image: "/jyotirlingas/omkareshwar.png",
+    image: "/jyotirlingas/omkareshwar.webp",
     stotraPlace: "Omkara / Amaleshvara",
     story:
       "The island in the Narmada is likened to the shape of Om. Shiva is worshipped as Omkareshwar; Mamleshwar (Amareshwar) stands on the south bank as the paired shrine named in the same stotra line.",
@@ -161,7 +161,7 @@ export const JYOTIRLINGAS: Jyotirlinga[] = [
     sanskrit: "केदारनाथ",
     location: "Kedarnath, Rudraprayag, Mandakini valley",
     state: "Uttarakhand",
-    image: "/jyotirlingas/kedarnath.png",
+    image: "/jyotirlingas/kedarnath.webp",
     stotraPlace: "Himalaya",
     story:
       "After Kurukshetra, the Pandavas are said to have sought Shiva. He took a bull’s form and sank into the earth; the hump is worshipped at Kedarnath, other parts at the remaining Panch Kedar.",
@@ -194,7 +194,7 @@ export const JYOTIRLINGAS: Jyotirlinga[] = [
     sanskrit: "भीमाशंकर",
     location: "Khed taluka, Pune district, Sahyadri",
     state: "Maharashtra",
-    image: "/jyotirlingas/bhimashankar.png",
+    image: "/jyotirlingas/bhimashankar.webp",
     stotraPlace: "Dakini",
     story:
       "Katha says Shiva destroyed the asura Bhima who tormented sages. The Sahyadri shrine stands in a reserved forest that is also a wildlife sanctuary.",
@@ -228,7 +228,7 @@ export const JYOTIRLINGAS: Jyotirlinga[] = [
     sanskrit: "काशी विश्वनाथ",
     location: "Varanasi, Ganga",
     state: "Uttar Pradesh",
-    image: "/jyotirlingas/vishwanath.png",
+    image: "/jyotirlingas/vishwanath.webp",
     stotraPlace: "Varanasi",
     story:
       "Kashi is Shiva’s city in Shaiva theology. Vishwanath, lord of the universe, is the Jyotirlinga name for the Ganga-side shrine.",
@@ -261,7 +261,7 @@ export const JYOTIRLINGAS: Jyotirlinga[] = [
     sanskrit: "त्र्यम्बकेश्वर",
     location: "Trimbak, Nashik district",
     state: "Maharashtra",
-    image: "/jyotirlingas/trimbakeshwar.png",
+    image: "/jyotirlingas/trimbakeshwar.webp",
     stotraPlace: "Gautami (Godavari) bank",
     story:
       "Sage Gautama’s ashram katha is tied to the rise of the Godavari from Brahmagiri. The linga is unusual: three faces, read as Brahma, Vishnu, and Shiva.",
@@ -289,7 +289,7 @@ export const JYOTIRLINGAS: Jyotirlinga[] = [
     sanskrit: "वैद्यनाथ",
     location: "Deoghar (widely visited identification)",
     state: "Jharkhand",
-    image: "/jyotirlingas/vaidyanath.png",
+    image: "/jyotirlingas/vaidyanath.webp",
     stotraPlace: "Parli / Chitabhumi (verse variants)",
     story:
       "Katha: Ravana wins a linga and is tricked into setting it down; Shiva remains as Vaidyanath, lord of physicians. Another telling: Shiva restores Ravana’s heads and is named the physician.",
@@ -333,7 +333,7 @@ export const JYOTIRLINGAS: Jyotirlinga[] = [
     sanskrit: "नागेश्वर",
     location: "Near Dwarka (common Gujarat identification)",
     state: "Gujarat",
-    image: "/jyotirlingas/nageshwar.png",
+    image: "/jyotirlingas/nageshwar.webp",
     stotraPlace: "Darukavana",
     story:
       "Shiva Purana: the asura Daruka imprisons devotees, including Supriya; Shiva appears as Nagesha, lord of serpents, in Daruka’s forest.",
@@ -375,7 +375,7 @@ export const JYOTIRLINGAS: Jyotirlinga[] = [
     sanskrit: "रामेश्वर",
     location: "Rameswaram island, Ramanathapuram",
     state: "Tamil Nadu",
-    image: "/jyotirlingas/rameshwaram.png",
+    image: "/jyotirlingas/rameshwaram.webp",
     stotraPlace: "Setubandha",
     story:
       "Ramayana-linked katha: Rama worships Shiva on the shore before the Lanka war. Two lingas are told: a sand linga associated with Sita, and a stone linga Hanuman is said to have fetched.",
@@ -404,7 +404,7 @@ export const JYOTIRLINGAS: Jyotirlinga[] = [
     sanskrit: "घृष्णेश्वर",
     location: "Verul, near Ellora, Chhatrapati Sambhajinagar",
     state: "Maharashtra",
-    image: "/jyotirlingas/grishneshwar.png",
+    image: "/jyotirlingas/grishneshwar.webp",
     stotraPlace: "Shivalaya",
     story:
       "Katha of Ghushma (or Kusuma): a devoted wife whose son is killed by a jealous co-wife; her Shiva-puja restores the child, and Shiva stays as Ghushmeshwar / Grishneshwar.",

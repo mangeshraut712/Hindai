@@ -6,10 +6,7 @@ export function ServerFeatureNotice({ feature = "Gemma 4" }: { feature?: string 
   }
 
   return (
-    <div
-      role="status"
-      className="rounded-lg border border-amber-500/40 bg-amber-50 px-4 py-3 text-sm text-amber-950 dark:border-amber-400/30 dark:bg-amber-950/40 dark:text-amber-50"
-    >
+    <div role="status" className="theme-callout rounded-lg px-4 py-3 text-sm">
       <p>
         <strong>{feature}</strong> is paused on this static GitHub Pages host.{" "}
         {SERVER_API_UNAVAILABLE_MESSAGE}

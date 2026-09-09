@@ -23,6 +23,7 @@ import { gemmaCapabilityPillars, hindAIUseCases } from "@/lib/ai/gemma-capabilit
 import { CANONICAL_COUNTS } from "@/lib/data/canonical-counts";
 import { featuredScriptures } from "@/lib/scripture-catalog";
 import { EXPLORE_DESTINATIONS } from "@/lib/site-nav";
+import { GurukulDiagrams } from "@/components/gurukul/gurukul-diagrams";
 
 const studyModes = [
   {
@@ -842,35 +843,38 @@ function LearningJourney() {
 
 function ExploreWhereToGo() {
   return (
-    <section className="border-b border-border bg-card/40 px-4 py-10 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Start here
-            </p>
-            <h2 className="mt-2 font-serif text-2xl text-foreground sm:text-3xl">
-              Eight clear doors into Hind AI
-            </h2>
-          </div>
-          <Link href="/guide" className="text-sm font-semibold text-primary">
-            How the site fits together →
-          </Link>
-        </div>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {EXPLORE_DESTINATIONS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="rounded-2xl border border-border bg-background px-4 py-4 text-foreground transition-colors hover:border-primary/45 hover:bg-primary/5"
-            >
-              <p className="text-base font-semibold">{item.label}</p>
-              <p className="mt-1 text-sm text-muted-foreground">{item.hint}</p>
+    <>
+      <section className="border-b border-border bg-card/40 px-4 py-10 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Start here
+              </p>
+              <h2 className="mt-2 font-serif text-2xl text-foreground sm:text-3xl">
+                Eight clear doors into Hind AI
+              </h2>
+            </div>
+            <Link href="/guide" className="text-sm font-semibold text-primary">
+              How the site fits together →
             </Link>
-          ))}
+          </div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {EXPLORE_DESTINATIONS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="rounded-2xl border border-border bg-background px-4 py-4 text-foreground transition-colors hover:border-primary/45 hover:bg-primary/5"
+              >
+                <p className="text-base font-semibold">{item.label}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{item.hint}</p>
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <GurukulDiagrams />
+    </>
   );
 }
 

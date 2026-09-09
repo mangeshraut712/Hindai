@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: "Hind AI",
     images: [
       {
-        url: "/Home.png",
+        url: "/Home.webp",
         width: 1200,
         height: 630,
         alt: "Hind AI - Digital Gurukul for Ancient Wisdom",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: "Hind AI - Digital Gurukul for Ancient Wisdom",
     description:
       "AI-powered spiritual learning platform. Explore Vedas, Upanishads, Gita & more with intelligent guidance.",
-    images: ["/Home.png"],
+    images: ["/Home.webp"],
   },
 };
 

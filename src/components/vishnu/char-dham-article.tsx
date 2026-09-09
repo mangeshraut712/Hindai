@@ -42,9 +42,7 @@ export function CharDhamArticle({ shrine }: { shrine: CharDhamSite }) {
       ) : null}
       <section className="mt-10">
         <h2 className="font-serif text-2xl">Puranic katha</h2>
-        <p className="mt-3 text-sm font-medium text-amber-800 dark:text-amber-200">
-          Tradition — not a dated travelogue
-        </p>
+        <p className="theme-note mt-3 text-sm font-medium">Tradition — not a dated travelogue</p>
         <p className="mt-3 text-base leading-8">{shrine.puranaStory}</p>
       </section>
       <section className="mt-10">
@@ -55,6 +53,17 @@ export function CharDhamArticle({ shrine }: { shrine: CharDhamSite }) {
       <section className="mt-10">
         <h2 className="font-serif text-2xl">If you arrived today</h2>
         <p className="mt-3 text-base leading-8">{shrine.today}</p>
+        {shrine.relatedPeetha ? (
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">
+            Shakta shrine on the same pin:{" "}
+            <Link
+              href={`/devi/${shrine.relatedPeetha.slug}`}
+              className="font-semibold text-primary"
+            >
+              {shrine.relatedPeetha.name}
+            </Link>
+          </p>
+        ) : null}
       </section>
       <section className="mt-10">
         <h2 className="font-serif text-2xl">Sources</h2>

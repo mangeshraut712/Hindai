@@ -84,7 +84,7 @@ const frameworks: FrameworkItem[] = [
         name: "Manomaya Kosha",
         sanskrit: "मनोमय कोश",
         description: "Mental body, mind and emotions",
-        color: "bg-yellow-100 text-yellow-800",
+        color: "theme-callout",
       },
       {
         name: "Vijnanamaya Kosha",
@@ -127,7 +127,7 @@ const frameworks: FrameworkItem[] = [
         name: "Asana",
         sanskrit: "आसन",
         description: "Physical postures for health and stability",
-        color: "bg-yellow-100 text-yellow-800",
+        color: "theme-callout",
       },
       {
         name: "Pranayama",
@@ -223,7 +223,7 @@ const frameworks: FrameworkItem[] = [
         name: "Lobha",
         sanskrit: "लोभ",
         description: "Greed and avarice",
-        color: "bg-yellow-100 text-yellow-800",
+        color: "theme-callout",
       },
       {
         name: "Moha",
@@ -270,7 +270,7 @@ const frameworks: FrameworkItem[] = [
         name: "Smaraṇa",
         sanskrit: "स्मरण",
         description: "Remembering God constantly",
-        color: "bg-yellow-100 text-yellow-800",
+        color: "theme-callout",
       },
       {
         name: "Padasevana",
@@ -395,7 +395,7 @@ export function FrameworkExplorer() {
                             </span>
                           ))}
                           {framework.elements.length > 3 && (
-                            <span className="rounded bg-gray-100 px-2 py-1 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-400">
+                            <span className="rounded bg-muted px-2 py-1 text-xs text-muted-foreground">
                               +{framework.elements.length - 3}
                             </span>
                           )}

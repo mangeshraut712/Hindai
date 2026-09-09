@@ -91,7 +91,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Regional harvest customs: Pongal, Magh Bihu, Uttarayan",
       "Public 2026 civil date listings for India",
     ],
-    image: "/festivals/makar-sankranti.png",
+    image: "/festivals/makar-sankranti.webp",
   },
   {
     slug: "vasant-panchami",
@@ -134,7 +134,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Saraswati worship as living Smārta and Śākta custom",
       "Magha Shukla Panchami panchang listings 2026",
     ],
-    image: "/festivals/vasant-panchami.png",
+    image: "/festivals/vasant-panchami.webp",
   },
   {
     slug: "maha-shivaratri",
@@ -179,7 +179,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Living Jyotirlinga temple night-vigil custom",
       "2026 Phalguna Krishna Chaturdashi civil date listings",
     ],
-    image: "/festivals/maha-shivaratri.png",
+    image: "/festivals/maha-shivaratri.webp",
   },
   {
     slug: "holi",
@@ -223,7 +223,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Regional Holi ethnography (Braj, Bengal, Punjab)",
       "2026 Holika Dahan 3 Mar / Holi 4 Mar public listings",
     ],
-    image: "/festivals/holi.png",
+    image: "/festivals/holi.webp",
   },
   {
     slug: "ugadi-gudi-padwa",
@@ -266,7 +266,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Chaitra Shukla Pratipada New Year custom (Deccan / Maharashtra)",
       "2026 Ugadi / Gudi Padwa listings (19 Mar)",
     ],
-    image: "/festivals/ugadi.png",
+    image: "/festivals/ugadi.webp",
   },
   {
     slug: "rama-navami",
@@ -311,7 +311,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Living Rama temple calendars",
       "2026 Chaitra Shukla Navami listings",
     ],
-    image: "/festivals/rama-navami.png",
+    image: "/festivals/rama-navami.webp",
   },
   {
     slug: "hanuman-jayanti",
@@ -355,7 +355,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Ramayana Hanuman narrative (itihasa tradition)",
       "Drik / public North India 2026 Chaitra Purnima listings (often 2 Apr)",
     ],
-    image: "/festivals/hanuman-jayanti.png",
+    image: "/festivals/hanuman-jayanti.webp",
   },
   {
     slug: "solar-new-year",
@@ -396,7 +396,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Mesha Sankranti / regional solar New Year customs",
       "2026 Mesha Sankranti listings (14 Apr)",
     ],
-    image: "/festivals/solar-new-year.png",
+    image: "/festivals/solar-new-year.webp",
   },
   {
     slug: "akshaya-tritiya",
@@ -437,7 +437,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Padma Purana akshaya-tithi mahatmya (tradition)",
       "2026 India festival calendar listings (19 Apr civil day; verify local tithi)",
     ],
-    image: "/festivals/akshaya-tritiya.png",
+    image: "/festivals/akshaya-tritiya.webp",
   },
   {
     slug: "buddha-purnima",
@@ -481,7 +481,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Buddhist Vesak / Buddha Jayanti living custom",
       "Drik-style India 2026 Vaishakha Purnima listings (1 May)",
     ],
-    image: "/festivals/buddha-purnima.png",
+    image: "/festivals/buddha-purnima.webp",
   },
   {
     slug: "guru-purnima",
@@ -523,7 +523,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Vyasa-purnima tradition in Smarta and Vedanta lineages",
       "2026 Ashadha Purnima listings",
     ],
-    image: "/festivals/guru-purnima.png",
+    image: "/festivals/guru-purnima.webp",
   },
   {
     slug: "onam",
@@ -565,7 +565,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Vamana / Mahabali narrative (Purana and Kerala tradition)",
       "2026 Thiruvonam / Onam listings (26 Aug)",
     ],
-    image: "/festivals/onam.png",
+    image: "/festivals/onam.webp",
   },
   {
     slug: "raksha-bandhan",
@@ -608,7 +608,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Yajurveda Upakarma custom on Shravana Purnima",
       "2026 Shravana Purnima / Raksha Bandhan India listings (28 Aug favoured)",
     ],
-    image: "/festivals/raksha-bandhan.png",
+    image: "/festivals/raksha-bandhan.webp",
   },
   {
     slug: "janmashtami",
@@ -651,7 +651,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Bhagavad Gita as spoken teaching within Mahabharata",
       "Drik Panchang New Delhi 2026: Krishna Janmashtami Friday 4 September",
     ],
-    image: "/festivals/janmashtami.png",
+    image: "/festivals/janmashtami.webp",
   },
   {
     slug: "ganesh-chaturthi",
@@ -695,7 +695,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Sarvajanik Ganeshotsav civic history",
       "2026 Bhadrapada Shukla Chaturthi listings (14 Sep)",
     ],
-    image: "/festivals/ganesh-chaturthi.png",
+    image: "/festivals/ganesh-chaturthi.webp",
   },
   {
     slug: "sharad-navaratri",
@@ -739,7 +739,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Ramayana Ramlila custom",
       "2026 Sharad Navaratri start 11 Oct / Dussehra ~19–20 Oct listings",
     ],
-    image: "/festivals/navaratri.png",
+    image: "/festivals/navaratri.webp",
   },
   {
     slug: "vijayadashami",
@@ -782,7 +782,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Devi Mahatmya victory motif; Ramayana Ramlila custom",
       "2026 Vijayadashami listings (20 Oct)",
     ],
-    image: "/festivals/dussehra.png",
+    image: "/festivals/dussehra.webp",
   },
   {
     slug: "karwa-chauth",
@@ -823,7 +823,7 @@ export const UTSAVS: UtsavEntry[] = [
       "North Indian Karwa Chauth living custom",
       "2026 Kartik Krishna Chaturthi listings (29 Oct)",
     ],
-    image: "/festivals/karwa-chauth.png",
+    image: "/festivals/karwa-chauth.webp",
   },
   {
     slug: "diwali",
@@ -867,7 +867,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Ramayana return motif; Bhagavata Govardhan motif; Kali Puja custom (traditions)",
       "2026 Diwali cluster listings (Dhanteras 6 / main 8 / Govardhan 9–10 / Bhai Dooj 11 Nov)",
     ],
-    image: "/festivals/diwali.png",
+    image: "/festivals/diwali.webp",
   },
   {
     slug: "govardhan-puja",
@@ -910,7 +910,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Bhagavata Purana Govardhan motif (tradition)",
       "2026 Annakut / Govardhan listings (often 10 Nov)",
     ],
-    image: "/festivals/govardhan-puja.png",
+    image: "/festivals/govardhan-puja.webp",
   },
   {
     slug: "bhai-dooj",
@@ -951,7 +951,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Yama-Yamuna sibling motif (tradition)",
       "2026 Kartik Shukla Dwitiya listings (11 Nov)",
     ],
-    image: "/festivals/bhai-dooj.png",
+    image: "/festivals/bhai-dooj.webp",
   },
   {
     slug: "chhath-puja",
@@ -994,7 +994,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Chhath living custom of the Gangetic plains",
       "2026 Kartik Chhath cluster listings (15–18 Nov; Shashthi peak 18 Nov)",
     ],
-    image: "/festivals/chhath.png",
+    image: "/festivals/chhath.webp",
   },
   {
     slug: "kartik-purnima",
@@ -1036,7 +1036,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Tripura-dahana Shaiva tradition; Kartik mahatmya lamp customs",
       "2026 Kartik Purnima listings (24 Nov)",
     ],
-    image: "/festivals/kartik-purnima.png",
+    image: "/festivals/kartik-purnima.webp",
   },
 ];
 

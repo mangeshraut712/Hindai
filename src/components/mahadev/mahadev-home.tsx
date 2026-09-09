@@ -6,30 +6,18 @@ import { MAHADEV_DEEP } from "@/lib/data/tradition-deep";
 import { bookPath, firstPageForSlug } from "@/lib/data/shivlilamrit/book";
 import { SacredMap } from "@/components/tirtha/sacred-map";
 import { TraditionDeepSection } from "@/components/tirtha/tradition-deep-section";
+import { GurukulHero } from "@/components/gurukul/gurukul-media";
 
 export function MahadevHome() {
   return (
     <div>
-      <section className="relative overflow-hidden border-b border-border/60">
-        <Image
-          src="/mahadev/hero.png"
-          alt="Artist impression of Mahadeva in Himalayan twilight — not a photograph"
-          width={1920}
-          height={1080}
-          className="h-[28rem] w-full object-cover sm:h-[34rem]"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-black/55" />
-        <div className="absolute inset-x-0 bottom-0 mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-          <p className="eyebrow">ॐ नमः शिवाय · Mahadeva</p>
-          <h1 className="mt-4 max-w-3xl font-serif text-4xl text-foreground sm:text-5xl">
-            Shiva as the tradition actually speaks — names, light, and twelve places
-          </h1>
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
-            {MAHADEV_SOURCE_NOTE}
-          </p>
-        </div>
-      </section>
+      <GurukulHero
+        src="/mahadev/hero.webp"
+        alt="Artist impression of Mahadeva in Himalayan twilight — not a photograph"
+        eyebrow="ॐ नमः शिवाय · Mahadeva"
+        title="Shiva as the tradition actually speaks — names, light, and twelve places"
+        copy={MAHADEV_SOURCE_NOTE}
+      />
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <h2 className="font-serif text-3xl">What can be said without inventing</h2>
@@ -43,10 +31,7 @@ export function MahadevHome() {
         </ul>
       </section>
 
-      <TraditionDeepSection
-        title="Deeper Shaiva knowledge"
-        primers={MAHADEV_DEEP}
-      />
+      <TraditionDeepSection title="Deeper Shaiva knowledge" primers={MAHADEV_DEEP} />
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <h2 className="font-serif text-3xl">Where the twelve sit</h2>
@@ -84,29 +69,30 @@ export function MahadevHome() {
             Read Shivlilamrit →
           </Link>
         </div>
-        <ul className="mt-10 grid list-none grid-cols-1 gap-6 p-0 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-10 grid list-none grid-cols-1 gap-0 p-0 md:grid-cols-2 md:gap-x-10">
           {JYOTIRLINGAS.map((item) => (
             <li key={item.slug}>
               <Link
                 href={`/mahadev/${item.slug}`}
-                className="surface-panel block overflow-hidden rounded-2xl transition-transform hover:-translate-y-0.5"
+                className="group grid grid-cols-[7rem_minmax(0,1fr)] gap-4 border-b border-border/70 py-5"
               >
                 <Image
                   src={item.image}
                   alt={`Artist impression for ${item.name} — not a photograph of the temple`}
-                  width={1200}
-                  height={900}
-                  className="h-44 w-full object-cover"
+                  width={280}
+                  height={200}
+                  className="h-24 w-28 rounded-lg object-cover"
+                  sizes="112px"
                 />
-                <div className="p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">
                     {item.id} · {item.state}
                   </p>
-                  <h3 className="mt-2 font-serif text-xl">{item.name}</h3>
+                  <h3 className="mt-1 font-serif text-xl group-hover:text-primary">{item.name}</h3>
                   <p className="font-devanagari text-primary">{item.sanskrit}</p>
-                  <p className="mt-2 text-sm text-muted-foreground">{item.location}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{item.location}</p>
                   {item.otherClaims.length > 0 ? (
-                    <p className="mt-3 text-xs text-amber-800 dark:text-amber-200">
+                    <p className="theme-note mt-2 text-xs">
                       More than one living temple claims this name
                     </p>
                   ) : null}

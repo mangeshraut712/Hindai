@@ -263,7 +263,7 @@ export function QuizSystem() {
                   question.difficulty === "easy" &&
                     "border border-emerald-200/60 bg-emerald-50/60 text-emerald-800 dark:border-emerald-800/40 dark:bg-emerald-950/30 dark:text-emerald-300",
                   question.difficulty === "medium" &&
-                    "border border-amber-200/60 bg-amber-50/60 text-amber-800 dark:border-amber-800/40 dark:bg-amber-950/30 dark:text-amber-300",
+                    "theme-panel-soft/60 border border-amber-200/60 text-amber-800 dark:border-amber-800/40 dark:bg-amber-950/30 dark:text-amber-300",
                   question.difficulty === "hard" &&
                     "border border-red-200/60 bg-red-50/60 text-red-800 dark:border-red-800/40 dark:bg-red-950/30 dark:text-red-300"
                 )}
@@ -273,7 +273,7 @@ export function QuizSystem() {
                     question.difficulty === "easy"
                       ? "bg-emerald-500"
                       : question.difficulty === "medium"
-                        ? "bg-amber-400"
+                        ? "bg-primary"
                         : "bg-red-500"
                   }`}
                 />

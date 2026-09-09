@@ -38,7 +38,7 @@ function BrandLink({ onNavigate }: { onNavigate: () => void }) {
     >
       <div className="relative size-9 shrink-0 overflow-hidden rounded-full border border-primary/30 bg-gradient-to-br from-primary/10 to-primary/5 sm:size-10">
         <Image
-          src="/logo.png"
+          src="/logo.webp"
           alt="Hind AI"
           width={40}
           height={40}
@@ -297,33 +297,37 @@ function MobileMenu({
       </SheetTrigger>
       <SheetContent
         side="right"
-        className="w-[min(22rem,100vw)] max-w-full overflow-y-auto border-border bg-background px-6 py-5 text-foreground"
+        className="flex h-full w-[min(22rem,100vw)] max-w-full flex-col overflow-y-auto border-border bg-background px-4 py-4 text-foreground sm:px-5"
       >
-        <MobileMenuHeader language={language} setLanguage={setLanguage} />
-        <div className="mt-6 space-y-7">
-          <Button
-            variant="outline"
-            className="w-full justify-start border-border text-foreground"
-            onClick={() => {
-              onSearch();
-              setOpen(false);
-            }}
-          >
-            <Search className="size-4 text-primary" />
-            Search scriptures
-          </Button>
-          <ScripturesMobileSection onNavigate={handleNavigation} />
-          {SITE_NAV_GROUPS.map((group) => (
-            <MobileNavSection
-              key={group.id}
-              title={group.label}
-              description={group.description}
-              items={group.items}
-              isActive={isActive}
-              onNavigate={handleNavigation}
-            />
-          ))}
-        </div>
+        {open ? (
+          <>
+            <MobileMenuHeader language={language} setLanguage={setLanguage} />
+            <div className="mt-4 space-y-5 pb-6">
+              <Button
+                variant="outline"
+                className="w-full justify-start border-border text-foreground"
+                onClick={() => {
+                  onSearch();
+                  setOpen(false);
+                }}
+              >
+                <Search className="size-4 text-primary" />
+                Search scriptures
+              </Button>
+              <ScripturesMobileSection onNavigate={handleNavigation} />
+              {SITE_NAV_GROUPS.map((group) => (
+                <MobileNavSection
+                  key={group.id}
+                  title={group.label}
+                  description={group.description}
+                  items={group.items}
+                  isActive={isActive}
+                  onNavigate={handleNavigation}
+                />
+              ))}
+            </div>
+          </>
+        ) : null}
       </SheetContent>
     </Sheet>
   );
@@ -364,28 +368,30 @@ function MobileMenuHeader({
 
 function ScripturesMobileSection({ onNavigate }: { onNavigate: () => void }) {
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       <div>
-        <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Library</p>
-        <p className="mt-1 text-xs text-muted-foreground">Catalog and featured texts</p>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+          Library
+        </p>
+        <p className="mt-0.5 text-xs leading-5 text-muted-foreground">Catalog and featured texts</p>
       </div>
       <Link
         href="/contents"
-        className="block rounded-2xl border border-primary/40 bg-primary/10 px-4 py-3 text-sm font-semibold text-foreground"
+        className="block rounded-xl border border-primary/40 bg-primary/10 px-3 py-2.5 text-sm font-semibold text-foreground"
         onClick={onNavigate}
       >
         Open the full catalog
       </Link>
-      <div className="grid gap-2">
+      <div className="grid gap-1.5">
         {headerScriptures.map((item) => (
           <Link
             key={item.slug}
             href={item.href}
-            className="rounded-2xl border border-border bg-card px-4 py-3 transition-colors hover:border-primary/40 hover:bg-primary/5"
+            className="rounded-xl border border-border bg-card px-3 py-2 transition-colors hover:border-primary/40 hover:bg-primary/5"
             onClick={onNavigate}
           >
-            <p className="font-devanagari text-sm text-primary">{item.sanskrit}</p>
-            <p className="mt-1 text-sm font-semibold text-foreground">{item.name}</p>
+            <p className="font-devanagari text-sm leading-5 text-primary">{item.sanskrit}</p>
+            <p className="text-sm font-semibold leading-5 text-foreground">{item.name}</p>
           </Link>
         ))}
       </div>
@@ -407,23 +413,25 @@ function MobileNavSection({
   onNavigate: () => void;
 }) {
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       <div>
-        <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{title}</p>
-        <p className="mt-1 text-xs text-muted-foreground">{description}</p>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+          {title}
+        </p>
+        <p className="mt-0.5 text-xs leading-5 text-muted-foreground">{description}</p>
       </div>
-      <div className="grid gap-2">
+      <div className="grid grid-cols-1 gap-1.5">
         {items.map((item) => (
           <Link
             key={item.href}
             href={item.href}
-            className={`rounded-2xl border px-4 py-3 transition-colors hover:border-primary/40 hover:bg-primary/5 ${
+            className={`rounded-xl border px-3 py-2 transition-colors hover:border-primary/40 hover:bg-primary/5 ${
               isActive(item.href) ? "border-primary/50 bg-primary/10" : "border-border bg-card"
             }`}
             onClick={onNavigate}
           >
-            <p className="text-sm font-semibold text-foreground">{item.label}</p>
-            <p className="mt-1 text-xs text-muted-foreground">{item.hint}</p>
+            <p className="text-sm font-semibold leading-5 text-foreground">{item.label}</p>
+            <p className="mt-0.5 text-xs leading-4 text-muted-foreground">{item.hint}</p>
           </Link>
         ))}
       </div>

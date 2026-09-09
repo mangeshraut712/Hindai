@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { AartiReader } from "@/components/aarti/aarti-reader";
-import { GaneshaMurti } from "@/components/aarti/ganesha-murti";
+import { GurukulFigure } from "@/components/gurukul/gurukul-media";
 import {
   aartiKindLabel,
   getGaneshAarti,
@@ -46,8 +46,7 @@ export default async function GaneshAartiDetailPage({ params }: PageProps) {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1">
-        <section className="hero-mesh relative overflow-hidden border-b border-border/60">
-          <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
+        <section className="relative overflow-hidden border-b border-border/60">
           <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
             <Link
               href="/ganesh-aarti"
@@ -68,10 +67,11 @@ export default async function GaneshAartiDetailPage({ params }: PageProps) {
         </section>
         <section className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
           <aside className="space-y-6">
-            <div className="surface-panel rounded-3xl p-6">
-              <GaneshaMurti className="h-56 w-full" />
-            </div>
-            <div className="surface-panel rounded-2xl p-5">
+            <GurukulFigure
+              src="/ganesh-aarti/hero.webp"
+              alt="Artist impression of Ganesha — not a photograph of a living murti"
+            />
+            <div className="border-t border-border/70 pt-5">
               <h2 className="font-serif text-xl">Iconography</h2>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.iconography}</p>
             </div>

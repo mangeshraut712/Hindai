@@ -35,7 +35,7 @@ export function PrintLeaf({
       <div className="pdf-sheet pdf-cover">
         <h1 className="sr-only">सचित्र श्रीशिवलीलामृत</h1>
         <Image
-          src="/shivlilamrit/cover.jpg"
+          src="/shivlilamrit/cover.webp"
           alt="सचित्र श्रीशिवलीलामृत कथासार"
           width={634}
           height={951}

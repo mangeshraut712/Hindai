@@ -26,8 +26,10 @@ test("fifteen adhyays including special Rudra chapter 11", () => {
   assert.deepEqual(listChapterIds(), [...CHAPTER_IDS]);
   assert.equal(SHIVLILAMRIT_CHAPTERS.length, 15);
   assert.equal(getChapter(11).special, true);
-  assert.match(getChapter(3).titleMr, /रजक/);
+  assert.match(getChapter(3).titleMr, /गोकर्ण/);
+  assert.match(getChapter(2).titleMr, /शिवरात्रि/);
   assert.match(getChapter(11).titleMr, /रुद्राक्ष/);
+  assert.match(getChapter(14).titleMr, /भिल्लीण/);
   assert.equal(SHIVLILAMRIT_CHAPTERS.filter((chapter) => chapter.special).length, 1);
   assert.equal(isChapterId(0), false);
   assert.equal(isChapterId(16), false);

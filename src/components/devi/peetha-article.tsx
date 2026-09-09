@@ -12,7 +12,7 @@ export function PeethaArticle({ shrine }: { shrine: ShaktiPeetha }) {
   const index = SHAKTI_PEETHAS.findIndex((item) => item.slug === shrine.slug);
   const prev = index > 0 ? SHAKTI_PEETHAS[index - 1] : undefined;
   const next = index < SHAKTI_PEETHAS.length - 1 ? SHAKTI_PEETHAS[index + 1] : undefined;
-  const heroImage = shrine.image ?? "/devi/hero.png";
+  const heroImage = shrine.image ?? "/devi/hero.webp";
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
@@ -57,7 +57,7 @@ export function PeethaArticle({ shrine }: { shrine: ShaktiPeetha }) {
 
       <section className="mt-10">
         <h2 className="font-serif text-2xl">What lists say fell here</h2>
-        <p className="mt-3 text-sm font-medium text-amber-800 dark:text-amber-200">
+        <p className="theme-note mt-3 text-sm font-medium">
           {shrine.bodyPart} — {shrine.bodyPartNote}
         </p>
         <p className="mt-3 text-base leading-8">{shrine.puranaStory}</p>

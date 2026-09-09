@@ -266,7 +266,7 @@ export function SanskritLearningHub() {
                             module.difficulty === "Beginner"
                               ? "bg-green-100 text-green-800"
                               : module.difficulty === "Intermediate"
-                                ? "bg-yellow-100 text-yellow-800"
+                                ? "theme-callout"
                                 : "bg-red-100 text-red-800"
                           }`}
                         >

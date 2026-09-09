@@ -65,7 +65,7 @@ export const SHAKTI_PEETHAS: ShaktiPeetha[] = [
     rituals: ["Ambubachi Mela", "Red cloth and sindoor", "Nilachal hill darshan"],
     bestTimeToVisit: "October–March; June only if you intend Ambubachi crowds",
     sources: ["Kalika Purana Kamarupa mahatmya", "Kamakhya temple, Nilachal, Guwahati"],
-    image: "/devi/peethas/kamakhya.png",
+    image: "/devi/peethas/kamakhya.webp",
   }),
   peetha({
     id: 2,
@@ -93,7 +93,7 @@ export const SHAKTI_PEETHAS: ShaktiPeetha[] = [
     rituals: ["Hibiscus and sindoor", "Morning and evening aarti"],
     bestTimeToVisit: "October–November (Kali Puja) or winter weekdays",
     sources: ["Bengal Shakta peetha lists", "Kalighat Kali temple, Kolkata"],
-    image: "/devi/peethas/kalighat.png",
+    image: "/devi/peethas/kalighat.webp",
   }),
   peetha({
     id: 3,
@@ -176,7 +176,7 @@ export const SHAKTI_PEETHAS: ShaktiPeetha[] = [
     rituals: ["Hinglaj yatra", "Cave darshan"],
     bestTimeToVisit: "The notified Pakistani yatra window, usually spring",
     sources: ["Hinglaj Mata, Lasbela / Hingol", "Western peetha lists"],
-    image: "/devi/peethas/hinglaj.png",
+    image: "/devi/peethas/hinglaj.webp",
   }),
   peetha({
     id: 6,
@@ -630,7 +630,7 @@ export const SHAKTI_PEETHAS: ShaktiPeetha[] = [
       "Vaishno Devi shrine board, Katra",
       "Classical peetha lists (non-inclusion of this cave as Sati’s head)",
     ],
-    image: "/devi/peethas/vaishno-devi.png",
+    image: "/devi/peethas/vaishno-devi.webp",
   }),
   peetha({
     id: 23,

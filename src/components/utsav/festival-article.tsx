@@ -55,11 +55,11 @@ export function FestivalArticle({ festival }: { festival: UtsavEntry }) {
             className="h-[18rem] w-full sm:h-[22rem]"
             style={{
               background:
-                "linear-gradient(135deg, color-mix(in oklab, var(--primary) 35%, #1a120c), #0c0a09 55%, #1c1410)",
+                "linear-gradient(135deg, hsl(var(--primary) / 0.35), hsl(var(--background)) 55%, hsl(var(--muted)))",
             }}
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/85 to-black/50" />
+        <div className="theme-media-veil absolute inset-0" />
         <div className="absolute inset-x-0 bottom-0 mx-auto max-w-3xl px-4 pb-10 sm:px-6">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
             {festival.monthLabel} · {festival.tradition} · {festival.kind}
@@ -83,7 +83,7 @@ export function FestivalArticle({ festival }: { festival: UtsavEntry }) {
 
         <section className="mt-12">
           <h2 className="font-serif text-2xl">Origin / katha</h2>
-          <p className="mt-3 text-sm font-medium text-amber-800 dark:text-amber-200">
+          <p className="theme-note mt-3 text-sm font-medium">
             Tradition — Purāṇa, itihāsa, or oral mahātmya — not a dated news report
           </p>
           <p className="mt-3 text-base leading-8">{festival.katha}</p>

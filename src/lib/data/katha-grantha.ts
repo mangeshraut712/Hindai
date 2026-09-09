@@ -35,7 +35,7 @@ export const KATHA_GRANTHAS: KathaGrantha[] = [
     title: "Mahadeva Katha",
     sanskrit: "महादेव कथा",
     tagline: "From cosmic stillness to twelve lights on the map",
-    heroImage: "/mahadev/hero.png",
+    heroImage: "/mahadev/hero.webp",
     relatedHref: "/mahadev",
     note: "Shaiva chapters for learners who want story depth without fake GPS certainty.",
     chapters: [
@@ -91,7 +91,7 @@ export const KATHA_GRANTHAS: KathaGrantha[] = [
     title: "Devi Katha",
     sanskrit: "देवी कथा",
     tagline: "Three battles, many peethas, one refusal to fake the map",
-    heroImage: "/devi/hero.png",
+    heroImage: "/devi/hero.webp",
     relatedHref: "/devi",
     note: "Śākta chapters that honour Devi Māhātmya while refusing a fake GPS of Sati’s body.",
     chapters: [
@@ -147,9 +147,9 @@ export const KATHA_GRANTHAS: KathaGrantha[] = [
     title: "Vishnu Katha",
     sanskrit: "विष्णु कथा",
     tagline: "Descents, dharma fields, and four corners of the peninsula",
-    heroImage: "/vishnu/hero.png",
+    heroImage: "/vishnu/hero.webp",
     relatedHref: "/vishnu",
-    note: "Vaishnava chapters for Dashavatara literacy and Char Dham as real places.",
+    note: "Vaishnava chapters for Dashavatara literacy and Char Dham as real places. For Marathi pothi depth open /harivijay and /ramvijay.",
     chapters: [
       {
         id: "descents",
@@ -203,7 +203,7 @@ export const KATHA_GRANTHAS: KathaGrantha[] = [
     title: "Ganesha Katha",
     sanskrit: "गणेश कथा",
     tagline: "Obstacle, wit, and eight roads in Maharashtra",
-    heroImage: "/festivals/ganesh-chaturthi.png",
+    heroImage: "/festivals/ganesh-chaturthi.webp",
     relatedHref: "/ganesha",
     note: "Ganapatya chapters for beginnings, clay ethics, and Ashtavinayak as a real circuit.",
     chapters: [

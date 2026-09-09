@@ -4,91 +4,94 @@
 @tailwind utilities;
 
 :root {
-  /* Modern Indian Color Palette */
-  --background: 45 30% 98%;
-  --foreground: 220 24% 12%;
-  --card: 45 25% 96%;
-  --card-foreground: 220 24% 12%;
-  --popover: 45 30% 97%;
-  --popover-foreground: 220 24% 12%;
-  --primary: 24 85% 58%;
-  --primary-foreground: 24 40% 12%;
-  --secondary: 180 35% 92%;
-  --secondary-foreground: 220 24% 12%;
-  --muted: 45 20% 94%;
-  --muted-foreground: 220 18% 32%;
-  --accent: 38 75% 52%;
-  --accent-foreground: 38 40% 12%;
-  --destructive: 0 72% 48%;
-  --destructive-foreground: 45 30% 98%;
-  --border: 45 18% 85%;
-  --input: 45 22% 90%;
-  --ring: 24 85% 58%;
+  /* One Hind AI light theme — paper field, ink type, saffron accent */
+  --background: 40 18% 98%;
+  --foreground: 222 30% 12%;
+  --card: 40 16% 100%;
+  --card-foreground: 222 30% 12%;
+  --popover: 40 16% 100%;
+  --popover-foreground: 222 30% 12%;
+  --primary: 24 88% 48%;
+  --primary-foreground: 40 30% 98%;
+  --secondary: 200 22% 93%;
+  --secondary-foreground: 222 30% 14%;
+  --muted: 40 14% 94%;
+  --muted-foreground: 222 14% 36%;
+  --accent: 36 78% 46%;
+  --accent-foreground: 40 30% 98%;
+  --destructive: 0 72% 46%;
+  --destructive-foreground: 40 30% 98%;
+  --border: 40 12% 84%;
+  --input: 40 12% 90%;
+  --ring: 24 88% 48%;
   --radius: 1.35rem;
-  --chart-1: 24 85% 58%;
-  --chart-2: 180 35% 52%;
-  --chart-3: 38 75% 52%;
-  --chart-4: 45 85% 55%;
-  --chart-5: 220 35% 52%;
-  --sidebar-background: 45 28% 96%;
-  --sidebar-foreground: 220 24% 12%;
-  --sidebar-primary: 24 85% 58%;
-  --sidebar-primary-foreground: 45 30% 98%;
-  --sidebar-accent: 45 22% 92%;
-  --sidebar-accent-foreground: 220 24% 12%;
-  --sidebar-border: 45 18% 85%;
-  --sidebar-ring: 24 85% 58%;
-  /* Sacred colors - Modern Indian palette */
-  --saffron: 24 85% 58%;
-  --vermilion: 12 85% 60%;
-  --gold: 45 85% 55%;
-  --indigo: 220 60% 52%;
-  --peacock: 180 70% 45%;
-  --marigold: 38 85% 55%;
-  --royal-teal: 180 45% 42%;
+  --chart-1: 24 88% 48%;
+  --chart-2: 180 35% 42%;
+  --chart-3: 36 78% 46%;
+  --chart-4: 45 80% 48%;
+  --chart-5: 220 40% 46%;
+  --sidebar-background: 40 16% 97%;
+  --sidebar-foreground: 222 30% 12%;
+  --sidebar-primary: 24 88% 48%;
+  --sidebar-primary-foreground: 40 30% 98%;
+  --sidebar-accent: 40 14% 93%;
+  --sidebar-accent-foreground: 222 30% 12%;
+  --sidebar-border: 40 12% 84%;
+  --sidebar-ring: 24 88% 48%;
+  --saffron: 24 88% 48%;
+  --vermilion: 12 82% 50%;
+  --gold: 42 78% 46%;
+  --indigo: 222 48% 42%;
+  --peacock: 180 55% 38%;
+  --marigold: 36 78% 46%;
+  --royal-teal: 180 40% 36%;
+  --ink-hero-fg: 40 35% 96%;
+  --ink-hero-muted: 40 20% 84%;
 }
 
 .dark {
+  /* One Hind AI dark theme — deep field, warm ink, brighter saffron */
   --background: 222 28% 7%;
   --foreground: 40 28% 96%;
-  --card: 222 22% 11%;
+  --card: 222 24% 10%;
   --card-foreground: 40 28% 96%;
   --popover: 222 24% 10%;
   --popover-foreground: 40 28% 96%;
-  --primary: 28 92% 62%;
-  --primary-foreground: 222 28% 8%;
-  --secondary: 200 18% 16%;
+  --primary: 28 92% 60%;
+  --primary-foreground: 222 30% 8%;
+  --secondary: 210 16% 16%;
   --secondary-foreground: 40 24% 92%;
-  --muted: 222 16% 14%;
-  --muted-foreground: 40 14% 78%;
-  --accent: 38 70% 54%;
-  --accent-foreground: 222 28% 8%;
-  --destructive: 0 68% 58%;
+  --muted: 222 16% 13%;
+  --muted-foreground: 40 12% 74%;
+  --accent: 36 78% 56%;
+  --accent-foreground: 222 30% 8%;
+  --destructive: 0 70% 56%;
   --destructive-foreground: 40 28% 96%;
-  --border: 222 14% 22%;
-  --input: 222 14% 18%;
-  --ring: 28 92% 62%;
-  --chart-1: 28 92% 62%;
-  --chart-2: 180 48% 52%;
-  --chart-3: 38 70% 54%;
-  --chart-4: 45 85% 60%;
+  --border: 222 14% 20%;
+  --input: 222 14% 17%;
+  --ring: 28 92% 60%;
+  --chart-1: 28 92% 60%;
+  --chart-2: 180 48% 50%;
+  --chart-3: 36 78% 56%;
+  --chart-4: 45 82% 58%;
   --chart-5: 220 48% 58%;
-  --sidebar-background: 222 24% 9%;
+  --sidebar-background: 222 26% 8%;
   --sidebar-foreground: 40 24% 92%;
-  --sidebar-primary: 28 92% 62%;
-  --sidebar-primary-foreground: 222 28% 8%;
+  --sidebar-primary: 28 92% 60%;
+  --sidebar-primary-foreground: 222 30% 8%;
   --sidebar-accent: 222 16% 13%;
   --sidebar-accent-foreground: 40 24% 92%;
   --sidebar-border: 222 14% 18%;
-  --sidebar-ring: 28 92% 62%;
-  /* Sacred colors (dark mode) */
-  --saffron: 28 92% 62%;
-  --vermilion: 12 90% 64%;
-  --gold: 45 86% 58%;
-  --indigo: 220 70% 62%;
-  --peacock: 180 72% 48%;
-  --marigold: 38 86% 58%;
-  --royal-teal: 180 48% 46%;
+  --sidebar-ring: 28 92% 60%;
+  --saffron: 28 92% 60%;
+  --vermilion: 12 88% 62%;
+  --gold: 42 84% 58%;
+  --indigo: 220 62% 64%;
+  --peacock: 180 60% 48%;
+  --marigold: 36 82% 58%;
+  --royal-teal: 180 42% 46%;
+  --ink-hero-fg: 40 35% 96%;
+  --ink-hero-muted: 40 18% 78%;
 }
 
 /* stylelint-disable at-rule-no-unknown */
@@ -506,11 +509,15 @@ video {
 
 /* Mobile-specific optimizations */
 @media (max-width: 768px) {
-  /* Height-only tap targets so icon buttons do not inflate the header */
+  /* Tap targets for controls and header chrome — not dense footer link lists */
   button,
-  nav a,
-  [role="button"] {
+  [role="button"],
+  header a {
     min-height: 44px;
+  }
+
+  footer nav a {
+    min-height: 0;
   }
 
   /* Optimize images for mobile */
@@ -549,14 +556,6 @@ video {
 
 .dark {
   color-scheme: dark;
-}
-
-.pothi-garbha {
-  background:
-    radial-gradient(ellipse 80% 40% at 50% -10%, rgba(255, 196, 92, 0.22), transparent 55%),
-    radial-gradient(ellipse at 50% 120%, rgba(120, 40, 10, 0.45), transparent 50%),
-    linear-gradient(180deg, #1c0c06 0%, #2b1409 42%, #120806 100%);
-  color: #f6e7c8;
 }
 
 .pothi-rangoli {
@@ -942,4 +941,176 @@ video {
   .pothi-book-spine {
     display: none;
   }
+}
+
+.pothi-anukramanika th,
+.pothi-anukramanika td {
+  vertical-align: top;
+}
+
+/* ===== Shared theme patterns (light + dark) ===== */
+.theme-ink-hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid hsl(var(--border) / 0.7);
+  color: hsl(var(--ink-hero-fg));
+  background:
+    radial-gradient(ellipse 80% 45% at 20% 0%, hsl(var(--primary) / 0.28), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 85% 10%, hsl(var(--accent) / 0.18), transparent 50%),
+    linear-gradient(165deg, hsl(222 28% 8%) 0%, hsl(222 24% 6%) 48%, hsl(210 20% 10%) 100%);
+}
+
+.theme-ink-hero .eyebrow {
+  color: hsl(var(--ink-hero-fg) / 0.92);
+  background: hsl(0 0% 100% / 0.08);
+  border-color: hsl(var(--ink-hero-fg) / 0.28);
+}
+
+.theme-ink-title {
+  color: hsl(var(--ink-hero-fg));
+}
+
+.theme-ink-copy {
+  color: hsl(var(--ink-hero-muted));
+}
+
+.theme-ink-cta {
+  display: inline-flex;
+  height: 2.75rem;
+  align-items: center;
+  border-radius: 9999px;
+  padding-inline: 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.theme-ink-cta-primary {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.theme-ink-cta-primary:hover {
+  filter: brightness(1.06);
+}
+
+.theme-ink-cta-ghost {
+  border: 1px solid hsl(var(--ink-hero-fg) / 0.35);
+  color: hsl(var(--ink-hero-fg));
+  background: transparent;
+}
+
+.theme-ink-cta-ghost:hover {
+  background: hsl(0 0% 100% / 0.08);
+}
+
+.theme-media-veil {
+  background: linear-gradient(
+    to top,
+    hsl(var(--background)) 0%,
+    hsl(var(--background) / 0.92) 42%,
+    hsl(var(--background) / 0.35) 78%,
+    hsl(var(--background) / 0.15) 100%
+  );
+}
+
+.theme-callout {
+  border: 1px solid hsl(var(--primary) / 0.32);
+  background: hsl(var(--primary) / 0.08);
+  color: hsl(var(--foreground));
+}
+
+.theme-callout-strong {
+  border: 1px solid hsl(var(--primary) / 0.4);
+  background: hsl(var(--primary) / 0.12);
+  color: hsl(var(--foreground));
+}
+
+.theme-note {
+  color: hsl(var(--primary));
+}
+
+.theme-chip {
+  border-radius: 0.5rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+  padding: 0.35rem 0.75rem;
+  font-size: 0.875rem;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.theme-chip:hover {
+  border-color: hsl(var(--primary) / 0.35);
+  background: hsl(var(--primary) / 0.08);
+}
+
+.theme-chip-active {
+  border-color: transparent;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.theme-chip-active:hover {
+  filter: brightness(1.05);
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.theme-panel {
+  border-radius: 0.9rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+}
+
+.theme-panel-soft {
+  border-radius: 0.9rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--muted) / 0.55);
+  color: hsl(var(--foreground));
+}
+
+.theme-success {
+  border-color: hsl(150 40% 36% / 0.35);
+  background: hsl(150 35% 42% / 0.12);
+  color: hsl(var(--foreground));
+}
+
+.dark .theme-success {
+  border-color: hsl(150 45% 48% / 0.4);
+  background: hsl(150 40% 30% / 0.22);
+}
+
+/* Keep ritual pothi band aligned with ink-hero tokens */
+.pothi-garbha {
+  color: hsl(var(--ink-hero-fg));
+  background:
+    radial-gradient(ellipse 80% 40% at 50% -10%, hsl(var(--primary) / 0.22), transparent 55%),
+    radial-gradient(ellipse at 50% 120%, hsl(12 70% 28% / 0.45), transparent 50%),
+    linear-gradient(180deg, hsl(222 28% 8%) 0%, hsl(20 40% 12%) 42%, hsl(222 30% 5%) 100%);
+  border-color: hsl(var(--primary) / 0.35);
+}
+
+.pothi-ebook-book {
+  overflow: hidden;
+  border: 1px solid hsl(var(--border) / 0.8);
+  border-radius: 1rem;
+  background:
+    linear-gradient(90deg, hsl(var(--foreground) / 0.04), transparent 1.1rem),
+    linear-gradient(
+      180deg,
+      hsl(var(--card)) 0%,
+      hsl(var(--background)) 55%,
+      hsl(var(--muted) / 0.45) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 hsl(0 0% 100% / 0.2),
+    0 22px 50px -30px hsl(222 30% 8% / 0.35);
 }

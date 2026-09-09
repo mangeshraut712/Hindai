@@ -23,7 +23,7 @@ export function AshtavinayakArticle({ shrine }: { shrine: AshtavinayakSite }) {
 
       <figure className="mt-8 overflow-hidden rounded-2xl border border-border/60">
         <Image
-          src="/ganesha/hero.png"
+          src="/ganesha/hero.webp"
           alt={`Artist impression for ${shrine.name} circuit mood — not a photograph`}
           width={1600}
           height={900}
@@ -44,7 +44,7 @@ export function AshtavinayakArticle({ shrine }: { shrine: AshtavinayakSite }) {
 
       <section className="mt-10">
         <h2 className="font-serif text-2xl">Local katha</h2>
-        <p className="mt-3 text-sm font-medium text-amber-800 dark:text-amber-200">
+        <p className="theme-note mt-3 text-sm font-medium">
           Tradition — Maharashtra mahātmya, not a dated news report
         </p>
         <p className="mt-3 text-base leading-8">{shrine.puranaStory}</p>

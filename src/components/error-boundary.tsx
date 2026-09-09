@@ -87,16 +87,14 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950 dark:to-red-950">
           <div className="mx-4 w-full max-w-md">
-            <div className="rounded-lg bg-white p-6 text-center shadow-lg dark:bg-gray-900">
+            <div className="rounded-lg bg-card p-6 text-center shadow-lg dark:bg-card">
               <div className="mb-4 flex justify-center">
                 <AlertTriangle className="size-16 text-red-500" />
               </div>
 
-              <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
-                Something went wrong
-              </h1>
+              <h1 className="mb-2 text-2xl font-bold text-foreground">Something went wrong</h1>
 
-              <p className="mb-6 text-gray-600 dark:text-gray-300">
+              <p className="mb-6 text-muted-foreground dark:text-muted-foreground">
                 We encountered an unexpected error. Our team has been notified and is working to fix
                 this issue.
               </p>
@@ -118,16 +116,16 @@ export class ErrorBoundary extends Component<Props, State> {
 
               {process.env.NODE_ENV === "development" && this.state.error && (
                 <details className="mt-6 text-left">
-                  <summary className="cursor-pointer text-sm font-medium text-gray-500 hover:text-gray-700">
+                  <summary className="cursor-pointer text-sm font-medium text-muted-foreground hover:text-foreground/80">
                     Error Details (Development)
                   </summary>
-                  <pre className="mt-2 max-h-40 overflow-auto rounded bg-gray-100 p-3 text-xs dark:bg-gray-800">
+                  <pre className="mt-2 max-h-40 overflow-auto rounded bg-muted p-3 text-xs">
                     {this.state.error.stack}
                   </pre>
                 </details>
               )}
 
-              <p className="mt-4 text-xs text-gray-500">Error ID: {this.state.errorId}</p>
+              <p className="mt-4 text-xs text-muted-foreground">Error ID: {this.state.errorId}</p>
             </div>
           </div>
         </div>

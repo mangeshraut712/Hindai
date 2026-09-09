@@ -56,7 +56,7 @@ export function JyotirlingaArticle({ shrine }: { shrine: Jyotirlinga }) {
 
       <section className="mt-10">
         <h2 className="font-serif text-2xl">Puranic katha</h2>
-        <p className="mt-3 text-sm font-medium text-amber-800 dark:text-amber-200">
+        <p className="theme-note mt-3 text-sm font-medium">
           Tradition — Shiva Purana / local mahatmya, not a dated event
         </p>
         <p className="mt-3 text-base leading-8">{shrine.puranaStory}</p>
@@ -79,7 +79,7 @@ export function JyotirlingaArticle({ shrine }: { shrine: Jyotirlinga }) {
       </section>
 
       {shrine.otherClaims.length > 0 ? (
-        <section className="mt-10 rounded-2xl border border-amber-500/35 bg-amber-950/35 p-5 text-foreground dark:border-amber-400/30 dark:bg-amber-950/40">
+        <section className="theme-callout-strong mt-10 rounded-2xl p-5">
           <h2 className="font-serif text-2xl">Other living claims</h2>
           <p className="mt-2 text-sm leading-7 text-foreground/80">
             The Sanskrit verse names a region. More than one temple reads that region as itself.

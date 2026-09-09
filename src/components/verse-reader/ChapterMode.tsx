@@ -75,10 +75,10 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
     return (
       <div className="mx-auto max-w-4xl p-6">
         <div className="animate-pulse">
-          <div className="mb-4 h-8 rounded bg-gray-200"></div>
+          <div className="theme-chip mb-4 h-8 rounded"></div>
           <div className="space-y-2">
             {[...Array(10)].map((_, i) => (
-              <div key={i} className="h-16 rounded bg-gray-200"></div>
+              <div key={i} className="theme-chip h-16 rounded"></div>
             ))}
           </div>
         </div>
@@ -100,17 +100,17 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
     <div className="mx-auto max-w-4xl p-6">
       {/* Chapter header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Chapter {chapter}</h1>
+        <h1 className="text-2xl font-bold text-foreground">Chapter {chapter}</h1>
 
         {/* Reading progress */}
         <div className="mt-2">
-          <div className="mb-1 flex justify-between text-sm text-gray-600">
+          <div className="mb-1 flex justify-between text-sm text-muted-foreground">
             <span>Reading Progress</span>
             <span>{Math.round(readingProgress)}%</span>
           </div>
-          <div className="h-2 w-full rounded-full bg-gray-200">
+          <div className="theme-chip h-2 w-full rounded-full">
             <div
-              className="h-2 rounded-full bg-blue-600 transition-all"
+              className="h-2 rounded-full bg-primary transition-all"
               style={{ width: `${readingProgress}%` }}
             ></div>
           </div>
@@ -121,7 +121,7 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
       {chapterSummary && (
         <div className="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4">
           <h3 className="mb-2 font-bold">Chapter Summary</h3>
-          <p className="text-gray-700">{chapterSummary}</p>
+          <p className="text-foreground/80">{chapterSummary}</p>
         </div>
       )}
 
@@ -135,8 +135,8 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
               onClick={() => setActiveTab(tab)}
               className={`px-4 py-2 font-medium transition ${
                 activeTab === tab
-                  ? "border-b-2 border-blue-600 text-blue-600"
-                  : "text-gray-600 hover:text-gray-800"
+                  ? "border-b-2 border-blue-600 text-primary"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -151,17 +151,17 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
           <div
             key={verse.id}
             className={`overflow-hidden rounded-lg border transition ${
-              expandedVerse === verse.verse_num ? "border-blue-500" : "border-gray-200"
+              expandedVerse === verse.verse_num ? "border-blue-500" : "border-border"
             }`}
           >
             {/* Verse header (always visible) */}
             <div
-              className="cursor-pointer p-4 transition hover:bg-gray-50"
+              className="cursor-pointer p-4 transition hover:bg-muted"
               onClick={() => toggleVerse(verse.verse_num)}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span className="font-bold text-gray-700">{verse.verse_num}.</span>
+                  <span className="font-bold text-foreground/80">{verse.verse_num}.</span>
                   <span className="text-lg">{verse.text_devanagari}</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -175,7 +175,7 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
                   >
                     ✓
                   </button>
-                  <span className="text-gray-400">
+                  <span className="text-muted-foreground">
                     {expandedVerse === verse.verse_num ? "▼" : "▶"}
                   </span>
                 </div>
@@ -184,11 +184,11 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
 
             {/* Expanded content */}
             {expandedVerse === verse.verse_num && (
-              <div className="border-t bg-gray-50 p-4">
+              <div className="border-t bg-muted p-4">
                 {activeTab === "sanskrit" && (
                   <div className="space-y-2">
                     <div className="text-xl">{verse.text_devanagari}</div>
-                    <div className="text-gray-600">{verse.text_iast}</div>
+                    <div className="text-muted-foreground">{verse.text_iast}</div>
                     {verse.word_analysis && verse.word_analysis.length > 0 && (
                       <div className="mt-4">
                         <h4 className="mb-2 font-bold">Word-by-word</h4>
@@ -196,7 +196,7 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
                           {verse.word_analysis.map((word, index) => (
                             <div key={index} className="text-sm">
                               <span className="font-medium">{word.word_devanagari}</span>
-                              <span className="ml-2 text-gray-500">
+                              <span className="ml-2 text-muted-foreground">
                                 ({word.lemma} - {word.meaning_en})
                               </span>
                             </div>
@@ -210,10 +210,10 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
                 {activeTab === "translation" && (
                   <div className="space-y-3">
                     {verse.translations?.map((translation, index) => (
-                      <div key={index} className="rounded bg-white p-3">
+                      <div key={index} className="rounded bg-card p-3">
                         <div className="mb-1 flex items-center justify-between">
                           <span className="font-medium">{translation.translator_name}</span>
-                          <span className="text-xs text-gray-500">{translation.lang}</span>
+                          <span className="text-xs text-muted-foreground">{translation.lang}</span>
                         </div>
                         <p>{translation.text}</p>
                       </div>
@@ -224,7 +224,7 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
                 {activeTab === "commentary" && (
                   <div className="space-y-3">
                     {verse.commentaries?.map((commentary, index) => (
-                      <div key={index} className="rounded bg-white p-3">
+                      <div key={index} className="rounded bg-card p-3">
                         <div className="mb-1 flex items-center justify-between">
                           <span className="font-medium">{commentary.acharya}</span>
                           <span className="rounded bg-purple-100 px-2 py-1 text-xs text-purple-800">
@@ -250,7 +250,7 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
             onClick={() =>
               (window.location.href = `/scriptures/${scriptureId}/chapter/${chapter - 1}`)
             }
-            className="rounded bg-gray-200 px-4 py-2 transition hover:bg-gray-300"
+            className="theme-chip rounded px-4 py-2 transition hover:bg-muted"
           >
             ← Previous Chapter
           </button>
@@ -260,7 +260,7 @@ export default function ChapterMode({ scriptureId, chapter }: ChapterModeProps) 
           onClick={() =>
             (window.location.href = `/scriptures/${scriptureId}/chapter/${chapter + 1}`)
           }
-          className="rounded bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
+          className="theme-chip-active rounded px-4 py-2 transition"
         >
           Next Chapter →
         </button>
