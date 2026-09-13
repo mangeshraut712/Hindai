@@ -15,7 +15,7 @@ export default function Loading() {
         </div>
       </div>
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <section className="border-b border-border/60">
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="h-8 w-48 animate-pulse rounded bg-primary/20" />

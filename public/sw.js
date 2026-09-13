@@ -1,11 +1,10 @@
 /**
  * Hind AI Service Worker
- * PWA features: Offline support, background sync, push notifications
- * Optimized for performance with aggressive caching
+ * PWA features: Offline support for the static GitHub Pages export.
  */
 
-const STATIC_CACHE = "hind-ai-static-v5";
-const DYNAMIC_CACHE = "hind-ai-dynamic-v5";
+const STATIC_CACHE = "hind-ai-static-v6";
+const DYNAMIC_CACHE = "hind-ai-dynamic-v6";
 
 const SCOPE_BASE = self.location.pathname.replace(/\/sw\.js$/, "") || "";
 
@@ -23,6 +22,9 @@ const STATIC_ASSETS = [
   `${SCOPE_BASE}/stotras/`,
   `${SCOPE_BASE}/panchanga/`,
   `${SCOPE_BASE}/pilgrimage/`,
+  `${SCOPE_BASE}/festivals/`,
+  `${SCOPE_BASE}/katha/`,
+  `${SCOPE_BASE}/sadhana/`,
   `${SCOPE_BASE}/audio/`,
   `${SCOPE_BASE}/daily/`,
   `${SCOPE_BASE}/quiz/`,
@@ -32,17 +34,19 @@ const STATIC_ASSETS = [
   `${SCOPE_BASE}/manifest.json`,
 ];
 
-// Install: Cache static assets
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(STATIC_CACHE).then((cache) => {
-      return cache.addAll(STATIC_ASSETS.map((url) => new Request(url, { cache: "reload" })));
-    })
+function cacheStaticAssets(cache) {
+  return Promise.all(
+    STATIC_ASSETS.map((url) =>
+      cache.add(new Request(url, { cache: "reload" })).catch(() => undefined)
+    )
   );
+}
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(caches.open(STATIC_CACHE).then(cacheStaticAssets));
   self.skipWaiting();
 });
 
-// Activate: Clean old caches
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -56,7 +60,6 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// Fetch: Network-first for HTML, Cache-first for assets
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
@@ -90,11 +93,9 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Cache-first for static assets with network fallback
   event.respondWith(
     caches.match(event.request).then((response) => {
       if (response) {
-        // Update cache in background
         fetch(event.request).then((fetchResponse) => {
           if (fetchResponse.ok) {
             caches.open(STATIC_CACHE).then((cache) => {
@@ -106,7 +107,6 @@ self.addEventListener("fetch", (event) => {
       }
 
       return fetch(event.request).then((fetchResponse) => {
-        // Cache successful responses
         if (fetchResponse.ok) {
           const clone = fetchResponse.clone();
           caches.open(STATIC_CACHE).then((cache) => {
@@ -119,22 +119,20 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
-// Background Sync for offline messages
 self.addEventListener("sync", (event) => {
   if (event.tag === "send-message") {
-    event.waitUntil(sendOfflineMessages());
+    event.waitUntil(Promise.resolve());
   }
 });
 
-// Push Notifications
 self.addEventListener("push", (event) => {
   const data = event.data?.json() || {};
 
   event.waitUntil(
     self.registration.showNotification(data.title || "Hind AI", {
       body: data.body || "Your daily wisdom is ready",
-      icon: "/logo.webp",
-      badge: "/logo.webp",
+      icon: `${SCOPE_BASE}/logo.webp`,
+      badge: `${SCOPE_BASE}/logo.webp`,
       tag: data.tag || "daily-wisdom",
       requireInteraction: false,
       actions: [
@@ -142,23 +140,17 @@ self.addEventListener("push", (event) => {
         { action: "dismiss", title: "Later" },
       ],
       data: {
-        url: data.url || "/daily",
+        url: data.url || `${SCOPE_BASE}/daily/`,
       },
     })
   );
 });
 
-// Notification click
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
 
   if (event.action === "open" || !event.action) {
-    const url = event.notification.data?.url || "/daily";
+    const url = event.notification.data?.url || `${SCOPE_BASE}/daily/`;
     event.waitUntil(self.clients.openWindow(url));
   }
 });
-
-async function sendOfflineMessages() {
-  // Implementation for background sync
-  console.log("Processing offline messages...");
-}

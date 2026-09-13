@@ -51,7 +51,10 @@ export default function PanchangaPage() {
     return (
       <div className="flex min-h-screen flex-col">
         <Header />
-        <main className="flex min-h-[50vh] flex-1 items-center justify-center px-4">
+        <main
+          id="main-content"
+          className="flex min-h-[50vh] flex-1 items-center justify-center px-4"
+        >
           <div className="text-center">
             <p className="mt-4 text-muted-foreground">
               {error ?? "Unable to load calendar details right now."}
@@ -72,7 +75,7 @@ export default function PanchangaPage() {
     <div className="flex min-h-screen flex-col">
       <Header />
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <section className="hero-mesh relative overflow-hidden border-b border-border/60">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="hero-sun -left-20 top-10 size-56 opacity-80" aria-hidden="true" />

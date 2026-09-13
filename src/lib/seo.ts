@@ -2,11 +2,10 @@
 import { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 
-export interface StructuredData {
+export type StructuredData = {
   "@context": string;
   "@type": string;
-  [key: string]: any;
-}
+} & Record<string, unknown>;
 
 // Organization structured data for Hind AI
 export const organizationStructuredData: StructuredData = {
@@ -16,7 +15,7 @@ export const organizationStructuredData: StructuredData = {
   description:
     "World's most authoritative digital platform for Vedic and Hindu scriptures powered by Gemma 4 AI",
   url: SITE_URL,
-  logo: `${SITE_URL}/Home.webp`,
+  logo: `${SITE_URL}/logo.webp`,
   sameAs: ["https://twitter.com/hindai_dev"],
   founder: {
     "@type": "Person",
@@ -48,11 +47,6 @@ export const websiteStructuredData: StructuredData = {
   description:
     "AI-Powered Digital Library of Ancient Indian Scriptures with Gemma 4 analysis, cross-scriptural connections, and linguistic breakdowns",
   url: SITE_URL,
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${SITE_URL}/search?q={search_term_string}`,
-    "query-input": "required name=search_term_string",
-  },
   keywords: [
     "Vedic library",
     "Hindu scriptures",
@@ -228,9 +222,6 @@ export function generateMetadata(
         "max-image-preview": "large",
         "max-snippet": -1,
       },
-    },
-    verification: {
-      google: "your-google-site-verification-code",
     },
   };
 

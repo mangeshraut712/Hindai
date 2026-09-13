@@ -69,7 +69,7 @@ export default function GuidePage() {
     <div className="relative flex min-h-screen flex-col">
       <Header />
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <section className="hero-mesh relative overflow-hidden border-b border-border/60 px-4 py-16 sm:px-6 lg:px-8">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="hero-sun right-[-8rem] top-[-8rem] size-[28rem]" aria-hidden="true" />

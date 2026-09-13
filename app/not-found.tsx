@@ -27,6 +27,7 @@ export default function NotFound() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="relative z-10 max-w-2xl text-center"
+        id="main-content"
       >
         <span className="eyebrow mx-auto">404 - Path not found</span>
 
@@ -34,7 +35,7 @@ export default function NotFound() {
           <p className="font-devanagari text-4xl text-primary sm:text-5xl">नासदासीन्नो सदासीत्</p>
           <p className="text-sm italic text-muted-foreground">
             &ldquo;Then even nothingness was not, nor existence.&rdquo; (Nasadiya Sukta, Rigveda
-            10.129
+            10.129))
           </p>
         </div>
 

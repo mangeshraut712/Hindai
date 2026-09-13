@@ -21,7 +21,7 @@ export default function HaripaatBookPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <Suspense fallback={<BookFallback />}>
           <HaripaatBookClient fallbackPage={1} />
         </Suspense>

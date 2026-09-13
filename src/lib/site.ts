@@ -14,3 +14,19 @@ export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (BASE_PATH ? `${GITHUB_PAGES_ORIGIN}${BASE_PATH}` : "https://hindai.dev");
+
+/** Root-relative public file, including GitHub Pages `basePath` when set. */
+export function publicUrl(path: string): string {
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  return `${BASE_PATH}${normalized}`;
+}
+
+/** Absolute public URL for sitemap/canonical loc values. Always trailing-slash pages. */
+export function absolutePageUrl(path: string = "/"): string {
+  if (!path || path === "/") {
+    return `${SITE_URL}/`;
+  }
+  const withSlash = path.startsWith("/") ? path : `/${path}`;
+  const trimmed = withSlash.endsWith("/") ? withSlash.slice(0, -1) : withSlash;
+  return `${SITE_URL}${trimmed}/`;
+}

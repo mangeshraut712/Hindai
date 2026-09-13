@@ -21,10 +21,10 @@ export function ServiceWorkerRegistration() {
       navigator.serviceWorker
         .register(`${basePath}/sw.js`)
         .then((registration) => {
-          console.log("Service Worker registered successfully:", registration.scope);
+          void registration;
         })
-        .catch((error) => {
-          console.log("Service Worker registration failed:", error);
+        .catch(() => {
+          // Pages still works without a SW; do not fail the session.
         });
     };
 

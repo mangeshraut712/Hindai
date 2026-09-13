@@ -15,7 +15,8 @@ const nextConfig = {
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
-  productionBrowserSourceMaps: true,
+  // Keep maps off the GitHub Pages payload; generate them locally when debugging.
+  productionBrowserSourceMaps: false,
   ...(isGithubPages
     ? {
         output: "export",

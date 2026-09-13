@@ -3,7 +3,7 @@
 > Comprehensive developer and AI agent guide to the Hind AI platform, cataloging the codebase architecture, supported features, scripture datasets, and user pathways.
 
 ## Overview
-Hind AI is a Next.js 15+ and React 19 application hosting an interactive scripture catalog of Sanatana Dharma, powered by Gemini models and the Google Antigravity SDK. It is structured for clean, legibly-displayed study of ancient Indian scriptures, providing bilingual Sanskrit-transliteration-English reading interfaces, AI guides, Japa counters, and visual analysis tools.
+Hind AI is a Next.js 15+ and React 19 application hosting an interactive scripture catalog of Sanatana Dharma. The public site is a static GitHub Pages export; Gemma 4 chat uses a Cloudflare Worker. It is structured for clean, bilingual Sanskrit-transliteration-English reading, AI guides, japa counters, tirtha maps, and festival study.
 
 ---
 
@@ -12,7 +12,7 @@ Hind AI is a Next.js 15+ and React 19 application hosting an interactive scriptu
 ### 1. Library Shelf (`/contents`)
 The catalog is split into Shruti and Smriti literature:
 - **Rigveda, Yajurveda, Samaveda, Atharvaveda**: The four primary Vedas, structured into Samhitas, Brahmanas, Aranyakas, and Upanishads.
-- **Upanishads**: 108 canonical Upanishads (Isa, Kena, Katha, Prasna, Mundaka, Mandukya, Taittiriya, Aitareya, Chandogya, Brihadaranyaka, Svetasvatara, etc.) covering non-dual Vedanta.
+- **Upanishads**: 108 canonical Upanishads covering non-dual Vedanta.
 - **Itihasas**: Epics including Valmiki Ramayana and Vyasa Mahabharata (featuring the Bhagavad Gita).
 - **Puranas**: 18 Mahapuranas (Vishnu, Bhagavata, Shiva, Devi Bhagavata, Markandeya, etc.).
 - **Philosophies**: The Six Darshanas (Nyaya, Vaisheshika, Samkhya, Yoga, Mimamsa, Vedanta).
@@ -25,7 +25,7 @@ An interactive digital Japa Mala tool allowing users to:
 - View a progress dashboard, daily reminders, and Panchanga-calculated guidelines.
 
 ### 3. Guru AI Guide (`/ai-guide`)
-A context-aware AI chat interface designed to answer philosophical and translation questions using the Google Gemma 4 API. It supports:
+A context-aware AI chat interface designed to answer philosophical and translation questions using Gemma 4. It supports:
 - Streaming-friendly text answers.
 - Scriptural source citations.
 - Language-specific guidance.
@@ -39,24 +39,30 @@ A suite of tools for learners of the Sanskrit language:
 ---
 
 ## Technical Stack
-- **Framework**: Next.js 15.5+ (App Router)
+- **Framework**: Next.js 15.5+ (App Router), static export for GitHub Pages.
 - **UI & Styling**: Tailwind CSS, Radix UI primitives, Framer Motion for smooth micro-animations.
-- **Theme**: Glassmorphism aesthetic featuring a saffron & gold accented palette (supporting seamless light/dark mode transitions).
-- **State Management**: React Hooks (useState, useEffect, useMemo) combined with local storage persistence.
+- **Theme**: Paper field, ink type, saffron accent (light and dark).
+- **State Management**: React Hooks combined with local storage persistence.
+- **AI**: Cloudflare Worker (`workers/hindai-gemma`) for Gemma; optional OpenRouter locally.
 
 ---
 
 ## Primary Page Paths & Links
-- [Homepage](https://hindai-nine.vercel.app/): Main entrance and overview.
-- [Library Shelf](https://hindai-nine.vercel.app/contents): Explore the core catalog.
-- [Guru AI Guide](https://hindai-nine.vercel.app/ai-guide): Dynamic chat query interface.
-- [Vision Analysis](https://hindai-nine.vercel.app/vision): Upload iconography or text pictures.
-- [Dharma Guide](https://hindai-nine.vercel.app/dharma): Guidelines on daily spiritual duties.
-- [Daily Sadhana](https://hindai-nine.vercel.app/sadhana): Japa Mala digital counter.
-- [Sanskrit Studio](https://hindai-nine.vercel.app/sanskrit-nova): Interactive language learning sandbox.
-- [Sanskrit Tools](https://hindai-nine.vercel.app/sanskrit-tools): Alphabet conversion and lexicon utilities.
-- [Learning Hub](https://hindai-nine.vercel.app/learning): Curated guides on Vedas and philosophy.
-- [Panchanga](https://hindai-nine.vercel.app/panchanga): Calendar calculation tool.
-- [Philosophies](https://hindai-nine.vercel.app/philosophies): Deep-dives into the six orthodox darshanas.
-- [Stotras Library](https://hindai-nine.vercel.app/stotras): Audio players and full lyrics for Hanuman Chalisa, Gayatri Mantra, and major Aartis.
-- [Guided Study Paths](https://hindai-nine.vercel.app/study-paths): Structured study roadmaps.
+- [Homepage](https://mangeshraut712.github.io/Hindai/): Main entrance and overview.
+- [Library Shelf](https://mangeshraut712.github.io/Hindai/contents/): Explore the core catalog.
+- [Guru AI Guide](https://mangeshraut712.github.io/Hindai/ai-guide/): Dynamic chat query interface.
+- [Vision Analysis](https://mangeshraut712.github.io/Hindai/vision/): Upload iconography or text pictures.
+- [Dharma Guide](https://mangeshraut712.github.io/Hindai/dharma/): Guidelines on daily spiritual duties.
+- [Daily Sadhana](https://mangeshraut712.github.io/Hindai/sadhana/): Japa Mala digital counter.
+- [Sanskrit Studio](https://mangeshraut712.github.io/Hindai/sanskrit-nova/): Interactive language learning sandbox.
+- [Sanskrit Tools](https://mangeshraut712.github.io/Hindai/sanskrit-tools/): Alphabet conversion and lexicon utilities.
+- [Learning Hub](https://mangeshraut712.github.io/Hindai/learning/): Curated guides on Vedas and philosophy.
+- [Panchanga](https://mangeshraut712.github.io/Hindai/panchanga/): Calendar calculation tool.
+- [Philosophies](https://mangeshraut712.github.io/Hindai/philosophies/): Deep-dives into the six orthodox darshanas.
+- [Stotras Library](https://mangeshraut712.github.io/Hindai/stotras/): Audio players and full lyrics for Hanuman Chalisa, Gayatri Mantra, and major Aartis.
+- [Guided Study Paths](https://mangeshraut712.github.io/Hindai/study-paths/): Structured study roadmaps.
+- [Festivals](https://mangeshraut712.github.io/Hindai/festivals/): Utsav encyclopedia.
+- [Katha](https://mangeshraut712.github.io/Hindai/katha/): Book-depth deity stories.
+- [Tirtha map](https://mangeshraut712.github.io/Hindai/pilgrimage/): Sacred geography.
+- [Haripaat](https://mangeshraut712.github.io/Hindai/haripaat/): Daily Hari reading.
+- [Shivlilamrit](https://mangeshraut712.github.io/Hindai/shivlilamrit/): Shravan pothi reader.
