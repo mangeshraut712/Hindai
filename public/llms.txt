@@ -8,11 +8,14 @@
 - **Sadhana**: Mantra Japa counter and digital meditation tools.
 - **Sanskrit Studio**: Translators, transliterations, dictionaries, and vocabulary analyzers.
 - **Dharma Guide**: Structured context on rituals, festivals, and practices.
+- **Culture**: Tirtha maps, festival encyclopedia, katha grantha, and Shridhar pothis.
 
 ## Primary Routes
-- [Library Shelf](https://hindai-nine.vercel.app/contents): Explore cataloged ancient texts.
-- [Guru AI Guide](https://hindai-nine.vercel.app/ai-guide): Interact with the scriptural assistant.
-- [Daily Sadhana](https://hindai-nine.vercel.app/sadhana): Use the digital japa count tool.
-- [Vision Analysis](https://hindai-nine.vercel.app/vision): Upload images of scripts and temples.
-- [Dharma Guide](https://hindai-nine.vercel.app/dharma): Guidelines on spiritual paths.
-- [Stotras Library](https://hindai-nine.vercel.app/stotras): Chant and listen to devotional hymns.
+- [Library Shelf](https://mangeshraut712.github.io/Hindai/contents/): Explore cataloged ancient texts.
+- [Guru AI Guide](https://mangeshraut712.github.io/Hindai/ai-guide/): Interact with the scriptural assistant.
+- [Daily Sadhana](https://mangeshraut712.github.io/Hindai/sadhana/): Use the digital japa count tool.
+- [Vision Analysis](https://mangeshraut712.github.io/Hindai/vision/): Upload images of scripts and temples.
+- [Dharma Guide](https://mangeshraut712.github.io/Hindai/dharma/): Guidelines on spiritual paths.
+- [Stotras Library](https://mangeshraut712.github.io/Hindai/stotras/): Chant and listen to devotional hymns.
+- [Festivals](https://mangeshraut712.github.io/Hindai/festivals/): Utsav encyclopedia with living practice notes.
+- [Tirtha map](https://mangeshraut712.github.io/Hindai/pilgrimage/): Jyotirlingas, peethas, Char Dham, Ashtavinayak.

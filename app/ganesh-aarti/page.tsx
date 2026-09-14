@@ -21,7 +21,7 @@ export default function GaneshAartiIndexPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <GurukulHero
           src="/ganesh-aarti/hero.webp"
           alt="Artist impression of four-armed Ganesha with mushaka — not a photograph of a living murti"

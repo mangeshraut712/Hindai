@@ -28,6 +28,7 @@ export default function Error({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="relative z-10 max-w-xl text-center"
+        id="main-content"
       >
         <span className="eyebrow mx-auto">An unexpected interruption</span>
 

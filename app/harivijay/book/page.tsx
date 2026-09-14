@@ -22,7 +22,7 @@ export default function HarivijayBookPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <Suspense fallback={<BookFallback />}>
           <HarivijayBookClient fallbackPage={1} />
         </Suspense>

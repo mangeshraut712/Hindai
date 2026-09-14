@@ -45,7 +45,7 @@ export default async function GaneshAartiDetailPage({ params }: PageProps) {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <section className="relative overflow-hidden border-b border-border/60">
           <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
             <Link

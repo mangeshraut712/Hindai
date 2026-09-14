@@ -104,4 +104,11 @@ test.describe("Homepage Layout Tests", () => {
     const heroContent = heroSection.locator("h1, h2");
     await expect(heroContent.first()).toBeVisible();
   });
+
+  test("skip link targets main content", async ({ page }) => {
+    await page.goto("/");
+    const skip = page.getByRole("link", { name: "Skip to main content" });
+    await expect(skip).toHaveAttribute("href", "#main-content");
+    await expect(page.locator("#main-content")).toBeVisible();
+  });
 });

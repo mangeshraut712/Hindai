@@ -32,7 +32,7 @@ export default function AIGuideLoading() {
         </div>
       </header>
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         {/* Hero Section */}
         <section className="relative overflow-hidden border-b border-border/60">
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">

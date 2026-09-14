@@ -48,7 +48,7 @@ export default async function ShivlilamritReadPage({ params }: PageProps) {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <Suspense
           fallback={<p className="p-8 text-center text-sm text-muted-foreground">Opening pothi…</p>}
         >

@@ -28,7 +28,7 @@ export default function ScriptureLoading() {
         </div>
       </header>
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         {/* Hero */}
         <section className="relative overflow-hidden border-b border-border/60">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />

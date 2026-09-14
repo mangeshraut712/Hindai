@@ -11,7 +11,7 @@ import { PageProgress } from "@/components/page-progress";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { PageTransition } from "@/components/page-transition";
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
-import { SITE_URL } from "@/lib/site";
+import { publicUrl, SITE_URL } from "@/lib/site";
 import "@/index.css";
 
 const manrope = Manrope({
@@ -117,7 +117,7 @@ export const metadata: Metadata = {
     icon: [{ url: "/logo.webp", type: "image/webp" }],
     apple: [{ url: "/logo.webp", sizes: "180x180" }],
   },
-  manifest: "/manifest.json",
+  manifest: publicUrl("/manifest.json"),
 };
 
 export const viewport: Viewport = {
@@ -168,7 +168,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         suppressHydrationWarning
         className="relative min-h-screen bg-background font-sans antialiased"
       >
-        <Script src="/strip-injected-dom-attrs.js" strategy="beforeInteractive" />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-primary-foreground"
+        >
+          Skip to main content
+        </a>
+        <Script src={publicUrl("/strip-injected-dom-attrs.js")} strategy="beforeInteractive" />
         <GoogleAnalytics />
         <Suspense fallback={null}>
           <PageProgress />

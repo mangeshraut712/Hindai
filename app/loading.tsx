@@ -76,7 +76,7 @@ export default function Loading() {
       </section>
 
       {/* Content Skeleton */}
-      <main className="flex-1 px-4 py-24 sm:px-6 lg:px-8">
+      <main id="main-content" className="flex-1 px-4 py-24 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl space-y-24">
           {/* Section 1 */}
           <div className="space-y-12">

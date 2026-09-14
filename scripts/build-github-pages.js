@@ -18,6 +18,8 @@ const apiDir = path.join(root, "app", "api");
 const stashDir = path.join(root, ".static-export-api-stash");
 const outDir = path.join(root, "out");
 
+const { prefixPublicAssetContent } = require("./prefix-public-asset-paths");
+
 const SITE_URL = "https://mangeshraut712.github.io/Hindai";
 const BASE_PATH = "/Hindai";
 
@@ -80,32 +82,12 @@ try {
 process.exit(status);
 
 /**
- * Next 15 static export currently emits `src="/logo.webp"` without basePath.
- * Rewrite public media paths so GitHub Pages serves `/Hindai/...`.
+ * Next 15 static export currently emits `src="/logo.webp"` and
+ * `href="/manifest.json"` without basePath. Rewrite public-root paths
+ * so GitHub Pages serves `/Hindai/...`.
  */
 function prefixPublicAssetPaths(dir, basePath) {
-  const mediaExt = String.raw`(?:webp|png|jpg|jpeg|gif|svg|ico|avif|mp3|mp4|pdf)`;
-  const attrPattern = new RegExp(
-    String.raw`(src|srcSet|poster)=("|')(\/(?!${basePath.slice(1)}\/)(?!_next\/)[^"'?]*\.${mediaExt})(\?[^"']*)?\2`,
-    "g"
-  );
-  const quotedPattern = new RegExp(
-    String.raw`("|')(\/(?!${basePath.slice(1)}\/)(?!_next\/)(?!api\/)[^"'?\s]*\.${mediaExt})(\?[^"']*)?\1`,
-    "g"
-  );
   let changedFiles = 0;
-
-  function rewrite(content, includeQuoted) {
-    let next = content.replace(attrPattern, (_m, attr, quote, assetPath, query = "") => {
-      return `${attr}=${quote}${basePath}${assetPath}${query}${quote}`;
-    });
-    if (includeQuoted) {
-      next = next.replace(quotedPattern, (_m, quote, assetPath, query = "") => {
-        return `${quote}${basePath}${assetPath}${query}${quote}`;
-      });
-    }
-    return next;
-  }
 
   function walk(current) {
     for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
@@ -117,7 +99,7 @@ function prefixPublicAssetPaths(dir, basePath) {
       }
       if (!/\.(html|js|rsc)$/.test(entry.name)) continue;
       const before = fs.readFileSync(full, "utf8");
-      const after = rewrite(before, true);
+      const after = prefixPublicAssetContent(before, basePath, true);
       if (after !== before) {
         fs.writeFileSync(full, after);
         changedFiles += 1;
