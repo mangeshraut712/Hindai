@@ -9,6 +9,8 @@ const ROUTES = [
   "/ganesh-aarti/sukhakarta-dukhaharta",
   "/haripaat",
   "/haripaat/book?p=1",
+  "/durga-saptashati",
+  "/durga-saptashati/book?p=1",
   "/shivlilamrit",
   "/shivlilamrit/book?p=1",
   "/shivlilamrit/book?p=2",

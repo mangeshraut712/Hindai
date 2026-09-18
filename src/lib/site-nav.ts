@@ -103,6 +103,12 @@ export const SITE_NAV_GROUPS: SiteNavGroup[] = [
         icon: BookOpen,
       },
       {
+        label: "Durga Saptashati",
+        hint: "Devi Mahatmya · Chandi patha",
+        href: "/durga-saptashati",
+        icon: BookOpen,
+      },
+      {
         label: "Shivlilamrit",
         hint: "Shravan pothi reader",
         href: "/shivlilamrit",

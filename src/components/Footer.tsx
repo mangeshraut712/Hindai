@@ -41,6 +41,7 @@ function footerColumns(): FooterColumn[] {
       links: [
         { href: "/contents", label: "Catalog" },
         { href: "/shivlilamrit", label: "Shivlilamrit" },
+        { href: "/durga-saptashati", label: "Durga Saptashati" },
         { href: "/haripaat", label: "Haripaat" },
         { href: "/harivijay", label: "Harivijay" },
         { href: "/ramvijay", label: "Ramvijay" },

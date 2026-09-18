@@ -177,6 +177,10 @@ export function GurukulDiagrams() {
               Sharad Navaratri →
             </Link>
             {" · "}
+            <Link href="/durga-saptashati" className="text-primary">
+              Durga Saptashati
+            </Link>
+            {" · "}
             <Link href="/katha/devi" className="text-primary">
               Devi katha
             </Link>

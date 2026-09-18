@@ -17,6 +17,7 @@ test("site nav groups cover Places, Practice, Ask AI, Learn, More without duplic
   assert.ok(hrefs.includes("/shivlilamrit"));
   assert.ok(hrefs.includes("/harivijay"));
   assert.ok(hrefs.includes("/haripaat"));
+  assert.ok(hrefs.includes("/durga-saptashati"));
   assert.ok(hrefs.includes("/ramvijay"));
   assert.ok(hrefs.includes("/festivals"));
   assert.ok(hrefs.includes("/katha"));

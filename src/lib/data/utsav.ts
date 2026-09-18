@@ -730,6 +730,7 @@ export const UTSAVS: UtsavEntry[] = [
       "Vijayadashami is also a day for beginning weapons-training and learning in many traditions (ayudha / vidya start).",
     ],
     relatedHrefs: [
+      { label: "Durga Saptashati", href: "/durga-saptashati" },
       { label: "Devi", href: "/devi" },
       { label: "Tirtha map", href: "/pilgrimage" },
     ],

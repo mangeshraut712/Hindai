@@ -174,7 +174,7 @@ export const scriptureSections: ScriptureSection[] = [
         category: "Shakta",
         description: "A luminous text of the Divine Mother, power, protection, and cosmic balance.",
         highlight: "Shakti, victory, protection",
-        href: "/devi-mahatmyam",
+        href: "/durga-saptashati",
         language: "Sanskrit",
         approximateDate: "~400–600 CE",
         keyConcepts: ["Shakti", "Protection", "Cosmic order"],

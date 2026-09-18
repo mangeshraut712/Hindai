@@ -50,6 +50,7 @@ test("referenced site media paths exist under public/", () => {
     "harivijay/cover.webp",
     "ramvijay/cover.webp",
     "shivlilamrit/cover.webp",
+    "durga-saptashati/cover.webp",
     "ganesh-aarti/hero.webp",
     "vishnu/hero.webp",
     "festivals/janmashtami.webp",
