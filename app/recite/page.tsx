@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { GemmaStudyPanel } from "@/components/ai/gemma-study-panel";
 import { RECITATIONS, recitationVerseCount } from "@/lib/data/recitations/catalog";
 import { SITE_URL } from "@/lib/site";
 
@@ -33,10 +34,10 @@ export default function ReciteIndexPage() {
         <section className="mx-auto max-w-3xl space-y-4 px-4 py-12 sm:px-6 lg:px-8">
           <ul className="space-y-4">
             {RECITATIONS.map((item) => (
-              <li key={item.slug}>
+              <li key={item.slug} className="surface-panel rounded-2xl p-5">
                 <Link
                   href={`/recite/${item.slug}`}
-                  className="surface-panel block rounded-2xl p-5 transition-colors hover:border-primary/40"
+                  className="block transition-colors hover:text-primary"
                 >
                   <p className="text-sm text-primary">{item.occasion}</p>
                   <h2 className="mt-2 font-serif text-2xl">{item.title}</h2>
@@ -48,6 +49,11 @@ export default function ReciteIndexPage() {
                     {item.deity} · {recitationVerseCount(item)} verses
                   </p>
                 </Link>
+                <GemmaStudyPanel
+                  kind="mantra"
+                  title={item.title}
+                  context={`${item.occasion}\n${item.summary}`}
+                />
               </li>
             ))}
           </ul>

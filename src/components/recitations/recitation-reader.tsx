@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Pause, Play, Volume2 } from "lucide-react";
+import { GemmaStudyPanel } from "@/components/ai/gemma-study-panel";
 import { Button } from "@/components/ui/button";
 import type { Recitation, RecitationLayer, RecitationVerse } from "@/lib/data/recitations/types";
 
@@ -219,6 +220,12 @@ export function RecitationReader({ recitation }: { recitation: Recitation }) {
       <div>
         <h2 className="font-serif text-2xl">{section.titleEn}</h2>
         <p className="mt-2 font-devanagari text-xl text-primary">{section.title}</p>
+        <GemmaStudyPanel
+          key={section.id}
+          kind="mantra"
+          title={`${recitation.title} · ${section.titleEn}`}
+          context={section.verses.map((verse) => verse.original).join("\n")}
+        />
       </div>
 
       <ol className="space-y-5">

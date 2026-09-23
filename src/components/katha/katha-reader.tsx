@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { GemmaStudyPanel } from "@/components/ai/gemma-study-panel";
 import type { KathaGrantha } from "@/lib/data/katha-grantha";
 import { KATHA_GRANTHAS } from "@/lib/data/katha-grantha";
 import { publicUrl } from "@/lib/site";
@@ -76,6 +77,11 @@ export function KathaReader({ grantha }: { grantha: KathaGrantha }) {
                   <li key={source}>{source}</li>
                 ))}
               </ul>
+              <GemmaStudyPanel
+                kind="katha"
+                title={`${grantha.title} · ${chapter.title}`}
+                context={chapter.body.join("\n")}
+              />
             </section>
           ))}
         </div>

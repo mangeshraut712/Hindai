@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { track } from "@vercel/analytics";
+import { retrieveSitePages } from "@/lib/ai/site-knowledge";
 import { scriptureCatalog } from "@/lib/scripture-catalog";
 import { sampleVerses, scriptures as scriptureMeta, searchVerses } from "@/lib/data/scriptures";
 
@@ -81,6 +82,15 @@ export function SearchDialog({
       if (searchQuery.trim() === "") {
         setResults([]);
       } else {
+        const libraryHits: SearchResult[] = retrieveSitePages(searchQuery).hits.map((hit) => ({
+          id: hit.href,
+          title: hit.title,
+          description: hit.snippet,
+          category: hit.kind,
+          href: hit.href,
+          sanskrit: hit.titleSa,
+          type: "text",
+        }));
         const filtered = scriptureData.filter(
           (item) =>
             item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -92,7 +102,14 @@ export function SearchDialog({
           .map((verse) => verseData.find((item) => item.id === verse.id))
           .filter((item): item is SearchResult => Boolean(item));
 
-        const merged = [...filtered, ...verseMatches].slice(0, 8);
+        const seen = new Set<string>();
+        const merged = [...libraryHits, ...filtered, ...verseMatches]
+          .filter((item) => {
+            if (seen.has(item.href)) return false;
+            seen.add(item.href);
+            return true;
+          })
+          .slice(0, 8);
         setResults(merged);
 
         // Track search results
@@ -151,14 +168,22 @@ export function SearchDialog({
             Search Scriptures
           </DialogTitle>
           <DialogDescription>
-            Search across all scriptures by name, description, Sanskrit text, or category
+            Search the library and open a page: Hanuman Chalisa, Shiv Puran, katha, or a book
           </DialogDescription>
         </DialogHeader>
         <div className="p-5">
           <div className="relative">
             <SearchIcon className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              placeholder="Search by name, description, Sanskrit, or category..."
+              placeholder="Open Hanuman Chalisa, Shiv Puran, katha..."
+              onKeyDown={(event) => {
+                if (event.key !== "Enter") return;
+                const found = retrieveSitePages(query);
+                if (found.shouldOpen && found.best) {
+                  event.preventDefault();
+                  handleSelect(found.best.href);
+                }
+              }}
               value={query}
               onChange={(e) => handleSearch(e.target.value)}
               className="rounded-2xl border-border/60 bg-background/75 py-5 pl-11 pr-10 text-base placeholder:text-muted-foreground/60 focus-visible:ring-primary/30"
@@ -235,7 +260,7 @@ export function SearchDialog({
                   <kbd className="rounded-md bg-muted px-1.5 py-0.5 font-mono">K</kbd> anywhere
                 </div>
                 <div className="mt-5 flex flex-wrap justify-center gap-2">
-                  {["Rigveda", "Bhagavad Gita", "Upanishads", "Karma"].map((suggestion) => (
+                  {["Hanuman Chalisa", "Shiv Puran", "Katha", "Bhagavad Gita"].map((suggestion) => (
                     <button
                       type="button"
                       key={suggestion}

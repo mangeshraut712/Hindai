@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Columns2, Pause, Play, Search, Settings2 } from "lucide-react";
+import { GemmaStudyPanel } from "@/components/ai/gemma-study-panel";
 import { Button } from "@/components/ui/button";
 import { PrintLeaf } from "@/components/shivlilamrit/print-leaf";
 import { PrintBookShop } from "@/components/shivlilamrit/print-book-shop";
@@ -430,6 +431,13 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
             ))}
           </div>
         </div>
+
+        <GemmaStudyPanel
+          key={`${lead.page}-${locale}`}
+          kind="book"
+          title={heading(lead)}
+          context={speakLines.join("\n")}
+        />
 
         <div className="mt-5 rounded-2xl border border-border/70 bg-card px-3 py-4 sm:px-4">
           <p className="text-center font-devanagari text-sm text-foreground">

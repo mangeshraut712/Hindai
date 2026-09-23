@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { GemmaStudyPanel } from "@/components/ai/gemma-study-panel";
 import { Button } from "@/components/ui/button";
 import { RAMVIJAY_CHAPTERS, type ReaderLocale } from "@/lib/data/ramvijay/catalog";
 import {
@@ -32,12 +33,39 @@ function localeLabel(locale: ReaderLocale): string {
   }
 }
 
+function studyCopy(
+  page: ReturnType<typeof getLeaf>,
+  locale: ReaderLocale
+): { title: string; context: string } {
+  switch (page.kind) {
+    case "cover":
+      return { title: "Ramvijay", context: "Cover of the Ramvijay katha-sar." };
+    case "contents":
+      return {
+        title: "Ramvijay contents",
+        context: RAMVIJAY_CHAPTERS.map((chapter) => `${chapter.titleMr} — ${chapter.titleEn}`).join(
+          "\n"
+        ),
+      };
+    case "adhyay":
+      return {
+        title: page.chapter.titleEn,
+        context: page.chapter.katha[locale].join("\n"),
+      };
+    default: {
+      const exhaustive: never = page;
+      return exhaustive;
+    }
+  }
+}
+
 export function RamvijayReader({ initialPage }: { initialPage: number }) {
   const router = useRouter();
   const [page, setPage] = useState(() => parseBookPage(String(initialPage)));
   const [locale, setLocale] = useState<ReaderLocale>("mr");
   const [speaking, setSpeaking] = useState(false);
   const leaf = getLeaf(page);
+  const study = studyCopy(leaf, locale);
   const total = folioCount();
 
   useEffect(() => {
@@ -178,6 +206,8 @@ export function RamvijayReader({ initialPage }: { initialPage: number }) {
           </div>
         ) : null}
       </article>
+
+      <GemmaStudyPanel key={`${page}-${locale}`} kind="book" title={study.title} context={study.context} />
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
         <Button

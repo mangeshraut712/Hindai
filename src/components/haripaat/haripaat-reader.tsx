@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { GemmaStudyPanel } from "@/components/ai/gemma-study-panel";
 import { Button } from "@/components/ui/button";
 import { HARIPAAT_LEAVES, type ReaderLocale } from "@/lib/data/haripaat/catalog";
 import {
@@ -18,6 +19,27 @@ import {
   toDevanagariNumeral,
 } from "@/lib/data/haripaat/book";
 import { publicUrl } from "@/lib/site";
+
+function studyCopy(
+  page: ReturnType<typeof getPage>,
+  locale: ReaderLocale
+): { title: string; context: string } {
+  switch (page.kind) {
+    case "cover":
+      return { title: "Haripaat", context: "Cover of the Haripaat katha-sar." };
+    case "contents":
+      return {
+        title: "Haripaat contents",
+        context: HARIPAAT_LEAVES.map((leaf) => `${leaf.titleMr} — ${leaf.titleEn}`).join("\n"),
+      };
+    case "leaf":
+      return { title: page.leaf.titleEn, context: page.leaf.katha[locale].join("\n") };
+    default: {
+      const exhaustive: never = page;
+      return exhaustive;
+    }
+  }
+}
 
 function localeLabel(locale: ReaderLocale): string {
   switch (locale) {
@@ -38,6 +60,7 @@ export function HaripaatReader({ initialPage }: { initialPage: number }) {
   const [locale, setLocale] = useState<ReaderLocale>("mr");
   const [speaking, setSpeaking] = useState(false);
   const leafPage = getPage(page);
+  const study = studyCopy(leafPage, locale);
   const total = folioCount();
 
   useEffect(() => {
@@ -169,6 +192,8 @@ export function HaripaatReader({ initialPage }: { initialPage: number }) {
           </div>
         ) : null}
       </article>
+
+      <GemmaStudyPanel key={`${page}-${locale}`} kind="book" title={study.title} context={study.context} />
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
         <Button

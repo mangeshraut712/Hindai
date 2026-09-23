@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 import { Heart, Music, Star, BookOpen, Play } from "lucide-react";
+import { GemmaStudyPanel } from "@/components/ai/gemma-study-panel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LALITA_SAHASRANAMA, SHIVA_SAHASRANAMA } from "@/lib/data/sahasranama-collection";
@@ -260,6 +261,11 @@ export function StotraLibrary() {
                               </span>
                             )}
                           </div>
+                          <GemmaStudyPanel
+                            kind="mantra"
+                            title={stotra.name}
+                            context={`${stotra.deity}. ${stotra.description}`}
+                          />
                         </CardContent>
                       </Card>
                     </m.li>
@@ -334,6 +340,17 @@ export function StotraLibrary() {
                       </div>
                     </div>
                   )}
+
+                  <GemmaStudyPanel
+                    kind="mantra"
+                    title={selectedStotra.name}
+                    context={[
+                      selectedStotra.description,
+                      ...(selectedStotra.sampleNames ?? []).map(
+                        (name) => `${name.sanskrit} — ${name.meaning}`
+                      ),
+                    ].join("\n")}
+                  />
 
                   <div className="flex items-center gap-4">
                     <span

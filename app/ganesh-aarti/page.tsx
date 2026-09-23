@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GurukulHero } from "@/components/gurukul/gurukul-media";
+import { GemmaStudyPanel } from "@/components/ai/gemma-study-panel";
 import { GANESH_AARTI_SANGRAH, aartiKindLabel } from "@/lib/data/ganesh-aarti-sangrah";
 import { SITE_URL, publicUrl } from "@/lib/site";
 
@@ -45,10 +46,10 @@ export default function GaneshAartiIndexPage() {
           </p>
           <ul className="mt-8 grid list-none grid-cols-1 gap-4 p-0 md:grid-cols-2">
             {GANESH_AARTI_SANGRAH.map((item) => (
-              <li key={item.slug}>
+              <li key={item.slug} className="border-b border-border/70 py-5">
                 <Link
                   href={`/ganesh-aarti/${item.slug}`}
-                  className="group block h-full border-b border-border/70 py-5 transition hover:border-primary/50"
+                  className="group block transition hover:text-primary"
                 >
                   <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">
                     {aartiKindLabel(item.kind)} · {item.deity}
@@ -61,6 +62,7 @@ export default function GaneshAartiIndexPage() {
                     {item.summary}
                   </p>
                 </Link>
+                <GemmaStudyPanel kind="mantra" title={item.title} context={item.summary} />
               </li>
             ))}
           </ul>

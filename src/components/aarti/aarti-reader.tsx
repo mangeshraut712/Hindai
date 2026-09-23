@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Pause, Play, Volume2 } from "lucide-react";
+import { GemmaStudyPanel } from "@/components/ai/gemma-study-panel";
 import { Button } from "@/components/ui/button";
 import type { AartiItem, AartiLayer } from "@/lib/data/ganesh-aarti-sangrah";
 
@@ -172,6 +173,11 @@ export function AartiReader({ item }: { item: AartiItem }) {
           );
         })}
       </ol>
+      <GemmaStudyPanel
+        kind="mantra"
+        title={item.title}
+        context={item.verses.map((verse) => verse.original).join("\n")}
+      />
       {item.bookletNote ? (
         <aside className="surface-panel rounded-2xl p-5" aria-label="Printed booklet notes">
           <h2 className="text-sm font-semibold text-primary">Printed booklet notes</h2>

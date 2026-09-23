@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { GemmaStudyPanel } from "@/components/ai/gemma-study-panel";
 import { Button } from "@/components/ui/button";
 import { BEAT_IMAGE, HARIVIJAY_CHAPTERS, type ReaderLocale } from "@/lib/data/harivijay/catalog";
 import {
@@ -20,12 +21,39 @@ import {
 import { readerLocaleLabel, speechLang } from "@/lib/data/harivijay/locales";
 import { publicUrl } from "@/lib/site";
 
+function studyCopy(
+  page: ReturnType<typeof getLeaf>,
+  locale: ReaderLocale
+): { title: string; context: string } {
+  switch (page.kind) {
+    case "cover":
+      return { title: "Harivijay", context: "Cover of the Harivijay katha-sar." };
+    case "contents":
+      return {
+        title: "Harivijay contents",
+        context: HARIVIJAY_CHAPTERS.map((chapter) => `${chapter.titleMr} — ${chapter.titleEn}`).join(
+          "\n"
+        ),
+      };
+    case "adhyay":
+      return {
+        title: page.chapter.titleEn,
+        context: page.chapter.katha[locale].join("\n"),
+      };
+    default: {
+      const exhaustive: never = page;
+      return exhaustive;
+    }
+  }
+}
+
 export function HarivijayReader({ initialPage }: { initialPage: number }) {
   const router = useRouter();
   const [page, setPage] = useState(() => parseBookPage(String(initialPage)));
   const [locale, setLocale] = useState<ReaderLocale>("mr");
   const [speaking, setSpeaking] = useState(false);
   const leaf = getLeaf(page);
+  const study = studyCopy(leaf, locale);
   const total = folioCount();
 
   useEffect(() => {
@@ -173,6 +201,8 @@ export function HarivijayReader({ initialPage }: { initialPage: number }) {
           </div>
         ) : null}
       </article>
+
+      <GemmaStudyPanel key={`${page}-${locale}`} kind="book" title={study.title} context={study.context} />
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
         <Button

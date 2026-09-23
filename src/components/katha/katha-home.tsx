@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { GemmaStudyPanel } from "@/components/ai/gemma-study-panel";
 import { KATHA_GRANTHAS, KATHA_NOTE } from "@/lib/data/katha-grantha";
 import { GurukulHero } from "@/components/gurukul/gurukul-media";
 import { publicUrl } from "@/lib/site";
@@ -24,10 +25,10 @@ export function KathaHome() {
         </p>
         <ul className="mt-10 grid list-none grid-cols-1 gap-0 p-0 md:grid-cols-2 md:gap-x-10">
           {KATHA_GRANTHAS.map((item) => (
-            <li key={item.slug}>
+            <li key={item.slug} className="border-b border-border/70 py-5">
               <Link
                 href={`/katha/${item.slug}`}
-                className="group grid grid-cols-[7rem_minmax(0,1fr)] gap-4 border-b border-border/70 py-5"
+                className="group grid grid-cols-[7rem_minmax(0,1fr)] gap-4"
               >
                 <Image
                   src={publicUrl(item.heroImage)}
@@ -50,6 +51,11 @@ export function KathaHome() {
                   </p>
                 </div>
               </Link>
+              <GemmaStudyPanel
+                kind="katha"
+                title={item.title}
+                context={`${item.tagline}\n${item.note}`}
+              />
             </li>
           ))}
         </ul>

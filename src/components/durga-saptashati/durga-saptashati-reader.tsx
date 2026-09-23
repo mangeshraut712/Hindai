@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { GemmaStudyPanel } from "@/components/ai/gemma-study-panel";
 import { Button } from "@/components/ui/button";
 import {
   DURGA_SAPTASHATI_LEAVES,
@@ -22,6 +23,33 @@ import {
   toDevanagariNumeral,
 } from "@/lib/data/durga-saptashati/book";
 import { publicUrl } from "@/lib/site";
+
+function studyCopy(
+  page: ReturnType<typeof getPage>,
+  locale: ReaderLocale
+): { title: string; context: string } {
+  switch (page.kind) {
+    case "cover":
+      return {
+        title: "Durga Saptashati",
+        context: "Cover of the Devi Mahatmya katha-sar: Kavacha, Argala, Kilaka, then thirteen adhyayas.",
+      };
+    case "contents":
+      return {
+        title: "Durga Saptashati contents",
+        context: DURGA_SAPTASHATI_LEAVES.map((leaf) => `${leaf.titleMr} — ${leaf.titleEn}`).join("\n"),
+      };
+    case "leaf":
+      return {
+        title: page.leaf.titleEn,
+        context: page.leaf.katha[locale].join("\n"),
+      };
+    default: {
+      const exhaustive: never = page;
+      return exhaustive;
+    }
+  }
+}
 
 function localeLabel(locale: ReaderLocale): string {
   switch (locale) {
@@ -42,6 +70,7 @@ export function DurgaSaptashatiReader({ initialPage }: { initialPage: number }) 
   const [locale, setLocale] = useState<ReaderLocale>("mr");
   const [speaking, setSpeaking] = useState(false);
   const leafPage = getPage(page);
+  const study = studyCopy(leafPage, locale);
   const total = folioCount();
 
   useEffect(() => {
@@ -182,6 +211,8 @@ export function DurgaSaptashatiReader({ initialPage }: { initialPage: number }) 
           </div>
         ) : null}
       </article>
+
+      <GemmaStudyPanel key={`${page}-${locale}`} kind="book" title={study.title} context={study.context} />
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
         <Button

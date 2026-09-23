@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Send,
@@ -19,12 +20,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { triggerHapticOnPress, triggerHapticOnSuccess } from "@/lib/haptics";
 import { ServerFeatureNotice } from "@/components/ai/server-feature-notice";
+import { SiteRichResults } from "@/components/ai/site-rich-results";
+import { retrieveSitePages, siteGroundingBlock, type SiteRetrieval } from "@/lib/ai/site-knowledge";
 import { appFetch } from "@/lib/runtime/app-fetch";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
   timestamp: Date;
+  retrieval?: SiteRetrieval;
 }
 
 const QUICK_QUESTIONS = [
@@ -37,6 +41,7 @@ const QUICK_QUESTIONS = [
 ];
 
 export function VedicScholar() {
+  const router = useRouter();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -60,6 +65,11 @@ export function VedicScholar() {
       if (!promptToSend || isLoading) return;
 
       triggerHapticOnPress();
+      const retrieval = retrieveSitePages(promptToSend);
+      if (retrieval.shouldOpen && retrieval.best) {
+        router.push(retrieval.best.href);
+        return;
+      }
       const userMessage: Message = {
         role: "user",
         content: promptToSend,
@@ -76,9 +86,12 @@ export function VedicScholar() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            messages: [...messages, userMessage].map((m) => ({
+            messages: [...messages, userMessage].map((m, index, all) => ({
               role: m.role,
-              content: m.content,
+              content:
+                index === all.length - 1
+                  ? `${m.content}\n\n${siteGroundingBlock(retrieval)}`
+                  : m.content,
             })),
             stream: true,
           }),
@@ -96,6 +109,7 @@ export function VedicScholar() {
           role: "assistant",
           content: "",
           timestamp: new Date(),
+          retrieval,
         };
 
         setMessages((prev) => [...prev, assistantMessage]);
@@ -150,7 +164,7 @@ export function VedicScholar() {
         setIsLoading(false);
       }
     },
-    [input, isLoading, messages]
+    [input, isLoading, messages, router]
   );
 
   useEffect(() => {
@@ -318,6 +332,7 @@ export function VedicScholar() {
                         message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
                       )}
                     >
+                      {message.retrieval ? <SiteRichResults retrieval={message.retrieval} /> : null}
                       <div className="prose prose-sm dark:prose-invert max-w-none">
                         {message.content.split("\n").map((paragraph, i) => (
                           <p key={i} className="mb-2 last:mb-0">
