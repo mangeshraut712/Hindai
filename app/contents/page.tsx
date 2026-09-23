@@ -7,6 +7,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { CANONICAL_COUNTS } from "@/lib/data/canonical-counts";
+import { GranthalayHalls } from "@/components/granthalay/granthalay-halls";
 import { scriptureSections } from "@/lib/scripture-catalog";
 
 export default function ContentsPage() {
@@ -25,11 +26,10 @@ export default function ContentsPage() {
               className="max-w-3xl"
             >
               <span className="eyebrow">Granthalaya • ग्रन्थालय</span>
-              <h1 className="section-title mt-6">A cleaner catalog for timeless texts.</h1>
+              <h1 className="section-title mt-6">Hindusthan granthalay.</h1>
               <p className="section-copy mt-5">
-                Every shelf is now visible, readable, and anchor-linked. Use the catalog for
-                structure, then open Guru AI whenever you want commentary, translation, or a guided
-                explanation.
+                Start in the reading room, where the pothis and hymns can be opened. The catalog
+                below is the name map of Vedas, Upanishads, and Puranas still being filled.
               </p>
               <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
                 Hinduism does not have a fixed number of scriptures. This catalog is a practical
@@ -83,6 +83,8 @@ export default function ContentsPage() {
             </motion.div>
           </div>
         </section>
+
+        <GranthalayHalls />
 
         <section className="px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl space-y-16">

@@ -36,8 +36,8 @@ const studyModes = [
   {
     icon: Library,
     title: "Read by shelf",
-    body: "Move through Vedas, epics, Puranas, and philosophy with clear structure rather than scattered links.",
-    features: ["4 Vedas", "18 Puranas", "108 Upanishads", "2 Itihasas"],
+    body: "Open the pothis and hymns first, then the name map of Vedas, epics, and Puranas.",
+    features: ["5 full pothis", "9 recitations", "23 festivals", "Tirtha map"],
     href: "/contents",
   },
   {
