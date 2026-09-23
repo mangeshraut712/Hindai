@@ -138,7 +138,10 @@ export function GemmaStudyPanel({ kind, title, context }: GemmaStudyPanelProps) 
       </form>
       {retrieval ? <SiteRichResults retrieval={retrieval} /> : null}
       {answer ? (
-        <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-foreground" aria-live="polite">
+        <p
+          className="mt-3 whitespace-pre-wrap text-sm leading-6 text-foreground"
+          aria-live="polite"
+        >
           {answer}
         </p>
       ) : null}

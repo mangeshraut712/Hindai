@@ -32,12 +32,15 @@ function studyCopy(
     case "cover":
       return {
         title: "Durga Saptashati",
-        context: "Cover of the Devi Mahatmya katha-sar: Kavacha, Argala, Kilaka, then thirteen adhyayas.",
+        context:
+          "Cover of the Devi Mahatmya katha-sar: Kavacha, Argala, Kilaka, then thirteen adhyayas.",
       };
     case "contents":
       return {
         title: "Durga Saptashati contents",
-        context: DURGA_SAPTASHATI_LEAVES.map((leaf) => `${leaf.titleMr} — ${leaf.titleEn}`).join("\n"),
+        context: DURGA_SAPTASHATI_LEAVES.map((leaf) => `${leaf.titleMr} — ${leaf.titleEn}`).join(
+          "\n"
+        ),
       };
     case "leaf":
       return {
@@ -212,7 +215,12 @@ export function DurgaSaptashatiReader({ initialPage }: { initialPage: number }) 
         ) : null}
       </article>
 
-      <GemmaStudyPanel key={`${page}-${locale}`} kind="book" title={study.title} context={study.context} />
+      <GemmaStudyPanel
+        key={`${page}-${locale}`}
+        kind="book"
+        title={study.title}
+        context={study.context}
+      />
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
         <Button

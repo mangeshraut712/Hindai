@@ -135,11 +135,15 @@ const LIBRARY_PAGES: SitePage[] = [
     "The hymn to the sun taught to Rama.",
     ["aditya hridayam", "aditya hrudayam", "surya hridayam"]
   ),
-  page("katha", "Katha", "कथा", "/katha", "katha", "Story library for Mahadeva, Devi, Vishnu, and Ganesha.", [
+  page(
     "katha",
-    "stories",
-    "katha grantha",
-  ]),
+    "Katha",
+    "कथा",
+    "/katha",
+    "katha",
+    "Story library for Mahadeva, Devi, Vishnu, and Ganesha.",
+    ["katha", "stories", "katha grantha"]
+  ),
   page(
     "durga-katha",
     "Durga Saptashati katha",
@@ -149,15 +153,29 @@ const LIBRARY_PAGES: SitePage[] = [
     "Story guide for the Devi Mahatmya. The Sanskrit path is a separate recitation page.",
     ["durga katha", "chandi katha", "devi mahatmya story"]
   ),
-  page("shivlilamrit", "Shivlilamrit", "शिवलीलामृत", "/shivlilamrit/book", "book", "Shridhar’s Marathi ovi pothi.", [
+  page(
     "shivlilamrit",
-    "shiv lilamrit",
-    "shridhar",
+    "Shivlilamrit",
+    "शिवलीलामृत",
+    "/shivlilamrit/book",
+    "book",
+    "Shridhar’s Marathi ovi pothi.",
+    ["shivlilamrit", "shiv lilamrit", "shridhar"]
+  ),
+  page("haripaat", "Haripaat", "हरिपाठ", "/haripaat/book", "book", "Daily Hari reading.", [
+    "haripaat",
+    "hari paath",
   ]),
-  page("haripaat", "Haripaat", "हरिपाठ", "/haripaat/book", "book", "Daily Hari reading.", ["haripaat", "hari paath"]),
-  page("harivijay", "Harivijay", "हरिविजय", "/harivijay/book", "book", "Harivijay katha-sar.", ["harivijay"]),
-  page("ramvijay", "Ramvijay", "रामविजय", "/ramvijay/book", "book", "Ramvijay katha-sar.", ["ramvijay"]),
-  page("stotras", "Stotras", "स्तोत्र", "/stotras", "practice", "Hymns and sacred names.", ["stotras", "mantras"]),
+  page("harivijay", "Harivijay", "हरिविजय", "/harivijay/book", "book", "Harivijay katha-sar.", [
+    "harivijay",
+  ]),
+  page("ramvijay", "Ramvijay", "रामविजय", "/ramvijay/book", "book", "Ramvijay katha-sar.", [
+    "ramvijay",
+  ]),
+  page("stotras", "Stotras", "स्तोत्र", "/stotras", "practice", "Hymns and sacred names.", [
+    "stotras",
+    "mantras",
+  ]),
   page(
     "ganesh-aarti",
     "Ganesh Aarti Sangrah",
@@ -176,17 +194,41 @@ const LIBRARY_PAGES: SitePage[] = [
     "The household Ganpati aarti.",
     ["sukhakarta dukhaharta", "ganpati aarti"]
   ),
-  page("mahadev", "Mahadeva", "महादेव", "/mahadev", "place", "Shiva temples and the twelve Jyotirlingas.", [
+  page(
     "mahadev",
-    "jyotirlinga",
-    "shiva temples",
-  ]),
+    "Mahadeva",
+    "महादेव",
+    "/mahadev",
+    "place",
+    "Shiva temples and the twelve Jyotirlingas.",
+    ["mahadev", "jyotirlinga", "shiva temples"]
+  ),
   page("devi", "Devi", "देवी", "/devi", "place", "Shakti peethas.", ["devi", "shakti peetha"]),
-  page("vishnu-tirtha", "Vishnu tirtha", "विष्णु", "/vishnu", "place", "Char Dham.", ["char dham", "vishnu temples"]),
-  page("ganesha", "Ganesha", "गणेश", "/ganesha", "place", "Ashtavinayak circuit.", ["ashtavinayak", "ganesha temples"]),
-  page("festivals", "Festivals", "उत्सव", "/festivals", "practice", "Festival calendar.", ["festivals", "utsav"]),
-  page("panchanga", "Panchanga", "पञ्चाङ्ग", "/panchanga", "practice", "The day’s calendar.", ["panchanga", "panchang"]),
-  page("ai-guide", "Guru AI", "गुरु एआई", "/ai-guide", "practice", "Ask Gemma 4 about the library.", ["guru ai", "chatbot"]),
+  page("vishnu-tirtha", "Vishnu tirtha", "विष्णु", "/vishnu", "place", "Char Dham.", [
+    "char dham",
+    "vishnu temples",
+  ]),
+  page("ganesha", "Ganesha", "गणेश", "/ganesha", "place", "Ashtavinayak circuit.", [
+    "ashtavinayak",
+    "ganesha temples",
+  ]),
+  page("festivals", "Festivals", "उत्सव", "/festivals", "practice", "Festival calendar.", [
+    "festivals",
+    "utsav",
+  ]),
+  page("panchanga", "Panchanga", "पञ्चाङ्ग", "/panchanga", "practice", "The day’s calendar.", [
+    "panchanga",
+    "panchang",
+  ]),
+  page(
+    "ai-guide",
+    "Guru AI",
+    "गुरु एआई",
+    "/ai-guide",
+    "practice",
+    "Ask Gemma 4 about the library.",
+    ["guru ai", "chatbot"]
+  ),
 ];
 
 function page(
@@ -203,15 +245,12 @@ function page(
 
 function catalogPages(): SitePage[] {
   return scriptureCatalog.map((item) =>
-    page(
-      item.slug,
+    page(item.slug, item.name, item.sanskrit, item.href, "scripture", item.description, [
+      item.slug.replace(/-/g, " "),
       item.name,
       item.sanskrit,
-      item.href,
-      "scripture",
-      item.description,
-      [item.slug.replace(/-/g, " "), item.name, item.sanskrit, ...(item.keyConcepts ?? [])]
-    )
+      ...(item.keyConcepts ?? []),
+    ])
   );
 }
 
@@ -287,7 +326,8 @@ function fieldScore(field: string, query: string): number {
   if (!normalized || !query) return 0;
   if (normalized === query) return 100;
   if (query.length >= 4 && (normalized.includes(query) || query.includes(normalized))) {
-    const coverage = Math.min(normalized.length, query.length) / Math.max(normalized.length, query.length);
+    const coverage =
+      Math.min(normalized.length, query.length) / Math.max(normalized.length, query.length);
     return Math.round(40 + coverage * 50);
   }
   const queryTokens = query.split(" ").filter((token) => token.length > 2);
