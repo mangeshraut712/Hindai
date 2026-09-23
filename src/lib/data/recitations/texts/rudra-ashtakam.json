@@ -1,0 +1,65 @@
+{
+  "sections": [
+    {
+      "id": "hymn",
+      "title": "रुद्राष्टकम्",
+      "titleEn": "Eight verses and phalashruti",
+      "verses": [
+        {
+          "label": "1",
+          "original": "नमामिशमीशान निर्वाण रूपं। विभुं व्यापकं ब्रह्म वेदस्वरूपं॥१॥\nनिजं निर्गुणं निर्विकल्पं निरीहं। चिदाकाशमाकाशवासं भजेहं॥२॥",
+          "english": "I bow to Ishana, the liberating Lord, all-pervading Brahman and the very form of the Vedas; beyond qualities and distinctions, I worship the one who dwells in the sky of consciousness.",
+          "hindi": "मैं मोक्षस्वरूप, सर्वव्यापक, वेदस्वरूप ईशान को प्रणाम करता हूँ; गुण और भेद से परे, चिदाकाश में रहने वाले प्रभु का भजन करता हूँ।"
+        },
+        {
+          "label": "2",
+          "original": "निराकारमोंकारमूलं तुरीयं। गिरा ज्ञान गोतीतमीशं गिरीशं॥३॥\nकरालं महाकाल कालं कृपालं। गुणागार संसारपारं नतोहं॥४॥",
+          "english": "Formless source of Om, beyond waking, dreaming and sleep, beyond speech and knowledge: I bow to Girisha, fearsome to Time itself and gracious to those crossing worldly existence.",
+          "hindi": "निराकार, ॐ के मूल, तुरीय, वाणी और ज्ञान से परे गिरिश को प्रणाम; वे काल के भी काल और संसार से पार ले जाने वाले कृपालु हैं।"
+        },
+        {
+          "label": "3",
+          "original": "तुषाराद्रि संकाश गौरं गंभीरं। मनोभूत कोटि प्रभा श्री शरीरं॥५॥\nस्फुरन्मौलि कल्लोलिनी चारु गंगा। लसद्भालबालेंदु कंठे भुजंगा॥६॥",
+          "english": "Fair as a snow mountain and deeply serene, with radiance beyond countless loves: the Ganga streams from his hair; the young moon shines on his brow and serpents adorn his neck.",
+          "hindi": "हिमालय जैसे गौर और गम्भीर शिव के जटाओं में गंगा, ललाट पर बालचन्द्र और गले में सर्प सुशोभित हैं।"
+        },
+        {
+          "label": "4",
+          "original": "चलत्कुंडलं भ्रू सुनेत्रं विशालं। प्रसन्नाननं नीलकंठ दयालं॥७॥\nमृगाधीशचर्माम्बरं मुण्डमालं। प्रियं शंकरं सर्वनाथं भजामि॥८॥",
+          "english": "With moving earrings, wide eyes, a kind face and blue throat, wearing a tiger skin and a garland of skulls, I worship beloved Shankara, Lord of all.",
+          "hindi": "कुण्डल, विशाल नेत्र, प्रसन्न मुख और नीलकण्ठ वाले, व्याघ्रचर्म और मुण्डमाला धारण करने वाले सर्वनाथ शंकर का भजन करता हूँ।"
+        },
+        {
+          "label": "5",
+          "original": "प्रचंडं प्रकृष्टं प्रगल्भं परेशं। अखंडं अजं भानुकोटिप्रकाशं॥९॥\nत्रय:शूल निर्मूलनं शूलपाणिं। भजेहं भवानीपतिं भावगम्यं॥१०॥",
+          "english": "Mighty, supreme, unborn and radiant as countless suns, he holds the trident that removes the three kinds of suffering; I worship Bhavani’s Lord, reached through devotion.",
+          "hindi": "प्रचण्ड, अजन्मा और अनेक सूर्यों जैसे तेजस्वी, त्रिशूलधारी, दुःख दूर करने वाले भवानीपति का भक्तिभाव से भजन करता हूँ।"
+        },
+        {
+          "label": "6",
+          "original": "कलातीत कल्याण कल्पान्तकारी। सदा सज्जनानन्ददाता पुरारी॥११॥\nचिदानंदसंदोह मोहपहारी। प्रसीद प्रसीद प्रभो मन्मथारी॥१२॥",
+          "english": "Beyond time, auspicious, the power at the end of an age, he brings joy to the good and dispels delusion; O Lord who conquered desire, be gracious.",
+          "hindi": "काल से परे कल्याणस्वरूप प्रभु सज्जनों को आनन्द देते और मोह हरते हैं; हे कामदेव को जीतने वाले प्रभु, कृपा कीजिए।"
+        },
+        {
+          "label": "7",
+          "original": "न यावद् उमानाथ पादारविन्दं। भजंतीह लोके परे वा नराणां॥१३॥\nन तावत्सुखं शांति सन्तापनाशं। प्रसीद प्रभो सर्वभूताधिवासं॥१४॥",
+          "english": "Until people worship Uma’s lotus-footed Lord in this life or beyond, they do not find lasting peace or relief from distress; O indwelling Lord, be gracious.",
+          "hindi": "जब तक लोग इस लोक या परलोक में उमानाथ के चरणकमलों का भजन नहीं करते, उन्हें स्थायी सुख और शान्ति नहीं मिलती; हे अन्तर्यामी, कृपा कीजिए।"
+        },
+        {
+          "label": "8",
+          "original": "न जानामि योगं जपं नैव पूजां। नतोहं सदा सर्वदा शंभु तुभ्यं॥१५॥\nजरा जन्म दु:खौघ तातप्यमानं। प्रभो पाहि आपन्नमाशीश शंभो॥१६॥",
+          "english": "I know neither yoga, recitation nor worship; I bow to you always, Shambhu. Afflicted by age, birth and suffering, I seek your protection.",
+          "hindi": "मैं योग, जप या पूजा नहीं जानता; हे शम्भु, सदा नमस्कार करता हूँ। जन्म, बुढ़ापे और दुःख से पीड़ित मुझे बचाइए।"
+        },
+        {
+          "label": "9",
+          "original": "रुद्राष्टकमिदं प्रोक्तं विप्रेण हरतोषये।\nये पठन्ति नरा भक्त्या तेषां शम्भुः प्रसीदति॥",
+          "english": "The closing verse says this hymn was spoken to please Hara, and Shambhu is gracious to those who recite it with devotion.",
+          "hindi": "समापन श्लोक कहता है कि हर को प्रसन्न करने के लिए कहा गया यह स्तोत्र भक्तिपूर्वक पढ़ने पर शम्भु की कृपा दिलाता है।"
+        }
+      ]
+    }
+  ]
+}

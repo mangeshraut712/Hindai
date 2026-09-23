@@ -9,10 +9,17 @@ import kanakadhara from "./texts/kanakadhara.json";
 import santanaGopala from "./texts/santana-gopala.json";
 import shivaShatakam from "./texts/shiva-shatakam.json";
 import vishnuSahasranama from "./texts/vishnu-sahasranama.json";
+import achyutaAshtakam from "./texts/achyuta-ashtakam.json";
+import rudraAshtakam from "./texts/rudra-ashtakam.json";
+import navagrahaStotram from "./texts/navagraha-stotram.json";
+import mahamrityunjayaMantra from "./texts/mahamrityunjaya-mantra.json";
 
 interface SourceVerse {
   label: string;
   original: string;
+  english?: string;
+  marathi?: string;
+  hindi?: string;
 }
 
 interface SourceSection {
@@ -30,17 +37,21 @@ interface RecitationSeed {
   slug: string;
   title: string;
   titleSa: string;
+  originalLanguage?: Recitation["originalLanguage"];
   deity: string;
   occasion: string;
   summary: string;
   sourceNote: string;
+  sourceUrl?: string;
   sections: RecitationSection[];
 }
 
 const SANSKRIT_DOCS = "https://sanskritdocuments.org";
 
 function numberedVerses(
-  verses: Array<Pick<RecitationVerse, "label" | "original" | "iast" | "english" | "note">>
+  verses: Array<
+    Pick<RecitationVerse, "label" | "original" | "iast" | "english" | "note" | "hindi" | "marathi">
+  >
 ): RecitationVerse[] {
   return verses.map((verse, index) => ({
     number: index + 1,
@@ -48,6 +59,8 @@ function numberedVerses(
     original: verse.original,
     iast: verse.iast,
     english: verse.english,
+    marathi: verse.marathi,
+    hindi: verse.hindi,
     note: verse.note,
   }));
 }
@@ -62,7 +75,9 @@ function fromSource(file: SourceFile): RecitationSection[] {
         label: verse.label,
         original: verse.original,
         iast: transliterateToIast(verse.original),
-        english: "",
+        english: verse.english ?? "",
+        marathi: verse.marathi,
+        hindi: verse.hindi,
         note: "",
       }))
     ),
@@ -111,6 +126,7 @@ function atharvashirshaSections(): RecitationSection[] {
 const SEEDS: RecitationSeed[] = [
   {
     slug: "hanuman-chalisa",
+    originalLanguage: "Awadhi",
     title: "Hanuman Chalisa",
     titleSa: "हनुमान चालीसा",
     deity: "Hanuman",
@@ -210,9 +226,61 @@ const SEEDS: RecitationSeed[] = [
     sourceNote: `Devanagari follows ${SANSKRIT_DOCS}/doc_z_misc_navagraha/adityahriday.html, one copy of the hymn. IAST is a transliteration.`,
     sections: fromSource(adityaHridayam),
   },
+  {
+    slug: "achyuta-ashtakam",
+    title: "Achyuta Ashtakam",
+    titleSa: "अच्युताष्टकम्",
+    deity: "Vishnu / Krishna",
+    occasion: "Daily devotion",
+    summary: "All eight verses attributed to Shankaracharya, followed by the closing verse.",
+    sourceNote:
+      "Devanagari follows Sanskrit Wikisource contributors, revision 369168 (CC BY-SA); the English and Hindi senses are Hind AI study renderings. IAST is generated from Devanagari.",
+    sourceUrl: "https://sa.wikisource.org/w/index.php?oldid=369168",
+    sections: fromSource(achyutaAshtakam),
+  },
+  {
+    slug: "rudra-ashtakam",
+    title: "Rudra Ashtakam",
+    titleSa: "रुद्राष्टकम्",
+    deity: "Shiva",
+    occasion: "Shiva worship",
+    summary: "Eight complete four-line verses and the closing phalashruti.",
+    sourceNote:
+      "Devanagari follows Sanskrit Wikisource contributors, revision 334499 (CC BY-SA). Its sixteen numbered half-verses are paired into eight verses here. English and Hindi are Hind AI study renderings; IAST is generated.",
+    sourceUrl: "https://sa.wikisource.org/w/index.php?oldid=334499",
+    sections: fromSource(rudraAshtakam),
+  },
+  {
+    slug: "navagraha-stotram",
+    title: "Navagraha Stotram",
+    titleSa: "नवग्रहस्तोत्रम्",
+    deity: "Navagraha",
+    occasion: "Nine-graha recitation",
+    summary:
+      "The nine graha verses and all three closing verses of the first stotra in the source edition.",
+    sourceNote:
+      "Devanagari follows Sanskrit Wikisource contributors, revision 409357 (CC BY-SA). The page also contains a separate Navagraha Pidahara Stotram, which is a different work. English and Hindi are Hind AI study renderings; IAST is generated.",
+    sourceUrl: "https://sa.wikisource.org/w/index.php?oldid=409357",
+    sections: fromSource(navagrahaStotram),
+  },
+  {
+    slug: "mahamrityunjaya-mantra",
+    title: "Mahamrityunjaya Mantra",
+    titleSa: "महामृत्युञ्जय मन्त्रः",
+    deity: "Rudra / Shiva",
+    occasion: "Mahamrityunjaya japa",
+    summary: "The complete Tryambaka verse, Rigveda 7.59.12, in its unaccented recitation form.",
+    sourceNote:
+      "Rigveda 7.59.12, checked against the accent-bearing Sanskrit Wikisource ऋग्वेदः सूक्तं ७.५९ and Vedic Samhita. The unaccented reading is for general recitation, not a Vedic accent guide. English and Hindi are Hind AI study renderings.",
+    sourceUrl: "https://sa.wikisource.org/w/index.php?oldid=403390",
+    sections: fromSource(mahamrityunjayaMantra),
+  },
 ];
 
-export const RECITATIONS: Recitation[] = SEEDS;
+export const RECITATIONS: Recitation[] = SEEDS.map((seed) => ({
+  ...seed,
+  originalLanguage: seed.originalLanguage ?? "Sanskrit",
+}));
 
 export function listRecitationSlugs(): string[] {
   return RECITATIONS.map((item) => item.slug);

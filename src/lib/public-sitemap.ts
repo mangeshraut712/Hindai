@@ -47,6 +47,8 @@ const STATIC_PAGES: PublicSitemapEntry[] = [
   { path: "/stotras", changeFrequency: "monthly", priority: 0.8 },
   { path: "/recite", changeFrequency: "monthly", priority: 0.85 },
   { path: "/ganesh-aarti", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/ganeshotsav", changeFrequency: "weekly", priority: 0.85 },
+  { path: "/satyanarayan-puja", changeFrequency: "monthly", priority: 0.7 },
   { path: "/shivlilamrit", changeFrequency: "monthly", priority: 0.8 },
   { path: "/shivlilamrit/book", changeFrequency: "monthly", priority: 0.85 },
   { path: "/haripaat", changeFrequency: "monthly", priority: 0.8 },

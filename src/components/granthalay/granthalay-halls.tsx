@@ -6,7 +6,7 @@ import { publicUrl } from "@/lib/site";
 const DEPTH_LABEL: Record<GranthalayDepth, string> = {
   full: "Full text",
   hymn: "Hymn",
-  katha: "Katha",
+  katha: "Story guide",
   place: "Place",
   catalog: "Catalog",
 };
@@ -29,8 +29,9 @@ export function GranthalayHalls() {
           <p className="eyebrow">Reading rooms • वाचनालय</p>
           <h2 className="section-title mt-4">Open a hall, then a book.</h2>
           <p className="section-copy mt-4">
-            Full pothis and hymns are in the first rooms. The name map at the end lists Vedas,
-            Upanishads, and Puranas that are catalogued and still being filled.
+            Original texts and story guides are marked separately. Devanagari is a script shared by
+            Sanskrit, Marathi, Hindi and other languages; each shelf notes what it actually stores.
+            The catalog at the end still contains incomplete Vedas, Upanishads and Puranas.
           </p>
         </div>
         <div className="mt-12 space-y-16">

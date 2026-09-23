@@ -39,6 +39,7 @@ export interface ScriptureVerse {
   translation: {
     en: string;
     hi?: string;
+    mr?: string;
     sa?: string; // Sanskrit explanation
   };
   commentary?: string;

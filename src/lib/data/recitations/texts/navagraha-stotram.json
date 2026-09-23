@@ -1,0 +1,90 @@
+{
+  "sections": [
+    {
+      "id": "planets",
+      "title": "नवग्रहस्तोत्रम्",
+      "titleEn": "Nine graha verses",
+      "verses": [
+        {
+          "label": "1",
+          "original": "जपाकुसुमसङ्काशं काश्यपेयं महाद्युतिम्।\nतमोऽरिं सर्वपापघ्नं प्रणतोऽस्मि दिवाकरम्॥१॥",
+          "english": "I bow to the Sun, radiant as the hibiscus, descended from Kashyapa, shining brilliantly and dispelling darkness.",
+          "hindi": "गुड़हल जैसे लाल, कश्यप के पुत्र, अत्यन्त तेजस्वी और अन्धकार दूर करने वाले सूर्य को प्रणाम।"
+        },
+        {
+          "label": "2",
+          "original": "दधिशङ्खतुषाराभं क्षीरोदार्णवसम्भवम्।\nनमामि शशिनं सोमं शम्भोर्मुकुटभूषणम्॥२॥",
+          "english": "I bow to the Moon, white as curd, conch and snow, born of the ocean of milk and adorning Shiva’s crown.",
+          "hindi": "दही, शंख और हिम जैसे श्वेत, क्षीरसागर से उत्पन्न और शिव के मुकुट को शोभित करने वाले चन्द्र को प्रणाम।"
+        },
+        {
+          "label": "3",
+          "original": "धरणीगर्भसम्भूतं विद्युत्कान्तिसमप्रभम्।\nकुमारं शक्तिहस्तं तं मङ्गलं प्रणमाम्यहम्॥३॥",
+          "english": "I bow to Mars, born of Earth, bright as lightning, youthful and bearing a spear.",
+          "hindi": "पृथ्वी से उत्पन्न, बिजली जैसे तेजस्वी और शक्ति धारण करने वाले मंगल को प्रणाम।"
+        },
+        {
+          "label": "4",
+          "original": "प्रियङ्गुकलिकाश्यामं रूपेणाप्रतिमं बुधम्।\nसौम्यं सौम्यगुणोपेतं तं बुधं प्रणमाम्यहम्॥४॥",
+          "english": "I bow to Mercury, dark as a priyangu bud, gentle, beautiful and endowed with kind qualities.",
+          "hindi": "प्रियंगु की कली जैसे श्याम, सुन्दर और सौम्य गुणों वाले बुध को प्रणाम।"
+        },
+        {
+          "label": "5",
+          "original": "देवानां च ऋषीणां च गुरुं काञ्चनसन्निभम्।\nबुद्धिभूतं त्रिलोकेशं तं नमामि बृहस्पतिम्॥५॥",
+          "english": "I bow to Brihaspati, golden teacher of gods and sages, embodiment of intelligence.",
+          "hindi": "देवताओं और ऋषियों के स्वर्णिम गुरु, बुद्धि के स्वरूप बृहस्पति को प्रणाम।"
+        },
+        {
+          "label": "6",
+          "original": "हिमकुन्दमृणालाभं दैत्यानां परमं गुरुम्।\nसर्वशास्त्रप्रवक्तारं भार्गवं प्रणमाम्यहम्॥६॥",
+          "english": "I bow to Shukra, pale as snow, jasmine and lotus stalk, teacher of the asuras and expounder of the scriptures.",
+          "hindi": "हिम, कुन्द और कमलनाल जैसे श्वेत, असुरों के गुरु और शास्त्रों के ज्ञाता शुक्र को प्रणाम।"
+        },
+        {
+          "label": "7",
+          "original": "नीलाञ्जनसमाभासं रविपुत्रं यमाग्रजम्।\nछायामार्तण्डसम्भूतं तं नमामि शनैश्चरम्॥७॥",
+          "english": "I bow to Saturn, dark as blue collyrium, son of the Sun and Chhaya and elder brother of Yama.",
+          "hindi": "नील अंजन जैसे श्याम, सूर्य और छाया के पुत्र तथा यम के बड़े भाई शनि को प्रणाम।"
+        },
+        {
+          "label": "8",
+          "original": "अर्धकायं महावीर्यं चन्द्रादित्यविमर्दनम्।\nसिंहिकागर्भसंभूतं तं राहुं प्रणमाम्यहम्॥८॥",
+          "english": "I bow to Rahu, half-bodied and powerful, who eclipses Sun and Moon and was born of Simhika.",
+          "hindi": "अर्धशरीर वाले, शक्तिशाली, सूर्य और चन्द्र को ग्रहण लगाने वाले सिंहिका-पुत्र राहु को प्रणाम।"
+        },
+        {
+          "label": "9",
+          "original": "पलाशपुष्पसङ्काशं तारकाग्रहमस्तकम्।\nरौद्रं रौद्रात्मकं घोरं तं केतुं प्रणमाम्यहम्॥९॥",
+          "english": "I bow to Ketu, bright as the palasha flower, fierce and powerful.",
+          "hindi": "पलाश-पुष्प जैसे दीप्त, उग्र और बलशाली केतु को प्रणाम।"
+        }
+      ]
+    },
+    {
+      "id": "phalashruti",
+      "title": "फलश्रुतिः",
+      "titleEn": "Closing verses",
+      "verses": [
+        {
+          "label": "1",
+          "original": "इति व्यासमुखोद्गीतं यः पठेत्सुसमाहितः।\nदिवा वा यदि वा रात्रौ विघ्नशान्तिर्भविष्यति॥",
+          "english": "The closing verses say that attentive recitation by day or night brings relief from obstacles.",
+          "hindi": "समापन श्लोक कहते हैं कि दिन या रात में एकाग्र होकर पाठ करने से बाधाओं को शान्ति मिलती है।"
+        },
+        {
+          "label": "2",
+          "original": "नरनारीनृपाणां च भवेद्दुःस्वप्ननाशनम्।\nऐश्वर्यमतुलं तेषामारोग्यं पुष्टिवर्धनम्॥",
+          "english": "They say it dispels bad dreams and asks for well-being, strength and prosperity.",
+          "hindi": "वे दुःस्वप्न दूर होने और स्वास्थ्य, बल तथा समृद्धि की प्रार्थना बताते हैं।"
+        },
+        {
+          "label": "3",
+          "original": "ग्रहनक्षत्रजाः पीडास्तस्कराग्निसमुद्भवाः।\nताः सर्वाः प्रशमं यान्ति व्यासो ब्रूते न संशयः॥",
+          "english": "They say afflictions attributed to planets and other dangers are calmed.",
+          "hindi": "वे ग्रहों से जुड़ी पीड़ाओं और अन्य संकटों के शमन की कामना करते हैं।"
+        }
+      ]
+    }
+  ]
+}

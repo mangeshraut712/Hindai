@@ -9,7 +9,7 @@ import { SITE_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Recitations",
   description:
-    "Full original recitations: Hanuman Chalisa, Vishnu Sahasranama, Kanakadhara Stotram, Shiva Shatakam, Kala Bhairava Ashtakam, Ganapati Atharvashirsha, Santana Gopala, Durga Saptashati, and Aditya Hridayam.",
+    "Complete recitation texts including Hanuman Chalisa, Vishnu Sahasranama, Achyuta Ashtakam, Rudra Ashtakam, Navagraha Stotram and Mahamrityunjaya Mantra.",
   alternates: { canonical: `${SITE_URL}/recite` },
 };
 
@@ -24,10 +24,9 @@ export default function ReciteIndexPage() {
             <p className="eyebrow">पाठ · Recitation</p>
             <h1 className="section-title mt-4">Full hymns for difficult days</h1>
             <p className="section-copy mt-5">
-              Each page is the original text, verse by verse, with IAST for pronunciation and a
-              browser voice that can read the section aloud. English on the Hanuman Chalisa and
-              Ganapati Atharvashirsha explains the verses. The other hymns are here to be recited in
-              the original.
+              Each page has the original text verse by verse, IAST for pronunciation, and a browser
+              voice that can read the section aloud. English and Hindi study meanings appear where
+              they have been prepared; the source note identifies the text edition.
             </p>
           </div>
         </section>

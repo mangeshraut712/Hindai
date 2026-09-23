@@ -3569,8 +3569,13 @@ const coreVerses: ScriptureVerse[] = [
   },
 ];
 
+// The featured 12.13–14 excerpt combines two verses. Keep it addressable by ID,
+// but do not insert it as a third verse in the complete Gita reading sequence.
+const featuredGitaExcerpt = coreVerses.find((verse) => verse.id === "bg-12-13-14");
+const readingCoreVerses = coreVerses.filter((verse) => verse.id !== "bg-12-13-14");
+
 export const sampleVerses: ScriptureVerse[] = [
-  ...coreVerses,
+  ...readingCoreVerses,
   ...bhagavadGitaVerses.filter((bgv) => !coreVerses.some((cv) => cv.id === bgv.id)),
   ...rigvedaVerses.filter((rv) => !coreVerses.some((cv) => cv.id === rv.id)),
 ];
@@ -3586,7 +3591,12 @@ export function getVerseLocationKey(
   ].join(":");
 }
 
-export const verseById = new Map(sampleVerses.map((verse) => [verse.id, verse]));
+export const verseById = new Map(
+  [...sampleVerses, ...(featuredGitaExcerpt ? [featuredGitaExcerpt] : [])].map((verse) => [
+    verse.id,
+    verse,
+  ])
+);
 
 export const versesByScripture = sampleVerses.reduce((index, verse) => {
   const verses = index.get(verse.scriptureId) || [];

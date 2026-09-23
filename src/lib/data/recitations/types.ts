@@ -4,6 +4,8 @@ export interface RecitationVerse {
   original: string;
   iast: string;
   english: string;
+  marathi?: string;
+  hindi?: string;
   note: string;
 }
 
@@ -18,11 +20,13 @@ export interface Recitation {
   slug: string;
   title: string;
   titleSa: string;
+  originalLanguage: "Sanskrit" | "Marathi" | "Awadhi";
   deity: string;
   occasion: string;
   summary: string;
   sourceNote: string;
+  sourceUrl?: string;
   sections: RecitationSection[];
 }
 
-export type RecitationLayer = "original" | "iast" | "english" | "note";
+export type RecitationLayer = "original" | "iast" | "marathi" | "english" | "hindi" | "note";

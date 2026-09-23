@@ -18,8 +18,9 @@ export function ServiceWorkerRegistration() {
         return;
       }
       const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+      const swUrl = new URL("sw.js", window.location.origin + basePath + "/");
       navigator.serviceWorker
-        .register(`${basePath}/sw.js`)
+        .register(swUrl.pathname)
         .then((registration) => {
           void registration;
         })

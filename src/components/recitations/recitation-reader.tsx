@@ -7,9 +7,11 @@ import { Button } from "@/components/ui/button";
 import type { Recitation, RecitationLayer, RecitationVerse } from "@/lib/data/recitations/types";
 
 const LAYERS: Array<{ id: RecitationLayer; label: string }> = [
-  { id: "original", label: "Devanagari" },
+  { id: "original", label: "मूळ पाठ · देवनागरी" },
   { id: "iast", label: "IAST" },
+  { id: "marathi", label: "मराठी अर्थ" },
   { id: "english", label: "English" },
+  { id: "hindi", label: "हिन्दी" },
   { id: "note", label: "Note" },
 ];
 
@@ -25,6 +27,10 @@ function layerText(verse: RecitationVerse, layer: RecitationLayer): string {
       return verse.iast;
     case "english":
       return verse.english;
+    case "marathi":
+      return verse.marathi ?? "";
+    case "hindi":
+      return verse.hindi ?? "";
     case "note":
       return verse.note;
     default: {
@@ -51,8 +57,16 @@ export function RecitationReader({ recitation }: { recitation: Recitation }) {
   const showNote = recitation.sections.some((entry) =>
     entry.verses.some((verse) => verse.note.length > 0)
   );
+  const showHindi = recitation.sections.some((entry) =>
+    entry.verses.some((verse) => Boolean(verse.hindi))
+  );
+  const showMarathi = recitation.sections.some((entry) =>
+    entry.verses.some((verse) => Boolean(verse.marathi))
+  );
   const layers = LAYERS.filter((entry) => {
+    if (entry.id === "marathi") return showMarathi;
     if (entry.id === "english") return showEnglish;
+    if (entry.id === "hindi") return showHindi;
     if (entry.id === "note") return showNote;
     return true;
   });
@@ -115,7 +129,7 @@ export function RecitationReader({ recitation }: { recitation: Recitation }) {
       }
       const utterance = new SpeechSynthesisUtterance(chunks[cursor] ?? "");
       cursor += 1;
-      utterance.lang = "hi-IN";
+      utterance.lang = recitation.originalLanguage === "Marathi" ? "mr-IN" : "hi-IN";
       utterance.rate = 0.86;
       utterance.onend = () => speakNext();
       utterance.onerror = (event) => {
@@ -241,7 +255,9 @@ export function RecitationReader({ recitation }: { recitation: Recitation }) {
               </p>
               <p
                 className={`mt-3 whitespace-pre-line break-words text-lg leading-8 ${
-                  layer === "original" || layer === "note" ? "font-devanagari" : ""
+                  layer === "original" || layer === "hindi" || layer === "note"
+                    ? "font-devanagari"
+                    : ""
                 }`}
               >
                 {text || "—"}

@@ -1,0 +1,6 @@
+hero.webp and hero-mobile.webp are copied from the project owner's ganeshai repository:
+https://github.com/mangeshraut712/ganeshai
+They are original GaneshAI festival illustrations, reused here by the same project owner.
+The 30 song titles, artist credits and YouTube IDs in src/lib/data/ganeshotsav-songs.json
+come from that project's songs.js in its original order.
+No mandal photograph or copyrighted music file is included.

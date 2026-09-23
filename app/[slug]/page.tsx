@@ -1,19 +1,15 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, BookOpen, Clock3, Languages, Sparkles } from "lucide-react";
+import { ArrowLeft, BookOpen, Clock3, Languages, Sparkles } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { getVerse, getVersesByScripture, scriptures } from "@/lib/data/scriptures";
+import { getVersesByScripture, scriptures } from "@/lib/data/scriptures";
 import { getScriptureCatalogItem, scriptureCatalog } from "@/lib/scripture-catalog";
 
 function ScriptureStudyExplorerFallback() {
   return <div className="surface-panel min-h-[400px] animate-pulse rounded-2xl" />;
-}
-
-function VerseGeneratorFallback() {
-  return <div className="surface-panel min-h-[300px] animate-pulse rounded-2xl" />;
 }
 
 const ScriptureStudyExplorer = dynamic(
@@ -22,14 +18,6 @@ const ScriptureStudyExplorer = dynamic(
     return mod.ScriptureStudyExplorer;
   },
   { loading: ScriptureStudyExplorerFallback }
-);
-
-const VerseGenerator = dynamic(
-  async () => {
-    const mod = await import("@/components/scripture/verse-generator");
-    return mod.VerseGenerator;
-  },
-  { loading: VerseGeneratorFallback }
 );
 
 const VerseReaderWrapper = dynamic(
@@ -56,9 +44,12 @@ export async function generateMetadata({ params }: PageProps) {
       title: "Scripture Not Found | Hind AI",
     };
   }
+  const storedVerses = getVersesByScripture(slug).length;
   return {
     title: `${item.name} (${item.sanskrit}) | Hind AI`,
-    description: `Read and study ${item.name} (${item.sanskrit}) with translation, word-by-word analysis, and Gemma 4 AI commentary.`,
+    description: storedVerses
+      ? `Read ${storedVerses} locally stored verses from ${item.name}; available translation layers vary by verse.`
+      : `${item.name} catalog overview. Its full original text is not stored in Hind AI yet.`,
   };
 }
 
@@ -78,7 +69,6 @@ export default async function ScripturePage({ params }: PageProps) {
 
   const detailed = scriptures.find((scripture) => scripture.id === slug);
   const verses = getVersesByScripture(slug);
-  const firstVerse = verses[0] || (detailed ? getVerse(detailed.id, 1, 1) : undefined);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -129,7 +119,13 @@ export default async function ScripturePage({ params }: PageProps) {
                     {detailed.totalChapters} chapters
                   </span>
                 ) : null}
+                <span className="eyebrow">{verses.length} original verses stored offline</span>
               </div>
+              <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
+                Devanagari is the script. The source language here is {item.language ?? "Sanskrit"};
+                Marathi and Hindi meanings are separate translations and appear only where they are
+                actually stored. A catalog entry is not a complete book.
+              </p>
 
               {item.keyConcepts?.length ? (
                 <div className="mt-8">
@@ -194,11 +190,10 @@ export default async function ScripturePage({ params }: PageProps) {
               <div className="space-y-10">
                 <div className="max-w-3xl">
                   <span className="eyebrow">Verse study • श्लोक अध्ययन</span>
-                  <h2 className="section-title mt-6">Read a verse, then deepen it with Gemma 4.</h2>
+                  <h2 className="section-title mt-6">Read the locally stored verses</h2>
                   <p className="section-copy mt-5">
-                    Hind AI is stronger than a plain digital shelf when it turns a scripture page
-                    into a study surface: original text, transliteration, translation, then grounded
-                    AI explanation.
+                    This page has {verses.length} original-language verses stored in the offline
+                    export. The complete work may contain more; translation layers vary by verse.
                   </p>
                 </div>
 
@@ -209,92 +204,27 @@ export default async function ScripturePage({ params }: PageProps) {
                 />
 
                 <VerseReaderWrapper verses={verses} />
-
-                <div className="surface-panel p-6 md:p-8">
-                  <div className="relative z-10 grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(280px,420px)] lg:items-start">
-                    <div>
-                      <span className="eyebrow">
-                        <Sparkles className="mr-2 inline size-4" />
-                        Generate Verse/Scripture
-                      </span>
-                      <h2 className="mt-5 text-3xl font-semibold tracking-[-0.04em] text-foreground">
-                        Retrieve indexed verses or generate missing entries.
-                      </h2>
-                      <p className="mt-4 text-sm leading-7 text-muted-foreground">
-                        Known verses are returned from the local scripture index first. Missing
-                        entries are sent to the Gemma 4 verse generation pipeline.
-                      </p>
-                    </div>
-                    <VerseGenerator
-                      scriptureId={slug}
-                      scriptureName={item.name}
-                      chapter={firstVerse?.chapter || 1}
-                      verse={firstVerse?.verse || 1}
-                      speaker={firstVerse?.speaker}
-                      context={`Retrieve or generate a verse from ${item.name}`}
-                    />
-                  </div>
-                </div>
               </div>
             ) : (
               <div className="space-y-10">
                 <div className="surface-panel p-8 md:p-10">
                   <div className="relative z-10 max-w-3xl">
-                    <span className="eyebrow">Overview mode • सारांश</span>
+                    <span className="eyebrow">Catalog entry • ग्रंथसूची</span>
                     <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
-                      This text is cataloged and ready for guided expansion.
+                      The complete text is not stored here yet.
                     </h2>
                     <p className="mt-4 text-sm leading-7 text-muted-foreground">
-                      Hind AI already provides the structural position, key concepts, and a Gemma 4
-                      study path for {item.name}. The next step is to keep expanding the direct
-                      verse library so each shelf becomes a full reading destination.
+                      This page introduces {item.name} but does not contain its verses for offline
+                      reading. Hind AI will mark it as a complete book only after a checked edition
+                      and its full text are stored locally.
                     </p>
                     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                      <Button variant="premium" asChild>
-                        <Link href="/ai-guide">
-                          Ask Gemma about {item.name}
-                          <ArrowRight className="size-4" />
-                        </Link>
-                      </Button>
                       <Button variant="outline" asChild>
-                        <Link href="/contents">Return to the library</Link>
+                        <Link href="/contents">Browse the offline reading room</Link>
                       </Button>
                     </div>
                   </div>
                 </div>
-
-                <div className="surface-panel p-8 md:p-10">
-                  <div className="relative z-10 max-w-3xl">
-                    <span className="eyebrow">
-                      <Sparkles className="mr-2 inline size-4" />
-                      AI Verse Generation
-                    </span>
-                    <h2 className="mt-6 text-3xl font-semibold tracking-[-0.04em] text-foreground">
-                      Generate verses with Gemma 4 AI
-                    </h2>
-                    <p className="mt-4 text-sm leading-7 text-muted-foreground">
-                      Use our AI-powered verse generator to create Sanskrit text, transliteration,
-                      translations, and word-by-word breakdowns for any verse in {item.name}.
-                    </p>
-                    <div className="mt-8">
-                      <VerseGenerator
-                        scriptureId={slug}
-                        scriptureName={item.name}
-                        chapter={1}
-                        verse={1}
-                        context={`Generate the first verse of ${item.name}`}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {firstVerse ? null : (
-              <div className="mt-10 rounded-[24px] border border-border/60 bg-background/75 p-5 text-sm leading-7 text-muted-foreground">
-                <strong className="text-foreground">Why this matters competitively:</strong> a
-                scripture page with direct route ownership gives Hind AI a stronger reading product,
-                while Gemma 4 remains the layer that explains, compares, and teaches.
               </div>
             )}
           </div>

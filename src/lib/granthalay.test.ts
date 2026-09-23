@@ -16,6 +16,12 @@ test("granthalay halls keep full books ahead of the name map", () => {
   );
   assert.deepEqual(
     full.map((shelf) => shelf.href),
-    ["/shivlilamrit", "/harivijay", "/ramvijay", "/haripaat", "/durga-saptashati"]
+    ["/shivlilamrit", "/recite/durga-saptashati"]
   );
+  for (const href of ["/harivijay", "/ramvijay", "/haripaat"]) {
+    const shelf = GRANTHALAY_HALLS.flatMap((hall) => hall.shelves).find(
+      (item) => item.href === href
+    );
+    assert.equal(shelf?.depth, "katha", href);
+  }
 });

@@ -1,0 +1,65 @@
+{
+  "sections": [
+    {
+      "id": "hymn",
+      "title": "अच्युताष्टकम्",
+      "titleEn": "Eight verses and closing verse",
+      "verses": [
+        {
+          "label": "1",
+          "original": "अच्युतं केशवं रामनारायणं \nकृष्णदामोदरं वासुदेवं हरिम् ॥\nश्रीधरं माधवं गोपिकावल्लभं \nजानकीनायकं रामचन्द्रं भजे ॥ १॥",
+          "english": "I worship Acyuta, Kesava, Rama, Narayana, Krishna, Damodara, Vasudeva, Hari, Sridhara, Madhava, the beloved of the gopis, and Rama, lord of Janaki.",
+          "hindi": "मैं अच्युत, केशव, राम, नारायण, कृष्ण, दामोदर, वासुदेव, हरि, श्रीधर, माधव, गोपियों के प्रिय और जानकी के स्वामी रामचन्द्र का भजन करता हूँ।"
+        },
+        {
+          "label": "2",
+          "original": "अच्युतं केशवं सत्यभामाधवं \nमाधवं श्रीधरं राधिकाराधितम् ॥\nइन्दिरामन्दिरं चेतसा सुन्दरं \nदेवकीनन्दनं नन्दनं संदधे ॥ २॥",
+          "english": "I hold in my mind Acyuta, Kesava, beloved of Satyabhama and Radha, abode of Lakshmi, beautiful son of Devaki and Nanda.",
+          "hindi": "मैं सत्यभामा और राधा के प्रिय, लक्ष्मी के धाम, सुन्दर देवकीनन्दन और नन्दनन्दन अच्युत को मन में धारण करता हूँ।"
+        },
+        {
+          "label": "3",
+          "original": "विष्णवे जिष्णवे शङ्खिने चक्रिणे \nरुक्मिनीरागिणे जानकीजानये ॥\nवल्लवीवल्लभायाऽर्चितायात्मने \nकंसविध्वंसिने वंशिने ते नमः ॥ ३॥",
+          "english": "Salutations to Vishnu, victorious bearer of conch and discus, beloved of Rukmini, kin of Janaki, adored by the cowherd women, destroyer of Kamsa and player of the flute.",
+          "hindi": "शंख और चक्र धारण करने वाले, रुक्मिणी के प्रिय, गोपियों द्वारा पूजित, कंस का नाश करने वाले बाँसुरीवादक विष्णु को नमस्कार।"
+        },
+        {
+          "label": "4",
+          "original": "कृष्ण गोविन्द हे राम नारायण \nश्रीपते वासुदेवाजित श्रीनिधे ॥\nअच्युतानन्त हे माधवाधोक्षज \nद्वारकानायक द्रौपदीरक्षक ॥ ४॥",
+          "english": "O Krishna, Govinda, Rama, Narayana, lord of Sri, Vasudeva, Acyuta, endless Madhava, lord of Dvaraka and protector of Draupadi: I call to you.",
+          "hindi": "हे कृष्ण, गोविन्द, राम, नारायण, श्रीपति, वासुदेव, अच्युत, अनन्त माधव, द्वारका के स्वामी और द्रौपदी के रक्षक, मैं तुम्हें पुकारता हूँ।"
+        },
+        {
+          "label": "5",
+          "original": "राक्षसक्षोभितः सीतया शोभितो \nदण्डकारण्यभूपुण्यताकारणः ॥\nलक्ष्मणेनान्वितो वानरैः सेवितोऽ\nगस्त्यसंपूजितो राघवः पातु माम् ॥ ५॥",
+          "english": "May Raghava protect me: he shone beside Sita, lived in the Dandaka forest, was accompanied by Lakshmana, served by the vanaras and honored by Agastya.",
+          "hindi": "सीता के साथ शोभित, दण्डक वन में रहे, लक्ष्मण के संग, वानरों द्वारा सेवित और अगस्त्य द्वारा पूजित राघव मेरी रक्षा करें।"
+        },
+        {
+          "label": "6",
+          "original": "धेनुकारिष्टकोऽनिष्टकृद्द्वेषिणां \nकेशिहा कंसहृद्वंशिकावादकः ॥\nपूतनाकोपकः सूरजाखेलनो \nबालगोपालकः पातु माम् सर्वदा ॥ ६॥",
+          "english": "May the child cowherd protect me always: he overcame Dhenuka, Arishta, Kesi, Kamsa and Putana and plays the flute.",
+          "hindi": "धेनुक, अरिष्ट, केशी, कंस और पूतना का नाश करने वाले बाँसुरी बजाने वाले बालगोपाल सदा मेरी रक्षा करें।"
+        },
+        {
+          "label": "7",
+          "original": "विद्युदुद्धयोतवानप्रस्फुरद्वाससं \nप्रावृडम्भोदवत्प्रोल्लसद्विग्रहम् ॥\nवन्यया मालया शोभितोरःस्थलं \nलोहितांघ्रिद्वयं वारिजाक्षं भजे ॥ ७॥",
+          "english": "I worship the lotus-eyed one, radiant like lightning against a rain cloud, wearing a forest garland, with red lotus-like feet.",
+          "hindi": "बिजली की तरह चमकते वस्त्र, वर्षा के मेघ जैसी देह, वनमाला और लाल कमल जैसे चरण वाले कमलनयन का मैं भजन करता हूँ।"
+        },
+        {
+          "label": "8",
+          "original": "कुञ्चितैः कुन्तलैर्भ्राजमानाननं \nरत्नमौलिं लसत् कुण्डलं गण्डयोः ॥\nहारकेयूरकं कङ्कणप्रोज्ज्वलं \nकिङ्किणीमञ्जुलं श्यामलं तं भजे ॥ ८॥",
+          "english": "I worship the dark one with curling hair, a shining jeweled crown, earrings, necklaces, armlets, bracelets and tinkling ornaments.",
+          "hindi": "घुँघराले बाल, रत्नमुकुट, कुण्डल, हार, बाजूबन्द और कंगन से शोभित श्यामसुन्दर का मैं भजन करता हूँ।"
+        },
+        {
+          "label": "9",
+          "original": "अच्युतस्याष्टकं यः पठेदिष्टदं प्रेमतः प्रत्यहं पूरुषः सस्पृहम् ।\nवृत्ततः सुंदरं कर्तृ विश्वंभरं तस्य वश्यो हरिर्जायते सत्वरम् ॥ ९॥",
+          "english": "The closing verse says that one who lovingly recites this eight-verse hymn daily gains the favor of Hari.",
+          "hindi": "समापन श्लोक कहता है कि इस अष्टक का प्रतिदिन प्रेम से पाठ करने वाले को हरि की कृपा मिलती है।"
+        }
+      ]
+    }
+  ]
+}

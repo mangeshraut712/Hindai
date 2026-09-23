@@ -56,10 +56,31 @@ export default async function RecitationPage({ params }: PageProps) {
             </p>
             <h1 className="section-title mt-4">{item.title}</h1>
             <p className="mt-3 font-devanagari text-2xl text-primary">{item.titleSa}</p>
+            <p className="mt-2 text-sm font-semibold text-muted-foreground">
+              Original: {item.originalLanguage} in Devanagari · Full stored text available offline
+            </p>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              मराठी, हिंदी आणि इंग्रजी अर्थ हे अभ्यासासाठी आहेत; मूळ पाठ फक्त मूळ पाठ टॅबमध्ये आहे.
+              Available meanings vary by hymn and verse.
+            </p>
             <p className="section-copy mt-5">{item.summary}</p>
             <p className="mt-4 text-sm leading-6 text-muted-foreground">
               {recitationVerseCount(item)} verses across {item.sections.length}{" "}
               {item.sections.length === 1 ? "section" : "sections"}. {item.sourceNote}
+              {item.sourceUrl ? (
+                <>
+                  {" "}
+                  <a
+                    href={item.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary underline underline-offset-4"
+                  >
+                    View source edition
+                  </a>
+                  .
+                </>
+              ) : null}
             </p>
           </div>
         </section>

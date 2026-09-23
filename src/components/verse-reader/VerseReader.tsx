@@ -26,7 +26,11 @@ const normalizeVerse = (verse: VerseWithLayers | ScriptureVerse) => {
       transliteration: scriptureVerse.transliteration,
       wordByWord: scriptureVerse.wordByWord || scriptureVerse.padaArtha,
       anvaya: scriptureVerse.translation?.sa,
-      translation: scriptureVerse.translation?.en,
+      translations: {
+        mr: scriptureVerse.translation?.mr,
+        hi: scriptureVerse.translation?.hi,
+        en: scriptureVerse.translation?.en,
+      },
       commentary: scriptureVerse.commentary,
       audio: undefined, // ScriptureVerse doesn't have audio
     };
@@ -41,7 +45,11 @@ const normalizeVerse = (verse: VerseWithLayers | ScriptureVerse) => {
     transliteration: verseWithLayers.text_iast,
     wordByWord: verseWithLayers.word_analysis,
     anvaya: verseWithLayers.anvaya,
-    translation: verseWithLayers.translations?.[0]?.text,
+    translations: {
+      mr: verseWithLayers.translations?.find((entry) => entry.lang === "mr")?.text,
+      hi: verseWithLayers.translations?.find((entry) => entry.lang === "hi")?.text,
+      en: verseWithLayers.translations?.find((entry) => entry.lang === "en")?.text,
+    },
     commentary: verseWithLayers.commentaries?.[0]?.text_en,
     audio: verseWithLayers.audio,
   };
@@ -55,7 +63,7 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
   const normalizedVerse = normalizeVerse(verse);
 
   const tabs: { id: TabType; label: string }[] = [
-    { id: "sanskrit", label: "Sanskrit" },
+    { id: "sanskrit", label: "Original · देवनागरी" },
     { id: "word-by-word", label: "Word-by-word" },
     { id: "anvaya", label: "Anvaya" },
     { id: "translation", label: "Translation" },
@@ -212,13 +220,34 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
         {activeTab === "translation" && (
           <div className="space-y-4">
             <div className="rounded-lg border border-border/60 bg-background/75 p-6">
-              <h3 className="mb-3 font-semibold text-primary">English Translation</h3>
-              <p className="text-lg leading-relaxed">
-                {normalizedVerse.translation || "Translation not available"}
-              </p>
+              <h3 className="mb-3 font-semibold text-primary">Stored meanings · उपलब्ध अर्थ</h3>
+              {(["mr", "hi", "en"] as const).map((lang) =>
+                normalizedVerse.translations[lang] ? (
+                  <div key={lang} className="mb-4 last:mb-0">
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary">
+                      {lang === "mr" ? "मराठी" : lang === "hi" ? "हिन्दी" : "English"}
+                    </p>
+                    <p
+                      className={
+                        lang === "en"
+                          ? "mt-1 text-lg leading-relaxed"
+                          : "mt-1 font-devanagari text-lg leading-relaxed"
+                      }
+                    >
+                      {normalizedVerse.translations[lang]}
+                    </p>
+                  </div>
+                ) : null
+              )}
+              {!Object.values(normalizedVerse.translations).some(Boolean) ? (
+                <p className="text-lg leading-relaxed">
+                  No checked translation is stored for this verse.
+                </p>
+              ) : null}
             </div>
             <p className="text-sm text-muted-foreground">
-              Translation helps understand the meaning of the Sanskrit verse in modern language.
+              These are study meanings stored with this verse. The original text remains on the
+              first tab.
             </p>
           </div>
         )}

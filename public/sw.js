@@ -3,8 +3,8 @@
  * PWA features: Offline support for the static GitHub Pages export.
  */
 
-const STATIC_CACHE = "hind-ai-static-v6";
-const DYNAMIC_CACHE = "hind-ai-dynamic-v6";
+const STATIC_CACHE = "hind-ai-static-v7";
+const DYNAMIC_CACHE = "hind-ai-dynamic-v7";
 
 const SCOPE_BASE = self.location.pathname.replace(/\/sw\.js$/, "") || "";
 
@@ -32,6 +32,9 @@ const STATIC_ASSETS = [
   `${SCOPE_BASE}/preface/`,
   `${SCOPE_BASE}/logo.webp`,
   `${SCOPE_BASE}/manifest.json`,
+  `${SCOPE_BASE}/ganeshotsav/`,
+  `${SCOPE_BASE}/satyanarayan-puja/`,
+  `${SCOPE_BASE}/offline-manifest.json`,
 ];
 
 function cacheStaticAssets(cache) {
@@ -60,13 +63,65 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
+self.addEventListener("message", (event) => {
+  if (event.data?.type !== "SAVE_OFFLINE_LIBRARY") return;
+  event.waitUntil(
+    (async () => {
+      const client = event.source;
+      const send = (payload) =>
+        client?.postMessage({ type: "OFFLINE_LIBRARY_PROGRESS", ...payload });
+      try {
+        const response = await fetch(SCOPE_BASE + "/offline-manifest.json", { cache: "no-store" });
+        if (!response.ok) throw new Error("The offline manifest is unavailable.");
+        const manifest = await response.json();
+        if (!Array.isArray(manifest.entries) || manifest.entries.length === 0) {
+          throw new Error("The offline manifest is invalid.");
+        }
+        const cache = await caches.open(STATIC_CACHE);
+        let cursor = 0;
+        let saved = 0;
+        let failed = 0;
+        let full = false;
+        const total = manifest.entries.length;
+        send({ saved, failed, total, done: false });
+        const worker = async () => {
+          while (cursor < total && !full) {
+            const entry = manifest.entries[cursor++];
+            try {
+              await cache.add(new Request(entry.url, { cache: "reload" }));
+              saved += 1;
+            } catch (error) {
+              failed += 1;
+              if (error?.name === "QuotaExceededError") full = true;
+            }
+            if ((saved + failed) % 10 === 0 || saved + failed === total || full) {
+              send({ saved, failed, total, done: false, storageFull: full });
+            }
+          }
+        };
+        await Promise.all(Array.from({ length: 4 }, worker));
+        send({ saved, failed, total, done: true, storageFull: full });
+      } catch (error) {
+        send({ saved: 0, failed: 0, total: 0, done: true, error: String(error) });
+      }
+    })()
+  );
+});
+
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
   if (url.pathname.includes("/api/")) return;
-  if (url.hostname === "localhost" || url.hostname === "127.0.0.1") return;
-  if (url.pathname.includes("/_next/") || url.searchParams.has("_rsc")) return;
+  if (url.origin !== self.location.origin) return;
+
+  if (url.searchParams.has("_rsc")) {
+    const rscPath = url.pathname.endsWith(".txt")
+      ? url.pathname
+      : url.pathname.replace(/\/$/, "") + "/index.txt";
+    event.respondWith(caches.match(rscPath).then((cached) => cached ?? fetch(event.request)));
+    return;
+  }
 
   const isDocument = event.request.mode === "navigate" || event.request.destination === "document";
 
@@ -96,25 +151,29 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
       if (response) {
-        fetch(event.request).then((fetchResponse) => {
-          if (fetchResponse.ok) {
-            caches.open(STATIC_CACHE).then((cache) => {
-              cache.put(event.request, fetchResponse);
-            });
-          }
-        });
+        void fetch(event.request)
+          .then((fetchResponse) => {
+            if (fetchResponse.ok) {
+              caches.open(STATIC_CACHE).then((cache) => {
+                cache.put(event.request, fetchResponse);
+              });
+            }
+          })
+          .catch(() => undefined);
         return response;
       }
 
-      return fetch(event.request).then((fetchResponse) => {
-        if (fetchResponse.ok) {
-          const clone = fetchResponse.clone();
-          caches.open(STATIC_CACHE).then((cache) => {
-            cache.put(event.request, clone);
-          });
-        }
-        return fetchResponse;
-      });
+      return fetch(event.request)
+        .then((fetchResponse) => {
+          if (fetchResponse.ok) {
+            const clone = fetchResponse.clone();
+            caches.open(STATIC_CACHE).then((cache) => {
+              cache.put(event.request, clone);
+            });
+          }
+          return fetchResponse;
+        })
+        .catch(() => new Response("Offline", { status: 503, statusText: "Offline" }));
     })
   );
 });

@@ -688,6 +688,7 @@ export const UTSAVS: UtsavEntry[] = [
     relatedHrefs: [
       { label: "Ashtavinayak", href: "/ganesha" },
       { label: "Ganesh Aarti", href: "/ganesh-aarti" },
+      { label: "Ganeshotsav city and home guide", href: "/ganeshotsav" },
     ],
     regions: ["Maharashtra", "Goa", "Karnataka", "Telugu states", "Diaspora"],
     sources: [

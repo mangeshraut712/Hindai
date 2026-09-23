@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { CANONICAL_COUNTS } from "@/lib/data/canonical-counts";
 import { GranthalayHalls } from "@/components/granthalay/granthalay-halls";
+import { OfflineLibraryButton } from "@/components/offline-library-button";
 import { scriptureSections } from "@/lib/scripture-catalog";
 
 export default function ContentsPage() {
@@ -37,6 +38,12 @@ export default function ContentsPage() {
                 and the traditional {CANONICAL_COUNTS.upanishads} Upanishads, and Smriti traditions
                 such as the 18 Major Puranas, 18 Upa-Puranas, and the 2 great epics.
               </p>
+              <p className="mt-4 max-w-2xl font-devanagari text-sm leading-7 text-muted-foreground">
+                मराठी हा स्वतंत्र मूळ भाषेचा पाठ आहे; देवनागरी ही लिपी आहे. मराठी पोथीतील मूळ ओव्या
+                मराठीतच वाचा. संस्कृत ग्रंथाचा मूळ पाठ संस्कृतच राहतो; मराठी, हिंदी आणि इंग्रजी अर्थ
+                स्वतंत्रपणे, उपलब्ध असतील तेव्हाच दाखवले जातात.
+              </p>
+              <OfflineLibraryButton />
             </motion.div>
 
             <motion.div
@@ -146,7 +153,7 @@ export default function ContentsPage() {
                             className="transition-all duration-300 hover:scale-105 hover:border-primary/50 hover:bg-primary/5"
                           >
                             <Link href={item.href}>
-                              Read text
+                              Open entry
                               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                             </Link>
                           </Button>

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { Language, Translation } from "./types";
 import { TRANSLATIONS } from "./translations";
 
@@ -13,9 +13,22 @@ type LanguageContextType = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 const SUPPORTED_LANGUAGES: Language[] = ["English", "Hindi", "Marathi", "Tamil", "Telugu"];
+const LANGUAGE_STORAGE_KEY = "hindai-language";
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>("English");
+  const [language, updateLanguage] = useState<Language>("Marathi");
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    if (saved && SUPPORTED_LANGUAGES.includes(saved as Language)) {
+      updateLanguage(saved as Language);
+    }
+  }, []);
+
+  const setLanguage = (lang: Language) => {
+    updateLanguage(lang);
+    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+  };
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, dictionary: TRANSLATIONS }}>

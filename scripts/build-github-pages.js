@@ -23,6 +23,12 @@ const { prefixPublicAssetContent } = require("./prefix-public-asset-paths");
 const SITE_URL = "https://mangeshraut712.github.io/Hindai";
 const BASE_PATH = "/Hindai";
 
+// A previous export may have been interrupted while app/api was stashed.
+// Recover those routes before starting a new build.
+if (!fs.existsSync(apiDir) && fs.existsSync(stashDir)) {
+  fs.renameSync(stashDir, apiDir);
+}
+
 function restoreApi() {
   if (!fs.existsSync(stashDir)) {
     return;
@@ -71,6 +77,7 @@ try {
     } else {
       fs.writeFileSync(path.join(outDir, ".nojekyll"), "");
       prefixPublicAssetPaths(outDir, BASE_PATH);
+      writeOfflineManifest(outDir, BASE_PATH);
     }
   }
 } finally {
@@ -109,4 +116,33 @@ function prefixPublicAssetPaths(dir, basePath) {
 
   walk(dir);
   console.log(`Prefixed public asset paths with ${basePath} in ${changedFiles} files.`);
+}
+
+function writeOfflineManifest(dir, basePath) {
+  const entries = [];
+  function walk(current) {
+    for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
+      const full = path.join(current, entry.name);
+      if (entry.isDirectory()) {
+        walk(full);
+        continue;
+      }
+      const relative = path.relative(dir, full).split(path.sep).join("/");
+      if (relative === ".nojekyll" || relative === "offline-manifest.json") continue;
+      const url =
+        relative === "index.html"
+          ? basePath + "/"
+          : relative.endsWith("/index.html")
+            ? basePath + "/" + relative.slice(0, -"index.html".length)
+            : basePath + "/" + relative;
+      entries.push({ url, bytes: fs.statSync(full).size });
+    }
+  }
+  walk(dir);
+  entries.sort((a, b) => a.url.localeCompare(b.url));
+  fs.writeFileSync(
+    path.join(dir, "offline-manifest.json"),
+    JSON.stringify({ version: 1, entries }) + "\n"
+  );
+  console.log("Offline library manifest: " + entries.length + " files.");
 }

@@ -14,7 +14,7 @@ function labelsOf(slug: string): string[] {
   return item.sections.flatMap((section) => section.verses.map((verse) => verse.label));
 }
 
-test("nine recitations are complete enough to recite", () => {
+test("recitations have complete source text and pronunciation", () => {
   assert.deepEqual(
     RECITATIONS.map((item) => item.slug),
     [
@@ -27,6 +27,10 @@ test("nine recitations are complete enough to recite", () => {
       "santana-gopala",
       "durga-saptashati",
       "aditya-hridayam",
+      "achyuta-ashtakam",
+      "rudra-ashtakam",
+      "navagraha-stotram",
+      "mahamrityunjaya-mantra",
     ]
   );
 
@@ -40,6 +44,12 @@ test("nine recitations are complete enough to recite", () => {
       }
     }
   }
+  assert.equal(getRecitation("hanuman-chalisa")?.originalLanguage, "Awadhi");
+  assert.equal(getRecitation("mahamrityunjaya-mantra")?.originalLanguage, "Sanskrit");
+  assert.match(
+    getRecitation("mahamrityunjaya-mantra")?.sections[0]?.verses[0]?.marathi ?? "",
+    /मृत्यूच्या बंधनातून मुक्त/
+  );
 
   const chalisa = textOf("hanuman-chalisa");
   assert.ok(chalisa.includes("जय हनुमान ज्ञान गुन सागर"));
@@ -87,4 +97,23 @@ test("nine recitations are complete enough to recite", () => {
 
   assert.ok(labelsOf("aditya-hridayam").includes("३१"));
   assert.ok(textOf("aditya-hridayam").includes("आदित्यहृदयं पुण्यं"));
+
+  const expected = [
+    ["achyuta-ashtakam", 9, "अच्युतं केशवं", "अच्युतस्याष्टकं"],
+    ["rudra-ashtakam", 9, "नमामिशमीशान", "रुद्राष्टकमिदं प्रोक्तं"],
+    ["navagraha-stotram", 12, "जपाकुसुमसङ्काशं", "व्यासो ब्रूते"],
+    ["mahamrityunjaya-mantra", 1, "त्र्यम्बकं यजामहे", "मृत्योर्मुक्षीय मामृतात्"],
+  ] as const;
+  for (const [slug, count, opening, closing] of expected) {
+    const item = getRecitation(slug);
+    assert.ok(item);
+    assert.equal(recitationVerseCount(item), count);
+    assert.ok(textOf(slug).includes(opening));
+    assert.ok(textOf(slug).includes(closing));
+    assert.ok(item.sourceUrl?.startsWith("https://sa.wikisource.org/"));
+    for (const verse of item.sections.flatMap((part) => part.verses)) {
+      assert.ok(verse.english.trim());
+      assert.ok(verse.hindi?.trim());
+    }
+  }
 });

@@ -30,12 +30,20 @@ export default function GaneshAartiIndexPage() {
           title="Marathi Ganesh aartis, as a living book"
           copy={`A photographed Dagdusheth Halwai Trust pamphlet was used only as a checklist. The PDF is not on this site. ${missingBefore.length} of these hymns were missing from Hind AI before. The portrait keeps shastric marks: four arms, ekadanta, modaka, goad, noose, and mouse.`}
           actions={
-            <Link
-              href="/ganesha"
-              className="inline-flex h-11 items-center rounded-full border border-border/70 bg-background/80 px-5 text-sm font-semibold backdrop-blur"
-            >
-              Ashtavinayak map →
-            </Link>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/ganesha"
+                className="inline-flex h-11 items-center rounded-full border border-border/70 bg-background/80 px-5 text-sm font-semibold backdrop-blur"
+              >
+                Ashtavinayak map →
+              </Link>
+              <Link
+                href="/ganeshotsav"
+                className="inline-flex h-11 items-center rounded-full border border-border/70 bg-background/80 px-5 text-sm font-semibold backdrop-blur"
+              >
+                Ganeshotsav guide →
+              </Link>
+            </div>
           }
         />
 
