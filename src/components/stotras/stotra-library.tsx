@@ -209,58 +209,64 @@ export function StotraLibrary() {
                       whileFocus={{ scale: 1.02, outline: "2px solid var(--primary)" }}
                     >
                       <Card
-                        className={`cursor-pointer transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                        className={`transition-all hover:shadow-lg ${
                           selectedStotra?.id === stotra.id ? "shadow-md ring-2 ring-primary" : ""
                         }`}
-                        onClick={() => {
-                          triggerHapticOnPress();
-                          setSelectedStotra(stotra);
-                        }}
-                        role="button"
-                        tabIndex={0}
-                        aria-label={`${stotra.name} (${stotra.sanskrit}) - ${stotra.deity}`}
-                        aria-pressed={selectedStotra?.id === stotra.id}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter" || e.key === " ") {
-                            e.preventDefault();
+                      >
+                        <div
+                          className="cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                          onClick={() => {
                             triggerHapticOnPress();
                             setSelectedStotra(stotra);
-                          }
-                        }}
-                      >
-                        <CardHeader className="pb-3">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <div className={`rounded-lg p-2 ${getTypeColor(stotra.type)}`}>
-                                {getTypeIcon(stotra.type)}
-                              </div>
-                              <div>
-                                <CardTitle className="text-base sm:text-lg">
-                                  {stotra.name}
-                                </CardTitle>
-                                <p className="font-devanagari text-sm text-primary sm:text-base">
-                                  {stotra.sanskrit}
-                                </p>
+                          }}
+                          role="button"
+                          tabIndex={0}
+                          aria-label={`${stotra.name} (${stotra.sanskrit}) - ${stotra.deity}`}
+                          aria-pressed={selectedStotra?.id === stotra.id}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              triggerHapticOnPress();
+                              setSelectedStotra(stotra);
+                            }
+                          }}
+                        >
+                          <CardHeader className="pb-3">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <div className={`rounded-lg p-2 ${getTypeColor(stotra.type)}`}>
+                                  {getTypeIcon(stotra.type)}
+                                </div>
+                                <div>
+                                  <CardTitle className="text-base sm:text-lg">
+                                    {stotra.name}
+                                  </CardTitle>
+                                  <p className="font-devanagari text-sm text-primary sm:text-base">
+                                    {stotra.sanskrit}
+                                  </p>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="mb-3 line-clamp-2 text-xs text-muted-foreground sm:text-sm">
-                            <strong>{stotra.deity}</strong> • {stotra.description}
-                          </p>
-                          <div className="flex items-center justify-between">
-                            <span className="rounded bg-secondary px-2 py-1 text-xs capitalize">
-                              {stotra.type}
-                              {stotra.count && ` (${stotra.count})`}
-                            </span>
-                            {stotra.audioAvailable && (
-                              <span className="flex items-center gap-1 rounded bg-green-100 px-2 py-1 text-xs text-green-800 dark:bg-green-900/30 dark:text-green-400">
-                                <Play className="size-3" />
-                                <span className="hidden sm:inline">Audio</span>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="mb-3 line-clamp-2 text-xs text-muted-foreground sm:text-sm">
+                              <strong>{stotra.deity}</strong> • {stotra.description}
+                            </p>
+                            <div className="flex items-center justify-between">
+                              <span className="rounded bg-secondary px-2 py-1 text-xs capitalize">
+                                {stotra.type}
+                                {stotra.count && ` (${stotra.count})`}
                               </span>
-                            )}
-                          </div>
+                              {stotra.audioAvailable && (
+                                <span className="flex items-center gap-1 rounded bg-green-100 px-2 py-1 text-xs text-green-800 dark:bg-green-900/30 dark:text-green-400">
+                                  <Play className="size-3" />
+                                  <span className="hidden sm:inline">Audio</span>
+                                </span>
+                              )}
+                            </div>
+                          </CardContent>
+                        </div>
+                        <CardContent>
                           <GemmaStudyPanel
                             kind="mantra"
                             title={stotra.name}
