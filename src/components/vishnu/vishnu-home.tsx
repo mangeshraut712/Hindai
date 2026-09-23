@@ -5,12 +5,13 @@ import { VISHNU_DEEP } from "@/lib/data/tradition-deep";
 import { SacredMap } from "@/components/tirtha/sacred-map";
 import { TraditionDeepSection } from "@/components/tirtha/tradition-deep-section";
 import { GurukulHero } from "@/components/gurukul/gurukul-media";
+import { publicUrl } from "@/lib/site";
 
 export function VishnuHome() {
   return (
     <div>
       <GurukulHero
-        src="/vishnu/hero.webp"
+        src={publicUrl("/vishnu/hero.webp")}
         alt="Artist impression of Vishnu — not a photograph"
         eyebrow="ॐ नमो नारायणाय · Vishnu"
         title="Four corners of the peninsula — Char Dham as places, not a slogan"
@@ -27,7 +28,7 @@ export function VishnuHome() {
                 className="group grid grid-cols-[7rem_minmax(0,1fr)] gap-4 border-b border-border/70 py-5"
               >
                 <Image
-                  src={item.image}
+                  src={publicUrl(item.image)}
                   alt={`Artist impression for ${item.name}`}
                   width={280}
                   height={200}

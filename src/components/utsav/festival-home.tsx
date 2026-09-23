@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { UTSAV_NOTE, UTSAVS, upcomingUtsavs, utsavsByMonth } from "@/lib/data/utsav";
 import { GurukulHero } from "@/components/gurukul/gurukul-media";
+import { publicUrl } from "@/lib/site";
 
 const MONTH_ORDER = [
   "January",
@@ -35,7 +36,7 @@ export function FestivalHome() {
   return (
     <div>
       <GurukulHero
-        src="/festivals/navaratri.webp"
+        src={publicUrl("/festivals/navaratri.webp")}
         alt="Artist impression of Navaratri lamp and Devi mood — not a temple photograph"
         eyebrow="उत्सव · Festival calendar"
         title="Hindu festivals with origin, temple life, and honest do / don’t"
@@ -72,7 +73,7 @@ export function FestivalHome() {
               >
                 {item.image ? (
                   <Image
-                    src={item.image}
+                    src={publicUrl(item.image)}
                     alt={`Artist impression for ${item.name}`}
                     width={280}
                     height={200}

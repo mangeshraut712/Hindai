@@ -4,6 +4,7 @@ import type { AshtavinayakSite } from "@/lib/data/ashtavinayak";
 import { ASHTAVINAYAK } from "@/lib/data/ashtavinayak";
 import { MiniPlaceMap } from "@/components/tirtha/sacred-map";
 import { allMapMarkers } from "@/lib/data/tirtha-map";
+import { publicUrl } from "@/lib/site";
 
 export function AshtavinayakArticle({ shrine }: { shrine: AshtavinayakSite }) {
   const marker = allMapMarkers().find((item) => item.id === `ashtavinayak:${shrine.slug}`);
@@ -23,7 +24,7 @@ export function AshtavinayakArticle({ shrine }: { shrine: AshtavinayakSite }) {
 
       <figure className="mt-8 overflow-hidden rounded-2xl border border-border/60">
         <Image
-          src="/ganesha/hero.webp"
+          src={publicUrl("/ganesha/hero.webp")}
           alt={`Artist impression for ${shrine.name} circuit mood — not a photograph`}
           width={1600}
           height={900}

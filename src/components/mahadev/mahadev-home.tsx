@@ -7,12 +7,13 @@ import { bookPath, firstPageForSlug } from "@/lib/data/shivlilamrit/book";
 import { SacredMap } from "@/components/tirtha/sacred-map";
 import { TraditionDeepSection } from "@/components/tirtha/tradition-deep-section";
 import { GurukulHero } from "@/components/gurukul/gurukul-media";
+import { publicUrl } from "@/lib/site";
 
 export function MahadevHome() {
   return (
     <div>
       <GurukulHero
-        src="/mahadev/hero.webp"
+        src={publicUrl("/mahadev/hero.webp")}
         alt="Artist impression of Mahadeva in Himalayan twilight — not a photograph"
         eyebrow="ॐ नमः शिवाय · Mahadeva"
         title="Shiva as the tradition actually speaks — names, light, and twelve places"
@@ -77,7 +78,7 @@ export function MahadevHome() {
                 className="group grid grid-cols-[7rem_minmax(0,1fr)] gap-4 border-b border-border/70 py-5"
               >
                 <Image
-                  src={item.image}
+                  src={publicUrl(item.image)}
                   alt={`Artist impression for ${item.name} — not a photograph of the temple`}
                   width={280}
                   height={200}

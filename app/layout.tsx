@@ -90,7 +90,7 @@ export const metadata: Metadata = {
       "Discover ancient Indian wisdom through AI-powered exploration. A modern digital library for Vedas, Upanishads, Epics, and Puranas.",
     images: [
       {
-        url: "/Home.webp",
+        url: publicUrl("/Home.webp"),
         width: 1200,
         height: 630,
         alt: "Hind AI - Ancient Indian Scriptures with AI",
@@ -101,7 +101,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Hind AI - AI-Powered Digital Library",
     description: "Discover ancient Indian wisdom through AI-powered exploration.",
-    images: ["/Home.webp"],
+    images: [publicUrl("/Home.webp")],
   },
   alternates: {
     canonical: SITE_URL,
@@ -114,8 +114,8 @@ export const metadata: Metadata = {
   category: "Education",
   classification: "Religious & Spiritual",
   icons: {
-    icon: [{ url: "/logo.webp", type: "image/webp" }],
-    apple: [{ url: "/logo.webp", sizes: "180x180" }],
+    icon: [{ url: publicUrl("/logo.webp"), type: "image/webp" }],
+    apple: [{ url: publicUrl("/logo.webp"), sizes: "180x180" }],
   },
   manifest: publicUrl("/manifest.json"),
 };

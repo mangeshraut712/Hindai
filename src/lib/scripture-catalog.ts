@@ -356,7 +356,7 @@ export const scriptureSections: ScriptureSection[] = [
         description:
           "Collection of Sahasranamas including Lalita Sahasranama, Shiva Sahasranama, and more.",
         highlight: "Multiple Sahasranamas, devotion",
-        href: "/sahasranama",
+        href: "/stotras",
         language: "Sanskrit",
         approximateDate: "Various",
         keyConcepts: ["Devi", "Shiva", "Names", "Devotion"],

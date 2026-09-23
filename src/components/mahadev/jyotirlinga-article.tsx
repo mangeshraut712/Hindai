@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Jyotirlinga } from "@/lib/data/jyotirlingas";
 import { JYOTIRLINGAS } from "@/lib/data/jyotirlingas";
+import { publicUrl } from "@/lib/site";
 
 function NeighborLinks({ current }: { current: Jyotirlinga }) {
   const index = JYOTIRLINGAS.findIndex((item) => item.slug === current.slug);
@@ -41,7 +42,7 @@ export function JyotirlingaArticle({ shrine }: { shrine: Jyotirlinga }) {
 
       <figure className="mt-8 overflow-hidden rounded-2xl border border-border/60">
         <Image
-          src={shrine.image}
+          src={publicUrl(shrine.image)}
           alt={`Artist impression for ${shrine.name} — not a photograph of the living temple`}
           width={1600}
           height={1200}

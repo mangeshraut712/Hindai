@@ -9,6 +9,7 @@ import {
 import { bookPath, firstPageForSlug, toDevanagariNumeral } from "@/lib/data/shivlilamrit/book";
 import { listPothi } from "@/lib/data/shivlilamrit/pothi";
 import { FREE_KATHASAR_PDF } from "@/lib/data/shivlilamrit/print-edition";
+import { publicUrl } from "@/lib/site";
 
 export function ShivlilamritHome() {
   const extras = listPothi().filter((entry) => entry.kind !== "adhyay");
@@ -60,7 +61,7 @@ export function ShivlilamritHome() {
             <div className="pothi-paat w-full max-w-72 rotate-[-3deg]">
               <div className="overflow-hidden rounded-md bg-card px-4 py-6 text-center shadow-inner">
                 <Image
-                  src="/shivlilamrit/cover.webp"
+                  src={publicUrl("/shivlilamrit/cover.webp")}
                   alt="सचित्र श्रीशिवलीलामृत कथासार — cover art"
                   width={634}
                   height={951}

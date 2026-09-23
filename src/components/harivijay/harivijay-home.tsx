@@ -6,6 +6,7 @@ import {
   PARAYAN_METHODS,
 } from "@/lib/data/harivijay/catalog";
 import { bookPath, firstPageForChapter, toDevanagariNumeral } from "@/lib/data/harivijay/book";
+import { publicUrl } from "@/lib/site";
 
 export function HarivijayHome() {
   return (
@@ -49,7 +50,7 @@ export function HarivijayHome() {
             <div className="pothi-paat w-full max-w-72 rotate-[-3deg]">
               <div className="overflow-hidden rounded-md bg-card px-4 py-6 text-center shadow-inner">
                 <Image
-                  src="/harivijay/cover.webp"
+                  src={publicUrl("/harivijay/cover.webp")}
                   alt="श्रीहरिविजय — artist impression cover for Hind AI"
                   width={768}
                   height={1024}

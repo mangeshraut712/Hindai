@@ -17,6 +17,7 @@ import {
   prevPage,
   toDevanagariNumeral,
 } from "@/lib/data/haripaat/book";
+import { publicUrl } from "@/lib/site";
 
 function localeLabel(locale: ReaderLocale): string {
   switch (locale) {
@@ -108,7 +109,7 @@ export function HaripaatReader({ initialPage }: { initialPage: number }) {
         {leafPage.kind === "cover" ? (
           <div className="space-y-6 px-6 py-10 text-center sm:px-10">
             <Image
-              src="/haripaat/cover.webp"
+              src={publicUrl("/haripaat/cover.webp")}
               alt="Haripaat cover — artist impression"
               width={768}
               height={1024}

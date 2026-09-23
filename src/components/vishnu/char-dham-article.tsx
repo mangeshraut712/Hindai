@@ -4,6 +4,7 @@ import type { CharDhamSite } from "@/lib/data/char-dham";
 import { CHAR_DHAM } from "@/lib/data/char-dham";
 import { MiniPlaceMap } from "@/components/tirtha/sacred-map";
 import { allMapMarkers } from "@/lib/data/tirtha-map";
+import { publicUrl } from "@/lib/site";
 
 export function CharDhamArticle({ shrine }: { shrine: CharDhamSite }) {
   const marker = allMapMarkers().find((item) => item.id === `char-dham:${shrine.slug}`);
@@ -22,7 +23,7 @@ export function CharDhamArticle({ shrine }: { shrine: CharDhamSite }) {
 
       <figure className="mt-8 overflow-hidden rounded-2xl border border-border/60">
         <Image
-          src={shrine.image}
+          src={publicUrl(shrine.image)}
           alt={`Artist impression for ${shrine.name} — not a photograph of the living temple`}
           width={1600}
           height={900}

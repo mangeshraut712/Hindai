@@ -2,12 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { KATHA_GRANTHAS, KATHA_NOTE } from "@/lib/data/katha-grantha";
 import { GurukulHero } from "@/components/gurukul/gurukul-media";
+import { publicUrl } from "@/lib/site";
 
 export function KathaHome() {
   return (
     <div>
       <GurukulHero
-        src="/katha/hero.webp"
+        src={publicUrl("/katha/hero.webp")}
         alt="Artist impression of a sacred manuscript desk — not a photograph"
         eyebrow="कथा ग्रन्थ · Story library"
         title="Book-depth god stories that stay on Hind AI"
@@ -29,7 +30,7 @@ export function KathaHome() {
                 className="group grid grid-cols-[7rem_minmax(0,1fr)] gap-4 border-b border-border/70 py-5"
               >
                 <Image
-                  src={item.heroImage}
+                  src={publicUrl(item.heroImage)}
                   alt={`Artist impression for ${item.title}`}
                   width={280}
                   height={200}

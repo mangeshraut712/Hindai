@@ -2,6 +2,7 @@ import Image from "next/image";
 import { type Folio, contentsRows, toDevanagariNumeral } from "@/lib/data/shivlilamrit/book";
 import type { ReaderLocale } from "@/lib/data/shivlilamrit/catalog";
 import { oviDisplay } from "@/lib/data/shivlilamrit/locales";
+import { publicUrl } from "@/lib/site";
 
 const BOOK_NAME = "श्रीशिवलीलामृत कथासार";
 
@@ -35,7 +36,7 @@ export function PrintLeaf({
       <div className="pdf-sheet pdf-cover">
         <h1 className="sr-only">सचित्र श्रीशिवलीलामृत</h1>
         <Image
-          src="/shivlilamrit/cover.webp"
+          src={publicUrl("/shivlilamrit/cover.webp")}
           alt="सचित्र श्रीशिवलीलामृत कथासार"
           width={634}
           height={951}

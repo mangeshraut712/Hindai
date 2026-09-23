@@ -18,6 +18,7 @@ import {
   toDevanagariNumeral,
 } from "@/lib/data/harivijay/book";
 import { readerLocaleLabel, speechLang } from "@/lib/data/harivijay/locales";
+import { publicUrl } from "@/lib/site";
 
 export function HarivijayReader({ initialPage }: { initialPage: number }) {
   const router = useRouter();
@@ -99,7 +100,7 @@ export function HarivijayReader({ initialPage }: { initialPage: number }) {
         {leaf.kind === "cover" ? (
           <div className="space-y-6 px-6 py-10 text-center sm:px-10">
             <Image
-              src="/harivijay/cover.webp"
+              src={publicUrl("/harivijay/cover.webp")}
               alt="श्रीहरिविजय cover — artist impression"
               width={768}
               height={1024}
@@ -144,7 +145,7 @@ export function HarivijayReader({ initialPage }: { initialPage: number }) {
           <div className="px-5 py-8 sm:px-8">
             <div className="overflow-hidden rounded-xl border border-border/60">
               <Image
-                src={BEAT_IMAGE[leaf.chapter.beat]}
+                src={publicUrl(BEAT_IMAGE[leaf.chapter.beat])}
                 alt={`Artist impression for ${leaf.chapter.titleEn}`}
                 width={1200}
                 height={700}

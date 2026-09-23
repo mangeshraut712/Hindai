@@ -1,5 +1,6 @@
 import Image, { ImageProps } from "next/image";
 import { cn } from "@/lib/utils";
+import { publicUrl } from "@/lib/site";
 
 interface LazyImageProps extends Omit<ImageProps, "onLoad" | "onError"> {
   fallback?: string;
@@ -10,7 +11,7 @@ interface LazyImageProps extends Omit<ImageProps, "onLoad" | "onError"> {
 export function LazyImage({
   src,
   alt,
-  fallback = "/logo.webp",
+  fallback = publicUrl("/logo.webp"),
   className,
   priority = false,
   ...props

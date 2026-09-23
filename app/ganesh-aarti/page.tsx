@@ -4,7 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GurukulHero } from "@/components/gurukul/gurukul-media";
 import { GANESH_AARTI_SANGRAH, aartiKindLabel } from "@/lib/data/ganesh-aarti-sangrah";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, publicUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Ganesh Marathi Aarti Sangrah",
@@ -23,7 +23,7 @@ export default function GaneshAartiIndexPage() {
       <Header />
       <main id="main-content" className="flex-1">
         <GurukulHero
-          src="/ganesh-aarti/hero.webp"
+          src={publicUrl("/ganesh-aarti/hero.webp")}
           alt="Artist impression of four-armed Ganesha with mushaka — not a photograph of a living murti"
           eyebrow="जय गणेश आरती संग्रह · Pune"
           title="Marathi Ganesh aartis, as a living book"

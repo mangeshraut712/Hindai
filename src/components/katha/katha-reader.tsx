@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { KathaGrantha } from "@/lib/data/katha-grantha";
 import { KATHA_GRANTHAS } from "@/lib/data/katha-grantha";
+import { publicUrl } from "@/lib/site";
 
 export function KathaReader({ grantha }: { grantha: KathaGrantha }) {
   const index = KATHA_GRANTHAS.findIndex((item) => item.slug === grantha.slug);
@@ -12,7 +13,7 @@ export function KathaReader({ grantha }: { grantha: KathaGrantha }) {
     <article>
       <section className="relative overflow-hidden border-b border-border/60">
         <Image
-          src={grantha.heroImage}
+          src={publicUrl(grantha.heroImage)}
           alt={`Artist impression for ${grantha.title} — not a photograph`}
           width={1920}
           height={1080}

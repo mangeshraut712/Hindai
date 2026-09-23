@@ -2,12 +2,13 @@ import Link from "next/link";
 import { HARIPAAT_LEAVES, HARIPAAT_SOURCE_NOTE } from "@/lib/data/haripaat/catalog";
 import { bookPath, firstPageForLeaf, toDevanagariNumeral } from "@/lib/data/haripaat/book";
 import { GurukulHero } from "@/components/gurukul/gurukul-media";
+import { publicUrl } from "@/lib/site";
 
 export function HaripaatHome() {
   return (
     <div>
       <GurukulHero
-        src="/haripaat/cover.webp"
+        src={publicUrl("/haripaat/cover.webp")}
         alt="Artist impression of Vitthal/Krishna for Haripaat — not a photograph of a living murti"
         eyebrow="ॐ नमो भगवते वासुदेवाय · हरिपाठ"
         title="Daily Hari patha for the household"

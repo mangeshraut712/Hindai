@@ -17,6 +17,7 @@ import {
   prevPage,
   toDevanagariNumeral,
 } from "@/lib/data/ramvijay/book";
+import { publicUrl } from "@/lib/site";
 
 function localeLabel(locale: ReaderLocale): string {
   switch (locale) {
@@ -108,7 +109,7 @@ export function RamvijayReader({ initialPage }: { initialPage: number }) {
         {leaf.kind === "cover" ? (
           <div className="space-y-6 px-6 py-10 text-center sm:px-10">
             <Image
-              src="/ramvijay/cover.webp"
+              src={publicUrl("/ramvijay/cover.webp")}
               alt="श्रीरामविजय cover — artist impression"
               width={768}
               height={1024}
@@ -151,7 +152,7 @@ export function RamvijayReader({ initialPage }: { initialPage: number }) {
         {leaf.kind === "adhyay" ? (
           <div className="px-5 py-8 sm:px-8">
             <Image
-              src="/festivals/rama-navami.webp"
+              src={publicUrl("/festivals/rama-navami.webp")}
               alt={`Artist impression for ${leaf.chapter.titleEn}`}
               width={1200}
               height={700}

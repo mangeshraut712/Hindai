@@ -6,6 +6,7 @@ import { DEVI_DEEP } from "@/lib/data/tradition-deep";
 import { SacredMap } from "@/components/tirtha/sacred-map";
 import { TraditionDeepSection } from "@/components/tirtha/tradition-deep-section";
 import { GurukulHero } from "@/components/gurukul/gurukul-media";
+import { publicUrl } from "@/lib/site";
 
 export function DeviHome() {
   const peethas = SHAKTI_PEETHAS.filter((item) => item.listStatus !== "major-yatra");
@@ -14,7 +15,7 @@ export function DeviHome() {
   return (
     <div>
       <GurukulHero
-        src="/devi/hero.webp"
+        src={publicUrl("/devi/hero.webp")}
         alt="Artist impression of Devi — not a photograph"
         eyebrow="शक्त्यै नमः · Devi"
         title="Shakti Peethas we can locate — and yatras we will not fake as peethas"
@@ -45,7 +46,7 @@ export function DeviHome() {
               >
                 {item.image ? (
                   <Image
-                    src={item.image}
+                    src={publicUrl(item.image)}
                     alt={`Artist impression for ${item.name}`}
                     width={240}
                     height={180}
@@ -80,7 +81,7 @@ export function DeviHome() {
               >
                 {item.image ? (
                   <Image
-                    src={item.image}
+                    src={publicUrl(item.image)}
                     alt={`Artist impression for ${item.name}`}
                     width={280}
                     height={200}

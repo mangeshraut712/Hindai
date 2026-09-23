@@ -10,7 +10,7 @@ import {
   getGaneshAarti,
   listGaneshAartiSlugs,
 } from "@/lib/data/ganesh-aarti-sangrah";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, publicUrl } from "@/lib/site";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -68,7 +68,7 @@ export default async function GaneshAartiDetailPage({ params }: PageProps) {
         <section className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
           <aside className="space-y-6">
             <GurukulFigure
-              src="/ganesh-aarti/hero.webp"
+              src={publicUrl("/ganesh-aarti/hero.webp")}
               alt="Artist impression of Ganesha — not a photograph of a living murti"
             />
             <div className="border-t border-border/70 pt-5">

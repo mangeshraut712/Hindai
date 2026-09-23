@@ -7,12 +7,13 @@ import {
 } from "@/lib/data/durga-saptashati/catalog";
 import { bookPath, firstPageForLeaf, toDevanagariNumeral } from "@/lib/data/durga-saptashati/book";
 import { GurukulHero } from "@/components/gurukul/gurukul-media";
+import { publicUrl } from "@/lib/site";
 
 export function DurgaSaptashatiHome() {
   return (
     <div>
       <GurukulHero
-        src="/durga-saptashati/cover.webp"
+        src={publicUrl("/durga-saptashati/cover.webp")}
         alt="Artist impression of Goddess Durga for Durga Saptashati — not a photograph of a living murti"
         eyebrow="ॐ ऐं ह्रीं क्लीं चामुण्डायै विच्चे · दुर्गा सप्तशती"
         title="Devi Mahatmya as a living Chandi patha"

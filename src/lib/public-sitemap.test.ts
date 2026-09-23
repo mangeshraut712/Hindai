@@ -1,6 +1,39 @@
 import assert from "node:assert/strict";
+import { existsSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 import { test } from "node:test";
 import { listPublicSitemapEntries, sitemapLoc } from "./public-sitemap";
+import { scriptureCatalog } from "./scripture-catalog";
+
+const APP_DIR = join(process.cwd(), "app");
+const CATALOG_SLUGS = new Set(scriptureCatalog.map((item) => item.slug));
+
+function routeExists(path: string): boolean {
+  const segments = path.split("/").filter(Boolean);
+  let dirs = [APP_DIR];
+  for (const segment of segments) {
+    dirs = dirs.flatMap((dir) =>
+      readdirSync(dir, { withFileTypes: true })
+        .filter((entry) => {
+          if (!entry.isDirectory()) return false;
+          if (entry.name === segment) return true;
+          if (!/^\[[^.\]]+\]$/.test(entry.name)) return false;
+          // app/[slug] only prerenders scripture catalog slugs; other dynamic routes
+          // get their params from the same data lists the sitemap is built from.
+          return dir !== APP_DIR || CATALOG_SLUGS.has(segment);
+        })
+        .map((entry) => join(dir, entry.name))
+    );
+  }
+  return dirs.some((dir) => existsSync(join(dir, "page.tsx")));
+}
+
+test("every sitemap path is served by an app route", () => {
+  const missing = listPublicSitemapEntries()
+    .map((entry) => entry.path)
+    .filter((path) => !routeExists(path));
+  assert.deepEqual(missing, []);
+});
 
 test("sitemap entries are unique and include grantha + culture routes", () => {
   const entries = listPublicSitemapEntries();

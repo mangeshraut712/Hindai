@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { RAMVIJAY_CHAPTERS, RAMVIJAY_SOURCE_NOTE } from "@/lib/data/ramvijay/catalog";
 import { bookPath, firstPageForChapter, toDevanagariNumeral } from "@/lib/data/ramvijay/book";
+import { publicUrl } from "@/lib/site";
 
 export function RamvijayHome() {
   return (
@@ -44,7 +45,7 @@ export function RamvijayHome() {
             <div className="pothi-paat w-full max-w-72 rotate-[-3deg]">
               <div className="overflow-hidden rounded-md bg-card px-4 py-6 text-center shadow-inner">
                 <Image
-                  src="/ramvijay/cover.webp"
+                  src={publicUrl("/ramvijay/cover.webp")}
                   alt="श्रीरामविजय — artist impression cover for Hind AI"
                   width={768}
                   height={1024}

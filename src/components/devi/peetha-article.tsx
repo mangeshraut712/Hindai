@@ -4,6 +4,7 @@ import type { ShaktiPeetha } from "@/lib/data/shakti-peethas";
 import { SHAKTI_PEETHAS } from "@/lib/data/shakti-peethas";
 import { MiniPlaceMap } from "@/components/tirtha/sacred-map";
 import { allMapMarkers } from "@/lib/data/tirtha-map";
+import { publicUrl } from "@/lib/site";
 
 export function PeethaArticle({ shrine }: { shrine: ShaktiPeetha }) {
   const marker = allMapMarkers().find(
@@ -12,7 +13,7 @@ export function PeethaArticle({ shrine }: { shrine: ShaktiPeetha }) {
   const index = SHAKTI_PEETHAS.findIndex((item) => item.slug === shrine.slug);
   const prev = index > 0 ? SHAKTI_PEETHAS[index - 1] : undefined;
   const next = index < SHAKTI_PEETHAS.length - 1 ? SHAKTI_PEETHAS[index + 1] : undefined;
-  const heroImage = shrine.image ?? "/devi/hero.webp";
+  const heroImage = publicUrl(shrine.image ?? "/devi/hero.webp");
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">

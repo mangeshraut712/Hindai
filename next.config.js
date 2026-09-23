@@ -72,65 +72,6 @@ const nextConfig = {
       },
     ],
   },
-  // Webpack optimization
-  webpack: (config, { isServer, dev }) => {
-    if (!isServer && !dev) {
-      config.optimization.splitChunks = {
-        chunks: "all",
-        maxSize: 150000, // 150KB max chunk size - reduced from 244KB
-        minSize: 20000, // 20KB min chunk size
-        cacheGroups: {
-          default: false,
-          vendors: false,
-          framer: {
-            name: "framer",
-            chunks: "all",
-            test: /[\\/]node_modules[\\/](framer-motion)/,
-            priority: 20,
-            maxSize: 100000, // 100KB max for framer
-          },
-          radix: {
-            name: "radix",
-            chunks: "all",
-            test: /[\\/]node_modules[\\/](@radix-ui)/,
-            priority: 15,
-            maxSize: 80000, // 80KB max for radix
-          },
-          lucide: {
-            name: "lucide",
-            chunks: "all",
-            test: /[\\/]node_modules[\\/](lucide-react)/,
-            priority: 10,
-            maxSize: 50000, // 50KB max for lucide
-          },
-          commons: {
-            name: "commons",
-            chunks: "all",
-            minChunks: 2,
-            priority: 5,
-            maxSize: 100000, // 100KB max for commons
-          },
-        },
-      };
-
-      // Reduce bundle size by removing unused exports
-      config.optimization.usedExports = true;
-      config.optimization.sideEffects = false;
-
-      // Enable module concatenation for better performance
-      config.optimization.concatenateModules = true;
-
-      // Improve chunk loading performance
-      config.optimization.runtimeChunk = "single";
-
-      // Enable compression
-      config.optimization.minimize = true;
-
-      // Enable aggressive tree shaking
-      config.optimization.providedExports = true;
-    }
-    return config;
-  },
 };
 
 if (!isGithubPages) {

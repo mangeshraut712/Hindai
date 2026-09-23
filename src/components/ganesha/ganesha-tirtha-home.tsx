@@ -4,12 +4,13 @@ import { GANESHA_DEEP } from "@/lib/data/tradition-deep";
 import { SacredMap } from "@/components/tirtha/sacred-map";
 import { TraditionDeepSection } from "@/components/tirtha/tradition-deep-section";
 import { GurukulHero } from "@/components/gurukul/gurukul-media";
+import { publicUrl } from "@/lib/site";
 
 export function GaneshaTirthaHome() {
   return (
     <div>
       <GurukulHero
-        src="/ganesha/hero.webp"
+        src={publicUrl("/ganesha/hero.webp")}
         alt="Artist impression of Ganesha — not a photograph"
         eyebrow="गणपति · Ashtavinayak"
         title="Eight Ganapatis as a Maharashtra circuit"

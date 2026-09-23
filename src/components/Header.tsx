@@ -27,6 +27,7 @@ import { SUPPORTED_LANGUAGES, useLanguage } from "@/lib/i18n/context";
 import type { Language } from "@/lib/i18n/types";
 import { headerScriptures } from "@/lib/scripture-catalog";
 import { SITE_NAV_GROUPS, type SiteNavGroup, type SiteNavItem } from "@/lib/site-nav";
+import { publicUrl } from "@/lib/site";
 
 function BrandLink({ onNavigate }: { onNavigate: () => void }) {
   return (
@@ -38,7 +39,7 @@ function BrandLink({ onNavigate }: { onNavigate: () => void }) {
     >
       <div className="relative size-9 shrink-0 overflow-hidden rounded-full border border-primary/30 bg-gradient-to-br from-primary/10 to-primary/5 sm:size-10">
         <Image
-          src="/logo.webp"
+          src={publicUrl("/logo.webp")}
           alt="Hind AI"
           width={40}
           height={40}

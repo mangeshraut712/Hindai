@@ -17,7 +17,11 @@ export const SITE_URL =
 
 /** Root-relative public file, including GitHub Pages `basePath` when set. */
 export function publicUrl(path: string): string {
+  if (!path || /^https?:\/\//.test(path)) return path;
   const normalized = path.startsWith("/") ? path : `/${path}`;
+  if (!BASE_PATH || normalized === BASE_PATH || normalized.startsWith(`${BASE_PATH}/`)) {
+    return normalized;
+  }
   return `${BASE_PATH}${normalized}`;
 }
 

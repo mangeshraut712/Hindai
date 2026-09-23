@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { UtsavEntry } from "@/lib/data/utsav";
 import { UTSAVS } from "@/lib/data/utsav";
+import { publicUrl } from "@/lib/site";
 
 function formatCivil(iso: string): string {
   const date = new Date(`${iso}T12:00:00`);
@@ -43,7 +44,7 @@ export function FestivalArticle({ festival }: { festival: UtsavEntry }) {
       <section className="relative overflow-hidden border-b border-border/60">
         {festival.image ? (
           <Image
-            src={festival.image}
+            src={publicUrl(festival.image)}
             alt={`Artist impression for ${festival.name} — not a photograph`}
             width={1920}
             height={1080}

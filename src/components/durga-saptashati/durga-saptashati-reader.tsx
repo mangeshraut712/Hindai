@@ -21,6 +21,7 @@ import {
   prevPage,
   toDevanagariNumeral,
 } from "@/lib/data/durga-saptashati/book";
+import { publicUrl } from "@/lib/site";
 
 function localeLabel(locale: ReaderLocale): string {
   switch (locale) {
@@ -117,7 +118,7 @@ export function DurgaSaptashatiReader({ initialPage }: { initialPage: number }) 
         {leafPage.kind === "cover" ? (
           <div className="space-y-6 px-6 py-10 text-center sm:px-10">
             <Image
-              src="/durga-saptashati/cover.webp"
+              src={publicUrl("/durga-saptashati/cover.webp")}
               alt="Durga Saptashati cover — artist impression"
               width={768}
               height={1024}
