@@ -31,9 +31,9 @@ function studyCopy(
     case "contents":
       return {
         title: "Harivijay contents",
-        context: HARIVIJAY_CHAPTERS.map((chapter) => `${chapter.titleMr} — ${chapter.titleEn}`).join(
-          "\n"
-        ),
+        context: HARIVIJAY_CHAPTERS.map(
+          (chapter) => `${chapter.titleMr} — ${chapter.titleEn}`
+        ).join("\n"),
       };
     case "adhyay":
       return {
@@ -202,7 +202,12 @@ export function HarivijayReader({ initialPage }: { initialPage: number }) {
         ) : null}
       </article>
 
-      <GemmaStudyPanel key={`${page}-${locale}`} kind="book" title={study.title} context={study.context} />
+      <GemmaStudyPanel
+        key={`${page}-${locale}`}
+        kind="book"
+        title={study.title}
+        context={study.context}
+      />
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
         <Button

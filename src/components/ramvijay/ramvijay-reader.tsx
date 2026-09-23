@@ -207,7 +207,12 @@ export function RamvijayReader({ initialPage }: { initialPage: number }) {
         ) : null}
       </article>
 
-      <GemmaStudyPanel key={`${page}-${locale}`} kind="book" title={study.title} context={study.context} />
+      <GemmaStudyPanel
+        key={`${page}-${locale}`}
+        kind="book"
+        title={study.title}
+        context={study.context}
+      />
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
         <Button
