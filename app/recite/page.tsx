@@ -25,8 +25,8 @@ export default function ReciteIndexPage() {
             <p className="section-copy mt-5">
               Each page is the original text, verse by verse, with IAST for pronunciation and a
               browser voice that can read the section aloud. English on the Hanuman Chalisa and
-              Ganapati Atharvashirsha explains the verses. The other hymns are here to be recited
-              in the original.
+              Ganapati Atharvashirsha explains the verses. The other hymns are here to be recited in
+              the original.
             </p>
           </div>
         </section>
@@ -40,7 +40,9 @@ export default function ReciteIndexPage() {
                 >
                   <p className="text-sm text-primary">{item.occasion}</p>
                   <h2 className="mt-2 font-serif text-2xl">{item.title}</h2>
-                  <p className="mt-1 font-devanagari text-lg text-muted-foreground">{item.titleSa}</p>
+                  <p className="mt-1 font-devanagari text-lg text-muted-foreground">
+                    {item.titleSa}
+                  </p>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.summary}</p>
                   <p className="mt-3 text-xs font-semibold tracking-[0.16em] text-muted-foreground">
                     {item.deity} · {recitationVerseCount(item)} verses

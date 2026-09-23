@@ -153,7 +153,9 @@ export function RecitationReader({ recitation }: { recitation: Recitation }) {
               className="mt-2 block w-full max-w-full rounded-xl border border-border bg-background px-3 py-2 text-base text-foreground"
               value={section.id}
               onChange={(event) => {
-                const next = recitation.sections.findIndex((entry) => entry.id === event.target.value);
+                const next = recitation.sections.findIndex(
+                  (entry) => entry.id === event.target.value
+                );
                 stop();
                 setSectionIndex(next < 0 ? 0 : next);
               }}
@@ -186,7 +188,9 @@ export function RecitationReader({ recitation }: { recitation: Recitation }) {
         ) : null}
         <p className="flex min-w-0 items-start gap-2 text-sm leading-6 text-muted-foreground">
           <Volume2 className="mt-0.5 size-4 shrink-0" />
-          <span>Browser voice reading the Devanagari. Pronunciation follows the installed voice.</span>
+          <span>
+            Browser voice reading the Devanagari. Pronunciation follows the installed voice.
+          </span>
         </p>
       </div>
 
@@ -221,7 +225,10 @@ export function RecitationReader({ recitation }: { recitation: Recitation }) {
         {section.verses.map((verse) => {
           const text = layerText(verse, layer);
           return (
-            <li key={`${section.id}-${verse.number}`} className="surface-panel min-w-0 rounded-2xl p-5">
+            <li
+              key={`${section.id}-${verse.number}`}
+              className="surface-panel min-w-0 rounded-2xl p-5"
+            >
               <p className="text-xs font-semibold tracking-[0.18em] text-primary">
                 {verse.label || String(verse.number).padStart(2, "0")}
               </p>

@@ -47,7 +47,7 @@
 - **🕉️ Shivlilamrit**: Numbered pothi reader with recitation support
 - **🔤 Sanskrit Tools**: Transliteration, sandhi, morphology, vibhakti, Vedic accents
 - **☁️ Static-first live site**: GitHub Pages serves scripture, tirtha, festivals, katha, Panchanga, and study UI. Gemma goes through `workers/hindai-gemma`.
-- **⚡ Modern Stack**: Next.js 15.5, React 19.2, TypeScript 5.9, Node.js >=20.0
+- **⚡ Modern Stack**: Next.js 15.5, React 19.2, TypeScript 5.9, Node.js >=22 (CI on 24)
 - **🧱 Engineering**: Layered routes / UI / domain / Worker. See [docs/engineering.md](./docs/engineering.md).
 
 ---

@@ -14,7 +14,7 @@ Guidance for coding agents working in this repo.
 ## Setup and checks
 
 ```bash
-npm install                # Node >= 20, npm 11
+npm install                # Node >= 22 (CI uses 24), npm 11
 npm run dev
 npm run type-check && npm run lint && npm run test
 npm run test:e2e           # Playwright

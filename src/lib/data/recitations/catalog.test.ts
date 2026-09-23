@@ -1,11 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import {
-  RECITATIONS,
-  getRecitation,
-  recitationPlainText,
-  recitationVerseCount,
-} from "./catalog";
+import { RECITATIONS, getRecitation, recitationPlainText, recitationVerseCount } from "./catalog";
 
 function textOf(slug: string): string {
   const item = getRecitation(slug);

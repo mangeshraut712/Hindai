@@ -37,7 +37,7 @@ jobs:
         if: steps.gate.outputs.has_token == 'true'
         uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          node-version: "24"
 
       - name: Deploy hindai-gemma
         if: steps.gate.outputs.has_token == 'true'

@@ -14,7 +14,9 @@ test("recitation index lists the nine full texts", async ({ page }) => {
     "Durga Saptashati",
     "Aditya Hridayam",
   ]) {
-    await expect(page.getByRole("link", { name: new RegExp(name) })).toBeVisible();
+    await expect(
+      page.getByRole("main").getByRole("link", { name: new RegExp(name) })
+    ).toBeVisible();
   }
 });
 
@@ -31,7 +33,7 @@ test("Hanuman Chalisa can be read and spoken through", async ({ page }) => {
     });
   });
   await page.goto("/recite/hanuman-chalisa");
-  await expect(page.getByRole("heading", { name: "Hanuman Chalisa" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Hanuman Chalisa" })).toBeVisible();
   const verses = page.locator("main ol > li");
   await expect(verses).toHaveCount(43);
   await expect(verses.nth(2)).toContainText("जय हनुमान ज्ञान गुन सागर");
@@ -46,7 +48,7 @@ test("Hanuman Chalisa can be read and spoken through", async ({ page }) => {
 
 test("Durga Saptashati opens on the path and can move to an adhyaya", async ({ page }) => {
   await page.goto("/recite/durga-saptashati");
-  await expect(page.getByRole("heading", { name: "Durga Saptashati" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Durga Saptashati" })).toBeVisible();
   await page.getByLabel("Section").selectOption({ label: "Adhyaya 1 · Madhu and Kaitabha" });
   await expect(page.getByRole("heading", { name: "Adhyaya 1 · Madhu and Kaitabha" })).toBeVisible();
   await expect(page.locator("main ol")).toContainText("सावर्णि");

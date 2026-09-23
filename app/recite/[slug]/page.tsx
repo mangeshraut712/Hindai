@@ -45,7 +45,10 @@ export default async function RecitationPage({ params }: PageProps) {
       <main id="main-content" className="flex-1">
         <section className="border-b border-border/60">
           <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
-            <Link href="/recite" className="text-sm text-primary underline-offset-4 hover:underline">
+            <Link
+              href="/recite"
+              className="text-sm text-primary underline-offset-4 hover:underline"
+            >
               All recitations
             </Link>
             <p className="eyebrow mt-6">
