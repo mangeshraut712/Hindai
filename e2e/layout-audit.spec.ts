@@ -5,6 +5,8 @@ const ROUTES = [
   "/contents",
   "/sadhana",
   "/stotras",
+  "/recite",
+  "/recite/hanuman-chalisa",
   "/ganesh-aarti",
   "/ganesh-aarti/sukhakarta-dukhaharta",
   "/haripaat",

@@ -43,7 +43,7 @@ test.describe("Stotras & Aartis Page Tests", () => {
     await expect(page.getByText("The All-Pervading One")).toBeVisible();
     await expect(page.getByRole("link", { name: "Read Full Text" })).toHaveAttribute(
       "href",
-      "/vishnu-sahasranama"
+      "/recite/vishnu-sahasranama"
     );
   });
 

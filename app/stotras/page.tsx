@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StotraLibrary } from "@/components/stotras/stotra-library";
@@ -26,6 +27,11 @@ export default function StotrasPage() {
                 names of deities (Sahasranamas), ancient hymns, and sacred mantras that have been
                 chanted by millions for centuries. Each stotra carries the essence of divine
                 qualities and serves as a bridge between devotee and divinity.
+              </p>
+              <p className="mt-5">
+                <Link href="/recite" className="text-primary underline-offset-4 hover:underline">
+                  Recite the full texts
+                </Link>
               </p>
             </div>
           </div>

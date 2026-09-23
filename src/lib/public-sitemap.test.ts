@@ -15,6 +15,9 @@ test("sitemap entries are unique and include grantha + culture routes", () => {
   assert.ok(paths.includes("/ramvijay"));
   assert.ok(paths.includes("/festivals"));
   assert.ok(paths.includes("/katha"));
+  assert.ok(paths.includes("/recite"));
+  assert.ok(paths.includes("/recite/hanuman-chalisa"));
+  assert.ok(paths.includes("/recite/durga-saptashati"));
   assert.ok(paths.includes("/mahadev/somnath"));
   assert.ok(sitemapLoc("/ai-guide").endsWith("/ai-guide/"));
   assert.ok(sitemapLoc("/").endsWith("/Hindai/") || sitemapLoc("/").endsWith("/"));

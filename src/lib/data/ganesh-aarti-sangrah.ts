@@ -1,9 +1,12 @@
+import { GANAPATI_BOOKLET_VERSES } from "./ganapati-atharvashirsha-booklet";
+
 export type AartiKind = "aarti" | "stotra" | "mantra" | "gajar" | "prayer" | "schedule";
 
 export type AartiLayer = "original" | "iast" | "english" | "meaning";
 
 export interface AartiVerse {
   number: number;
+  label?: string;
   original: string;
   iast: string;
   english: string;
@@ -24,6 +27,7 @@ export interface AartiItem {
   audioLabel?: string;
   summary: string;
   iconography: string;
+  bookletNote?: string;
   verses: AartiVerse[];
 }
 
@@ -400,84 +404,20 @@ export const GANESH_AARTI_SANGRAH: AartiItem[] = [
   {
     slug: "ganapati-atharvashirsha",
     title: "Ganapati Atharvashirsha",
-    titleMr: "गणपति-अथर्वशीर्षम्",
+    titleMr: "॥ अथ गणपति-अथर्वशीर्षम् ॥",
     kind: "stotra",
     deity: "Ganesha",
     composer: "Atharva Veda tradition (Ganapati Upanishad)",
     bookletPages: "8–10",
     inBooklet: true,
     onSiteBefore: false,
-    audioUrl: "https://archive.org/download/GanapatiAtharvashirsha/GanapatiAtharvashirsha.mp3",
-    audioLabel: "Archive.org chant (if the file is present)",
     summary:
       "The booklet places this Upanishad before the aartis, with a note to recite 1, 5, 11, 21, 100, or 1000 times, then japa of ॐ गं गणपतये नमः 108 times.",
     iconography:
       "The text itself lists red hue, ekadanta, large ears, and the weapons. Recite facing a four-armed Ganapati, not a modern cartoon.",
-    verses: [
-      v(
-        1,
-        "ॐ भद्रं कर्णेभिः शृणुयाम देवाः । भद्रं पश्येमाक्षभिर्यजत्राः ॥\nस्थिरैरङ्गैस्तुष्टुवांसस्तनूभिः । व्यशेम देवहितं यदायुः ॥ ॐ शान्तिः शान्तिः शान्तिः ॥",
-        "om bhadraṃ karṇebhiḥ śṛṇuyāma devāḥ | bhadraṃ paśyemākṣabhiryajatrāḥ ||\nsthirairaṅgaistuṣṭuvāṃsastanūbhiḥ | vyaśema devahitaṃ yadāyuḥ || om śāntiḥ śāntiḥ śāntiḥ ||",
-        "Om. Gods, may we hear what is auspicious; may we see what is auspicious. With steady limbs may we praise you and live the life the gods intend. Peace, peace, peace.",
-        "पुस्तकाच्या सुरुवातीचा शान्तिपाठ."
-      ),
-      v(
-        2,
-        "ॐ नमस्ते गणपतये । त्वमेव प्रत्यक्षं तत्त्वमसि । त्वमेव केवलं कर्ताऽसि । त्वमेव केवलं धर्ताऽसि । त्वमेव केवलं हर्ताऽसि । त्वमेव सर्वं खल्विदं ब्रह्मासि । त्वं साक्षादात्माऽसि नित्यम् ॥",
-        "om namaste gaṇapataye | tvameva pratyakṣaṃ tattvamasi | tvameva kevalaṃ kartāsi | tvameva kevalaṃ dhartāsi | tvameva kevalaṃ hartāsi | tvameva sarvaṃ khalvidaṃ brahmāsi | tvaṃ sākṣādātmāsi nityam ||",
-        "Salutation to Ganapati. You alone are the visible Reality, the only creator, sustainer, and dissolver. You are all this Brahman. You are the eternal Self.",
-        "अथर्वशीर्षाचा केंद्रभाव: गणपती हे प्रत्यक्ष तत्त्व."
-      ),
-      v(
-        3,
-        "ऋतं वच्मि । सत्यं वच्मि । अव त्वं माम् । अव वक्तारम् । अव श्रोतारम् । अव दातारम् । अव धातारम् । अवानूचानमव शिष्यम् । अव पुरस्तात् । अव दक्षिणात्तात् । अव पश्चात्तात् । अवोत्तरात्तात् । अव चोर्ध्वात्तात् । अवाधस्तात् । सर्वतो मां पाहि पाहि समन्तात् ॥",
-        "ṛtaṃ vacmi | satyaṃ vacmi | ava tvaṃ mām | ava vaktāram | ava śrotāram | ava dātāram | ava dhātāram | avānūcānamava śiṣyam | ava purastāt | ava dakṣiṇāttāt | ava paścāttāt | avottarāttāt | ava cordhvāttāt | avādhastāt | sarvato māṃ pāhi pāhi samantāt ||",
-        "I speak rita, I speak satya. Protect me, the speaker, the hearer, the giver, the supporter, the teacher, and the student, from front, south, behind, north, above, and below. Guard me on every side.",
-        "दिशांनी रक्षण मागणे हे उपनिषदाचे वैदिक अंग आहे."
-      ),
-      v(
-        4,
-        "त्वं वाङ्मयस्त्वं चिन्मयः । त्वमानन्दमयस्त्वं ब्रह्ममयः । त्वं सच्चिदानन्दाद्वितीयोऽसि । त्वं प्रत्यक्षं ब्रह्मासि । त्वं ज्ञानमयो विज्ञानमयोऽसि ॥",
-        "tvaṃ vāṅmayastvaṃ cinmayaḥ | tvamānandamayastvaṃ brahmamayaḥ | tvaṃ saccidānandādvītīyo'si | tvaṃ pratyakṣaṃ brahmāsi | tvaṃ jñānamayo vijñānamayo'si ||",
-        "You are made of speech and consciousness, of bliss and Brahman. You are non-dual being-awareness-bliss. You are visible Brahman, knowledge and realized knowledge.",
-        "गणपती येथे वेदान्त तत्त्व म्हणून स्तुत्य आहे, केवळ विघ्नहर्ता नाही."
-      ),
-      v(
-        5,
-        "सर्वं जगदिदं त्वत्तो जायते । सर्वं जगदिदं त्वत्तस्तिष्ठति । सर्वं जगदिदं त्वयि लयमेष्यति । सर्वं जगदिदं त्वयि प्रत्येति । त्वं भूमिरापोऽनलोऽनिलो नभः । त्वं चत्वारि वाक्पदानि ॥",
-        "sarvaṃ jagadidaṃ tvatto jāyate | sarvaṃ jagadidaṃ tvattastiṣṭhati | sarvaṃ jagadidaṃ tvayi layameṣyati | sarvaṃ jagadidaṃ tvayi pratyeti | tvaṃ bhūmirāpo'nalo'nilo nabhaḥ | tvaṃ catvāri vākpadāni ||",
-        "This whole world is born from you, stands in you, dissolves in you, and returns to you. You are earth, water, fire, wind, and sky. You are the four paces of speech.",
-        "पंचमहाभूते आणि वाक् हे गणेशाचे विश्वात्मक रूप."
-      ),
-      v(
-        6,
-        "त्वं चतुर्धा वर्णसे । त्वं गुणत्रयातीतः । त्वं देहत्रयातीतः । त्वं कालत्रयातीतः । त्वं मूलाधारस्थितोऽसि नित्यम् । त्वं शक्तित्रयात्मकः । त्वां योगिनो ध्यायन्ति नित्यम् । त्वं ब्रह्मा त्वं विष्णुस्त्वं रुद्रस्त्वं इन्द्रस्त्वं अग्निस्त्वं वायुस्त्वं सूर्यस्त्वं चन्द्रमास्त्वं ब्रह्म भूर्भुवः स्वरोम् ॥",
-        "tvaṃ caturdhā varṇase | tvaṃ guṇatrayātītaḥ | tvaṃ dehatrayātītaḥ | tvaṃ kālatrayātītaḥ | tvaṃ mūlādhārasthito'si nityam | tvaṃ śaktitrayātmakaḥ | tvāṃ yogino dhyāyanti nityam | tvaṃ brahmā tvaṃ viṣṇustvaṃ rudrastvaṃ indrastvaṃ agnistvaṃ vāyustvaṃ sūryastvaṃ candramāstvaṃ brahma bhūrbhuvaḥ svarom ||",
-        "You appear in four ways, beyond the three gunas, three bodies, and three times. You abide in muladhara. Yogis meditate on you. You are Brahma, Vishnu, Rudra, Indra, Agni, Vayu, Surya, Chandra, and the three worlds as Om.",
-        "मूलाधारातील गणेशध्यान तन्त्र आणि वेदान्त एकत्र आणते."
-      ),
-      v(
-        7,
-        "गणादिं पूर्वमुच्चार्य वर्णादिं तदनन्तरम् । अनुस्वारः परतरः । अर्धेन्दुलसितम् । तारेण ऋद्धम् । एतत्तव मनुस्वरूपम् । गकारः पूर्वरूपम् । अकारो मध्यरूपम् । अनुस्वारश्चान्त्यरूपम् । बिन्दुरुत्तररूपम् । नादः संधानम् । संहिता संधिः । सैषा गणेशविद्या । गणक ऋषिः । निचृद्गायत्री च्छन्दः । गणपतिर्देवता । ॐ गं गणपतये नमः ॥",
-        "gaṇādiṃ pūrvamuccārya varṇādiṃ tadanantaram | anusvāraḥ parataraḥ | ardhendulasitam | tāreṇa ṛddham | etattava manusvarūpam | gakāraḥ pūrvarūpam | akāro madhyarūpam | anusvāraścāntyarūpam | binduruttararūpam | nādaḥ saṃdhānam | saṃhitā saṃdhiḥ | saiṣā gaṇeśavidyā | gaṇaka ṛṣiḥ | nicṛdgāyatrī cchandaḥ | gaṇapatirdevatā | om gaṃ gaṇapataye namaḥ ||",
-        "Utter ga first, then the vowel, then the anusvara, moon-dot, and Om. This is your mantra-form. This is Ganesha-vidya. Rishi Ganaka, metre nicrd-gayatri, deity Ganapati. Om gam ganapataye namah.",
-        "पुस्तक येथे १०८ जपाची सूचना देते."
-      ),
-      v(
-        8,
-        "एकदन्ताय विद्महे । वक्रतुण्डाय धीमहि । तन्नो दन्ती प्रचोदयात् ॥",
-        "ekadantāya vidmahe | vakratuṇḍāya dhīmahi | tanno dantī pracodayāt ||",
-        "We know the one-tusked; we meditate on the curved-trunked. May that tusked one impel us.",
-        "गणेश गायत्री. मंत्रपुष्पांजली पृष्ठावरही तीच आहे."
-      ),
-      v(
-        9,
-        "एतदथर्वशीर्षं योऽधीते स ब्रह्मभूयाय कल्पते । स सर्वविघ्नैर्न बाध्यते । स सर्वत्र सुखमेधते । स पञ्चमहापापात् प्रमुच्यते ॥",
-        "etadatharvaśīrṣaṃ yo'dhīte sa brahmabhūyāya kalpate | sa sarvavighnairna bādhyate | sa sarvatra sukhamedhate | sa pañcamahāpāpāt pramucyate ||",
-        "Whoever studies this Atharvashirsha becomes fit for oneness with Brahman, is not blocked by obstacles, grows in happiness, and is freed from the five great sins.",
-        "पुस्तकातील फलाश्रुति विभाग."
-      ),
-    ],
+    bookletNote:
+      "टीप - अथर्वशीर्ष आवर्तन १/५/११/२१/१००/१००० वेळा म्हणावे\nॐ गं गणपतये नमः ।\nहा जप १०८ वेळा करावा",
+    verses: GANAPATI_BOOKLET_VERSES,
   },
   {
     slug: "gajars",

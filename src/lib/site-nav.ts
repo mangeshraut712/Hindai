@@ -91,6 +91,12 @@ export const SITE_NAV_GROUPS: SiteNavGroup[] = [
         icon: BookOpen,
       },
       {
+        label: "Recitations",
+        hint: "Full hymns for difficult days",
+        href: "/recite",
+        icon: BookOpen,
+      },
+      {
         label: "Ganesh Aarti",
         hint: "Marathi aarti sangrah",
         href: "/ganesh-aarti",

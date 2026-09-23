@@ -36,7 +36,7 @@ const stotraItems: StotraItem[] = [
       sanskrit: name.sanskrit,
       meaning: name.meaning,
     })),
-    href: "/vishnu-sahasranama",
+    href: "/recite/vishnu-sahasranama",
     audioAvailable: true,
   },
   {
@@ -89,6 +89,7 @@ const stotraItems: StotraItem[] = [
       "The 40-verse hymn praising Lord Hanuman, composed by Tulsidas, beloved for its devotional power.",
     type: "stotra",
     count: 40,
+    href: "/recite/hanuman-chalisa",
     audioAvailable: true,
   },
   {

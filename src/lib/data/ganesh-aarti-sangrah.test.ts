@@ -48,3 +48,27 @@ test("aarti kind labels are exhaustive", () => {
   assert.equal(aartiKindLabel("aarti"), "Aarti");
   assert.equal(aartiKindLabel("schedule"), "Temple hours");
 });
+
+test("Atharvashirsha preserves the photographed booklet's fourteen numbered verses", () => {
+  const item = getGaneshAarti("ganapati-atharvashirsha")!;
+  for (let n = 1; n <= 14; n++) {
+    const digits = String(n).replace(/\d/g, (digit) => "०१२३४५६७८९"[Number(digit)]);
+    const verse = item.verses.find((entry) => entry.number === n);
+    assert.ok(verse, `missing booklet verse ${n}`);
+    assert.ok(verse.original.endsWith(`॥${digits}॥`), `booklet verse ${n}`);
+    assert.ok(verse.iast && verse.english && verse.meaning);
+  }
+  assert.equal(
+    item.verses.find((entry) => entry.number === 2)?.original,
+    "ऋतं वच्मि ॥ सत्यं वच्मि ॥२॥"
+  );
+  const all = item.verses.map((entry) => entry.original).join("\n");
+  assert.ok(all.includes("स्वस्ति न इन्द्रो वृद्धश्रवाः"));
+  assert.ok(all.includes("अव पश्चात्तात् । अव पुरस्तात्"));
+  assert.ok(all.includes("नमो व्रातपतये"));
+  assert.ok(all.includes("त्वं अवस्थात्रयातीतः"));
+  assert.ok(all.includes("अनेन गणपतिमभिषिञ्चति"));
+  assert.ok(all.includes("इत्युपनिषत्॥१४॥"));
+  assert.ok(all.includes("ॐ सह नाववतु"));
+  assert.ok(!all.includes("त्वं चतुर्धा वर्णसे"));
+});

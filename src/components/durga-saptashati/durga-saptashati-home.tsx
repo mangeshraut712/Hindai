@@ -32,6 +32,12 @@ export function DurgaSaptashatiHome() {
               अध्याय १ · मधु-कैटभ
             </Link>
             <Link
+              href="/recite/durga-saptashati"
+              className="inline-flex h-11 items-center rounded-full border border-border/70 bg-background/80 px-5 text-sm font-semibold backdrop-blur"
+            >
+              Recite the full path
+            </Link>
+            <Link
               href="/festivals/sharad-navaratri"
               className="inline-flex h-11 items-center rounded-full border border-border/70 bg-background/80 px-5 text-sm font-semibold backdrop-blur"
             >

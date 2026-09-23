@@ -1,6 +1,7 @@
 import { listAshtavinayakSlugs } from "@/lib/data/ashtavinayak";
 import { listCharDhamSlugs } from "@/lib/data/char-dham";
 import { listGaneshAartiSlugs } from "@/lib/data/ganesh-aarti-sangrah";
+import { listRecitationSlugs } from "@/lib/data/recitations/catalog";
 import { listJyotirlingaSlugs } from "@/lib/data/jyotirlingas";
 import { kathaSlugs } from "@/lib/data/katha-grantha";
 import { listShaktiPeethaSlugs } from "@/lib/data/shakti-peethas";
@@ -44,6 +45,7 @@ const STATIC_PAGES: PublicSitemapEntry[] = [
   { path: "/festivals", changeFrequency: "weekly", priority: 0.85 },
   { path: "/katha", changeFrequency: "weekly", priority: 0.85 },
   { path: "/stotras", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/recite", changeFrequency: "monthly", priority: 0.85 },
   { path: "/ganesh-aarti", changeFrequency: "monthly", priority: 0.8 },
   { path: "/shivlilamrit", changeFrequency: "monthly", priority: 0.8 },
   { path: "/shivlilamrit/book", changeFrequency: "monthly", priority: 0.85 },
@@ -111,6 +113,11 @@ export function listPublicSitemapEntries(): PublicSitemapEntry[] {
       path: `/ganesh-aarti/${slug}`,
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    ...listRecitationSlugs().map((slug) => ({
+      path: `/recite/${slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
     })),
     ...listPothi().map((entry) => ({
       path: `/shivlilamrit/read/${entry.slug}`,
