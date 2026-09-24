@@ -73,6 +73,40 @@ function readChapter(number: number, text: string, sourceUrl: string): Satyanara
   };
 }
 
+const PROSE_MARKER =
+  /(?:आता|म्हण|विचार|सांग|करुन|करून|होउन|होऊन|आहे|होता|कथेचा|अध्याय|बोले|कहा|सुनें|सुना)/;
+
+export type ReadingBlock =
+  | { kind: "heading"; text: string }
+  | { kind: "verse"; text: string }
+  | { kind: "meaning"; text: string };
+
+function classifyReading(paragraph: string): ReadingBlock {
+  if (paragraph.length < 48 && !paragraph.includes("।"))
+    return { kind: "heading", text: paragraph };
+  const prose = PROSE_MARKER.test(paragraph);
+  const verse = (paragraph.includes("॥") || paragraph.includes("।।")) && !prose;
+  return { kind: verse ? "verse" : "meaning", text: paragraph };
+}
+
+/** The Marathi book prints a Sanskrit verse, then its meaning. Keep those roles apart. */
+export function readingBlocks(paragraphs: string[], separateVerses: boolean): ReadingBlock[] {
+  if (!separateVerses) return paragraphs.map((text) => ({ kind: "meaning", text }));
+  const blocks: ReadingBlock[] = [];
+  for (const paragraph of paragraphs) {
+    const marker = paragraph.search(PROSE_MARKER);
+    const head = marker > 12 ? paragraph.slice(0, marker).trim() : "";
+    const tail = marker > 12 ? paragraph.slice(marker).trim() : "";
+    if (head && tail && (head.includes("॥") || head.includes("।"))) {
+      blocks.push({ kind: "verse", text: head });
+      blocks.push(classifyReading(tail));
+      continue;
+    }
+    blocks.push(classifyReading(paragraph));
+  }
+  return blocks;
+}
+
 export const SATYANARAYAN_READING_CHAPTERS: SatyanarayanReadingChapter[] = source.chapters.map(
   (chapter) => readChapter(chapter.number, chapter.text, chapter.sourceUrl)
 );

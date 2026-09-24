@@ -17,6 +17,8 @@ test("katha, mantra, and book pages can ask Gemma 4 about the text on the page",
     const panel = page.getByTestId("gemma-study-panel").first();
     await expect(panel).toBeVisible();
     await expect(panel.getByRole("button", { name: "Ask", exact: true })).toBeVisible();
-    await expect(panel.getByPlaceholder("Search what you want to understand")).toBeVisible();
+    await expect(
+      panel.getByPlaceholder("Ask about a person, a line, or what happens here")
+    ).toBeVisible();
   }
 });

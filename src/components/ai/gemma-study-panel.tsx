@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,8 @@ import { retrieveSitePages, siteGroundingBlock, type SiteRetrieval } from "@/lib
 import {
   buildStudyPrompt,
   studyActions,
+  studyAnswerLines,
+  studyPanelCopy,
   type StudyAction,
   type StudyKind,
 } from "@/lib/ai/study-prompts";
@@ -39,17 +41,16 @@ function answerLine(text: string) {
 function StudyAnswer({ answer }: { answer: string }) {
   return (
     <div className="mt-4 space-y-2 text-sm leading-7 text-foreground" aria-live="polite">
-      {answer.split("\n").map((line, index) => {
-        const trimmed = line.trim();
-        if (!trimmed) return <div key={index} className="h-1" aria-hidden="true" />;
-        const bullet = trimmed.match(/^[-*]\s+(.+)$/);
-        const content = bullet?.[1] ?? trimmed;
+      {studyAnswerLines(answer).map((line, index) => {
+        if (line.kind === "blank") return <div key={index} className="h-1" aria-hidden="true" />;
         return (
           <p
             key={index}
-            className={bullet ? "pl-4 before:-ml-4 before:mr-2 before:content-['•']" : ""}
+            className={
+              line.kind === "bullet" ? "pl-4 before:-ml-4 before:mr-2 before:content-['•']" : ""
+            }
           >
-            {answerLine(content)}
+            {answerLine(line.text)}
           </p>
         );
       })}
@@ -72,7 +73,14 @@ export function GemmaStudyPanel({
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [retrieval, setRetrieval] = useState<SiteRetrieval | null>(null);
-  const actions = studyActions(kind);
+  const actions = studyActions(kind, answerLanguage);
+  const copy = studyPanelCopy(answerLanguage);
+
+  useEffect(() => {
+    setAnswer("");
+    setError("");
+    setRetrieval(null);
+  }, [title, context, answerLanguage]);
 
   async function ask(action: StudyAction) {
     const lookup = question.trim();
@@ -82,8 +90,18 @@ export function GemmaStudyPanel({
       router.push(found.best.href);
       return;
     }
+    const priorAnswer = action === "explain" ? "" : answer;
     const prompt = [
-      buildStudyPrompt({ kind, action, title, context, question, contextLimit, answerLanguage }),
+      buildStudyPrompt({
+        kind,
+        action,
+        title,
+        context,
+        question,
+        contextLimit,
+        answerLanguage,
+        priorAnswer,
+      }),
       found ? siteGroundingBlock(found) : "",
     ]
       .filter((part) => part.length > 0)
@@ -139,11 +157,10 @@ export function GemmaStudyPanel({
       <ServerFeatureNotice feature="Gemma 4" />
       <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
         <Sparkles className="size-4 text-primary" aria-hidden="true" />
-        Ask Gemma 4
+        Ask about this section
       </p>
-      <p className="mt-1 text-xs leading-5 text-muted-foreground">
-        Explains the text already on this page. It will not invent missing verses.
-      </p>
+      <p className="mt-1 text-sm leading-6 text-foreground">{title}</p>
+      <p className="mt-1 text-xs leading-5 text-muted-foreground">{copy.hint}</p>
       <div className="mt-3 flex flex-wrap gap-2">
         {actions.map((action) => (
           <Button
@@ -172,7 +189,7 @@ export function GemmaStudyPanel({
           id={inputId}
           value={question}
           onChange={(event) => setQuestion(event.target.value)}
-          placeholder="Search what you want to understand"
+          placeholder={copy.placeholder}
           className="min-h-11 min-w-0 flex-1 rounded-xl border border-border bg-background px-3 text-sm text-foreground"
         />
         <Button type="submit" size="sm" disabled={loading}>

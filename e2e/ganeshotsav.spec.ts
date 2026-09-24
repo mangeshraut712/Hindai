@@ -69,7 +69,7 @@ test("Satyanarayan chapter explanation follows the selected language and passage
 
   await page.goto("/satyanarayan-puja");
   await page.getByRole("tab", { name: "हिन्दी कथा" }).click();
-  await page.getByRole("button", { name: "Explain this story" }).click();
+  await page.getByRole("button", { name: "यह कथा समझाइए" }).click();
   await expect(page.getByText("ही कथा भक्तीने व्रत करण्याविषयी आहे.")).toBeVisible();
   await expect(page.getByText("कथेचा अर्थ:")).toHaveJSProperty("tagName", "STRONG");
   expect(sentPrompt).toContain("Answer in Hindi");

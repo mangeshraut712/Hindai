@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, BookOpen, Minus, Plus, Printer } from "lucide-react";
-import type { SatyanarayanReadingChapter } from "@/lib/data/satyanarayan-reader";
+import { readingBlocks, type SatyanarayanReadingChapter } from "@/lib/data/satyanarayan-reader";
 import editions from "@/lib/data/satyanarayan-editions.json";
 import { publicUrl } from "@/lib/site";
 import { GemmaStudyPanel } from "@/components/ai/gemma-study-panel";
@@ -49,6 +49,15 @@ export function SatyanarayanReader({
     original: "संस्कृत पाठ",
   } as const;
   const reading = mode === "original" ? chapter.original : edition[mode];
+  const blocks = readingBlocks(reading, mode === "marathi");
+  const extractionNote = {
+    marathi:
+      "हा मजकूर पुस्तकातून काढलेला आहे. अक्षर चुकू शकते. नेमका शब्द हवा असल्यास खालील छापील पान पाहा.",
+    hindi:
+      "यह पाठ पुस्तक से निकाला गया है। अक्षर ग़लत हो सकते हैं। ठीक शब्द के लिए नीचे दिया छपा पृष्ठ देखें।",
+    english:
+      "Searchable text was extracted from the book and may contain letter recognition errors. Use the printed page views below when exact wording matters.",
+  } as const;
   const pageNumbers = mode === "original" ? [] : edition[`${mode}Pages`];
 
   return (
@@ -174,20 +183,30 @@ export function SatyanarayanReader({
             </p>
             {mode !== "original" && (
               <p className="mb-7 max-w-[66ch] rounded-xl bg-amber-100/60 px-4 py-3 text-sm leading-6 text-stone-700 dark:bg-stone-800 dark:text-stone-200">
-                Searchable text was extracted from the book and may contain letter recognition
-                errors. Use the printed page views below when exact wording matters.
+                {extractionNote[mode]}
               </p>
             )}
             <div
               className={`mx-auto max-w-[66ch] space-y-0 text-stone-900 dark:text-amber-50 ${mode === "english" ? "font-serif" : "font-devanagari"}`}
               style={{ fontSize: `${textSize}px`, lineHeight: 2.05 }}
             >
-              {reading.map((paragraph, index) => (
+              {blocks.map((block, index) => (
                 <p
                   key={`${mode}-${index}`}
-                  className="whitespace-pre-line border-b border-amber-900/10 py-4 first:pt-0 last:border-0 dark:border-amber-100/10"
+                  className={
+                    block.kind === "verse"
+                      ? "whitespace-pre-line border-l-2 border-amber-700/70 py-3 pl-4 text-[0.92em] leading-9 text-amber-950 dark:text-amber-100"
+                      : block.kind === "heading"
+                        ? "pt-6 text-center text-[0.8em] font-semibold tracking-wide text-amber-800 first:pt-0 dark:text-amber-200"
+                        : "whitespace-pre-line border-b border-amber-900/10 py-4 first:pt-0 last:border-0 dark:border-amber-100/10"
+                  }
                 >
-                  {paragraph}
+                  {block.kind === "verse" ? (
+                    <span className="mb-1 block text-[0.65em] font-semibold uppercase tracking-[0.16em] text-amber-700">
+                      श्लोक
+                    </span>
+                  ) : null}
+                  {block.text}
                 </p>
               ))}
             </div>

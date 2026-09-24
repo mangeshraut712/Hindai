@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { SATYANARAYAN_READING_CHAPTERS } from "./satyanarayan-reader";
+import { readingBlocks, SATYANARAYAN_READING_CHAPTERS } from "./satyanarayan-reader";
+import editions from "./satyanarayan-editions.json";
 
 test("all five source chapters separate Sanskrit reading from Hindi notes", () => {
   assert.deepEqual(
@@ -17,4 +18,14 @@ test("all five source chapters separate Sanskrit reading from Hindi notes", () =
   assert.match(SATYANARAYAN_READING_CHAPTERS[4].original.join(" "), /शतानन्दो/);
   assert.match(SATYANARAYAN_READING_CHAPTERS[4].original.join(" "), /गोलोकं तु तदा ययुः/);
   assert.doesNotMatch(SATYANARAYAN_READING_CHAPTERS[4].original.join(" "), /शब्दार्थ/);
+});
+
+test("Marathi chapter text keeps Sanskrit verses apart from the meaning", () => {
+  const blocks = readingBlocks(editions.chapters[0].marathi, true);
+  assert.equal(blocks[0]?.kind, "heading");
+  assert.equal(blocks.find((block) => block.kind === "verse")?.text.includes("नैमिषारण्ये"), true);
+  const meaning = blocks.find((block) => block.text.includes("कथेचा अर्थ सांगतो"));
+  assert.equal(meaning?.kind, "meaning");
+  assert.equal(meaning?.text.includes("ऋषयः"), false);
+  assert.equal(readingBlocks(["Once Narada traveled."], false)[0]?.kind, "meaning");
 });
