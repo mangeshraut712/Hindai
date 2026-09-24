@@ -119,7 +119,23 @@ self.addEventListener("fetch", (event) => {
     const rscPath = url.pathname.endsWith(".txt")
       ? url.pathname
       : url.pathname.replace(/\/$/, "") + "/index.txt";
-    event.respondWith(caches.match(rscPath).then((cached) => cached ?? fetch(event.request)));
+    event.respondWith(
+      fetch(new Request(rscPath, { cache: "no-store" }))
+        .then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            event.waitUntil(caches.open(STATIC_CACHE).then((cache) => cache.put(rscPath, clone)));
+          }
+          return response;
+        })
+        .catch(() =>
+          caches
+            .match(rscPath)
+            .then(
+              (cached) => cached ?? new Response("Offline", { status: 503, statusText: "Offline" })
+            )
+        )
+    );
     return;
   }
 
