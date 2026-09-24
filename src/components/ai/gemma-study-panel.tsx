@@ -24,6 +24,39 @@ interface GemmaStudyPanelProps {
   scopeToPassage?: boolean;
 }
 
+function answerLine(text: string) {
+  return text
+    .split(/(\*\*[^*]+\*\*)/g)
+    .map((part, index) =>
+      part.startsWith("**") && part.endsWith("**") ? (
+        <strong key={index}>{part.slice(2, -2)}</strong>
+      ) : (
+        part
+      )
+    );
+}
+
+function StudyAnswer({ answer }: { answer: string }) {
+  return (
+    <div className="mt-4 space-y-2 text-sm leading-7 text-foreground" aria-live="polite">
+      {answer.split("\n").map((line, index) => {
+        const trimmed = line.trim();
+        if (!trimmed) return <div key={index} className="h-1" aria-hidden="true" />;
+        const bullet = trimmed.match(/^[-*]\s+(.+)$/);
+        const content = bullet?.[1] ?? trimmed;
+        return (
+          <p
+            key={index}
+            className={bullet ? "pl-4 before:-ml-4 before:mr-2 before:content-['•']" : ""}
+          >
+            {answerLine(content)}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
+
 export function GemmaStudyPanel({
   kind,
   title,
@@ -147,14 +180,7 @@ export function GemmaStudyPanel({
         </Button>
       </form>
       {retrieval ? <SiteRichResults retrieval={retrieval} /> : null}
-      {answer ? (
-        <p
-          className="mt-3 whitespace-pre-wrap text-sm leading-6 text-foreground"
-          aria-live="polite"
-        >
-          {answer}
-        </p>
-      ) : null}
+      {answer ? <StudyAnswer answer={answer} /> : null}
       {error ? (
         <p role="alert" className="mt-3 text-sm text-muted-foreground">
           {error}

@@ -63,7 +63,7 @@ test("Satyanarayan chapter explanation follows the selected language and passage
     await route.fulfill({
       status: 200,
       contentType: "text/plain; charset=utf-8",
-      body: "ही कथा भक्तीने व्रत करण्याविषयी आहे.",
+      body: "**कथेचा अर्थ:**\nही कथा भक्तीने व्रत करण्याविषयी आहे.",
     });
   });
 
@@ -71,6 +71,7 @@ test("Satyanarayan chapter explanation follows the selected language and passage
   await page.getByRole("tab", { name: "हिन्दी कथा" }).click();
   await page.getByRole("button", { name: "Explain this story" }).click();
   await expect(page.getByText("ही कथा भक्तीने व्रत करण्याविषयी आहे.")).toBeVisible();
+  await expect(page.getByText("कथेचा अर्थ:")).toHaveJSProperty("tagName", "STRONG");
   expect(sentPrompt).toContain("Answer in Hindi");
   expect(sentPrompt).toContain("शौनक");
   expect(sentPrompt).toContain("OCR-assisted transcription");
