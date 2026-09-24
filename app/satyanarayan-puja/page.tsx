@@ -5,12 +5,13 @@ import { Footer } from "@/components/Footer";
 import { SatyanarayanReader } from "@/components/satyanarayan/satyanarayan-reader";
 import { SATYANARAYAN_READING_CHAPTERS } from "@/lib/data/satyanarayan-reader";
 import satyanarayanText from "@/lib/data/satyanarayan-katha.json";
-import { SITE_URL } from "@/lib/site";
+import editions from "@/lib/data/satyanarayan-editions.json";
+import { SITE_URL, publicUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "श्री सत्यनारायण व्रतकथा | Five chapter reading",
+  title: "श्री सत्यनारायण व्रतकथा | Marathi, Hindi, English and Sanskrit",
   description:
-    "Read the five chapter Satyanarayan katha in Sanskrit with Marathi chapter guides and separate Hindi explanations, available in the offline library.",
+    "Read all five chapters of the Satyanarayan katha from the supplied Marathi, Hindi and English books, with Sanskrit text and original book page views available offline.",
   alternates: { canonical: `${SITE_URL}/satyanarayan-puja` },
 };
 
@@ -98,8 +99,8 @@ export default function SatyanarayanPujaPage() {
               श्री सत्यनारायण व्रतकथा
             </h1>
             <p className="mt-5 max-w-3xl font-devanagari text-lg leading-9 text-amber-50/85">
-              मूळ संस्कृत पाठ, अध्यायानुसार मराठी कथासार आणि स्वतंत्र हिंदी अर्थ. वाचताना एकावेळी
-              एकच अध्याय दिसेल.
+              मराठी, हिंदी आणि English पुस्तकांतील पाचही अध्याय, तसेच संस्कृत पाठ. वाचताना एकावेळी
+              एकच अध्याय दिसेल; मूळ छापील पानेही येथे पाहता येतील.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <a
@@ -120,13 +121,53 @@ export default function SatyanarayanPujaPage() {
 
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-8 sm:py-16">
           <div className="mb-12 rounded-2xl border border-amber-800/20 bg-amber-100/65 px-5 py-4 text-sm leading-7 dark:bg-stone-900">
-            <strong>पाठाविषयी:</strong> पाचही अध्याय या साइटमध्ये उपलब्ध आहेत. हा संस्कृत
-            विकिस्रोतवरील सामूहिक लिप्यंतरित पाठ आहे. त्यात काही ओळींच्या चुका किंवा पाठभेद असू
-            शकतात; विधीपूर्वक पठणासाठी विश्वासार्ह छापील आवृत्तीशी पडताळा. मराठी मजकूर हा अध्यायाचा
-            सारांश आहे, पूर्ण मराठी अनुवाद नाही.
+            <strong>पाठाविषयी:</strong> खालील मराठी, हिंदी आणि English कथा तुम्ही दिलेल्या तीन
+            वेगवेगळ्या पुस्तकांतून घेतल्या आहेत. त्या शब्दशः एकमेकांचे अनुवाद नाहीत. शोधता येणारा
+            मजकूर OCR सहाय्याने तयार केला असून त्यात अक्षरांच्या चुका राहू शकतात. अचूक शब्दांसाठी
+            प्रत्येक अध्यायातील मूळ छापील पान पहा. संस्कृत टॅबमधील स्वतंत्र पाठ संस्कृत
+            विकिस्रोतावरून आहे; पाठभेद असू शकतात.
           </div>
 
           <SatyanarayanReader chapters={SATYANARAYAN_READING_CHAPTERS} guides={chapters} />
+
+          <section
+            id="aarti"
+            className="mt-16 scroll-mt-20 rounded-[28px] border border-amber-900/15 bg-[#fffdf8] p-6 dark:bg-stone-900 sm:p-9"
+          >
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-800 dark:text-amber-300">
+              कथेनंतर · After the reading
+            </p>
+            <h2 className="mt-3 font-devanagari text-3xl font-semibold">सत्यनारायणाची आरती</h2>
+            <p className="mt-4 max-w-3xl font-devanagari leading-8 text-stone-700 dark:text-stone-300">
+              तुमच्या घरच्या परंपरेनुसार आरती करा आणि प्रसाद वाटा. दिलेल्या मराठी व हिंदी पुस्तकांत
+              आरतीचे शब्द वेगळे आहेत; दोन्ही आवृत्त्यांची छापील पाने खाली दिली आहेत.
+            </p>
+            <div className="mt-7 grid gap-6 md:grid-cols-2">
+              {(["marathi", "hindi"] as const).map((language) => (
+                <details
+                  key={language}
+                  className="min-w-0 rounded-2xl border border-amber-900/15 p-5"
+                >
+                  <summary className="cursor-pointer font-devanagari text-xl font-semibold">
+                    {language === "marathi" ? "मराठी आरती" : "हिन्दी आरती"}
+                  </summary>
+                  <p className="mt-4 whitespace-pre-line font-devanagari text-lg leading-9">
+                    {editions.aarti[language]}
+                  </p>
+                  <a
+                    href={publicUrl(
+                      `/images/satyanarayan/source-pages/${language}-${language === "marathi" ? "13" : "10"}.webp`
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 inline-block text-sm font-semibold text-amber-900 underline dark:text-amber-200"
+                  >
+                    मूळ छापील पान उघडा ↗
+                  </a>
+                </details>
+              ))}
+            </div>
+          </section>
 
           <section
             id="puja-guide"
@@ -178,7 +219,7 @@ export default function SatyanarayanPujaPage() {
           </section>
 
           <p className="mt-14 max-w-4xl text-xs leading-6 text-stone-600 dark:text-stone-400">
-            Source:{" "}
+            Sanskrit source:{" "}
             <a
               href="https://sa.wikisource.org/wiki/स्कन्दपुराणम्/खण्डः_५_(अवन्तीखण्डः)/रेवा_खण्डम्"
               target="_blank"
@@ -197,7 +238,9 @@ export default function SatyanarayanPujaPage() {
               {satyanarayanText.license}
             </a>
             ; each chapter links to its source page and revision history. Display spacing is
-            normalized, while the original source data remains stored unchanged. Marathi and English
+            normalized, while the original source data remains stored unchanged. The Marathi, Hindi
+            and English editions came from the three books supplied for this page. Their page images
+            are included for offline comparison; the PDF files are not included. Marathi and English
             chapter guides were written for this site.
           </p>
         </div>

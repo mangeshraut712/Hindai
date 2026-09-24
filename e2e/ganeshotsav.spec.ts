@@ -28,19 +28,21 @@ test("Satyanarayan reader makes every source chapter readable in order", async (
   await expect(
     reader.getByRole("navigation", { name: "Five katha chapters" }).getByRole("button")
   ).toHaveCount(5);
-  await expect(reader.getByRole("tab", { name: "मूळ संस्कृत पाठ" })).toHaveAttribute(
+  await expect(reader.getByRole("tab", { name: "मराठी पुस्तक" })).toHaveAttribute(
     "aria-selected",
     "true"
   );
   await expect(reader.getByRole("tabpanel")).toContainText("एकदा नैमिषारण्ये");
-  await reader.getByRole("tab", { name: "हिन्दी अर्थ" }).click();
-  await expect(reader.getByRole("tabpanel")).toContainText("श्री व्यासजी");
+  await reader.getByRole("tab", { name: "हिन्दी कथा" }).click();
+  await expect(reader.getByRole("tabpanel")).toContainText("शौनक");
+  await reader.getByRole("tab", { name: "English story" }).click();
+  await expect(reader.getByRole("tabpanel")).toContainText("Naimisharanya");
   await reader
     .getByRole("navigation", { name: "Five katha chapters" })
     .getByRole("button", { name: /Chapter 5/ })
     .click();
   await expect(page).toHaveURL(/#adhyay-5$/);
-  await reader.getByRole("tab", { name: "मूळ संस्कृत पाठ" }).click();
+  await reader.getByRole("tab", { name: "संस्कृत पाठ" }).click();
   await expect(reader.getByRole("tabpanel")).toContainText("गोलोकं तु तदा ययुः");
   await expect(reader.getByRole("button", { name: /Next/ })).toBeDisabled();
   await expect(reader.getByRole("link", { name: /Compare with Wikisource page/ })).toHaveAttribute(

@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, BookOpen, Minus, Plus, Printer } from "lucide-react";
 import type { SatyanarayanReadingChapter } from "@/lib/data/satyanarayan-reader";
+import editions from "@/lib/data/satyanarayan-editions.json";
+import { publicUrl } from "@/lib/site";
 
 interface ChapterGuide {
   number: number;
@@ -20,7 +22,7 @@ export function SatyanarayanReader({
   guides: readonly ChapterGuide[];
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [mode, setMode] = useState<"original" | "hindi">("original");
+  const [mode, setMode] = useState<"marathi" | "hindi" | "english" | "original">("marathi");
   const [textSize, setTextSize] = useState(22);
 
   useEffect(() => {
@@ -35,8 +37,18 @@ export function SatyanarayanReader({
   };
 
   const chapter = chapters[activeIndex];
+  const edition = editions.chapters[activeIndex];
   const guide = guides[activeIndex];
-  if (!chapter || !guide) return null;
+  if (!chapter || !guide || !edition) return null;
+
+  const labels = {
+    marathi: "मराठी पुस्तक",
+    hindi: "हिन्दी कथा",
+    english: "English story",
+    original: "संस्कृत पाठ",
+  } as const;
+  const reading = mode === "original" ? chapter.original : edition[mode];
+  const pageNumbers = mode === "original" ? [] : edition[`${mode}Pages`];
 
   return (
     <section id="katha-reader" className="scroll-mt-20" aria-label="Satyanarayan katha reader">
@@ -48,8 +60,8 @@ export function SatyanarayanReader({
           श्री सत्यनारायण व्रतकथा
         </h2>
         <p className="mt-4 font-devanagari text-base leading-8 text-stone-700 dark:text-stone-300">
-          पाचही अध्याय क्रमाने वाचा. आधी मराठी कथासार समजून घ्या, मग खाली मूळ संस्कृत पाठ वाचा.
-          हिंदी स्पष्टीकरण स्वतंत्र टॅबमध्ये आहे.
+          पाचही अध्याय क्रमाने वाचा. मराठी, हिन्दी, English आणि संस्कृत यांपैकी भाषा निवडा.
+          पुस्तकातील शब्द तपासण्यासाठी प्रत्येक अध्यायाखाली मूळ छापील पानेही पाहता येतील.
         </p>
       </div>
 
@@ -104,25 +116,19 @@ export function SatyanarayanReader({
           </header>
 
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-amber-900/10 px-5 py-4 sm:px-9">
-            <div className="flex gap-2" role="tablist" aria-label="Reading language">
-              <button
-                type="button"
-                role="tab"
-                aria-selected={mode === "original"}
-                onClick={() => setMode("original")}
-                className={`rounded-full px-4 py-2 text-sm font-semibold ${mode === "original" ? "bg-[#51291c] text-amber-50" : "bg-amber-100 text-amber-950 dark:bg-stone-800 dark:text-amber-100"}`}
-              >
-                मूळ संस्कृत पाठ
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={mode === "hindi"}
-                onClick={() => setMode("hindi")}
-                className={`rounded-full px-4 py-2 text-sm font-semibold ${mode === "hindi" ? "bg-[#51291c] text-amber-50" : "bg-amber-100 text-amber-950 dark:bg-stone-800 dark:text-amber-100"}`}
-              >
-                हिन्दी अर्थ
-              </button>
+            <div className="flex flex-wrap gap-2" role="tablist" aria-label="Reading language">
+              {(["marathi", "hindi", "english", "original"] as const).map((language) => (
+                <button
+                  key={language}
+                  type="button"
+                  role="tab"
+                  aria-selected={mode === language}
+                  onClick={() => setMode(language)}
+                  className={`rounded-full px-4 py-2 text-sm font-semibold ${mode === language ? "bg-[#51291c] text-amber-50" : "bg-amber-100 text-amber-950 dark:bg-stone-800 dark:text-amber-100"}`}
+                >
+                  {labels[language]}
+                </button>
+              ))}
             </div>
             <div className="flex items-center gap-1" aria-label="Reading controls">
               <button
@@ -162,14 +168,20 @@ export function SatyanarayanReader({
             <p className="mb-8 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-stone-500 dark:text-stone-400">
               <BookOpen className="size-4" />{" "}
               {mode === "original"
-                ? "Sanskrit original · Devanagari"
-                : "Hindi explanation from the source page"}
+                ? "Sanskrit reading · Devanagari · Wikisource edition"
+                : `${labels[mode]} · supplied book edition`}
             </p>
+            {mode !== "original" && (
+              <p className="mb-7 max-w-[66ch] rounded-xl bg-amber-100/60 px-4 py-3 text-sm leading-6 text-stone-700 dark:bg-stone-800 dark:text-stone-200">
+                Searchable text was extracted from the book and may contain letter recognition
+                errors. Use the printed page views below when exact wording matters.
+              </p>
+            )}
             <div
-              className="mx-auto max-w-[66ch] space-y-0 font-devanagari text-stone-900 dark:text-amber-50"
+              className={`mx-auto max-w-[66ch] space-y-0 text-stone-900 dark:text-amber-50 ${mode === "english" ? "font-serif" : "font-devanagari"}`}
               style={{ fontSize: `${textSize}px`, lineHeight: 2.05 }}
             >
-              {(mode === "original" ? chapter.original : chapter.hindi).map((paragraph, index) => (
+              {reading.map((paragraph, index) => (
                 <p
                   key={`${mode}-${index}`}
                   className="whitespace-pre-line border-b border-amber-900/10 py-4 first:pt-0 last:border-0 dark:border-amber-100/10"
@@ -179,6 +191,41 @@ export function SatyanarayanReader({
               ))}
             </div>
           </div>
+
+          {mode !== "original" && (
+            <details className="border-t border-amber-900/10 px-5 py-6 sm:px-9">
+              <summary className="cursor-pointer font-semibold text-amber-900 dark:text-amber-200">
+                मूळ छापील पाने · View the book pages ({pageNumbers.join(", ")})
+              </summary>
+              <p className="mt-3 text-sm leading-6 text-stone-600 dark:text-stone-300">
+                These are page images from the supplied book, available offline. Open an image to
+                zoom in. A boundary page may also contain part of the neighbouring chapter.
+              </p>
+              <div className="mt-5 grid gap-5">
+                {pageNumbers.map((page) => (
+                  <a
+                    key={page}
+                    href={publicUrl(
+                      `/images/satyanarayan/source-pages/${mode}-${String(page).padStart(2, "0")}.webp`
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block overflow-hidden rounded-xl border border-amber-900/15 bg-white"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={publicUrl(
+                        `/images/satyanarayan/source-pages/${mode}-${String(page).padStart(2, "0")}.webp`
+                      )}
+                      alt={`${labels[mode]} printed book page ${page}`}
+                      loading="lazy"
+                      className="mx-auto h-auto max-w-full"
+                    />
+                  </a>
+                ))}
+              </div>
+            </details>
+          )}
 
           <footer className="border-t border-amber-900/10 bg-amber-50/70 px-5 py-6 dark:bg-stone-800/70 sm:px-9">
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -202,14 +249,16 @@ export function SatyanarayanReader({
                 Next <ArrowRight className="size-4" />
               </button>
             </div>
-            <a
-              href={chapter.sourceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-block text-xs font-semibold text-amber-900 underline underline-offset-4 dark:text-amber-200"
-            >
-              Compare with Wikisource page ↗
-            </a>
+            {mode === "original" && (
+              <a
+                href={chapter.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-block text-xs font-semibold text-amber-900 underline underline-offset-4 dark:text-amber-200"
+              >
+                Compare with Wikisource page ↗
+              </a>
+            )}
           </footer>
         </article>
       </div>
