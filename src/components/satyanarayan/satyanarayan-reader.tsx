@@ -1,0 +1,218 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { ArrowLeft, ArrowRight, BookOpen, Minus, Plus, Printer } from "lucide-react";
+import type { SatyanarayanReadingChapter } from "@/lib/data/satyanarayan-reader";
+
+interface ChapterGuide {
+  number: number;
+  title: string;
+  titleMr: string;
+  summary: string;
+  summaryMr: string;
+}
+
+export function SatyanarayanReader({
+  chapters,
+  guides,
+}: {
+  chapters: SatyanarayanReadingChapter[];
+  guides: readonly ChapterGuide[];
+}) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [mode, setMode] = useState<"original" | "hindi">("original");
+  const [textSize, setTextSize] = useState(22);
+
+  useEffect(() => {
+    const match = window.location.hash.match(/^#adhyay-([1-5])$/);
+    if (match) setActiveIndex(Number(match[1]) - 1);
+  }, []);
+
+  const selectChapter = (index: number) => {
+    setActiveIndex(index);
+    window.history.replaceState(null, "", `#adhyay-${index + 1}`);
+    document.getElementById("katha-reader")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const chapter = chapters[activeIndex];
+  const guide = guides[activeIndex];
+  if (!chapter || !guide) return null;
+
+  return (
+    <section id="katha-reader" className="scroll-mt-20" aria-label="Satyanarayan katha reader">
+      <div className="mb-6 max-w-3xl">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-800 dark:text-amber-300">
+          मूळ कथा · The complete reading
+        </p>
+        <h2 className="mt-3 font-devanagari text-4xl font-semibold leading-tight sm:text-5xl">
+          श्री सत्यनारायण व्रतकथा
+        </h2>
+        <p className="mt-4 font-devanagari text-base leading-8 text-stone-700 dark:text-stone-300">
+          पाचही अध्याय क्रमाने वाचा. आधी मराठी कथासार समजून घ्या, मग खाली मूळ संस्कृत पाठ वाचा.
+          हिंदी स्पष्टीकरण स्वतंत्र टॅबमध्ये आहे.
+        </p>
+      </div>
+
+      <div className="grid gap-7 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start">
+        <nav
+          aria-label="Five katha chapters"
+          className="grid grid-cols-5 gap-2 lg:sticky lg:top-24 lg:grid-cols-1"
+        >
+          {guides.map((entry, index) => (
+            <button
+              key={entry.number}
+              type="button"
+              onClick={() => selectChapter(index)}
+              aria-current={activeIndex === index ? "step" : undefined}
+              className={`rounded-2xl border px-2 py-3 text-left transition-colors sm:px-4 ${
+                activeIndex === index
+                  ? "border-amber-700 bg-[#51291c] text-amber-50 shadow-lg shadow-amber-950/15"
+                  : "border-amber-900/15 bg-white/75 text-stone-700 hover:border-amber-700/50 hover:bg-amber-50 dark:bg-stone-900 dark:text-stone-200"
+              }`}
+            >
+              <span className="block font-devanagari text-lg font-bold">
+                {["१", "२", "३", "४", "५"][index]}
+              </span>
+              <span className="mt-1 hidden font-devanagari text-sm leading-6 lg:block">
+                {entry.titleMr}
+              </span>
+              <span className="sr-only">
+                Chapter {entry.number}: {entry.title}
+              </span>
+            </button>
+          ))}
+        </nav>
+
+        <article className="min-w-0 overflow-hidden rounded-[28px] border border-amber-900/15 bg-[#fffdf8] shadow-[0_20px_70px_rgba(73,40,17,0.08)] dark:border-amber-100/15 dark:bg-stone-900">
+          <header className="border-b border-amber-900/10 bg-gradient-to-br from-amber-100/80 via-[#fffaf0] to-orange-50 px-5 py-7 dark:from-stone-800 dark:via-stone-900 dark:to-stone-900 sm:px-9">
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-amber-800 dark:text-amber-300">
+              अध्याय {chapter.number} / ५
+            </p>
+            <h3 className="mt-3 font-devanagari text-3xl font-semibold leading-tight sm:text-4xl">
+              {guide.titleMr}
+            </h3>
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">{guide.title}</p>
+            <p className="mt-5 border-l-2 border-amber-700 pl-4 font-devanagari text-lg leading-9 text-stone-800 dark:text-stone-100">
+              {guide.summaryMr}
+            </p>
+            <details className="mt-5 text-sm leading-7 text-stone-600 dark:text-stone-300">
+              <summary className="cursor-pointer font-semibold text-amber-900 dark:text-amber-200">
+                English chapter guide
+              </summary>
+              <p className="mt-2">{guide.summary}</p>
+            </details>
+          </header>
+
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-amber-900/10 px-5 py-4 sm:px-9">
+            <div className="flex gap-2" role="tablist" aria-label="Reading language">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={mode === "original"}
+                onClick={() => setMode("original")}
+                className={`rounded-full px-4 py-2 text-sm font-semibold ${mode === "original" ? "bg-[#51291c] text-amber-50" : "bg-amber-100 text-amber-950 dark:bg-stone-800 dark:text-amber-100"}`}
+              >
+                मूळ संस्कृत पाठ
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={mode === "hindi"}
+                onClick={() => setMode("hindi")}
+                className={`rounded-full px-4 py-2 text-sm font-semibold ${mode === "hindi" ? "bg-[#51291c] text-amber-50" : "bg-amber-100 text-amber-950 dark:bg-stone-800 dark:text-amber-100"}`}
+              >
+                हिन्दी अर्थ
+              </button>
+            </div>
+            <div className="flex items-center gap-1" aria-label="Reading controls">
+              <button
+                type="button"
+                aria-label="Smaller text"
+                onClick={() => setTextSize((size) => Math.max(18, size - 2))}
+                className="rounded-full p-2 hover:bg-amber-100 dark:hover:bg-stone-800"
+              >
+                <Minus className="size-4" />
+              </button>
+              <span
+                className="min-w-7 text-center text-xs text-stone-500"
+                aria-label={`Text size ${textSize} pixels`}
+              >
+                Aa
+              </span>
+              <button
+                type="button"
+                aria-label="Larger text"
+                onClick={() => setTextSize((size) => Math.min(30, size + 2))}
+                className="rounded-full p-2 hover:bg-amber-100 dark:hover:bg-stone-800"
+              >
+                <Plus className="size-4" />
+              </button>
+              <button
+                type="button"
+                aria-label="Print reading page"
+                onClick={() => window.print()}
+                className="ml-1 rounded-full p-2 hover:bg-amber-100 dark:hover:bg-stone-800"
+              >
+                <Printer className="size-4" />
+              </button>
+            </div>
+          </div>
+
+          <div className="px-5 py-8 sm:px-9 sm:py-10" role="tabpanel">
+            <p className="mb-8 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-stone-500 dark:text-stone-400">
+              <BookOpen className="size-4" />{" "}
+              {mode === "original"
+                ? "Sanskrit original · Devanagari"
+                : "Hindi explanation from the source page"}
+            </p>
+            <div
+              className="mx-auto max-w-[66ch] space-y-0 font-devanagari text-stone-900 dark:text-amber-50"
+              style={{ fontSize: `${textSize}px`, lineHeight: 2.05 }}
+            >
+              {(mode === "original" ? chapter.original : chapter.hindi).map((paragraph, index) => (
+                <p
+                  key={`${mode}-${index}`}
+                  className="whitespace-pre-line border-b border-amber-900/10 py-4 first:pt-0 last:border-0 dark:border-amber-100/10"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          <footer className="border-t border-amber-900/10 bg-amber-50/70 px-5 py-6 dark:bg-stone-800/70 sm:px-9">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <button
+                type="button"
+                onClick={() => selectChapter(activeIndex - 1)}
+                disabled={activeIndex === 0}
+                className="inline-flex items-center gap-2 rounded-full border border-amber-900/20 px-4 py-2 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                <ArrowLeft className="size-4" /> Previous
+              </button>
+              <span className="font-devanagari text-sm text-stone-600 dark:text-stone-300">
+                {chapter.number} / ५ अध्याय
+              </span>
+              <button
+                type="button"
+                onClick={() => selectChapter(activeIndex + 1)}
+                disabled={activeIndex === 4}
+                className="inline-flex items-center gap-2 rounded-full bg-[#51291c] px-4 py-2 text-sm font-semibold text-amber-50 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Next <ArrowRight className="size-4" />
+              </button>
+            </div>
+            <a
+              href={chapter.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-block text-xs font-semibold text-amber-900 underline underline-offset-4 dark:text-amber-200"
+            >
+              Compare with Wikisource page ↗
+            </a>
+          </footer>
+        </article>
+      </div>
+    </section>
+  );
+}

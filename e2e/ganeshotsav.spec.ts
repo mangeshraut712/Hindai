@@ -19,18 +19,32 @@ test("Ganeshotsav guide keeps the Pune honour order and opens the radio", async 
   await expect(page.getByTitle("Ya Re Ya on YouTube")).toHaveAttribute("src", /HzGE_WaSqE4/);
 });
 
-test("Satyanarayan guide links all five complete source chapters", async ({ page }) => {
+test("Satyanarayan reader makes every source chapter readable in order", async ({ page }) => {
   await page.goto("/satyanarayan-puja");
-  const chapterLinks = page.getByRole("link", { name: /Compare with Wikisource page/ });
-  await expect(chapterLinks).toHaveCount(5);
-  await expect(page.getByText(/All five chapters below are available on this page/)).toBeVisible();
-  const firstChapter = page.locator("details").first();
-  await firstChapter.locator("summary").click();
-  await expect(firstChapter).toContainText("सत्यनारायण");
-  for (let index = 0; index < 5; index += 1) {
-    await expect(chapterLinks.nth(index)).toHaveAttribute(
-      "href",
-      new RegExp(`२३${["३", "४", "५", "६", "७"][index]}`)
-    );
-  }
+  await expect(
+    page.getByRole("heading", { name: "श्री सत्यनारायण व्रतकथा" }).first()
+  ).toBeVisible();
+  const reader = page.getByRole("region", { name: "Satyanarayan katha reader" });
+  await expect(
+    reader.getByRole("navigation", { name: "Five katha chapters" }).getByRole("button")
+  ).toHaveCount(5);
+  await expect(reader.getByRole("tab", { name: "मूळ संस्कृत पाठ" })).toHaveAttribute(
+    "aria-selected",
+    "true"
+  );
+  await expect(reader.getByRole("tabpanel")).toContainText("एकदा नैमिषारण्ये");
+  await reader.getByRole("tab", { name: "हिन्दी अर्थ" }).click();
+  await expect(reader.getByRole("tabpanel")).toContainText("श्री व्यासजी");
+  await reader
+    .getByRole("navigation", { name: "Five katha chapters" })
+    .getByRole("button", { name: /Chapter 5/ })
+    .click();
+  await expect(page).toHaveURL(/#adhyay-5$/);
+  await reader.getByRole("tab", { name: "मूळ संस्कृत पाठ" }).click();
+  await expect(reader.getByRole("tabpanel")).toContainText("गोलोकं तु तदा ययुः");
+  await expect(reader.getByRole("button", { name: /Next/ })).toBeDisabled();
+  await expect(reader.getByRole("link", { name: /Compare with Wikisource page/ })).toHaveAttribute(
+    "href",
+    /२३७/
+  );
 });
