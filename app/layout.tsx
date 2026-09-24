@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Cormorant_Garamond, Noto_Serif_Devanagari } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Suspense } from "react";
@@ -14,25 +14,28 @@ import { ServiceWorkerRegistration } from "@/components/service-worker-registrat
 import { publicUrl, SITE_URL } from "@/lib/site";
 import "@/index.css";
 
-const manrope = Manrope({
-  subsets: ["latin"],
+// Local WOFF2 files keep the static export independent of a Google Fonts build-time fetch.
+const manrope = localFont({
+  src: "./fonts/manrope.woff2",
   variable: "--font-manrope",
-  weight: ["400", "500", "600"],
+  weight: "400 600",
   display: "swap",
 });
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
+const cormorant = localFont({
+  src: "./fonts/cormorant-garamond.woff2",
   variable: "--font-cormorant",
-  weight: ["400", "600"],
+  weight: "400 600",
   display: "swap",
+  adjustFontFallback: "Times New Roman",
 });
 
-const devanagari = Noto_Serif_Devanagari({
-  subsets: ["devanagari"],
+const devanagari = localFont({
+  src: "./fonts/noto-serif-devanagari.woff2",
   variable: "--font-devanagari",
-  weight: ["400", "700"],
+  weight: "400 700",
   display: "swap",
+  adjustFontFallback: "Times New Roman",
 });
 
 export const metadata: Metadata = {

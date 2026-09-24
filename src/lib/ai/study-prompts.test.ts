@@ -24,3 +24,17 @@ test("study prompts stay inside the passage on the page", () => {
   assert.match(prompt, /What does ज्ञान mean here/);
   assert.equal(clipStudyContext("ॐ".repeat(1300)).endsWith("…"), true);
 });
+
+test("a long katha can send its selected chapter in the learner's language", () => {
+  const lastLine = "कलावती प्रसाद घेऊन परत आली.";
+  const prompt = buildStudyPrompt({
+    kind: "katha",
+    action: "explain",
+    title: "सत्यनारायण कथा · अध्याय ४",
+    context: `${"कथेचा भाग. ".repeat(700)} ${lastLine}`,
+    contextLimit: 14000,
+    answerLanguage: "Marathi",
+  });
+  assert.match(prompt, /Answer in Marathi/);
+  assert.match(prompt, /कलावती प्रसाद घेऊन परत आली/);
+});

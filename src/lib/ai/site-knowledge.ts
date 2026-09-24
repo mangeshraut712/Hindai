@@ -154,6 +154,22 @@ const LIBRARY_PAGES: SitePage[] = [
     ["durga katha", "chandi katha", "devi mahatmya story"]
   ),
   page(
+    "satyanarayan-katha",
+    "Satyanarayan Vrat Katha",
+    "श्री सत्यनारायण व्रतकथा",
+    "/satyanarayan-puja",
+    "katha",
+    "Five full chapters in the supplied Marathi, Hindi and English editions, a separate Sanskrit reading, printed page views and chapter explanations.",
+    [
+      "satyanarayan",
+      "satyanarayan katha",
+      "satyanarayana katha",
+      "satyanarayan vrat katha",
+      "सत्यनारायण कथा",
+      "सत्यनारायण व्रतकथा",
+    ]
+  ),
+  page(
     "shivlilamrit",
     "Shivlilamrit",
     "शिवलीलामृत",

@@ -36,10 +36,10 @@ export function studyActions(kind: StudyKind): StudyActionChoice[] {
   }
 }
 
-export function clipStudyContext(text: string): string {
+export function clipStudyContext(text: string, limit = CONTEXT_LIMIT): string {
   const compact = text.replace(/\s+/g, " ").trim();
-  if (compact.length <= CONTEXT_LIMIT) return compact;
-  return `${compact.slice(0, CONTEXT_LIMIT)}…`;
+  if (compact.length <= limit) return compact;
+  return `${compact.slice(0, limit)}…`;
 }
 
 function taskFor(kind: StudyKind, action: StudyAction, question: string): string {
@@ -80,14 +80,17 @@ export function buildStudyPrompt(input: {
   title: string;
   context: string;
   question?: string;
+  contextLimit?: number;
+  answerLanguage?: string;
 }): string {
   const question = input.question?.trim() ?? "";
-  const context = clipStudyContext(input.context);
+  const context = clipStudyContext(input.context, input.contextLimit);
   return [
     `Source already on the Hind AI page: ${input.title}.`,
     "Use only this passage. Do not invent Sanskrit verses, missing shlokas, or a copyrighted translation.",
     "If the passage is a story summary, say so. If a line is incomplete on the page, say the page does not show the rest.",
     "This is study help, not a prediction and not a ritual instruction.",
+    input.answerLanguage ? `Answer in ${input.answerLanguage}.` : "",
     `Task: ${taskFor(input.kind, input.action, question)}`,
     question ? `Learner question: ${question}` : "",
     `Passage:\n${context || "(This page has a title but no passage text yet.)"}`,

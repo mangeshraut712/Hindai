@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, BookOpen, Minus, Plus, Printer } from "lucide-re
 import type { SatyanarayanReadingChapter } from "@/lib/data/satyanarayan-reader";
 import editions from "@/lib/data/satyanarayan-editions.json";
 import { publicUrl } from "@/lib/site";
+import { GemmaStudyPanel } from "@/components/ai/gemma-study-panel";
 
 interface ChapterGuide {
   number: number;
@@ -261,6 +262,26 @@ export function SatyanarayanReader({
             )}
           </footer>
         </article>
+      </div>
+
+      <div className="mt-10 rounded-[28px] border border-amber-900/15 bg-[#fffdf8] p-5 dark:bg-stone-900 sm:p-8">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-800 dark:text-amber-300">
+          कथा समजून घ्या · Chapter study
+        </p>
+        <h3 className="mt-2 font-devanagari text-2xl font-semibold">या अध्यायाबद्दल विचारा</h3>
+        <p className="mt-2 font-devanagari text-sm leading-7 text-stone-600 dark:text-stone-300">
+          निवडलेला अध्याय आणि भाषा प्रश्नासोबत पाठवली जाते. मजकुरातील प्रसंग, पात्रे किंवा अर्थ
+          विचारा. अचूक पठणासाठी वर दिलेले छापील पान तपासा.
+        </p>
+        <GemmaStudyPanel
+          key={`${chapter.number}-${mode}`}
+          kind="katha"
+          title={`श्री सत्यनारायण व्रतकथा · अध्याय ${chapter.number} · ${labels[mode]}`}
+          context={`${mode === "original" ? "Sanskrit Wikisource edition." : "OCR-assisted transcription of a supplied printed book. If a word looks uncertain, say so rather than repairing it from memory."}\n${reading.join("\n\n")}`}
+          contextLimit={14000}
+          answerLanguage={mode === "hindi" ? "Hindi" : mode === "english" ? "English" : "Marathi"}
+          scopeToPassage
+        />
       </div>
     </section>
   );

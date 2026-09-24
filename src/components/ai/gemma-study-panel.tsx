@@ -19,9 +19,19 @@ interface GemmaStudyPanelProps {
   kind: StudyKind;
   title: string;
   context: string;
+  contextLimit?: number;
+  answerLanguage?: string;
+  scopeToPassage?: boolean;
 }
 
-export function GemmaStudyPanel({ kind, title, context }: GemmaStudyPanelProps) {
+export function GemmaStudyPanel({
+  kind,
+  title,
+  context,
+  contextLimit,
+  answerLanguage,
+  scopeToPassage = false,
+}: GemmaStudyPanelProps) {
   const router = useRouter();
   const inputId = useId();
   const [question, setQuestion] = useState("");
@@ -33,14 +43,14 @@ export function GemmaStudyPanel({ kind, title, context }: GemmaStudyPanelProps) 
 
   async function ask(action: StudyAction) {
     const lookup = question.trim();
-    const found = lookup ? retrieveSitePages(lookup) : null;
+    const found = lookup && !scopeToPassage ? retrieveSitePages(lookup) : null;
     setRetrieval(found);
     if (found?.shouldOpen && found.best) {
       router.push(found.best.href);
       return;
     }
     const prompt = [
-      buildStudyPrompt({ kind, action, title, context, question }),
+      buildStudyPrompt({ kind, action, title, context, question, contextLimit, answerLanguage }),
       found ? siteGroundingBlock(found) : "",
     ]
       .filter((part) => part.length > 0)

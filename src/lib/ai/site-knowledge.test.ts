@@ -14,6 +14,10 @@ test("open requests land on the matching library page", () => {
   const katha = retrieveSitePages("open katha");
   assert.equal(katha.shouldOpen, true);
   assert.equal(katha.best?.href, "/katha");
+
+  const satyanarayan = retrieveSitePages("open satyanarayan katha");
+  assert.equal(satyanarayan.shouldOpen, true);
+  assert.equal(satyanarayan.best?.href, "/satyanarayan-puja");
 });
 
 test("a study question stays on the chat and still names the page", () => {

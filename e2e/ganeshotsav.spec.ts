@@ -50,3 +50,28 @@ test("Satyanarayan reader makes every source chapter readable in order", async (
     /२३७/
   );
 });
+
+test("Satyanarayan chapter explanation follows the selected language and passage", async ({
+  page,
+}) => {
+  let sentPrompt = "";
+  await page.route("**/api/ai/stream", async (route) => {
+    const payload = route.request().postDataJSON() as {
+      messages: Array<{ content: string }>;
+    };
+    sentPrompt = payload.messages[0]?.content ?? "";
+    await route.fulfill({
+      status: 200,
+      contentType: "text/plain; charset=utf-8",
+      body: "ही कथा भक्तीने व्रत करण्याविषयी आहे.",
+    });
+  });
+
+  await page.goto("/satyanarayan-puja");
+  await page.getByRole("tab", { name: "हिन्दी कथा" }).click();
+  await page.getByRole("button", { name: "Explain this story" }).click();
+  await expect(page.getByText("ही कथा भक्तीने व्रत करण्याविषयी आहे.")).toBeVisible();
+  expect(sentPrompt).toContain("Answer in Hindi");
+  expect(sentPrompt).toContain("शौनक");
+  expect(sentPrompt).toContain("OCR-assisted transcription");
+});
