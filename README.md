@@ -19,15 +19,23 @@
 
 </div>
 
-## 🏠 Home Page Preview
+## Screenshots
+
+Framed captures of the live site (current UI). Copy names real surfaces only — no invented metrics.
 
 <div align="center">
 
-![Home Page](public/Home.webp)
+<img src="docs/screenshots/01-home.webp" alt="Hind AI home: ancient wisdom, read it here" width="720" />
 
-**Experience the modern interface for ancient wisdom**
+<img src="docs/screenshots/02-library.webp" alt="Granthalaya catalog: one hall, many books" width="720" />
+
+<img src="docs/screenshots/03-festivals.webp" alt="Festival encyclopedia: festivals, sourced" width="720" />
+
+<img src="docs/screenshots/04-tirtha.webp" alt="Tirtha map: places, mapped" width="720" />
 
 </div>
+
+How these were produced, and how to roll the same skill out to other repos: [docs/SCREENSHOTS_ROLLOUT.md](./docs/SCREENSHOTS_ROLLOUT.md).
 
 ---
 
