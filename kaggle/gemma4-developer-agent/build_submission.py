@@ -9,6 +9,8 @@ import stat
 import zipfile
 from pathlib import Path
 
+from validate_submission import SKIP_FROM_SOURCE, ValidationError, collect_source, validate_files
+
 REQUIRED = {
     "agent.yaml",
     "eval_config.yaml",
@@ -16,55 +18,36 @@ REQUIRED = {
     "prompts/system.md",
     "prompts/analyzer.md",
     "sub_agents/code_analyzer.yaml",
-    "skills/repo_navigation/SKILL.md",
-    "skills/repo_navigation/scripts/locate.py",
-    "skills/repo_navigation/resources/search-tips.md",
-    "skills/focused_pytest/SKILL.md",
-    "skills/focused_pytest/scripts/run_pytest.sh",
-    "skills/patch_hygiene/SKILL.md",
-    "skills/patch_hygiene/scripts/hygiene.sh",
+    "sub_agents/analyzer.md",
+    "sub_agents/sampling.yaml",
+    "skills/repo-navigation/SKILL.md",
+    "skills/repo-navigation/scripts/locate.py",
+    "skills/repo-navigation/resources/search-tips.md",
+    "skills/focused-pytest/SKILL.md",
+    "skills/focused-pytest/scripts/run_pytest.py",
+    "skills/patch-hygiene/SKILL.md",
+    "skills/patch-hygiene/scripts/hygiene.py",
 }
 
-MAX_UNPACKED = 3 * 1024**3
-SKIP_NAMES = {"__pycache__", ".DS_Store"}
-# The host scores the agent package. Keep the packer and its README out of the zip.
-SKIP_FILES = {"README.md", "build_submission.py"}
-
-
-def collect_files(root: Path) -> dict[str, Path]:
-    files: dict[str, Path] = {}
-    for path in root.rglob("*"):
-        if path.is_symlink():
-            raise SystemExit(f"Remove symlink before packing: {path}")
-        if not path.is_file():
-            continue
-        if any(part in SKIP_NAMES for part in path.parts):
-            continue
-        if path.name in SKIP_FILES:
-            continue
-        rel = path.relative_to(root).as_posix()
-        files[rel] = path
-    return files
-
-
 def build(root: Path, archive: Path) -> None:
-    files = collect_files(root)
+    files = collect_source(root)
     missing = sorted(REQUIRED - set(files))
     if missing:
         raise SystemExit(f"Missing required files: {missing}")
-    unpacked = sum(path.stat().st_size for path in files.values())
-    if unpacked >= MAX_UNPACKED:
-        raise SystemExit("The unpacked package must be below 3 GiB.")
+    try:
+        validate_files(files)
+    except ValidationError as exc:
+        raise SystemExit(f"Submission failed harness contract: {exc}") from exc
 
     archive.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as zf:
         for name in sorted(files):
             info = zipfile.ZipInfo(name)
             info.create_system = 3
-            mode = 0o755 if name.endswith((".sh", ".py")) else 0o644
+            mode = 0o755 if name.endswith(".py") else 0o644
             info.external_attr = (stat.S_IFREG | mode) << 16
             info.compress_type = zipfile.ZIP_DEFLATED
-            zf.writestr(info, files[name].read_bytes())
+            zf.writestr(info, files[name])
 
     with zipfile.ZipFile(archive) as zf:
         if zf.testzip() is not None:
@@ -73,13 +56,24 @@ def build(root: Path, archive: Path) -> None:
         missing_in_zip = sorted(REQUIRED - names)
         if missing_in_zip:
             raise SystemExit(f"Archive missing required paths: {missing_in_zip}")
+        leaked = sorted(name for name in names if Path(name).name in SKIP_FROM_SOURCE)
+        if leaked:
+            raise SystemExit(f"Archive contains packer files: {leaked}")
         if "agent.yaml" not in names:
             raise SystemExit("agent.yaml must be at the zip root.")
+        packed = {name: zf.read(name) for name in zf.namelist() if not name.endswith("/")}
+
+    try:
+        validate_files(packed)
+    except ValidationError as exc:
+        raise SystemExit(f"Packed zip failed harness contract: {exc}") from exc
 
     digest = hashlib.sha256(archive.read_bytes()).hexdigest()
     print(f"Archive: {archive}")
     print(f"Files: {len(files)}")
     print(f"SHA256: {digest}")
+    for name in sorted(files):
+        print(name)
 
 
 def main() -> int:
@@ -93,7 +87,7 @@ def main() -> int:
     parser.add_argument(
         "--out",
         type=Path,
-        default=Path(__file__).resolve().parent.parent / "dist" / "submission.zip",
+        default=Path(__file__).resolve().parent / "dist" / "submission.zip",
         help="Output zip path",
     )
     args = parser.parse_args()

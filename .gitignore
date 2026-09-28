@@ -8,6 +8,8 @@ node_modules/
 out/
 .static-export-api-stash/
 dist/
+!kaggle/gemma4-developer-agent/dist/
+!kaggle/gemma4-developer-agent/dist/submission.zip
 build/
 
 # Debug
@@ -67,8 +69,10 @@ skills-lock.json
 !kaggle/gemma4-developer-agent/skills/
 !kaggle/gemma4-developer-agent/skills/**
 
-# Kaggle build output
+# Kaggle local pack leftovers (the committed contest zip lives under the package dist/)
 kaggle/dist/
+!kaggle/gemma4-developer-agent/dist/
+!kaggle/gemma4-developer-agent/dist/submission.zip
 
 # OS
 .DS_Store
@@ -80,6 +84,10 @@ ollama_home/
 
 # Ollama app (local only)
 bin/
+
+# Python
+__pycache__/
+*.py[cod]
 
 # Playwright CLI
 .playwright-cli/

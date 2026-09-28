@@ -16,6 +16,20 @@ Primary sources:
 
 Independent secondary writeup of the harness (not official): [Pilkwang Kim, 2026-09-25](https://pilkwangkim.github.io/posts/Gemma-4-Developer-Agent-From-Issue-to-Verified-Patch/). Used only where it quotes Overview/HARNESS fields we could not download (dataset gated on accepting rules).
 
+## 2026-09-28 scoring failure (facts)
+
+Kaggle status for the only upload (`submission.zip`, description "Hind AI plain YAML agent. No LoRA. Thoughts on. 8 min and 80 calls per task."): **Error — Notebook Threw Exception**. No traceback.
+
+That zip could not have passed `validate_directory` / `compile_submission` under `swegemma.config.ALLOWED_SUBMISSION_EXTENSIONS` and the closed ToolRegistry. Evidence in the pre-fix package:
+
+1. **Disallowed extensions.** `skills/focused_pytest/scripts/run_pytest.sh` and `skills/patch_hygiene/scripts/hygiene.sh` are `.sh`. Competition limits allow only `.yaml`, `.yml`, `.md`, `.txt`, `.py`, `.json`, `.safetensors` (`swegemma/config.py` in the public `adk-submission` 0.2.11 tree).
+2. **Unknown tools.** `agent.yaml` and `sub_agents/code_analyzer.yaml` listed `run_skill_script` and `load_skill_resource`. Those names are not among the nine registered tools; compile raises `ToolNotFoundError`.
+3. **Sub-agent wiring.** The starter kit wraps the analyzer as `agent_tool: {config_path, skip_summarization: true}`. The failed package used `sub_agents:` transfer instead.
+4. **vLLM thinking config.** `configs/sampling.yaml` had `include_thoughts: false` and no `thinking_budget`. Hosted vLLM expects `include_thoughts: true` plus `thinking_budget` and must omit `thinking_level`.
+5. **Time budget vs 12-hour cap.** The failed upload described 8 minutes per task. Overview hidden set size is about 120 tasks; 8 × 120 is 16 hours of agent time before sandbox overhead. The rebuilt package uses `max_time_minutes: 4.5`, `max_tool_calls: 40`, `max_turns: 60`, `timeout_seconds: 180`.
+
+Fixes live in `kaggle/gemma4-developer-agent/`. Pack with `build_submission.py`; contract checks with `validate_submission.py`. `adk-submission` / `swegemma` are **not on PyPI** (`pip install` returns no matching distribution). This repo does not vendor those wheels (Kaggle dataset `metric/gemma-4-developer-agent-wheelhouse`). In this environment, `adk_submission` 0.2.11 sources plus `google-adk==1.36.1` ran `validate_directory`, `discover_declared_models`, and `compile_submission` on the packed zip and returned `LlmAgent` `hindai_developer_agent`. `swegemma eval` was not run (no competition snapshots, no vLLM).
+
 ## Timeline (11:59 PM UTC unless noted)
 
 From Overview > Timeline:
@@ -79,8 +93,8 @@ From Overview > Model Selection, Budget, and Harness Rules:
 - Optional LoRA: PEFT dirs with `adapter_config.json` + `adapter_model.safetensors` under `adapters/<name>/`, referenced as `adapter: <name>`.
 - Tools: only harness tools or custom subagents via `agent_tool`. No arbitrary host Python entrypoint.
 - Predefined tools: `run_command`, `submit_patch`, `get_status`, `read_file`, `edit_file`, `write_file`, `get_code_neighbors`, `search_similar_code`, `get_code_subgraph`.
-- Skills: directory + `SKILL.md` with `name:` frontmatter. Scripts via `run_skill_script` in the Docker sandbox; knowledge via `load_skill_resource`.
-- `!include` is relative to the file containing the tag. No `../` path traversal or symlinks.
+- Skills: directory + `SKILL.md` with `name:` frontmatter, listed under `skills:` on the agent. The compiler loads them via SkillToolset. Do **not** declare `run_skill_script` or `load_skill_resource` as tools; those names are not in the closed ToolRegistry and fail compile.
+- `!include` is relative to the file containing the tag. Absolute paths and `..` components are blocked on `config_path` / `skills`. Analyzer instruction and sampling YAML are copied under `sub_agents/` so includes do not use `..`.
 
 ### Unverified here (dataset gated)
 
@@ -114,8 +128,8 @@ We did **not** run the 22.42 GB Kaggle dataset, Docker sandbox, or hosted 31B QA
 ## Submission checklist for Mangesh
 
 1. Accept rules on both contest pages (entry deadline 25 Nov 2026).
-2. `python3 kaggle/gemma4-developer-agent/build_submission.py`
-3. Upload `kaggle/dist/submission.zip` (1/day).
+2. `python3 kaggle/gemma4-developer-agent/build_submission.py` (also `python3 kaggle/gemma4-developer-agent/validate_submission.py` on the zip).
+3. Upload `kaggle/gemma4-developer-agent/dist/submission.zip` (1/day). Do **not** submit from this cloud agent.
 4. Optional: join paper track, paste `docs/KAGGLE_GEMMA4_WRITEUP.md`, click Submit by 12 Nov 2026.
 5. Optional: download competition data after accepting rules; run official local eval; iterate prompts/LoRA.
 

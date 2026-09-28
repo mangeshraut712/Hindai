@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
-import { COMPETITION_MODEL, HARNESS_TOOLS } from "./types";
+import { COMPETITION_MODEL, KAGGLE_CLOSED_TOOLS } from "./types";
 
 export const AGENT_PACKAGE_ROOT = join(process.cwd(), "kaggle/gemma4-developer-agent");
 
@@ -11,19 +11,22 @@ export const REQUIRED_PACKAGE_FILES = [
   "prompts/system.md",
   "prompts/analyzer.md",
   "sub_agents/code_analyzer.yaml",
-  "skills/repo_navigation/SKILL.md",
-  "skills/repo_navigation/scripts/locate.py",
-  "skills/repo_navigation/resources/search-tips.md",
-  "skills/focused_pytest/SKILL.md",
-  "skills/focused_pytest/scripts/run_pytest.sh",
-  "skills/patch_hygiene/SKILL.md",
-  "skills/patch_hygiene/scripts/hygiene.sh",
+  "sub_agents/analyzer.md",
+  "sub_agents/sampling.yaml",
+  "skills/repo-navigation/SKILL.md",
+  "skills/repo-navigation/scripts/locate.py",
+  "skills/repo-navigation/resources/search-tips.md",
+  "skills/focused-pytest/SKILL.md",
+  "skills/focused-pytest/scripts/run_pytest.py",
+  "skills/patch-hygiene/SKILL.md",
+  "skills/patch-hygiene/scripts/hygiene.py",
   "build_submission.py",
+  "validate_submission.py",
 ] as const;
 
 function listFiles(dir: string, acc: string[] = [], prefix = ""): string[] {
   for (const name of readdirSync(dir)) {
-    if (name === "__pycache__" || name === ".DS_Store") continue;
+    if (name === "__pycache__" || name === ".DS_Store" || name === "dist") continue;
     const path = join(dir, name);
     const rel = prefix ? `${prefix}/${name}` : name;
     if (statSync(path).isDirectory()) {
@@ -46,7 +49,7 @@ export function inspectAgentPackage(root = AGENT_PACKAGE_ROOT) {
     yaml,
     hasAgentYaml: files.includes("agent.yaml"),
     usesCompetitionModel: yaml.includes(COMPETITION_MODEL),
-    declaresHarnessTools: HARNESS_TOOLS.filter((tool) => yaml.includes(tool)),
+    declaresHarnessTools: KAGGLE_CLOSED_TOOLS.filter((tool) => yaml.includes(tool)),
     missing: REQUIRED_PACKAGE_FILES.filter((file) => !existsSync(join(root, file))),
   };
 }
