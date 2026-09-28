@@ -27,6 +27,8 @@ REQUIRED = {
 
 MAX_UNPACKED = 3 * 1024**3
 SKIP_NAMES = {"__pycache__", ".DS_Store"}
+# The host scores the agent package. Keep the packer and its README out of the zip.
+SKIP_FILES = {"README.md", "build_submission.py"}
 
 
 def collect_files(root: Path) -> dict[str, Path]:
@@ -37,6 +39,8 @@ def collect_files(root: Path) -> dict[str, Path]:
         if not path.is_file():
             continue
         if any(part in SKIP_NAMES for part in path.parts):
+            continue
+        if path.name in SKIP_FILES:
             continue
         rel = path.relative_to(root).as_posix()
         files[rel] = path

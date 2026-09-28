@@ -64,4 +64,6 @@ test("build_submission.py writes agent.yaml at the zip root", () => {
   assert.equal(listing.status, 0, listing.stderr);
   assert.match(listing.stdout, /^agent\.yaml$/m);
   assert.match(listing.stdout, /skills\/repo_navigation\/SKILL\.md/);
+  assert.doesNotMatch(listing.stdout, /build_submission\.py/);
+  assert.doesNotMatch(listing.stdout, /^README\.md$/m);
 });
