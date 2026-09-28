@@ -12,11 +12,15 @@ leaderboard submission. See `docs/KAGGLE_GEMMA4.md`.
 
 ```bash
 python3 kaggle/gemma4-developer-agent/build_submission.py
-# writes kaggle/dist/submission.zip with agent.yaml at the zip root
+# writes kaggle/gemma4-developer-agent/dist/submission.zip with agent.yaml at the zip root
+python3 kaggle/gemma4-developer-agent/validate_submission.py \
+  kaggle/gemma4-developer-agent/dist/submission.zip
 ```
 
-Upload `kaggle/dist/submission.zip` on the competition Submit page (Kaggle
-account must have accepted the rules). Limit: 1 submission per day.
+Upload `kaggle/gemma4-developer-agent/dist/submission.zip` on the competition
+Submit page (Kaggle account must have accepted the rules). Limit: 1 submission
+per day. Do not zip this whole git directory; the packer excludes README and
+Python pack/validate scripts.
 
 ## Model
 

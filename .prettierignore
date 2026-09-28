@@ -7,4 +7,5 @@ test-results/
 .lighthouseci/
 src/lib/data/shivlilamrit/chapters/*.json
 kaggle/dist/
+kaggle/gemma4-developer-agent/dist/
 

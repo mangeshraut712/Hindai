@@ -7,15 +7,17 @@ import { inspectAgentPackage } from "./package";
 import { parseToolCall } from "./parse-tool-call";
 import { createZeroLimitWorkspace, isZeroLimitFixed, ZERO_LIMIT_ISSUE } from "./fixtures";
 import { runDeveloperAgent } from "./loop";
-import { COMPETITION_MODEL, HARNESS_TOOLS } from "./types";
+import { COMPETITION_MODEL, KAGGLE_CLOSED_TOOLS } from "./types";
 
-test("Kaggle agent.yaml pins the hosted Gemma 4 variant and harness tools", () => {
+test("Kaggle agent.yaml pins the hosted Gemma 4 variant and closed tools", () => {
   const pack = inspectAgentPackage();
   assert.deepEqual(pack.missing, []);
   assert.equal(pack.hasAgentYaml, true);
   assert.equal(pack.usesCompetitionModel, true);
   assert.ok(pack.yaml.includes("instruction: !include prompts/system.md"));
-  for (const tool of HARNESS_TOOLS) {
+  assert.ok(pack.yaml.includes("agent_tool:"));
+  assert.doesNotMatch(pack.yaml, /run_skill_script|load_skill_resource/);
+  for (const tool of KAGGLE_CLOSED_TOOLS) {
     assert.ok(pack.declaresHarnessTools.includes(tool), `missing tool ${tool}`);
   }
   assert.equal(COMPETITION_MODEL, "gemma-4-31b-it-qat-w4a16-ct");
@@ -46,10 +48,15 @@ test("mock developer agent repairs the zero-limit fixture through harness tools"
   assert.ok(result.steps.at(-1)?.call?.name === "submit_patch");
 });
 
-test("build_submission.py writes agent.yaml at the zip root", () => {
-  const script = join(process.cwd(), "kaggle/gemma4-developer-agent/build_submission.py");
-  const out = join(process.cwd(), "kaggle/dist/submission.zip");
-  const packed = spawnSync("python3", [script, "--out", out], { encoding: "utf8" });
+test("build_submission.py writes a contract-valid zip at the package dist root", () => {
+  const packRoot = join(process.cwd(), "kaggle/gemma4-developer-agent");
+  const script = join(packRoot, "build_submission.py");
+  const validator = join(packRoot, "validate_submission.py");
+  const out = join(packRoot, "dist/submission.zip");
+  const packed = spawnSync("python3", [script, "--out", out], {
+    encoding: "utf8",
+    cwd: packRoot,
+  });
   assert.equal(packed.status, 0, packed.stderr || packed.stdout);
   assert.equal(existsSync(out), true);
   const listing = spawnSync(
@@ -63,7 +70,14 @@ test("build_submission.py writes agent.yaml at the zip root", () => {
   );
   assert.equal(listing.status, 0, listing.stderr);
   assert.match(listing.stdout, /^agent\.yaml$/m);
-  assert.match(listing.stdout, /skills\/repo_navigation\/SKILL\.md/);
+  assert.match(listing.stdout, /skills\/repo-navigation\/SKILL\.md/);
+  assert.doesNotMatch(listing.stdout, /\.sh$/m);
   assert.doesNotMatch(listing.stdout, /build_submission\.py/);
+  assert.doesNotMatch(listing.stdout, /validate_submission\.py/);
   assert.doesNotMatch(listing.stdout, /^README\.md$/m);
+  const checked = spawnSync("python3", [validator, out], {
+    encoding: "utf8",
+    cwd: packRoot,
+  });
+  assert.equal(checked.status, 0, checked.stderr || checked.stdout);
 });

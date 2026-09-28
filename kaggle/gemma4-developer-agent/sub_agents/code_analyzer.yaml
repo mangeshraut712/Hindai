@@ -1,12 +1,11 @@
 name: code_analyzer
 model: gemma-4-31b-it-qat-w4a16-ct
 description: Read-only localization helper using the repository graph and file tools.
-instruction: !include ../prompts/analyzer.md
+instruction: !include analyzer.md
 tools:
   - run_command
   - read_file
   - get_code_neighbors
   - search_similar_code
   - get_code_subgraph
-  - load_skill_resource
-generate_content_config: !include ../configs/sampling.yaml
+generate_content_config: !include sampling.yaml

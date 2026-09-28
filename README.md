@@ -67,7 +67,7 @@ Hind AI remains a scripture-study site. The **scored** contest artifact is not t
 | Research notes (deadlines, rules, sources)   | [docs/KAGGLE_GEMMA4.md](./docs/KAGGLE_GEMMA4.md)                                           |
 | Paper-track writeup draft                    | [docs/KAGGLE_GEMMA4_WRITEUP.md](./docs/KAGGLE_GEMMA4_WRITEUP.md)                           |
 | Agent config (`gemma-4-31b-it-qat-w4a16-ct`) | [kaggle/gemma4-developer-agent/](./kaggle/gemma4-developer-agent/)                         |
-| Pack `submission.zip`                        | `npm run kaggle:pack` → `kaggle/dist/submission.zip`                                       |
+| Pack `submission.zip`                        | `npm run kaggle:pack` → `kaggle/gemma4-developer-agent/dist/submission.zip`                |
 | Notebook that packs the zip                  | [kaggle/Hindai_Gemma4_Developer_Agent.ipynb](./kaggle/Hindai_Gemma4_Developer_Agent.ipynb) |
 | Inspectable tool loop                        | `/developer-agent` (in-memory fixture; mock unless you set a Gemma API)                    |
 

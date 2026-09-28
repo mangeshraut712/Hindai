@@ -18,8 +18,11 @@ tools:
   - get_code_neighbors
   - search_similar_code
   - get_code_subgraph
-  - run_skill_script
-  - load_skill_resource
+  - agent_tool:
+      config_path: sub_agents/code_analyzer.yaml
+      skip_summarization: true
+skills:
+  - skills/repo-navigation
+  - skills/focused-pytest
+  - skills/patch-hygiene
 generate_content_config: !include configs/sampling.yaml
-sub_agents:
-  - config_path: sub_agents/code_analyzer.yaml

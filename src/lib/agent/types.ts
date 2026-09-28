@@ -1,6 +1,7 @@
 export const COMPETITION_MODEL = "gemma-4-31b-it-qat-w4a16-ct";
 
-export const HARNESS_TOOLS = [
+/** Closed ToolRegistry names the Kaggle compiler accepts (plus `agent_tool`). */
+export const KAGGLE_CLOSED_TOOLS = [
   "run_command",
   "read_file",
   "edit_file",
@@ -10,6 +11,10 @@ export const HARNESS_TOOLS = [
   "get_code_neighbors",
   "search_similar_code",
   "get_code_subgraph",
+] as const;
+
+export const HARNESS_TOOLS = [
+  ...KAGGLE_CLOSED_TOOLS,
   "run_skill_script",
   "load_skill_resource",
 ] as const;
