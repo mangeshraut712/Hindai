@@ -29,6 +29,7 @@ const STATIC_PAGES: PublicSitemapEntry[] = [
   { path: "/sanskrit-nova", changeFrequency: "weekly", priority: 0.8 },
   { path: "/vision", changeFrequency: "weekly", priority: 0.8 },
   { path: "/dharma", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/developer-agent", changeFrequency: "weekly", priority: 0.8 },
   { path: "/learning", changeFrequency: "weekly", priority: 0.8 },
   { path: "/sanskrit-tools", changeFrequency: "weekly", priority: 0.8 },
   { path: "/philosophies", changeFrequency: "monthly", priority: 0.7 },

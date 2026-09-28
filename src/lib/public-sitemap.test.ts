@@ -48,6 +48,7 @@ test("sitemap entries are unique and include grantha + culture routes", () => {
   assert.ok(paths.includes("/ramvijay"));
   assert.ok(paths.includes("/festivals"));
   assert.ok(paths.includes("/katha"));
+  assert.ok(paths.includes("/developer-agent"));
   assert.ok(paths.includes("/recite"));
   assert.ok(paths.includes("/recite/hanuman-chalisa"));
   assert.ok(paths.includes("/recite/durga-saptashati"));

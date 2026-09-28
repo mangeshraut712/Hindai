@@ -28,6 +28,7 @@
     "security": "npm audit --audit-level moderate",
     "cleanup": "rm -rf .next node_modules/.cache && npm cache clean --force && npm prune",
     "doctor": "react-doctor",
+    "kaggle:pack": "python3 kaggle/gemma4-developer-agent/build_submission.py",
     "postinstall": "node scripts/react-doctor-install.js"
   },
   "dependencies": {

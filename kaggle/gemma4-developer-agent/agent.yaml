@@ -1,0 +1,25 @@
+# Hind AI — Gemma 4 Developer Agent
+# Competition model (required for every LlmAgent / subagent):
+# https://www.kaggle.com/competitions/gemma-4-developer-agent
+name: hindai_developer_agent
+model: gemma-4-31b-it-qat-w4a16-ct
+description: >
+  Autonomous software-engineering agent that locates faults in a Python
+  repository, applies a minimal patch, and submits a git diff for SWE-style
+  verification. Built for Google's Gemma 4 Developer Agent Competition.
+instruction: !include prompts/system.md
+tools:
+  - run_command
+  - read_file
+  - edit_file
+  - write_file
+  - get_status
+  - submit_patch
+  - get_code_neighbors
+  - search_similar_code
+  - get_code_subgraph
+  - run_skill_script
+  - load_skill_resource
+generate_content_config: !include configs/sampling.yaml
+sub_agents:
+  - config_path: sub_agents/code_analyzer.yaml

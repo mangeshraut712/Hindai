@@ -1,0 +1,4 @@
+temperature: 0.2
+max_output_tokens: 4096
+thinking_config:
+  include_thoughts: false
