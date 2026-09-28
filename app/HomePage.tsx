@@ -76,6 +76,13 @@ const studyModes = [
     ],
     href: "/dharma",
   },
+  {
+    icon: Bot,
+    title: "Developer agent",
+    body: "Watch a Gemma 4 tool loop localize a bug, edit, and submit a patch on a demo workspace.",
+    features: ["Harness tools", "In-memory fixture", "Mock or OpenRouter", "Kaggle zip"],
+    href: "/developer-agent",
+  },
 ];
 
 const sampleQuestions = [

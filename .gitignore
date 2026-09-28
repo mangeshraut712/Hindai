@@ -64,6 +64,11 @@ service-account.json
 # AI Assistant Skills
 skills/
 skills-lock.json
+!kaggle/gemma4-developer-agent/skills/
+!kaggle/gemma4-developer-agent/skills/**
+
+# Kaggle build output
+kaggle/dist/
 
 # OS
 .DS_Store

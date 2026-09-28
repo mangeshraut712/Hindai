@@ -182,6 +182,12 @@ export const SITE_NAV_GROUPS: SiteNavGroup[] = [
         href: "/dharma",
         icon: Compass,
       },
+      {
+        label: "Developer agent",
+        hint: "Gemma 4 SWE loop",
+        href: "/developer-agent",
+        icon: Sparkles,
+      },
     ],
   },
   {

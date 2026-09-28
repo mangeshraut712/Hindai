@@ -50,6 +50,21 @@
 - **⚡ Modern Stack**: Next.js 15.5, React 19.2, TypeScript 5.9, Node.js >=22 (CI on 24)
 - **🧱 Engineering**: Layered routes / UI / domain / Worker. See [docs/engineering.md](./docs/engineering.md).
 
+## For Kaggle judges (Gemma 4 Developer Agent)
+
+Hind AI remains a scripture-study site. The **scored** contest artifact is not the website; it is an ADK agent package:
+
+| Item                                         | Location                                                                                   |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Research notes (deadlines, rules, sources)   | [docs/KAGGLE_GEMMA4.md](./docs/KAGGLE_GEMMA4.md)                                           |
+| Paper-track writeup draft                    | [docs/KAGGLE_GEMMA4_WRITEUP.md](./docs/KAGGLE_GEMMA4_WRITEUP.md)                           |
+| Agent config (`gemma-4-31b-it-qat-w4a16-ct`) | [kaggle/gemma4-developer-agent/](./kaggle/gemma4-developer-agent/)                         |
+| Pack `submission.zip`                        | `npm run kaggle:pack` → `kaggle/dist/submission.zip`                                       |
+| Notebook that packs the zip                  | [kaggle/Hindai_Gemma4_Developer_Agent.ipynb](./kaggle/Hindai_Gemma4_Developer_Agent.ipynb) |
+| Inspectable tool loop                        | `/developer-agent` (in-memory fixture; mock unless you set a Gemma API)                    |
+
+Official scoring: upload **`submission.zip`** with `agent.yaml` at the zip root. No leaderboard percentage is claimed in this repository.
+
 ---
 
 ## 🚀 Quick Start
@@ -290,6 +305,7 @@ Hindai/
 │       ├── panchanga/           # Thin calendar derived from utsav
 │       └── site-nav.ts          # Header + Footer nav source of truth
 ├── public/                      # Artist impressions + ATTRIBUTION.txt
+├── kaggle/                      # Gemma 4 Developer Agent submission package
 ├── workers/hindai-gemma/        # Production Gemma Worker
 ├── scripts/                     # Pages build, basemap, lint, tests
 ├── e2e/                         # Playwright
@@ -370,6 +386,13 @@ Hindai/
 OPENROUTER_API_KEY=your_openrouter_api_key
 OPENROUTER_MODEL=google/gemma-4-31b-it:free
 OPENROUTER_URL=https://openrouter.ai/api/v1
+
+# ==========================================
+# OPTIONAL: Developer agent studio
+# mock (default) | openrouter | ollama
+# Kaggle hosted scoring uses gemma-4-31b-it-qat-w4a16-ct, not these keys.
+# ==========================================
+HINDAI_AGENT_BACKEND=mock
 
 # ==========================================
 # OPTIONAL: Upstash Redis (Recommended for Production)

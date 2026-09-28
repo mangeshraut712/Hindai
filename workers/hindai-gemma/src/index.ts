@@ -1,3 +1,5 @@
+import { runWorkerAgentDemo } from "./agent-demo";
+
 type ChatMessage = {
   role: "system" | "user" | "assistant";
   content: string;
@@ -406,6 +408,7 @@ const worker = {
             "/api/ai/quiz",
             "/api/sanskrit/chat",
             "/api/pothi/speak",
+            "/api/ai/agent",
           ],
         },
         {},
@@ -464,6 +467,12 @@ const worker = {
           return json({ engine: "browser", fallback: true }, {}, origin);
         }
         return json({ mime: "audio/mpeg", base64, engine: "sarvam-bulbul-v3" }, {}, origin);
+      }
+
+      if (path === "/api/ai/agent") {
+        const issue = latestUserText(body);
+        const result = await runWorkerAgentDemo(issue);
+        return json(result, {}, origin);
       }
 
       if (path === "/api/ai/chat") {

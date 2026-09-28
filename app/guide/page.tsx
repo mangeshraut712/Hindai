@@ -9,6 +9,7 @@ import {
   Library,
   Sparkles,
   TimerReset,
+  Wrench,
 } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -37,6 +38,12 @@ const routeCards = [
     body: "Ask Gemma 4 for explanations, comparisons, translations, teaching notes, and practical study prompts.",
     href: "/ai-guide",
     icon: Bot,
+  },
+  {
+    title: "Developer agent",
+    body: "Inspect the SWE tool loop used for the Gemma 4 Developer Agent Competition submission.",
+    href: "/developer-agent",
+    icon: Wrench,
   },
   {
     title: "Daily Sadhana",
