@@ -203,25 +203,25 @@ export function QuizSystem() {
     return (
       <div className="surface-panel mx-auto w-full max-w-2xl p-8 md:p-10">
         <div className="relative z-10 text-center">
-          <div className="mx-auto mb-5 flex size-16 items-center justify-center rounded-full bg-primary/10">
-            <Trophy className="size-8 text-primary" />
+          <div className="bg-primary/10 mx-auto mb-5 flex size-16 items-center justify-center rounded-full">
+            <Trophy className="text-primary size-8" />
           </div>
-          <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+          <p className="text-muted-foreground text-[11px] tracking-[0.32em] uppercase">
             Pariksha Complete
           </p>
-          <p className="mt-2 font-devanagari text-3xl text-primary">{sanskritMessage}</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+          <p className="font-devanagari text-primary mt-2 text-3xl">{sanskritMessage}</p>
+          <h2 className="text-foreground mt-3 text-3xl font-semibold tracking-[-0.04em]">
             Quiz Completed
           </h2>
 
-          <div className="mt-6 text-5xl font-semibold tracking-[-0.04em] text-foreground">
+          <div className="text-foreground mt-6 text-5xl font-semibold tracking-[-0.04em]">
             {score} <span className="text-muted-foreground">/ {quizQuestions.length}</span>
           </div>
           <div className="mt-5">
             <Progress value={percentage} className="h-2 w-full" />
           </div>
-          <p className="mt-5 text-base text-muted-foreground">{message}</p>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="text-muted-foreground mt-5 text-base">{message}</p>
+          <p className="text-muted-foreground mt-2 text-sm">
             You scored {Math.round(percentage)}% - {score} correct out of {quizQuestions.length}{" "}
             questions
           </p>
@@ -252,14 +252,14 @@ export function QuizSystem() {
       <div className="surface-panel mx-auto w-full max-w-2xl overflow-hidden">
         <div className="relative z-10">
           {/* Header */}
-          <div className="border-b border-border/60 px-6 py-5 md:px-8">
+          <div className="border-border/60 border-b px-6 py-5 md:px-8">
             <div className="mb-3 flex items-center justify-between">
-              <span className="text-sm text-muted-foreground">
+              <span className="text-muted-foreground text-sm">
                 Question {currentQuestion + 1} of {quizQuestions.length}
               </span>
               <span
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-wider",
+                  "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-medium tracking-wider uppercase",
                   question.difficulty === "easy" &&
                     "border border-emerald-200/60 bg-emerald-50/60 text-emerald-800 dark:border-emerald-800/40 dark:bg-emerald-950/30 dark:text-emerald-300",
                   question.difficulty === "medium" &&
@@ -281,7 +281,7 @@ export function QuizSystem() {
               </span>
             </div>
             <Progress value={progress} className="h-1.5 w-full" />
-            <h3 className="mt-4 text-xl font-semibold leading-relaxed text-foreground">
+            <h3 className="text-foreground mt-4 text-xl leading-relaxed font-semibold">
               {question.question}
             </h3>
           </div>
@@ -341,19 +341,19 @@ export function QuizSystem() {
 
           {/* Explanation */}
           {showExplanation && (
-            <div className="mx-6 mb-5 space-y-3 rounded-2xl border border-border/60 bg-background/60 p-5 md:mx-8">
-              <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                <BookOpen className="size-4 text-primary" />
+            <div className="border-border/60 bg-background/60 mx-6 mb-5 space-y-3 rounded-2xl border p-5 md:mx-8">
+              <div className="text-foreground flex items-center gap-2 text-sm font-medium">
+                <BookOpen className="text-primary size-4" />
                 {question.scripture}
               </div>
-              <p className="text-sm leading-relaxed text-muted-foreground">
+              <p className="text-muted-foreground text-sm leading-relaxed">
                 {question.explanation}
               </p>
             </div>
           )}
 
           {/* Actions */}
-          <div className="border-t border-border/60 px-6 py-5 md:px-8">
+          <div className="border-border/60 border-t px-6 py-5 md:px-8">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               {!showExplanation ? (
                 <Button
@@ -376,7 +376,7 @@ export function QuizSystem() {
                 </Button>
               )}
 
-              <span className="text-center text-xs text-muted-foreground sm:text-right">
+              <span className="text-muted-foreground text-center text-xs sm:text-right">
                 Score: {score} / {currentQuestion + (showExplanation ? 1 : 0)}
               </span>
             </div>

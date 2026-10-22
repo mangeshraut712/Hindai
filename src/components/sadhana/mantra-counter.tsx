@@ -239,41 +239,41 @@ export function MantraCounter() {
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]" data-hydrated={hydrated}>
       <Card className="overflow-hidden">
-        <CardHeader className="border-b border-border/60">
+        <CardHeader className="border-border/60 border-b">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p className="eyebrow">Digital japa mala</p>
               <CardTitle className="mt-4 font-serif text-4xl tracking-[-0.03em] sm:text-5xl">
                 {selectedMantra.name}
               </CardTitle>
-              <p className="mt-3 font-devanagari text-3xl leading-snug text-primary">
+              <p className="font-devanagari text-primary mt-3 text-3xl leading-snug">
                 {selectedMantra.devanagari}
               </p>
             </div>
-            <div className="rounded-2xl border border-border/70 bg-background/70 px-4 py-3 text-sm text-muted-foreground">
-              <span className="block text-[11px] uppercase tracking-[0.24em]">Focus</span>
-              <span className="mt-1 block text-foreground">{selectedMantra.focus}</span>
+            <div className="border-border/70 bg-background/70 text-muted-foreground rounded-2xl border px-4 py-3 text-sm">
+              <span className="block text-[11px] tracking-[0.24em] uppercase">Focus</span>
+              <span className="text-foreground mt-1 block">{selectedMantra.focus}</span>
             </div>
           </div>
         </CardHeader>
 
         <CardContent className="space-y-8 pt-6">
-          <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
+          <p className="text-muted-foreground max-w-3xl text-sm leading-7">
             {selectedMantra.meaning} Use this counter like a simple mala: tap once per chant, set
             your sankalpa, and save completed sessions locally on this device.
           </p>
 
-          <div className="rounded-[28px] border border-primary/20 bg-primary/5 p-5 sm:p-8">
+          <div className="border-primary/20 bg-primary/5 rounded-[28px] border p-5 sm:p-8">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                <p className="text-muted-foreground text-[11px] tracking-[0.28em] uppercase">
                   Current count
                 </p>
                 <div className="mt-3 flex items-end gap-3">
-                  <span className="font-serif text-7xl font-semibold leading-none text-foreground sm:text-8xl">
+                  <span className="text-foreground font-serif text-7xl leading-none font-semibold sm:text-8xl">
                     <span data-testid="sadhana-count">{count}</span>
                   </span>
-                  <span className="pb-3 text-sm text-muted-foreground">of {goal}</span>
+                  <span className="text-muted-foreground pb-3 text-sm">of {goal}</span>
                 </div>
               </div>
               <Button
@@ -290,28 +290,28 @@ export function MantraCounter() {
             </div>
 
             <div className="mt-7 space-y-3">
-              <div className="flex items-center justify-between text-xs text-muted-foreground">
+              <div className="text-muted-foreground flex items-center justify-between text-xs">
                 <span>{progress}% complete</span>
                 <span>{remaining} remaining</span>
               </div>
-              <Progress value={progress} className="h-3 bg-background/80" />
+              <Progress value={progress} className="bg-background/80 h-3" />
             </div>
 
             <div className="mt-6 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-2xl bg-background/70 p-4">
-                <Target className="mb-3 size-4 text-primary" />
+              <div className="bg-background/70 rounded-2xl p-4">
+                <Target className="text-primary mb-3 size-4" />
                 <p className="text-2xl font-semibold">{goal}</p>
-                <p className="text-xs text-muted-foreground">Sankalpa goal</p>
+                <p className="text-muted-foreground text-xs">Sankalpa goal</p>
               </div>
-              <div className="rounded-2xl bg-background/70 p-4">
-                <Sparkles className="mb-3 size-4 text-primary" />
+              <div className="bg-background/70 rounded-2xl p-4">
+                <Sparkles className="text-primary mb-3 size-4" />
                 <p className="text-2xl font-semibold">{malaRounds}</p>
-                <p className="text-xs text-muted-foreground">Full 108 malas</p>
+                <p className="text-muted-foreground text-xs">Full 108 malas</p>
               </div>
-              <div className="rounded-2xl bg-background/70 p-4">
-                <CheckCircle2 className="mb-3 size-4 text-primary" />
+              <div className="bg-background/70 rounded-2xl p-4">
+                <CheckCircle2 className="text-primary mb-3 size-4" />
                 <p className="text-2xl font-semibold">{history.length}</p>
-                <p className="text-xs text-muted-foreground">Saved sessions</p>
+                <p className="text-muted-foreground text-xs">Saved sessions</p>
               </div>
             </div>
           </div>
@@ -337,7 +337,7 @@ export function MantraCounter() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <Target className="size-5 text-primary" />
+              <Target className="text-primary size-5" />
               Choose goal
             </CardTitle>
           </CardHeader>
@@ -349,7 +349,7 @@ export function MantraCounter() {
                   type="button"
                   onClick={() => selectGoal(option)}
                   className={cn(
-                    "rounded-2xl border px-3 py-3 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50",
+                    "focus:ring-primary/50 rounded-2xl border px-3 py-3 text-sm font-semibold transition-colors focus:ring-2 focus:outline-hidden",
                     goal === option
                       ? "border-primary/50 bg-primary/15 text-primary"
                       : "border-border/70 bg-background/70 text-foreground hover:bg-secondary/70"
@@ -366,7 +366,7 @@ export function MantraCounter() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <Sparkles className="size-5 text-primary" />
+              <Sparkles className="text-primary size-5" />
               Mantra library
             </CardTitle>
           </CardHeader>
@@ -377,18 +377,18 @@ export function MantraCounter() {
                 type="button"
                 onClick={() => selectMantra(mantra.id)}
                 className={cn(
-                  "w-full rounded-[22px] border p-4 text-left transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50",
+                  "focus:ring-primary/50 w-full rounded-[22px] border p-4 text-left transition-colors focus:ring-2 focus:outline-hidden",
                   selectedMantraId === mantra.id
                     ? "border-primary/50 bg-primary/10"
                     : "border-border/70 bg-background/70 hover:bg-secondary/70"
                 )}
                 aria-pressed={selectedMantraId === mantra.id}
               >
-                <span className="block text-sm font-semibold text-foreground">{mantra.name}</span>
-                <span className="mt-1 block font-devanagari text-sm text-primary">
+                <span className="text-foreground block text-sm font-semibold">{mantra.name}</span>
+                <span className="font-devanagari text-primary mt-1 block text-sm">
                   {mantra.devanagari}
                 </span>
-                <span className="mt-2 block text-xs leading-5 text-muted-foreground">
+                <span className="text-muted-foreground mt-2 block text-xs leading-5">
                   {mantra.focus}
                 </span>
               </button>
@@ -399,7 +399,7 @@ export function MantraCounter() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <History className="size-5 text-primary" />
+              <History className="text-primary size-5" />
               Recent sessions
             </CardTitle>
           </CardHeader>
@@ -409,25 +409,25 @@ export function MantraCounter() {
                 {history.map((session) => (
                   <div
                     key={session.id}
-                    className="rounded-2xl border border-border/70 bg-background/70 p-4"
+                    className="border-border/70 bg-background/70 rounded-2xl border p-4"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div>
                         <p className="text-sm font-semibold">{session.mantraName}</p>
-                        <p className="mt-1 text-xs text-muted-foreground">
+                        <p className="text-muted-foreground mt-1 text-xs">
                           {session.count}/{session.goal} chants
                         </p>
                       </div>
-                      <CalendarDays className="size-4 text-primary" />
+                      <CalendarDays className="text-primary size-4" />
                     </div>
-                    <p className="mt-3 text-xs text-muted-foreground">
+                    <p className="text-muted-foreground mt-3 text-xs">
                       {formatDate(session.completedAt)}
                     </p>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-sm leading-6 text-muted-foreground">
+              <p className="text-muted-foreground text-sm leading-6">
                 Save your first session to build a local practice history.
               </p>
             )}

@@ -97,10 +97,10 @@ export function HarivijayReader({ initialPage }: { initialPage: number }) {
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <Link href="/harivijay" className="text-sm font-semibold text-primary">
+        <Link href="/harivijay" className="text-primary text-sm font-semibold">
           ← हरिविजय home
         </Link>
-        <p className="text-xs tabular-nums text-muted-foreground">
+        <p className="text-muted-foreground text-xs tabular-nums">
           Leaf {page} / {total}
         </p>
       </div>
@@ -124,7 +124,7 @@ export function HarivijayReader({ initialPage }: { initialPage: number }) {
         ) : null}
       </div>
 
-      <article className="pothi-ebook-book overflow-hidden rounded-2xl border border-border/70">
+      <article className="pothi-ebook-book border-border/70 overflow-hidden rounded-2xl border">
         {leaf.kind === "cover" ? (
           <div className="space-y-6 px-6 py-10 text-center sm:px-10">
             <Image
@@ -137,7 +137,7 @@ export function HarivijayReader({ initialPage }: { initialPage: number }) {
               priority
             />
             <h1 className="font-serif text-3xl">सचित्र श्रीहरिविजय</h1>
-            <p className="text-sm leading-7 text-muted-foreground">
+            <p className="text-muted-foreground text-sm leading-7">
               Original Hind AI katha-sar on Sant Shridhar’s Krishna grantha arc. Not a modern
               Kathasar scan.
             </p>
@@ -155,7 +155,7 @@ export function HarivijayReader({ initialPage }: { initialPage: number }) {
                 <li key={chapter.id}>
                   <button
                     type="button"
-                    className="w-full rounded-lg px-3 py-2 text-left hover:bg-secondary"
+                    className="hover:bg-secondary w-full rounded-lg px-3 py-2 text-left"
                     onClick={() => go(firstPageForChapter(chapter.id))}
                   >
                     <span className="font-devanagari text-primary">
@@ -171,7 +171,7 @@ export function HarivijayReader({ initialPage }: { initialPage: number }) {
 
         {leaf.kind === "adhyay" ? (
           <div className="px-5 py-8 sm:px-8">
-            <div className="overflow-hidden rounded-xl border border-border/60">
+            <div className="border-border/60 overflow-hidden rounded-xl border">
               <Image
                 src={publicUrl(BEAT_IMAGE[leaf.chapter.beat])}
                 alt={`Artist impression for ${leaf.chapter.titleEn}`}
@@ -181,15 +181,15 @@ export function HarivijayReader({ initialPage }: { initialPage: number }) {
                 unoptimized
               />
             </div>
-            <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+            <p className="text-primary mt-6 text-xs font-semibold tracking-[0.16em] uppercase">
               अध्याय {toDevanagariNumeral(leaf.chapter.id)} · {leaf.chapter.kathaTitleMr}
             </p>
-            <h1 className="mt-3 font-devanagari text-3xl text-foreground">
+            <h1 className="font-devanagari text-foreground mt-3 text-3xl">
               ॥ अध्याय {toDevanagariNumeral(leaf.chapter.id)} ॥
             </h1>
             <h2 className="mt-2 font-serif text-2xl">{leaf.chapter.titleMr}</h2>
-            <p className="mt-1 text-sm text-muted-foreground">{leaf.chapter.titleEn}</p>
-            <div className="mt-6 space-y-4 text-base leading-8 text-foreground">
+            <p className="text-muted-foreground mt-1 text-sm">{leaf.chapter.titleEn}</p>
+            <div className="text-foreground mt-6 space-y-4 text-base leading-8">
               {leaf.chapter.katha[locale].map((para) => (
                 <p key={para.slice(0, 24)}>{para}</p>
               ))}

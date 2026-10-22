@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 function BookFallback() {
-  return <p className="p-8 text-center text-sm text-muted-foreground">Opening Chandi patha…</p>;
+  return <p className="text-muted-foreground p-8 text-center text-sm">Opening Chandi patha…</p>;
 }
 
 export default function DurgaSaptashatiBookPage() {

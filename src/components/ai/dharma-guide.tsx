@@ -194,8 +194,8 @@ export function DharmaGuide() {
       <div className="mb-4">
         <ServerFeatureNotice feature="Dharma Guide" />
       </div>
-      <Card className="border-2 border-primary/20 bg-gradient-to-br from-background via-background to-primary/5">
-        <CardHeader className="border-b border-border/50">
+      <Card className="border-primary/20 from-background via-background to-primary/5 border-2 bg-linear-to-br">
+        <CardHeader className="border-border/50 border-b">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <motion.div
@@ -203,17 +203,17 @@ export function DharmaGuide() {
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                 className="relative"
               >
-                <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl" />
-                <div className="relative flex size-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/60 text-primary-foreground">
+                <div className="bg-primary/20 absolute inset-0 rounded-full blur-xl" />
+                <div className="from-primary to-primary/60 text-primary-foreground relative flex size-12 items-center justify-center rounded-full bg-linear-to-br">
                   <Heart className="size-6" />
                 </div>
               </motion.div>
               <div>
                 <CardTitle className="flex items-center gap-2 text-2xl">
-                  <Sparkles className="size-5 text-primary" />
+                  <Sparkles className="text-primary size-5" />
                   Dharma Guide
                 </CardTitle>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   Personalized spiritual guidance powered by Gemma 4
                 </p>
               </div>
@@ -247,7 +247,7 @@ export function DharmaGuide() {
                   className={cn(
                     "flex items-center gap-2 rounded-full border-2 px-4 py-2 text-sm font-medium transition-all",
                     selectedCategory === category.name
-                      ? `border-transparent bg-gradient-to-r ${category.color} text-white shadow-lg`
+                      ? `border-transparent bg-linear-to-r ${category.color} text-white shadow-lg`
                       : "border-border/60 bg-background/50 hover:border-primary/50"
                   )}
                 >
@@ -258,7 +258,7 @@ export function DharmaGuide() {
             })}
           </div>
 
-          <div className="mb-4 flex max-h-[600px] min-h-[400px] flex-col gap-4 overflow-y-auto rounded-lg border border-border/50 bg-background/50 p-4">
+          <div className="border-border/50 bg-background/50 mb-4 flex max-h-[600px] min-h-[400px] flex-col gap-4 overflow-y-auto rounded-lg border p-4">
             {messages.length === 0 ? (
               <div className="flex flex-1 flex-col items-center justify-center text-center">
                 <motion.div
@@ -267,14 +267,14 @@ export function DharmaGuide() {
                   className="mb-6"
                 >
                   <div className="relative">
-                    <div className="absolute inset-0 rounded-full bg-primary/20 blur-2xl" />
-                    <div className="relative flex size-24 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-primary/5">
-                      <Heart className="size-12 text-primary" />
+                    <div className="bg-primary/20 absolute inset-0 rounded-full blur-2xl" />
+                    <div className="from-primary/20 to-primary/5 relative flex size-24 items-center justify-center rounded-full bg-linear-to-br">
+                      <Heart className="text-primary size-12" />
                     </div>
                   </div>
                 </motion.div>
                 <h3 className="mb-2 text-xl font-semibold">Your Personal Dharma Guide</h3>
-                <p className="mb-6 max-w-md text-muted-foreground">
+                <p className="text-muted-foreground mb-6 max-w-md">
                   Receive personalized guidance on spiritual practices, rituals, meditation, and
                   living a dharmic life. Ask about daily practices, fasting, festivals, or any
                   aspect of Hindu spiritual life.
@@ -288,7 +288,7 @@ export function DharmaGuide() {
                       exit={{ opacity: 0, y: -20 }}
                       className="w-full"
                     >
-                      <p className="mb-3 text-sm font-medium text-muted-foreground">
+                      <p className="text-muted-foreground mb-3 text-sm font-medium">
                         Quick guides:
                       </p>
                       <div className="grid gap-2 sm:grid-cols-2">
@@ -299,7 +299,7 @@ export function DharmaGuide() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.05 }}
                             onClick={() => handleQuickGuide(guide)}
-                            className="rounded-lg border border-border/60 bg-card/50 p-3 text-left text-sm text-foreground transition-all hover:border-primary/50 hover:bg-primary/5 hover:shadow-md"
+                            className="border-border/60 bg-card/50 text-foreground hover:border-primary/50 hover:bg-primary/5 rounded-lg border p-3 text-left text-sm transition-all hover:shadow-md"
                           >
                             {guide}
                           </motion.button>
@@ -322,7 +322,7 @@ export function DharmaGuide() {
                     )}
                   >
                     {message.role === "assistant" && (
-                      <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary">
+                      <div className="bg-primary/20 text-primary flex size-8 shrink-0 items-center justify-center rounded-full">
                         <Heart className="size-4" />
                       </div>
                     )}
@@ -367,12 +367,12 @@ export function DharmaGuide() {
                     animate={{ opacity: 1 }}
                     className="flex gap-3"
                   >
-                    <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary">
+                    <div className="bg-primary/20 text-primary flex size-8 shrink-0 items-center justify-center rounded-full">
                       <Heart className="size-4" />
                     </div>
-                    <div className="flex items-center gap-1 rounded-2xl bg-muted p-4">
+                    <div className="bg-muted flex items-center gap-1 rounded-2xl p-4">
                       <Loader2 className="size-4 animate-spin" />
-                      <span className="text-sm text-muted-foreground">Seeking guidance...</span>
+                      <span className="text-muted-foreground text-sm">Seeking guidance...</span>
                     </div>
                   </motion.div>
                 )}
@@ -392,7 +392,7 @@ export function DharmaGuide() {
                   ? `Ask about ${selectedCategory}...`
                   : "Ask about spiritual practices, rituals, or dharma..."
               }
-              className="min-h-[80px] resize-none border-2 border-border/60 focus:border-primary/50"
+              className="border-border/60 focus:border-primary/50 min-h-[80px] resize-none border-2"
               disabled={isLoading}
             />
             <Button
@@ -409,7 +409,7 @@ export function DharmaGuide() {
             </Button>
           </div>
 
-          <p className="mt-3 text-center text-xs text-muted-foreground">
+          <p className="text-muted-foreground mt-3 text-center text-xs">
             Press Enter to send, Shift+Enter for new line • Select a category for focused guidance
           </p>
         </CardContent>

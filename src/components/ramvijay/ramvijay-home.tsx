@@ -18,7 +18,7 @@ export function RamvijayHome() {
             <h1 className="theme-ink-title mt-6 font-serif text-4xl sm:text-5xl">
               ॥ श्रीरामविजय ॥
             </h1>
-            <p className="theme-ink-title mt-3 font-devanagari text-xl opacity-95">
+            <p className="theme-ink-title font-devanagari mt-3 text-xl opacity-95">
               कथासार · रामायण आख्यान
             </p>
             <p className="theme-ink-copy mt-5 max-w-2xl text-base leading-7">
@@ -42,8 +42,8 @@ export function RamvijayHome() {
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <div className="pothi-paat w-full max-w-72 rotate-[-3deg]">
-              <div className="overflow-hidden rounded-md bg-card px-4 py-6 text-center shadow-inner">
+            <div className="pothi-paat w-full max-w-72 -rotate-3">
+              <div className="bg-card overflow-hidden rounded-md px-4 py-6 text-center shadow-inner">
                 <Image
                   src={publicUrl("/ramvijay/cover.webp")}
                   alt="श्रीरामविजय — artist impression cover for Hind AI"
@@ -62,14 +62,14 @@ export function RamvijayHome() {
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="pothi-ebook-book">
           <div id="ramvijay-anukramanika" className="scroll-mt-24 px-5 py-8 sm:px-8">
-            <h2 className="text-center font-serif text-2xl text-primary">अनुक्रमणिका</h2>
-            <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-6 text-muted-foreground">
+            <h2 className="text-primary text-center font-serif text-2xl">अनुक्रमणिका</h2>
+            <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-center text-sm leading-6">
               {RAMVIJAY_SOURCE_NOTE.oviCountNote}
             </p>
             <div className="mt-6 overflow-x-auto">
-              <table className="pothi-anukramanika w-full min-w-[28rem] border-collapse text-sm">
+              <table className="pothi-anukramanika w-full min-w-md border-collapse text-sm">
                 <thead>
-                  <tr className="border-b-2 border-foreground/80 text-left">
+                  <tr className="border-foreground/80 border-b-2 text-left">
                     <th className="w-16 py-2 pr-2 font-semibold">अ. क्र.</th>
                     <th className="py-2 pr-2 font-semibold">अध्यायाचे नाव</th>
                     <th className="w-24 py-2 text-right font-semibold">वाचा</th>
@@ -77,26 +77,26 @@ export function RamvijayHome() {
                 </thead>
                 <tbody>
                   {RAMVIJAY_CHAPTERS.map((chapter) => (
-                    <tr key={chapter.id} className="border-b border-border/60 align-top">
-                      <td className="py-3 pr-2 font-devanagari tabular-nums text-primary">
+                    <tr key={chapter.id} className="border-border/60 border-b align-top">
+                      <td className="font-devanagari text-primary py-3 pr-2 tabular-nums">
                         {toDevanagariNumeral(chapter.id)}
                       </td>
                       <td className="py-3 pr-2">
                         <Link
                           href={bookPath(firstPageForChapter(chapter.id))}
-                          className="font-devanagari text-base leading-6 text-foreground hover:text-primary"
+                          className="font-devanagari text-foreground hover:text-primary text-base leading-6"
                         >
                           {chapter.titleMr}
                           {chapter.special ? " · मुख्य" : ""}
                         </Link>
-                        <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                        <p className="text-muted-foreground mt-1 text-xs leading-5">
                           {chapter.titleEn}
                         </p>
                       </td>
                       <td className="py-3 text-right">
                         <Link
                           href={bookPath(firstPageForChapter(chapter.id))}
-                          className="text-xs font-semibold uppercase tracking-[0.12em] text-primary"
+                          className="text-primary text-xs font-semibold tracking-[0.12em] uppercase"
                         >
                           Open
                         </Link>
@@ -107,17 +107,17 @@ export function RamvijayHome() {
               </table>
             </div>
           </div>
-          <div className="border-t border-border/70 px-5 py-8 sm:px-8">
-            <p className="text-center text-sm text-muted-foreground">
-              <Link href="/harivijay" className="font-semibold text-primary">
+          <div className="border-border/70 border-t px-5 py-8 sm:px-8">
+            <p className="text-muted-foreground text-center text-sm">
+              <Link href="/harivijay" className="text-primary font-semibold">
                 Harivijay
               </Link>
               {" · "}
-              <Link href="/shivlilamrit" className="font-semibold text-primary">
+              <Link href="/shivlilamrit" className="text-primary font-semibold">
                 Shivlilamrit
               </Link>
               {" · "}
-              <Link href="/vishnu" className="font-semibold text-primary">
+              <Link href="/vishnu" className="text-primary font-semibold">
                 Vishnu tirtha
               </Link>
             </p>

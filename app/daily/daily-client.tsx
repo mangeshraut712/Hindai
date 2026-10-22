@@ -180,10 +180,10 @@ export default function DailyWisdomClient() {
 
       <main id="main-content" className="flex-1">
         {/* ── Hero ── */}
-        <section className="hero-mesh relative overflow-hidden border-b border-border/60">
+        <section className="hero-mesh border-border/60 relative overflow-hidden border-b">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
-          <div className="hero-sun -left-20 top-10 size-56 opacity-80" aria-hidden="true" />
-          <div className="hero-sun right-0 top-20 size-72 opacity-60" aria-hidden="true" />
+          <div className="hero-sun top-10 -left-20 size-56 opacity-80" aria-hidden="true" />
+          <div className="hero-sun top-20 right-0 size-72 opacity-60" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
               <div className="max-w-3xl">
@@ -193,7 +193,7 @@ export default function DailyWisdomClient() {
                   A new Sanskrit verse, its meaning, and a meditation prompt drawn from the Vedas,
                   Upanishads, and Bhagavad Gita - every day.
                 </p>
-                <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                <p className="text-muted-foreground mt-4 text-sm leading-7">
                   {new Date().toLocaleDateString("en-IN", {
                     weekday: "long",
                     year: "numeric",
@@ -205,7 +205,7 @@ export default function DailyWisdomClient() {
 
               <div className="surface-panel max-w-md p-6 transition-all duration-300 hover:shadow-xl lg:ml-auto">
                 <div className="relative z-10 space-y-4">
-                  <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+                  <p className="text-muted-foreground text-[11px] tracking-[0.32em] uppercase">
                     Today&apos;s practice
                   </p>
                   <div className="grid gap-3 sm:grid-cols-2">
@@ -217,7 +217,7 @@ export default function DailyWisdomClient() {
                     ].map((item) => (
                       <div
                         key={item}
-                        className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground/80 transition-all duration-300 hover:border-primary/30 hover:bg-primary/10"
+                        className="border-border/60 bg-background/70 text-foreground/80 hover:border-primary/30 hover:bg-primary/10 rounded-[20px] border px-4 py-3 text-sm transition-all duration-300"
                       >
                         {item}
                       </div>
@@ -244,7 +244,7 @@ export default function DailyWisdomClient() {
               </Button>
               <div className="flex items-center gap-3">
                 <span className="eyebrow">{currentWisdom.theme}</span>
-                <span className="text-sm font-medium text-muted-foreground">
+                <span className="text-muted-foreground text-sm font-medium">
                   {currentWisdom.source}
                 </span>
               </div>
@@ -268,7 +268,7 @@ export default function DailyWisdomClient() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.15 }}
-                      className="font-devanagari text-3xl leading-relaxed text-foreground sm:text-4xl md:text-5xl"
+                      className="font-devanagari text-foreground text-3xl leading-relaxed sm:text-4xl md:text-5xl"
                     >
                       {currentWisdom.sanskrit}
                     </motion.p>
@@ -278,16 +278,16 @@ export default function DailyWisdomClient() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.25 }}
-                      className="text-lg italic text-primary"
+                      className="text-primary text-lg italic"
                     >
                       {currentWisdom.transliteration}
                     </motion.p>
 
                     {/* Divider */}
                     <div className="flex items-center justify-center gap-4">
-                      <div className="h-px w-20 bg-border/80" />
-                      <Sparkles className="size-4 text-accent" />
-                      <div className="h-px w-20 bg-border/80" />
+                      <div className="bg-border/80 h-px w-20" />
+                      <Sparkles className="text-accent size-4" />
+                      <div className="bg-border/80 h-px w-20" />
                     </div>
 
                     {/* Translation */}
@@ -295,7 +295,7 @@ export default function DailyWisdomClient() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.35 }}
-                      className="font-serif text-xl leading-relaxed text-foreground sm:text-2xl"
+                      className="text-foreground font-serif text-xl leading-relaxed sm:text-2xl"
                     >
                       &ldquo;{currentWisdom.translation}&rdquo;
                     </motion.blockquote>
@@ -306,7 +306,7 @@ export default function DailyWisdomClient() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.45 }}
-                        className="mx-auto max-w-xl text-sm leading-7 text-muted-foreground"
+                        className="text-muted-foreground mx-auto max-w-xl text-sm leading-7"
                       >
                         {currentWisdom.context}
                       </motion.p>
@@ -317,7 +317,7 @@ export default function DailyWisdomClient() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.5 }}
-                      className="text-sm font-semibold tracking-[0.08em] text-primary"
+                      className="text-primary text-sm font-semibold tracking-[0.08em]"
                     >
                       - {currentWisdom.source}
                     </motion.p>
@@ -391,10 +391,10 @@ export default function DailyWisdomClient() {
               <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                 <div className="max-w-2xl">
                   <span className="eyebrow">Go deeper • गहराई में</span>
-                  <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
+                  <h2 className="text-foreground mt-6 text-4xl font-semibold tracking-[-0.04em]">
                     Ask Guru AI to explain today&apos;s verse.
                   </h2>
-                  <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                  <p className="text-muted-foreground mt-4 text-sm leading-7">
                     Use the conversational guide for commentary, cross-references, and practical
                     applications from Indian philosophical traditions.
                   </p>

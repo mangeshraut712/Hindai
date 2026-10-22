@@ -41,9 +41,9 @@ export function MandirDiya({ className = "" }: { className?: string }) {
 
 export function MandirPaat({ children }: { children: ReactNode }) {
   return (
-    <div className="pothi-garbha relative min-h-[100dvh] overflow-hidden">
+    <div className="pothi-garbha relative min-h-dvh overflow-hidden">
       <div className="pothi-rangoli pointer-events-none absolute inset-0" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-amber-200/15 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-linear-to-b from-amber-200/15 to-transparent" />
       <div className="relative z-10 mx-auto flex max-w-5xl items-end justify-between px-6 pt-4">
         <MandirDiya />
         <MandirDiya />

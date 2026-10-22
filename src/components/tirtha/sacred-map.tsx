@@ -128,7 +128,7 @@ export function SacredMap({
       {showFilters ? (
         <div className="mb-5 space-y-3">
           <div>
-            <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            <p className="text-muted-foreground mb-2 text-[11px] font-semibold tracking-[0.18em] uppercase">
               Tradition
             </p>
             <div className="flex flex-wrap gap-2">
@@ -152,7 +152,7 @@ export function SacredMap({
             </div>
           </div>
           <div>
-            <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            <p className="text-muted-foreground mb-2 text-[11px] font-semibold tracking-[0.18em] uppercase">
               Story trail
             </p>
             <div className="flex flex-wrap gap-2">
@@ -175,7 +175,7 @@ export function SacredMap({
               ))}
             </div>
           </div>
-          <ul className="m-0 flex list-none flex-wrap gap-x-4 gap-y-1 p-0 text-xs text-muted-foreground">
+          <ul className="text-muted-foreground m-0 flex list-none flex-wrap gap-x-4 gap-y-1 p-0 text-xs">
             <li className="inline-flex items-center gap-1.5">
               <span className="size-2.5 rounded-full" style={{ background: pinFill("shaiva") }} />
               Shiva
@@ -203,7 +203,7 @@ export function SacredMap({
       ) : null}
 
       {activeTrail ? (
-        <p className="mb-4 max-w-3xl text-sm leading-6 text-muted-foreground">{activeTrail.note}</p>
+        <p className="text-muted-foreground mb-4 max-w-3xl text-sm leading-6">{activeTrail.note}</p>
       ) : null}
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.45fr)_minmax(17rem,0.85fr)]">
@@ -302,13 +302,13 @@ export function SacredMap({
         <aside className="surface-panel rounded-2xl p-5">
           {active ? (
             <>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+              <p className="text-primary text-xs font-semibold tracking-[0.16em] uppercase">
                 {active.tradition} · {active.kind}
               </p>
-              <h3 className="mt-2 font-serif text-2xl text-foreground">{active.name}</h3>
+              <h3 className="text-foreground mt-2 font-serif text-2xl">{active.name}</h3>
               <p className="font-devanagari text-primary">{active.sanskrit}</p>
-              <p className="mt-2 text-sm text-muted-foreground">{active.locationLabel}</p>
-              <p className="mt-1 text-[11px] tabular-nums text-muted-foreground">
+              <p className="text-muted-foreground mt-2 text-sm">{active.locationLabel}</p>
+              <p className="text-muted-foreground mt-1 text-[11px] tabular-nums">
                 {active.lat.toFixed(3)}°N, {active.lng.toFixed(3)}°E
               </p>
               {active.listStatus === "major-yatra" ? (
@@ -321,19 +321,19 @@ export function SacredMap({
                   List assignment is disputed; the pin is the living temple
                 </p>
               ) : null}
-              <p className="mt-4 text-sm leading-7 text-foreground/90">{active.storyBeat}</p>
+              <p className="text-foreground/90 mt-4 text-sm leading-7">{active.storyBeat}</p>
               <Link
                 href={active.href}
-                className="mt-5 inline-flex min-h-11 items-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground"
+                className="bg-primary text-primary-foreground mt-5 inline-flex min-h-11 items-center rounded-full px-5 text-sm font-semibold"
                 data-testid="tirtha-open-place"
               >
                 Open the place page →
               </Link>
             </>
           ) : (
-            <p className="text-sm text-muted-foreground">Choose a pin.</p>
+            <p className="text-muted-foreground text-sm">Choose a pin.</p>
           )}
-          <p className="mt-6 text-xs leading-5 text-muted-foreground">{GEOGRAPHY_AUDIT_NOTE}</p>
+          <p className="text-muted-foreground mt-6 text-xs leading-5">{GEOGRAPHY_AUDIT_NOTE}</p>
         </aside>
       </div>
     </div>

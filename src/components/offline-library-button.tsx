@@ -53,11 +53,11 @@ export function OfflineLibraryButton() {
           : "Download all exported pages, books, images and app files. External videos and AI require internet. This uses device storage.";
 
   return (
-    <div className="mt-5 rounded-2xl border border-border/60 bg-background/75 p-4">
+    <div className="border-border/60 bg-background/75 mt-5 rounded-2xl border p-4">
       <Button type="button" onClick={save} disabled={!supported || (!!progress && !progress.done)}>
         {progress?.done ? "Save again" : "Save full library offline"}
       </Button>
-      <p role="status" className="mt-3 text-sm leading-6 text-muted-foreground">
+      <p role="status" className="text-muted-foreground mt-3 text-sm leading-6">
         {supported ? label : "Offline download is available on the published site."}
       </p>
       {progress && progress.total > 0 ? (

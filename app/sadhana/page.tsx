@@ -112,13 +112,13 @@ export default function SadhanaPage() {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        <section className="hero-mesh relative overflow-hidden border-b border-border/60 px-4 py-16 sm:px-6 lg:px-8">
+        <section className="hero-mesh border-border/60 relative overflow-hidden border-b px-4 py-16 sm:px-6 lg:px-8">
           <div className="grain-mask absolute inset-0 opacity-40" aria-hidden="true" />
-          <div className="hero-sun right-[-10rem] top-[-7rem] size-[24rem]" aria-hidden="true" />
+          <div className="hero-sun -top-28 -right-40 size-96" aria-hidden="true" />
           <div className="relative z-10 mx-auto max-w-7xl">
             <div className="max-w-4xl">
               <span className="eyebrow">Daily sadhana • जप साधना • Digital mala</span>
-              <h1 className="mt-7 font-serif text-4xl font-semibold tracking-[-0.045em] text-foreground sm:text-6xl lg:text-7xl">
+              <h1 className="text-foreground mt-7 font-serif text-4xl font-semibold tracking-[-0.045em] sm:text-6xl lg:text-7xl">
                 A daily practice hub for mantra, reflection, and scripture.
               </h1>
               <p className="section-copy mt-6 max-w-3xl">
@@ -178,12 +178,12 @@ export default function SadhanaPage() {
               {practiceLinks.map((item) => (
                 <Link key={item.href} href={item.href} className="surface-panel group p-6">
                   <div className="relative z-10">
-                    <div className="mb-5 flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform group-hover:scale-105">
+                    <div className="bg-primary/10 text-primary mb-5 flex size-12 items-center justify-center rounded-full transition-transform group-hover:scale-105">
                       <item.icon className="size-5" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground">{item.title}</h3>
-                    <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.body}</p>
-                    <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                    <h3 className="text-foreground text-xl font-semibold">{item.title}</h3>
+                    <p className="text-muted-foreground mt-3 text-sm leading-6">{item.body}</p>
+                    <div className="text-primary mt-5 inline-flex items-center gap-2 text-sm font-semibold">
                       Open
                       <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                     </div>
@@ -195,7 +195,7 @@ export default function SadhanaPage() {
         </section>
 
         <section className="px-4 pb-24 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl rounded-[32px] border border-border/65 bg-card/70 p-6 shadow-[0_30px_80px_-54px_rgba(15,23,42,0.45)] backdrop-blur-xl sm:p-8">
+          <div className="border-border/65 bg-card/70 mx-auto max-w-7xl rounded-[32px] border p-6 shadow-[0_30px_80px_-54px_rgba(15,23,42,0.45)] backdrop-blur-xl sm:p-8">
             <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
               <div>
                 <span className="eyebrow">Retention design</span>
@@ -211,11 +211,11 @@ export default function SadhanaPage() {
                 ].map(([title, body]) => (
                   <div
                     key={title}
-                    className="rounded-2xl border border-border/70 bg-background/70 p-4"
+                    className="border-border/70 bg-background/70 rounded-2xl border p-4"
                   >
-                    <Bell className="mb-3 size-4 text-primary" />
+                    <Bell className="text-primary mb-3 size-4" />
                     <p className="font-semibold">{title}</p>
-                    <p className="mt-2 text-xs leading-5 text-muted-foreground">{body}</p>
+                    <p className="text-muted-foreground mt-2 text-xs leading-5">{body}</p>
                   </div>
                 ))}
               </div>

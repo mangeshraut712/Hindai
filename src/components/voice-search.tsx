@@ -127,7 +127,7 @@ export function VoiceSearch({
       </Button>
 
       {transcript && (
-        <div className="max-w-xs truncate text-sm text-muted-foreground" title={transcript}>
+        <div className="text-muted-foreground max-w-xs truncate text-sm" title={transcript}>
           &ldquo;{transcript}&rdquo;
         </div>
       )}

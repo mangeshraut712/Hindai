@@ -123,30 +123,27 @@ const stats = [
 
 function HomeHero() {
   return (
-    <section className="hero-mesh relative overflow-hidden border-b border-border/60">
+    <section className="hero-mesh border-border/60 relative overflow-hidden border-b">
       <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
-      <div className="hero-sun right-[-10rem] top-[-6rem] size-[26rem]" aria-hidden="true" />
-      <div
-        className="hero-sun bottom-[-8rem] left-[-8rem] size-[20rem] opacity-70"
-        aria-hidden="true"
-      />
+      <div className="hero-sun -top-24 -right-40 size-104" aria-hidden="true" />
+      <div className="hero-sun -bottom-32 -left-32 size-80 opacity-70" aria-hidden="true" />
       <div
         className="temple-grid absolute inset-y-0 right-0 hidden w-[42%] opacity-25 lg:block"
         aria-hidden="true"
       />
 
-      <div className="mx-auto grid min-h-[max(600px,75svh)] max-w-7xl items-center gap-8 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-14 lg:px-8">
+      <div className="mx-auto grid min-h-[max(600px,75svh)] max-w-7xl items-center gap-8 px-4 pt-14 pb-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-14 lg:px-8">
         <div className="relative z-10 max-w-3xl">
           <span className="eyebrow">Digital Gurukul • Gemma 4 • English · हिंदी · संस्कृत</span>
           <div className="mt-8 space-y-6">
             <div className="space-y-4">
-              <p className="font-devanagari text-sm tracking-[0.32em] text-primary">
+              <p className="font-devanagari text-primary text-sm tracking-[0.32em]">
                 ज्ञान से मोक्ष तक
               </p>
-              <p className="font-devanagari text-lg tracking-[0.18em] text-muted-foreground">
+              <p className="font-devanagari text-muted-foreground text-lg tracking-[0.18em]">
                 सत्यमेव जयते · नमस्ते · ॐ
               </p>
-              <h1 className="font-serif text-4xl font-semibold tracking-[-0.05em] text-foreground sm:text-6xl lg:text-7xl">
+              <h1 className="text-foreground font-serif text-4xl font-semibold tracking-tighter sm:text-6xl lg:text-7xl">
                 Ancient wisdom,
                 <br />
                 rendered with
@@ -171,27 +168,27 @@ function HomeHero() {
               </Button>
             </div>
 
-            <p className="max-w-2xl text-sm leading-7 text-muted-foreground">
+            <p className="text-muted-foreground max-w-2xl text-sm leading-7">
               Hindu scripture is a vast tradition built over millennia, broadly organized into{" "}
               <strong>Shruti</strong> (revealed scripture) and <strong>Smriti</strong> (remembered
               tradition), with the Bhagavad Gita, Upanishads, Puranas, and epics all occupying
               distinct but connected places.
             </p>
 
-            <dl className="flex flex-wrap gap-8 border-t border-border/60 pt-7">
+            <dl className="border-border/60 flex flex-wrap gap-8 border-t pt-7">
               {stats.map((stat) => (
                 <div key={stat.label}>
-                  <dt className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                  <dt className="text-muted-foreground text-[11px] tracking-[0.28em] uppercase">
                     {stat.label}
                   </dt>
-                  <dd className="mt-2 font-serif text-3xl font-semibold text-foreground">
+                  <dd className="text-foreground mt-2 font-serif text-3xl font-semibold">
                     {stat.value}
                   </dd>
                 </div>
               ))}
             </dl>
 
-            <div className="bg-background/72 rounded-[24px] border border-border/60 p-4 text-sm leading-7 text-muted-foreground">
+            <div className="bg-background/72 border-border/60 text-muted-foreground rounded-[24px] border p-4 text-sm leading-7">
               <strong className="text-foreground">Reading map:</strong> Shruti includes the 4 Vedas
               and the traditional 108 Upanishads. Smriti includes the 2 Itihasas, 18 Major Puranas,
               18 Upa-Puranas, and the wider world of Shastras and Sutras.
@@ -204,14 +201,14 @@ function HomeHero() {
         </div>
 
         <div className="relative z-10 pb-6 lg:pb-20">
-          <div className="surface-panel relative overflow-hidden border-primary/20 bg-background/40 p-8 shadow-[0_32px_80px_-48px_rgba(249,115,22,0.25)] transition-all duration-500 hover:border-primary/45 md:p-10">
+          <div className="surface-panel border-primary/20 bg-background/40 hover:border-primary/45 relative overflow-hidden p-8 shadow-[0_32px_80px_-48px_rgba(249,115,22,0.25)] transition-all duration-500 md:p-10">
             <div className="relative z-10">
               <span className="eyebrow">Opening invocation</span>
               <div className="mt-8 space-y-4">
-                <p className="select-none font-devanagari text-3xl leading-tight tracking-wide text-primary transition-all duration-300 sm:text-5xl">
+                <p className="font-devanagari text-primary text-3xl leading-tight tracking-wide transition-all duration-300 select-none sm:text-5xl">
                   असतो मा सद्गमय
                 </p>
-                <p className="max-w-md text-base leading-7 text-muted-foreground">
+                <p className="text-muted-foreground max-w-md text-base leading-7">
                   Lead me from the unreal to the real, from darkness to light, from death to the
                   deathless.
                 </p>
@@ -222,11 +219,11 @@ function HomeHero() {
                   <Link
                     key={question}
                     href={`/ai-guide?q=${encodeURIComponent(question)}`}
-                    className="text-foreground/84 group block cursor-pointer rounded-[24px] border border-border/60 bg-background/75 px-4 py-3 text-sm shadow-[0_20px_45px_-36px_rgba(15,23,42,0.4)] transition-all duration-300 hover:translate-x-1 hover:border-primary/50 hover:bg-primary/5"
+                    className="text-foreground/84 group border-border/60 bg-background/75 hover:border-primary/50 hover:bg-primary/5 block cursor-pointer rounded-[24px] border px-4 py-3 text-sm shadow-[0_20px_45px_-36px_rgba(15,23,42,0.4)] transition-all duration-300 hover:translate-x-1"
                   >
                     <span className="flex min-w-0 items-center justify-between gap-2">
                       <span className="min-w-0 text-pretty">{question}</span>
-                      <ArrowRight className="size-4 shrink-0 -translate-x-2 text-primary opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+                      <ArrowRight className="text-primary size-4 shrink-0 -translate-x-2 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
                     </span>
                   </Link>
                 ))}
@@ -236,12 +233,12 @@ function HomeHero() {
 
           <div className="surface-panel absolute -bottom-8 left-4 hidden w-[78%] p-5 lg:block">
             <div className="relative z-10 flex items-start gap-3">
-              <div className="bg-accent/12 flex size-11 items-center justify-center rounded-full text-accent">
+              <div className="bg-accent/12 text-accent flex size-11 items-center justify-center rounded-full">
                 <Languages className="size-5" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-foreground">Language-aware study</p>
-                <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                <p className="text-foreground text-sm font-semibold">Language-aware study</p>
+                <p className="text-muted-foreground mt-1 text-sm leading-6">
                   Sanskrit detail, Hindi context, and readable English explanations in one
                   theme-aware surface.
                 </p>
@@ -279,8 +276,8 @@ function ProductIntro() {
             {hindAIUseCases.slice(0, 4).map((useCase) => (
               <div key={useCase.title} className="surface-panel p-5">
                 <div className="relative z-10">
-                  <h3 className="text-lg font-semibold text-foreground">{useCase.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{useCase.body}</p>
+                  <h3 className="text-foreground text-lg font-semibold">{useCase.title}</h3>
+                  <p className="text-muted-foreground mt-2 text-sm leading-6">{useCase.body}</p>
                 </div>
               </div>
             ))}
@@ -305,10 +302,10 @@ function ProductIntro() {
                 {gemmaCapabilityPillars.slice(0, 6).map((pillar) => (
                   <div
                     key={pillar.title}
-                    className="rounded-[22px] border border-border/60 bg-background/70 p-4"
+                    className="border-border/60 bg-background/70 rounded-[22px] border p-4"
                   >
-                    <h3 className="text-sm font-semibold text-foreground">{pillar.title}</h3>
-                    <p className="mt-2 text-xs leading-5 text-muted-foreground">{pillar.body}</p>
+                    <h3 className="text-foreground text-sm font-semibold">{pillar.title}</h3>
+                    <p className="text-muted-foreground mt-2 text-xs leading-5">{pillar.body}</p>
                   </div>
                 ))}
               </div>
@@ -340,19 +337,19 @@ function InterfaceModes() {
               className="surface-panel group min-w-0 p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-6"
             >
               <Link href={mode.href} className="relative z-10 space-y-4">
-                <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20">
+                <div className="bg-primary/10 text-primary group-hover:bg-primary/20 flex size-12 items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110">
                   <mode.icon className="size-5" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary sm:text-2xl">
+                  <h3 className="text-foreground group-hover:text-primary text-xl font-semibold transition-colors duration-300 sm:text-2xl">
                     {mode.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-6 text-muted-foreground">{mode.body}</p>
+                  <p className="text-muted-foreground mt-3 text-sm leading-6">{mode.body}</p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {mode.features.map((feature) => (
                       <span
                         key={feature}
-                        className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-medium text-primary transition-all duration-300 hover:scale-105 hover:bg-primary/20"
+                        className="bg-primary/10 text-primary hover:bg-primary/20 inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-medium transition-all duration-300 hover:scale-105"
                       >
                         {feature}
                       </span>
@@ -392,24 +389,24 @@ function ScriptureShelves() {
               <div key={scripture.slug}>
                 <Link href={scripture.href} className="scripture-row group">
                   <div>
-                    <p className="border-l-2 border-primary/20 pl-2 text-[11px] uppercase tracking-[0.28em] text-muted-foreground md:border-0 md:pl-0">
+                    <p className="border-primary/20 text-muted-foreground border-l-2 pl-2 text-[11px] tracking-[0.28em] uppercase md:border-0 md:pl-0">
                       {scripture.category}
                     </p>
                   </div>
                   <div>
-                    <p className="font-devanagari text-xl text-primary transition-transform duration-300 group-hover:scale-105">
+                    <p className="font-devanagari text-primary text-xl transition-transform duration-300 group-hover:scale-105">
                       {scripture.sanskrit}
                     </p>
-                    <h3 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-foreground transition-colors duration-300 group-hover:text-primary">
+                    <h3 className="text-foreground group-hover:text-primary mt-2 text-2xl font-semibold tracking-[-0.04em] transition-colors duration-300">
                       {scripture.name}
                     </h3>
-                    <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
+                    <p className="text-muted-foreground mt-3 max-w-xl text-sm leading-7">
                       {scripture.description}
                     </p>
                   </div>
                   <div className="flex items-center justify-between gap-4 md:justify-end">
-                    <span className="text-sm text-muted-foreground">{scripture.highlight}</span>
-                    <ArrowRight className="size-4 text-primary transition-transform group-hover:translate-x-2 group-hover:scale-110" />
+                    <span className="text-muted-foreground text-sm">{scripture.highlight}</span>
+                    <ArrowRight className="text-primary size-4 transition-transform group-hover:translate-x-2 group-hover:scale-110" />
                   </div>
                 </Link>
               </div>
@@ -467,29 +464,29 @@ function SanskritToolsSummary() {
         <div className="mt-12 grid gap-8 sm:grid-cols-1 lg:grid-cols-2">
           <div className="surface-panel group p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
             <div className="relative z-10 space-y-6">
-              <div className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-purple-600 transition-all duration-300 group-hover:scale-110 group-hover:from-purple-500/30 group-hover:to-pink-500/30">
+              <div className="flex size-14 items-center justify-center rounded-full bg-linear-to-br from-purple-500/20 to-pink-500/20 text-purple-600 transition-all duration-300 group-hover:scale-110 group-hover:from-purple-500/30 group-hover:to-pink-500/30">
                 <Bot className="size-6" />
               </div>
               <div>
-                <h3 className="text-2xl font-semibold text-foreground transition-colors duration-300 group-hover:text-purple-600">
+                <h3 className="text-foreground text-2xl font-semibold transition-colors duration-300 group-hover:text-purple-600">
                   AI-Powered Learning
                 </h3>
-                <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                <p className="text-muted-foreground mt-3 text-sm leading-7">
                   Get personalized explanations, comparative analysis, and contextual insights
                   powered by Google Gemma 4. Ask questions in natural language and receive
                   thoughtful, culturally-aware responses.
                 </p>
               </div>
               <div className="space-y-3">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+                <div className="text-muted-foreground group-hover:text-foreground flex items-center gap-2 text-sm transition-colors duration-300">
                   <div className="size-2 rounded-full bg-green-500 transition-transform duration-300 group-hover:scale-125"></div>
                   Real-time AI responses
                 </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+                <div className="text-muted-foreground group-hover:text-foreground flex items-center gap-2 text-sm transition-colors duration-300">
                   <div className="size-2 rounded-full bg-green-500 transition-transform duration-300 group-hover:scale-125"></div>
                   Multilingual support
                 </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+                <div className="text-muted-foreground group-hover:text-foreground flex items-center gap-2 text-sm transition-colors duration-300">
                   <div className="size-2 rounded-full bg-green-500 transition-transform duration-300 group-hover:scale-125"></div>
                   Contextual understanding
                 </div>
@@ -499,29 +496,29 @@ function SanskritToolsSummary() {
 
           <div className="surface-panel group p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
             <div className="relative z-10 space-y-6">
-              <div className="flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-500/20 text-blue-600 transition-all duration-300 group-hover:scale-110 group-hover:from-blue-500/30 group-hover:to-cyan-500/30">
+              <div className="flex size-14 items-center justify-center rounded-full bg-linear-to-br from-blue-500/20 to-cyan-500/20 text-blue-600 transition-all duration-300 group-hover:scale-110 group-hover:from-blue-500/30 group-hover:to-cyan-500/30">
                 <Languages className="size-6" />
               </div>
               <div>
-                <h3 className="text-2xl font-semibold text-foreground transition-colors duration-300 group-hover:text-blue-600">
+                <h3 className="text-foreground text-2xl font-semibold transition-colors duration-300 group-hover:text-blue-600">
                   Multilingual Experience
                 </h3>
-                <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                <p className="text-muted-foreground mt-3 text-sm leading-7">
                   Study scriptures in their original Sanskrit, with transliteration, Hindi
                   translations, and clear English explanations. Switch between languages seamlessly
                   while maintaining context.
                 </p>
               </div>
               <div className="space-y-3">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+                <div className="text-muted-foreground group-hover:text-foreground flex items-center gap-2 text-sm transition-colors duration-300">
                   <div className="size-2 rounded-full bg-blue-500 transition-transform duration-300 group-hover:scale-125"></div>
                   Sanskrit (Devanagari)
                 </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+                <div className="text-muted-foreground group-hover:text-foreground flex items-center gap-2 text-sm transition-colors duration-300">
                   <div className="size-2 rounded-full bg-blue-500 transition-transform duration-300 group-hover:scale-125"></div>
                   Hindi translations
                 </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+                <div className="text-muted-foreground group-hover:text-foreground flex items-center gap-2 text-sm transition-colors duration-300">
                   <div className="size-2 rounded-full bg-blue-500 transition-transform duration-300 group-hover:scale-125"></div>
                   English explanations
                 </div>
@@ -547,20 +544,20 @@ function FeaturedVerses() {
           </p>
         </div>
 
-        <div className="scrollbar-thin mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6 md:grid md:grid-cols-3 md:overflow-x-visible md:pb-0">
+        <div className="mt-12 flex snap-x snap-mandatory scrollbar-thin gap-6 overflow-x-auto pb-6 md:grid md:grid-cols-3 md:overflow-x-visible md:pb-0">
           {featuredVerses.map((verse) => (
             <div
               key={verse.source}
-              className="surface-panel group min-w-[min(20rem,calc(100vw-2.5rem))] shrink-0 snap-center border-accent/20 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl md:min-w-0 md:shrink"
+              className="surface-panel group border-accent/20 hover:border-accent/40 min-w-[min(20rem,calc(100vw-2.5rem))] shrink-0 snap-center p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl md:min-w-0 md:shrink"
             >
               <div className="relative z-10 space-y-4">
-                <p className="text-pretty font-devanagari text-lg leading-relaxed text-primary">
+                <p className="font-devanagari text-primary text-lg leading-relaxed text-pretty">
                   {verse.sanskrit}
                 </p>
-                <p className="text-xs italic text-muted-foreground">{verse.transliteration}</p>
-                <p className="text-sm leading-6 text-foreground/90">{verse.translation}</p>
-                <div className="border-t border-border/60 pt-3">
-                  <p className="text-xs font-semibold text-primary">{verse.source}</p>
+                <p className="text-muted-foreground text-xs italic">{verse.transliteration}</p>
+                <p className="text-foreground/90 text-sm leading-6">{verse.translation}</p>
+                <div className="border-border/60 border-t pt-3">
+                  <p className="text-primary text-xs font-semibold">{verse.source}</p>
                 </div>
               </div>
             </div>
@@ -652,7 +649,7 @@ function LearningJourney() {
     return (
       <section className="reveal-on-scroll px-4 pb-24 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="h-64 animate-pulse rounded-[28px] bg-muted/30" />
+          <div className="bg-muted/30 h-64 animate-pulse rounded-[28px]" />
         </div>
       </section>
     );
@@ -674,17 +671,17 @@ function LearningJourney() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <div className="surface-panel p-6">
             <div className="relative z-10 flex items-start gap-4">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <div className="bg-primary/10 text-primary flex size-12 shrink-0 items-center justify-center rounded-full">
                 <Flame className="size-6 animate-pulse" />
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wider text-muted-foreground">
+                <p className="text-muted-foreground text-xs tracking-wider uppercase">
                   Daily Sadhana Chants
                 </p>
-                <p className="mt-1 font-serif text-3xl font-semibold text-foreground">
+                <p className="text-foreground mt-1 font-serif text-3xl font-semibold">
                   {totalChants.toLocaleString("en-IN")}
                 </p>
-                <p className="mt-2 text-xs text-muted-foreground">
+                <p className="text-muted-foreground mt-2 text-xs">
                   Completed {totalMalas} full Malas (108 repetitions)
                 </p>
               </div>
@@ -693,17 +690,17 @@ function LearningJourney() {
 
           <div className="surface-panel p-6">
             <div className="relative z-10 flex items-start gap-4">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <div className="bg-primary/10 text-primary flex size-12 shrink-0 items-center justify-center rounded-full">
                 <Activity className="size-6" />
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wider text-muted-foreground">
+                <p className="text-muted-foreground text-xs tracking-wider uppercase">
                   Active Sadhana Days
                 </p>
-                <p className="mt-1 font-serif text-3xl font-semibold text-foreground">
+                <p className="text-foreground mt-1 font-serif text-3xl font-semibold">
                   {totalSessions > 0 ? totalSessions : "0"}
                 </p>
-                <p className="mt-2 text-xs text-muted-foreground">
+                <p className="text-muted-foreground mt-2 text-xs">
                   Logged spiritual sessions in history
                 </p>
               </div>
@@ -712,15 +709,15 @@ function LearningJourney() {
 
           <div className="surface-panel p-6">
             <div className="relative z-10 flex items-start gap-4">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <div className="bg-primary/10 text-primary flex size-12 shrink-0 items-center justify-center rounded-full">
                 <GraduationCap className="size-6" />
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wider text-muted-foreground">
+                <p className="text-muted-foreground text-xs tracking-wider uppercase">
                   Sanskrit & Shloka Level
                 </p>
-                <p className="mt-1 font-serif text-3xl font-semibold text-foreground">Level 2</p>
-                <p className="mt-2 text-xs text-muted-foreground">
+                <p className="text-foreground mt-1 font-serif text-3xl font-semibold">Level 2</p>
+                <p className="text-muted-foreground mt-2 text-xs">
                   Vocabulary mastered, active on Gita shelf
                 </p>
               </div>
@@ -730,13 +727,13 @@ function LearningJourney() {
 
         {/* Onboarding block if no Japa history */}
         {totalSessions === 0 && (
-          <div className="mt-8 rounded-[28px] border border-primary/20 bg-primary/5 p-6 md:p-8">
+          <div className="border-primary/20 bg-primary/5 mt-8 rounded-[28px] border p-6 md:p-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div className="space-y-2">
-                <h3 className="text-lg font-semibold text-foreground">
+                <h3 className="text-foreground text-lg font-semibold">
                   Start your daily Sadhana practice
                 </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
+                <p className="text-muted-foreground text-sm leading-relaxed">
                   Your local chanting activity and mantra goals will automatically appear in this
                   dashboard. Setup your Japa Mala now.
                 </p>
@@ -752,35 +749,35 @@ function LearningJourney() {
         )}
 
         {/* Roadmap Milestone Timeline */}
-        <div className="mt-12 rounded-[28px] border border-border/60 bg-card/40 p-6 md:p-10">
+        <div className="border-border/60 bg-card/40 mt-12 rounded-[28px] border p-6 md:p-10">
           <div className="relative z-10">
-            <h3 className="font-serif text-2xl font-semibold text-foreground">
+            <h3 className="text-foreground font-serif text-2xl font-semibold">
               Devotional Learning Roadmap
             </h3>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <p className="text-muted-foreground mt-2 text-sm">
               A sequential path to study ancient scriptures, from language foundations to spiritual
               liberation.
             </p>
 
-            <div className="relative mt-10 space-y-8 border-l border-border/70 pl-6 md:pl-8">
+            <div className="border-border/70 relative mt-10 space-y-8 border-l pl-6 md:pl-8">
               {milestones.map((milestone) => (
                 <div key={milestone.stage} className="group relative">
                   {/* Timeline node icon */}
                   <div
-                    className={`absolute left-0 top-1.5 flex size-5 -translate-x-[31px] items-center justify-center rounded-full border-4 transition-all duration-300 group-hover:scale-125 md:-translate-x-[41px] ${
+                    className={`absolute top-1.5 left-0 flex size-5 translate-x-[-31px] items-center justify-center rounded-full border-4 transition-all duration-300 group-hover:scale-125 md:translate-x-[-41px] ${
                       milestone.status === "completed"
                         ? "border-primary/20 bg-primary text-primary-foreground"
                         : milestone.status === "current"
-                          ? "animate-pulse border-accent/20 bg-accent text-accent-foreground"
+                          ? "border-accent/20 bg-accent text-accent-foreground animate-pulse"
                           : "border-border bg-background text-muted-foreground"
                     }`}
                   >
                     {milestone.status === "completed" ? (
-                      <CheckCircle2 className="size-2 text-primary-foreground" />
+                      <CheckCircle2 className="text-primary-foreground size-2" />
                     ) : milestone.status === "current" ? (
-                      <span className="size-1.5 animate-ping rounded-full bg-accent-foreground" />
+                      <span className="bg-accent-foreground size-1.5 animate-ping rounded-full" />
                     ) : (
-                      <Lock className="size-1.5 text-muted-foreground" />
+                      <Lock className="text-muted-foreground size-1.5" />
                     )}
                   </div>
 
@@ -790,7 +787,7 @@ function LearningJourney() {
                       milestone.status === "completed"
                         ? "border-primary/25 bg-primary/5 hover:border-primary/40"
                         : milestone.status === "current"
-                          ? "border-accent/35 bg-accent/5 shadow-[0_12px_40px_-32px_rgba(234,179,8,0.25)] hover:border-accent/50"
+                          ? "border-accent/35 bg-accent/5 hover:border-accent/50 shadow-[0_12px_40px_-32px_rgba(234,179,8,0.25)]"
                           : "border-border/60 bg-background/40 opacity-70 hover:opacity-100"
                     }`}
                   >
@@ -808,17 +805,17 @@ function LearningJourney() {
                           >
                             {milestone.badge}
                           </span>
-                          <span className="text-xs text-muted-foreground">
+                          <span className="text-muted-foreground text-xs">
                             Stage {milestone.stage}
                           </span>
                         </div>
-                        <h4 className="text-lg font-semibold text-foreground transition-colors group-hover:text-primary">
+                        <h4 className="text-foreground group-hover:text-primary text-lg font-semibold transition-colors">
                           {milestone.title}
                         </h4>
-                        <p className="font-devanagari text-xs tracking-wide text-muted-foreground">
+                        <p className="font-devanagari text-muted-foreground text-xs tracking-wide">
                           {milestone.subtitle}
                         </p>
-                        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                        <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
                           {milestone.desc}
                         </p>
                       </div>
@@ -828,7 +825,7 @@ function LearningJourney() {
                           variant="ghost"
                           size="sm"
                           asChild
-                          className="gap-1 self-start text-primary transition-transform hover:text-primary/80 group-hover:translate-x-1"
+                          className="text-primary hover:text-primary/80 gap-1 self-start transition-transform group-hover:translate-x-1"
                         >
                           <Link href={milestone.href}>
                             Study
@@ -851,18 +848,18 @@ function LearningJourney() {
 function ExploreWhereToGo() {
   return (
     <>
-      <section className="border-b border-border bg-card/40 px-4 py-10 sm:px-6 lg:px-8">
+      <section className="border-border bg-card/40 border-b px-4 py-10 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <p className="text-muted-foreground text-[11px] font-semibold tracking-[0.18em] uppercase">
                 Start here
               </p>
-              <h2 className="mt-2 font-serif text-2xl text-foreground sm:text-3xl">
+              <h2 className="text-foreground mt-2 font-serif text-2xl sm:text-3xl">
                 Eight clear doors into Hind AI
               </h2>
             </div>
-            <Link href="/guide" className="text-sm font-semibold text-primary">
+            <Link href="/guide" className="text-primary text-sm font-semibold">
               How the site fits together →
             </Link>
           </div>
@@ -871,10 +868,10 @@ function ExploreWhereToGo() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-2xl border border-border bg-background px-4 py-4 text-foreground transition-colors hover:border-primary/45 hover:bg-primary/5"
+                className="border-border bg-background text-foreground hover:border-primary/45 hover:bg-primary/5 rounded-2xl border px-4 py-4 transition-colors"
               >
                 <p className="text-base font-semibold">{item.label}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{item.hint}</p>
+                <p className="text-muted-foreground mt-1 text-sm">{item.hint}</p>
               </Link>
             ))}
           </div>

@@ -48,7 +48,7 @@ export function SiteBootSplash() {
         {visible ? (
           <m.div
             key="boot-splash"
-            className="fixed inset-0 z-[120] flex items-center justify-center overflow-hidden bg-background"
+            className="bg-background fixed inset-0 z-120 flex items-center justify-center overflow-hidden"
             initial={{ opacity: 1 }}
             exit={{
               opacity: 0,
@@ -57,7 +57,7 @@ export function SiteBootSplash() {
           >
             <div className="boot-splash-backdrop" aria-hidden="true" />
             <m.div
-              className="relative z-10 flex flex-col items-center gap-6 px-6 text-center text-foreground"
+              className="text-foreground relative z-10 flex flex-col items-center gap-6 px-6 text-center"
               initial={{ opacity: 0, scale: 0.985 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
@@ -68,10 +68,10 @@ export function SiteBootSplash() {
                 onAnimationComplete={handleAnimationComplete}
               />
               <div className="space-y-2">
-                <p className="font-devanagari text-sm tracking-[0.28em] text-foreground/55">
+                <p className="font-devanagari text-foreground/55 text-sm tracking-[0.28em]">
                   डिजिटल गुरुकुल
                 </p>
-                <p className="text-[11px] uppercase tracking-[0.42em] text-muted-foreground">
+                <p className="text-muted-foreground text-[11px] tracking-[0.42em] uppercase">
                   Hind AI
                 </p>
               </div>

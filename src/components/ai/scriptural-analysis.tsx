@@ -137,25 +137,25 @@ export function ScripturalAnalysis() {
       <div className="mb-4">
         <ServerFeatureNotice feature="Manuscript vision analysis" />
       </div>
-      <Card className="border-2 border-primary/20 bg-gradient-to-br from-background via-background to-primary/5">
-        <CardHeader className="border-b border-border/50">
+      <Card className="border-primary/20 from-background via-background to-primary/5 border-2 bg-linear-to-br">
+        <CardHeader className="border-border/50 border-b">
           <div className="flex items-center gap-3">
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               className="relative"
             >
-              <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl" />
-              <div className="relative flex size-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/60 text-primary-foreground">
+              <div className="bg-primary/20 absolute inset-0 rounded-full blur-xl" />
+              <div className="from-primary to-primary/60 text-primary-foreground relative flex size-12 items-center justify-center rounded-full bg-linear-to-br">
                 <ImageIcon className="size-6" />
               </div>
             </motion.div>
             <div>
               <CardTitle className="flex items-center gap-2 text-2xl">
-                <Sparkles className="size-5 text-primary" />
+                <Sparkles className="text-primary size-5" />
                 Scriptural Vision Analysis
               </CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Upload images of sacred texts, iconography, or artifacts for AI-powered analysis
               </p>
             </div>
@@ -197,7 +197,7 @@ export function ScripturalAnalysis() {
                     <Button
                       variant="destructive"
                       size="icon"
-                      className="absolute right-2 top-2"
+                      className="absolute top-2 right-2"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleClear();
@@ -212,13 +212,13 @@ export function ScripturalAnalysis() {
                       animate={{ y: [0, -10, 0] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     >
-                      <Upload className="size-16 text-muted-foreground" />
+                      <Upload className="text-muted-foreground size-16" />
                     </motion.div>
                     <div>
                       <p className="text-lg font-semibold">Drop an image here</p>
-                      <p className="text-sm text-muted-foreground">or click to browse</p>
+                      <p className="text-muted-foreground text-sm">or click to browse</p>
                     </div>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-muted-foreground text-xs">
                       Supports: PNG, JPG, WEBP (Max 10MB)
                     </p>
                   </div>
@@ -226,11 +226,11 @@ export function ScripturalAnalysis() {
               </div>
 
               {image && (
-                <div className="flex items-center justify-between rounded-lg bg-muted/50 p-3">
+                <div className="bg-muted/50 flex items-center justify-between rounded-lg p-3">
                   <div className="flex items-center gap-2">
-                    <ImageIcon className="size-4 text-primary" />
+                    <ImageIcon className="text-primary size-4" />
                     <span className="text-sm font-medium">{image.name}</span>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-muted-foreground text-xs">
                       ({(image.size / 1024 / 1024).toFixed(2)} MB)
                     </span>
                   </div>
@@ -249,7 +249,7 @@ export function ScripturalAnalysis() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="What would you like to know about this image?"
-                  className="min-h-[100px] w-full resize-none rounded-lg border-2 border-border/60 bg-background/50 p-4 text-sm focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-ring/20"
+                  className="border-border/60 bg-background/50 focus:border-primary/50 focus:ring-ring/20 min-h-[100px] w-full resize-none rounded-lg border-2 p-4 text-sm focus:ring-2 focus:outline-hidden"
                 />
               </div>
 
@@ -261,14 +261,14 @@ export function ScripturalAnalysis() {
                     exit={{ opacity: 0, y: -10 }}
                     className="space-y-2"
                   >
-                    <p className="text-xs font-medium text-muted-foreground">Sample queries:</p>
+                    <p className="text-muted-foreground text-xs font-medium">Sample queries:</p>
                     <div className="flex flex-wrap gap-2">
                       {SAMPLE_QUERIES.map((sampleQuery) => (
                         <button
                           type="button"
                           key={sampleQuery}
                           onClick={() => handleSampleQuery(sampleQuery)}
-                          className="rounded-full border border-border/60 bg-background/50 px-3 py-1.5 text-xs text-foreground transition-all hover:border-primary/50 hover:bg-primary/10"
+                          className="border-border/60 bg-background/50 text-foreground hover:border-primary/50 hover:bg-primary/10 rounded-full border px-3 py-1.5 text-xs transition-all"
                         >
                           {sampleQuery}
                         </button>
@@ -301,11 +301,11 @@ export function ScripturalAnalysis() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="rounded-2xl border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-background p-6"
+                  className="border-primary/20 from-primary/5 to-background rounded-2xl border-2 bg-linear-to-br p-6"
                 >
                   <div className="mb-4 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <BookOpen className="size-5 text-primary" />
+                      <BookOpen className="text-primary size-5" />
                       <h3 className="font-semibold">Analysis Result</h3>
                     </div>
                     <Button variant="ghost" size="sm" onClick={handleCopy}>
@@ -324,8 +324,8 @@ export function ScripturalAnalysis() {
             </div>
           </div>
 
-          <div className="mt-6 rounded-lg bg-muted/30 p-4">
-            <p className="text-center text-xs text-muted-foreground">
+          <div className="bg-muted/30 mt-6 rounded-lg p-4">
+            <p className="text-muted-foreground text-center text-xs">
               <ZoomIn className="mr-1 inline size-3" />
               Powered by Gemma 4&apos;s multimodal capabilities • Upload sacred texts, yantras,
               deity images, or temple architecture for detailed analysis

@@ -17,7 +17,7 @@ export default function ContentsPage() {
       <Header />
 
       <main id="main-content" className="flex-1">
-        <section className="hero-mesh relative overflow-hidden border-b border-border/60">
+        <section className="hero-mesh border-border/60 relative overflow-hidden border-b">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.7fr)] lg:px-8">
             <motion.div
@@ -32,13 +32,13 @@ export default function ContentsPage() {
                 Start in the reading room, where the pothis and hymns can be opened. The catalog
                 below is the name map of Vedas, Upanishads, and Puranas still being filled.
               </p>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
+              <p className="text-muted-foreground mt-4 max-w-2xl text-sm leading-7">
                 Hinduism does not have a fixed number of scriptures. This catalog is a practical
                 reading map through the better-known shelves: Shruti foundations such as the 4 Vedas
                 and the traditional {CANONICAL_COUNTS.upanishads} Upanishads, and Smriti traditions
                 such as the 18 Major Puranas, 18 Upa-Puranas, and the 2 great epics.
               </p>
-              <p className="mt-4 max-w-2xl font-devanagari text-sm leading-7 text-muted-foreground">
+              <p className="font-devanagari text-muted-foreground mt-4 max-w-2xl text-sm leading-7">
                 मराठी हा स्वतंत्र मूळ भाषेचा पाठ आहे; देवनागरी ही लिपी आहे. मराठी पोथीतील मूळ ओव्या
                 मराठीतच वाचा. संस्कृत ग्रंथाचा मूळ पाठ संस्कृतच राहतो; मराठी, हिंदी आणि इंग्रजी अर्थ
                 स्वतंत्रपणे, उपलब्ध असतील तेव्हाच दाखवले जातात.
@@ -53,7 +53,7 @@ export default function ContentsPage() {
               className="surface-panel p-6"
             >
               <div className="relative z-10 space-y-4">
-                <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+                <p className="text-muted-foreground text-[11px] tracking-[0.32em] uppercase">
                   Jump to
                 </p>
                 <div className="flex flex-wrap gap-3">
@@ -67,14 +67,14 @@ export default function ContentsPage() {
                       <Button
                         variant="outline"
                         asChild
-                        className="transition-all duration-300 hover:scale-105 hover:border-primary/50"
+                        className="hover:border-primary/50 transition-all duration-300 hover:scale-105"
                       >
                         <Link href={`#${section.id}`}>{section.title}</Link>
                       </Button>
                     </motion.div>
                   ))}
                 </div>
-                <div className="rounded-[24px] border border-border/60 bg-background/75 p-4 text-sm leading-6 text-muted-foreground">
+                <div className="border-border/60 bg-background/75 text-muted-foreground rounded-[24px] border p-4 text-sm leading-6">
                   Use this page as the site map for scripture reading. For interpretation and
                   question answering, jump straight into Guru AI. For the full hierarchy behind
                   these shelves, visit the Structure page.
@@ -106,13 +106,13 @@ export default function ContentsPage() {
                 transition={{ duration: 0.6, delay: sectionIndex * 0.1 }}
               >
                 <div className="mb-8 max-w-3xl">
-                  <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+                  <p className="text-muted-foreground text-[11px] tracking-[0.32em] uppercase">
                     Shelf
                   </p>
-                  <h2 className="mt-3 text-4xl font-semibold tracking-[-0.04em] text-foreground">
+                  <h2 className="text-foreground mt-3 text-4xl font-semibold tracking-[-0.04em]">
                     {section.title}
                   </h2>
-                  <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                  <p className="text-muted-foreground mt-3 text-sm leading-7">
                     {section.description}
                   </p>
                 </div>
@@ -130,27 +130,27 @@ export default function ContentsPage() {
                         transition={{ duration: 0.4, delay: index * 0.08 }}
                       >
                         <div>
-                          <p className="border-l-2 border-primary/20 pl-2 text-[11px] uppercase tracking-[0.28em] text-muted-foreground md:border-0 md:pl-0">
+                          <p className="border-primary/20 text-muted-foreground border-l-2 pl-2 text-[11px] tracking-[0.28em] uppercase md:border-0 md:pl-0">
                             {item.category}
                           </p>
                         </div>
                         <div>
-                          <p className="font-devanagari text-xl text-primary transition-transform duration-300 group-hover:scale-105">
+                          <p className="font-devanagari text-primary text-xl transition-transform duration-300 group-hover:scale-105">
                             {item.sanskrit}
                           </p>
-                          <h3 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-foreground transition-colors duration-300 group-hover:text-primary">
+                          <h3 className="text-foreground group-hover:text-primary mt-2 text-2xl font-semibold tracking-[-0.04em] transition-colors duration-300">
                             {item.name}
                           </h3>
-                          <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
+                          <p className="text-muted-foreground mt-3 max-w-xl text-sm leading-7">
                             {item.description}
                           </p>
                         </div>
                         <div className="flex flex-col gap-3 md:items-end">
-                          <span className="text-sm text-muted-foreground">{item.highlight}</span>
+                          <span className="text-muted-foreground text-sm">{item.highlight}</span>
                           <Button
                             variant="outline"
                             asChild
-                            className="transition-all duration-300 hover:scale-105 hover:border-primary/50 hover:bg-primary/5"
+                            className="hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 hover:scale-105"
                           >
                             <Link href={item.href}>
                               Open entry
@@ -160,7 +160,7 @@ export default function ContentsPage() {
                           <Button
                             variant="ghost"
                             asChild
-                            className="transition-all duration-300 hover:scale-105 hover:bg-primary/10"
+                            className="hover:bg-primary/10 transition-all duration-300 hover:scale-105"
                           >
                             <Link href="/ai-guide">
                               Ask in Guru AI
@@ -189,10 +189,10 @@ export default function ContentsPage() {
               <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                 <div className="max-w-2xl">
                   <span className="eyebrow">Need interpretation? • व्याख्या</span>
-                  <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
+                  <h2 className="text-foreground mt-6 text-4xl font-semibold tracking-[-0.04em]">
                     Move from catalog to conversation.
                   </h2>
-                  <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                  <p className="text-muted-foreground mt-4 text-sm leading-7">
                     When the shelf gives you the text, Guru AI gives you the entry point:
                     explanation, comparison, and a modern reading line.
                   </p>

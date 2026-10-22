@@ -28,14 +28,14 @@ function MapLink({ query, children }: { query: string; children: React.ReactNode
 
 function StopCard({ stop, index }: { stop: GaneshDarshanStop; index: number }) {
   return (
-    <li className="rounded-3xl border border-amber-900/15 bg-white p-6 shadow-sm dark:border-amber-100/15 dark:bg-stone-900">
+    <li className="rounded-3xl border border-amber-900/15 bg-white p-6 shadow-xs dark:border-amber-100/15 dark:bg-stone-900">
       <div className="flex items-start gap-4">
         <span className="font-serif text-4xl leading-none text-amber-700 dark:text-amber-300">
           {String(index + 1).padStart(2, "0")}
         </span>
         <div>
           <h3 className="font-serif text-2xl text-stone-900 dark:text-amber-50">{stop.name}</h3>
-          <p className="mt-1 font-devanagari text-sm text-amber-800 dark:text-amber-300">
+          <p className="font-devanagari mt-1 text-sm text-amber-800 dark:text-amber-300">
             {stop.marathi}
           </p>
           <p className="mt-2 text-sm font-medium text-stone-500 dark:text-stone-400">{stop.area}</p>
@@ -86,9 +86,9 @@ export default function GaneshotsavPage() {
               className="absolute inset-0 h-full w-full object-cover opacity-65"
             />
           </picture>
-          <div className="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/55 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-r from-stone-950/90 via-stone-950/55 to-transparent" />
           <div className="relative mx-auto flex min-h-[610px] max-w-7xl flex-col justify-center px-5 py-24 sm:px-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber-200">
+            <p className="text-xs font-semibold tracking-[0.28em] text-amber-200 uppercase">
               A city, a home, a song · 2026
             </p>
             <h1 className="mt-7 max-w-3xl font-serif text-6xl leading-[0.95] sm:text-7xl">
@@ -96,7 +96,7 @@ export default function GaneshotsavPage() {
               <br />
               <em className="text-amber-300">Morya.</em>
             </h1>
-            <p className="mt-7 max-w-2xl font-devanagari text-2xl">
+            <p className="font-devanagari mt-7 max-w-2xl text-2xl">
               गणेशोत्सव · पुणे ते मुंबई · घराघरांतला बाप्पा
             </p>
             <p className="mt-7 max-w-xl text-base leading-8 text-white/85">
@@ -116,7 +116,7 @@ export default function GaneshotsavPage() {
                 <a
                   key={href}
                   href={href}
-                  className="rounded-full border border-white/35 bg-white/10 px-5 py-3 backdrop-blur hover:bg-white/25"
+                  className="rounded-full border border-white/35 bg-white/10 px-5 py-3 backdrop-blur-sm hover:bg-white/25"
                 >
                   {label} →
                 </a>
@@ -133,7 +133,7 @@ export default function GaneshotsavPage() {
         </section>
 
         <section id="pune" className="mx-auto max-w-7xl scroll-mt-20 px-5 py-20 sm:px-8">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-800 dark:text-amber-300">
+          <p className="text-xs font-bold tracking-[0.2em] text-amber-800 uppercase dark:text-amber-300">
             01 / पुणे
           </p>
           <h2 className="mt-3 font-serif text-4xl sm:text-5xl">The Manache 5, plus Dagdusheth</h2>
@@ -181,7 +181,7 @@ export default function GaneshotsavPage() {
 
         <section id="mumbai" className="scroll-mt-20 bg-stone-900 px-5 py-20 text-amber-50 sm:px-8">
           <div className="mx-auto max-w-7xl">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-300">
+            <p className="text-xs font-bold tracking-[0.2em] text-amber-300 uppercase">
               02 / मुंबई
             </p>
             <h2 className="mt-3 font-serif text-4xl sm:text-5xl">
@@ -207,7 +207,7 @@ export default function GaneshotsavPage() {
         </section>
 
         <section id="home" className="mx-auto max-w-7xl scroll-mt-20 px-5 py-20 sm:px-8">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-800 dark:text-amber-300">
+          <p className="text-xs font-bold tracking-[0.2em] text-amber-800 uppercase dark:text-amber-300">
             03 / घरचा गणेशोत्सव
           </p>
           <h2 className="mt-3 font-serif text-4xl sm:text-5xl">A steady home rhythm for 11 days</h2>
@@ -218,7 +218,7 @@ export default function GaneshotsavPage() {
           </p>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             <article className="rounded-3xl bg-white p-7 dark:bg-stone-900">
-              <span className="text-xs font-bold uppercase tracking-widest text-amber-700">
+              <span className="text-xs font-bold tracking-widest text-amber-700 uppercase">
                 Every morning · suggested 7 am
               </span>
               <h3 className="mt-3 font-serif text-2xl">Wake the mandap</h3>
@@ -229,7 +229,7 @@ export default function GaneshotsavPage() {
               </p>
             </article>
             <article className="rounded-3xl bg-white p-7 dark:bg-stone-900">
-              <span className="text-xs font-bold uppercase tracking-widest text-amber-700">
+              <span className="text-xs font-bold tracking-widest text-amber-700 uppercase">
                 Every evening · suggested 7 pm
               </span>
               <h3 className="mt-3 font-serif text-2xl">Gather for aarti</h3>
@@ -240,7 +240,7 @@ export default function GaneshotsavPage() {
               </p>
             </article>
             <article className="rounded-3xl bg-white p-7 dark:bg-stone-900">
-              <span className="text-xs font-bold uppercase tracking-widest text-amber-700">
+              <span className="text-xs font-bold tracking-widest text-amber-700 uppercase">
                 One chosen day
               </span>
               <h3 className="mt-3 font-serif text-2xl">Satyanarayan puja</h3>
@@ -274,7 +274,7 @@ export default function GaneshotsavPage() {
 
         <section id="radio" className="scroll-mt-20 bg-[#321510] px-5 py-20 text-amber-50 sm:px-8">
           <div className="mx-auto max-w-7xl">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-300">
+            <p className="text-xs font-bold tracking-[0.2em] text-amber-300 uppercase">
               04 / भक्तिगीते
             </p>
             <h2 className="mt-3 font-serif text-4xl sm:text-5xl">The ganeshai festival radio</h2>
@@ -302,7 +302,7 @@ export default function GaneshotsavPage() {
             </a>
           </div>
         </section>
-        <section className="mx-auto max-w-7xl px-5 py-16 text-sm leading-7 text-stone-600 dark:text-stone-300 sm:px-8">
+        <section className="mx-auto max-w-7xl px-5 py-16 text-sm leading-7 text-stone-600 sm:px-8 dark:text-stone-300">
           <h2 className="font-serif text-3xl text-stone-900 dark:text-amber-50">
             History, sources and visit notes
           </h2>

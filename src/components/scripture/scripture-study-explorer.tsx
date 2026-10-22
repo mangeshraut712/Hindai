@@ -168,7 +168,7 @@ export function ScriptureStudyExplorer({
             ))}
             {selectedMandala && (
               <div className="ml-4 flex flex-wrap items-center gap-2">
-                <span className="text-xs text-muted-foreground">Sukta:</span>
+                <span className="text-muted-foreground text-xs">Sukta:</span>
                 {suktas.map((sukta) => (
                   <Button
                     key={sukta}
@@ -213,7 +213,7 @@ export function ScriptureStudyExplorer({
           ))
         )}
         {selectedVerse ? (
-          <span className="text-xs text-muted-foreground">
+          <span className="text-muted-foreground text-xs">
             {isRigveda
               ? `Reading Mandala ${selectedVerse.mandala}, Sukta ${selectedVerse.sukta}, Verse ${selectedVerse.verse}`
               : `Continue reading from chapter ${selectedVerse.chapter}, verse ${selectedVerse.verse}`}
@@ -235,17 +235,17 @@ export function ScriptureStudyExplorer({
             <div className="relative z-10">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+                  <p className="text-muted-foreground text-[11px] tracking-[0.3em] uppercase">
                     {isRigveda
                       ? `Mandala ${selectedVerse.mandala}, Sukta ${selectedVerse.sukta}`
                       : `Chapter ${selectedVerse.chapter}`}
                   </p>
-                  <h3 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+                  <h3 className="text-foreground mt-2 text-3xl font-semibold tracking-[-0.04em]">
                     Verse {selectedVerse.verse}
                   </h3>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-muted-foreground">{scriptureHighlight}</span>
+                  <span className="text-muted-foreground text-sm">{scriptureHighlight}</span>
                   <Button
                     variant={favoriteVerseIds.has(selectedVerse.id) ? "premium" : "outline"}
                     size="sm"
@@ -269,8 +269,8 @@ export function ScriptureStudyExplorer({
                     onClick={() => setSelectedVerseId(verse.id)}
                     className={`inline-flex size-9 items-center justify-center rounded-xl text-sm font-medium transition-all ${
                       verse.id === selectedVerse.id
-                        ? "bg-primary text-primary-foreground shadow-sm"
-                        : "border border-border/60 bg-background/75 text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                        ? "bg-primary text-primary-foreground shadow-xs"
+                        : "border-border/60 bg-background/75 text-muted-foreground hover:bg-secondary/50 hover:text-foreground border"
                     }`}
                   >
                     {verse.verse}
@@ -282,23 +282,23 @@ export function ScriptureStudyExplorer({
                 <div className="space-y-6">
                   <div>
                     <div className="flex items-center gap-2">
-                      <BookOpen className="size-4 text-primary" />
-                      <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                      <BookOpen className="text-primary size-4" />
+                      <p className="text-muted-foreground text-[11px] tracking-[0.28em] uppercase">
                         Sanskrit
                       </p>
                     </div>
-                    <div className="mt-4 rounded-2xl border border-amber-200/40 bg-gradient-to-br from-amber-50/60 via-orange-50/40 to-rose-50/30 p-7 dark:border-amber-800/20 dark:from-amber-950/25 dark:via-orange-950/15 dark:to-rose-950/10">
-                      <p className="font-devanagari text-2xl leading-relaxed text-foreground drop-shadow-sm sm:text-3xl">
+                    <div className="mt-4 rounded-2xl border border-amber-200/40 bg-linear-to-br from-amber-50/60 via-orange-50/40 to-rose-50/30 p-7 dark:border-amber-800/20 dark:from-amber-950/25 dark:via-orange-950/15 dark:to-rose-950/10">
+                      <p className="font-devanagari text-foreground text-2xl leading-relaxed drop-shadow-xs sm:text-3xl">
                         {selectedVerse.sanskrit}
                       </p>
                     </div>
                   </div>
                   {selectedVerse.transliteration ? (
                     <div>
-                      <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                      <p className="text-muted-foreground text-[11px] tracking-[0.28em] uppercase">
                         Transliteration
                       </p>
-                      <p className="mt-3 text-sm italic leading-8 text-muted-foreground">
+                      <p className="text-muted-foreground mt-3 text-sm leading-8 italic">
                         {selectedVerse.transliteration}
                       </p>
                     </div>
@@ -307,21 +307,21 @@ export function ScriptureStudyExplorer({
 
                 <div className="space-y-6">
                   <div>
-                    <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                    <p className="text-muted-foreground text-[11px] tracking-[0.28em] uppercase">
                       Translation
                     </p>
-                    <p className="mt-4 text-base leading-8 text-foreground/90">
+                    <p className="text-foreground/90 mt-4 text-base leading-8">
                       {selectedVerse.translation.en}
                     </p>
                     {selectedVerse.translation.hi ? (
-                      <p className="mt-4 border-t border-border/40 pt-4 font-devanagari text-sm leading-8 text-muted-foreground">
+                      <p className="border-border/40 font-devanagari text-muted-foreground mt-4 border-t pt-4 text-sm leading-8">
                         {selectedVerse.translation.hi}
                       </p>
                     ) : null}
                   </div>
 
                   {selectedVerse.commentary ? (
-                    <div className="rounded-[22px] border border-border/60 bg-background/75 p-5 text-sm leading-7 text-muted-foreground">
+                    <div className="border-border/60 bg-background/75 text-muted-foreground rounded-[22px] border p-5 text-sm leading-7">
                       {selectedVerse.commentary}
                     </div>
                   ) : null}
@@ -329,17 +329,17 @@ export function ScriptureStudyExplorer({
                   {selectedVerse.deity || selectedVerse.sage || selectedVerse.meter ? (
                     <div className="flex flex-wrap gap-2">
                       {selectedVerse.deity ? (
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/75 px-3 py-1 text-xs text-muted-foreground">
+                        <span className="border-border/60 bg-background/75 text-muted-foreground inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs">
                           Deity: <strong className="text-foreground">{selectedVerse.deity}</strong>
                         </span>
                       ) : null}
                       {selectedVerse.sage ? (
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/75 px-3 py-1 text-xs text-muted-foreground">
+                        <span className="border-border/60 bg-background/75 text-muted-foreground inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs">
                           Sage: <strong className="text-foreground">{selectedVerse.sage}</strong>
                         </span>
                       ) : null}
                       {selectedVerse.meter ? (
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/75 px-3 py-1 text-xs text-muted-foreground">
+                        <span className="border-border/60 bg-background/75 text-muted-foreground inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs">
                           Meter: <strong className="text-foreground">{selectedVerse.meter}</strong>
                         </span>
                       ) : null}
@@ -370,8 +370,8 @@ export function ScriptureStudyExplorer({
                   </Button>
                 </div>
 
-                <span className="inline-flex items-center gap-2 text-xs text-muted-foreground">
-                  <Sparkles className="size-4 text-primary" />
+                <span className="text-muted-foreground inline-flex items-center gap-2 text-xs">
+                  <Sparkles className="text-primary size-4" />
                   Gemma 4 grounded study pack
                 </span>
               </div>

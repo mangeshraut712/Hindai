@@ -20,7 +20,7 @@ export default function Error({
   return (
     <div className="hero-mesh relative flex min-h-screen flex-col items-center justify-center px-4">
       <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
-      <div className="hero-sun -left-20 top-20 size-72 opacity-60" aria-hidden="true" />
+      <div className="hero-sun top-20 -left-20 size-72 opacity-60" aria-hidden="true" />
       <div className="hero-sun -right-20 bottom-20 size-80 opacity-50" aria-hidden="true" />
 
       <motion.div
@@ -33,24 +33,24 @@ export default function Error({
         <span className="eyebrow mx-auto">An unexpected interruption</span>
 
         <div className="mt-8 space-y-6">
-          <p className="font-devanagari text-4xl text-primary sm:text-5xl">अहं ब्रह्मास्मि</p>
-          <p className="text-sm italic text-muted-foreground">
+          <p className="font-devanagari text-primary text-4xl sm:text-5xl">अहं ब्रह्मास्मि</p>
+          <p className="text-muted-foreground text-sm italic">
             &ldquo;I am Brahman&rdquo; (Brihadaranyaka Upanishad 1.4.10)
           </p>
         </div>
 
-        <h1 className="mt-8 font-serif text-4xl font-semibold tracking-[-0.04em] text-foreground sm:text-5xl">
+        <h1 className="text-foreground mt-8 font-serif text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">
           Even error is part of the cycle.
         </h1>
 
-        <p className="mt-4 max-w-md text-base leading-7 text-muted-foreground">
+        <p className="text-muted-foreground mt-4 max-w-md text-base leading-7">
           An unexpected issue occurred while rendering this page. Like the turning of time, some
           interruptions are temporary.
         </p>
 
         {error.digest && (
-          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/75 px-4 py-2 text-xs text-muted-foreground">
-            <Sparkles className="size-3.5 text-primary" />
+          <div className="border-border/60 bg-background/75 text-muted-foreground mt-6 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs">
+            <Sparkles className="text-primary size-3.5" />
             Reference: {error.digest}
           </div>
         )}
@@ -71,14 +71,14 @@ export default function Error({
         <div className="mt-12 flex justify-center">
           <div className="surface-panel max-w-sm p-6 text-left">
             <div className="relative z-10">
-              <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+              <p className="text-muted-foreground text-[11px] tracking-[0.28em] uppercase">
                 From the Gita
               </p>
-              <blockquote className="mt-3 font-serif text-lg leading-relaxed text-foreground">
+              <blockquote className="text-foreground mt-3 font-serif text-lg leading-relaxed">
                 &ldquo;You have a right to perform your prescribed duty, but you are not entitled to
                 the fruits of action.&rdquo;
               </blockquote>
-              <p className="mt-2 text-xs text-muted-foreground">- Bhagavad Gita 2.47</p>
+              <p className="text-muted-foreground mt-2 text-xs">- Bhagavad Gita 2.47</p>
             </div>
           </div>
         </div>

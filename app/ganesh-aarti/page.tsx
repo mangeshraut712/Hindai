@@ -33,13 +33,13 @@ export default function GaneshAartiIndexPage() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/ganesha"
-                className="inline-flex h-11 items-center rounded-full border border-border/70 bg-background/80 px-5 text-sm font-semibold backdrop-blur"
+                className="border-border/70 bg-background/80 inline-flex h-11 items-center rounded-full border px-5 text-sm font-semibold backdrop-blur-sm"
               >
                 Ashtavinayak map →
               </Link>
               <Link
                 href="/ganeshotsav"
-                className="inline-flex h-11 items-center rounded-full border border-border/70 bg-background/80 px-5 text-sm font-semibold backdrop-blur"
+                className="border-border/70 bg-background/80 inline-flex h-11 items-center rounded-full border px-5 text-sm font-semibold backdrop-blur-sm"
               >
                 Ganeshotsav guide →
               </Link>
@@ -49,24 +49,24 @@ export default function GaneshAartiIndexPage() {
 
         <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <h2 className="font-serif text-3xl">Contents</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">
+          <p className="text-muted-foreground mt-3 max-w-2xl text-sm leading-7">
             Open any hymn for Devanagari, IAST, English, and meaning layers.
           </p>
           <ul className="mt-8 grid list-none grid-cols-1 gap-4 p-0 md:grid-cols-2">
             {GANESH_AARTI_SANGRAH.map((item) => (
-              <li key={item.slug} className="border-b border-border/70 py-5">
+              <li key={item.slug} className="border-border/70 border-b py-5">
                 <Link
                   href={`/ganesh-aarti/${item.slug}`}
-                  className="group block transition hover:text-primary"
+                  className="group hover:text-primary block transition"
                 >
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">
+                  <p className="text-primary text-[11px] font-semibold tracking-[0.16em] uppercase">
                     {aartiKindLabel(item.kind)} · {item.deity}
                   </p>
-                  <h3 className="mt-2 font-serif text-xl text-foreground group-hover:text-primary">
+                  <h3 className="text-foreground group-hover:text-primary mt-2 font-serif text-xl">
                     {item.title}
                   </h3>
-                  <p className="mt-1 font-devanagari text-primary">{item.titleMr}</p>
-                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
+                  <p className="font-devanagari text-primary mt-1">{item.titleMr}</p>
+                  <p className="text-muted-foreground mt-2 line-clamp-2 text-sm leading-6">
                     {item.summary}
                   </p>
                 </Link>

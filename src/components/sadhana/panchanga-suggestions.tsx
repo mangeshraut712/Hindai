@@ -188,15 +188,15 @@ export function PanchangaSuggestions() {
 
   return (
     <Card className="border-border/70 shadow-md">
-      <CardHeader className="border-b border-border/60 bg-gradient-to-r from-primary/5 to-accent/5 py-5">
+      <CardHeader className="border-border/60 from-primary/5 to-accent/5 border-b bg-linear-to-r py-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Calendar className="size-5 text-primary" />
+            <Calendar className="text-primary size-5" />
             <CardTitle className="font-serif text-xl tracking-[-0.015em]">
               Today&apos;s Astrological Guide
             </CardTitle>
           </div>
-          <span className="eyebrow rounded-full border border-border/60 bg-background/80 px-3 py-1 text-[10px]">
+          <span className="eyebrow border-border/60 bg-background/80 rounded-full border px-3 py-1 text-[10px]">
             {panchanga.vara}
           </span>
         </div>
@@ -205,57 +205,57 @@ export function PanchangaSuggestions() {
       <CardContent className="space-y-6 p-6">
         {/* Panchanga Metrics */}
         <div className="grid grid-cols-2 gap-4">
-          <div className="rounded-xl border border-border/60 bg-background/50 p-3.5">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Moon className="size-4 text-primary" />
-              <span className="text-xs font-semibold uppercase tracking-wider">Tithi</span>
+          <div className="border-border/60 bg-background/50 rounded-xl border p-3.5">
+            <div className="text-muted-foreground flex items-center gap-2">
+              <Moon className="text-primary size-4" />
+              <span className="text-xs font-semibold tracking-wider uppercase">Tithi</span>
             </div>
             <p className="mt-1.5 text-base font-semibold">{panchanga.tithi.sanskrit}</p>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-muted-foreground text-xs">
               {panchanga.tithi.name} ({panchanga.tithi.paksha} Paksha)
             </p>
           </div>
 
-          <div className="rounded-xl border border-border/60 bg-background/50 p-3.5">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Star className="size-4 text-primary" />
-              <span className="text-xs font-semibold uppercase tracking-wider">Nakshatra</span>
+          <div className="border-border/60 bg-background/50 rounded-xl border p-3.5">
+            <div className="text-muted-foreground flex items-center gap-2">
+              <Star className="text-primary size-4" />
+              <span className="text-xs font-semibold tracking-wider uppercase">Nakshatra</span>
             </div>
             <p className="mt-1.5 text-base font-semibold">{panchanga.nakshatra.sanskrit}</p>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-muted-foreground text-xs">
               {panchanga.nakshatra.name} (Lord: {panchanga.nakshatra.lord})
             </p>
           </div>
         </div>
 
         {/* Dynamic Sadhana Advice */}
-        <div className="space-y-4 rounded-2xl border border-primary/20 bg-primary/5 p-5">
+        <div className="border-primary/20 bg-primary/5 space-y-4 rounded-2xl border p-5">
           <div className="flex items-start gap-3">
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+            <div className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center rounded-full">
               <Sparkles className="size-5" />
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <p className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
                 Daily Recommendation
               </p>
-              <h4 className="mt-1 font-serif text-lg font-semibold text-foreground">
+              <h4 className="text-foreground mt-1 font-serif text-lg font-semibold">
                 {rec.practice}
               </h4>
             </div>
           </div>
 
-          <p className="text-sm leading-6 text-muted-foreground">{rec.reason}</p>
+          <p className="text-muted-foreground text-sm leading-6">{rec.reason}</p>
 
-          <div className="flex flex-col gap-3 border-t border-primary/10 pt-2 sm:flex-row sm:items-center sm:justify-between">
+          <div className="border-primary/10 flex flex-col gap-3 border-t pt-2 sm:flex-row sm:items-center sm:justify-between">
             <div className="text-xs">
               <span className="text-muted-foreground">Suggested Mantra:</span>{" "}
-              <span className="font-semibold text-foreground">{rec.mantraName}</span>
+              <span className="text-foreground font-semibold">{rec.mantraName}</span>
             </div>
             <Button
               variant="outline"
               size="sm"
               onClick={handleApplyMantra}
-              className="self-end rounded-xl border-primary/30 bg-background text-xs text-primary hover:bg-primary/5 sm:self-auto"
+              className="border-primary/30 bg-background text-primary hover:bg-primary/5 self-end rounded-xl text-xs sm:self-auto"
             >
               Set Mala to {rec.mantraName.split(" ")[0]}
             </Button>
@@ -263,7 +263,7 @@ export function PanchangaSuggestions() {
         </div>
 
         {/* Timings */}
-        <div className="flex items-center justify-between border-t border-border/60 pt-4 text-xs text-muted-foreground">
+        <div className="border-border/60 text-muted-foreground flex items-center justify-between border-t pt-4 text-xs">
           <div className="flex items-center gap-1.5">
             <Sun className="size-3.5 text-amber-500" />
             <span>Sunrise: {panchanga.sunrise}</span>

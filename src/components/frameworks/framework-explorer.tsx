@@ -328,7 +328,7 @@ export function FrameworkExplorer() {
               <CardTitle>Core Hindu Frameworks</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="mb-6 text-muted-foreground">
+              <p className="text-muted-foreground mb-6">
                 These foundational frameworks provide the conceptual architecture for Hindu
                 philosophy, ethics, and spiritual practice. They offer systematic approaches to
                 understanding human nature, purpose, and the path to liberation.
@@ -349,9 +349,9 @@ export function FrameworkExplorer() {
                     whileFocus={{ scale: 1.02, outline: "2px solid var(--primary)" }}
                   >
                     <Card
-                      className={`cursor-pointer transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                      className={`focus-visible:ring-ring cursor-pointer transition-all hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden ${
                         selectedFramework?.id === framework.id
-                          ? "shadow-md ring-2 ring-primary"
+                          ? "ring-primary shadow-md ring-2"
                           : ""
                       }`}
                       onClick={() => {
@@ -375,14 +375,14 @@ export function FrameworkExplorer() {
                           <div className="text-primary">{framework.icon}</div>
                           <div>
                             <CardTitle className="text-base sm:text-lg">{framework.name}</CardTitle>
-                            <p className="font-devanagari text-sm text-primary sm:text-base">
+                            <p className="font-devanagari text-primary text-sm sm:text-base">
                               {framework.sanskrit}
                             </p>
                           </div>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <p className="mb-3 line-clamp-2 text-xs text-muted-foreground sm:text-sm">
+                        <p className="text-muted-foreground mb-3 line-clamp-2 text-xs sm:text-sm">
                           {framework.description}
                         </p>
                         <div className="flex flex-wrap gap-1">
@@ -395,7 +395,7 @@ export function FrameworkExplorer() {
                             </span>
                           ))}
                           {framework.elements.length > 3 && (
-                            <span className="rounded bg-muted px-2 py-1 text-xs text-muted-foreground">
+                            <span className="bg-muted text-muted-foreground rounded px-2 py-1 text-xs">
                               +{framework.elements.length - 3}
                             </span>
                           )}
@@ -416,7 +416,7 @@ export function FrameworkExplorer() {
                   <div className="text-primary">{selectedFramework.icon}</div>
                   <div>
                     <CardTitle className="text-2xl">{selectedFramework.name}</CardTitle>
-                    <p className="font-devanagari text-lg text-primary">
+                    <p className="font-devanagari text-primary text-lg">
                       {selectedFramework.sanskrit}
                     </p>
                   </div>
@@ -425,7 +425,7 @@ export function FrameworkExplorer() {
               <CardContent className="space-y-6">
                 <div>
                   <h3 className="mb-2 font-semibold">Description</h3>
-                  <p className="leading-relaxed text-muted-foreground">
+                  <p className="text-muted-foreground leading-relaxed">
                     {selectedFramework.description}
                   </p>
                 </div>
@@ -436,7 +436,7 @@ export function FrameworkExplorer() {
                     {selectedFramework.elements.map((element, index) => (
                       <div
                         key={index}
-                        className="rounded-lg border border-border/60 bg-background/50 p-4"
+                        className="border-border/60 bg-background/50 rounded-lg border p-4"
                       >
                         <div className="mb-2 flex items-center gap-2">
                           <span
@@ -446,10 +446,10 @@ export function FrameworkExplorer() {
                           </span>
                           <h4 className="font-semibold">{element.name}</h4>
                         </div>
-                        <p className="mb-1 font-devanagari text-sm text-primary">
+                        <p className="font-devanagari text-primary mb-1 text-sm">
                           {element.sanskrit}
                         </p>
-                        <p className="text-sm text-muted-foreground">{element.description}</p>
+                        <p className="text-muted-foreground text-sm">{element.description}</p>
                       </div>
                     ))}
                   </div>
@@ -457,7 +457,7 @@ export function FrameworkExplorer() {
 
                 <div>
                   <h3 className="mb-2 font-semibold">Significance</h3>
-                  <p className="leading-relaxed text-muted-foreground">
+                  <p className="text-muted-foreground leading-relaxed">
                     {selectedFramework.significance}
                   </p>
                 </div>
@@ -469,7 +469,7 @@ export function FrameworkExplorer() {
                       {selectedFramework.relatedTexts.map((text, index) => (
                         <span
                           key={index}
-                          className="rounded-full bg-secondary px-3 py-1 text-sm text-secondary-foreground"
+                          className="bg-secondary text-secondary-foreground rounded-full px-3 py-1 text-sm"
                         >
                           {text}
                         </span>

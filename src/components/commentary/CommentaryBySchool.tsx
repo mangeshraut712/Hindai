@@ -110,7 +110,7 @@ export default function CommentaryBySchool({ commentaries, verseText }: Commenta
 
   if (availableSchools.length === 0) {
     return (
-      <div className="rounded-lg border border-border bg-muted p-4">
+      <div className="border-border bg-muted rounded-lg border p-4">
         <p className="text-muted-foreground">No commentaries available for this verse</p>
       </div>
     );
@@ -120,7 +120,7 @@ export default function CommentaryBySchool({ commentaries, verseText }: Commenta
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-foreground">Commentary by School</h2>
+        <h2 className="text-foreground text-xl font-bold">Commentary by School</h2>
         <label className="flex cursor-pointer items-center gap-2">
           <input
             type="checkbox"
@@ -142,7 +142,7 @@ export default function CommentaryBySchool({ commentaries, verseText }: Commenta
               onClick={() => setSelectedSchool(school)}
               className={`px-4 py-2 font-medium transition ${
                 selectedSchool === school
-                  ? "border-b-2 border-blue-600 text-primary"
+                  ? "text-primary border-b-2 border-blue-600"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
@@ -156,11 +156,11 @@ export default function CommentaryBySchool({ commentaries, verseText }: Commenta
       {!compareMode && selectedSchool && (
         <div className="rounded-lg border border-purple-200 bg-purple-50 p-4">
           <h3 className="mb-2 font-bold">{SCHOOL_SUMMARIES[selectedSchool].acharya}</h3>
-          <p className="mb-3 text-foreground/80">{SCHOOL_SUMMARIES[selectedSchool].summary}</p>
+          <p className="text-foreground/80 mb-3">{SCHOOL_SUMMARIES[selectedSchool].summary}</p>
           {SCHOOL_SUMMARIES[selectedSchool].keyTeachings.length > 0 && (
             <div>
               <h4 className="mb-1 font-semibold">Key Teachings:</h4>
-              <ul className="list-inside list-disc text-sm text-muted-foreground">
+              <ul className="text-muted-foreground list-inside list-disc text-sm">
                 {SCHOOL_SUMMARIES[selectedSchool].keyTeachings.map((teaching, index) => (
                   <li key={index}>{teaching}</li>
                 ))}
@@ -176,7 +176,7 @@ export default function CommentaryBySchool({ commentaries, verseText }: Commenta
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {availableSchools.map((school) => (
             <div key={school} className="overflow-hidden rounded-lg border">
-              <div className="border-b bg-muted p-3">
+              <div className="bg-muted border-b p-3">
                 <h3 className="font-bold">{SCHOOL_SUMMARIES[school].acharya}</h3>
                 <span className="rounded bg-purple-100 px-2 py-1 text-xs text-purple-800">
                   {school}
@@ -186,11 +186,11 @@ export default function CommentaryBySchool({ commentaries, verseText }: Commenta
                 {groupedCommentaries[school].map((commentary) => (
                   <div key={commentary.id} className="text-sm">
                     {commentary.text_sa && (
-                      <p className="mb-2 italic text-foreground/80">{commentary.text_sa}</p>
+                      <p className="text-foreground/80 mb-2 italic">{commentary.text_sa}</p>
                     )}
                     <p className="text-foreground">{commentary.text_en}</p>
                     {commentary.century && (
-                      <p className="mt-1 text-xs text-muted-foreground">{commentary.century}</p>
+                      <p className="text-muted-foreground mt-1 text-xs">{commentary.century}</p>
                     )}
                   </div>
                 ))}
@@ -203,12 +203,12 @@ export default function CommentaryBySchool({ commentaries, verseText }: Commenta
         selectedSchool && (
           <div className="space-y-4">
             {groupedCommentaries[selectedSchool].map((commentary) => (
-              <div key={commentary.id} className="rounded-lg border bg-card p-4">
+              <div key={commentary.id} className="bg-card rounded-lg border p-4">
                 <div className="mb-2 flex items-start justify-between">
                   <div>
                     <h3 className="font-bold">{commentary.acharya}</h3>
                     {commentary.century && (
-                      <p className="text-sm text-muted-foreground">{commentary.century}</p>
+                      <p className="text-muted-foreground text-sm">{commentary.century}</p>
                     )}
                   </div>
                   <span className="rounded bg-purple-100 px-2 py-1 text-xs text-purple-800">
@@ -217,11 +217,11 @@ export default function CommentaryBySchool({ commentaries, verseText }: Commenta
                 </div>
                 {commentary.text_sa && (
                   <div className="theme-panel-soft mb-3 rounded-lg p-3">
-                    <p className="italic text-foreground/80">{commentary.text_sa}</p>
+                    <p className="text-foreground/80 italic">{commentary.text_sa}</p>
                   </div>
                 )}
                 <p className="text-foreground">{commentary.text_en}</p>
-                <p className="mt-2 text-sm text-muted-foreground">Source: {commentary.source}</p>
+                <p className="text-muted-foreground mt-2 text-sm">Source: {commentary.source}</p>
               </div>
             ))}
           </div>
@@ -244,7 +244,7 @@ export default function CommentaryBySchool({ commentaries, verseText }: Commenta
             {availableSchools.map((school) => (
               <div key={school} className="flex items-start gap-3">
                 <span className="font-medium">{SCHOOL_SUMMARIES[school].acharya}:</span>
-                <span className="text-sm text-foreground/80">
+                <span className="text-foreground/80 text-sm">
                   {SCHOOL_SUMMARIES[school].summary}
                 </span>
               </div>

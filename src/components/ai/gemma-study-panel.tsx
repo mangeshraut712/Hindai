@@ -40,14 +40,14 @@ function answerLine(text: string) {
 
 function StudyAnswer({ answer }: { answer: string }) {
   return (
-    <div className="mt-4 space-y-2 text-sm leading-7 text-foreground" aria-live="polite">
+    <div className="text-foreground mt-4 space-y-2 text-sm leading-7" aria-live="polite">
       {studyAnswerLines(answer).map((line, index) => {
         if (line.kind === "blank") return <div key={index} className="h-1" aria-hidden="true" />;
         return (
           <p
             key={index}
             className={
-              line.kind === "bullet" ? "pl-4 before:-ml-4 before:mr-2 before:content-['•']" : ""
+              line.kind === "bullet" ? "pl-4 before:mr-2 before:-ml-4 before:content-['•']" : ""
             }
           >
             {answerLine(line.text)}
@@ -147,7 +147,7 @@ export function GemmaStudyPanel({
 
   return (
     <section
-      className="mt-4 rounded-2xl border border-border/70 bg-card p-4"
+      className="border-border/70 bg-card mt-4 rounded-2xl border p-4"
       aria-label={`Ask Gemma 4 about ${title}`}
       aria-busy={loading}
       data-testid="gemma-study-panel"
@@ -155,12 +155,12 @@ export function GemmaStudyPanel({
       onKeyDown={(event) => event.stopPropagation()}
     >
       <ServerFeatureNotice feature="Gemma 4" />
-      <p className="flex items-center gap-2 text-sm font-semibold text-foreground">
-        <Sparkles className="size-4 text-primary" aria-hidden="true" />
+      <p className="text-foreground flex items-center gap-2 text-sm font-semibold">
+        <Sparkles className="text-primary size-4" aria-hidden="true" />
         Ask about this section
       </p>
-      <p className="mt-1 text-sm leading-6 text-foreground">{title}</p>
-      <p className="mt-1 text-xs leading-5 text-muted-foreground">{copy.hint}</p>
+      <p className="text-foreground mt-1 text-sm leading-6">{title}</p>
+      <p className="text-muted-foreground mt-1 text-xs leading-5">{copy.hint}</p>
       <div className="mt-3 flex flex-wrap gap-2">
         {actions.map((action) => (
           <Button
@@ -190,7 +190,7 @@ export function GemmaStudyPanel({
           value={question}
           onChange={(event) => setQuestion(event.target.value)}
           placeholder={copy.placeholder}
-          className="min-h-11 min-w-0 flex-1 rounded-xl border border-border bg-background px-3 text-sm text-foreground"
+          className="border-border bg-background text-foreground min-h-11 min-w-0 flex-1 rounded-xl border px-3 text-sm"
         />
         <Button type="submit" size="sm" disabled={loading}>
           {loading ? "Asking…" : "Ask"}
@@ -199,7 +199,7 @@ export function GemmaStudyPanel({
       {retrieval ? <SiteRichResults retrieval={retrieval} /> : null}
       {answer ? <StudyAnswer answer={answer} /> : null}
       {error ? (
-        <p role="alert" className="mt-3 text-sm text-muted-foreground">
+        <p role="alert" className="text-muted-foreground mt-3 text-sm">
           {error}
         </p>
       ) : null}

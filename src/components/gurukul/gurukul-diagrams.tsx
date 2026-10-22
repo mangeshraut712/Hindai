@@ -6,12 +6,12 @@ export function GurukulDiagrams() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <h2 className="font-serif text-3xl">How the gurukul is shaped</h2>
-      <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">
+      <p className="text-muted-foreground mt-3 max-w-2xl text-sm leading-7">
         Five maps of practice — not decoration. Use them to choose where to read next.
       </p>
       <div className="mt-10 grid gap-8 lg:grid-cols-2">
         <DiagramCard title="Shridhar grantha family" subtitle="Marathi ovi household books">
-          <svg viewBox="0 0 320 160" className="h-auto w-full text-primary" aria-hidden="true">
+          <svg viewBox="0 0 320 160" className="text-primary h-auto w-full" aria-hidden="true">
             <rect x="110" y="8" width="100" height="28" rx="6" fill="currentColor" opacity="0.15" />
             <text x="160" y="26" textAnchor="middle" className="fill-foreground" fontSize="11">
               Shridhar Swami
@@ -55,7 +55,7 @@ export function GurukulDiagrams() {
               + Haripaat (daily Hari patha)
             </text>
           </svg>
-          <p className="mt-3 text-xs text-muted-foreground">
+          <p className="text-muted-foreground mt-3 text-xs">
             <Link href="/shivlilamrit" className="text-primary">
               Shivlilamrit
             </Link>
@@ -75,7 +75,7 @@ export function GurukulDiagrams() {
         </DiagramCard>
 
         <DiagramCard title="Char Dham corners" subtitle="Four living Vaishnava gates">
-          <svg viewBox="0 0 320 160" className="h-auto w-full text-primary" aria-hidden="true">
+          <svg viewBox="0 0 320 160" className="text-primary h-auto w-full" aria-hidden="true">
             <rect
               x="20"
               y="20"
@@ -102,7 +102,7 @@ export function GurukulDiagrams() {
               Dwarka
             </text>
           </svg>
-          <p className="mt-3 text-xs text-muted-foreground">
+          <p className="text-muted-foreground mt-3 text-xs">
             <Link href="/vishnu" className="text-primary">
               Open Vishnu tirtha →
             </Link>
@@ -110,7 +110,7 @@ export function GurukulDiagrams() {
         </DiagramCard>
 
         <DiagramCard title="Ashtavinayak order" subtitle="Eight Maharashtra bows">
-          <svg viewBox="0 0 320 120" className="h-auto w-full text-primary" aria-hidden="true">
+          <svg viewBox="0 0 320 120" className="text-primary h-auto w-full" aria-hidden="true">
             {Array.from({ length: 8 }, (_, i) => {
               const x = 24 + i * 36;
               return (
@@ -140,7 +140,7 @@ export function GurukulDiagrams() {
               Morgaon → … → Mahaganapati
             </text>
           </svg>
-          <p className="mt-3 text-xs text-muted-foreground">
+          <p className="text-muted-foreground mt-3 text-xs">
             <Link href="/ganesha" className="text-primary">
               Open Ganesha circuit →
             </Link>
@@ -148,7 +148,7 @@ export function GurukulDiagrams() {
         </DiagramCard>
 
         <DiagramCard title="Navaratri three storms" subtitle="Devi Mahatmya grammar">
-          <svg viewBox="0 0 320 120" className="h-auto w-full text-primary" aria-hidden="true">
+          <svg viewBox="0 0 320 120" className="text-primary h-auto w-full" aria-hidden="true">
             {["Madhu-Kaitabha", "Mahishasura", "Shumbha-Nishumbha"].map((label, i) => (
               <g key={label}>
                 <rect
@@ -172,7 +172,7 @@ export function GurukulDiagrams() {
               </g>
             ))}
           </svg>
-          <p className="mt-3 text-xs text-muted-foreground">
+          <p className="text-muted-foreground mt-3 text-xs">
             <Link href="/festivals/sharad-navaratri" className="text-primary">
               Sharad Navaratri →
             </Link>
@@ -192,7 +192,7 @@ export function GurukulDiagrams() {
           subtitle="Name · ekadashi · rest"
           className="lg:col-span-2"
         >
-          <svg viewBox="0 0 640 100" className="h-auto w-full text-primary" aria-hidden="true">
+          <svg viewBox="0 0 640 100" className="text-primary h-auto w-full" aria-hidden="true">
             {["Dawn Name", "Tulsi", "Ekadashi", "Gita seed", "Vitthal", "Peace", "Begin again"].map(
               (label, i) => (
                 <g key={label}>
@@ -218,7 +218,7 @@ export function GurukulDiagrams() {
               )
             )}
           </svg>
-          <p className="mt-3 text-xs text-muted-foreground">
+          <p className="text-muted-foreground mt-3 text-xs">
             <Link href="/haripaat" className="text-primary">
               Open Haripaat →
             </Link>
@@ -241,9 +241,9 @@ function DiagramCard({
   className?: string;
 }) {
   return (
-    <div className={`border-t border-border/70 pt-6 ${className}`}>
+    <div className={`border-border/70 border-t pt-6 ${className}`}>
       <h3 className="font-serif text-xl">{title}</h3>
-      <p className="mt-1 text-xs uppercase tracking-[0.14em] text-muted-foreground">{subtitle}</p>
+      <p className="text-muted-foreground mt-1 text-xs tracking-[0.14em] uppercase">{subtitle}</p>
       <div className="mt-4">{children}</div>
     </div>
   );

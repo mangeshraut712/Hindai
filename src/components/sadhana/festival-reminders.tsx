@@ -114,9 +114,9 @@ export function FestivalReminders() {
 
   return (
     <Card className="border-border/70 shadow-md">
-      <CardHeader className="border-b border-border/60 bg-gradient-to-r from-primary/5 to-accent/5 py-5">
+      <CardHeader className="border-border/60 from-primary/5 to-accent/5 border-b bg-linear-to-r py-5">
         <div className="flex items-center gap-2">
-          <Calendar className="size-5 text-primary" />
+          <Calendar className="text-primary size-5" />
           <CardTitle className="font-serif text-xl tracking-[-0.015em]">
             Upcoming Vrats & Festivals
           </CardTitle>
@@ -134,27 +134,27 @@ export function FestivalReminders() {
             return (
               <div
                 key={fest.id}
-                className="rounded-2xl border border-border/60 bg-background/50 p-4 transition-all hover:border-primary/20 hover:bg-background/80"
+                className="border-border/60 bg-background/50 hover:border-primary/20 hover:bg-background/80 rounded-2xl border p-4 transition-all"
               >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-semibold text-foreground sm:text-base">
+                      <span className="text-foreground text-sm font-semibold sm:text-base">
                         {fest.name}
                       </span>
-                      <span className="font-devanagari text-xs font-bold text-primary">
+                      <span className="font-devanagari text-primary text-xs font-bold">
                         {fest.sanskrit}
                       </span>
-                      <span className="rounded-full bg-secondary/30 px-2 py-0.5 text-[10px] uppercase tracking-wider text-muted-foreground">
+                      <span className="bg-secondary/30 text-muted-foreground rounded-full px-2 py-0.5 text-[10px] tracking-wider uppercase">
                         {fest.type}
                       </span>
                     </div>
 
-                    <p className="mt-1 text-xs font-medium text-muted-foreground">
+                    <p className="text-muted-foreground mt-1 text-xs font-medium">
                       {formatDate(fest.date)}
                     </p>
 
-                    <p className="mt-2 text-xs leading-5 text-foreground/80">{fest.description}</p>
+                    <p className="text-foreground/80 mt-2 text-xs leading-5">{fest.description}</p>
                   </div>
 
                   <div className="flex shrink-0 flex-row gap-2 self-end sm:flex-col sm:self-start">
@@ -177,7 +177,7 @@ export function FestivalReminders() {
                       variant="outline"
                       size="sm"
                       onClick={() => handleApplyMantra(fest.id, fest.name)}
-                      className="h-8 rounded-xl border-primary/20 px-3 text-xs text-primary hover:bg-primary/5"
+                      className="border-primary/20 text-primary hover:bg-primary/5 h-8 rounded-xl px-3 text-xs"
                     >
                       <Sparkles className="size-3.5" />
                       <span className="ml-1.5">Add Mantra</span>
@@ -186,11 +186,11 @@ export function FestivalReminders() {
                 </div>
 
                 {/* Puja Vidhi Drawer/Accordeon */}
-                <div className="mt-3 flex items-center justify-between border-t border-border/40 pt-3">
+                <div className="border-border/40 mt-3 flex items-center justify-between border-t pt-3">
                   <button
                     type="button"
                     onClick={() => setActiveDialog(activeDialog === fest.id ? null : fest.id)}
-                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline focus:outline-none"
+                    className="text-primary inline-flex items-center gap-1 text-[11px] font-semibold hover:underline focus:outline-hidden"
                   >
                     <Info className="size-3.5" />
                     <span>
@@ -200,22 +200,22 @@ export function FestivalReminders() {
                 </div>
 
                 {activeDialog === fest.id && (
-                  <div className="mt-3 space-y-3.5 rounded-xl border border-border/40 bg-secondary/10 p-3.5 text-xs text-muted-foreground duration-200 animate-in fade-in slide-in-from-top-1">
+                  <div className="border-border/40 bg-secondary/10 text-muted-foreground animate-in fade-in slide-in-from-top-1 mt-3 space-y-3.5 rounded-xl border p-3.5 text-xs duration-200">
                     <div>
-                      <span className="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-foreground">
+                      <span className="text-foreground mb-1 block text-[10px] font-semibold tracking-wider uppercase">
                         Puja Vidhi (Method of Worship)
                       </span>
                       <p className="leading-5">{fest.pujaVidhi}</p>
                     </div>
                     <div>
-                      <span className="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-foreground">
+                      <span className="text-foreground mb-1 block text-[10px] font-semibold tracking-wider uppercase">
                         Significance
                       </span>
                       <p className="leading-5">{fest.significance}</p>
                     </div>
                     {fest.regional && fest.regional.length > 0 && (
                       <div>
-                        <span className="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-foreground">
+                        <span className="text-foreground mb-1 block text-[10px] font-semibold tracking-wider uppercase">
                           Regional Celebrations
                         </span>
                         <p className="leading-5">{fest.regional.join(", ")}</p>

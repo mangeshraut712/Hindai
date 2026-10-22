@@ -138,7 +138,7 @@ export function AudioExplorer() {
           className="font-devanagari text-lg leading-relaxed"
           dangerouslySetInnerHTML={{ __html: coloredText }}
         />
-        <div className="text-sm text-muted-foreground">
+        <div className="text-muted-foreground text-sm">
           <div className="flex gap-4">
             <span className="flex items-center gap-1">
               <span className="text-red-600">´</span> Udatta (Rising)
@@ -337,7 +337,7 @@ export function AudioExplorer() {
 
                 {/* Audio Source Info */}
                 {currentVerse.audio && (
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-muted-foreground text-sm">
                     <p>
                       <strong>Source:</strong> {currentVerse.audio.source}
                     </p>
@@ -369,7 +369,7 @@ export function AudioExplorer() {
             <Card>
               <CardContent className="py-8">
                 <div className="text-center">
-                  <div className="mx-auto mb-4 size-8 animate-spin rounded-full border-b-2 border-primary"></div>
+                  <div className="border-primary mx-auto mb-4 size-8 animate-spin rounded-full border-b-2"></div>
                   <p>Loading audio and accent analysis...</p>
                 </div>
               </CardContent>

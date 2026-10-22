@@ -1,100 +1,441 @@
 /* cssvalidation-disable */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  /* One Hind AI light theme — paper field, ink type, saffron accent */
-  --background: 40 18% 98%;
-  --foreground: 222 30% 12%;
-  --card: 40 16% 100%;
-  --card-foreground: 222 30% 12%;
-  --popover: 40 16% 100%;
-  --popover-foreground: 222 30% 12%;
-  --primary: 24 88% 48%;
-  --primary-foreground: 40 30% 98%;
-  --secondary: 200 22% 93%;
-  --secondary-foreground: 222 30% 14%;
-  --muted: 40 14% 94%;
-  --muted-foreground: 222 14% 36%;
-  --accent: 36 78% 46%;
-  --accent-foreground: 40 30% 98%;
-  --destructive: 0 72% 46%;
-  --destructive-foreground: 40 30% 98%;
-  --border: 40 12% 84%;
-  --input: 40 12% 90%;
-  --ring: 24 88% 48%;
-  --radius: 1.35rem;
-  --chart-1: 24 88% 48%;
-  --chart-2: 180 35% 42%;
-  --chart-3: 36 78% 46%;
-  --chart-4: 45 80% 48%;
-  --chart-5: 220 40% 46%;
-  --sidebar-background: 40 16% 97%;
-  --sidebar-foreground: 222 30% 12%;
-  --sidebar-primary: 24 88% 48%;
-  --sidebar-primary-foreground: 40 30% 98%;
-  --sidebar-accent: 40 14% 93%;
-  --sidebar-accent-foreground: 222 30% 12%;
-  --sidebar-border: 40 12% 84%;
-  --sidebar-ring: 24 88% 48%;
-  --saffron: 24 88% 48%;
-  --vermilion: 12 82% 50%;
-  --gold: 42 78% 46%;
-  --indigo: 222 48% 42%;
-  --peacock: 180 55% 38%;
-  --marigold: 36 78% 46%;
-  --royal-teal: 180 40% 36%;
-  --ink-hero-fg: 40 35% 96%;
-  --ink-hero-muted: 40 20% 84%;
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --color-sidebar: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --font-sans: var(--font-manrope), sans-serif;
+  --font-serif: var(--font-cormorant), serif;
+  --font-display: var(--font-cormorant), serif;
+  --font-devanagari: var(--font-devanagari-loaded), serif;
 }
 
-.dark {
-  /* One Hind AI dark theme — deep field, warm ink, brighter saffron */
-  --background: 222 28% 7%;
-  --foreground: 40 28% 96%;
-  --card: 222 24% 10%;
-  --card-foreground: 40 28% 96%;
-  --popover: 222 24% 10%;
-  --popover-foreground: 40 28% 96%;
-  --primary: 28 92% 60%;
-  --primary-foreground: 222 30% 8%;
-  --secondary: 210 16% 16%;
-  --secondary-foreground: 40 24% 92%;
-  --muted: 222 16% 13%;
-  --muted-foreground: 40 12% 74%;
-  --accent: 36 78% 56%;
-  --accent-foreground: 222 30% 8%;
-  --destructive: 0 70% 56%;
-  --destructive-foreground: 40 28% 96%;
-  --border: 222 14% 20%;
-  --input: 222 14% 17%;
-  --ring: 28 92% 60%;
-  --chart-1: 28 92% 60%;
-  --chart-2: 180 48% 50%;
-  --chart-3: 36 78% 56%;
-  --chart-4: 45 82% 58%;
-  --chart-5: 220 48% 58%;
-  --sidebar-background: 222 26% 8%;
-  --sidebar-foreground: 40 24% 92%;
-  --sidebar-primary: 28 92% 60%;
-  --sidebar-primary-foreground: 222 30% 8%;
-  --sidebar-accent: 222 16% 13%;
-  --sidebar-accent-foreground: 40 24% 92%;
-  --sidebar-border: 222 14% 18%;
-  --sidebar-ring: 28 92% 60%;
-  --saffron: 28 92% 60%;
-  --vermilion: 12 88% 62%;
-  --gold: 42 84% 58%;
-  --indigo: 220 62% 64%;
-  --peacock: 180 60% 48%;
-  --marigold: 36 82% 58%;
-  --royal-teal: 180 42% 46%;
-  --ink-hero-fg: 40 35% 96%;
-  --ink-hero-muted: 40 18% 78%;
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
 }
 
-/* stylelint-disable at-rule-no-unknown */
+@utility eyebrow {
+  @apply text-foreground/90 inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-full px-3 py-1.5 text-[11px] leading-snug font-semibold tracking-[0.14em] uppercase backdrop-blur-xl sm:px-4 sm:tracking-[0.22em];
+  border: 1px solid hsl(var(--saffron) / 0.35);
+  background: hsl(var(--background) / 0.72);
+}
+
+@utility section-title {
+  @apply text-foreground font-serif text-3xl font-semibold tracking-tight sm:text-5xl md:text-6xl;
+  background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--saffron)) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: hsl(var(--foreground));
+
+  @supports (-webkit-background-clip: text) or (background-clip: text) {
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Dark mode section-title contrast improvement */
+  .dark & {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--foreground)) 0%,
+      hsl(var(--saffron)) 60%,
+      hsl(var(--marigold)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: hsl(var(--foreground));
+  }
+
+  @supports (-webkit-background-clip: text) or (background-clip: text) {
+    .dark & {
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}
+
+@utility section-copy {
+  @apply text-muted-foreground max-w-2xl text-base leading-7 sm:text-lg;
+}
+
+@utility surface-panel {
+  @apply relative min-w-0 overflow-hidden rounded-[28px] backdrop-blur-2xl transition-all duration-300;
+  background: hsl(var(--card) / 0.92);
+  border: 1px solid hsl(var(--border) / 0.65);
+  box-shadow:
+    0 4px 6px -1px hsl(var(--saffron) / 0.08),
+    0 2px 4px -2px hsl(var(--saffron) / 0.04),
+    0 20px 60px -48px hsl(var(--royal-teal) / 0.12);
+  contain: layout style;
+
+  &:hover {
+    box-shadow:
+      0 8px 12px -1px hsl(var(--saffron) / 0.12),
+      0 4px 8px -2px hsl(var(--saffron) / 0.08),
+      0 36px 90px -58px hsl(var(--royal-teal) / 0.18);
+    border-color: hsl(var(--saffron) / 0.25);
+    /* Hover lift handled by Tailwind hover:-translate-y-1 on individual cards */
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(135deg, hsl(var(--saffron) / 0.06) 0%, transparent 50%),
+      radial-gradient(circle at top right, hsl(var(--marigold) / 0.08), transparent 40%);
+    transition: opacity 0.3s ease;
+  }
+
+  .dark & {
+    background: hsl(var(--card) / 0.88);
+    border-color: hsl(var(--border) / 0.75);
+    box-shadow:
+      0 4px 6px -1px hsl(var(--saffron) / 0.12),
+      0 2px 4px -2px hsl(var(--saffron) / 0.08),
+      0 42px 100px -58px hsl(var(--royal-teal) / 0.18);
+  }
+
+  .dark &:hover {
+    box-shadow:
+      0 8px 12px -1px hsl(var(--saffron) / 0.18),
+      0 4px 8px -2px hsl(var(--saffron) / 0.12),
+      0 48px 110px -62px hsl(var(--royal-teal) / 0.25);
+    border-color: hsl(var(--saffron) / 0.35);
+  }
+
+  .dark &::before {
+    background:
+      linear-gradient(135deg, hsl(var(--saffron) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at top right, hsl(var(--marigold) / 0.12), transparent 40%);
+  }
+}
+
+@utility dark {
+  /* Dark mode section-title contrast improvement */
+  & .section-title {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--foreground)) 0%,
+      hsl(var(--saffron)) 60%,
+      hsl(var(--marigold)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: hsl(var(--foreground));
+  }
+
+  @supports (-webkit-background-clip: text) or (background-clip: text) {
+    & .section-title {
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  & .surface-panel {
+    background: hsl(var(--card) / 0.88);
+    border-color: hsl(var(--border) / 0.75);
+    box-shadow:
+      0 4px 6px -1px hsl(var(--saffron) / 0.12),
+      0 2px 4px -2px hsl(var(--saffron) / 0.08),
+      0 42px 100px -58px hsl(var(--royal-teal) / 0.18);
+  }
+
+  & .surface-panel:hover {
+    box-shadow:
+      0 8px 12px -1px hsl(var(--saffron) / 0.18),
+      0 4px 8px -2px hsl(var(--saffron) / 0.12),
+      0 48px 110px -62px hsl(var(--royal-teal) / 0.25);
+    border-color: hsl(var(--saffron) / 0.35);
+  }
+
+  & .surface-panel::before {
+    background:
+      linear-gradient(135deg, hsl(var(--saffron) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at top right, hsl(var(--marigold) / 0.12), transparent 40%);
+  }
+
+  & .hero-mesh {
+    background-image:
+      radial-gradient(circle at 18% 14%, hsl(var(--primary) / 0.12), transparent 22%),
+      radial-gradient(circle at 82% 16%, hsl(var(--accent) / 0.14), transparent 28%),
+      linear-gradient(135deg, hsl(220 24% 8%), hsl(216 18% 14%));
+  }
+}
+
+@utility hero-mesh {
+  background-image:
+    radial-gradient(circle at 20% 10%, hsl(var(--primary) / 0.14), transparent 22%),
+    radial-gradient(circle at 82% 18%, hsl(var(--accent) / 0.13), transparent 28%),
+    linear-gradient(135deg, hsl(var(--background)), hsl(var(--secondary) / 0.72));
+
+  .dark & {
+    background-image:
+      radial-gradient(circle at 18% 14%, hsl(var(--primary) / 0.12), transparent 22%),
+      radial-gradient(circle at 82% 16%, hsl(var(--accent) / 0.14), transparent 28%),
+      linear-gradient(135deg, hsl(220 24% 8%), hsl(216 18% 14%));
+  }
+}
+
+@utility grain-mask {
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    hsl(var(--foreground) / 0.06) 48%,
+    transparent 100%
+  );
+}
+
+@utility hero-sun {
+  @apply absolute rounded-full blur-3xl;
+  background: radial-gradient(circle, hsl(var(--accent) / 0.5) 0%, transparent 68%);
+}
+
+@utility temple-grid {
+  background-image:
+    linear-gradient(hsl(var(--border) / 0.4) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--border) / 0.4) 1px, transparent 1px);
+  background-size: 38px 38px;
+}
+
+@utility scripture-row {
+  @apply relative grid gap-2 px-6 py-6 transition-all duration-300 md:grid-cols-[160px_minmax(0,1fr)_180px] md:items-end md:gap-5 md:px-8;
+  outline-offset: -2px;
+
+  &:focus-visible {
+    outline: 2px solid hsl(var(--saffron) / 0.6);
+    border-radius: 12px;
+  }
+
+  &::after {
+    content: "";
+    @apply pointer-events-none absolute inset-x-6 bottom-0 h-px md:inset-x-8;
+    background: hsl(var(--border) / 0.7);
+    transition: opacity 0.3s ease;
+  }
+
+  &:last-child::after {
+    display: none;
+  }
+
+  &:hover {
+    background: hsl(var(--secondary) / 0.45);
+    transform: translateX(4px);
+  }
+}
+
+@utility nav-pill {
+  @apply text-foreground/70 hover:border-border/70 hover:bg-background/70 hover:text-foreground rounded-full border border-transparent text-sm font-semibold transition-all duration-300 hover:shadow-md;
+}
+
+@utility nav-pill-active {
+  @apply text-foreground rounded-full border text-sm font-semibold transition-all duration-300;
+  border-color: hsl(var(--saffron) / 0.4);
+  background: hsl(var(--saffron) / 0.1);
+  box-shadow: 0 14px 34px -30px hsl(var(--saffron) / 0.3);
+}
+
+@utility script-chip {
+  @apply text-muted-foreground inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium transition-all duration-300;
+  border-color: hsl(var(--border) / 0.7);
+  background: hsl(var(--background) / 0.7);
+
+  &:hover {
+    border-color: hsl(var(--saffron) / 0.4);
+    background: hsl(var(--saffron) / 0.1);
+    color: hsl(var(--primary));
+  }
+}
+
+@utility boot-splash-backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 24%, hsl(var(--accent) / 0.26), transparent 20%),
+    radial-gradient(circle at 20% 70%, hsl(var(--primary) / 0.18), transparent 22%),
+    radial-gradient(circle at 80% 75%, hsl(var(--foreground) / 0.06), transparent 28%),
+    linear-gradient(180deg, hsl(var(--background)), hsl(var(--background)));
+}
+
+@utility text-gradient {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(
+    135deg,
+    hsl(var(--foreground)) 0%,
+    hsl(var(--primary)) 50%,
+    hsl(var(--accent)) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+@utility reveal-on-scroll {
+  opacity: 1;
+  transform: none;
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports ((animation-timeline: view()) and (animation-range: entry)) {
+      animation: reveal-up auto linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 30%;
+    }
+  }
+}
+
+@layer utilities {
+  :root {
+    /* One Hind AI light theme — paper field, ink type, saffron accent */
+    --background: 40 18% 98%;
+    --foreground: 222 30% 12%;
+    --card: 40 16% 100%;
+    --card-foreground: 222 30% 12%;
+    --popover: 40 16% 100%;
+    --popover-foreground: 222 30% 12%;
+    --primary: 24 88% 48%;
+    --primary-foreground: 40 30% 98%;
+    --secondary: 200 22% 93%;
+    --secondary-foreground: 222 30% 14%;
+    --muted: 40 14% 94%;
+    --muted-foreground: 222 14% 36%;
+    --accent: 36 78% 46%;
+    --accent-foreground: 40 30% 98%;
+    --destructive: 0 72% 46%;
+    --destructive-foreground: 40 30% 98%;
+    --border: 40 12% 84%;
+    --input: 40 12% 90%;
+    --ring: 24 88% 48%;
+    --radius: 1.35rem;
+    --chart-1: 24 88% 48%;
+    --chart-2: 180 35% 42%;
+    --chart-3: 36 78% 46%;
+    --chart-4: 45 80% 48%;
+    --chart-5: 220 40% 46%;
+    --sidebar-background: 40 16% 97%;
+    --sidebar-foreground: 222 30% 12%;
+    --sidebar-primary: 24 88% 48%;
+    --sidebar-primary-foreground: 40 30% 98%;
+    --sidebar-accent: 40 14% 93%;
+    --sidebar-accent-foreground: 222 30% 12%;
+    --sidebar-border: 40 12% 84%;
+    --sidebar-ring: 24 88% 48%;
+    --saffron: 24 88% 48%;
+    --vermilion: 12 82% 50%;
+    --gold: 42 78% 46%;
+    --indigo: 222 48% 42%;
+    --peacock: 180 55% 38%;
+    --marigold: 36 78% 46%;
+    --royal-teal: 180 40% 36%;
+    --ink-hero-fg: 40 35% 96%;
+    --ink-hero-muted: 40 20% 84%;
+  }
+
+  .dark {
+    /* One Hind AI dark theme — deep field, warm ink, brighter saffron */
+    --background: 222 28% 7%;
+    --foreground: 40 28% 96%;
+    --card: 222 24% 10%;
+    --card-foreground: 40 28% 96%;
+    --popover: 222 24% 10%;
+    --popover-foreground: 40 28% 96%;
+    --primary: 28 92% 60%;
+    --primary-foreground: 222 30% 8%;
+    --secondary: 210 16% 16%;
+    --secondary-foreground: 40 24% 92%;
+    --muted: 222 16% 13%;
+    --muted-foreground: 40 12% 74%;
+    --accent: 36 78% 56%;
+    --accent-foreground: 222 30% 8%;
+    --destructive: 0 70% 56%;
+    --destructive-foreground: 40 28% 96%;
+    --border: 222 14% 20%;
+    --input: 222 14% 17%;
+    --ring: 28 92% 60%;
+    --chart-1: 28 92% 60%;
+    --chart-2: 180 48% 50%;
+    --chart-3: 36 78% 56%;
+    --chart-4: 45 82% 58%;
+    --chart-5: 220 48% 58%;
+    --sidebar-background: 222 26% 8%;
+    --sidebar-foreground: 40 24% 92%;
+    --sidebar-primary: 28 92% 60%;
+    --sidebar-primary-foreground: 222 30% 8%;
+    --sidebar-accent: 222 16% 13%;
+    --sidebar-accent-foreground: 40 24% 92%;
+    --sidebar-border: 222 14% 18%;
+    --sidebar-ring: 28 92% 60%;
+    --saffron: 28 92% 60%;
+    --vermilion: 12 88% 62%;
+    --gold: 42 84% 58%;
+    --indigo: 220 62% 64%;
+    --peacock: 180 60% 48%;
+    --marigold: 36 82% 58%;
+    --royal-teal: 180 42% 46%;
+    --ink-hero-fg: 40 35% 96%;
+    --ink-hero-muted: 40 18% 78%;
+  }
+
+  /* stylelint-disable at-rule-no-unknown */
+}
 @layer base {
   * {
     @apply border-border;
@@ -109,7 +450,7 @@
   }
 
   body {
-    @apply bg-background font-sans text-foreground antialiased;
+    @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings:
       "rlig" 1,
       "calt" 1;
@@ -140,209 +481,6 @@
 }
 
 @layer components {
-  .eyebrow {
-    @apply inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase leading-snug tracking-[0.14em] text-foreground/90 backdrop-blur-xl sm:px-4 sm:tracking-[0.22em];
-    border: 1px solid hsl(var(--saffron) / 0.35);
-    background: hsl(var(--background) / 0.72);
-  }
-
-  .section-title {
-    @apply font-serif text-3xl font-semibold tracking-[-0.025em] text-foreground sm:text-5xl md:text-6xl;
-    background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--saffron)) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: hsl(var(--foreground));
-  }
-
-  @supports (-webkit-background-clip: text) or (background-clip: text) {
-    .section-title {
-      -webkit-text-fill-color: transparent;
-    }
-  }
-
-  .section-copy {
-    @apply max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg;
-  }
-
-  .surface-panel {
-    @apply relative min-w-0 overflow-hidden rounded-[28px] backdrop-blur-2xl transition-all duration-300;
-    background: hsl(var(--card) / 0.92);
-    border: 1px solid hsl(var(--border) / 0.65);
-    box-shadow:
-      0 4px 6px -1px hsl(var(--saffron) / 0.08),
-      0 2px 4px -2px hsl(var(--saffron) / 0.04),
-      0 20px 60px -48px hsl(var(--royal-teal) / 0.12);
-    contain: layout style;
-  }
-
-  .surface-panel:hover {
-    box-shadow:
-      0 8px 12px -1px hsl(var(--saffron) / 0.12),
-      0 4px 8px -2px hsl(var(--saffron) / 0.08),
-      0 36px 90px -58px hsl(var(--royal-teal) / 0.18);
-    border-color: hsl(var(--saffron) / 0.25);
-    /* Hover lift handled by Tailwind hover:-translate-y-1 on individual cards */
-  }
-
-  .surface-panel::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background:
-      linear-gradient(135deg, hsl(var(--saffron) / 0.06) 0%, transparent 50%),
-      radial-gradient(circle at top right, hsl(var(--marigold) / 0.08), transparent 40%);
-    transition: opacity 0.3s ease;
-  }
-
-  /* Dark mode section-title contrast improvement */
-  .dark .section-title {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--foreground)) 0%,
-      hsl(var(--saffron)) 60%,
-      hsl(var(--marigold)) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: hsl(var(--foreground));
-  }
-
-  @supports (-webkit-background-clip: text) or (background-clip: text) {
-    .dark .section-title {
-      -webkit-text-fill-color: transparent;
-    }
-  }
-
-  .dark .surface-panel {
-    background: hsl(var(--card) / 0.88);
-    border-color: hsl(var(--border) / 0.75);
-    box-shadow:
-      0 4px 6px -1px hsl(var(--saffron) / 0.12),
-      0 2px 4px -2px hsl(var(--saffron) / 0.08),
-      0 42px 100px -58px hsl(var(--royal-teal) / 0.18);
-  }
-
-  .dark .surface-panel:hover {
-    box-shadow:
-      0 8px 12px -1px hsl(var(--saffron) / 0.18),
-      0 4px 8px -2px hsl(var(--saffron) / 0.12),
-      0 48px 110px -62px hsl(var(--royal-teal) / 0.25);
-    border-color: hsl(var(--saffron) / 0.35);
-  }
-
-  .dark .surface-panel::before {
-    background:
-      linear-gradient(135deg, hsl(var(--saffron) / 0.1) 0%, transparent 50%),
-      radial-gradient(circle at top right, hsl(var(--marigold) / 0.12), transparent 40%);
-  }
-
-  .hero-mesh {
-    background-image:
-      radial-gradient(circle at 20% 10%, hsl(var(--primary) / 0.14), transparent 22%),
-      radial-gradient(circle at 82% 18%, hsl(var(--accent) / 0.13), transparent 28%),
-      linear-gradient(135deg, hsl(var(--background)), hsl(var(--secondary) / 0.72));
-  }
-
-  .dark .hero-mesh {
-    background-image:
-      radial-gradient(circle at 18% 14%, hsl(var(--primary) / 0.12), transparent 22%),
-      radial-gradient(circle at 82% 16%, hsl(var(--accent) / 0.14), transparent 28%),
-      linear-gradient(135deg, hsl(220 24% 8%), hsl(216 18% 14%));
-  }
-
-  .grain-mask {
-    background: linear-gradient(
-      120deg,
-      transparent 0%,
-      hsl(var(--foreground) / 0.06) 48%,
-      transparent 100%
-    );
-  }
-
-  .hero-sun {
-    @apply absolute rounded-full blur-3xl;
-    background: radial-gradient(circle, hsl(var(--accent) / 0.5) 0%, transparent 68%);
-  }
-
-  .temple-grid {
-    background-image:
-      linear-gradient(hsl(var(--border) / 0.4) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--border) / 0.4) 1px, transparent 1px);
-    background-size: 38px 38px;
-  }
-
-  .scripture-row {
-    @apply relative grid gap-2 px-6 py-6 transition-all duration-300 md:grid-cols-[160px_minmax(0,1fr)_180px] md:items-end md:gap-5 md:px-8;
-    outline-offset: -2px;
-  }
-
-  .scripture-row:focus-visible {
-    outline: 2px solid hsl(var(--saffron) / 0.6);
-    border-radius: 12px;
-  }
-
-  .scripture-row::after {
-    content: "";
-    @apply pointer-events-none absolute inset-x-6 bottom-0 h-px md:inset-x-8;
-    background: hsl(var(--border) / 0.7);
-    transition: opacity 0.3s ease;
-  }
-
-  .scripture-row:last-child::after {
-    display: none;
-  }
-
-  .scripture-row:hover {
-    background: hsl(var(--secondary) / 0.45);
-    transform: translateX(4px);
-  }
-
-  .nav-pill {
-    @apply rounded-full border border-transparent text-sm font-semibold text-foreground/70 transition-all duration-300 hover:border-border/70 hover:bg-background/70 hover:text-foreground hover:shadow-md;
-  }
-
-  .nav-pill-active {
-    @apply rounded-full border text-sm font-semibold text-foreground transition-all duration-300;
-    border-color: hsl(var(--saffron) / 0.4);
-    background: hsl(var(--saffron) / 0.1);
-    box-shadow: 0 14px 34px -30px hsl(var(--saffron) / 0.3);
-  }
-
-  .script-chip {
-    @apply inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium text-muted-foreground transition-all duration-300;
-    border-color: hsl(var(--border) / 0.7);
-    background: hsl(var(--background) / 0.7);
-  }
-
-  .script-chip:hover {
-    border-color: hsl(var(--saffron) / 0.4);
-    background: hsl(var(--saffron) / 0.1);
-    color: hsl(var(--primary));
-  }
-
-  .boot-splash-backdrop {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 50% 24%, hsl(var(--accent) / 0.26), transparent 20%),
-      radial-gradient(circle at 20% 70%, hsl(var(--primary) / 0.18), transparent 22%),
-      radial-gradient(circle at 80% 75%, hsl(var(--foreground) / 0.06), transparent 28%),
-      linear-gradient(180deg, hsl(var(--background)), hsl(var(--background)));
-  }
-
-  .text-gradient {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(
-      135deg,
-      hsl(var(--foreground)) 0%,
-      hsl(var(--primary)) 50%,
-      hsl(var(--accent)) 100%
-    );
-    background-size: 200% 200%;
-    animation: gradient-shift 8s ease infinite;
-  }
-
   @keyframes gradient-shift {
     0%,
     100% {
@@ -361,21 +499,6 @@
     to {
       opacity: 1;
       transform: translateY(0);
-    }
-  }
-
-  .reveal-on-scroll {
-    opacity: 1;
-    transform: none;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    @supports ((animation-timeline: view()) and (animation-range: entry)) {
-      .reveal-on-scroll {
-        animation: reveal-up auto linear both;
-        animation-timeline: view();
-        animation-range: entry 10% cover 30%;
-      }
     }
   }
 }
@@ -460,12 +583,14 @@ a,
 }
 
 /* Reduce layout shifts by reserving space */
-img,
-svg,
-video {
-  max-width: 100%;
-  height: auto;
-  /* Note: aspect-ratio: attr() is not browser-supported; use explicit values or Next.js Image */
+@layer base {
+  img,
+  svg,
+  video {
+    max-width: 100%;
+    height: auto;
+    /* Note: aspect-ratio: attr() is not browser-supported; use explicit values or Next.js Image */
+  }
 }
 
 /* Smooth scrollbar for WebKit */

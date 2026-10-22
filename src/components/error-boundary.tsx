@@ -85,16 +85,16 @@ export class ErrorBoundary extends Component<Props, State> {
       }
 
       return (
-        <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950 dark:to-red-950">
+        <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-orange-50 to-red-50 dark:from-orange-950 dark:to-red-950">
           <div className="mx-4 w-full max-w-md">
-            <div className="rounded-lg bg-card p-6 text-center shadow-lg dark:bg-card">
+            <div className="bg-card dark:bg-card rounded-lg p-6 text-center shadow-lg">
               <div className="mb-4 flex justify-center">
                 <AlertTriangle className="size-16 text-red-500" />
               </div>
 
-              <h1 className="mb-2 text-2xl font-bold text-foreground">Something went wrong</h1>
+              <h1 className="text-foreground mb-2 text-2xl font-bold">Something went wrong</h1>
 
-              <p className="mb-6 text-muted-foreground dark:text-muted-foreground">
+              <p className="text-muted-foreground dark:text-muted-foreground mb-6">
                 We encountered an unexpected error. Our team has been notified and is working to fix
                 this issue.
               </p>
@@ -116,16 +116,16 @@ export class ErrorBoundary extends Component<Props, State> {
 
               {process.env.NODE_ENV === "development" && this.state.error && (
                 <details className="mt-6 text-left">
-                  <summary className="cursor-pointer text-sm font-medium text-muted-foreground hover:text-foreground/80">
+                  <summary className="text-muted-foreground hover:text-foreground/80 cursor-pointer text-sm font-medium">
                     Error Details (Development)
                   </summary>
-                  <pre className="mt-2 max-h-40 overflow-auto rounded bg-muted p-3 text-xs">
+                  <pre className="bg-muted mt-2 max-h-40 overflow-auto rounded p-3 text-xs">
                     {this.state.error.stack}
                   </pre>
                 </details>
               )}
 
-              <p className="mt-4 text-xs text-muted-foreground">Error ID: {this.state.errorId}</p>
+              <p className="text-muted-foreground mt-4 text-xs">Error ID: {this.state.errorId}</p>
             </div>
           </div>
         </div>

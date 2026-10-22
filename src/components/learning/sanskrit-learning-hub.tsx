@@ -179,28 +179,28 @@ export function SanskritLearningHub() {
             <CardContent>
               <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4">
                 <div className="text-center">
-                  <div className="text-xl font-bold text-primary sm:text-2xl">
+                  <div className="text-primary text-xl font-bold sm:text-2xl">
                     {userProgress.totalLessons}
                   </div>
-                  <div className="text-xs text-muted-foreground sm:text-sm">Total Lessons</div>
+                  <div className="text-muted-foreground text-xs sm:text-sm">Total Lessons</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xl font-bold text-green-600 dark:text-green-400 sm:text-2xl">
+                  <div className="text-xl font-bold text-green-600 sm:text-2xl dark:text-green-400">
                     {userProgress.completedLessons}
                   </div>
-                  <div className="text-xs text-muted-foreground sm:text-sm">Completed</div>
+                  <div className="text-muted-foreground text-xs sm:text-sm">Completed</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xl font-bold text-orange-600 dark:text-orange-400 sm:text-2xl">
+                  <div className="text-xl font-bold text-orange-600 sm:text-2xl dark:text-orange-400">
                     {userProgress.currentStreak}
                   </div>
-                  <div className="text-xs text-muted-foreground sm:text-sm">Day Streak</div>
+                  <div className="text-muted-foreground text-xs sm:text-sm">Day Streak</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xl font-bold text-blue-600 dark:text-blue-400 sm:text-2xl">
+                  <div className="text-xl font-bold text-blue-600 sm:text-2xl dark:text-blue-400">
                     {Math.round((userProgress.completedLessons / userProgress.totalLessons) * 100)}%
                   </div>
-                  <div className="text-xs text-muted-foreground sm:text-sm">Progress</div>
+                  <div className="text-muted-foreground text-xs sm:text-sm">Progress</div>
                 </div>
               </div>
               <div className="mt-6">
@@ -237,9 +237,9 @@ export function SanskritLearningHub() {
                   whileFocus={{ scale: 1.02, outline: "2px solid var(--primary)" }}
                 >
                   <Card
-                    className={`cursor-pointer border-2 transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                    className={`focus-visible:ring-ring cursor-pointer border-2 transition-all hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden ${
                       selectedModule?.id === module.id
-                        ? "border-primary shadow-md ring-2 ring-primary"
+                        ? "border-primary ring-primary shadow-md ring-2"
                         : ""
                     } ${module.color}`}
                     onClick={() => {
@@ -276,7 +276,7 @@ export function SanskritLearningHub() {
                       <CardTitle className="text-lg">{module.name}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="mb-4 text-sm text-muted-foreground">{module.description}</p>
+                      <p className="text-muted-foreground mb-4 text-sm">{module.description}</p>
 
                       <div className="mb-4 space-y-2">
                         <div className="flex justify-between text-sm">
@@ -286,7 +286,7 @@ export function SanskritLearningHub() {
                         <Progress value={module.progress || 0} className="h-1" />
                       </div>
 
-                      <div className="mb-3 flex items-center justify-between text-sm text-muted-foreground">
+                      <div className="text-muted-foreground mb-3 flex items-center justify-between text-sm">
                         <span className="flex items-center gap-1">
                           <Clock className="size-4" />
                           {module.duration}
@@ -296,7 +296,7 @@ export function SanskritLearningHub() {
 
                       <div className="flex flex-wrap gap-1">
                         {module.features.slice(0, 2).map((feature, index) => (
-                          <span key={index} className="rounded bg-background/60 px-2 py-1 text-xs">
+                          <span key={index} className="bg-background/60 rounded px-2 py-1 text-xs">
                             {feature}
                           </span>
                         ))}
@@ -317,7 +317,7 @@ export function SanskritLearningHub() {
                     <div className="text-primary">{selectedModule.icon}</div>
                     <div>
                       <CardTitle className="text-xl">{selectedModule.name}</CardTitle>
-                      <p className="text-sm text-muted-foreground">{selectedModule.description}</p>
+                      <p className="text-muted-foreground text-sm">{selectedModule.description}</p>
                     </div>
                   </div>
                   <Button>
@@ -328,19 +328,19 @@ export function SanskritLearningHub() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid gap-4 md:grid-cols-3">
-                  <div className="rounded-lg bg-background/50 p-4 text-center">
-                    <div className="text-2xl font-bold text-primary">{selectedModule.lessons}</div>
-                    <div className="text-sm text-muted-foreground">Lessons</div>
+                  <div className="bg-background/50 rounded-lg p-4 text-center">
+                    <div className="text-primary text-2xl font-bold">{selectedModule.lessons}</div>
+                    <div className="text-muted-foreground text-sm">Lessons</div>
                   </div>
-                  <div className="rounded-lg bg-background/50 p-4 text-center">
-                    <div className="text-lg font-bold text-primary">{selectedModule.duration}</div>
-                    <div className="text-sm text-muted-foreground">Duration</div>
+                  <div className="bg-background/50 rounded-lg p-4 text-center">
+                    <div className="text-primary text-lg font-bold">{selectedModule.duration}</div>
+                    <div className="text-muted-foreground text-sm">Duration</div>
                   </div>
-                  <div className="rounded-lg bg-background/50 p-4 text-center">
-                    <div className="text-lg font-bold text-primary">
+                  <div className="bg-background/50 rounded-lg p-4 text-center">
+                    <div className="text-primary text-lg font-bold">
                       {selectedModule.difficulty}
                     </div>
-                    <div className="text-sm text-muted-foreground">Level</div>
+                    <div className="text-muted-foreground text-sm">Level</div>
                   </div>
                 </div>
 
@@ -401,7 +401,7 @@ export function SanskritLearningHub() {
                       </div>
                     </div>
                     <h3 className="mb-1 text-sm font-semibold">{achievement.name}</h3>
-                    <p className="text-xs text-muted-foreground">{achievement.description}</p>
+                    <p className="text-muted-foreground text-xs">{achievement.description}</p>
                   </div>
                 ))}
               </div>
@@ -417,7 +417,7 @@ export function SanskritLearningHub() {
               <div className="grid gap-4 md:grid-cols-2">
                 <div>
                   <h3 className="mb-2 font-semibold">Study Techniques</h3>
-                  <ul className="space-y-1 text-sm text-muted-foreground">
+                  <ul className="text-muted-foreground space-y-1 text-sm">
                     <li>• Practice daily for consistent progress</li>
                     <li>• Focus on pronunciation from the beginning</li>
                     <li>• Learn roots (dhatu) for vocabulary building</li>
@@ -426,7 +426,7 @@ export function SanskritLearningHub() {
                 </div>
                 <div>
                   <h3 className="mb-2 font-semibold">Common Challenges</h3>
-                  <ul className="space-y-1 text-sm text-muted-foreground">
+                  <ul className="text-muted-foreground space-y-1 text-sm">
                     <li>• Master conjunct consonants early</li>
                     <li>• Pay attention to sandhi rules</li>
                     <li>• Practice verb conjugations systematically</li>

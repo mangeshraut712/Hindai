@@ -175,9 +175,9 @@ export function SanskritToolsStudio() {
             role="tab"
             tabIndex={0}
             className={cn(
-              "group relative flex flex-col items-center gap-3 rounded-2xl border p-6 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+              "group focus-visible:ring-ring relative flex flex-col items-center gap-3 rounded-2xl border p-6 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden",
               activeTool === tool.id
-                ? "border-primary/50 bg-gradient-to-br from-primary/10 to-primary/5 shadow-lg shadow-primary/10"
+                ? "border-primary/50 from-primary/10 to-primary/5 shadow-primary/10 bg-linear-to-br shadow-lg"
                 : "border-border/60 bg-card/75 hover:border-primary/30 hover:bg-secondary/70 hover:shadow-md"
             )}
           >
@@ -196,14 +196,14 @@ export function SanskritToolsStudio() {
                 )}
               />
             </motion.div>
-            <span className="font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
+            <span className="text-foreground group-hover:text-primary font-semibold transition-colors duration-300">
               {tool.label}
             </span>
-            <span className="text-center text-xs text-muted-foreground">{tool.desc}</span>
+            <span className="text-muted-foreground text-center text-xs">{tool.desc}</span>
             {activeTool === tool.id && (
               <motion.div
                 layoutId="activeIndicator"
-                className="absolute -bottom-1 left-1/2 h-0.5 w-8 -translate-x-1/2 rounded-full bg-primary"
+                className="bg-primary absolute -bottom-1 left-1/2 h-0.5 w-8 -translate-x-1/2 rounded-full"
                 initial={false}
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
               />
@@ -222,7 +222,7 @@ export function SanskritToolsStudio() {
           transition={{ duration: 0.3, ease: "easeInOut" }}
           className="surface-panel overflow-hidden"
         >
-          <div className="border-b border-border/60 bg-gradient-to-r from-background/55 to-background/30 px-6 py-4 backdrop-blur-xl">
+          <div className="border-border/60 from-background/55 to-background/30 border-b bg-linear-to-r px-6 py-4 backdrop-blur-xl">
             <div className="flex items-center gap-3">
               <motion.div
                 key={activeTool}
@@ -232,7 +232,7 @@ export function SanskritToolsStudio() {
               >
                 {(() => {
                   const Icon = activeToolData!.icon;
-                  return <Icon className="size-6 text-primary" />;
+                  return <Icon className="text-primary size-6" />;
                 })()}
               </motion.div>
               <div>
@@ -240,7 +240,7 @@ export function SanskritToolsStudio() {
                   key={activeToolData!.label}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="text-xl font-semibold text-foreground"
+                  className="text-foreground text-xl font-semibold"
                 >
                   {activeToolData!.label}
                 </motion.h2>
@@ -249,7 +249,7 @@ export function SanskritToolsStudio() {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 }}
-                  className="text-sm text-muted-foreground"
+                  className="text-muted-foreground text-sm"
                 >
                   {activeToolData!.desc}
                 </motion.p>
@@ -260,13 +260,13 @@ export function SanskritToolsStudio() {
           <div className="space-y-6 p-6">
             {/* Input */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-foreground">Input</label>
+              <label className="text-foreground mb-2 block text-sm font-medium">Input</label>
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 rows={4}
                 placeholder={getPlaceholder()}
-                className="min-h-[120px] w-full resize-none rounded-2xl border border-border/70 bg-background/80 px-4 py-3 font-devanagari text-lg text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
+                className="border-border/70 bg-background/80 font-devanagari text-foreground focus-visible:ring-ring/40 min-h-[120px] w-full resize-none rounded-2xl border px-4 py-3 text-lg outline-hidden focus-visible:ring-2"
               />
             </div>
 
@@ -339,11 +339,11 @@ export function SanskritToolsStudio() {
 
             {/* Output */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-foreground">Output</label>
+              <label className="text-foreground mb-2 block text-sm font-medium">Output</label>
               <motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="min-h-[200px] rounded-2xl border border-border/60 bg-card/75 p-4 transition-all duration-300"
+                className="border-border/60 bg-card/75 min-h-[200px] rounded-2xl border p-4 transition-all duration-300"
               >
                 <AnimatePresence mode="wait">
                   {output ? (
@@ -352,7 +352,7 @@ export function SanskritToolsStudio() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className="whitespace-pre-wrap text-sm text-foreground"
+                      className="text-foreground text-sm whitespace-pre-wrap"
                     >
                       {output}
                     </motion.pre>
@@ -362,7 +362,7 @@ export function SanskritToolsStudio() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="flex h-[200px] items-center justify-center text-muted-foreground"
+                      className="text-muted-foreground flex h-[200px] items-center justify-center"
                     >
                       <div className="text-center">
                         <Sparkles className="mx-auto mb-2 size-8 opacity-50" />
@@ -379,20 +379,20 @@ export function SanskritToolsStudio() {
               key={activeTool}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 p-4"
+              className="border-primary/20 from-primary/5 to-primary/10 rounded-2xl border bg-linear-to-br p-4"
             >
               <div className="flex items-start gap-3">
-                <div className="rounded-full bg-primary/20 p-2">
-                  <BookOpen className="size-4 text-primary" />
+                <div className="bg-primary/20 rounded-full p-2">
+                  <BookOpen className="text-primary size-4" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-primary">Traditional Context</h3>
+                  <h3 className="text-primary font-semibold">Traditional Context</h3>
                   <motion.p
                     key={activeTool}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.1 }}
-                    className="mt-2 text-sm leading-relaxed text-muted-foreground"
+                    className="text-muted-foreground mt-2 text-sm leading-relaxed"
                   >
                     {activeTool === "transliterate" &&
                       "Transliteration systems like IAST (International Alphabet of Sanskrit Transliteration) are essential for academic Sanskrit studies worldwide. IAST uses diacritics to represent Sanskrit sounds accurately in Roman script."}

@@ -267,7 +267,7 @@ export function SanskritNovaStudio() {
             {tab.label}
           </Button>
         ))}
-        <div className="ml-auto flex rounded-full border border-border/70 bg-background/70 p-1">
+        <div className="border-border/70 bg-background/70 ml-auto flex rounded-full border p-1">
           {(["en", "hi"] as const).map((item) => (
             <button
               key={item}
@@ -288,14 +288,14 @@ export function SanskritNovaStudio() {
 
       {activeTab === "tutor" ? (
         <section className="surface-panel grid min-h-[680px] overflow-hidden lg:grid-cols-[360px_minmax(0,1fr)]">
-          <aside className="border-b border-border/60 bg-background/55 p-6 backdrop-blur-xl lg:border-b-0 lg:border-r">
+          <aside className="border-border/60 bg-background/55 border-b p-6 backdrop-blur-xl lg:border-r lg:border-b-0">
             <p className="eyebrow">SanskritNova merged</p>
-            <h2 className="mt-5 font-serif text-4xl font-semibold tracking-[-0.03em] text-foreground">
+            <h2 className="text-foreground mt-5 font-serif text-4xl font-semibold tracking-[-0.03em]">
               {language === "hi"
                 ? "HindAI Gemma 4 पर संस्कृत ट्यूटर।"
                 : "Sanskrit tutor on HindAI Gemma 4."}
             </h2>
-            <p className="mt-4 text-sm leading-7 text-muted-foreground">
+            <p className="text-muted-foreground mt-4 text-sm leading-7">
               {language === "hi"
                 ? "SanskritNova के ट्यूटर मोड अब HindAI के Gemma 4 सेवा से चलते हैं, इसलिए अलग OpenRouter या Python API की जरूरत नहीं है।"
                 : "The old SanskritNova tutor modes now run inside HindAI through the existing Gemma 4 service, so there is no separate OpenRouter or Python API to maintain."}
@@ -326,11 +326,11 @@ export function SanskritNovaStudio() {
           </aside>
 
           <div className="flex min-h-[680px] flex-col">
-            <div className="border-b border-border/60 bg-background/55 px-6 py-4 backdrop-blur-xl">
-              <p className="text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground">
+            <div className="border-border/60 bg-background/55 border-b px-6 py-4 backdrop-blur-xl">
+              <p className="text-muted-foreground text-xs font-medium tracking-[0.24em] uppercase">
                 Active mode
               </p>
-              <p className="mt-1 text-lg font-semibold text-foreground">
+              <p className="text-foreground mt-1 text-lg font-semibold">
                 {language === "hi" ? activeMode.labelHi : activeMode.label}
               </p>
             </div>
@@ -343,7 +343,7 @@ export function SanskritNovaStudio() {
                       key={suggestion}
                       type="button"
                       onClick={() => setInput(suggestion)}
-                      className="rounded-[24px] border border-border/60 bg-card/75 p-5 text-left text-sm leading-7 text-muted-foreground transition-colors hover:bg-secondary/70"
+                      className="border-border/60 bg-card/75 text-muted-foreground hover:bg-secondary/70 rounded-[24px] border p-5 text-left text-sm leading-7 transition-colors"
                     >
                       {suggestion}
                     </button>
@@ -363,12 +363,12 @@ export function SanskritNovaStudio() {
                         "max-w-[86%] rounded-[24px] px-4 py-3 text-sm leading-7 shadow-[0_18px_48px_-36px_rgba(15,23,42,0.4)]",
                         message.role === "learner"
                           ? "bg-primary text-primary-foreground"
-                          : "border border-border/60 bg-card/80 text-foreground"
+                          : "border-border/60 bg-card/80 text-foreground border"
                       )}
                     >
                       <div className="whitespace-pre-wrap">{message.content}</div>
                       {message.role === "gemma" && (message.model || message.transliteration) ? (
-                        <div className="mt-3 flex flex-wrap gap-2 border-t border-border/50 pt-3 text-[11px] text-muted-foreground">
+                        <div className="border-border/50 text-muted-foreground mt-3 flex flex-wrap gap-2 border-t pt-3 text-[11px]">
                           {message.model ? <span>Model: {message.model}</span> : null}
                           {message.transliteration ? (
                             <span>IAST: {message.transliteration}</span>
@@ -381,7 +381,7 @@ export function SanskritNovaStudio() {
               )}
 
               {isLoading ? (
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <div className="text-muted-foreground flex items-center gap-2 text-sm">
                   <Loader2 className="size-4 animate-spin" />
                   {language === "hi"
                     ? "Gemma 4 संस्कृत उत्तर तैयार कर रहा है..."
@@ -390,7 +390,7 @@ export function SanskritNovaStudio() {
               ) : null}
             </div>
 
-            <div className="border-t border-border/60 bg-background/55 p-4 backdrop-blur-xl">
+            <div className="border-border/60 bg-background/55 border-t p-4 backdrop-blur-xl">
               <div className="flex gap-2">
                 <textarea
                   value={input}
@@ -402,7 +402,7 @@ export function SanskritNovaStudio() {
                       ? "संस्कृत व्याख्या, अनुवाद, व्याकरण, या अध्ययन योजना पूछें..."
                       : "Ask for Sanskrit explanation, translation, grammar, or a learning plan..."
                   }
-                  className="min-h-[96px] flex-1 resize-none rounded-[24px] border border-border/70 bg-background/80 px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring/40"
+                  className="border-border/70 bg-background/80 text-foreground placeholder:text-muted-foreground focus-visible:ring-ring/40 min-h-[96px] flex-1 resize-none rounded-[24px] border px-4 py-3 text-sm outline-hidden transition-colors focus-visible:ring-2"
                 />
                 <Button
                   variant="premium"
@@ -425,14 +425,14 @@ export function SanskritNovaStudio() {
 
       {activeTab === "transliterate" ? (
         <section className="surface-panel grid gap-0 overflow-hidden lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="border-b border-border/60 p-6 lg:border-b-0 lg:border-r">
+          <div className="border-border/60 border-b p-6 lg:border-r lg:border-b-0">
             <p className="eyebrow">Devanagari to IAST</p>
-            <h2 className="mt-5 font-serif text-4xl font-semibold tracking-[-0.03em] text-foreground">
+            <h2 className="text-foreground mt-5 font-serif text-4xl font-semibold tracking-[-0.03em]">
               {language === "hi"
                 ? "SanskritNova से तेज़ लिप्यंतरण।"
                 : "Fast transliteration from SanskritNova."}
             </h2>
-            <p className="mt-4 text-sm leading-7 text-muted-foreground">
+            <p className="text-muted-foreground mt-4 text-sm leading-7">
               {language === "hi"
                 ? "श्लोक, मंत्र, और छोटे अभ्यास वाक्यों के लिए SanskritNova का त्वरित रूपांतरण अब HindAI में है।"
                 : "This keeps SanskritNova's quick conversion workflow inside HindAI for verses, mantras, and short study phrases."}
@@ -444,7 +444,7 @@ export function SanskritNovaStudio() {
               value={transliterationInput}
               onChange={(event) => setTransliterationInput(event.target.value)}
               rows={5}
-              className="min-h-[150px] w-full resize-none rounded-[24px] border border-border/70 bg-background/80 px-4 py-3 font-devanagari text-lg text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
+              className="border-border/70 bg-background/80 font-devanagari text-foreground focus-visible:ring-ring/40 min-h-[150px] w-full resize-none rounded-[24px] border px-4 py-3 text-lg outline-hidden focus-visible:ring-2"
             />
             <div className="flex flex-wrap gap-2">
               <Button
@@ -485,16 +485,16 @@ export function SanskritNovaStudio() {
               </Button>
             </div>
 
-            <div className="min-h-[140px] rounded-[24px] border border-border/60 bg-card/75 p-5">
-              <p className="text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground">
+            <div className="border-border/60 bg-card/75 min-h-[140px] rounded-[24px] border p-5">
+              <p className="text-muted-foreground text-xs font-medium tracking-[0.24em] uppercase">
                 IAST output
               </p>
-              <p className="mt-3 break-words text-lg leading-8 text-foreground">
+              <p className="text-foreground mt-3 text-lg leading-8 wrap-break-word">
                 {transliterationResult || "Press transliterate to convert the text."}
               </p>
             </div>
-            <div className="rounded-[24px] border border-border/60 bg-background/70 p-5">
-              <p className="text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground">
+            <div className="border-border/60 bg-background/70 rounded-[24px] border p-5">
+              <p className="text-muted-foreground text-xs font-medium tracking-[0.24em] uppercase">
                 Recent examples
               </p>
               <div className="mt-3 grid gap-2">
@@ -512,12 +512,12 @@ export function SanskritNovaStudio() {
                       setTransliterationInput(item.input);
                       setTransliterationResult(item.output);
                     }}
-                    className="rounded-[16px] border border-border/60 bg-card/70 px-4 py-3 text-left transition-colors hover:bg-secondary/70"
+                    className="border-border/60 bg-card/70 hover:bg-secondary/70 rounded-[16px] border px-4 py-3 text-left transition-colors"
                   >
-                    <span className="block font-devanagari text-sm text-foreground">
+                    <span className="font-devanagari text-foreground block text-sm">
                       {item.input}
                     </span>
-                    <span className="mt-1 block text-sm text-muted-foreground">{item.output}</span>
+                    <span className="text-muted-foreground mt-1 block text-sm">{item.output}</span>
                   </button>
                 ))}
               </div>
@@ -531,24 +531,24 @@ export function SanskritNovaStudio() {
           {displayedTracks.map((track) => (
             <article key={track.slug} className="surface-panel p-6">
               <div className="relative z-10">
-                <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <div className="bg-primary/10 text-primary flex size-11 items-center justify-center rounded-full">
                   <BookOpen className="size-5" />
                 </div>
-                <p className="mt-5 text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground">
+                <p className="text-muted-foreground mt-5 text-xs font-medium tracking-[0.24em] uppercase">
                   {track.displayLevel} · {track.displayDuration}
                 </p>
-                <h2 className="mt-3 text-2xl font-semibold text-foreground">
+                <h2 className="text-foreground mt-3 text-2xl font-semibold">
                   {track.displayTitle}
                 </h2>
-                <p className="mt-1 font-devanagari text-base text-muted-foreground">
+                <p className="font-devanagari text-muted-foreground mt-1 text-base">
                   {track.titleHi}
                 </p>
-                <p className="mt-4 text-sm leading-7 text-muted-foreground">{track.displayFocus}</p>
-                <div className="mt-5 rounded-[20px] border border-border/60 bg-background/70 p-4">
-                  <p className="text-sm font-semibold text-foreground">
+                <p className="text-muted-foreground mt-4 text-sm leading-7">{track.displayFocus}</p>
+                <div className="border-border/60 bg-background/70 mt-5 rounded-[20px] border p-4">
+                  <p className="text-foreground text-sm font-semibold">
                     {language === "hi" ? "अभ्यास क्रम" : "Practice loop"}
                   </p>
-                  <ul className="mt-3 space-y-2 text-sm leading-6 text-muted-foreground">
+                  <ul className="text-muted-foreground mt-3 space-y-2 text-sm leading-6">
                     {track.displayPlan.map((step) => (
                       <li key={step}>{step}</li>
                     ))}

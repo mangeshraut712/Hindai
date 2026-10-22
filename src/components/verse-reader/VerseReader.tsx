@@ -98,11 +98,11 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
           ← Previous
         </Button>
         <div className="text-center">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             Chapter {normalizedVerse.chapter}, Verse {normalizedVerse.verse_num}
           </p>
           {normalizedVerse.pada && (
-            <p className="text-xs text-muted-foreground">Pāda {normalizedVerse.pada}</p>
+            <p className="text-muted-foreground text-xs">Pāda {normalizedVerse.pada}</p>
           )}
         </div>
         <Button variant="outline" onClick={onNext} disabled={!onNext}>
@@ -112,7 +112,7 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
 
       {/* Audio Player */}
       {normalizedVerse.audio && normalizedVerse.audio.length > 0 && (
-        <div className="mb-6 rounded-lg border border-border/60 bg-background/75 p-4">
+        <div className="border-border/60 bg-background/75 mb-6 rounded-lg border p-4">
           <div className="flex flex-wrap items-center gap-4">
             <Button onClick={togglePlay} variant={isPlaying ? "secondary" : "default"}>
               {isPlaying ? "⏸ Pause" : "▶ Play"}
@@ -130,7 +130,7 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
               ))}
             </div>
             {normalizedVerse.audio.some((a) => a.vedic_accents) && (
-              <span className="rounded bg-primary/10 px-2 py-1 text-xs text-primary">
+              <span className="bg-primary/10 text-primary rounded px-2 py-1 text-xs">
                 Vedic Accents
               </span>
             )}
@@ -145,7 +145,7 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
       )}
 
       {/* Tab Navigation */}
-      <div className="mb-6 flex border-b border-border/60">
+      <div className="border-border/60 mb-6 flex border-b">
         {tabs.map((tab) => (
           <button
             type="button"
@@ -153,7 +153,7 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-3 font-medium transition-colors ${
               activeTab === tab.id
-                ? "border-b-2 border-primary text-primary"
+                ? "border-primary text-primary border-b-2"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
@@ -166,13 +166,13 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
       <div className="min-h-[300px]">
         {activeTab === "sanskrit" && (
           <div className="space-y-6">
-            <div className="rounded-lg border border-amber-200/40 bg-gradient-to-br from-amber-50/60 via-orange-50/40 to-rose-50/30 p-6 text-center dark:border-amber-800/20 dark:from-amber-950/25 dark:via-orange-950/15 dark:to-rose-950/10">
-              <p className="font-devanagari text-2xl leading-relaxed text-foreground drop-shadow-sm">
+            <div className="rounded-lg border border-amber-200/40 bg-linear-to-br from-amber-50/60 via-orange-50/40 to-rose-50/30 p-6 text-center dark:border-amber-800/20 dark:from-amber-950/25 dark:via-orange-950/15 dark:to-rose-950/10">
+              <p className="font-devanagari text-foreground text-2xl leading-relaxed drop-shadow-xs">
                 {normalizedVerse.sanskrit}
               </p>
             </div>
-            <div className="rounded-lg border border-border/60 bg-background/75 p-4 text-center">
-              <p className="text-lg text-muted-foreground">{normalizedVerse.transliteration}</p>
+            <div className="border-border/60 bg-background/75 rounded-lg border p-4 text-center">
+              <p className="text-muted-foreground text-lg">{normalizedVerse.transliteration}</p>
             </div>
           </div>
         )}
@@ -182,9 +182,9 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
             {normalizedVerse.wordByWord?.map((word: any, index: number) => (
               <div
                 key={index}
-                className="flex items-center gap-4 rounded-lg border border-border/60 bg-background/75 p-4 transition-colors hover:bg-background/90"
+                className="border-border/60 bg-background/75 hover:bg-background/90 flex items-center gap-4 rounded-lg border p-4 transition-colors"
               >
-                <span className="text-lg font-bold text-primary">{index + 1}.</span>
+                <span className="text-primary text-lg font-bold">{index + 1}.</span>
                 <div className="flex-1">
                   <div className="flex items-center gap-4">
                     <span className="font-devanagari text-xl">
@@ -192,11 +192,11 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
                     </span>
                     <span className="text-muted-foreground">{word.iast || word.word_iast}</span>
                   </div>
-                  <div className="mt-1 text-sm text-muted-foreground">
+                  <div className="text-muted-foreground mt-1 text-sm">
                     {word.meaning || word.meaning_en}
                   </div>
                 </div>
-                <span className="font-medium text-primary">{word.meaning || word.meaning_en}</span>
+                <span className="text-primary font-medium">{word.meaning || word.meaning_en}</span>
               </div>
             ))}
           </div>
@@ -204,13 +204,13 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
 
         {activeTab === "anvaya" && (
           <div className="space-y-4">
-            <div className="rounded-lg border border-border/60 bg-background/75 p-6">
-              <h3 className="mb-3 font-semibold text-primary">Prose Word Order (Anvaya)</h3>
+            <div className="border-border/60 bg-background/75 rounded-lg border p-6">
+              <h3 className="text-primary mb-3 font-semibold">Prose Word Order (Anvaya)</h3>
               <p className="text-lg leading-relaxed">
                 {normalizedVerse.anvaya || "Anvaya analysis not available"}
               </p>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               The Anvaya layer shows the prose word order, which helps understand how Sanskrit
               poetry inverts word order for meter and emphasis.
             </p>
@@ -219,19 +219,19 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
 
         {activeTab === "translation" && (
           <div className="space-y-4">
-            <div className="rounded-lg border border-border/60 bg-background/75 p-6">
-              <h3 className="mb-3 font-semibold text-primary">Stored meanings · उपलब्ध अर्थ</h3>
+            <div className="border-border/60 bg-background/75 rounded-lg border p-6">
+              <h3 className="text-primary mb-3 font-semibold">Stored meanings · उपलब्ध अर्थ</h3>
               {(["mr", "hi", "en"] as const).map((lang) =>
                 normalizedVerse.translations[lang] ? (
                   <div key={lang} className="mb-4 last:mb-0">
-                    <p className="text-xs font-bold uppercase tracking-widest text-primary">
+                    <p className="text-primary text-xs font-bold tracking-widest uppercase">
                       {lang === "mr" ? "मराठी" : lang === "hi" ? "हिन्दी" : "English"}
                     </p>
                     <p
                       className={
                         lang === "en"
                           ? "mt-1 text-lg leading-relaxed"
-                          : "mt-1 font-devanagari text-lg leading-relaxed"
+                          : "font-devanagari mt-1 text-lg leading-relaxed"
                       }
                     >
                       {normalizedVerse.translations[lang]}
@@ -245,7 +245,7 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
                 </p>
               ) : null}
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               These are study meanings stored with this verse. The original text remains on the
               first tab.
             </p>
@@ -254,13 +254,13 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
 
         {activeTab === "commentary" && (
           <div className="space-y-4">
-            <div className="rounded-lg border border-border/60 bg-background/75 p-6">
-              <h3 className="mb-3 font-semibold text-primary">Commentary</h3>
+            <div className="border-border/60 bg-background/75 rounded-lg border p-6">
+              <h3 className="text-primary mb-3 font-semibold">Commentary</h3>
               <p className="text-lg leading-relaxed">
                 {normalizedVerse.commentary || "Commentary not available"}
               </p>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Traditional commentary provides deeper insights and explanations from ancient
               scholars.
             </p>
@@ -269,7 +269,7 @@ export default function VerseReader({ verse, onNext, onPrevious }: VerseReaderPr
       </div>
 
       {/* Footer actions */}
-      <div className="mt-8 flex items-center justify-between border-t border-border/60 pt-6">
+      <div className="border-border/60 mt-8 flex items-center justify-between border-t pt-6">
         <Button variant="ghost" size="sm">
           📝 Add Notes
         </Button>

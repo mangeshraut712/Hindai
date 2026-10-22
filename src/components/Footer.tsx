@@ -54,7 +54,7 @@ function footerColumns(): FooterColumn[] {
 function FooterLinkColumn({ title, links }: Omit<FooterColumn, "id">) {
   return (
     <div className="min-w-0">
-      <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+      <h3 className="text-muted-foreground text-[11px] font-semibold tracking-[0.16em] uppercase">
         {title}
       </h3>
       <ul className="mt-2 list-none space-y-1 p-0">
@@ -62,7 +62,7 @@ function FooterLinkColumn({ title, links }: Omit<FooterColumn, "id">) {
           <li key={link.href}>
             <Link
               href={link.href}
-              className="text-sm leading-5 text-muted-foreground transition-colors hover:text-primary focus:outline-none focus-visible:text-primary"
+              className="text-muted-foreground hover:text-primary focus-visible:text-primary text-sm leading-5 transition-colors focus:outline-hidden"
             >
               {link.label}
             </Link>
@@ -77,17 +77,17 @@ export function Footer() {
   const columns = footerColumns();
 
   return (
-    <footer className="relative overflow-hidden border-t border-border bg-background text-foreground">
+    <footer className="border-border bg-background text-foreground relative overflow-hidden border-t">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,hsl(var(--primary)/0.1),transparent_32%),radial-gradient(circle_at_80%_0%,hsl(var(--accent)/0.08),transparent_34%)]" />
       <div className="relative mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-9 lg:px-8">
         <div className="max-w-2xl">
-          <p className="font-devanagari text-sm tracking-[0.28em] text-primary">
+          <p className="font-devanagari text-primary text-sm tracking-[0.28em]">
             सत्यमेव जयते · नमस्ते · ॐ
           </p>
-          <h2 className="mt-2.5 font-serif text-2xl font-semibold tracking-[-0.025em] text-foreground sm:text-3xl">
+          <h2 className="text-foreground mt-2.5 font-serif text-2xl font-semibold tracking-tight sm:text-3xl">
             Know where to go
           </h2>
-          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+          <p className="text-muted-foreground mt-2 text-sm leading-6">
             Library for texts, Places for tirthas, Practice for daily rites, Ask AI for questions,
             Learn for Sanskrit and paths.
           </p>
@@ -98,10 +98,10 @@ export function Footer() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-xl border border-border bg-card px-3 py-2.5 transition-colors hover:border-primary/40 hover:bg-primary/5"
+              className="border-border bg-card hover:border-primary/40 hover:bg-primary/5 rounded-xl border px-3 py-2.5 transition-colors"
             >
-              <p className="text-sm font-semibold text-foreground">{item.label}</p>
-              <p className="mt-0.5 text-xs leading-5 text-muted-foreground">{item.hint}</p>
+              <p className="text-foreground text-sm font-semibold">{item.label}</p>
+              <p className="text-muted-foreground mt-0.5 text-xs leading-5">{item.hint}</p>
             </Link>
           ))}
         </div>
@@ -116,8 +116,8 @@ export function Footer() {
         </nav>
       </div>
 
-      <div className="border-t border-border">
-        <div className="mx-auto flex max-w-7xl justify-center px-4 py-3.5 text-center text-xs text-muted-foreground sm:px-6 lg:px-8">
+      <div className="border-border border-t">
+        <div className="text-muted-foreground mx-auto flex max-w-7xl justify-center px-4 py-3.5 text-center text-xs sm:px-6 lg:px-8">
           <p>
             © <span suppressHydrationWarning>{new Date().getFullYear()}</span> Hind AI. Designed for
             reflection, reading, and inquiry.

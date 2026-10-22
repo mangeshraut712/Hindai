@@ -26,18 +26,18 @@ export function ScriptureSearch() {
     <div className="space-y-6">
       {/* Search Header */}
       <div className="space-y-4 text-center">
-        <div className="flex items-center justify-center gap-2 text-primary">
+        <div className="text-primary flex items-center justify-center gap-2">
           <Search className="size-6" />
           <h2 className="text-2xl font-semibold">Scripture Search</h2>
         </div>
-        <p className="mx-auto max-w-2xl text-muted-foreground">
+        <p className="text-muted-foreground mx-auto max-w-2xl">
           Discover ancient wisdom across Vedas, Epics, Upanishads, and more.
         </p>
       </div>
 
       {/* Search Input */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 transform text-muted-foreground" />
+        <Search className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2 transform" />
         <Input
           placeholder="Search scriptures by name or concepts..."
           value={query}
@@ -49,7 +49,7 @@ export function ScriptureSearch() {
       {/* Results */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             {filteredScriptures.length} scripture{filteredScriptures.length !== 1 ? "s" : ""} found
           </p>
         </div>
@@ -57,28 +57,28 @@ export function ScriptureSearch() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {filteredScriptures.map((scripture) => (
             <Link key={scripture.slug} href={`/${scripture.slug}`} className="group block">
-              <div className="surface-panel h-full p-6 transition-all duration-200 group-hover:border-primary/30">
+              <div className="surface-panel group-hover:border-primary/30 h-full p-6 transition-all duration-200">
                 <div className="space-y-3">
                   <div className="flex items-start justify-between">
                     <div className="space-y-1">
-                      <h3 className="text-lg font-semibold transition-colors group-hover:text-primary">
+                      <h3 className="group-hover:text-primary text-lg font-semibold transition-colors">
                         {scripture.name}
                       </h3>
-                      <p className="font-devanagari text-sm text-primary">{scripture.sanskrit}</p>
+                      <p className="font-devanagari text-primary text-sm">{scripture.sanskrit}</p>
                     </div>
-                    <Book className="size-5 text-muted-foreground transition-colors group-hover:text-primary" />
+                    <Book className="text-muted-foreground group-hover:text-primary size-5 transition-colors" />
                   </div>
 
-                  <p className="line-clamp-2 text-sm text-muted-foreground">
+                  <p className="text-muted-foreground line-clamp-2 text-sm">
                     {scripture.description}
                   </p>
 
                   <div className="flex flex-wrap gap-2">
-                    <span className="rounded-full bg-secondary px-2 py-1 text-xs text-secondary-foreground">
+                    <span className="bg-secondary text-secondary-foreground rounded-full px-2 py-1 text-xs">
                       {scripture.category}
                     </span>
                     {scripture.language && (
-                      <span className="flex items-center gap-1 rounded-full border border-border px-2 py-1 text-xs">
+                      <span className="border-border flex items-center gap-1 rounded-full border px-2 py-1 text-xs">
                         <Languages className="size-3" />
                         {scripture.language}
                       </span>
@@ -86,19 +86,19 @@ export function ScriptureSearch() {
                   </div>
 
                   {scripture.keyConcepts && scripture.keyConcepts.length > 0 && (
-                    <div className="border-t border-border/50 pt-2">
-                      <p className="mb-2 text-xs text-muted-foreground">Key concepts:</p>
+                    <div className="border-border/50 border-t pt-2">
+                      <p className="text-muted-foreground mb-2 text-xs">Key concepts:</p>
                       <div className="flex flex-wrap gap-1">
                         {scripture.keyConcepts.slice(0, 3).map((concept) => (
                           <span
                             key={concept}
-                            className="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary"
+                            className="bg-primary/10 text-primary rounded-full px-2 py-1 text-xs"
                           >
                             {concept}
                           </span>
                         ))}
                         {scripture.keyConcepts.length > 3 && (
-                          <span className="text-xs text-muted-foreground">
+                          <span className="text-muted-foreground text-xs">
                             +{scripture.keyConcepts.length - 3} more
                           </span>
                         )}
@@ -113,13 +113,13 @@ export function ScriptureSearch() {
 
         {filteredScriptures.length === 0 && query && (
           <div className="py-12 text-center">
-            <Search className="mx-auto mb-4 size-12 text-muted-foreground" />
+            <Search className="text-muted-foreground mx-auto mb-4 size-12" />
             <h3 className="mb-2 text-lg font-medium">No scriptures found</h3>
-            <p className="mb-4 text-muted-foreground">Try different search terms</p>
+            <p className="text-muted-foreground mb-4">Try different search terms</p>
             <button
               type="button"
               onClick={() => setQuery("")}
-              className="rounded-md border border-border bg-background px-4 py-2 text-sm hover:bg-accent"
+              className="border-border bg-background hover:bg-accent rounded-md border px-4 py-2 text-sm"
             >
               Clear search
             </button>

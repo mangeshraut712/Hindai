@@ -29,10 +29,10 @@ export function ProgressiveImage({
   const [error, setError] = useState(false);
 
   return (
-    <div className={cn("relative overflow-hidden bg-muted", className)}>
-      {isLoading && !error && <div className="absolute inset-0 animate-pulse bg-muted" />}
+    <div className={cn("bg-muted relative overflow-hidden", className)}>
+      {isLoading && !error && <div className="bg-muted absolute inset-0 animate-pulse" />}
       {error ? (
-        <div className="flex items-center justify-center bg-muted text-muted-foreground">
+        <div className="bg-muted text-muted-foreground flex items-center justify-center">
           <span className="text-sm">Failed to load image</span>
         </div>
       ) : (

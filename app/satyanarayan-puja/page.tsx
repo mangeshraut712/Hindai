@@ -78,11 +78,11 @@ export default function SatyanarayanPujaPage() {
       >
         <section className="relative overflow-hidden bg-[#381b15] px-5 py-16 text-amber-50 sm:px-8 sm:py-20">
           <div
-            className="pointer-events-none absolute -right-24 -top-48 size-[460px] rounded-full border border-amber-200/10"
+            className="pointer-events-none absolute -top-48 -right-24 size-[460px] rounded-full border border-amber-200/10"
             aria-hidden="true"
           />
           <div
-            className="pointer-events-none absolute -right-12 -top-36 size-[360px] rounded-full border border-amber-200/10"
+            className="pointer-events-none absolute -top-36 -right-12 size-[360px] rounded-full border border-amber-200/10"
             aria-hidden="true"
           />
           <div className="mx-auto max-w-5xl">
@@ -92,13 +92,13 @@ export default function SatyanarayanPujaPage() {
             >
               ← गणेशोत्सव मार्गदर्शक
             </Link>
-            <p className="mt-11 text-xs font-bold uppercase tracking-[0.22em] text-amber-300">
+            <p className="mt-11 text-xs font-bold tracking-[0.22em] text-amber-300 uppercase">
               घरच्या पूजेसाठी · Five chapter reading
             </p>
-            <h1 className="mt-4 max-w-4xl font-devanagari text-5xl font-semibold leading-tight sm:text-6xl">
+            <h1 className="font-devanagari mt-4 max-w-4xl text-5xl leading-tight font-semibold sm:text-6xl">
               श्री सत्यनारायण व्रतकथा
             </h1>
-            <p className="mt-5 max-w-3xl font-devanagari text-lg leading-9 text-amber-50/85">
+            <p className="font-devanagari mt-5 max-w-3xl text-lg leading-9 text-amber-50/85">
               मराठी, हिंदी आणि English पुस्तकांतील पाचही अध्याय, तसेच संस्कृत पाठ. वाचताना एकावेळी
               एकच अध्याय दिसेल; मूळ छापील पानेही येथे पाहता येतील.
             </p>
@@ -132,13 +132,13 @@ export default function SatyanarayanPujaPage() {
 
           <section
             id="aarti"
-            className="mt-16 scroll-mt-20 rounded-[28px] border border-amber-900/15 bg-[#fffdf8] p-6 dark:bg-stone-900 sm:p-9"
+            className="mt-16 scroll-mt-20 rounded-[28px] border border-amber-900/15 bg-[#fffdf8] p-6 sm:p-9 dark:bg-stone-900"
           >
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-800 dark:text-amber-300">
+            <p className="text-xs font-bold tracking-[0.2em] text-amber-800 uppercase dark:text-amber-300">
               कथेनंतर · After the reading
             </p>
-            <h2 className="mt-3 font-devanagari text-3xl font-semibold">सत्यनारायणाची आरती</h2>
-            <p className="mt-4 max-w-3xl font-devanagari leading-8 text-stone-700 dark:text-stone-300">
+            <h2 className="font-devanagari mt-3 text-3xl font-semibold">सत्यनारायणाची आरती</h2>
+            <p className="font-devanagari mt-4 max-w-3xl leading-8 text-stone-700 dark:text-stone-300">
               तुमच्या घरच्या परंपरेनुसार आरती करा आणि प्रसाद वाटा. दिलेल्या मराठी व हिंदी पुस्तकांत
               आरतीचे शब्द वेगळे आहेत; दोन्ही आवृत्त्यांची छापील पाने खाली दिली आहेत.
             </p>
@@ -148,10 +148,10 @@ export default function SatyanarayanPujaPage() {
                   key={language}
                   className="min-w-0 rounded-2xl border border-amber-900/15 p-5"
                 >
-                  <summary className="cursor-pointer font-devanagari text-xl font-semibold">
+                  <summary className="font-devanagari cursor-pointer text-xl font-semibold">
                     {language === "marathi" ? "मराठी आरती" : "हिन्दी आरती"}
                   </summary>
-                  <p className="mt-4 whitespace-pre-line font-devanagari text-lg leading-9">
+                  <p className="font-devanagari mt-4 text-lg leading-9 whitespace-pre-line">
                     {editions.aarti[language]}
                   </p>
                   <a
@@ -173,13 +173,13 @@ export default function SatyanarayanPujaPage() {
             id="puja-guide"
             className="mt-20 scroll-mt-20 border-t border-amber-900/15 pt-14"
           >
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-800 dark:text-amber-300">
+            <p className="text-xs font-bold tracking-[0.2em] text-amber-800 uppercase dark:text-amber-300">
               घरची पूजा · Household guide
             </p>
-            <h2 className="mt-3 font-devanagari text-3xl font-semibold sm:text-4xl">
+            <h2 className="font-devanagari mt-3 text-3xl font-semibold sm:text-4xl">
               कथा वाचण्यापूर्वी
             </h2>
-            <p className="mt-5 max-w-3xl font-devanagari text-base leading-8 text-stone-700 dark:text-stone-300">
+            <p className="font-devanagari mt-5 max-w-3xl text-base leading-8 text-stone-700 dark:text-stone-300">
               पूजेची जागा स्वच्छ करा. दिवा, पाणी, फुले, फळे आणि नैवेद्य किंवा शिरा तयार ठेवा. कलश,
               तुळस, पंचामृत यांसारख्या गोष्टी घरच्या परंपरेनुसार वापरा. सगळ्यांना कथा ऐकता येईल अशी
               बसण्याची सोय करा.
@@ -187,7 +187,7 @@ export default function SatyanarayanPujaPage() {
             <ol className="mt-8 grid list-none gap-4 p-0 sm:grid-cols-2">
               <li className="rounded-2xl border border-amber-900/10 bg-white p-6 dark:bg-stone-900">
                 <span className="text-xs font-bold text-amber-800 dark:text-amber-300">०१</span>
-                <h3 className="mt-2 font-devanagari text-xl font-semibold">
+                <h3 className="font-devanagari mt-2 text-xl font-semibold">
                   संकल्प आणि गणपती पूजन
                 </h3>
                 <p className="mt-2 text-sm leading-7 text-stone-600 dark:text-stone-300">
@@ -196,21 +196,21 @@ export default function SatyanarayanPujaPage() {
               </li>
               <li className="rounded-2xl border border-amber-900/10 bg-white p-6 dark:bg-stone-900">
                 <span className="text-xs font-bold text-amber-800 dark:text-amber-300">०२</span>
-                <h3 className="mt-2 font-devanagari text-xl font-semibold">सत्यनारायण पूजन</h3>
+                <h3 className="font-devanagari mt-2 text-xl font-semibold">सत्यनारायण पूजन</h3>
                 <p className="mt-2 text-sm leading-7 text-stone-600 dark:text-stone-300">
                   Offer water, flowers, tulsi where customary, and food.
                 </p>
               </li>
               <li className="rounded-2xl border border-amber-900/10 bg-white p-6 dark:bg-stone-900">
                 <span className="text-xs font-bold text-amber-800 dark:text-amber-300">०३</span>
-                <h3 className="mt-2 font-devanagari text-xl font-semibold">पाचही अध्याय वाचा</h3>
+                <h3 className="font-devanagari mt-2 text-xl font-semibold">पाचही अध्याय वाचा</h3>
                 <p className="mt-2 text-sm leading-7 text-stone-600 dark:text-stone-300">
                   Read the katha in order, allowing everyone to hear it.
                 </p>
               </li>
               <li className="rounded-2xl border border-amber-900/10 bg-white p-6 dark:bg-stone-900">
                 <span className="text-xs font-bold text-amber-800 dark:text-amber-300">०४</span>
-                <h3 className="mt-2 font-devanagari text-xl font-semibold">आरती आणि प्रसाद</h3>
+                <h3 className="font-devanagari mt-2 text-xl font-semibold">आरती आणि प्रसाद</h3>
                 <p className="mt-2 text-sm leading-7 text-stone-600 dark:text-stone-300">
                   Conclude with aarti and share the offered food.
                 </p>

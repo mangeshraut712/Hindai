@@ -15,7 +15,7 @@ export default function AudioPage() {
       <Header />
 
       <main id="main-content" className="flex-1">
-        <section className="hero-mesh relative overflow-hidden border-b border-border/60">
+        <section className="hero-mesh border-border/60 relative overflow-hidden border-b">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
