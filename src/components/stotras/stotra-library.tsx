@@ -188,7 +188,7 @@ export function StotraLibrary() {
                 <CardTitle>Devotional Literature Collection</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="mb-6 text-muted-foreground">
+                <p className="text-muted-foreground mb-6">
                   Stotras are sacred hymns of praise, mantras are potent sound formulas, and
                   sahasranamas are thousand-name litanies that systematically enumerate divine
                   qualities. These texts form the core of Hindu devotional practice, used for
@@ -210,11 +210,11 @@ export function StotraLibrary() {
                     >
                       <Card
                         className={`transition-all hover:shadow-lg ${
-                          selectedStotra?.id === stotra.id ? "shadow-md ring-2 ring-primary" : ""
+                          selectedStotra?.id === stotra.id ? "ring-primary shadow-md ring-2" : ""
                         }`}
                       >
                         <div
-                          className="cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                          className="focus-visible:ring-ring cursor-pointer focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden"
                           onClick={() => {
                             triggerHapticOnPress();
                             setSelectedStotra(stotra);
@@ -241,7 +241,7 @@ export function StotraLibrary() {
                                   <CardTitle className="text-base sm:text-lg">
                                     {stotra.name}
                                   </CardTitle>
-                                  <p className="font-devanagari text-sm text-primary sm:text-base">
+                                  <p className="font-devanagari text-primary text-sm sm:text-base">
                                     {stotra.sanskrit}
                                   </p>
                                 </div>
@@ -249,11 +249,11 @@ export function StotraLibrary() {
                             </div>
                           </CardHeader>
                           <CardContent>
-                            <p className="mb-3 line-clamp-2 text-xs text-muted-foreground sm:text-sm">
+                            <p className="text-muted-foreground mb-3 line-clamp-2 text-xs sm:text-sm">
                               <strong>{stotra.deity}</strong> • {stotra.description}
                             </p>
                             <div className="flex items-center justify-between">
-                              <span className="rounded bg-secondary px-2 py-1 text-xs capitalize">
+                              <span className="bg-secondary rounded px-2 py-1 text-xs capitalize">
                                 {stotra.type}
                                 {stotra.count && ` (${stotra.count})`}
                               </span>
@@ -291,7 +291,7 @@ export function StotraLibrary() {
                       </div>
                       <div>
                         <CardTitle className="text-2xl">{selectedStotra.name}</CardTitle>
-                        <p className="font-devanagari text-lg text-primary">
+                        <p className="font-devanagari text-primary text-lg">
                           {selectedStotra.sanskrit}
                         </p>
                       </div>
@@ -311,7 +311,7 @@ export function StotraLibrary() {
 
                   <div>
                     <h3 className="mb-2 font-semibold">Description</h3>
-                    <p className="leading-relaxed text-muted-foreground">
+                    <p className="text-muted-foreground leading-relaxed">
                       {selectedStotra.description}
                     </p>
                   </div>
@@ -332,14 +332,14 @@ export function StotraLibrary() {
                         {selectedStotra.sampleNames.map((name, index) => (
                           <div
                             key={`${name.sanskrit}-${name.meaning}`}
-                            className="flex items-center gap-4 rounded-lg bg-background/50 p-3"
+                            className="bg-background/50 flex items-center gap-4 rounded-lg p-3"
                           >
-                            <span className="min-w-[3rem] font-mono text-sm text-primary">
+                            <span className="text-primary min-w-12 font-mono text-sm">
                               {index + 1}.
                             </span>
                             <div className="flex-1">
                               <p className="font-devanagari text-lg">{name.sanskrit}</p>
-                              <p className="text-sm text-muted-foreground">{name.meaning}</p>
+                              <p className="text-muted-foreground text-sm">{name.meaning}</p>
                             </div>
                           </div>
                         ))}
@@ -383,7 +383,7 @@ export function StotraLibrary() {
                 <div className="grid gap-6 md:grid-cols-2">
                   <div>
                     <h3 className="mb-2 font-semibold">Devotional Practice</h3>
-                    <ul className="space-y-1 text-sm text-muted-foreground">
+                    <ul className="text-muted-foreground space-y-1 text-sm">
                       <li>• Chant daily for spiritual merit and divine connection</li>
                       <li>• Use during puja ceremonies and worship</li>
                       <li>• Memorize key verses for meditation</li>
@@ -392,7 +392,7 @@ export function StotraLibrary() {
                   </div>
                   <div>
                     <h3 className="mb-2 font-semibold">Benefits</h3>
-                    <ul className="space-y-1 text-sm text-muted-foreground">
+                    <ul className="text-muted-foreground space-y-1 text-sm">
                       <li>• Develops concentration and mental focus</li>
                       <li>• Invokes divine qualities through sacred sound</li>
                       <li>• Creates positive vibrations and peace</li>

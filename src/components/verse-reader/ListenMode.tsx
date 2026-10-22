@@ -173,12 +173,12 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
     <div className="mx-auto max-w-4xl p-6">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-foreground">Listen Mode</h1>
+        <h1 className="text-foreground text-2xl font-bold">Listen Mode</h1>
         <p className="text-muted-foreground">Chapter {chapter}</p>
       </div>
 
       {/* Audio Player */}
-      <div className="mb-6 rounded-lg bg-muted p-4">
+      <div className="bg-muted mb-6 rounded-lg p-4">
         {currentVerse?.audio_url ? (
           <audio
             ref={audioRef}
@@ -208,7 +208,7 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
           </button>
 
           <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">Speed:</span>
+            <span className="text-muted-foreground text-sm">Speed:</span>
             {[0.5, 0.75, 1, 1.25, 1.5].map((speed) => (
               <button
                 type="button"
@@ -224,7 +224,7 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">Sleep Timer:</span>
+            <span className="text-muted-foreground text-sm">Sleep Timer:</span>
             <select
               value={sleepTimer || ""}
               onChange={(e) => setSleepTimerMinutes(parseInt(e.target.value) || 0)}
@@ -253,15 +253,15 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
       {currentVerse && (
         <div className="theme-panel-soft mb-6 rounded-lg border-2 border-amber-300 p-6">
           <div className="mb-4 flex items-center justify-between">
-            <span className="font-bold text-foreground/80">Verse {currentVerse.verse_num}</span>
-            <span className="text-sm text-muted-foreground">
+            <span className="text-foreground/80 font-bold">Verse {currentVerse.verse_num}</span>
+            <span className="text-muted-foreground text-sm">
               {currentVerseIndex + 1} / {verses.length}
             </span>
           </div>
 
           <div className="mb-4 text-center font-sans text-2xl">{currentVerse.text_devanagari}</div>
 
-          <div className="mb-4 text-center text-lg text-foreground/80">
+          <div className="text-foreground/80 mb-4 text-center text-lg">
             {currentVerse.text_iast}
           </div>
 
@@ -271,9 +271,9 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
               <h4 className="mb-2 font-bold">Word-by-word</h4>
               <div className="flex flex-wrap gap-2">
                 {currentVerse.word_analysis.map((word, index) => (
-                  <span key={index} className="rounded border border-amber-200 bg-card px-3 py-1">
+                  <span key={index} className="bg-card rounded border border-amber-200 px-3 py-1">
                     <span className="font-medium">{word.word_devanagari}</span>
-                    <span className="ml-1 text-muted-foreground">({word.meaning_en})</span>
+                    <span className="text-muted-foreground ml-1">({word.meaning_en})</span>
                   </span>
                 ))}
               </div>
@@ -319,7 +319,7 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
           type="button"
           onClick={() => goToVerse(Math.max(0, currentVerseIndex - 1))}
           disabled={currentVerseIndex === 0}
-          className="theme-chip rounded px-4 py-2 transition hover:bg-muted disabled:opacity-50"
+          className="theme-chip hover:bg-muted rounded px-4 py-2 transition disabled:opacity-50"
         >
           ← Previous
         </button>
@@ -334,7 +334,7 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
       </div>
 
       {/* Auto-play toggle */}
-      <div className="mt-4 rounded-lg bg-muted p-4">
+      <div className="bg-muted mt-4 rounded-lg p-4">
         <label className="flex cursor-pointer items-center gap-2">
           <input
             type="checkbox"
@@ -344,7 +344,7 @@ export default function ListenMode({ scriptureId, chapter }: ListenModeProps) {
           />
           <span className="font-medium">Auto-play verses</span>
         </label>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="text-muted-foreground mt-1 text-sm">
           When enabled, audio will automatically advance to the next verse
         </p>
       </div>

@@ -11,7 +11,7 @@ export function PrintBookShop({ compact = false }: { compact?: boolean }) {
         <h2 className={compact ? "font-medium" : "font-serif text-2xl"}>Download the free PDF</h2>
         <p
           className={
-            compact ? "mt-1 opacity-80" : "mt-3 max-w-3xl text-sm leading-7 text-muted-foreground"
+            compact ? "mt-1 opacity-80" : "text-muted-foreground mt-3 max-w-3xl text-sm leading-7"
           }
         >
           {FREE_KATHASAR_PDF.titleMr} ({FREE_KATHASAR_PDF.sizeLabel}). {FREE_KATHASAR_PDF.note}
@@ -21,7 +21,7 @@ export function PrintBookShop({ compact = false }: { compact?: boolean }) {
             <a
               href={FREE_KATHASAR_PDF.hrefEn}
               download={FREE_KATHASAR_PDF.downloadEn}
-              className="inline-flex min-h-11 items-center rounded-full bg-primary px-4 text-sm font-semibold text-primary-foreground hover:opacity-95"
+              className="bg-primary text-primary-foreground inline-flex min-h-11 items-center rounded-full px-4 text-sm font-semibold hover:opacity-95"
               data-testid="ebook-pdf-en"
             >
               Download PDF (English filename)
@@ -31,7 +31,7 @@ export function PrintBookShop({ compact = false }: { compact?: boolean }) {
             <a
               href={FREE_KATHASAR_PDF.hrefMr}
               download={FREE_KATHASAR_PDF.downloadMr}
-              className="inline-flex min-h-11 items-center rounded-full border border-border bg-background px-4 text-sm font-medium hover:bg-secondary"
+              className="border-border bg-background hover:bg-secondary inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium"
               data-testid="ebook-pdf-mr"
             >
               PDF · मराठी नाव
@@ -44,7 +44,7 @@ export function PrintBookShop({ compact = false }: { compact?: boolean }) {
         <h2 className={compact ? "font-medium" : "font-serif text-2xl"}>Buy the print Kathasar</h2>
         <p
           className={
-            compact ? "mt-1 opacity-80" : "mt-3 max-w-3xl text-sm leading-7 text-muted-foreground"
+            compact ? "mt-1 opacity-80" : "text-muted-foreground mt-3 max-w-3xl text-sm leading-7"
           }
         >
           {PRINT_KATHASAR.titleMr} · {PRINT_KATHASAR.author} · {PRINT_KATHASAR.publisher}.{" "}
@@ -57,7 +57,7 @@ export function PrintBookShop({ compact = false }: { compact?: boolean }) {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center rounded-full border border-border bg-background px-4 text-sm font-medium hover:bg-secondary"
+                className="border-border bg-background hover:bg-secondary inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium"
                 data-testid={`print-shop-${link.id}`}
               >
                 {link.label}

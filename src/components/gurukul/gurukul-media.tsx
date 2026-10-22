@@ -28,25 +28,25 @@ export function GurukulHero({
   imageClassName,
 }: GurukulHeroProps) {
   return (
-    <section className={cn("relative overflow-hidden border-b border-border/60", className)}>
+    <section className={cn("border-border/60 relative overflow-hidden border-b", className)}>
       <Image
         src={src}
         alt={alt}
         width={1920}
         height={1080}
-        className={cn("h-[28rem] w-full object-cover sm:h-[34rem]", imageClassName)}
+        className={cn("h-112 w-full object-cover sm:h-136", imageClassName)}
         sizes="100vw"
         priority
       />
       <div className="theme-media-veil absolute inset-0" />
       <div className="absolute inset-x-0 bottom-0 mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
         <p className="eyebrow">{eyebrow}</p>
-        <h1 className="mt-4 max-w-3xl font-serif text-4xl text-foreground sm:text-5xl">{title}</h1>
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
+        <h1 className="text-foreground mt-4 max-w-3xl font-serif text-4xl sm:text-5xl">{title}</h1>
+        <p className="text-muted-foreground mt-4 max-w-2xl text-sm leading-7 sm:text-base">
           {copy}
         </p>
         {actions ? <div className="mt-6 flex flex-wrap gap-3">{actions}</div> : null}
-        <p className="mt-4 text-[11px] tracking-wide text-muted-foreground/80">
+        <p className="text-muted-foreground/80 mt-4 text-[11px] tracking-wide">
           Artist impression · not a photograph of a living temple murti
         </p>
       </div>
@@ -70,7 +70,7 @@ export function GurukulFigure({
   priority = false,
 }: GurukulFigureProps) {
   return (
-    <figure className={cn("overflow-hidden rounded-2xl border border-border/60", className)}>
+    <figure className={cn("border-border/60 overflow-hidden rounded-2xl border", className)}>
       <Image
         src={src}
         alt={alt}
@@ -80,7 +80,7 @@ export function GurukulFigure({
         sizes="(max-width: 768px) 100vw, 40vw"
         priority={priority}
       />
-      <figcaption className="bg-muted/40 px-4 py-3 text-xs leading-5 text-muted-foreground">
+      <figcaption className="bg-muted/40 text-muted-foreground px-4 py-3 text-xs leading-5">
         {caption}
       </figcaption>
     </figure>

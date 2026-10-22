@@ -104,7 +104,7 @@ export function AartiReader({ item }: { item: AartiItem }) {
           {isPlaying ? <Pause className="size-4" /> : <Play className="size-4" />}
           {isPlaying ? (item.audioUrl && !audioError ? "Pause" : "Stop") : "Listen"}
         </Button>
-        <p className="flex min-w-0 items-start gap-2 text-sm leading-6 text-muted-foreground">
+        <p className="text-muted-foreground flex min-w-0 items-start gap-2 text-sm leading-6">
           <Volume2 className="mt-0.5 size-4 shrink-0" />
           <span className="min-w-0">
             {item.audioUrl && !audioError
@@ -115,7 +115,7 @@ export function AartiReader({ item }: { item: AartiItem }) {
       </div>
 
       {speechError ? (
-        <p role="status" className="text-sm text-muted-foreground">
+        <p role="status" className="text-muted-foreground text-sm">
           {speechError}
         </p>
       ) : null}
@@ -159,11 +159,11 @@ export function AartiReader({ item }: { item: AartiItem }) {
           }
           return (
             <li key={verse.number} className="surface-panel rounded-2xl p-5">
-              <p className="text-xs font-semibold tracking-[0.18em] text-primary">
+              <p className="text-primary text-xs font-semibold tracking-[0.18em]">
                 {verse.label ?? String(verse.number).padStart(2, "0")}
               </p>
               <p
-                className={`mt-3 whitespace-pre-line text-lg leading-8 ${
+                className={`mt-3 text-lg leading-8 whitespace-pre-line ${
                   layer === "original" || layer === "meaning" ? "font-devanagari" : ""
                 }`}
               >
@@ -180,11 +180,11 @@ export function AartiReader({ item }: { item: AartiItem }) {
       />
       {item.bookletNote ? (
         <aside className="surface-panel rounded-2xl p-5" aria-label="Printed booklet notes">
-          <h2 className="text-sm font-semibold text-primary">Printed booklet notes</h2>
-          <p className="mt-3 whitespace-pre-line font-devanagari text-lg leading-8">
+          <h2 className="text-primary text-sm font-semibold">Printed booklet notes</h2>
+          <p className="font-devanagari mt-3 text-lg leading-8 whitespace-pre-line">
             {item.bookletNote}
           </p>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="text-muted-foreground mt-3 text-sm">
             Devanagari follows the supplied booklet, pages {item.bookletPages}. IAST is a
             transliteration; English and Marathi notes explain the text.
           </p>

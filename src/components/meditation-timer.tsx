@@ -155,18 +155,18 @@ export function MeditationTimer({ className }: MeditationTimerProps) {
       <div className="relative z-10 space-y-7 text-center">
         {/* Title */}
         <div className="space-y-2">
-          <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+          <p className="text-muted-foreground text-[11px] tracking-[0.32em] uppercase">
             Dhyana Timer
           </p>
-          <h3 className="text-2xl font-semibold tracking-[-0.03em] text-foreground">Meditation</h3>
-          <p className="text-sm text-muted-foreground">
-            {getPhaseInstruction()} <span className="mx-1 text-border">|</span> 4-4-4 Breathing
+          <h3 className="text-foreground text-2xl font-semibold tracking-[-0.03em]">Meditation</h3>
+          <p className="text-muted-foreground text-sm">
+            {getPhaseInstruction()} <span className="text-border mx-1">|</span> 4-4-4 Breathing
           </p>
         </div>
 
         {/* Timer Display */}
         <div className="space-y-5">
-          <div className="font-serif text-6xl font-semibold tracking-[-0.04em] text-foreground">
+          <div className="text-foreground font-serif text-6xl font-semibold tracking-[-0.04em]">
             {formatTime(timeLeft)}
           </div>
 
@@ -213,7 +213,7 @@ export function MeditationTimer({ className }: MeditationTimerProps) {
         <div className="space-y-3 px-2">
           <div className="flex items-center justify-between text-sm">
             <span className="text-muted-foreground">Duration</span>
-            <span className="font-semibold text-foreground">{duration} min</span>
+            <span className="text-foreground font-semibold">{duration} min</span>
           </div>
           <Slider
             value={[duration]}
@@ -254,15 +254,15 @@ export function MeditationTimer({ className }: MeditationTimerProps) {
             aria-label={soundEnabled ? "Disable bell sound" : "Enable bell sound"}
           >
             {soundEnabled ? (
-              <Volume2 className="size-4 text-primary" />
+              <Volume2 className="text-primary size-4" />
             ) : (
-              <VolumeX className="size-4 text-muted-foreground" />
+              <VolumeX className="text-muted-foreground size-4" />
             )}
           </Button>
         </div>
 
         {/* Instructions */}
-        <div className="space-y-1.5 text-xs text-muted-foreground">
+        <div className="text-muted-foreground space-y-1.5 text-xs">
           <p>Follow the 4-4-4 breathing pattern</p>
           <p>Bell sound marks completion</p>
           <p>Pause anytime to continue later</p>

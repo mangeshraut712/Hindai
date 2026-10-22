@@ -46,11 +46,11 @@ export default async function GaneshAartiDetailPage({ params }: PageProps) {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main id="main-content" className="flex-1">
-        <section className="relative overflow-hidden border-b border-border/60">
+        <section className="border-border/60 relative overflow-hidden border-b">
           <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
             <Link
               href="/ganesh-aarti"
-              className="text-sm text-primary underline-offset-4 hover:underline"
+              className="text-primary text-sm underline-offset-4 hover:underline"
             >
               All Ganesh aartis
             </Link>
@@ -58,9 +58,9 @@ export default async function GaneshAartiDetailPage({ params }: PageProps) {
               {aartiKindLabel(item.kind)} · {item.deity}
             </p>
             <h1 className="section-title mt-4">{item.title}</h1>
-            <p className="mt-3 font-devanagari text-2xl text-primary">{item.titleMr}</p>
+            <p className="font-devanagari text-primary mt-3 text-2xl">{item.titleMr}</p>
             <p className="section-copy mt-5">{item.summary}</p>
-            <p className="mt-3 text-sm text-muted-foreground">
+            <p className="text-muted-foreground mt-3 text-sm">
               {item.composer} · booklet page {item.bookletPages}
             </p>
           </div>
@@ -71,9 +71,9 @@ export default async function GaneshAartiDetailPage({ params }: PageProps) {
               src={publicUrl("/ganesh-aarti/hero.webp")}
               alt="Artist impression of Ganesha — not a photograph of a living murti"
             />
-            <div className="border-t border-border/70 pt-5">
+            <div className="border-border/70 border-t pt-5">
               <h2 className="font-serif text-xl">Iconography</h2>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.iconography}</p>
+              <p className="text-muted-foreground mt-3 text-sm leading-7">{item.iconography}</p>
             </div>
           </aside>
           <AartiReader key={item.slug} item={item} />

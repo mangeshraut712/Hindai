@@ -162,29 +162,29 @@ export function VerseGenerator({
           </div>
 
           {generatedVerse.speaker && (
-            <p className="mb-2 text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+            <p className="text-muted-foreground mb-2 text-[11px] tracking-[0.32em] uppercase">
               {generatedVerse.speaker}
             </p>
           )}
 
-          <div className="mb-4 font-devanagari text-xl leading-relaxed text-foreground">
+          <div className="font-devanagari text-foreground mb-4 text-xl leading-relaxed">
             {generatedVerse.sanskrit}
           </div>
 
-          <div className="mb-4 text-sm italic text-muted-foreground">
+          <div className="text-muted-foreground mb-4 text-sm italic">
             {generatedVerse.transliteration}
           </div>
 
           <div className="space-y-3">
             <div>
-              <p className="mb-1 text-xs uppercase tracking-wider text-muted-foreground">English</p>
-              <p className="text-sm text-foreground">{generatedVerse.translation.en}</p>
+              <p className="text-muted-foreground mb-1 text-xs tracking-wider uppercase">English</p>
+              <p className="text-foreground text-sm">{generatedVerse.translation.en}</p>
             </div>
 
             {generatedVerse.translation.hi && (
               <div>
-                <p className="mb-1 text-xs uppercase tracking-wider text-muted-foreground">Hindi</p>
-                <p className="font-devanagari text-sm text-foreground">
+                <p className="text-muted-foreground mb-1 text-xs tracking-wider uppercase">Hindi</p>
+                <p className="font-devanagari text-foreground text-sm">
                   {generatedVerse.translation.hi}
                 </p>
               </div>
@@ -192,8 +192,8 @@ export function VerseGenerator({
           </div>
 
           {generatedVerse.wordByWord && generatedVerse.wordByWord.length > 0 && (
-            <div className="mt-4 border-t border-border/60 pt-4">
-              <p className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">
+            <div className="border-border/60 mt-4 border-t pt-4">
+              <p className="text-muted-foreground mb-2 text-xs tracking-wider uppercase">
                 Word by Word
               </p>
               <div className="space-y-1.5">
@@ -214,7 +214,7 @@ export function VerseGenerator({
               {generatedVerse.keyTerms.map((term) => (
                 <span
                   key={term}
-                  className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs text-primary"
+                  className="bg-primary/10 text-primary inline-flex items-center rounded-full px-2.5 py-0.5 text-xs"
                 >
                   {term}
                 </span>
@@ -242,7 +242,7 @@ export function VerseGenerator({
   return (
     <form onSubmit={handleGenerate} className={cn("space-y-3", className)}>
       <div className="grid grid-cols-2 gap-3">
-        <label className="space-y-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+        <label className="text-muted-foreground space-y-1.5 text-xs font-medium tracking-wider uppercase">
           Chapter
           <Input
             type="number"
@@ -252,7 +252,7 @@ export function VerseGenerator({
             onChange={(event) => setCurrentChapter(Number(event.target.value))}
           />
         </label>
-        <label className="space-y-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+        <label className="text-muted-foreground space-y-1.5 text-xs font-medium tracking-wider uppercase">
           Verse
           <Input
             type="number"
@@ -284,13 +284,13 @@ export function VerseGenerator({
             <AlertCircle className="mt-0.5 size-4 shrink-0 text-red-500" />
             <div>
               <p className="text-sm font-medium text-red-600">Generation Failed</p>
-              <p className="text-xs text-muted-foreground">{error}</p>
+              <p className="text-muted-foreground text-xs">{error}</p>
             </div>
           </div>
         </div>
       )}
 
-      <p className="text-center text-xs text-muted-foreground">
+      <p className="text-muted-foreground text-center text-xs">
         Retrieves indexed verses first, then uses Gemma 4 for missing entries
       </p>
     </form>

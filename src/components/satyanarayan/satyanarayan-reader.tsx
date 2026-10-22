@@ -63,13 +63,13 @@ export function SatyanarayanReader({
   return (
     <section id="katha-reader" className="scroll-mt-20" aria-label="Satyanarayan katha reader">
       <div className="mb-6 max-w-3xl">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-800 dark:text-amber-300">
+        <p className="text-xs font-bold tracking-[0.2em] text-amber-800 uppercase dark:text-amber-300">
           मूळ कथा · The complete reading
         </p>
-        <h2 className="mt-3 font-devanagari text-4xl font-semibold leading-tight sm:text-5xl">
+        <h2 className="font-devanagari mt-3 text-4xl leading-tight font-semibold sm:text-5xl">
           श्री सत्यनारायण व्रतकथा
         </h2>
-        <p className="mt-4 font-devanagari text-base leading-8 text-stone-700 dark:text-stone-300">
+        <p className="font-devanagari mt-4 text-base leading-8 text-stone-700 dark:text-stone-300">
           पाचही अध्याय क्रमाने वाचा. मराठी, हिन्दी, English आणि संस्कृत यांपैकी भाषा निवडा.
           पुस्तकातील शब्द तपासण्यासाठी प्रत्येक अध्यायाखाली मूळ छापील पानेही पाहता येतील.
         </p>
@@ -92,10 +92,10 @@ export function SatyanarayanReader({
                   : "border-amber-900/15 bg-white/75 text-stone-700 hover:border-amber-700/50 hover:bg-amber-50 dark:bg-stone-900 dark:text-stone-200"
               }`}
             >
-              <span className="block font-devanagari text-lg font-bold">
+              <span className="font-devanagari block text-lg font-bold">
                 {["१", "२", "३", "४", "५"][index]}
               </span>
-              <span className="mt-1 hidden font-devanagari text-sm leading-6 lg:block">
+              <span className="font-devanagari mt-1 hidden text-sm leading-6 lg:block">
                 {entry.titleMr}
               </span>
               <span className="sr-only">
@@ -106,15 +106,15 @@ export function SatyanarayanReader({
         </nav>
 
         <article className="min-w-0 overflow-hidden rounded-[28px] border border-amber-900/15 bg-[#fffdf8] shadow-[0_20px_70px_rgba(73,40,17,0.08)] dark:border-amber-100/15 dark:bg-stone-900">
-          <header className="border-b border-amber-900/10 bg-gradient-to-br from-amber-100/80 via-[#fffaf0] to-orange-50 px-5 py-7 dark:from-stone-800 dark:via-stone-900 dark:to-stone-900 sm:px-9">
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-amber-800 dark:text-amber-300">
+          <header className="border-b border-amber-900/10 bg-linear-to-br from-amber-100/80 via-[#fffaf0] to-orange-50 px-5 py-7 sm:px-9 dark:from-stone-800 dark:via-stone-900 dark:to-stone-900">
+            <p className="text-xs font-bold tracking-[0.22em] text-amber-800 uppercase dark:text-amber-300">
               अध्याय {chapter.number} / ५
             </p>
-            <h3 className="mt-3 font-devanagari text-3xl font-semibold leading-tight sm:text-4xl">
+            <h3 className="font-devanagari mt-3 text-3xl leading-tight font-semibold sm:text-4xl">
               {guide.titleMr}
             </h3>
             <p className="mt-1 text-sm text-stone-600 dark:text-stone-300">{guide.title}</p>
-            <p className="mt-5 border-l-2 border-amber-700 pl-4 font-devanagari text-lg leading-9 text-stone-800 dark:text-stone-100">
+            <p className="font-devanagari mt-5 border-l-2 border-amber-700 pl-4 text-lg leading-9 text-stone-800 dark:text-stone-100">
               {guide.summaryMr}
             </p>
             <details className="mt-5 text-sm leading-7 text-stone-600 dark:text-stone-300">
@@ -175,7 +175,7 @@ export function SatyanarayanReader({
           </div>
 
           <div className="px-5 py-8 sm:px-9 sm:py-10" role="tabpanel">
-            <p className="mb-8 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-stone-500 dark:text-stone-400">
+            <p className="mb-8 flex items-center gap-2 text-xs font-semibold tracking-widest text-stone-500 uppercase dark:text-stone-400">
               <BookOpen className="size-4" />{" "}
               {mode === "original"
                 ? "Sanskrit reading · Devanagari · Wikisource edition"
@@ -195,14 +195,14 @@ export function SatyanarayanReader({
                   key={`${mode}-${index}`}
                   className={
                     block.kind === "verse"
-                      ? "whitespace-pre-line border-l-2 border-amber-700/70 py-3 pl-4 text-[0.92em] leading-9 text-amber-950 dark:text-amber-100"
+                      ? "border-l-2 border-amber-700/70 py-3 pl-4 text-[0.92em] leading-9 whitespace-pre-line text-amber-950 dark:text-amber-100"
                       : block.kind === "heading"
                         ? "pt-6 text-center text-[0.8em] font-semibold tracking-wide text-amber-800 first:pt-0 dark:text-amber-200"
-                        : "whitespace-pre-line border-b border-amber-900/10 py-4 first:pt-0 last:border-0 dark:border-amber-100/10"
+                        : "border-b border-amber-900/10 py-4 whitespace-pre-line first:pt-0 last:border-0 dark:border-amber-100/10"
                   }
                 >
                   {block.kind === "verse" ? (
-                    <span className="mb-1 block text-[0.65em] font-semibold uppercase tracking-[0.16em] text-amber-700">
+                    <span className="mb-1 block text-[0.65em] font-semibold tracking-[0.16em] text-amber-700 uppercase">
                       श्लोक
                     </span>
                   ) : null}
@@ -247,7 +247,7 @@ export function SatyanarayanReader({
             </details>
           )}
 
-          <footer className="border-t border-amber-900/10 bg-amber-50/70 px-5 py-6 dark:bg-stone-800/70 sm:px-9">
+          <footer className="border-t border-amber-900/10 bg-amber-50/70 px-5 py-6 sm:px-9 dark:bg-stone-800/70">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <button
                 type="button"
@@ -283,12 +283,12 @@ export function SatyanarayanReader({
         </article>
       </div>
 
-      <div className="mt-10 rounded-[28px] border border-amber-900/15 bg-[#fffdf8] p-5 dark:bg-stone-900 sm:p-8">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-800 dark:text-amber-300">
+      <div className="mt-10 rounded-[28px] border border-amber-900/15 bg-[#fffdf8] p-5 sm:p-8 dark:bg-stone-900">
+        <p className="text-xs font-bold tracking-[0.2em] text-amber-800 uppercase dark:text-amber-300">
           कथा समजून घ्या · Chapter study
         </p>
-        <h3 className="mt-2 font-devanagari text-2xl font-semibold">या अध्यायाबद्दल विचारा</h3>
-        <p className="mt-2 font-devanagari text-sm leading-7 text-stone-600 dark:text-stone-300">
+        <h3 className="font-devanagari mt-2 text-2xl font-semibold">या अध्यायाबद्दल विचारा</h3>
+        <p className="font-devanagari mt-2 text-sm leading-7 text-stone-600 dark:text-stone-300">
           निवडलेला अध्याय आणि भाषा प्रश्नासोबत पाठवली जाते. मजकुरातील प्रसंग, पात्रे किंवा अर्थ
           विचारा. अचूक पठणासाठी वर दिलेले छापील पान तपासा.
         </p>

@@ -24,7 +24,7 @@ export function DeviHome() {
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <h2 className="font-serif text-3xl">Location-wise katha</h2>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+        <p className="text-muted-foreground mt-3 max-w-3xl text-sm leading-7">
           The Daksha-yajna story is one katha. It does not give a GPS order for Sati’s body. Use the
           Devi story trail to move west to east across indexed pins.
         </p>
@@ -42,7 +42,7 @@ export function DeviHome() {
             <li key={item.slug}>
               <Link
                 href={`/devi/${item.slug}`}
-                className="group grid grid-cols-[6.5rem_minmax(0,1fr)] gap-3 border-b border-border/70 py-4"
+                className="group border-border/70 grid grid-cols-[6.5rem_minmax(0,1fr)] gap-3 border-b py-4"
               >
                 {item.image ? (
                   <Image
@@ -50,19 +50,19 @@ export function DeviHome() {
                     alt={`Artist impression for ${item.name}`}
                     width={240}
                     height={180}
-                    className="h-20 w-[6.5rem] rounded-lg object-cover"
+                    className="h-20 w-26 rounded-lg object-cover"
                     sizes="104px"
                   />
                 ) : (
-                  <div className="h-20 w-[6.5rem] rounded-lg bg-muted" />
+                  <div className="bg-muted h-20 w-26 rounded-lg" />
                 )}
                 <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">
+                  <p className="text-primary text-[11px] font-semibold tracking-[0.16em] uppercase">
                     {item.country} · {item.listStatus}
                   </p>
-                  <h3 className="mt-1 font-serif text-lg group-hover:text-primary">{item.name}</h3>
-                  <p className="font-devanagari text-sm text-primary">{item.sanskrit}</p>
-                  <p className="mt-1 text-sm text-muted-foreground">{item.location}</p>
+                  <h3 className="group-hover:text-primary mt-1 font-serif text-lg">{item.name}</h3>
+                  <p className="font-devanagari text-primary text-sm">{item.sanskrit}</p>
+                  <p className="text-muted-foreground mt-1 text-sm">{item.location}</p>
                 </div>
               </Link>
             </li>
@@ -77,7 +77,7 @@ export function DeviHome() {
             <li key={item.slug}>
               <Link
                 href={`/devi/${item.slug}`}
-                className="group grid grid-cols-[7rem_minmax(0,1fr)] gap-4 border-b border-border/70 py-5"
+                className="group border-border/70 grid grid-cols-[7rem_minmax(0,1fr)] gap-4 border-b py-5"
               >
                 {item.image ? (
                   <Image
@@ -89,11 +89,11 @@ export function DeviHome() {
                     sizes="112px"
                   />
                 ) : (
-                  <div className="h-24 w-28 rounded-lg bg-muted" />
+                  <div className="bg-muted h-24 w-28 rounded-lg" />
                 )}
                 <div>
-                  <h3 className="font-serif text-xl group-hover:text-primary">{item.name}</h3>
-                  <p className="mt-2 line-clamp-3 text-sm leading-6 text-muted-foreground">
+                  <h3 className="group-hover:text-primary font-serif text-xl">{item.name}</h3>
+                  <p className="text-muted-foreground mt-2 line-clamp-3 text-sm leading-6">
                     {item.bodyPartNote}
                   </p>
                 </div>
@@ -106,26 +106,26 @@ export function DeviHome() {
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
         <div className="surface-panel rounded-3xl p-8 sm:p-10">
           <h2 className="font-serif text-3xl">Keep reading</h2>
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
+          <p className="text-muted-foreground mt-4 max-w-2xl text-sm leading-7">
             Tirtha pins are only half the map. Open the Devi katha grantha for hymn-depth story,
             then return here for place pages.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href="/durga-saptashati"
-              className="inline-flex h-11 items-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground"
+              className="bg-primary text-primary-foreground inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold"
             >
               Durga Saptashati
             </Link>
             <Link
               href="/katha/devi"
-              className="inline-flex h-11 items-center rounded-full border border-border px-6 text-sm font-semibold"
+              className="border-border inline-flex h-11 items-center rounded-full border px-6 text-sm font-semibold"
             >
               Devi katha grantha
             </Link>
             <Link
               href="/festivals/sharad-navaratri"
-              className="inline-flex h-11 items-center rounded-full border border-border px-6 text-sm font-semibold"
+              className="border-border inline-flex h-11 items-center rounded-full border px-6 text-sm font-semibold"
             >
               Sharad Navaratri
             </Link>

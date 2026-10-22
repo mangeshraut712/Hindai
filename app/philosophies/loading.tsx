@@ -13,28 +13,28 @@ export default function PhilosophiesLoading() {
             animate={{ rotate: 360 }}
             transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
           >
-            <div className="absolute inset-0 rounded-full border-4 border-primary/20" />
-            <div className="absolute inset-0 rounded-full border-4 border-b-transparent border-l-transparent border-r-primary border-t-primary" />
+            <div className="border-primary/20 absolute inset-0 rounded-full border-4" />
+            <div className="border-r-primary border-t-primary absolute inset-0 rounded-full border-4 border-b-transparent border-l-transparent" />
             <motion.div
-              className="absolute inset-2 rounded-full border-2 border-primary/10"
+              className="border-primary/10 absolute inset-2 rounded-full border-2"
               animate={{ rotate: -360 }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
             />
             <div className="absolute inset-0 flex items-center justify-center">
-              <BookOpen className="size-8 text-primary" />
+              <BookOpen className="text-primary size-8" />
             </div>
           </motion.div>
 
           <div className="space-y-2">
             <motion.p
-              className="text-lg font-semibold text-foreground"
+              className="text-foreground text-lg font-semibold"
               animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             >
               Loading Six Schools of Philosophy
             </motion.p>
             <motion.p
-              className="text-sm text-muted-foreground"
+              className="text-muted-foreground text-sm"
               animate={{ opacity: [0.3, 0.7, 0.3] }}
               transition={{ duration: 2, repeat: Infinity, delay: 0.5, ease: "easeInOut" }}
             >
@@ -46,7 +46,7 @@ export default function PhilosophiesLoading() {
             {[1, 2, 3].map((i) => (
               <motion.div
                 key={i}
-                className="size-2 rounded-full bg-primary"
+                className="bg-primary size-2 rounded-full"
                 animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.2, ease: "easeInOut" }}
               />

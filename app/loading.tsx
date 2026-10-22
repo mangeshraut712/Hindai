@@ -1,7 +1,7 @@
 function ShimmerBlock({ className }: { className?: string }) {
   return (
-    <div className={`relative overflow-hidden rounded-2xl bg-muted/60 ${className || ""}`}>
-      <div className="via-white/8 absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent to-transparent" />
+    <div className={`bg-muted/60 relative overflow-hidden rounded-2xl ${className || ""}`}>
+      <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-linear-to-r from-transparent via-white/8 to-transparent" />
     </div>
   );
 }
@@ -10,7 +10,7 @@ export default function Loading() {
   return (
     <div className="flex min-h-screen flex-col">
       {/* Header Skeleton */}
-      <header className="bg-background/72 sticky top-0 z-50 w-full border-b border-border/60 px-4 py-3 backdrop-blur-2xl">
+      <header className="bg-background/72 border-border/60 sticky top-0 z-50 w-full border-b px-4 py-3 backdrop-blur-2xl">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between">
           <div className="flex items-center gap-3">
             <ShimmerBlock className="size-11 rounded-full" />
@@ -30,12 +30,12 @@ export default function Loading() {
       </header>
 
       {/* Hero Skeleton */}
-      <section className="hero-mesh relative overflow-hidden border-b border-border/60">
+      <section className="hero-mesh border-border/60 relative overflow-hidden border-b">
         <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
-        <div className="hero-sun -left-20 top-10 size-56 opacity-80" aria-hidden="true" />
-        <div className="hero-sun right-0 top-20 size-72 opacity-60" aria-hidden="true" />
+        <div className="hero-sun top-10 -left-20 size-56 opacity-80" aria-hidden="true" />
+        <div className="hero-sun top-20 right-0 size-72 opacity-60" aria-hidden="true" />
 
-        <div className="mx-auto grid min-h-[max(600px,75svh)] max-w-7xl items-center gap-14 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.9fr)] lg:px-8">
+        <div className="mx-auto grid min-h-[max(600px,75svh)] max-w-7xl items-center gap-14 px-4 pt-14 pb-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(400px,0.9fr)] lg:px-8">
           <div className="relative z-10 max-w-3xl space-y-8">
             <ShimmerBlock className="h-7 w-40 rounded-full" />
             <div className="space-y-4">
@@ -48,7 +48,7 @@ export default function Loading() {
               <ShimmerBlock className="h-12 w-48 rounded-full" />
               <ShimmerBlock className="h-12 w-36 rounded-full" />
             </div>
-            <div className="flex flex-wrap gap-8 border-t border-border/60 pt-7">
+            <div className="border-border/60 flex flex-wrap gap-8 border-t pt-7">
               {[...Array(4)].map((_, i) => (
                 <div key={i} className="space-y-2">
                   <ShimmerBlock className="h-3 w-16" />

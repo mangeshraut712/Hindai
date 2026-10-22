@@ -15,14 +15,14 @@ export function AshtavinayakArticle({ shrine }: { shrine: AshtavinayakSite }) {
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+      <p className="text-primary text-xs font-semibold tracking-[0.18em] uppercase">
         Ashtavinayak {shrine.circuitOrder} of 8
       </p>
       <h1 className="mt-4 font-serif text-4xl">{shrine.name}</h1>
-      <p className="mt-2 font-devanagari text-2xl text-primary">{shrine.sanskrit}</p>
-      <p className="mt-2 text-sm text-muted-foreground">{shrine.location}</p>
+      <p className="font-devanagari text-primary mt-2 text-2xl">{shrine.sanskrit}</p>
+      <p className="text-muted-foreground mt-2 text-sm">{shrine.location}</p>
 
-      <figure className="mt-8 overflow-hidden rounded-2xl border border-border/60">
+      <figure className="border-border/60 mt-8 overflow-hidden rounded-2xl border">
         <Image
           src={publicUrl("/ganesha/hero.webp")}
           alt={`Artist impression for ${shrine.name} circuit mood — not a photograph`}
@@ -31,14 +31,14 @@ export function AshtavinayakArticle({ shrine }: { shrine: AshtavinayakSite }) {
           className="h-auto w-full"
           priority
         />
-        <figcaption className="bg-muted/40 px-4 py-3 text-xs leading-5 text-muted-foreground">
+        <figcaption className="bg-muted/40 text-muted-foreground px-4 py-3 text-xs leading-5">
           Shared Ashtavinayak artist impression for Hind AI. Not a photograph of this specific
           village murti.
         </figcaption>
       </figure>
 
       {marker ? (
-        <div className="mt-8 overflow-hidden rounded-2xl border border-border/60">
+        <div className="border-border/60 mt-8 overflow-hidden rounded-2xl border">
           <MiniPlaceMap marker={marker} />
         </div>
       ) : null}
@@ -75,7 +75,7 @@ export function AshtavinayakArticle({ shrine }: { shrine: AshtavinayakSite }) {
       </section>
       <section className="mt-10">
         <h2 className="font-serif text-2xl">Sources</h2>
-        <ul className="mt-3 list-disc pl-5 text-sm text-muted-foreground">
+        <ul className="text-muted-foreground mt-3 list-disc pl-5 text-sm">
           {shrine.sources.map((source) => (
             <li key={source}>{source}</li>
           ))}
@@ -83,14 +83,14 @@ export function AshtavinayakArticle({ shrine }: { shrine: AshtavinayakSite }) {
       </section>
       <div className="mt-10 flex flex-wrap justify-between gap-3 text-sm">
         {prev ? (
-          <Link href={`/ganesha/${prev.slug}`} className="font-semibold text-primary">
+          <Link href={`/ganesha/${prev.slug}`} className="text-primary font-semibold">
             ← {prev.name}
           </Link>
         ) : (
           <span />
         )}
         {next ? (
-          <Link href={`/ganesha/${next.slug}`} className="font-semibold text-primary">
+          <Link href={`/ganesha/${next.slug}`} className="text-primary font-semibold">
             {next.name} →
           </Link>
         ) : (
@@ -98,7 +98,7 @@ export function AshtavinayakArticle({ shrine }: { shrine: AshtavinayakSite }) {
         )}
       </div>
       <p className="mt-8 text-sm">
-        <Link href="/katha/ganesha" className="font-semibold text-primary">
+        <Link href="/katha/ganesha" className="text-primary font-semibold">
           Read Ganesha katha grantha →
         </Link>
       </p>

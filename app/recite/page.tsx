@@ -18,7 +18,7 @@ export default function ReciteIndexPage() {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main id="main-content" className="flex-1">
-        <section className="hero-mesh relative overflow-hidden border-b border-border/60">
+        <section className="hero-mesh border-border/60 relative overflow-hidden border-b">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
             <p className="eyebrow">पाठ · Recitation</p>
@@ -36,15 +36,15 @@ export default function ReciteIndexPage() {
               <li key={item.slug} className="surface-panel rounded-2xl p-5">
                 <Link
                   href={`/recite/${item.slug}`}
-                  className="block transition-colors hover:text-primary"
+                  className="hover:text-primary block transition-colors"
                 >
-                  <p className="text-sm text-primary">{item.occasion}</p>
+                  <p className="text-primary text-sm">{item.occasion}</p>
                   <h2 className="mt-2 font-serif text-2xl">{item.title}</h2>
-                  <p className="mt-1 font-devanagari text-lg text-muted-foreground">
+                  <p className="font-devanagari text-muted-foreground mt-1 text-lg">
                     {item.titleSa}
                   </p>
-                  <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.summary}</p>
-                  <p className="mt-3 text-xs font-semibold tracking-[0.16em] text-muted-foreground">
+                  <p className="text-muted-foreground mt-3 text-sm leading-6">{item.summary}</p>
+                  <p className="text-muted-foreground mt-3 text-xs font-semibold tracking-[0.16em]">
                     {item.deity} · {recitationVerseCount(item)} verses
                   </p>
                 </Link>

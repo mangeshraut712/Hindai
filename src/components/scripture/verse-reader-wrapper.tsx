@@ -53,7 +53,7 @@ export function VerseReaderWrapper({ verses }: VerseReaderWrapperProps) {
           Verse Reader
         </Button>
       </div>
-      <p className="text-center text-sm text-muted-foreground">
+      <p className="text-muted-foreground text-center text-sm">
         {viewMode === "explorer"
           ? "Browse verses with navigation and study tools"
           : "Read verses with tabbed layers (Sanskrit, Word-by-word, Translation, Commentary)"}

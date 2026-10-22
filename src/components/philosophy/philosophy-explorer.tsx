@@ -110,7 +110,7 @@ export function PhilosophyExplorer() {
               <CardTitle>The Six Classical Darshanas</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="mb-6 text-muted-foreground">
+              <p className="text-muted-foreground mb-6">
                 The Shad Darshana (six visions) represent the major philosophical traditions of
                 Hinduism, each offering a unique perspective on reality, knowledge, and liberation.
                 While they differ in emphasis and methodology, they share the common goal of
@@ -132,8 +132,8 @@ export function PhilosophyExplorer() {
                     whileFocus={{ scale: 1.02, outline: "2px solid var(--primary)" }}
                   >
                     <Card
-                      className={`cursor-pointer transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
-                        selectedSchool?.id === school.id ? "shadow-md ring-2 ring-primary" : ""
+                      className={`focus-visible:ring-ring cursor-pointer transition-all hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden ${
+                        selectedSchool?.id === school.id ? "ring-primary shadow-md ring-2" : ""
                       }`}
                       onClick={() => {
                         triggerHapticOnPress();
@@ -156,28 +156,28 @@ export function PhilosophyExplorer() {
                           <div className="text-primary">{school.icon}</div>
                           <div>
                             <CardTitle className="text-base sm:text-lg">{school.name}</CardTitle>
-                            <p className="font-devanagari text-sm text-primary sm:text-base">
+                            <p className="font-devanagari text-primary text-sm sm:text-base">
                               {school.sanskrit}
                             </p>
                           </div>
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <p className="mb-3 line-clamp-2 text-xs text-muted-foreground sm:text-sm">
+                        <p className="text-muted-foreground mb-3 line-clamp-2 text-xs sm:text-sm">
                           {school.description}
                         </p>
                         <div className="mb-3 flex flex-wrap gap-1">
                           {school.principles.slice(0, 2).map((principle) => (
                             <span
                               key={principle}
-                              className="rounded bg-primary/10 px-2 py-1 text-xs text-primary"
+                              className="bg-primary/10 text-primary rounded px-2 py-1 text-xs"
                             >
                               {principle}
                             </span>
                           ))}
                         </div>
                         <div className="flex items-center justify-between">
-                          <span className="text-xs text-muted-foreground">{school.founder}</span>
+                          <span className="text-muted-foreground text-xs">{school.founder}</span>
                           {school.apiAvailable ? (
                             <span className="rounded bg-green-100 px-2 py-1 text-xs text-green-800 dark:bg-green-900/30 dark:text-green-400">
                               Available
@@ -205,7 +205,7 @@ export function PhilosophyExplorer() {
                     <div className="text-primary">{selectedSchool.icon}</div>
                     <div>
                       <CardTitle className="text-2xl">{selectedSchool.name}</CardTitle>
-                      <p className="font-devanagari text-lg text-primary">
+                      <p className="font-devanagari text-primary text-lg">
                         {selectedSchool.sanskrit}
                       </p>
                     </div>
@@ -234,7 +234,7 @@ export function PhilosophyExplorer() {
                     {selectedSchool.principles.map((principle) => (
                       <span
                         key={principle}
-                        className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary"
+                        className="bg-primary/10 text-primary rounded-full px-3 py-1 text-sm"
                       >
                         {principle}
                       </span>
@@ -244,7 +244,7 @@ export function PhilosophyExplorer() {
 
                 <div>
                   <h3 className="mb-2 font-semibold">Description</h3>
-                  <p className="leading-relaxed text-muted-foreground">
+                  <p className="text-muted-foreground leading-relaxed">
                     {selectedSchool.description}
                   </p>
                 </div>
@@ -280,11 +280,11 @@ export function PhilosophyExplorer() {
                   </thead>
                   <tbody>
                     {philosophySchools.map((school) => (
-                      <tr key={school.id} className="border-b border-border/50">
+                      <tr key={school.id} className="border-border/50 border-b">
                         <td className="py-3 font-medium">{school.name}</td>
-                        <td className="py-3 text-muted-foreground">{school.founder}</td>
-                        <td className="py-3 text-muted-foreground">{school.principles[0]}</td>
-                        <td className="py-3 text-muted-foreground">{school.keyText}</td>
+                        <td className="text-muted-foreground py-3">{school.founder}</td>
+                        <td className="text-muted-foreground py-3">{school.principles[0]}</td>
+                        <td className="text-muted-foreground py-3">{school.keyText}</td>
                         <td className="py-3">
                           {school.apiAvailable ? (
                             <span className="text-green-600">✓ Available</span>

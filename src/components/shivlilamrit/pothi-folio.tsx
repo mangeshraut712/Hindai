@@ -232,18 +232,18 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
   }
 
   return (
-    <div className="min-h-[calc(100dvh-4rem)] bg-background text-foreground">
+    <div className="bg-background text-foreground min-h-[calc(100dvh-4rem)]">
       <div
         className={`mx-auto px-4 py-5 sm:px-6 ${viewMode === "two" ? "max-w-6xl" : "max-w-3xl"}`}
       >
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-border/70 bg-card px-3 py-3 sm:px-4">
+        <div className="border-border/70 bg-card mb-4 flex flex-wrap items-center justify-between gap-2 rounded-2xl border px-3 py-3 sm:px-4">
           <Link
             href="/shivlilamrit"
-            className="inline-flex min-h-11 items-center text-sm text-muted-foreground hover:text-foreground"
+            className="text-muted-foreground hover:text-foreground inline-flex min-h-11 items-center text-sm"
           >
             Close
           </Link>
-          <p className="min-w-0 text-center font-devanagari text-sm leading-snug text-foreground">
+          <p className="font-devanagari text-foreground min-w-0 text-center text-sm leading-snug">
             {chapterHint ? `${chapterHint} · ${heading(lead)}` : heading(lead)}
           </p>
           <div className="flex gap-2">
@@ -264,7 +264,7 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
         </div>
 
         {settings ? (
-          <div className="mb-4 flex flex-wrap gap-2 rounded-2xl border border-border/70 bg-card p-3">
+          <div className="border-border/70 bg-card mb-4 flex flex-wrap gap-2 rounded-2xl border p-3">
             {THEMES.map((item) => (
               <Button
                 key={item}
@@ -319,10 +319,10 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
             }
           }}
         >
-          <label className="flex min-h-11 items-center gap-2 rounded-2xl border border-border/70 bg-card px-3 text-sm text-foreground">
-            <Search className="size-4 shrink-0 text-muted-foreground" />
+          <label className="border-border/70 bg-card text-foreground flex min-h-11 items-center gap-2 rounded-2xl border px-3 text-sm">
+            <Search className="text-muted-foreground size-4 shrink-0" />
             <input
-              className="min-h-11 min-w-0 flex-1 bg-transparent text-foreground outline-none placeholder:text-muted-foreground"
+              className="text-foreground placeholder:text-muted-foreground min-h-11 min-w-0 flex-1 bg-transparent outline-hidden"
               value={jumpQuery}
               onChange={(event) => setJumpQuery(event.target.value)}
               placeholder="Adhyay 4, Gokarna, or page 20"
@@ -334,12 +334,12 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
             </Button>
           </label>
           {jumpHits.length > 0 && jumpQuery.trim() && !/^\d+$/.test(jumpQuery.trim()) ? (
-            <ul className="m-0 mt-2 list-none space-y-1 rounded-2xl border border-border/70 bg-card p-2 text-sm">
+            <ul className="border-border/70 bg-card m-0 mt-2 list-none space-y-1 rounded-2xl border p-2 text-sm">
               {jumpHits.map((hit) => (
                 <li key={`${hit.page}-${hit.label}`}>
                   <button
                     type="button"
-                    className="w-full rounded-md px-3 py-2 text-left text-foreground hover:bg-secondary"
+                    className="text-foreground hover:bg-secondary w-full rounded-md px-3 py-2 text-left"
                     onClick={() => {
                       go(hit.page);
                       setJumpQuery("");
@@ -353,11 +353,11 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
           ) : null}
         </form>
 
-        <div className="mb-4 flex flex-wrap items-center gap-2 rounded-2xl border border-border/70 bg-card px-3 py-3">
-          <label className="inline-flex min-h-11 items-center gap-2 text-sm text-foreground">
+        <div className="border-border/70 bg-card mb-4 flex flex-wrap items-center gap-2 rounded-2xl border px-3 py-3">
+          <label className="text-foreground inline-flex min-h-11 items-center gap-2 text-sm">
             <span className="text-muted-foreground">Adhyay</span>
             <select
-              className="min-h-11 max-w-[min(100%,20rem)] rounded-md border border-border bg-background px-3 text-sm text-foreground"
+              className="border-border bg-background text-foreground min-h-11 max-w-[min(100%,20rem)] rounded-md border px-3 text-sm"
               value={lead.chapterId ?? ""}
               onChange={(event) => {
                 const id = event.target.value;
@@ -390,7 +390,7 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
             {playing ? <Pause className="size-4" /> : <Play className="size-4" />}
             {playing ? "Pause" : "Listen"}
           </Button>
-          {status ? <p className="w-full text-xs text-muted-foreground">{status}</p> : null}
+          {status ? <p className="text-muted-foreground w-full text-xs">{status}</p> : null}
         </div>
 
         <div
@@ -439,8 +439,8 @@ export function PothiFolio({ initialPage }: { initialPage: number }) {
           context={speakLines.join("\n")}
         />
 
-        <div className="mt-5 rounded-2xl border border-border/70 bg-card px-3 py-4 sm:px-4">
-          <p className="text-center font-devanagari text-sm text-foreground">
+        <div className="border-border/70 bg-card mt-5 rounded-2xl border px-3 py-4 sm:px-4">
+          <p className="font-devanagari text-foreground text-center text-sm">
             पृष्ठ {toDevanagariNumeral(lead.page)}
             {folios[1] ? `–${toDevanagariNumeral(folios[1].page)}` : ""} · {folioStatusLabel(lead)}
           </p>

@@ -18,7 +18,7 @@ export function GaneshaTirthaHome() {
         actions={
           <Link
             href="/ganesh-aarti"
-            className="inline-flex h-11 items-center rounded-full border border-border/70 bg-background/80 px-5 text-sm font-semibold backdrop-blur"
+            className="border-border/70 bg-background/80 inline-flex h-11 items-center rounded-full border px-5 text-sm font-semibold backdrop-blur-sm"
           >
             Marathi aarti book →
           </Link>
@@ -32,39 +32,39 @@ export function GaneshaTirthaHome() {
             <li key={item.slug}>
               <Link
                 href={`/ganesha/${item.slug}`}
-                className="group block border-b border-border/70 py-5"
+                className="group border-border/70 block border-b py-5"
               >
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">
+                <p className="text-primary text-[11px] font-semibold tracking-[0.16em] uppercase">
                   Halt {item.circuitOrder}
                 </p>
-                <h3 className="mt-1 font-serif text-xl group-hover:text-primary">{item.name}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{item.location}</p>
+                <h3 className="group-hover:text-primary mt-1 font-serif text-xl">{item.name}</h3>
+                <p className="text-muted-foreground mt-1 text-sm">{item.location}</p>
               </Link>
             </li>
           ))}
         </ol>
         <div className="surface-panel mt-12 rounded-3xl p-8">
           <h2 className="font-serif text-2xl">Keep reading</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">
+          <p className="text-muted-foreground mt-3 max-w-2xl text-sm leading-7">
             Eight roads need a story spine. Open the Ganesha katha grantha, then the Chaturthi
             festival page for clay ethics and visarjan duty.
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
             <Link
               href="/katha/ganesha"
-              className="inline-flex h-11 items-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground"
+              className="bg-primary text-primary-foreground inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold"
             >
               Ganesha katha grantha
             </Link>
             <Link
               href="/festivals/ganesh-chaturthi"
-              className="inline-flex h-11 items-center rounded-full border border-border px-6 text-sm font-semibold"
+              className="border-border inline-flex h-11 items-center rounded-full border px-6 text-sm font-semibold"
             >
               Ganesh Chaturthi
             </Link>
             <Link
               href="/ganesh-aarti"
-              className="inline-flex h-11 items-center rounded-full border border-border px-6 text-sm font-semibold"
+              className="border-border inline-flex h-11 items-center rounded-full border px-6 text-sm font-semibold"
             >
               Marathi aarti
             </Link>

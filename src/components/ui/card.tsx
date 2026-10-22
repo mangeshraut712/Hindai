@@ -5,7 +5,7 @@ const Card = ({ className, ref, ...props }: React.ComponentPropsWithRef<"div">) 
   <div
     ref={ref}
     className={cn(
-      "bg-card/78 flex flex-col gap-6 rounded-[28px] border border-border/65 py-6 text-card-foreground shadow-[0_30px_80px_-48px_rgba(15,23,42,0.4)] backdrop-blur-xl",
+      "bg-card/78 border-border/65 text-card-foreground flex flex-col gap-6 rounded-[28px] border py-6 shadow-[0_30px_80px_-48px_rgba(15,23,42,0.4)] backdrop-blur-xl",
       className
     )}
     {...props}
@@ -19,12 +19,12 @@ const CardHeader = ({ className, ref, ...props }: React.ComponentPropsWithRef<"d
 CardHeader.displayName = "CardHeader";
 
 const CardTitle = ({ className, ref, ...props }: React.ComponentPropsWithRef<"h3">) => (
-  <h3 ref={ref} className={cn("font-semibold leading-none", className)} {...props} />
+  <h3 ref={ref} className={cn("leading-none font-semibold", className)} {...props} />
 );
 CardTitle.displayName = "CardTitle";
 
 const CardDescription = ({ className, ref, ...props }: React.ComponentPropsWithRef<"p">) => (
-  <p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
+  <p ref={ref} className={cn("text-muted-foreground text-sm", className)} {...props} />
 );
 CardDescription.displayName = "CardDescription";
 

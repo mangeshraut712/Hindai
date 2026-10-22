@@ -56,7 +56,7 @@ export default function PanchangaPage() {
           className="flex min-h-[50vh] flex-1 items-center justify-center px-4"
         >
           <div className="text-center">
-            <p className="mt-4 text-muted-foreground">
+            <p className="text-muted-foreground mt-4">
               {error ?? "Unable to load calendar details right now."}
             </p>
             {error && (
@@ -76,10 +76,10 @@ export default function PanchangaPage() {
       <Header />
 
       <main id="main-content" className="flex-1">
-        <section className="hero-mesh relative overflow-hidden border-b border-border/60">
+        <section className="hero-mesh border-border/60 relative overflow-hidden border-b">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
-          <div className="hero-sun -left-20 top-10 size-56 opacity-80" aria-hidden="true" />
-          <div className="hero-sun right-0 top-20 size-72 opacity-60" aria-hidden="true" />
+          <div className="hero-sun top-10 -left-20 size-56 opacity-80" aria-hidden="true" />
+          <div className="hero-sun top-20 right-0 size-72 opacity-60" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -110,7 +110,7 @@ export default function PanchangaPage() {
                 Previous Day
               </Button>
               <div className="text-center">
-                <p className="text-sm text-muted-foreground">Selected Date</p>
+                <p className="text-muted-foreground text-sm">Selected Date</p>
                 <p className="text-lg font-semibold">{formatDate(selectedDate)}</p>
               </div>
               <Button variant="outline" onClick={() => handleDateChange(1)}>
@@ -118,7 +118,7 @@ export default function PanchangaPage() {
               </Button>
             </motion.div>
             {error ? (
-              <div className="mb-8 rounded-[24px] border border-destructive/20 bg-destructive/10 p-4 text-sm text-destructive">
+              <div className="border-destructive/20 bg-destructive/10 text-destructive mb-8 rounded-[24px] border p-4 text-sm">
                 {error}
               </div>
             ) : null}
@@ -132,13 +132,13 @@ export default function PanchangaPage() {
                 className="surface-panel p-6"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <div className="bg-primary/10 text-primary flex size-12 items-center justify-center rounded-full">
                     <Moon className="size-6" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Tithi (Lunar Day)</p>
+                    <p className="text-muted-foreground text-sm">Tithi (Lunar Day)</p>
                     <p className="text-2xl font-semibold">{panchanga.tithi.sanskrit}</p>
-                    <p className="text-sm text-muted-foreground">{panchanga.tithi.name}</p>
+                    <p className="text-muted-foreground text-sm">{panchanga.tithi.name}</p>
                   </div>
                 </div>
                 <div className="mt-4 space-y-2">
@@ -161,13 +161,13 @@ export default function PanchangaPage() {
                 className="surface-panel p-6"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <div className="bg-primary/10 text-primary flex size-12 items-center justify-center rounded-full">
                     <Star className="size-6" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Nakshatra</p>
+                    <p className="text-muted-foreground text-sm">Nakshatra</p>
                     <p className="text-2xl font-semibold">{panchanga.nakshatra.sanskrit}</p>
-                    <p className="text-sm text-muted-foreground">{panchanga.nakshatra.name}</p>
+                    <p className="text-muted-foreground text-sm">{panchanga.nakshatra.name}</p>
                   </div>
                 </div>
                 <div className="mt-4 space-y-2">
@@ -190,13 +190,13 @@ export default function PanchangaPage() {
                 className="surface-panel p-6"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <div className="bg-primary/10 text-primary flex size-12 items-center justify-center rounded-full">
                     <Sparkles className="size-6" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Yoga</p>
+                    <p className="text-muted-foreground text-sm">Yoga</p>
                     <p className="text-2xl font-semibold">{panchanga.yoga.sanskrit}</p>
-                    <p className="text-sm text-muted-foreground">{panchanga.yoga.name}</p>
+                    <p className="text-muted-foreground text-sm">{panchanga.yoga.name}</p>
                   </div>
                 </div>
                 <div className="mt-4">
@@ -215,13 +215,13 @@ export default function PanchangaPage() {
                 className="surface-panel p-6"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <div className="bg-primary/10 text-primary flex size-12 items-center justify-center rounded-full">
                     <Clock className="size-6" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Karana</p>
+                    <p className="text-muted-foreground text-sm">Karana</p>
                     <p className="text-2xl font-semibold">{panchanga.karana.sanskrit}</p>
-                    <p className="text-sm text-muted-foreground">{panchanga.karana.name}</p>
+                    <p className="text-muted-foreground text-sm">{panchanga.karana.name}</p>
                   </div>
                 </div>
                 <div className="mt-4">
@@ -240,11 +240,11 @@ export default function PanchangaPage() {
                 className="surface-panel p-6"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <div className="bg-primary/10 text-primary flex size-12 items-center justify-center rounded-full">
                     <Calendar className="size-6" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Vara (Weekday)</p>
+                    <p className="text-muted-foreground text-sm">Vara (Weekday)</p>
                     <p className="text-2xl font-semibold">{panchanga.vara}</p>
                   </div>
                 </div>
@@ -258,11 +258,11 @@ export default function PanchangaPage() {
                 className="surface-panel p-6"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <div className="bg-primary/10 text-primary flex size-12 items-center justify-center rounded-full">
                     <Sun className="size-6" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Sunrise</p>
+                    <p className="text-muted-foreground text-sm">Sunrise</p>
                     <p className="text-2xl font-semibold">{panchanga.sunrise}</p>
                   </div>
                 </div>
@@ -291,12 +291,12 @@ export default function PanchangaPage() {
               <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                 <div>
                   <span className="eyebrow">Festival calendar • उत्सव</span>
-                  <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+                  <h2 className="text-foreground mt-4 text-3xl font-semibold tracking-[-0.04em]">
                     Upcoming festivals with puja vidhi.
                   </h2>
-                  <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">
+                  <p className="text-muted-foreground mt-3 max-w-xl text-sm leading-6">
                     Want origin stories, temple etiquette, and do/don’t? Open the{" "}
-                    <Link href="/festivals" className="font-semibold text-primary">
+                    <Link href="/festivals" className="text-primary font-semibold">
                       deep Festivals encyclopedia
                     </Link>
                     .
@@ -316,39 +316,39 @@ export default function PanchangaPage() {
                   return (
                     <article
                       key={festival.id}
-                      className="rounded-[24px] border border-border/60 bg-background/75 p-5"
+                      className="border-border/60 bg-background/75 rounded-[24px] border p-5"
                     >
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                         <div>
-                          <p className="font-devanagari text-xl text-primary">
+                          <p className="font-devanagari text-primary text-xl">
                             {festival.sanskrit}
                           </p>
-                          <h3 className="mt-1 text-xl font-semibold text-foreground">
+                          <h3 className="text-foreground mt-1 text-xl font-semibold">
                             {festival.name}
                           </h3>
                         </div>
-                        <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                        <span className="bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-medium">
                           {new Date(festival.date).toLocaleDateString("en-US", {
                             month: "short",
                             day: "numeric",
                           })}
                         </span>
                       </div>
-                      <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                      <p className="text-muted-foreground mt-3 text-sm leading-6">
                         {festival.description}
                       </p>
                       <div className="mt-4 space-y-3 text-sm leading-6">
                         <p>
-                          <span className="font-semibold text-foreground">Puja vidhi: </span>
+                          <span className="text-foreground font-semibold">Puja vidhi: </span>
                           <span className="text-muted-foreground">{festival.pujaVidhi}</span>
                         </p>
                         <p>
-                          <span className="font-semibold text-foreground">Significance: </span>
+                          <span className="text-foreground font-semibold">Significance: </span>
                           <span className="text-muted-foreground">{festival.significance}</span>
                         </p>
                         {deepHref ? (
                           <p>
-                            <Link href={deepHref} className="font-semibold text-primary">
+                            <Link href={deepHref} className="text-primary font-semibold">
                               Read the deep festival page →
                             </Link>
                           </p>

@@ -46,34 +46,34 @@ export function LearningProgress() {
     <div className="surface-panel p-6">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-lg font-semibold text-foreground">Your Learning Journey</h3>
-          <p className="text-sm text-muted-foreground">Track your spiritual progress</p>
+          <h3 className="text-foreground text-lg font-semibold">Your Learning Journey</h3>
+          <p className="text-muted-foreground text-sm">Track your spiritual progress</p>
         </div>
-        <Trophy className="size-5 text-primary" />
+        <Trophy className="text-primary size-5" />
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-4">
         <div className="text-center">
           <ProgressRing progress={progressPercentage}>
             <div className="text-center">
-              <div className="text-2xl font-bold text-foreground">
+              <div className="text-foreground text-2xl font-bold">
                 {Math.round(progressPercentage)}%
               </div>
-              <div className="text-xs text-muted-foreground">Complete</div>
+              <div className="text-muted-foreground text-xs">Complete</div>
             </div>
           </ProgressRing>
         </div>
 
         <div className="space-y-4">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-full bg-primary/10">
-              <BookOpen className="size-5 text-primary" />
+            <div className="bg-primary/10 flex size-10 items-center justify-center rounded-full">
+              <BookOpen className="text-primary size-5" />
             </div>
             <div>
-              <div className="text-lg font-semibold text-foreground">
+              <div className="text-foreground text-lg font-semibold">
                 {stats.versesRead.toLocaleString()}
               </div>
-              <div className="text-xs text-muted-foreground">Verses Read</div>
+              <div className="text-muted-foreground text-xs">Verses Read</div>
             </div>
           </div>
 
@@ -82,8 +82,8 @@ export function LearningProgress() {
               <Clock className="size-5 text-orange-500" />
             </div>
             <div>
-              <div className="text-lg font-semibold text-foreground">{stats.timeSpent}h</div>
-              <div className="text-xs text-muted-foreground">Time Spent</div>
+              <div className="text-foreground text-lg font-semibold">{stats.timeSpent}h</div>
+              <div className="text-muted-foreground text-xs">Time Spent</div>
             </div>
           </div>
         </div>
@@ -94,8 +94,8 @@ export function LearningProgress() {
               <Zap className="size-5 text-green-500" />
             </div>
             <div>
-              <div className="text-lg font-semibold text-foreground">{stats.studyStreak}</div>
-              <div className="text-xs text-muted-foreground">Day Streak</div>
+              <div className="text-foreground text-lg font-semibold">{stats.studyStreak}</div>
+              <div className="text-muted-foreground text-xs">Day Streak</div>
             </div>
           </div>
 
@@ -104,24 +104,24 @@ export function LearningProgress() {
               <Trophy className="size-5 text-purple-500" />
             </div>
             <div>
-              <div className="text-lg font-semibold text-foreground">{stats.achievements}</div>
-              <div className="text-xs text-muted-foreground">Achievements</div>
+              <div className="text-foreground text-lg font-semibold">{stats.achievements}</div>
+              <div className="text-muted-foreground text-xs">Achievements</div>
             </div>
           </div>
         </div>
 
         <div className="space-y-3">
-          <div className="text-sm font-medium text-foreground">Recent Activity</div>
+          <div className="text-foreground text-sm font-medium">Recent Activity</div>
           <div className="space-y-2">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <div className="text-muted-foreground flex items-center gap-2 text-xs">
               <div className="size-2 rounded-full bg-green-500"></div>
               Completed Bhagavad Gita Chapter 2
             </div>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <div className="text-muted-foreground flex items-center gap-2 text-xs">
               <div className="size-2 rounded-full bg-blue-500"></div>
               Started Yoga Sutras study
             </div>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <div className="text-muted-foreground flex items-center gap-2 text-xs">
               <div className="size-2 rounded-full bg-purple-500"></div>
               7-day study streak achieved!
             </div>

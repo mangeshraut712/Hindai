@@ -161,11 +161,11 @@ export function RecitationReader({ recitation }: { recitation: Recitation }) {
     <div className="space-y-8">
       <div className="flex flex-wrap items-end gap-3">
         {recitation.sections.length > 1 ? (
-          <label className="min-w-0 flex-1 text-sm text-muted-foreground">
+          <label className="text-muted-foreground min-w-0 flex-1 text-sm">
             Section
             <select
               aria-label="Section"
-              className="mt-2 block w-full max-w-full rounded-xl border border-border bg-background px-3 py-2 text-base text-foreground"
+              className="border-border bg-background text-foreground mt-2 block w-full max-w-full rounded-xl border px-3 py-2 text-base"
               value={section.id}
               onChange={(event) => {
                 const next = recitation.sections.findIndex(
@@ -183,7 +183,7 @@ export function RecitationReader({ recitation }: { recitation: Recitation }) {
             </select>
           </label>
         ) : null}
-        <p className="text-sm text-muted-foreground">{section.verses.length} in this section</p>
+        <p className="text-muted-foreground text-sm">{section.verses.length} in this section</p>
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
@@ -192,7 +192,7 @@ export function RecitationReader({ recitation }: { recitation: Recitation }) {
           {isPlaying ? "Stop" : "Listen"}
         </Button>
         {recitation.sections.length > 1 ? (
-          <label className="flex items-center gap-2 text-sm text-muted-foreground">
+          <label className="text-muted-foreground flex items-center gap-2 text-sm">
             <input
               type="checkbox"
               checked={continueThrough}
@@ -201,7 +201,7 @@ export function RecitationReader({ recitation }: { recitation: Recitation }) {
             Continue through the text
           </label>
         ) : null}
-        <p className="flex min-w-0 items-start gap-2 text-sm leading-6 text-muted-foreground">
+        <p className="text-muted-foreground flex min-w-0 items-start gap-2 text-sm leading-6">
           <Volume2 className="mt-0.5 size-4 shrink-0" />
           <span>
             Browser voice reading the Devanagari. Pronunciation follows the installed voice.
@@ -210,7 +210,7 @@ export function RecitationReader({ recitation }: { recitation: Recitation }) {
       </div>
 
       {speechError ? (
-        <p role="status" className="text-sm text-muted-foreground">
+        <p role="status" className="text-muted-foreground text-sm">
           {speechError}
         </p>
       ) : null}
@@ -233,7 +233,7 @@ export function RecitationReader({ recitation }: { recitation: Recitation }) {
 
       <div>
         <h2 className="font-serif text-2xl">{section.titleEn}</h2>
-        <p className="mt-2 font-devanagari text-xl text-primary">{section.title}</p>
+        <p className="font-devanagari text-primary mt-2 text-xl">{section.title}</p>
         <GemmaStudyPanel
           key={section.id}
           kind="mantra"
@@ -250,11 +250,11 @@ export function RecitationReader({ recitation }: { recitation: Recitation }) {
               key={`${section.id}-${verse.number}`}
               className="surface-panel min-w-0 rounded-2xl p-5"
             >
-              <p className="text-xs font-semibold tracking-[0.18em] text-primary">
+              <p className="text-primary text-xs font-semibold tracking-[0.18em]">
                 {verse.label || String(verse.number).padStart(2, "0")}
               </p>
               <p
-                className={`mt-3 whitespace-pre-line break-words text-lg leading-8 ${
+                className={`mt-3 text-lg leading-8 wrap-break-word whitespace-pre-line ${
                   layer === "original" || layer === "hindi" || layer === "note"
                     ? "font-devanagari"
                     : ""

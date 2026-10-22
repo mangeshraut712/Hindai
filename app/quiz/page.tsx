@@ -24,10 +24,10 @@ export default function QuizPage() {
 
       <main id="main-content" className="flex-1">
         {/* ── Hero ── */}
-        <section className="hero-mesh relative overflow-hidden border-b border-border/60">
+        <section className="hero-mesh border-border/60 relative overflow-hidden border-b">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
-          <div className="hero-sun -left-20 top-10 size-56 opacity-80" aria-hidden="true" />
-          <div className="hero-sun right-0 top-20 size-72 opacity-60" aria-hidden="true" />
+          <div className="hero-sun top-10 -left-20 size-56 opacity-80" aria-hidden="true" />
+          <div className="hero-sun top-20 right-0 size-72 opacity-60" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
               <motion.div
@@ -51,7 +51,7 @@ export default function QuizPage() {
                 className="surface-panel max-w-md p-6 transition-all duration-300 hover:shadow-xl lg:ml-auto"
               >
                 <div className="relative z-10 space-y-4">
-                  <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+                  <p className="text-muted-foreground text-[11px] tracking-[0.32em] uppercase">
                     Topics covered
                   </p>
                   <div className="grid grid-cols-2 gap-3">
@@ -61,7 +61,7 @@ export default function QuizPage() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
-                        className="group rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground/80 transition-all duration-300 hover:scale-105 hover:border-primary/30 hover:bg-primary/10"
+                        className="group border-border/60 bg-background/70 text-foreground/80 hover:border-primary/30 hover:bg-primary/10 rounded-[20px] border px-4 py-3 text-sm transition-all duration-300 hover:scale-105"
                       >
                         <span className="mr-2">{topic.emoji}</span>
                         {topic.label}
@@ -100,10 +100,10 @@ export default function QuizPage() {
               <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                 <div className="max-w-2xl">
                   <span className="eyebrow">Deepen your study • गहरा अध्ययन</span>
-                  <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
+                  <h2 className="text-foreground mt-6 text-4xl font-semibold tracking-[-0.04em]">
                     From quiz to guided learning.
                   </h2>
-                  <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                  <p className="text-muted-foreground mt-4 text-sm leading-7">
                     Found a topic that interests you? Continue with Guru AI for deeper explanations
                     or explore guided study paths through the scripture library.
                   </p>

@@ -11,14 +11,14 @@ function NeighborLinks({ current }: { current: Jyotirlinga }) {
   return (
     <div className="mt-10 flex flex-wrap justify-between gap-3 text-sm">
       {prev ? (
-        <Link href={`/mahadev/${prev.slug}`} className="font-semibold text-primary">
+        <Link href={`/mahadev/${prev.slug}`} className="text-primary font-semibold">
           ← {prev.name}
         </Link>
       ) : (
         <span />
       )}
       {next ? (
-        <Link href={`/mahadev/${next.slug}`} className="font-semibold text-primary">
+        <Link href={`/mahadev/${next.slug}`} className="text-primary font-semibold">
           {next.name} →
         </Link>
       ) : (
@@ -31,16 +31,16 @@ function NeighborLinks({ current }: { current: Jyotirlinga }) {
 export function JyotirlingaArticle({ shrine }: { shrine: Jyotirlinga }) {
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+      <p className="text-primary text-xs font-semibold tracking-[0.18em] uppercase">
         Jyotirlinga {shrine.id} of 12 · {shrine.state}
       </p>
       <h1 className="mt-4 font-serif text-4xl">{shrine.name}</h1>
-      <p className="mt-2 font-devanagari text-2xl text-primary">{shrine.sanskrit}</p>
-      <p className="mt-2 text-sm text-muted-foreground">
+      <p className="font-devanagari text-primary mt-2 text-2xl">{shrine.sanskrit}</p>
+      <p className="text-muted-foreground mt-2 text-sm">
         {shrine.location} · stotra region: {shrine.stotraPlace}
       </p>
 
-      <figure className="mt-8 overflow-hidden rounded-2xl border border-border/60">
+      <figure className="border-border/60 mt-8 overflow-hidden rounded-2xl border">
         <Image
           src={publicUrl(shrine.image)}
           alt={`Artist impression for ${shrine.name} — not a photograph of the living temple`}
@@ -49,7 +49,7 @@ export function JyotirlingaArticle({ shrine }: { shrine: Jyotirlinga }) {
           className="h-auto w-full"
           priority
         />
-        <figcaption className="bg-muted/40 px-4 py-3 text-xs leading-5 text-muted-foreground">
+        <figcaption className="bg-muted/40 text-muted-foreground px-4 py-3 text-xs leading-5">
           Artist impression generated for Hind AI. Not a photograph of the temple, priests, or
           pilgrims.
         </figcaption>
@@ -65,34 +65,34 @@ export function JyotirlingaArticle({ shrine }: { shrine: Jyotirlinga }) {
 
       <section className="mt-10">
         <h2 className="font-serif text-2xl">Place and history</h2>
-        <p className="mt-3 text-sm font-medium text-primary">Checkable geography and rebuilds</p>
+        <p className="text-primary mt-3 text-sm font-medium">Checkable geography and rebuilds</p>
         <p className="mt-3 text-base leading-8">{shrine.history}</p>
         <p className="mt-4 text-base leading-8">{shrine.significance}</p>
       </section>
 
       <section className="mt-10">
         <h2 className="font-serif text-2xl">If you arrived today</h2>
-        <p className="mt-3 text-sm font-medium text-muted-foreground">
+        <p className="text-muted-foreground mt-3 text-sm font-medium">
           Pilgrimage as it is now — queues, seasons, roads — not a miracle story
         </p>
         <p className="mt-3 text-base leading-8">{shrine.today}</p>
-        <p className="mt-4 text-sm text-muted-foreground">Usual season: {shrine.bestTimeToVisit}</p>
+        <p className="text-muted-foreground mt-4 text-sm">Usual season: {shrine.bestTimeToVisit}</p>
       </section>
 
       {shrine.otherClaims.length > 0 ? (
         <section className="theme-callout-strong mt-10 rounded-2xl p-5">
           <h2 className="font-serif text-2xl">Other living claims</h2>
-          <p className="mt-2 text-sm leading-7 text-foreground/80">
+          <p className="text-foreground/80 mt-2 text-sm leading-7">
             The Sanskrit verse names a region. More than one temple reads that region as itself.
             This page does not erase them.
           </p>
           <ul className="mt-4 space-y-3">
             {shrine.otherClaims.map((claim) => (
               <li key={claim.name}>
-                <p className="font-medium text-foreground">
+                <p className="text-foreground font-medium">
                   {claim.name} · {claim.place}
                 </p>
-                <p className="text-sm leading-6 text-muted-foreground">{claim.note}</p>
+                <p className="text-muted-foreground text-sm leading-6">{claim.note}</p>
               </li>
             ))}
           </ul>
@@ -106,14 +106,14 @@ export function JyotirlingaArticle({ shrine }: { shrine: Jyotirlinga }) {
             <li key={ritual}>{ritual}</li>
           ))}
         </ul>
-        <p className="mt-4 text-sm text-muted-foreground">
+        <p className="text-muted-foreground mt-4 text-sm">
           Nearby: {shrine.nearbyPlaces.join(", ")}
         </p>
       </section>
 
       <section className="mt-10">
         <h2 className="font-serif text-2xl">Sources</h2>
-        <ul className="mt-3 list-disc space-y-1 pl-5 text-sm leading-7 text-muted-foreground">
+        <ul className="text-muted-foreground mt-3 list-disc space-y-1 pl-5 text-sm leading-7">
           {shrine.sources.map((source) => (
             <li key={source}>{source}</li>
           ))}
@@ -122,11 +122,11 @@ export function JyotirlingaArticle({ shrine }: { shrine: Jyotirlinga }) {
 
       <NeighborLinks current={shrine} />
       <p className="mt-8 text-sm">
-        <Link href="/mahadev" className="font-semibold text-primary">
+        <Link href="/mahadev" className="text-primary font-semibold">
           ← All twelve
         </Link>
         {" · "}
-        <Link href="/shivlilamrit" className="font-semibold text-primary">
+        <Link href="/shivlilamrit" className="text-primary font-semibold">
           Shivlilamrit
         </Link>
       </p>

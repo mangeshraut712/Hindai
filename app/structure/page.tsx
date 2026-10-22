@@ -86,7 +86,7 @@ export default function StructurePage() {
       <Header />
 
       <main id="main-content" className="flex-1">
-        <section className="hero-mesh relative overflow-hidden border-b border-border/60">
+        <section className="hero-mesh border-border/60 relative overflow-hidden border-b">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.7fr)] lg:px-8">
             <motion.div
@@ -104,7 +104,7 @@ export default function StructurePage() {
                 compiled over thousands of years and is broadly organized into two major categories:{" "}
                 <strong>Shruti</strong> and <strong>Smriti</strong>.
               </p>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
+              <p className="text-muted-foreground mt-4 max-w-2xl text-sm leading-7">
                 The foundational map includes 4 Vedas, the traditional 108 Upanishads, 18 Major
                 Puranas, and 2 major Itihasas. This page is the structural map for that world.
               </p>
@@ -117,7 +117,7 @@ export default function StructurePage() {
               className="surface-panel p-6"
             >
               <div className="relative z-10">
-                <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+                <p className="text-muted-foreground text-[11px] tracking-[0.32em] uppercase">
                   At a glance
                 </p>
                 <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -127,15 +127,15 @@ export default function StructurePage() {
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.4, delay: 0.3 + index * 0.08 }}
-                      className="rounded-[24px] border border-border/60 bg-background/70 p-4 transition-all duration-300 hover:scale-105 hover:border-primary/30"
+                      className="border-border/60 bg-background/70 hover:border-primary/30 rounded-[24px] border p-4 transition-all duration-300 hover:scale-105"
                     >
-                      <p className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+                      <p className="text-muted-foreground text-[11px] tracking-[0.24em] uppercase">
                         {item.label}
                       </p>
-                      <p className="mt-2 font-serif text-3xl font-semibold text-foreground">
+                      <p className="text-foreground mt-2 font-serif text-3xl font-semibold">
                         {item.value}
                       </p>
-                      <p className="mt-2 text-sm text-muted-foreground">{item.note}</p>
+                      <p className="text-muted-foreground mt-2 text-sm">{item.note}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -158,19 +158,19 @@ export default function StructurePage() {
                 >
                   <div className="relative z-10">
                     <motion.div
-                      className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20"
+                      className="bg-primary/10 text-primary group-hover:bg-primary/20 flex size-12 items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110"
                       whileHover={{ rotate: 360 }}
                       transition={{ duration: 0.6 }}
                     >
                       <section.icon className="size-5" />
                     </motion.div>
-                    <p className="mt-5 text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                    <p className="text-muted-foreground mt-5 text-[11px] tracking-[0.28em] uppercase">
                       {section.subtitle}
                     </p>
-                    <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground transition-colors duration-300 group-hover:text-primary">
+                    <h2 className="text-foreground group-hover:text-primary mt-2 text-3xl font-semibold tracking-[-0.04em] transition-colors duration-300">
                       {section.title}
                     </h2>
-                    <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                    <p className="text-muted-foreground mt-4 text-sm leading-7">
                       {section.description}
                     </p>
                     <ul className="mt-6 space-y-3">
@@ -183,7 +183,7 @@ export default function StructurePage() {
                           transition={{ duration: 0.3, delay: pointIndex * 0.05 }}
                           className="text-foreground/84 flex items-start gap-3 text-sm leading-7"
                         >
-                          <BookOpen className="mt-1 size-4 shrink-0 text-primary" />
+                          <BookOpen className="text-primary mt-1 size-4 shrink-0" />
                           <span>{point}</span>
                         </motion.li>
                       ))}
@@ -207,10 +207,10 @@ export default function StructurePage() {
               <div className="relative z-10">
                 <div className="max-w-3xl">
                   <span className="eyebrow">Inside the Vedas • वेद भीतर</span>
-                  <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
+                  <h2 className="text-foreground mt-6 text-4xl font-semibold tracking-[-0.04em]">
                     Each Veda is layered, not singular.
                   </h2>
-                  <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                  <p className="text-muted-foreground mt-4 text-sm leading-7">
                     The Vedas are not single books in the modern sense. They are layered textual
                     traditions containing hymns, ritual exposition, meditative transition texts, and
                     philosophical teachings.
@@ -225,19 +225,19 @@ export default function StructurePage() {
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: index * 0.1 }}
-                      className="group rounded-[26px] border border-border/60 bg-background/75 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
+                      className="group border-border/60 bg-background/75 hover:border-primary/40 rounded-[26px] border p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                     >
                       <motion.div
-                        className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110"
+                        className="bg-primary/10 text-primary flex size-11 items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110"
                         whileHover={{ rotate: 180 }}
                         transition={{ duration: 0.5 }}
                       >
                         <LibraryBig className="size-5" />
                       </motion.div>
-                      <h3 className="mt-4 text-2xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
+                      <h3 className="text-foreground group-hover:text-primary mt-4 text-2xl font-semibold transition-colors duration-300">
                         {layer.name}
                       </h3>
-                      <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                      <p className="text-muted-foreground mt-3 text-sm leading-7">
                         {layer.description}
                       </p>
                     </motion.div>
@@ -256,7 +256,7 @@ export default function StructurePage() {
           transition={{ duration: 0.6 }}
         >
           <div className="mx-auto max-w-7xl">
-            <div className="surface-panel overflow-hidden bg-[linear-gradient(135deg,hsl(var(--foreground)),hsl(28_18%_18%))] text-background">
+            <div className="surface-panel text-background overflow-hidden bg-[linear-gradient(135deg,hsl(var(--foreground)),hsl(28_18%_18%))]">
               <div className="grid gap-8 px-6 py-10 md:px-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
                 <div className="relative z-10 max-w-3xl">
                   <span className="eyebrow border-white/15 bg-white/10 text-white/70">
@@ -265,7 +265,7 @@ export default function StructurePage() {
                   <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
                     The Bhagavad Gita sits inside the Mahabharata but stands on its own.
                   </h2>
-                  <p className="text-white/72 mt-4 text-sm leading-7">
+                  <p className="mt-4 text-sm leading-7 text-white/72">
                     The Gita is part of the Mahabharata, yet it is widely revered as an independent
                     guide to action, devotion, knowledge, and liberation. That is why it often
                     functions as a gateway text for modern readers.

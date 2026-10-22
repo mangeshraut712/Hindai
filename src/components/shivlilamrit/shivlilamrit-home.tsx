@@ -24,7 +24,7 @@ export function ShivlilamritHome() {
             <h1 className="theme-ink-title mt-6 font-serif text-4xl sm:text-5xl">
               ॥ श्रीशिवलीलामृत ॥
             </h1>
-            <p className="theme-ink-title mt-3 font-devanagari text-xl opacity-95">
+            <p className="theme-ink-title font-devanagari mt-3 text-xl opacity-95">
               कथासार · अध्याय पहिला ते पंधरावा
             </p>
             <p className="theme-ink-copy mt-5 max-w-2xl text-base leading-7">
@@ -58,8 +58,8 @@ export function ShivlilamritHome() {
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <div className="pothi-paat w-full max-w-72 rotate-[-3deg]">
-              <div className="overflow-hidden rounded-md bg-card px-4 py-6 text-center shadow-inner">
+            <div className="pothi-paat w-full max-w-72 -rotate-3">
+              <div className="bg-card overflow-hidden rounded-md px-4 py-6 text-center shadow-inner">
                 <Image
                   src={publicUrl("/shivlilamrit/cover.webp")}
                   alt="सचित्र श्रीशिवलीलामृत कथासार — cover art"
@@ -78,15 +78,15 @@ export function ShivlilamritHome() {
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="pothi-ebook-book">
           <div id="shivlilamrit-anukramanika" className="scroll-mt-24 px-5 py-8 sm:px-8">
-            <h2 className="text-center font-serif text-2xl text-primary">अनुक्रमणिका</h2>
-            <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-6 text-muted-foreground">
+            <h2 className="text-primary text-center font-serif text-2xl">अनुक्रमणिका</h2>
+            <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-center text-sm leading-6">
               Photographed print order. Open a leaf to read ovis and Hind AI katha — not a scan of
               the paperback.
             </p>
             <div className="mt-6 overflow-x-auto">
-              <table className="pothi-anukramanika w-full min-w-[28rem] border-collapse text-sm">
+              <table className="pothi-anukramanika w-full min-w-md border-collapse text-sm">
                 <thead>
-                  <tr className="border-b-2 border-foreground/80 text-left">
+                  <tr className="border-foreground/80 border-b-2 text-left">
                     <th className="w-16 py-2 pr-2 font-semibold">अ. क्र.</th>
                     <th className="py-2 pr-2 font-semibold">अध्यायाचे नाव</th>
                     <th className="w-24 py-2 text-right font-semibold">वाचा</th>
@@ -94,26 +94,26 @@ export function ShivlilamritHome() {
                 </thead>
                 <tbody>
                   {SHIVLILAMRIT_CHAPTERS.map((chapter) => (
-                    <tr key={chapter.id} className="border-b border-border/60 align-top">
-                      <td className="py-3 pr-2 font-devanagari tabular-nums text-primary">
+                    <tr key={chapter.id} className="border-border/60 border-b align-top">
+                      <td className="font-devanagari text-primary py-3 pr-2 tabular-nums">
                         {toDevanagariNumeral(chapter.id)}
                       </td>
                       <td className="py-3 pr-2">
                         <Link
                           href={bookPath(firstPageForSlug(String(chapter.id)))}
-                          className="font-devanagari text-base leading-6 text-foreground hover:text-primary"
+                          className="font-devanagari text-foreground hover:text-primary text-base leading-6"
                         >
                           {chapter.titleMr}
                           {chapter.special ? " · रुद्र" : ""}
                         </Link>
-                        <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                        <p className="text-muted-foreground mt-1 text-xs leading-5">
                           {chapter.titleEn}
                         </p>
                       </td>
                       <td className="py-3 text-right">
                         <Link
                           href={bookPath(firstPageForSlug(String(chapter.id)))}
-                          className="text-xs font-semibold uppercase tracking-[0.12em] text-primary"
+                          className="text-primary text-xs font-semibold tracking-[0.12em] uppercase"
                         >
                           Open
                         </Link>
@@ -130,43 +130,43 @@ export function ShivlilamritHome() {
                 <li key={entry.slug}>
                   <Link
                     href={bookPath(firstPageForSlug(entry.slug))}
-                    className="block rounded-xl border border-border/60 px-4 py-3 transition hover:border-primary/40"
+                    className="border-border/60 hover:border-primary/40 block rounded-xl border px-4 py-3 transition"
                   >
-                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
+                    <p className="text-primary text-xs font-semibold tracking-[0.14em] uppercase">
                       {entry.kind === "front" ? "Front" : "Closing"}
                     </p>
-                    <p className="mt-1 font-devanagari text-primary">{entry.titleMr}</p>
-                    <p className="text-sm text-muted-foreground">{entry.titleEn}</p>
+                    <p className="font-devanagari text-primary mt-1">{entry.titleMr}</p>
+                    <p className="text-muted-foreground text-sm">{entry.titleEn}</p>
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="border-t border-border/70 px-5 py-8 sm:px-8">
+          <div className="border-border/70 border-t px-5 py-8 sm:px-8">
             <h2 className="font-serif text-2xl">Parayan for Shravan</h2>
             <ul className="mt-6 grid list-none grid-cols-1 gap-4 p-0 md:grid-cols-2">
               {PARAYAN_METHODS.map((method) => (
                 <li
                   key={method.id}
-                  className="rounded-2xl border border-border/60 bg-background/60 p-5"
+                  className="border-border/60 bg-background/60 rounded-2xl border p-5"
                 >
                   <h3 className="font-serif text-xl">{method.title}</h3>
-                  <p className="mt-1 text-sm font-medium text-primary">{method.titleEn}</p>
-                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{method.bodyEn}</p>
+                  <p className="text-primary mt-1 text-sm font-medium">{method.titleEn}</p>
+                  <p className="text-muted-foreground mt-3 text-sm leading-7">{method.bodyEn}</p>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="border-t border-border/70 px-5 py-8 sm:px-8">
+          <div className="border-border/70 border-t px-5 py-8 sm:px-8">
             <PrintBookShop compact />
-            <p className="mt-8 text-center text-sm text-muted-foreground">
-              <Link href="/mahadev" className="font-semibold text-primary">
+            <p className="text-muted-foreground mt-8 text-center text-sm">
+              <Link href="/mahadev" className="text-primary font-semibold">
                 12 Jyotirlingas
               </Link>
               {" · "}
-              <Link href="/katha/mahadev" className="font-semibold text-primary">
+              <Link href="/katha/mahadev" className="text-primary font-semibold">
                 Mahadev katha grantha
               </Link>
             </p>

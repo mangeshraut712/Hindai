@@ -74,10 +74,10 @@ export default function CommunityPage() {
 
       <main id="main-content" className="flex-1">
         {/* ── Hero ── */}
-        <section className="hero-mesh relative overflow-hidden border-b border-border/60">
+        <section className="hero-mesh border-border/60 relative overflow-hidden border-b">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
-          <div className="hero-sun -left-20 top-10 size-56 opacity-80" aria-hidden="true" />
-          <div className="hero-sun right-0 top-20 size-72 opacity-60" aria-hidden="true" />
+          <div className="hero-sun top-10 -left-20 size-56 opacity-80" aria-hidden="true" />
+          <div className="hero-sun top-20 right-0 size-72 opacity-60" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -92,7 +92,7 @@ export default function CommunityPage() {
                 others on the path of wisdom, share insights, and deepen your understanding through
                 collective learning and meaningful dialogue.
               </p>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
+              <p className="text-muted-foreground mt-4 max-w-2xl text-sm leading-7">
                 The journey of spiritual wisdom is enriched when walked together. Our community
                 provides a space for respectful discussion, collaborative study, and mutual support
                 as we explore the profound teachings of ancient Indian wisdom traditions.
@@ -131,20 +131,20 @@ export default function CommunityPage() {
                 >
                   <div className="relative z-10 space-y-4">
                     <motion.div
-                      className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20"
+                      className="bg-primary/10 text-primary group-hover:bg-primary/20 flex size-12 items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110"
                       whileHover={{ rotate: 360 }}
                       transition={{ duration: 0.6 }}
                     >
                       <feature.icon className="size-5" />
                     </motion.div>
                     <div>
-                      <h3 className="text-xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
+                      <h3 className="text-foreground group-hover:text-primary text-xl font-semibold transition-colors duration-300">
                         {feature.title}
                       </h3>
-                      <p className="mt-2 font-devanagari text-xs text-muted-foreground">
+                      <p className="font-devanagari text-muted-foreground mt-2 text-xs">
                         {feature.bilingual}
                       </p>
-                      <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                      <p className="text-muted-foreground mt-3 text-sm leading-6">
                         {feature.description}
                       </p>
                     </div>
@@ -189,22 +189,22 @@ export default function CommunityPage() {
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: index * 0.1 }}
-                      className="rounded-2xl border border-border/60 bg-background/75 p-4 transition-all duration-300 hover:scale-105 hover:border-primary/30 hover:bg-primary/5"
+                      className="border-border/60 bg-background/75 hover:border-primary/30 hover:bg-primary/5 rounded-2xl border p-4 transition-all duration-300 hover:scale-105"
                     >
                       <div className="flex items-start gap-3">
                         <motion.div
-                          className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"
+                          className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center rounded-full"
                           whileHover={{ rotate: 15, scale: 1.1 }}
                           transition={{ duration: 0.3 }}
                         >
                           <Calendar className="size-4" />
                         </motion.div>
                         <div className="flex-1">
-                          <h4 className="text-sm font-semibold text-foreground">{event.title}</h4>
-                          <p className="mt-1 text-xs text-muted-foreground">
+                          <h4 className="text-foreground text-sm font-semibold">{event.title}</h4>
+                          <p className="text-muted-foreground mt-1 text-xs">
                             {event.date} • {event.time}
                           </p>
-                          <p className="mt-2 text-xs leading-5 text-muted-foreground">
+                          <p className="text-muted-foreground mt-2 text-xs leading-5">
                             {event.description}
                           </p>
                         </div>
@@ -229,10 +229,10 @@ export default function CommunityPage() {
             >
               <div className="relative z-10 max-w-3xl">
                 <span className="eyebrow">Community Guidelines • समुदाय निर्देश</span>
-                <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
+                <h2 className="text-foreground mt-6 text-4xl font-semibold tracking-[-0.04em]">
                   Creating a sacred space for learning.
                 </h2>
-                <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                <p className="text-muted-foreground mt-4 text-sm leading-7">
                   Our community is built on mutual respect, open inquiry, and a shared commitment to
                   learning. Please honor these guidelines as you participate.
                 </p>
@@ -245,16 +245,16 @@ export default function CommunityPage() {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: index * 0.08 }}
-                      className="flex items-start gap-3 rounded-2xl border border-border/60 bg-background/75 px-4 py-3 transition-all duration-300 hover:border-primary/30 hover:bg-primary/5"
+                      className="border-border/60 bg-background/75 hover:border-primary/30 hover:bg-primary/5 flex items-start gap-3 rounded-2xl border px-4 py-3 transition-all duration-300"
                     >
                       <motion.div
-                        className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"
+                        className="bg-primary/10 text-primary mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full"
                         whileHover={{ scale: 1.2, rotate: 45 }}
                         transition={{ duration: 0.3 }}
                       >
                         <Sparkles className="size-2.5" />
                       </motion.div>
-                      <p className="text-sm leading-6 text-foreground/90">{guideline}</p>
+                      <p className="text-foreground/90 text-sm leading-6">{guideline}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -272,7 +272,7 @@ export default function CommunityPage() {
           transition={{ duration: 0.6 }}
         >
           <div className="mx-auto max-w-7xl">
-            <div className="surface-panel overflow-hidden bg-[linear-gradient(135deg,hsl(var(--foreground)),hsl(28_18%_18%))] text-background">
+            <div className="surface-panel text-background overflow-hidden bg-[linear-gradient(135deg,hsl(var(--foreground)),hsl(28_18%_18%))]">
               <div className="grid gap-8 px-6 py-10 md:px-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
                 <div className="relative z-10 max-w-2xl">
                   <span className="eyebrow border-white/15 bg-white/10 text-white/70">
@@ -281,7 +281,7 @@ export default function CommunityPage() {
                   <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
                     Begin your journey with others.
                   </h2>
-                  <p className="text-white/72 mt-4 text-sm leading-7">
+                  <p className="mt-4 text-sm leading-7 text-white/72">
                     Connect with fellow seekers, participate in discussions, and deepen your
                     understanding through collective learning. The path of wisdom is better walked
                     together.

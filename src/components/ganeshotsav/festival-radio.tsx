@@ -20,7 +20,7 @@ export function FestivalRadio() {
             className="aspect-video w-full rounded-2xl"
           />
         ) : (
-          <div className="flex aspect-video flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-amber-700 via-red-800 to-stone-950 px-8 text-center">
+          <div className="flex aspect-video flex-col items-center justify-center rounded-2xl bg-linear-to-br from-amber-700 via-red-800 to-stone-950 px-8 text-center">
             <span className="font-devanagari text-5xl text-amber-100">गणपती बाप्पा मोरया</span>
             <p className="mt-5 text-sm text-amber-100/80">
               Choose a song to begin the festival radio.

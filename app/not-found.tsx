@@ -19,7 +19,7 @@ export default function NotFound() {
   return (
     <div className="hero-mesh relative flex min-h-screen flex-col items-center justify-center px-4">
       <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
-      <div className="hero-sun -left-24 top-16 size-80 opacity-50" aria-hidden="true" />
+      <div className="hero-sun top-16 -left-24 size-80 opacity-50" aria-hidden="true" />
       <div className="hero-sun -right-20 bottom-16 size-72 opacity-40" aria-hidden="true" />
 
       <motion.div
@@ -32,18 +32,18 @@ export default function NotFound() {
         <span className="eyebrow mx-auto">404 - Path not found</span>
 
         <div className="mt-8 space-y-4">
-          <p className="font-devanagari text-4xl text-primary sm:text-5xl">नासदासीन्नो सदासीत्</p>
-          <p className="text-sm italic text-muted-foreground">
+          <p className="font-devanagari text-primary text-4xl sm:text-5xl">नासदासीन्नो सदासीत्</p>
+          <p className="text-muted-foreground text-sm italic">
             &ldquo;Then even nothingness was not, nor existence.&rdquo; (Nasadiya Sukta, Rigveda
             10.129))
           </p>
         </div>
 
-        <h1 className="mt-8 font-serif text-4xl font-semibold tracking-[-0.04em] text-foreground sm:text-5xl">
+        <h1 className="text-foreground mt-8 font-serif text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">
           This path exists not yet.
         </h1>
 
-        <p className="mt-4 max-w-lg text-base leading-7 text-muted-foreground">
+        <p className="text-muted-foreground mt-4 max-w-lg text-base leading-7">
           The page you seek is not among the known routes. Like the unmanifest before creation,
           perhaps it will appear in time. For now, return to the library.
         </p>
@@ -73,14 +73,14 @@ export default function NotFound() {
             >
               <Link
                 href={route.href}
-                className="surface-panel group flex flex-col items-start gap-2 p-5 text-left transition-colors hover:bg-secondary/30"
+                className="surface-panel group hover:bg-secondary/30 flex flex-col items-start gap-2 p-5 text-left transition-colors"
               >
-                <span className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
+                <span className="text-muted-foreground text-[10px] tracking-[0.28em] uppercase">
                   {route.category}
                 </span>
-                <span className="font-devanagari text-lg text-primary">{route.sanskrit}</span>
-                <span className="text-sm font-semibold text-foreground">{route.label}</span>
-                <BookOpen className="mt-1 size-4 text-muted-foreground transition-colors group-hover:text-primary" />
+                <span className="font-devanagari text-primary text-lg">{route.sanskrit}</span>
+                <span className="text-foreground text-sm font-semibold">{route.label}</span>
+                <BookOpen className="text-muted-foreground group-hover:text-primary mt-1 size-4 transition-colors" />
               </Link>
             </motion.div>
           ))}

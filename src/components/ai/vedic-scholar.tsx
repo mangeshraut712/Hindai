@@ -211,8 +211,8 @@ export function VedicScholar() {
       <div className="mb-4">
         <ServerFeatureNotice feature="Vedic AI Scholar" />
       </div>
-      <Card className="border-2 border-primary/20 bg-gradient-to-br from-background via-background to-primary/5">
-        <CardHeader className="border-b border-border/50">
+      <Card className="border-primary/20 from-background via-background to-primary/5 border-2 bg-linear-to-br">
+        <CardHeader className="border-border/50 border-b">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <motion.div
@@ -220,17 +220,17 @@ export function VedicScholar() {
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                 className="relative"
               >
-                <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl" />
-                <div className="relative flex size-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/60 text-primary-foreground">
+                <div className="bg-primary/20 absolute inset-0 rounded-full blur-xl" />
+                <div className="from-primary to-primary/60 text-primary-foreground relative flex size-12 items-center justify-center rounded-full bg-linear-to-br">
                   <BookOpen className="size-6" />
                 </div>
               </motion.div>
               <div>
                 <CardTitle className="flex items-center gap-2 text-2xl">
-                  <Sparkles className="size-5 text-primary" />
+                  <Sparkles className="text-primary size-5" />
                   Vedic AI Scholar
                 </CardTitle>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   Powered by Gemma 4 • Deep insights into ancient wisdom
                 </p>
               </div>
@@ -248,7 +248,7 @@ export function VedicScholar() {
         </CardHeader>
 
         <CardContent className="p-6">
-          <div className="mb-4 flex max-h-[600px] min-h-[400px] flex-col gap-4 overflow-y-auto rounded-lg border border-border/50 bg-background/50 p-4">
+          <div className="border-border/50 bg-background/50 mb-4 flex max-h-[600px] min-h-[400px] flex-col gap-4 overflow-y-auto rounded-lg border p-4">
             {messages.length === 0 ? (
               <div className="flex flex-1 flex-col items-center justify-center text-center">
                 <motion.div
@@ -257,14 +257,14 @@ export function VedicScholar() {
                   className="mb-6"
                 >
                   <div className="relative">
-                    <div className="absolute inset-0 rounded-full bg-primary/20 blur-2xl" />
-                    <div className="relative flex size-24 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-primary/5">
-                      <BookOpen className="size-12 text-primary" />
+                    <div className="bg-primary/20 absolute inset-0 rounded-full blur-2xl" />
+                    <div className="from-primary/20 to-primary/5 relative flex size-24 items-center justify-center rounded-full bg-linear-to-br">
+                      <BookOpen className="text-primary size-12" />
                     </div>
                   </div>
                 </motion.div>
                 <h3 className="mb-2 text-xl font-semibold">Welcome, Seeker of Wisdom</h3>
-                <p className="mb-6 max-w-md text-muted-foreground">
+                <p className="text-muted-foreground mb-6 max-w-md">
                   Ask me anything about Hindu philosophy, scriptures, rituals, or spiritual
                   practices. I draw from the Vedas, Upanishads, Bhagavad Gita, and other sacred
                   texts.
@@ -299,7 +299,7 @@ export function VedicScholar() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.05 }}
                             onClick={() => handleQuickQuestion(question)}
-                            className="rounded-lg border border-border/60 bg-card/50 p-3 text-left text-sm text-foreground transition-all hover:border-primary/50 hover:bg-primary/5 hover:shadow-md"
+                            className="border-border/60 bg-card/50 text-foreground hover:border-primary/50 hover:bg-primary/5 rounded-lg border p-3 text-left text-sm transition-all hover:shadow-md"
                           >
                             {question}
                           </motion.button>
@@ -322,7 +322,7 @@ export function VedicScholar() {
                     )}
                   >
                     {message.role === "assistant" && (
-                      <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary">
+                      <div className="bg-primary/20 text-primary flex size-8 shrink-0 items-center justify-center rounded-full">
                         <BookOpen className="size-4" />
                       </div>
                     )}
@@ -368,12 +368,12 @@ export function VedicScholar() {
                     animate={{ opacity: 1 }}
                     className="flex gap-3"
                   >
-                    <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary">
+                    <div className="bg-primary/20 text-primary flex size-8 shrink-0 items-center justify-center rounded-full">
                       <BookOpen className="size-4" />
                     </div>
-                    <div className="flex items-center gap-1 rounded-2xl bg-muted p-4">
+                    <div className="bg-muted flex items-center gap-1 rounded-2xl p-4">
                       <Loader2 className="size-4 animate-spin" />
-                      <span className="text-sm text-muted-foreground">Seeking wisdom...</span>
+                      <span className="text-muted-foreground text-sm">Seeking wisdom...</span>
                     </div>
                   </motion.div>
                 )}
@@ -389,7 +389,7 @@ export function VedicScholar() {
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Ask about Hindu philosophy, scriptures, or spiritual practices..."
-              className="min-h-[80px] resize-none border-2 border-border/60 focus:border-primary/50"
+              className="border-border/60 focus:border-primary/50 min-h-[80px] resize-none border-2"
               disabled={isLoading}
             />
             <Button
@@ -406,7 +406,7 @@ export function VedicScholar() {
             </Button>
           </div>
 
-          <p className="mt-3 text-center text-xs text-muted-foreground">
+          <p className="text-muted-foreground mt-3 text-center text-xs">
             Press Enter to send, Shift+Enter for new line • Responses powered by Gemma 4 via
             OpenRouter
           </p>

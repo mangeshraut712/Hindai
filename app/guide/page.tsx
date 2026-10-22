@@ -77,19 +77,19 @@ export default function GuidePage() {
       <Header />
 
       <main id="main-content" className="flex-1">
-        <section className="hero-mesh relative overflow-hidden border-b border-border/60 px-4 py-16 sm:px-6 lg:px-8">
+        <section className="hero-mesh border-border/60 relative overflow-hidden border-b px-4 py-16 sm:px-6 lg:px-8">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
-          <div className="hero-sun right-[-8rem] top-[-8rem] size-[28rem]" aria-hidden="true" />
-          <div className="hero-sun bottom-[-10rem] left-[-9rem] size-[22rem]" aria-hidden="true" />
+          <div className="hero-sun -top-32 -right-32 size-112" aria-hidden="true" />
+          <div className="hero-sun -bottom-40 -left-36 size-88" aria-hidden="true" />
           <div className="temple-grid absolute inset-0 opacity-20" aria-hidden="true" />
 
           <div className="relative z-10 mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(420px,0.8fr)] lg:items-center">
             <div className="max-w-3xl">
               <span className="eyebrow">Hind AI guide • मार्गदर्शन</span>
-              <p className="mt-8 font-devanagari text-sm tracking-[0.28em] text-primary">
+              <p className="font-devanagari text-primary mt-8 text-sm tracking-[0.28em]">
                 ज्ञानम् अभ्यासः सेवा
               </p>
-              <h1 className="mt-4 font-serif text-5xl font-semibold tracking-[-0.05em] text-foreground sm:text-6xl lg:text-7xl">
+              <h1 className="text-foreground mt-4 font-serif text-5xl font-semibold tracking-tighter sm:text-6xl lg:text-7xl">
                 What Hind AI is,
                 <br />
                 and how to use it
@@ -117,10 +117,10 @@ export default function GuidePage() {
             <div className="surface-panel p-6 md:p-8">
               <div className="relative z-10">
                 <span className="eyebrow">Single AI runtime</span>
-                <h2 className="mt-6 font-serif text-4xl font-semibold text-foreground">
+                <h2 className="text-foreground mt-6 font-serif text-4xl font-semibold">
                   Gemma 4 through OpenRouter.
                 </h2>
-                <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                <p className="text-muted-foreground mt-4 text-sm leading-7">
                   The product experience is centered on one model contract: Hind AI&apos;s Gemma 4
                   runtime. That keeps chat, translation, Sanskrit help, dharma guidance, sadhana,
                   quiz generation, verse support, and vision analysis consistent.
@@ -134,7 +134,7 @@ export default function GuidePage() {
                   ].map((item) => (
                     <div
                       key={item}
-                      className="text-foreground/82 rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 text-sm font-semibold"
+                      className="text-foreground/82 border-border/60 bg-background/70 rounded-[20px] border px-4 py-3 text-sm font-semibold"
                     >
                       {item}
                     </div>
@@ -164,13 +164,13 @@ export default function GuidePage() {
                   className="surface-panel group p-6 transition-all hover:-translate-y-1"
                 >
                   <div className="relative z-10">
-                    <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <div className="bg-primary/10 text-primary flex size-12 items-center justify-center rounded-full">
                       <card.icon className="size-5" />
                     </div>
-                    <h3 className="mt-5 text-2xl font-semibold text-foreground group-hover:text-primary">
+                    <h3 className="text-foreground group-hover:text-primary mt-5 text-2xl font-semibold">
                       {card.title}
                     </h3>
-                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{card.body}</p>
+                    <p className="text-muted-foreground mt-3 text-sm leading-7">{card.body}</p>
                   </div>
                 </Link>
               ))}
@@ -192,9 +192,9 @@ export default function GuidePage() {
               {gemmaCapabilityPillars.map((pillar) => (
                 <div key={pillar.title} className="surface-panel p-5">
                   <div className="relative z-10">
-                    <Sparkles className="size-5 text-primary" />
-                    <h3 className="mt-4 text-lg font-semibold text-foreground">{pillar.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{pillar.body}</p>
+                    <Sparkles className="text-primary size-5" />
+                    <h3 className="text-foreground mt-4 text-lg font-semibold">{pillar.title}</h3>
+                    <p className="text-muted-foreground mt-2 text-sm leading-6">{pillar.body}</p>
                   </div>
                 </div>
               ))}
@@ -218,10 +218,10 @@ export default function GuidePage() {
                   {hindAIUseCases.map((useCase) => (
                     <div
                       key={useCase.title}
-                      className="rounded-[22px] border border-border/60 bg-background/70 p-4"
+                      className="border-border/60 bg-background/70 rounded-[22px] border p-4"
                     >
-                      <h3 className="text-base font-semibold text-foreground">{useCase.title}</h3>
-                      <p className="mt-2 text-sm leading-6 text-muted-foreground">{useCase.body}</p>
+                      <h3 className="text-foreground text-base font-semibold">{useCase.title}</h3>
+                      <p className="text-muted-foreground mt-2 text-sm leading-6">{useCase.body}</p>
                     </div>
                   ))}
                 </div>
@@ -240,10 +240,10 @@ export default function GuidePage() {
               {hindAIWorkflow.map((step, index) => (
                 <div key={step} className="surface-panel p-5">
                   <div className="relative z-10">
-                    <p className="font-serif text-3xl font-semibold text-primary">
+                    <p className="text-primary font-serif text-3xl font-semibold">
                       {String(index + 1).padStart(2, "0")}
                     </p>
-                    <p className="mt-4 text-sm leading-7 text-muted-foreground">{step}</p>
+                    <p className="text-muted-foreground mt-4 text-sm leading-7">{step}</p>
                   </div>
                 </div>
               ))}

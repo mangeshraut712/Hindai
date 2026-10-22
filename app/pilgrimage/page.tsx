@@ -24,7 +24,7 @@ export default function PilgrimagePage() {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main id="main-content" className="flex-1">
-        <section className="hero-mesh border-b border-border/60">
+        <section className="hero-mesh border-border/60 border-b">
           <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
             <span className="eyebrow">Tirtha · तीर्थ</span>
             <h1 className="section-title mt-6">One map, four traditions, no invented pins</h1>
@@ -34,23 +34,23 @@ export default function PilgrimagePage() {
               index holds {SHAKTI_PEETHAS.length} located places and refuses to pad the rest.
             </p>
             <div className="mt-6 flex flex-wrap gap-3 text-sm">
-              <Link href="/mahadev" className="font-semibold text-primary">
+              <Link href="/mahadev" className="text-primary font-semibold">
                 Mahadeva
               </Link>
-              <Link href="/devi" className="font-semibold text-primary">
+              <Link href="/devi" className="text-primary font-semibold">
                 Devi
               </Link>
-              <Link href="/vishnu" className="font-semibold text-primary">
+              <Link href="/vishnu" className="text-primary font-semibold">
                 Vishnu
               </Link>
-              <Link href="/ganesha" className="font-semibold text-primary">
+              <Link href="/ganesha" className="text-primary font-semibold">
                 Ganesha
               </Link>
             </div>
             {audit.length > 0 ? (
-              <p className="mt-4 text-sm text-destructive">Map audit: {audit.join("; ")}</p>
+              <p className="text-destructive mt-4 text-sm">Map audit: {audit.join("; ")}</p>
             ) : (
-              <p className="mt-4 text-sm text-muted-foreground">
+              <p className="text-muted-foreground mt-4 text-sm">
                 Real South Asia coastline (Natural Earth) with living-temple GPS — Hinglaj west to
                 Kamakhya east, Kedarnath north to Rameswaram south.
               </p>

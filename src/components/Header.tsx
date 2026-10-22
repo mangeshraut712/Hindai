@@ -37,7 +37,7 @@ function BrandLink({ onNavigate }: { onNavigate: () => void }) {
       onClick={onNavigate}
       aria-label="Hind AI home"
     >
-      <div className="relative size-9 shrink-0 overflow-hidden rounded-full border border-primary/30 bg-gradient-to-br from-primary/10 to-primary/5 sm:size-10">
+      <div className="border-primary/30 from-primary/10 to-primary/5 relative size-9 shrink-0 overflow-hidden rounded-full border bg-linear-to-br sm:size-10">
         <Image
           src={publicUrl("/logo.webp")}
           alt="Hind AI"
@@ -49,10 +49,10 @@ function BrandLink({ onNavigate }: { onNavigate: () => void }) {
         />
       </div>
       <span className="min-w-0 leading-tight">
-        <span className="block text-[15px] font-semibold text-foreground group-hover:text-primary sm:text-base">
+        <span className="text-foreground group-hover:text-primary block text-[15px] font-semibold sm:text-base">
           Hind AI
         </span>
-        <span className="block font-devanagari text-[10px] text-muted-foreground sm:text-[11px]">
+        <span className="font-devanagari text-muted-foreground block text-[10px] sm:text-[11px]">
           डिजिटल गुरुकुल
         </span>
       </span>
@@ -63,7 +63,7 @@ function BrandLink({ onNavigate }: { onNavigate: () => void }) {
 function DesktopMenu() {
   return (
     <nav
-      className="hidden min-w-0 items-center gap-0.5 overflow-visible rounded-2xl border border-border bg-card px-1.5 py-1 lg:flex"
+      className="border-border bg-card hidden min-w-0 items-center gap-0.5 overflow-visible rounded-2xl border px-1.5 py-1 lg:flex"
       aria-label="Primary"
       suppressHydrationWarning
     >
@@ -88,7 +88,7 @@ function DesktopMenuGroup({ group }: { group: SiteNavGroup }) {
       <Button
         variant="ghost"
         size="sm"
-        className="nav-pill h-9 gap-1 px-3 text-foreground"
+        className="nav-pill text-foreground h-9 gap-1 px-3"
         aria-haspopup="true"
       >
         <span className="text-sm font-semibold">{group.label}</span>
@@ -97,8 +97,8 @@ function DesktopMenuGroup({ group }: { group: SiteNavGroup }) {
       <div
         className={`invisible absolute top-full z-50 w-72 pt-2 group-focus-within:visible group-hover:visible ${alignment}`}
       >
-        <div className="flex -translate-y-1 flex-col rounded-2xl border border-border bg-card p-2 opacity-0 shadow-lg transition-all duration-200 group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:translate-y-0 group-hover:opacity-100">
-          <p className="px-3 pb-2 pt-1 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+        <div className="border-border bg-card flex -translate-y-1 flex-col rounded-2xl border p-2 opacity-0 shadow-lg transition-all duration-200 group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:translate-y-0 group-hover:opacity-100">
+          <p className="text-muted-foreground px-3 pt-1 pb-2 text-[11px] tracking-[0.16em] uppercase">
             {group.description}
           </p>
           {group.items.map((item) => (
@@ -114,12 +114,12 @@ function DesktopMenuLink({ item }: { item: SiteNavItem }) {
   return (
     <Link
       href={item.href}
-      className="flex items-start gap-3 rounded-xl px-3 py-2.5 text-foreground transition-colors hover:bg-primary/10 focus-visible:bg-primary/10 focus-visible:outline-none"
+      className="text-foreground hover:bg-primary/10 focus-visible:bg-primary/10 flex items-start gap-3 rounded-xl px-3 py-2.5 transition-colors focus-visible:outline-hidden"
     >
-      <item.icon className="mt-0.5 size-4 shrink-0 text-primary" />
+      <item.icon className="text-primary mt-0.5 size-4 shrink-0" />
       <span className="min-w-0">
         <span className="block text-sm font-semibold">{item.label}</span>
-        <span className="block text-xs text-muted-foreground">{item.hint}</span>
+        <span className="text-muted-foreground block text-xs">{item.hint}</span>
       </span>
     </Link>
   );
@@ -128,23 +128,23 @@ function DesktopMenuLink({ item }: { item: SiteNavItem }) {
 function LibraryDesktopGroup() {
   return (
     <div className="group relative">
-      <Button variant="ghost" size="sm" className="nav-pill h-9 gap-1 px-3 text-foreground">
+      <Button variant="ghost" size="sm" className="nav-pill text-foreground h-9 gap-1 px-3">
         <span className="text-sm font-semibold">Library</span>
         <ChevronDown className="size-3.5 transition-transform duration-200 group-focus-within:rotate-180 group-hover:rotate-180" />
       </Button>
-      <div className="invisible absolute left-0 top-full z-50 w-80 pt-2 group-focus-within:visible group-hover:visible">
-        <div className="flex -translate-y-1 flex-col rounded-2xl border border-border bg-card p-2 opacity-0 shadow-lg transition-all duration-200 group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:translate-y-0 group-hover:opacity-100">
+      <div className="invisible absolute top-full left-0 z-50 w-80 pt-2 group-focus-within:visible group-hover:visible">
+        <div className="border-border bg-card flex -translate-y-1 flex-col rounded-2xl border p-2 opacity-0 shadow-lg transition-all duration-200 group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:translate-y-0 group-hover:opacity-100">
           <Link
             href="/contents"
-            className="rounded-xl px-3 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-primary/10"
+            className="text-foreground hover:bg-primary/10 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors"
           >
             Open the full catalog
-            <span className="mt-1 block text-xs font-normal text-muted-foreground">
+            <span className="text-muted-foreground mt-1 block text-xs font-normal">
               Vedas, epics, Puranas, and shelves
             </span>
           </Link>
-          <div className="px-3 pb-1 pt-2">
-            <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+          <div className="px-3 pt-2 pb-1">
+            <p className="text-muted-foreground text-[11px] tracking-[0.16em] uppercase">
               Featured texts
             </p>
           </div>
@@ -152,10 +152,10 @@ function LibraryDesktopGroup() {
             <Link
               key={item.slug}
               href={item.href}
-              className="flex flex-col gap-1 rounded-xl px-3 py-2.5 transition-colors hover:bg-primary/10"
+              className="hover:bg-primary/10 flex flex-col gap-1 rounded-xl px-3 py-2.5 transition-colors"
             >
-              <span className="text-sm font-semibold text-foreground">{item.name}</span>
-              <span className="font-devanagari text-sm text-muted-foreground">{item.sanskrit}</span>
+              <span className="text-foreground text-sm font-semibold">{item.name}</span>
+              <span className="font-devanagari text-muted-foreground text-sm">{item.sanskrit}</span>
             </Link>
           ))}
         </div>
@@ -189,13 +189,13 @@ function HeaderActions({
       <Button
         variant="outline"
         size="sm"
-        className="hidden gap-2 border-border text-foreground sm:inline-flex"
+        className="border-border text-foreground hidden gap-2 sm:inline-flex"
         onClick={onSearch}
         aria-label="Open search dialog"
       >
-        <Search className="size-4 text-primary" />
+        <Search className="text-primary size-4" />
         <span className="text-xs">Search</span>
-        <kbd className="hidden rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground lg:inline-flex">
+        <kbd className="border-border bg-muted text-muted-foreground hidden rounded-full border px-2 py-0.5 text-[10px] font-medium lg:inline-flex">
           ⌘K
         </kbd>
       </Button>
@@ -226,16 +226,16 @@ function LanguageMenu({
         <Button
           variant="outline"
           size="sm"
-          className="hidden gap-2 border-border text-foreground lg:inline-flex"
+          className="border-border text-foreground hidden gap-2 lg:inline-flex"
         >
-          <Languages className="size-4 text-primary" />
+          <Languages className="text-primary size-4" />
           <span className="text-xs">{language}</span>
           <ChevronDown className="size-3" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="w-40 rounded-2xl border-border bg-card p-2 text-foreground shadow-lg"
+        className="border-border bg-card text-foreground w-40 rounded-2xl p-2 shadow-lg"
       >
         {SUPPORTED_LANGUAGES.map((lang) => (
           <DropdownMenuItem
@@ -260,8 +260,8 @@ function ThemeButton({ onThemeToggle }: { onThemeToggle: () => void }) {
       aria-label="Toggle theme"
       className="text-foreground hover:bg-primary/10"
     >
-      <Sun className="size-4 rotate-0 scale-100 text-primary transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute size-4 rotate-90 scale-0 text-primary transition-all dark:rotate-0 dark:scale-100" />
+      <Sun className="text-primary size-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+      <Moon className="text-primary absolute size-4 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
       <span className="sr-only">Toggle theme</span>
     </Button>
   );
@@ -292,13 +292,13 @@ function MobileMenu({
           size="icon"
           className="text-foreground hover:bg-primary/10 lg:hidden"
         >
-          <Menu className="size-5 text-primary" />
+          <Menu className="text-primary size-5" />
           <span className="sr-only">Open navigation menu</span>
         </Button>
       </SheetTrigger>
       <SheetContent
         side="right"
-        className="flex h-full w-[min(22rem,100vw)] max-w-full flex-col overflow-y-auto border-border bg-background px-4 py-4 text-foreground sm:px-5"
+        className="border-border bg-background text-foreground flex h-full w-[min(22rem,100vw)] max-w-full flex-col overflow-y-auto px-4 py-4 sm:px-5"
       >
         {open ? (
           <>
@@ -306,13 +306,13 @@ function MobileMenu({
             <div className="mt-4 space-y-5 pb-6">
               <Button
                 variant="outline"
-                className="w-full justify-start border-border text-foreground"
+                className="border-border text-foreground w-full justify-start"
                 onClick={() => {
                   onSearch();
                   setOpen(false);
                 }}
               >
-                <Search className="size-4 text-primary" />
+                <Search className="text-primary size-4" />
                 Search scriptures
               </Button>
               <ScripturesMobileSection onNavigate={handleNavigation} />
@@ -342,11 +342,11 @@ function MobileMenuHeader({
   setLanguage: (language: Language) => void;
 }) {
   return (
-    <SheetHeader className="border-b border-border pb-5">
-      <SheetTitle className="text-left text-xl font-semibold text-primary">Hind AI</SheetTitle>
-      <SheetDescription className="text-left text-muted-foreground">
+    <SheetHeader className="border-border border-b pb-5">
+      <SheetTitle className="text-primary text-left text-xl font-semibold">Hind AI</SheetTitle>
+      <SheetDescription className="text-muted-foreground text-left">
         <span className="font-devanagari tracking-[0.16em]">डिजिटल गुरुकुल</span>
-        <div className="mt-3 flex w-fit items-center gap-1.5 rounded-full border border-border bg-card px-1.5 py-1">
+        <div className="border-border bg-card mt-3 flex w-fit items-center gap-1.5 rounded-full border px-1.5 py-1">
           {SUPPORTED_LANGUAGES.map((lang) => (
             <button
               type="button"
@@ -371,14 +371,14 @@ function ScripturesMobileSection({ onNavigate }: { onNavigate: () => void }) {
   return (
     <div className="space-y-2">
       <div>
-        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+        <p className="text-muted-foreground text-[11px] font-semibold tracking-[0.16em] uppercase">
           Library
         </p>
-        <p className="mt-0.5 text-xs leading-5 text-muted-foreground">Catalog and featured texts</p>
+        <p className="text-muted-foreground mt-0.5 text-xs leading-5">Catalog and featured texts</p>
       </div>
       <Link
         href="/contents"
-        className="block rounded-xl border border-primary/40 bg-primary/10 px-3 py-2.5 text-sm font-semibold text-foreground"
+        className="border-primary/40 bg-primary/10 text-foreground block rounded-xl border px-3 py-2.5 text-sm font-semibold"
         onClick={onNavigate}
       >
         Open the full catalog
@@ -388,11 +388,11 @@ function ScripturesMobileSection({ onNavigate }: { onNavigate: () => void }) {
           <Link
             key={item.slug}
             href={item.href}
-            className="rounded-xl border border-border bg-card px-3 py-2 transition-colors hover:border-primary/40 hover:bg-primary/5"
+            className="border-border bg-card hover:border-primary/40 hover:bg-primary/5 rounded-xl border px-3 py-2 transition-colors"
             onClick={onNavigate}
           >
-            <p className="font-devanagari text-sm leading-5 text-primary">{item.sanskrit}</p>
-            <p className="text-sm font-semibold leading-5 text-foreground">{item.name}</p>
+            <p className="font-devanagari text-primary text-sm leading-5">{item.sanskrit}</p>
+            <p className="text-foreground text-sm leading-5 font-semibold">{item.name}</p>
           </Link>
         ))}
       </div>
@@ -416,23 +416,23 @@ function MobileNavSection({
   return (
     <div className="space-y-2">
       <div>
-        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+        <p className="text-muted-foreground text-[11px] font-semibold tracking-[0.16em] uppercase">
           {title}
         </p>
-        <p className="mt-0.5 text-xs leading-5 text-muted-foreground">{description}</p>
+        <p className="text-muted-foreground mt-0.5 text-xs leading-5">{description}</p>
       </div>
       <div className="grid grid-cols-1 gap-1.5">
         {items.map((item) => (
           <Link
             key={item.href}
             href={item.href}
-            className={`rounded-xl border px-3 py-2 transition-colors hover:border-primary/40 hover:bg-primary/5 ${
+            className={`hover:border-primary/40 hover:bg-primary/5 rounded-xl border px-3 py-2 transition-colors ${
               isActive(item.href) ? "border-primary/50 bg-primary/10" : "border-border bg-card"
             }`}
             onClick={onNavigate}
           >
-            <p className="text-sm font-semibold leading-5 text-foreground">{item.label}</p>
-            <p className="mt-0.5 text-xs leading-4 text-muted-foreground">{item.hint}</p>
+            <p className="text-foreground text-sm leading-5 font-semibold">{item.label}</p>
+            <p className="text-muted-foreground mt-0.5 text-xs leading-4">{item.hint}</p>
           </Link>
         ))}
       </div>
@@ -465,8 +465,8 @@ export function Header() {
   };
 
   return (
-    <header className="supports-[backdrop-filter]:bg-background/92 sticky top-0 z-50 border-b border-border bg-background/95 text-foreground backdrop-blur-2xl">
-      <div className="mx-auto flex min-h-16 min-w-0 max-w-7xl items-center justify-between gap-2 px-4 sm:gap-4 sm:px-6 lg:px-8">
+    <header className="supports-backdrop-filter:bg-background/92 border-border bg-background/95 text-foreground sticky top-0 z-50 border-b backdrop-blur-2xl">
+      <div className="mx-auto flex min-h-16 max-w-7xl min-w-0 items-center justify-between gap-2 px-4 sm:gap-4 sm:px-6 lg:px-8">
         <BrandLink onNavigate={() => setIsOpen(false)} />
         <DesktopMenu />
         <HeaderActions

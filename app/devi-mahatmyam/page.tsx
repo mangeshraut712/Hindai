@@ -14,10 +14,10 @@ export const metadata: Metadata = {
 export default function DeviMahatmyamAliasPage() {
   return (
     <main className="mx-auto flex min-h-[50vh] max-w-xl flex-col items-center justify-center gap-4 px-4 text-center">
-      <p className="text-sm text-muted-foreground">
+      <p className="text-muted-foreground text-sm">
         Devi Mahatmyam is published as the Durga Saptashati patha.
       </p>
-      <Link href="/durga-saptashati" className="text-sm font-semibold text-primary">
+      <Link href="/durga-saptashati" className="text-primary text-sm font-semibold">
         Continue to दुर्गा सप्तशती →
       </Link>
     </main>

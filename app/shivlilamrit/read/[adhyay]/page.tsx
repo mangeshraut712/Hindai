@@ -50,7 +50,7 @@ export default async function ShivlilamritReadPage({ params }: PageProps) {
       <Header />
       <main id="main-content" className="flex-1">
         <Suspense
-          fallback={<p className="p-8 text-center text-sm text-muted-foreground">Opening pothi…</p>}
+          fallback={<p className="text-muted-foreground p-8 text-center text-sm">Opening pothi…</p>}
         >
           <BookReader fallbackPage={firstPageForSlug(slug)} />
         </Suspense>

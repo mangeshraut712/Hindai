@@ -34,7 +34,7 @@ export default function DeveloperAgentPage() {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main id="main-content" className="flex-1">
-        <section className="hero-mesh relative overflow-hidden border-b border-border/60">
+        <section className="hero-mesh border-border/60 relative overflow-hidden border-b">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <motion.div
@@ -58,9 +58,9 @@ export default function DeveloperAgentPage() {
             <div className="grid gap-5 lg:grid-cols-3">
               {points.map((point) => (
                 <div key={point.title} className="surface-panel p-6">
-                  <Wrench className="size-5 text-primary" />
+                  <Wrench className="text-primary size-5" />
                   <h2 className="mt-4 text-xl font-semibold">{point.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{point.body}</p>
+                  <p className="text-muted-foreground mt-3 text-sm leading-7">{point.body}</p>
                 </div>
               ))}
             </div>

@@ -94,7 +94,7 @@ export function StudyPathBoard() {
           <div key={path.id} id={path.id} className="surface-panel p-6">
             <div className="relative z-10">
               <div className="flex items-center justify-between">
-                <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <div className="bg-primary/10 text-primary flex size-11 items-center justify-center rounded-full">
                   {audienceIcon}
                 </div>
                 <div className="flex gap-2">
@@ -125,16 +125,16 @@ export function StudyPathBoard() {
                 </div>
               </div>
 
-              <p className="mt-5 text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+              <p className="text-muted-foreground mt-5 text-[11px] tracking-[0.28em] uppercase">
                 {path.audience} • {path.duration}
               </p>
-              <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+              <h2 className="text-foreground mt-2 text-3xl font-semibold tracking-[-0.04em]">
                 {path.title}
               </h2>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">{path.summary}</p>
+              <p className="text-muted-foreground mt-3 text-sm leading-7">{path.summary}</p>
               <p className="text-foreground/84 mt-3 text-sm leading-7">{path.goal}</p>
 
-              <div className="mt-5 rounded-full border border-border/60 bg-background/75 px-4 py-2 text-xs text-muted-foreground">
+              <div className="border-border/60 bg-background/75 text-muted-foreground mt-5 rounded-full border px-4 py-2 text-xs">
                 Progress: {path.progress}% complete
               </div>
 
@@ -144,16 +144,16 @@ export function StudyPathBoard() {
                   return (
                     <div
                       key={step.id}
-                      className="rounded-[22px] border border-border/60 bg-background/75 p-4"
+                      className="border-border/60 bg-background/75 rounded-[22px] border p-4"
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div>
-                          <p className="text-sm font-medium text-foreground">{step.title}</p>
-                          <p className="mt-2 text-xs leading-6 text-muted-foreground">
+                          <p className="text-foreground text-sm font-medium">{step.title}</p>
+                          <p className="text-muted-foreground mt-2 text-xs leading-6">
                             {step.description}
                           </p>
                         </div>
-                        {completed ? <CheckCircle2 className="mt-0.5 size-5 text-primary" /> : null}
+                        {completed ? <CheckCircle2 className="text-primary mt-0.5 size-5" /> : null}
                       </div>
                       <div className="mt-4 flex gap-2">
                         <Button variant="outline" size="sm" asChild>

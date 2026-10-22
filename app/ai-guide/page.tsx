@@ -12,14 +12,14 @@ const VedicScholar = dynamic(
     ssr: false,
     loading: () => (
       <div className="surface-panel min-h-[500px] animate-pulse rounded-2xl p-6">
-        <div className="h-8 w-48 rounded-lg bg-muted/60" />
+        <div className="bg-muted/60 h-8 w-48 rounded-lg" />
         <div className="mt-6 space-y-4">
           {[...Array(3)].map((_, i) => (
             <div key={i} className="flex gap-4">
-              <div className="size-10 rounded-full bg-muted/60" />
+              <div className="bg-muted/60 size-10 rounded-full" />
               <div className="flex-1 space-y-2">
-                <div className="h-4 w-3/4 rounded bg-muted/60" />
-                <div className="h-4 w-1/2 rounded bg-muted/60" />
+                <div className="bg-muted/60 h-4 w-3/4 rounded" />
+                <div className="bg-muted/60 h-4 w-1/2 rounded" />
               </div>
             </div>
           ))}
@@ -50,10 +50,10 @@ export default function AIGuidePage() {
       <Header />
 
       <main id="main-content" className="flex-1">
-        <section className="hero-mesh relative overflow-hidden border-b border-border/60">
+        <section className="hero-mesh border-border/60 relative overflow-hidden border-b">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
-          <div className="hero-sun -left-20 top-10 size-56 opacity-80" aria-hidden="true" />
-          <div className="hero-sun right-0 top-20 size-72 opacity-60" aria-hidden="true" />
+          <div className="hero-sun top-10 -left-20 size-56 opacity-80" aria-hidden="true" />
+          <div className="hero-sun top-20 right-0 size-72 opacity-60" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
               <motion.div
@@ -79,7 +79,7 @@ export default function AIGuidePage() {
                 transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
                 className="surface-panel max-w-xl p-6 lg:ml-auto"
               >
-                <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+                <p className="text-muted-foreground text-[11px] tracking-[0.32em] uppercase">
                   Built for study
                 </p>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -94,7 +94,7 @@ export default function AIGuidePage() {
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
-                      className="rounded-[20px] border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground/80 transition-all duration-300 hover:scale-105 hover:border-primary/30"
+                      className="border-border/60 bg-background/70 text-foreground/80 hover:border-primary/30 rounded-[20px] border px-4 py-3 text-sm transition-all duration-300 hover:scale-105"
                     >
                       {item}
                     </motion.div>
@@ -134,16 +134,16 @@ export default function AIGuidePage() {
                 >
                   <div className="relative z-10">
                     <motion.div
-                      className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20"
+                      className="bg-primary/10 text-primary group-hover:bg-primary/20 flex size-11 items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110"
                       whileHover={{ rotate: 360 }}
                       transition={{ duration: 0.6 }}
                     >
                       <Sparkles className="size-5" />
                     </motion.div>
-                    <h2 className="mt-5 text-2xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
+                    <h2 className="text-foreground group-hover:text-primary mt-5 text-2xl font-semibold transition-colors duration-300">
                       {point.title}
                     </h2>
-                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{point.body}</p>
+                    <p className="text-muted-foreground mt-3 text-sm leading-7">{point.body}</p>
                   </div>
                 </motion.div>
               ))}

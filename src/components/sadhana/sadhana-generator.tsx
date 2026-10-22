@@ -215,13 +215,13 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
   };
 
   return (
-    <Card className="overflow-hidden border-border/70 shadow-lg">
+    <Card className="border-border/70 overflow-hidden shadow-lg">
       <div className="px-6 pt-6">
         <ServerFeatureNotice feature="Guru AI sadhana generator" />
       </div>
-      <CardHeader className="border-b border-border/60 bg-gradient-to-r from-primary/5 to-accent/5 py-6">
+      <CardHeader className="border-border/60 from-primary/5 to-accent/5 border-b bg-linear-to-r py-6">
         <div className="flex items-center gap-2">
-          <Sparkles className="size-5 animate-pulse text-primary" />
+          <Sparkles className="text-primary size-5 animate-pulse" />
           <CardTitle className="font-serif text-2xl tracking-[-0.02em]">
             Guru AI Daily Routine Generator
           </CardTitle>
@@ -239,13 +239,13 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
         >
           {/* Deity selection */}
           <div className="space-y-2">
-            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <label className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
               Deity / Focus
             </label>
             <select
               value={selectedDeity}
               onChange={(e) => setSelectedDeity(e.target.value)}
-              className="w-full rounded-xl border border-border/70 bg-background/80 px-3 py-2.5 text-sm outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50"
+              className="border-border/70 bg-background/80 focus:border-primary/50 focus:ring-primary/50 w-full rounded-xl border px-3 py-2.5 text-sm outline-hidden focus:ring-1"
             >
               {deities.map((d) => (
                 <option key={d.id} value={d.id}>
@@ -257,13 +257,13 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
 
           {/* Time of Day */}
           <div className="space-y-2">
-            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <label className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
               Time of Day
             </label>
             <select
               value={selectedTime}
               onChange={(e) => setSelectedTime(e.target.value)}
-              className="w-full rounded-xl border border-border/70 bg-background/80 px-3 py-2.5 text-sm outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50"
+              className="border-border/70 bg-background/80 focus:border-primary/50 focus:ring-primary/50 w-full rounded-xl border px-3 py-2.5 text-sm outline-hidden focus:ring-1"
             >
               {timesOfDay.map((t) => (
                 <option key={t.id} value={t.id}>
@@ -275,13 +275,13 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
 
           {/* Duration */}
           <div className="space-y-2">
-            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <label className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
               Duration
             </label>
             <select
               value={selectedDuration}
               onChange={(e) => setSelectedDuration(e.target.value)}
-              className="w-full rounded-xl border border-border/70 bg-background/80 px-3 py-2.5 text-sm outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50"
+              className="border-border/70 bg-background/80 focus:border-primary/50 focus:ring-primary/50 w-full rounded-xl border px-3 py-2.5 text-sm outline-hidden focus:ring-1"
             >
               {durations.map((d) => (
                 <option key={d.id} value={d.id}>
@@ -293,13 +293,13 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
 
           {/* Level */}
           <div className="space-y-2">
-            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <label className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
               Experience Level
             </label>
             <select
               value={level}
               onChange={(e) => setLevel(e.target.value)}
-              className="w-full rounded-xl border border-border/70 bg-background/80 px-3 py-2.5 text-sm outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50"
+              className="border-border/70 bg-background/80 focus:border-primary/50 focus:ring-primary/50 w-full rounded-xl border px-3 py-2.5 text-sm outline-hidden focus:ring-1"
             >
               <option value="beginner">Beginner (Sarala)</option>
               <option value="intermediate">Intermediate (Madhyama)</option>
@@ -309,13 +309,13 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
 
           {/* Language */}
           <div className="space-y-2">
-            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <label className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
               Language
             </label>
             <select
               value={selectedLang}
               onChange={(e) => setSelectedLang(e.target.value)}
-              className="w-full rounded-xl border border-border/70 bg-background/80 px-3 py-2.5 text-sm outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50"
+              className="border-border/70 bg-background/80 focus:border-primary/50 focus:ring-primary/50 w-full rounded-xl border px-3 py-2.5 text-sm outline-hidden focus:ring-1"
             >
               {languages.map((l) => (
                 <option key={l.code} value={l.code}>
@@ -350,9 +350,9 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
 
         {/* Error State */}
         {error && (
-          <div className="mt-6 flex items-start gap-3 rounded-2xl border border-destructive/20 bg-destructive/5 p-4">
-            <AlertCircle className="mt-0.5 size-5 shrink-0 text-destructive" />
-            <div className="text-sm font-medium text-destructive">
+          <div className="border-destructive/20 bg-destructive/5 mt-6 flex items-start gap-3 rounded-2xl border p-4">
+            <AlertCircle className="text-destructive mt-0.5 size-5 shrink-0" />
+            <div className="text-destructive text-sm font-medium">
               <p className="font-semibold">Generation Failed</p>
               <p className="mt-1 text-xs opacity-90">{error}</p>
             </div>
@@ -361,12 +361,12 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
 
         {/* Generated Content Output */}
         {routine && (
-          <div className="group relative mt-8 rounded-3xl border border-border/80 bg-background/60 p-6 shadow-inner">
-            <div className="absolute right-4 top-4 flex gap-2 opacity-100 transition-opacity group-hover:opacity-100 sm:opacity-0">
+          <div className="group border-border/80 bg-background/60 relative mt-8 rounded-3xl border p-6 shadow-inner">
+            <div className="absolute top-4 right-4 flex gap-2 opacity-100 transition-opacity group-hover:opacity-100 sm:opacity-0">
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 rounded-xl bg-background"
+                className="bg-background h-8 rounded-xl"
                 onClick={handleCopy}
               >
                 {copied ? (
@@ -379,7 +379,7 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 rounded-xl border-primary/20 bg-background text-primary hover:bg-primary/5"
+                className="border-primary/20 bg-background text-primary hover:bg-primary/5 h-8 rounded-xl"
                 onClick={handleImportMantra}
               >
                 <Sparkles className="size-3.5" />
@@ -387,8 +387,8 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
               </Button>
             </div>
 
-            <div className="prose prose-sm dark:prose-invert max-w-none space-y-4 text-foreground/90">
-              <h3 className="mb-4 border-b border-border/60 pb-2 font-serif text-xl text-primary">
+            <div className="prose prose-sm dark:prose-invert text-foreground/90 max-w-none space-y-4">
+              <h3 className="border-border/60 text-primary mb-4 border-b pb-2 font-serif text-xl">
                 Your Guided {currentDeity.name} Sadhana
               </h3>
 
@@ -398,7 +398,7 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
                   return (
                     <div
                       key={index}
-                      className="my-4 rounded-r-2xl border-l-4 border-primary bg-primary/5 p-4 italic text-foreground/80"
+                      className="border-primary bg-primary/5 text-foreground/80 my-4 rounded-r-2xl border-l-4 p-4 italic"
                     >
                       {paragraph}
                     </div>
@@ -406,14 +406,14 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
                 }
                 if (paragraph.startsWith("2.") || paragraph.toLowerCase().includes("pranayama")) {
                   return (
-                    <div key={index} className="my-4 rounded-2xl bg-secondary/20 p-4">
+                    <div key={index} className="bg-secondary/20 my-4 rounded-2xl p-4">
                       {paragraph}
                     </div>
                   );
                 }
 
                 return (
-                  <p key={index} className="whitespace-pre-line text-sm leading-relaxed">
+                  <p key={index} className="text-sm leading-relaxed whitespace-pre-line">
                     {paragraph}
                   </p>
                 );

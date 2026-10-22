@@ -43,11 +43,11 @@ export default async function RecitationPage({ params }: PageProps) {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main id="main-content" className="flex-1">
-        <section className="border-b border-border/60">
+        <section className="border-border/60 border-b">
           <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
             <Link
               href="/recite"
-              className="text-sm text-primary underline-offset-4 hover:underline"
+              className="text-primary text-sm underline-offset-4 hover:underline"
             >
               All recitations
             </Link>
@@ -55,16 +55,16 @@ export default async function RecitationPage({ params }: PageProps) {
               {item.deity} · {item.occasion}
             </p>
             <h1 className="section-title mt-4">{item.title}</h1>
-            <p className="mt-3 font-devanagari text-2xl text-primary">{item.titleSa}</p>
-            <p className="mt-2 text-sm font-semibold text-muted-foreground">
+            <p className="font-devanagari text-primary mt-3 text-2xl">{item.titleSa}</p>
+            <p className="text-muted-foreground mt-2 text-sm font-semibold">
               Original: {item.originalLanguage} in Devanagari · Full stored text available offline
             </p>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            <p className="text-muted-foreground mt-2 text-sm leading-6">
               मराठी, हिंदी आणि इंग्रजी अर्थ हे अभ्यासासाठी आहेत; मूळ पाठ फक्त मूळ पाठ टॅबमध्ये आहे.
               Available meanings vary by hymn and verse.
             </p>
             <p className="section-copy mt-5">{item.summary}</p>
-            <p className="mt-4 text-sm leading-6 text-muted-foreground">
+            <p className="text-muted-foreground mt-4 text-sm leading-6">
               {recitationVerseCount(item)} verses across {item.sections.length}{" "}
               {item.sections.length === 1 ? "section" : "sections"}. {item.sourceNote}
               {item.sourceUrl ? (

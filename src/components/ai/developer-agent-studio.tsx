@@ -56,7 +56,7 @@ export function DeveloperAgentStudio() {
     <div className="space-y-6" data-testid="developer-agent-studio">
       <ServerFeatureNotice feature="Developer agent" />
       <div className="surface-panel p-6">
-        <label htmlFor="agent-issue" className="text-sm font-medium text-foreground">
+        <label htmlFor="agent-issue" className="text-foreground text-sm font-medium">
           Issue
         </label>
         <Textarea
@@ -74,7 +74,7 @@ export function DeveloperAgentStudio() {
             )}
             Run on demo workspace
           </Button>
-          <p className="self-center text-xs text-muted-foreground">
+          <p className="text-muted-foreground self-center text-xs">
             In-memory Python fixture. No host shell. Default backend is mock unless OpenRouter or
             Ollama is configured.
           </p>
@@ -84,24 +84,24 @@ export function DeveloperAgentStudio() {
       {result ? (
         <div className="space-y-4" data-testid="developer-agent-result">
           <div className="surface-panel p-6">
-            <p className="text-[11px] uppercase tracking-[0.32em] text-muted-foreground">Result</p>
-            <p className="mt-2 text-sm text-foreground">
+            <p className="text-muted-foreground text-[11px] tracking-[0.32em] uppercase">Result</p>
+            <p className="text-foreground mt-2 text-sm">
               backend={result.backend} · model={result.model} · submitted=
               {String(result.submitted)} · stop={result.stoppedReason}
             </p>
             {result.note ? (
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">{result.note}</p>
+              <p className="text-muted-foreground mt-3 text-sm leading-6">{result.note}</p>
             ) : null}
-            {result.error ? <p className="mt-3 text-sm text-destructive">{result.error}</p> : null}
+            {result.error ? <p className="text-destructive mt-3 text-sm">{result.error}</p> : null}
           </div>
           <ol className="space-y-3">
             {result.steps.map((step, index) => (
               <li key={`${step.call?.name}-${index}`} className="surface-panel p-4">
                 <p className="flex items-center gap-2 text-sm font-medium">
-                  <Wrench className="size-4 text-primary" />
+                  <Wrench className="text-primary size-4" />
                   {index + 1}. {step.call?.name ?? "stop"}
                 </p>
-                <pre className="mt-2 overflow-x-auto text-xs leading-5 text-muted-foreground">
+                <pre className="text-muted-foreground mt-2 overflow-x-auto text-xs leading-5">
                   {step.observation?.output || step.thought}
                 </pre>
               </li>

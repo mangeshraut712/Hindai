@@ -114,10 +114,10 @@ export function DurgaSaptashatiReader({ initialPage }: { initialPage: number }) 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <Link href="/durga-saptashati" className="text-sm font-semibold text-primary">
+        <Link href="/durga-saptashati" className="text-primary text-sm font-semibold">
           ← दुर्गा सप्तशती home
         </Link>
-        <p className="text-xs tabular-nums text-muted-foreground">
+        <p className="text-muted-foreground text-xs tabular-nums">
           Leaf {page} / {total}
         </p>
       </div>
@@ -146,7 +146,7 @@ export function DurgaSaptashatiReader({ initialPage }: { initialPage: number }) 
         ) : null}
       </div>
 
-      <article className="pothi-ebook-book overflow-hidden rounded-2xl border border-border/70">
+      <article className="pothi-ebook-book border-border/70 overflow-hidden rounded-2xl border">
         {leafPage.kind === "cover" ? (
           <div className="space-y-6 px-6 py-10 text-center sm:px-10">
             <Image
@@ -158,7 +158,7 @@ export function DurgaSaptashatiReader({ initialPage }: { initialPage: number }) 
               priority
             />
             <h1 className="font-serif text-3xl">॥ दुर्गा सप्तशती ॥</h1>
-            <p className="text-sm leading-7 text-muted-foreground">
+            <p className="text-muted-foreground text-sm leading-7">
               Devi Mahatmya katha-sar for Chandi patha — Kavacha, Argala, Kilaka, then thirteen
               adhyayas.
             </p>
@@ -176,7 +176,7 @@ export function DurgaSaptashatiReader({ initialPage }: { initialPage: number }) 
                 <li key={leaf.id}>
                   <button
                     type="button"
-                    className="w-full rounded-lg px-3 py-2 text-left hover:bg-secondary"
+                    className="hover:bg-secondary w-full rounded-lg px-3 py-2 text-left"
                     onClick={() => go(firstPageForLeaf(leaf.id))}
                   >
                     <span className="font-devanagari text-primary">
@@ -192,16 +192,16 @@ export function DurgaSaptashatiReader({ initialPage }: { initialPage: number }) 
 
         {leafPage.kind === "leaf" ? (
           <div className="px-5 py-8 sm:px-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+            <p className="text-primary text-xs font-semibold tracking-[0.16em] uppercase">
               {charitraLabel(leafPage.leaf.charitra)} · {leafPage.leaf.kathaTitleMr}
             </p>
-            <h1 className="mt-3 font-devanagari text-3xl">
+            <h1 className="font-devanagari mt-3 text-3xl">
               {leafPage.leaf.kind === "adhyay" && leafPage.leaf.adhyay !== null
                 ? `॥ अध्याय ${toDevanagariNumeral(leafPage.leaf.adhyay)} ॥`
                 : `॥ ${leafPage.leaf.titleMr} ॥`}
             </h1>
             <h2 className="mt-2 font-serif text-2xl">{leafPage.leaf.titleMr}</h2>
-            <p className="mt-1 text-sm text-muted-foreground">{leafPage.leaf.titleEn}</p>
+            <p className="text-muted-foreground mt-1 text-sm">{leafPage.leaf.titleEn}</p>
             <div className="mt-6 space-y-4 text-base leading-8">
               {leafPage.leaf.katha[locale].map((para) => (
                 <p key={para.slice(0, 28)}>{para}</p>

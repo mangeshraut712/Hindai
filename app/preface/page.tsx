@@ -77,10 +77,10 @@ export default function PrefacePage() {
 
       <main id="main-content" className="flex-1">
         {/* ── Hero ── */}
-        <section className="hero-mesh relative overflow-hidden border-b border-border/60">
+        <section className="hero-mesh border-border/60 relative overflow-hidden border-b">
           <div className="grain-mask absolute inset-0 opacity-45" aria-hidden="true" />
-          <div className="hero-sun -left-20 top-10 size-56 opacity-80" aria-hidden="true" />
-          <div className="hero-sun right-0 top-20 size-72 opacity-60" aria-hidden="true" />
+          <div className="hero-sun top-10 -left-20 size-56 opacity-80" aria-hidden="true" />
+          <div className="hero-sun top-20 right-0 size-72 opacity-60" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
               <span className="eyebrow">Prastavana • प्रस्तावना</span>
@@ -89,7 +89,7 @@ export default function PrefacePage() {
                 Your companion in exploring the timeless wisdom of ancient India. More than a
                 digital library — a bridge between ancient revelation and the modern seeker.
               </p>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
+              <p className="text-muted-foreground mt-4 max-w-2xl text-sm leading-7">
                 Our mission is to preserve, present, and make accessible the vast ocean of spiritual
                 and philosophical literature that has guided humanity for thousands of years.
               </p>
@@ -103,10 +103,10 @@ export default function PrefacePage() {
             <div className="surface-panel p-8 md:p-10">
               <div className="relative z-10">
                 <span className="eyebrow">Understanding the tradition • परंपरा</span>
-                <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
+                <h2 className="text-foreground mt-6 text-4xl font-semibold tracking-[-0.04em]">
                   How Hindu scripture is organized
                 </h2>
-                <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">
+                <p className="text-muted-foreground mt-5 max-w-3xl text-sm leading-7">
                   Hinduism does not have a fixed number of scriptures. Its literature grew across
                   thousands of years and is broadly classified into two streams:
                   <strong> Shruti</strong>, the revealed foundation, and <strong>Smriti</strong>,
@@ -129,10 +129,10 @@ export default function PrefacePage() {
                   ].map((item) => (
                     <div
                       key={item.title}
-                      className="rounded-[24px] border border-border/60 bg-background/75 p-5"
+                      className="border-border/60 bg-background/75 rounded-[24px] border p-5"
                     >
-                      <p className="text-lg font-semibold text-foreground">{item.title}</p>
-                      <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.body}</p>
+                      <p className="text-foreground text-lg font-semibold">{item.title}</p>
+                      <p className="text-muted-foreground mt-3 text-sm leading-7">{item.body}</p>
                     </div>
                   ))}
                 </div>
@@ -152,12 +152,12 @@ export default function PrefacePage() {
               {features.map((feature) => (
                 <div key={feature.title} className="surface-panel p-7">
                   <div className="relative z-10 space-y-5">
-                    <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <div className="bg-primary/10 text-primary flex size-12 items-center justify-center rounded-full">
                       <feature.icon className="size-5" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-semibold text-foreground">{feature.title}</h3>
-                      <p className="mt-3 text-sm leading-7 text-muted-foreground">{feature.body}</p>
+                      <h3 className="text-foreground text-2xl font-semibold">{feature.title}</h3>
+                      <p className="text-muted-foreground mt-3 text-sm leading-7">{feature.body}</p>
                     </div>
                   </div>
                 </div>
@@ -178,17 +178,17 @@ export default function PrefacePage() {
                 <Link key={step.step} href={step.href} className="group">
                   <div className="surface-panel p-7 transition-shadow hover:shadow-[0_42px_100px_-52px_rgba(15,23,42,0.5)]">
                     <div className="relative z-10 flex items-start gap-5">
-                      <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      <div className="bg-primary/10 text-primary flex size-12 shrink-0 items-center justify-center rounded-full">
                         <step.icon className="size-5" />
                       </div>
                       <div>
-                        <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
+                        <p className="text-muted-foreground text-[11px] tracking-[0.28em] uppercase">
                           Step {step.step}
                         </p>
-                        <h3 className="mt-2 text-2xl font-semibold text-foreground group-hover:text-primary">
+                        <h3 className="text-foreground group-hover:text-primary mt-2 text-2xl font-semibold">
                           {step.title}
                         </h3>
-                        <p className="mt-3 text-sm leading-7 text-muted-foreground">{step.body}</p>
+                        <p className="text-muted-foreground mt-3 text-sm leading-7">{step.body}</p>
                       </div>
                     </div>
                   </div>
@@ -204,10 +204,10 @@ export default function PrefacePage() {
             <div className="surface-panel p-8 md:p-10">
               <div className="relative z-10 max-w-3xl">
                 <span className="eyebrow">A note on interpretation • व्याख्या</span>
-                <h2 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-foreground">
+                <h2 className="text-foreground mt-6 text-4xl font-semibold tracking-[-0.04em]">
                   Multiple perspectives, not definitive answers.
                 </h2>
-                <p className="mt-5 text-sm leading-7 text-muted-foreground">
+                <p className="text-muted-foreground mt-5 text-sm leading-7">
                   These ancient texts have been interpreted in countless ways over millennia. Hind
                   AI presents multiple perspectives and encourages you to contemplate the teachings
                   and find what resonates with your own understanding. The goal is not to provide
@@ -222,7 +222,7 @@ export default function PrefacePage() {
         {/* ── Closing ── */}
         <section className="px-4 pb-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
-            <div className="surface-panel overflow-hidden bg-[linear-gradient(135deg,hsl(var(--foreground)),hsl(28_18%_18%))] text-background">
+            <div className="surface-panel text-background overflow-hidden bg-[linear-gradient(135deg,hsl(var(--foreground)),hsl(28_18%_18%))]">
               <div className="grid gap-8 px-6 py-10 md:px-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
                 <div className="relative z-10 max-w-3xl space-y-5">
                   <span className="eyebrow border-white/15 bg-white/10 text-white/70">
@@ -232,7 +232,7 @@ export default function PrefacePage() {
                     May your journey through these sacred texts bring wisdom, peace, and
                     enlightenment.
                   </h2>
-                  <p className="text-white/72 text-base leading-7">
+                  <p className="text-base leading-7 text-white/72">
                     Om Shanti Shanti Shanti — Peace in body, mind, and spirit.
                   </p>
                 </div>

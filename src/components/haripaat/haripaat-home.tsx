@@ -17,13 +17,13 @@ export function HaripaatHome() {
           <>
             <Link
               href={bookPath(1)}
-              className="inline-flex h-11 items-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground"
+              className="bg-primary text-primary-foreground inline-flex h-11 items-center rounded-full px-5 text-sm font-semibold"
             >
               Open Haripaat
             </Link>
             <Link
               href="/harivijay"
-              className="inline-flex h-11 items-center rounded-full border border-border/70 bg-background/80 px-5 text-sm font-semibold backdrop-blur"
+              className="border-border/70 bg-background/80 inline-flex h-11 items-center rounded-full border px-5 text-sm font-semibold backdrop-blur-sm"
             >
               Harivijay pothi →
             </Link>
@@ -34,14 +34,14 @@ export function HaripaatHome() {
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="pothi-ebook-book">
           <div id="haripaat-anukramanika" className="scroll-mt-24 px-5 py-8 sm:px-8">
-            <h2 className="text-center font-serif text-2xl text-primary">अनुक्रमणिका</h2>
-            <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-6 text-muted-foreground">
+            <h2 className="text-primary text-center font-serif text-2xl">अनुक्रमणिका</h2>
+            <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-center text-sm leading-6">
               Ten leaves for a short daily cycle. Read one leaf at dawn or on ekadashi evening.
             </p>
             <div className="mt-6 overflow-x-auto">
-              <table className="pothi-anukramanika w-full min-w-[28rem] border-collapse text-sm">
+              <table className="pothi-anukramanika w-full min-w-md border-collapse text-sm">
                 <thead>
-                  <tr className="border-b-2 border-foreground/80 text-left">
+                  <tr className="border-foreground/80 border-b-2 text-left">
                     <th className="w-16 py-2 pr-2 font-semibold">क्र.</th>
                     <th className="py-2 pr-2 font-semibold">पाठाचे नाव</th>
                     <th className="w-24 py-2 text-right font-semibold">वाचा</th>
@@ -49,26 +49,26 @@ export function HaripaatHome() {
                 </thead>
                 <tbody>
                   {HARIPAAT_LEAVES.map((leaf) => (
-                    <tr key={leaf.id} className="border-b border-border/60 align-top">
-                      <td className="py-3 pr-2 font-devanagari tabular-nums text-primary">
+                    <tr key={leaf.id} className="border-border/60 border-b align-top">
+                      <td className="font-devanagari text-primary py-3 pr-2 tabular-nums">
                         {toDevanagariNumeral(leaf.id)}
                       </td>
                       <td className="py-3 pr-2">
                         <Link
                           href={bookPath(firstPageForLeaf(leaf.id))}
-                          className="font-devanagari text-base leading-6 text-foreground hover:text-primary"
+                          className="font-devanagari text-foreground hover:text-primary text-base leading-6"
                         >
                           {leaf.titleMr}
                           {leaf.special ? " · मुख्य" : ""}
                         </Link>
-                        <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                        <p className="text-muted-foreground mt-1 text-xs leading-5">
                           {leaf.titleEn}
                         </p>
                       </td>
                       <td className="py-3 text-right">
                         <Link
                           href={bookPath(firstPageForLeaf(leaf.id))}
-                          className="text-xs font-semibold uppercase tracking-[0.12em] text-primary"
+                          className="text-primary text-xs font-semibold tracking-[0.12em] uppercase"
                         >
                           Open
                         </Link>
