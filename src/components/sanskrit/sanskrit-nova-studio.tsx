@@ -441,6 +441,7 @@ export function SanskritNovaStudio() {
 
           <div className="space-y-4 p-6">
             <textarea
+              aria-label="Text to transliterate"
               value={transliterationInput}
               onChange={(event) => setTransliterationInput(event.target.value)}
               rows={5}

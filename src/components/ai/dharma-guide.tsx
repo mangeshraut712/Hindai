@@ -383,6 +383,8 @@ export function DharmaGuide() {
 
           <div className="mt-4 flex gap-2">
             <Textarea
+              id="dharma-question"
+              aria-label="Ask the dharma guide"
               ref={textareaRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -400,6 +402,7 @@ export function DharmaGuide() {
               disabled={!input.trim() || isLoading}
               className="h-[80px] min-w-[80px] px-4"
               size="lg"
+              aria-label="Send message"
             >
               {isLoading ? (
                 <Loader2 className="size-5 animate-spin" />
