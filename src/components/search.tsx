@@ -174,7 +174,11 @@ export function SearchDialog({
         <div className="p-5">
           <div className="relative">
             <SearchIcon className="text-muted-foreground absolute top-1/2 left-3.5 size-4 -translate-y-1/2" />
+            <label htmlFor="site-search" className="sr-only">
+              Search the library
+            </label>
             <Input
+              id="site-search"
               placeholder="Open Hanuman Chalisa, Shiv Puran, katha..."
               onKeyDown={(event) => {
                 if (event.key !== "Enter") return;
@@ -193,6 +197,7 @@ export function SearchDialog({
               <Button
                 variant="ghost"
                 size="icon"
+                aria-label="Clear search"
                 className="hover:bg-muted absolute top-1/2 right-2 size-7 -translate-y-1/2 rounded-full"
                 onClick={() => {
                   setQuery("");

@@ -36,27 +36,25 @@ export class ContextManager {
       return [{ role: "system", content: systemPrompt }];
     }
 
-    const trimmedMessages: Array<{ role: string; content: string }> = [];
+    const history = messages.filter((message) => message.role !== "system");
+    const kept: Array<{ role: string; content: string }> = [];
     let currentTokens = 0;
 
-    // Add system message first
-    trimmedMessages.push({ role: "system", content: systemPrompt });
-    currentTokens += systemTokens;
+    // Keep the newest history that fits. The server prompt stays first and is not duplicated.
+    for (let i = history.length - 1; i >= 0; i--) {
+      const message = history[i];
+      if (!message) continue;
+      const messageTokens = this.estimateTokens(message.content);
 
-    // Add messages from newest to oldest until we hit the limit
-    for (let i = messages.length - 1; i >= 0; i--) {
-      const msg = messages[i];
-      const msgTokens = this.estimateTokens(msg.content);
-
-      if (currentTokens + msgTokens > availableTokens) {
+      if (currentTokens + messageTokens > availableTokens) {
         break;
       }
 
-      trimmedMessages.unshift(msg);
-      currentTokens += msgTokens;
+      kept.unshift(message);
+      currentTokens += messageTokens;
     }
 
-    return trimmedMessages;
+    return [{ role: "system", content: systemPrompt }, ...kept];
   }
 
   /**

@@ -260,8 +260,14 @@ export function SanskritToolsStudio() {
           <div className="space-y-6 p-6">
             {/* Input */}
             <div>
-              <label className="text-foreground mb-2 block text-sm font-medium">Input</label>
+              <label
+                htmlFor="sanskrit-tool-input"
+                className="text-foreground mb-2 block text-sm font-medium"
+              >
+                Input
+              </label>
               <textarea
+                id="sanskrit-tool-input"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 rows={4}

@@ -40,7 +40,7 @@ Violations may result in temporary or permanent removal from the project.
 
 ### 1. Prerequisites
 
-- **Node.js** ≥ 20.0.0 (LTS recommended — use `nvm use` if you have [nvm](https://github.com/nvm-sh/nvm))
+- **Node.js** ≥ 22 (`.nvmrc` is 24, which CI uses — use `nvm use` if you have [nvm](https://github.com/nvm-sh/nvm))
 - **npm** ≥ 9.0.0 (or pnpm/yarn — but `package-lock.json` is the source of truth)
 - **Git** ≥ 2.30
 

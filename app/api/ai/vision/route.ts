@@ -1,5 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
+  clampPlainText,
+  consumeRateLimit,
+  imageUploadError,
+  imageUploadStatus,
+  publicModelError,
+  requestClientKey,
+} from "@/lib/ai/model-guard";
+import {
   getOpenRouterApiKey,
   OPENROUTER_MODEL,
   OPENROUTER_URL,
@@ -28,12 +36,23 @@ When analyzing images:
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
-    const image = formData.get("image") as File;
-    const query = (formData.get("query") as string) || "Analyze this image";
-
-    if (!image) {
-      return NextResponse.json({ error: "Image file is required" }, { status: 400 });
+    const imageEntry = formData.get("image");
+    const image = imageEntry instanceof File ? imageEntry : null;
+    const uploadError = imageUploadError(image ? { type: image.type, size: image.size } : null);
+    if (uploadError || !image) {
+      const message = uploadError || "Image file is required";
+      return NextResponse.json({ error: message }, { status: imageUploadStatus(message) });
     }
+
+    const rateLimit = consumeRateLimit(`model:${requestClientKey(req)}`);
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: "Rate limit exceeded. Please try again in a minute." },
+        { status: 429 }
+      );
+    }
+
+    const query = clampPlainText(formData.get("query"), 1000) || "Analyze this image";
 
     const apiKey = getOpenRouterApiKey();
 
@@ -74,15 +93,16 @@ export async function POST(req: NextRequest) {
         ],
         stream: false,
         temperature: 0.7,
-        max_tokens: 4096,
+        max_tokens: 1600,
       }),
     });
 
     if (!response.ok) {
-      const error = await response.text();
+      const error = await response.text().catch(() => "");
+      console.error("Vision upstream failed", response.status, error.slice(0, 500));
       return NextResponse.json(
-        { error: `OpenRouter API error: ${error}` },
-        { status: response.status }
+        { error: publicModelError(response.status) },
+        { status: response.status || 502 }
       );
     }
 

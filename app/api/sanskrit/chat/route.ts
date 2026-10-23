@@ -80,8 +80,13 @@ export async function POST(request: NextRequest) {
     console.error("Sanskrit chat API error:", error);
     return NextResponse.json(
       {
-        error: error instanceof Error ? error.message : "Sanskrit tutor is currently unavailable.",
-        details: error instanceof Error ? error.stack : undefined,
+        error:
+          error instanceof Error &&
+          (error.message.startsWith("Rate limit exceeded") ||
+            error.message.startsWith("Upstream model request failed") ||
+            error.message.startsWith("Gemma 4 is not configured"))
+            ? error.message
+            : "Sanskrit tutor is currently unavailable.",
       },
       { status: 503 }
     );

@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { catalogVerseText } from "@/lib/audio/catalog-verse";
 import { VedicAccentEngine, VedicAccentResult } from "@/lib/audio/vedic-accent";
 import { VedicHeritagePortal, VedicAudio } from "@/lib/audio/vedic-heritage";
 import { scriptureCatalog } from "@/lib/scripture-catalog";
@@ -57,16 +58,7 @@ export function AudioExplorer() {
   const loadVerse = useCallback(async () => {
     setIsLoading(true);
     try {
-      // For now, we'll use placeholder text. In a real implementation,
-      // you'd fetch the actual verse text from your database
-      const placeholderTexts: Record<string, string> = {
-        rigveda: "ॐ अग्निमीळे पुरोहितं यज्ञस्य देवं रत्विजम्। होता रत्न धातमम्॥",
-        samaveda: "ॐ अग्न आयाहि वीतये गृणानो हव्यदातये। नि होता सत्सि बर्हिषि॥",
-        "bhagavad-gita":
-          "धृतराष्ट्र उवाच धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः। मामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय॥",
-      };
-
-      const text = placeholderTexts[selectedScripture] || "Sample Sanskrit verse text";
+      const text = catalogVerseText(selectedScripture, selectedChapter, selectedVerse) ?? "";
 
       const verse: AudioVerse = {
         scripture: selectedScripture,
@@ -170,10 +162,16 @@ export function AudioExplorer() {
             <CardContent className="space-y-4">
               <div className="grid gap-4 md:grid-cols-4">
                 <div>
-                  <label className="text-sm font-medium">Scripture</label>
+                  <label id="audio-scripture-label" className="text-sm font-medium">
+                    Scripture
+                  </label>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline" className="w-full justify-between">
+                      <Button
+                        variant="outline"
+                        className="w-full justify-between"
+                        aria-labelledby="audio-scripture-label"
+                      >
                         {audioSupportedScriptures.find((s) => s.slug === selectedScripture)?.name ||
                           "Select"}
                         <ChevronDown className="size-4" />
@@ -193,10 +191,16 @@ export function AudioExplorer() {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium">Chapter</label>
+                  <label id="audio-chapter-label" className="text-sm font-medium">
+                    Chapter
+                  </label>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline" className="w-full justify-between">
+                      <Button
+                        variant="outline"
+                        className="w-full justify-between"
+                        aria-labelledby="audio-chapter-label"
+                      >
                         Chapter {selectedChapter}
                         <ChevronDown className="size-4" />
                       </Button>
@@ -212,10 +216,16 @@ export function AudioExplorer() {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium">Verse</label>
+                  <label id="audio-verse-label" className="text-sm font-medium">
+                    Verse
+                  </label>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline" className="w-full justify-between">
+                      <Button
+                        variant="outline"
+                        className="w-full justify-between"
+                        aria-labelledby="audio-verse-label"
+                      >
                         Verse {selectedVerse}
                         <ChevronDown className="size-4" />
                       </Button>
@@ -232,10 +242,16 @@ export function AudioExplorer() {
 
                 {availableReciters.length > 0 && (
                   <div>
-                    <label className="text-sm font-medium">Reciter</label>
+                    <label id="audio-reciter-label" className="text-sm font-medium">
+                      Reciter
+                    </label>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="w-full justify-between">
+                        <Button
+                          variant="outline"
+                          className="w-full justify-between"
+                          aria-labelledby="audio-reciter-label"
+                        >
                           {selectedReciter || "Select"}
                           <ChevronDown className="size-4" />
                         </Button>
@@ -278,7 +294,9 @@ export function AudioExplorer() {
                 {/* Plain Text */}
                 <div>
                   <h3 className="mb-2 font-semibold">Sanskrit Text</h3>
-                  <p className="font-devanagari text-lg">{currentVerse.text}</p>
+                  <p className="font-devanagari text-lg">
+                    {currentVerse.text || "This verse is not in the local library."}
+                  </p>
                 </div>
 
                 {/* Audio Controls */}
@@ -297,6 +315,7 @@ export function AudioExplorer() {
                       <Button
                         variant="outline"
                         size="icon"
+                        aria-label="Previous verse"
                         onClick={() => setSelectedVerse(Math.max(1, selectedVerse - 1))}
                       >
                         <SkipBack className="size-4" />
@@ -305,6 +324,7 @@ export function AudioExplorer() {
                       <Button
                         variant="default"
                         size="icon"
+                        aria-label={isPlaying ? "Pause verse" : "Play verse"}
                         onClick={togglePlayback}
                         disabled={!currentVerse.audio}
                       >
@@ -314,6 +334,7 @@ export function AudioExplorer() {
                       <Button
                         variant="outline"
                         size="icon"
+                        aria-label="Next verse"
                         onClick={() => setSelectedVerse(selectedVerse + 1)}
                       >
                         <SkipForward className="size-4" />

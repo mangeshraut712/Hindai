@@ -180,6 +180,7 @@ export function ScripturalAnalysis() {
                   ref={fileInputRef}
                   type="file"
                   accept="image/*"
+                  aria-label="Upload manuscript image"
                   onChange={handleFileSelect}
                   className="absolute inset-0 cursor-pointer opacity-0"
                 />
@@ -198,6 +199,7 @@ export function ScripturalAnalysis() {
                       variant="destructive"
                       size="icon"
                       className="absolute top-2 right-2"
+                      aria-label="Remove image"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleClear();
@@ -234,7 +236,7 @@ export function ScripturalAnalysis() {
                       ({(image.size / 1024 / 1024).toFixed(2)} MB)
                     </span>
                   </div>
-                  <Button variant="ghost" size="sm" onClick={handleClear}>
+                  <Button variant="ghost" size="sm" aria-label="Remove image" onClick={handleClear}>
                     <X className="size-4" />
                   </Button>
                 </div>
@@ -244,8 +246,11 @@ export function ScripturalAnalysis() {
             {/* Analysis Section */}
             <div className="space-y-4">
               <div>
-                <label className="mb-2 block text-sm font-medium">Your Query</label>
+                <label htmlFor="manuscript-query" className="mb-2 block text-sm font-medium">
+                  Your Query
+                </label>
                 <textarea
+                  id="manuscript-query"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="What would you like to know about this image?"

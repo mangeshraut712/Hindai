@@ -1,4 +1,14 @@
 import { runWorkerAgentDemo } from "./agent-demo";
+import {
+  clampLabel,
+  clampPlainText,
+  consumeRateLimit,
+  deltaFromModelLine,
+  publicModelError,
+  requestClientKey,
+  sanitizeChatTurns,
+  takeCompleteLines,
+} from "../../../src/lib/ai/model-guard";
 
 type ChatMessage = {
   role: "system" | "user" | "assistant";
@@ -154,7 +164,8 @@ async function completeWithOpenRouter(
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`OpenRouter error ${response.status}: ${errorText}`);
+    console.error("OpenRouter error", response.status, errorText.slice(0, 500));
+    throw new Error(publicModelError(response.status));
   }
 
   return response;
@@ -197,28 +208,22 @@ async function streamAsSse(
           controller.close();
           return;
         }
-        let buffer = "";
+        let rest = "";
         try {
           while (true) {
             const { done, value } = await reader.read();
             if (done) break;
-            buffer += decoder.decode(value, { stream: true });
-            const lines = buffer.split("\n");
-            buffer = lines.pop() ?? "";
-            for (const line of lines) {
-              if (!line.startsWith("data: ")) continue;
-              const data = line.slice(6).trim();
-              if (!data || data === "[DONE]") continue;
-              try {
-                const parsed = JSON.parse(data) as {
-                  choices?: Array<{ delta?: { content?: string } }>;
-                };
-                const content = parsed.choices?.[0]?.delta?.content;
-                if (content) controller.enqueue(sseChunk(content));
-              } catch {
-                // skip malformed SSE
-              }
+            const taken = takeCompleteLines(rest, decoder.decode(value, { stream: true }));
+            rest = taken.rest;
+            for (const line of taken.lines) {
+              const content = deltaFromModelLine(line);
+              if (content) controller.enqueue(sseChunk(content));
             }
+          }
+          const flushed = takeCompleteLines(rest, `${decoder.decode()}\n`);
+          for (const line of flushed.lines) {
+            const content = deltaFromModelLine(line);
+            if (content) controller.enqueue(sseChunk(content));
           }
           controller.enqueue(encoder.encode("data: [DONE]\n\n"));
         } finally {
@@ -245,6 +250,7 @@ async function streamAsSse(
 
   if (result instanceof ReadableStream) {
     const decoder = new TextDecoder();
+    let rest = "";
     const stream = new ReadableStream({
       async start(controller) {
         const reader = result.getReader();
@@ -252,8 +258,16 @@ async function streamAsSse(
           while (true) {
             const { done, value } = await reader.read();
             if (done) break;
-            const chunk = decoder.decode(value, { stream: true });
-            const content = extractStreamDelta(chunk);
+            const taken = takeCompleteLines(rest, decoder.decode(value, { stream: true }));
+            rest = taken.rest;
+            for (const line of taken.lines) {
+              const content = deltaFromModelLine(line);
+              if (content) controller.enqueue(sseChunk(content));
+            }
+          }
+          const flushed = takeCompleteLines(rest, `${decoder.decode()}\n`);
+          for (const line of flushed.lines) {
+            const content = deltaFromModelLine(line);
             if (content) controller.enqueue(sseChunk(content));
           }
           controller.enqueue(new TextEncoder().encode("data: [DONE]\n\n"));
@@ -290,25 +304,6 @@ async function streamAsSse(
       ...corsHeaders(origin),
     },
   });
-}
-
-function extractStreamDelta(chunk: string): string {
-  let text = "";
-  for (const line of chunk.split("\n")) {
-    const payload = line.startsWith("data: ") ? line.slice(6).trim() : line.trim();
-    if (!payload || payload === "[DONE]") continue;
-    try {
-      const parsed = JSON.parse(payload) as {
-        response?: string;
-        content?: string;
-        choices?: Array<{ delta?: { content?: string } }>;
-      };
-      text += parsed.choices?.[0]?.delta?.content ?? parsed.response ?? parsed.content ?? "";
-    } catch {
-      text += payload;
-    }
-  }
-  return text;
 }
 
 async function streamAsPlain(
@@ -420,11 +415,20 @@ const worker = {
       return json({ error: "Method not allowed" }, { status: 405 }, origin);
     }
 
+    const rateLimit = consumeRateLimit(`worker:${requestClientKey(request)}`);
+    if (!rateLimit.success) {
+      return json(
+        { error: "Rate limit exceeded. Please try again in a minute." },
+        { status: 429 },
+        origin
+      );
+    }
+
     try {
       const body = (await request.json().catch(() => ({}))) as Record<string, unknown>;
 
       if (path === "/api/pothi/speak") {
-        const text = typeof body.text === "string" ? body.text.trim() : "";
+        const text = clampPlainText(body.text, 2400);
         const locale =
           body.locale === "en"
             ? "en-IN"
@@ -455,11 +459,8 @@ const worker = {
         });
         if (!sarvam.ok) {
           const detail = await sarvam.text();
-          return json(
-            { engine: "browser", fallback: true, error: detail.slice(0, 240) },
-            {},
-            origin
-          );
+          console.error("Sarvam TTS failed", sarvam.status, detail.slice(0, 240));
+          return json({ engine: "browser", fallback: true }, {}, origin);
         }
         const payload = (await sarvam.json()) as { audios?: string[] };
         const base64 = payload.audios?.[0];
@@ -470,31 +471,29 @@ const worker = {
       }
 
       if (path === "/api/ai/agent") {
-        const issue = latestUserText(body);
+        const issue = clampPlainText(latestUserText(body));
         const result = await runWorkerAgentDemo(issue);
         return json(result, {}, origin);
       }
 
       if (path === "/api/ai/chat") {
-        const userText = latestUserText(body);
-        if (!userText)
-          return json({ error: "A user message is required." }, { status: 400 }, origin);
-        const incoming = Array.isArray(body.messages)
-          ? (body.messages as ChatMessage[]).filter((message) => message?.content)
-          : [{ role: "user" as const, content: userText }];
-        const messages: ChatMessage[] = [
-          { role: "system", content: HINDAI_SYSTEM },
-          ...incoming.filter((message) => message.role !== "system"),
-        ];
+        const userText = clampPlainText(latestUserText(body));
+        const messages = sanitizeChatTurns(body.messages, HINDAI_SYSTEM);
+        if (!messages.some((message) => message.role === "user")) {
+          if (!userText) {
+            return json({ error: "A user message is required." }, { status: 400 }, origin);
+          }
+          messages.push({ role: "user", content: userText });
+        }
         return streamAsSse(env, messages, origin);
       }
 
       if (path === "/api/ai/stream") {
-        const userText = latestUserText(body);
+        const userText = clampPlainText(latestUserText(body));
         if (!userText)
           return json({ error: "A user message is required." }, { status: 400 }, origin);
-        const mode = typeof body.mode === "string" ? body.mode : "explain";
-        const audience = typeof body.audience === "string" ? body.audience : "general";
+        const mode = clampLabel(body.mode, "explain");
+        const audience = clampLabel(body.audience, "general");
         const messages: ChatMessage[] = [
           { role: "system", content: `${HINDAI_SYSTEM}\nMode: ${mode}. Audience: ${audience}.` },
           { role: "user", content: userText },
@@ -503,9 +502,9 @@ const worker = {
       }
 
       if (path === "/api/ai/dharma") {
-        const userText = latestUserText(body);
+        const userText = clampPlainText(latestUserText(body));
         if (!userText) return json({ error: "Query is required" }, { status: 400 }, origin);
-        const context = typeof body.context === "string" ? body.context : "";
+        const context = clampPlainText(body.context, 1000);
         const messages: ChatMessage[] = [
           { role: "system", content: DHARMA_SYSTEM },
           {
@@ -517,14 +516,11 @@ const worker = {
       }
 
       if (path === "/api/ai/translate") {
-        const sourceText =
-          (typeof body.text === "string" && body.text.trim()) ||
-          (typeof body.sanskrit === "string" && body.sanskrit.trim()) ||
-          "";
+        const sourceText = clampPlainText(body.text) || clampPlainText(body.sanskrit);
         if (!sourceText) {
           return json({ error: "Text is required for translation" }, { status: 400 }, origin);
         }
-        const targetLang = typeof body.targetLang === "string" ? body.targetLang : "en";
+        const targetLang = clampLabel(body.targetLang, "en");
         const text = await completeText(env, [
           {
             role: "system",
@@ -564,9 +560,8 @@ const worker = {
 
       if (path === "/api/ai/quiz") {
         const topic =
-          typeof body.topic === "string" && body.topic.trim()
-            ? body.topic.trim()
-            : "Bhagavad Gita, Yoga Sutras, Upanishads, Ramayana, or Mahabharata";
+          clampPlainText(body.topic, 200) ||
+          "Bhagavad Gita, Yoga Sutras, Upanishads, Ramayana, or Mahabharata";
         const text = await completeText(env, [
           { role: "system", content: QUIZ_SYSTEM },
           { role: "user", content: `Create one quiz question about: ${topic}` },
@@ -587,9 +582,9 @@ const worker = {
       }
 
       if (path === "/api/sanskrit/chat") {
-        const message = latestUserText(body);
+        const message = clampPlainText(latestUserText(body));
         if (!message) return json({ error: "Message is required." }, { status: 400 }, origin);
-        const mode = typeof body.mode === "string" ? body.mode : "learn";
+        const mode = clampLabel(body.mode, "learn");
         const lang = body.lang === "hi" ? "Hindi" : "English";
         const reply = await completeText(env, [
           {
@@ -612,11 +607,12 @@ const worker = {
 
       return json({ error: `Unknown endpoint: ${path}` }, { status: 404 }, origin);
     } catch (error) {
-      return json(
-        { error: error instanceof Error ? error.message : "Gemma 4 gateway failed." },
-        { status: 503 },
-        origin
-      );
+      console.error("Gemma gateway failed", error);
+      const message =
+        error instanceof Error && error.message.startsWith("Upstream model request failed")
+          ? error.message
+          : "Gemma 4 gateway failed.";
+      return json({ error: message }, { status: 503 }, origin);
     }
   },
 };

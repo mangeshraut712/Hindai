@@ -27,6 +27,12 @@ import {
   openRouterHeaders,
 } from "@/lib/ai/openrouter";
 import { scriptureCatalog } from "@/lib/scripture-catalog";
+import {
+  clampPlainText,
+  consumeRateLimit,
+  peekRateLimit,
+  publicModelError,
+} from "@/lib/ai/model-guard";
 
 /**
  * Gemma 4 Models - Exclusive Support
@@ -115,7 +121,8 @@ async function generateWithOpenRouter(
 
   if (!response.ok) {
     const errorText = await response.text().catch(() => "Unknown error");
-    throw new Error(`OpenRouter error: ${response.status} ${errorText}`);
+    console.error("OpenRouter request failed", response.status, errorText.slice(0, 500));
+    throw new Error(publicModelError(response.status));
   }
 
   const data = (await response.json()) as {
@@ -233,11 +240,6 @@ export interface AIQuery {
   stream?: boolean;
 }
 
-type MemoryRateLimitEntry = {
-  count: number;
-  reset: number;
-};
-
 export type GroundingVerse = {
   id: string;
   scriptureId: string;
@@ -271,13 +273,10 @@ const hasRedisConfig = Boolean(
 
 const memoryState = globalThis as typeof globalThis & {
   __hindaiMemoryCache?: Map<string, { value: AIResponse; expiresAt: number }>;
-  __hindaiMemoryRateLimit?: Map<string, MemoryRateLimitEntry>;
 };
 
 const memoryCache =
   memoryState.__hindaiMemoryCache ?? (memoryState.__hindaiMemoryCache = new Map());
-const memoryRateLimit =
-  memoryState.__hindaiMemoryRateLimit ?? (memoryState.__hindaiMemoryRateLimit = new Map());
 
 // Initialize Redis for caching only when credentials are available.
 const redis = hasRedisConfig
@@ -698,34 +697,34 @@ async function checkRateLimit(userId: string): Promise<{
   remaining: number;
   reset: number;
 }> {
-  if (!ratelimit) {
-    const now = Date.now();
-    const existing = memoryRateLimit.get(userId);
-
-    if (!existing || existing.reset <= now) {
-      const reset = now + 60_000;
-      memoryRateLimit.set(userId, { count: 1, reset });
-      return {
-        success: true,
-        limit: 10,
-        remaining: 9,
-        reset,
-      };
-    }
-
-    existing.count += 1;
-    memoryRateLimit.set(userId, existing);
-
-    return {
-      success: existing.count <= 10,
-      limit: 10,
-      remaining: Math.max(0, 10 - existing.count),
-      reset: existing.reset,
-    };
-  }
+  if (!ratelimit) return consumeRateLimit(`model:${userId}`);
 
   const { success, limit, remaining, reset } = await ratelimit.limit(userId);
   return { success, limit, remaining, reset };
+}
+
+async function currentRateLimit(userId: string): Promise<{ remaining: number; reset: number }> {
+  if (!ratelimit) {
+    const window = peekRateLimit(`model:${userId}`);
+    return { remaining: window.remaining, reset: window.reset };
+  }
+
+  const window = await ratelimit.getRemaining(userId);
+  return { remaining: window.remaining, reset: window.reset };
+}
+
+export function parseStoredAiResponse(cached: unknown): AIResponse | null {
+  let value = cached;
+  if (typeof cached === "string") {
+    try {
+      value = JSON.parse(cached) as unknown;
+    } catch {
+      return null;
+    }
+  }
+
+  const parsed = AIResponseSchema.safeParse(value);
+  return parsed.success ? parsed.data : null;
 }
 
 /**
@@ -747,11 +746,8 @@ async function getCachedResponse(key: string): Promise<AIResponse | null> {
   }
 
   try {
-    const cached = await redis.get<string>(key);
-    if (cached) {
-      return JSON.parse(cached);
-    }
-    return null;
+    const cached = await redis.get<unknown>(key);
+    return parseStoredAiResponse(cached);
   } catch {
     return null;
   }
@@ -788,28 +784,25 @@ export async function generateExplanation(
   grounding: GroundingPacket;
   rateLimit: { remaining: number; reset: number };
 }> {
-  // Check rate limit
+  // A cache hit must not consume the model quota.
+  const cacheKey = generateCacheKey(query);
+  const cached = await getCachedResponse(cacheKey);
+  const grounding = buildGroundingPacket(query);
+  if (cached) {
+    const window = await currentRateLimit(userId);
+    return {
+      response: cached,
+      cached: true,
+      grounding,
+      rateLimit: window,
+    };
+  }
+
   const rateLimitCheck = await checkRateLimit(userId);
   if (!rateLimitCheck.success) {
     throw new Error(
       `Rate limit exceeded. Try again in ${Math.ceil((rateLimitCheck.reset - Date.now()) / 1000)} seconds.`
     );
-  }
-
-  // Check cache
-  const cacheKey = generateCacheKey(query);
-  const cached = await getCachedResponse(cacheKey);
-  const grounding = buildGroundingPacket(query);
-  if (cached) {
-    return {
-      response: cached,
-      cached: true,
-      grounding,
-      rateLimit: {
-        remaining: rateLimitCheck.remaining,
-        reset: rateLimitCheck.reset,
-      },
-    };
   }
 
   // Build prompt
@@ -973,14 +966,23 @@ export async function checkGemmaAvailability(): Promise<{
   }
 }
 
-export async function generateQuizQuestion(topic?: string): Promise<QuizQuestion> {
+export async function generateQuizQuestion(
+  topic?: string,
+  userId = "anonymous"
+): Promise<QuizQuestion> {
   const backend = await resolveGemmaBackend();
   if (backend === "none") {
     throw new Error("Gemma 4 is not configured. Set OPENROUTER_API_KEY for OpenRouter.");
   }
 
-  const prompt = topic?.trim().length
-    ? `Create one quiz question about: ${topic.trim()}`
+  const rateLimitCheck = await checkRateLimit(userId);
+  if (!rateLimitCheck.success) {
+    throw new Error("Rate limit exceeded. Please try again in a minute.");
+  }
+
+  const safeTopic = clampPlainText(topic, 200);
+  const prompt = safeTopic
+    ? `Create one quiz question about: ${safeTopic}`
     : "Create one quiz question about Bhagavad Gita, Yoga Sutras, Upanishads, Ramayana, or Mahabharata.";
 
   const systemInstruction = `You create high-quality multiple-choice quiz questions about Indian scriptures.
@@ -1026,8 +1028,24 @@ Rules:
  */
 export async function translateSanskrit(
   sanskrit: string,
-  targetLang: TranslationLanguage = "en"
+  targetLang: TranslationLanguage = "en",
+  userId = "anonymous"
 ): Promise<{ translation: string; transliteration: string }> {
+  const source = clampPlainText(sanskrit);
+  if (!source) {
+    throw new Error("Text is required");
+  }
+
+  const backendReady = await resolveGemmaBackend();
+  if (backendReady === "none") {
+    throw new Error("Gemma 4 is not configured. Set OPENROUTER_API_KEY for OpenRouter.");
+  }
+
+  const rateLimitCheck = await checkRateLimit(userId);
+  if (!rateLimitCheck.success) {
+    throw new Error("Rate limit exceeded. Please try again in a minute.");
+  }
+
   const targetLanguageLabel = getTranslationLanguageLabel(targetLang);
   const prompt = `Translate this Indic scripture text to natural ${targetLanguageLabel}.
 Keep the translation faithful, readable, and culturally respectful for modern readers of ${targetLanguageLabel}.
@@ -1036,7 +1054,7 @@ Provide:
 1. Translation
 2. Transliteration in Latin script when the source is written in Devanagari or Sanskrit script
 
-Source text: ${sanskrit}
+Source text: ${source}
 
 Response format (JSON):
 {
@@ -1052,7 +1070,7 @@ Response format (JSON):
         [{ text: prompt }],
         "You translate Indic scripture faithfully and return JSON only."
       );
-      return parseTranslationPayload(resultText, sanskrit);
+      return parseTranslationPayload(resultText, source);
     }
 
     throw new Error("Gemma 4 is not configured. Set OPENROUTER_API_KEY for OpenRouter.");
@@ -1065,7 +1083,8 @@ Response format (JSON):
 export async function analyzeManuscriptImage(
   imageBase64: string,
   mimeType: string,
-  query: string
+  query: string,
+  userId = "anonymous"
 ): Promise<{
   response: AIResponse;
   model: string;
@@ -1073,9 +1092,14 @@ export async function analyzeManuscriptImage(
   const backend = await resolveGemmaBackend();
 
   if (backend === "openrouter") {
+    const rateLimitCheck = await checkRateLimit(userId);
+    if (!rateLimitCheck.success) {
+      throw new Error("Rate limit exceeded. Please try again in a minute.");
+    }
+    const safeQuery = clampPlainText(query, 1000) || "Describe this manuscript image.";
     const text = await generateWithOpenRouter(
       [
-        { text: query },
+        { text: safeQuery },
         {
           inline_data: {
             mime_type: mimeType,
@@ -1149,24 +1173,28 @@ export async function generateVerseWithGemma(
   request: VerseGenerationRequest,
   userId: string = "anonymous"
 ): Promise<VerseGenerationResult> {
-  // Check rate limit
-  let rateLimitInfo: { remaining: number; limit: number; reset: number } | undefined;
-
-  if (ratelimit) {
-    const { success, limit, remaining, reset } = await ratelimit.limit(userId);
-    rateLimitInfo = { limit, remaining, reset: Math.floor(reset / 1000) };
-
-    if (!success) {
-      throw new Error("Rate limit exceeded. Please try again in a minute.");
-    }
+  const backend = await resolveGemmaBackend();
+  if (backend !== "openrouter") {
+    throw new Error("Gemma 4 is not configured. Set OPENROUTER_API_KEY for OpenRouter.");
   }
 
-  const backend = await resolveGemmaBackend();
+  const rateLimitCheck = await checkRateLimit(userId);
+  if (!rateLimitCheck.success) {
+    throw new Error("Rate limit exceeded. Please try again in a minute.");
+  }
+  const rateLimitInfo = {
+    limit: rateLimitCheck.limit,
+    remaining: rateLimitCheck.remaining,
+    reset: Math.floor(rateLimitCheck.reset / 1000),
+  };
 
-  const prompt = `Generate a complete verse entry for ${request.scriptureName}, Chapter ${request.chapter}, Verse ${request.verse}.
+  const scriptureName = clampPlainText(request.scriptureName, 120);
+  const speaker = clampPlainText(request.speaker, 80);
+  const context = clampPlainText(request.context, 500);
+  const prompt = `Generate a complete verse entry for ${scriptureName}, Chapter ${request.chapter}, Verse ${request.verse}.
 
-${request.speaker ? `Speaker: ${request.speaker}` : ""}
-${request.context ? `Context: ${request.context}` : ""}
+${speaker ? `Speaker: ${speaker}` : ""}
+${context ? `Context: ${context}` : ""}
 
 Please provide:
 1. The Sanskrit verse in Devanagari script (exact traditional text)

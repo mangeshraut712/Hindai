@@ -670,6 +670,7 @@ export function AIChat({
         <div className="flex gap-2">
           {mode === "translate" ? (
             <textarea
+              aria-label="Sanskrit text to translate"
               placeholder="Paste a Sanskrit or Devanagari line to translate..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -680,6 +681,7 @@ export function AIChat({
             />
           ) : (
             <Input
+              aria-label="Ask about scriptures"
               placeholder={
                 mode === "compare"
                   ? "Compare two texts, themes, or teaching styles..."
