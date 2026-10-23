@@ -6,7 +6,7 @@
 ![Next.js](https://img.shields.io/badge/Next.js-15.5.15-saffron?style=for-the-badge&logo=next.js)
 ![React](https://img.shields.io/badge/React-19.2.5-blue?style=for-the-badge&logo=react)
 ![OpenRouter](https://img.shields.io/badge/OpenRouter-Gemma%204-gold?style=for-the-badge&logo=openrouter)
-![Node.js](https://img.shields.io/badge/Node.js-%3E%3D20.0.0-green?style=for-the-badge&logo=node.js)
+![Node.js](https://img.shields.io/badge/Node.js-%3E%3D22-green?style=for-the-badge&logo=node.js)
 ![License](https://img.shields.io/badge/License-CC--BY--4.0-lightgrey?style=for-the-badge)
 
   <img src="public/logo.webp" alt="Hind AI Logo" width="150" />
@@ -223,7 +223,7 @@ Hosting moved off paused Vercel onto **GitHub Pages + Cloudflare Worker** (2026)
 | **Next.js**    | 15.5.15 | React framework with App Router & RSC         |
 | **React**      | 19.2.5  | UI library with concurrent features & Actions |
 | **TypeScript** | 5.9.3   | Type-safe JavaScript development              |
-| **Node.js**    | >=20.0  | JavaScript runtime with ESM support           |
+| **Node.js**    | >=22    | JavaScript runtime with ESM support           |
 
 ### AI & Machine Learning
 
@@ -716,7 +716,7 @@ npm run security         # Security audit
 - ✅ Security: Audit available via `npm run security`
 - ✅ Performance: Dynamic imports, scoped motion, font loading, static asset caching
 - ✅ Accessibility: Reduced motion support, ARIA labels, keyboard navigation
-- ✅ Node.js: Compatible with >=20.0.0
+- ✅ Node.js: Compatible with >=22 (CI uses 24)
 
 ---
 
