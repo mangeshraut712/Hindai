@@ -91,7 +91,7 @@ export const KARANAS = [
   { name: "Bhadra", sanskrit: "भद्रा", number: 9 },
   { name: "Shakuni", sanskrit: "शकुनि", number: 10 },
   { name: "Chatushpada", sanskrit: "चतुष्पाद", number: 11 },
-  { name: "Naga", sanskrit: "नाग", number: 11 },
+  { name: "Naga", sanskrit: "नाग", number: 12 },
 ];
 
 export const VARAS = [

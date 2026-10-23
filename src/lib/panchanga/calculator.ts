@@ -4,6 +4,31 @@
 import { Panchanga, Tithi, Nakshatra, Yoga, Karana, Vara, Paksha } from "./types";
 import { TITHIS, NAKSHATRAS, YOGAS, KARANAS, VARAS } from "./constants";
 
+const MOVABLE_KARANAS = [
+  "Bava",
+  "Balava",
+  "Kaulava",
+  "Taitila",
+  "Gara",
+  "Vanija",
+  "Vishti",
+] as const;
+
+/**
+ * Karana for one half of a lunar day (1–30).
+ * The first half of Shukla Pratipada is Kinstughna. The last three halves are
+ * Shakuni, Chatushpada, and Naga. The other 56 halves cycle the seven movable karanas.
+ */
+export function karanaNameForHalf(lunarDay: number, afternoon: boolean): string {
+  const day = Math.min(30, Math.max(1, Math.floor(lunarDay)));
+  const slot = (day - 1) * 2 + (afternoon ? 1 : 0);
+  if (slot === 0) return "Kinstughna";
+  if (slot === 57) return "Shakuni";
+  if (slot === 58) return "Chatushpada";
+  if (slot >= 59) return "Naga";
+  return MOVABLE_KARANAS[(slot - 1) % MOVABLE_KARANAS.length] ?? "Bava";
+}
+
 export class PanchangaCalculator {
   /**
    * Calculate Panchanga for a given date
@@ -37,16 +62,23 @@ export class PanchangaCalculator {
    * Calculate Tithi (lunar day)
    * Tithi is based on the angular distance between Sun and Moon
    */
-  private static calculateTithi(date: Date): Tithi {
-    // Simplified calculation based on moon phase
+  private static moonAge(date: Date): {
+    lunarTithi: number;
+    paksha: Paksha;
+    adjustedTithi: number;
+  } {
     const lunarCycle = 29.53059; // days in lunar month
     const knownNewMoon = new Date("2024-01-11").getTime(); // Reference new moon
     const daysSinceNewMoon = (date.getTime() - knownNewMoon) / (1000 * 60 * 60 * 24);
     const lunarDay = ((daysSinceNewMoon % lunarCycle) + lunarCycle) % lunarCycle;
-
     const lunarTithi = Math.min(30, Math.floor((lunarDay / lunarCycle) * 30) + 1);
     const paksha: Paksha = lunarTithi <= 15 ? "Shukla" : "Krishna";
     const adjustedTithi = lunarTithi > 15 ? lunarTithi - 15 : lunarTithi;
+    return { lunarTithi, paksha, adjustedTithi };
+  }
+
+  private static calculateTithi(date: Date): Tithi {
+    const { paksha, adjustedTithi } = this.moonAge(date);
 
     const tithiInfo =
       TITHIS.find((t) => {
@@ -111,7 +143,8 @@ export class PanchangaCalculator {
     // Simplified calculation
     const yogaCycle = 27; // 27 yogas
     const daysSinceEpoch = date.getTime() / (1000 * 60 * 60 * 24);
-    const yogaNumber = Math.floor((daysSinceEpoch % yogaCycle) + 1);
+    const wrapped = ((daysSinceEpoch % yogaCycle) + yogaCycle) % yogaCycle;
+    const yogaNumber = Math.floor(wrapped) + 1;
 
     const yogaInfo = YOGAS.find((y) => y.number === yogaNumber) || YOGAS[0];
 
@@ -127,9 +160,9 @@ export class PanchangaCalculator {
    * Karana = tithi / 2, with special rules
    */
   private static calculateKarana(date: Date, tithi: Tithi): Karana {
-    // Karana changes twice per tithi
-    const karanaNumber = ((tithi.number - 1) % 11) + 1;
-    const karanaInfo = KARANAS.find((k) => k.number === karanaNumber) || KARANAS[0];
+    const lunarDay = tithi.paksha === "Krishna" ? tithi.number + 15 : tithi.number;
+    const name = karanaNameForHalf(lunarDay, date.getUTCHours() >= 12);
+    const karanaInfo = KARANAS.find((k) => k.name === name) || KARANAS[0];
 
     return {
       name: karanaInfo.name,
@@ -171,8 +204,8 @@ export class PanchangaCalculator {
       .toString()
       .padStart(2, "0")}`;
 
-    // Moon rises approximately 50 minutes later each day
-    const moonPhase = this.calculateTithi(date).number;
+    // Moon rises approximately 50 minutes later across the full 30 lunar days.
+    const moonPhase = this.moonAge(date).lunarTithi;
     const moonriseHour = (18 + (moonPhase * 50) / 60) % 24;
     const moonsetHour = (moonriseHour + 12) % 24;
 
