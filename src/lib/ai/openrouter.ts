@@ -4,6 +4,7 @@
  * This module uses Google Gemma 4 via OpenRouter for AI inference.
  */
 
+import { publicModelError } from "@/lib/ai/model-guard";
 import { buildHindAISystemPrompt, HINDAI_GEMMA_MODEL } from "@/lib/ai/gemma-capabilities";
 
 function resolveOpenRouterModel() {
@@ -69,8 +70,12 @@ async function readOpenRouterJson(response: Response): Promise<OpenRouterRespons
   }
 
   if (!response.ok) {
-    const message = data?.error?.message || response.statusText || "OpenRouter request failed";
-    throw new Error(`OpenRouter error ${response.status}: ${message}`);
+    console.error(
+      "OpenRouter request failed",
+      response.status,
+      data?.error?.message || responseText.slice(0, 500)
+    );
+    throw new Error(publicModelError(response.status));
   }
 
   return data || {};
@@ -277,9 +282,8 @@ export async function* generateExplanationStream(
 
     if (!response.ok || !response.body) {
       const responseText = await response.text().catch(() => "");
-      throw new Error(
-        `OpenRouter error ${response.status}: ${responseText || response.statusText}`
-      );
+      console.error("OpenRouter stream failed", response.status, responseText.slice(0, 500));
+      throw new Error(publicModelError(response.status));
     }
 
     const reader = response.body.getReader();

@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
+  clampPlainText,
+  consumeRateLimit,
+  publicModelError,
+  readSseContent,
+  requestClientKey,
+} from "@/lib/ai/model-guard";
+import {
   getOpenRouterApiKey,
   OPENROUTER_MODEL,
   OPENROUTER_URL,
@@ -38,9 +45,17 @@ Important: Always include a disclaimer that complex rituals, intense practices, 
 export async function POST(req: NextRequest) {
   try {
     const { query, context, preferences } = await req.json();
-
-    if (!query) {
+    const queryText = clampPlainText(query);
+    if (!queryText) {
       return NextResponse.json({ error: "Query is required" }, { status: 400 });
+    }
+
+    const rateLimit = consumeRateLimit(`model:${requestClientKey(req)}`);
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: "Rate limit exceeded. Please try again in a minute." },
+        { status: 429 }
+      );
     }
 
     const apiKey = getOpenRouterApiKey();
@@ -50,14 +65,11 @@ export async function POST(req: NextRequest) {
     }
 
     // Build context-aware prompt
-    let enhancedQuery = query;
-
-    if (context) {
-      enhancedQuery = `Context: ${context}\n\nQuery: ${query}`;
-    }
-
-    if (preferences) {
-      enhancedQuery += `\n\nUser Preferences: ${JSON.stringify(preferences)}`;
+    const contextText = clampPlainText(context, 1000);
+    const preferenceText = clampPlainText(preferences ? JSON.stringify(preferences) : "", 500);
+    let enhancedQuery = contextText ? `Context: ${contextText}\n\nQuery: ${queryText}` : queryText;
+    if (preferenceText) {
+      enhancedQuery += `\n\nUser Preferences: ${preferenceText}`;
     }
 
     const response = await fetch(OPENROUTER_URL, {
@@ -77,58 +89,28 @@ export async function POST(req: NextRequest) {
         ],
         stream: true,
         temperature: 0.7,
-        max_tokens: 4096,
+        max_tokens: 1600,
       }),
     });
 
-    if (!response.ok) {
-      const error = await response.text();
+    if (!response.ok || !response.body) {
+      const error = await response.text().catch(() => "");
+      console.error("Dharma upstream failed", response.status, error.slice(0, 500));
       return NextResponse.json(
-        { error: `OpenRouter API error: ${error}` },
-        { status: response.status }
+        { error: publicModelError(response.status) },
+        { status: response.status || 502 }
       );
     }
 
-    // Create a readable stream
     const encoder = new TextEncoder();
-    const decoder = new TextDecoder();
-
+    const upstream = response.body;
     const stream = new ReadableStream({
       async start(controller) {
-        const reader = response.body?.getReader();
-        if (!reader) {
-          controller.close();
-          return;
-        }
-
         try {
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-
-            const chunk = decoder.decode(value);
-            const lines = chunk.split("\n");
-
-            for (const line of lines) {
-              if (line.startsWith("data: ")) {
-                const data = line.slice(6);
-                if (data === "[DONE]") {
-                  controller.enqueue(encoder.encode("data: [DONE]\n\n"));
-                  break;
-                }
-
-                try {
-                  const parsed = JSON.parse(data);
-                  const content = parsed.choices?.[0]?.delta?.content;
-                  if (content) {
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content })}\n\n`));
-                  }
-                } catch {
-                  // Skip invalid JSON
-                }
-              }
-            }
+          for await (const content of readSseContent(upstream)) {
+            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content })}\n\n`));
           }
+          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
         } catch (error) {
           controller.error(error);
         } finally {

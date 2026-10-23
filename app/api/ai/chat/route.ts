@@ -2,6 +2,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { contextManager } from "@/lib/ai/context-manager";
 import { buildHindAISystemPrompt } from "@/lib/ai/gemma-capabilities";
 import {
+  clampMaxTokens,
+  clampTemperature,
+  clientSafeError,
+  consumeRateLimit,
+  publicModelError,
+  readSseContent,
+  requestClientKey,
+  sanitizeChatTurns,
+} from "@/lib/ai/model-guard";
+import {
   getOpenRouterApiKey,
   OPENROUTER_MODEL,
   OPENROUTER_URL,
@@ -31,10 +41,21 @@ const SYSTEM_PROMPT = buildHindAISystemPrompt({
 export async function POST(req: NextRequest) {
   try {
     const body: ChatRequest = await req.json();
-    const { messages, stream = true, temperature = 0.7, maxTokens = 4096 } = body;
+    const { messages, stream = true } = body;
+    const temperature = clampTemperature(body.temperature);
+    const maxTokens = clampMaxTokens(body.maxTokens);
+    const turns = sanitizeChatTurns(messages, SYSTEM_PROMPT);
 
-    if (!messages || messages.length === 0) {
-      return NextResponse.json({ error: "Messages array is required" }, { status: 400 });
+    if (!turns.some((message) => message.role === "user")) {
+      return NextResponse.json({ error: "A user message is required." }, { status: 400 });
+    }
+
+    const rateLimit = consumeRateLimit(`model:${requestClientKey(req)}`);
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: "Rate limit exceeded. Please try again in a minute." },
+        { status: 429 }
+      );
     }
 
     const apiKey = getOpenRouterApiKey();
@@ -43,14 +64,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "OpenRouter API key is not configured" }, { status: 500 });
     }
 
-    // Add system prompt if not present
-    const messagesWithSystem =
-      messages[0]?.role === "system"
-        ? messages
-        : [{ role: "system" as const, content: SYSTEM_PROMPT }, ...messages];
-
-    // Trim conversation to fit within context window
-    const trimmedMessages = contextManager.trimConversation(messagesWithSystem, SYSTEM_PROMPT);
+    const trimmedMessages = contextManager.trimConversation(turns, SYSTEM_PROMPT);
 
     if (stream) {
       const response = await fetch(OPENROUTER_URL, {
@@ -65,56 +79,24 @@ export async function POST(req: NextRequest) {
         }),
       });
 
-      if (!response.ok) {
-        const error = await response.text();
+      if (!response.ok || !response.body) {
+        const error = await response.text().catch(() => "");
+        console.error("Chat upstream failed", response.status, error.slice(0, 500));
         return NextResponse.json(
-          { error: `OpenRouter API error: ${error}` },
-          { status: response.status }
+          { error: publicModelError(response.status) },
+          { status: response.status || 502 }
         );
       }
 
-      // Create a readable stream
       const encoder = new TextEncoder();
-      const decoder = new TextDecoder();
-
+      const upstream = response.body;
       const stream = new ReadableStream({
         async start(controller) {
-          const reader = response.body?.getReader();
-          if (!reader) {
-            controller.close();
-            return;
-          }
-
           try {
-            while (true) {
-              const { done, value } = await reader.read();
-              if (done) break;
-
-              const chunk = decoder.decode(value);
-              const lines = chunk.split("\n");
-
-              for (const line of lines) {
-                if (line.startsWith("data: ")) {
-                  const data = line.slice(6);
-                  if (data === "[DONE]") {
-                    controller.enqueue(encoder.encode("data: [DONE]\n\n"));
-                    break;
-                  }
-
-                  try {
-                    const parsed = JSON.parse(data);
-                    const content = parsed.choices?.[0]?.delta?.content;
-                    if (content) {
-                      controller.enqueue(
-                        encoder.encode(`data: ${JSON.stringify({ content })}\n\n`)
-                      );
-                    }
-                  } catch {
-                    // Skip invalid JSON
-                  }
-                }
-              }
+            for await (const content of readSseContent(upstream)) {
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content })}\n\n`));
             }
+            controller.enqueue(encoder.encode("data: [DONE]\n\n"));
           } catch (error) {
             controller.error(error);
           } finally {
@@ -145,10 +127,11 @@ export async function POST(req: NextRequest) {
       });
 
       if (!response.ok) {
-        const error = await response.text();
+        const error = await response.text().catch(() => "");
+        console.error("Chat upstream failed", response.status, error.slice(0, 500));
         return NextResponse.json(
-          { error: `OpenRouter API error: ${error}` },
-          { status: response.status }
+          { error: publicModelError(response.status) },
+          { status: response.status || 502 }
         );
       }
 
@@ -157,6 +140,9 @@ export async function POST(req: NextRequest) {
     }
   } catch (error) {
     console.error("Chat API error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: clientSafeError(error, "Internal server error") },
+      { status: 500 }
+    );
   }
 }
