@@ -1,6 +1,13 @@
 // Multi-Script Sanskrit Converter
 // Converts Sanskrit text between different scripts
 
+import {
+  foldIastToLatin,
+  GRANTHA_GLYPHS,
+  iastToScript,
+  SCRIPT_SIGNS,
+  scriptToIast,
+} from "./akshara";
 import { Script, ScriptConversion } from "./types";
 
 // Basic character mappings for script conversion
@@ -290,7 +297,7 @@ const SCRIPT_MAPPINGS: Record<Script, Record<string, string>> = {
     म: "m",
     य: "y",
     र: "r",
-    "�": "l",
+    ल: "l",
     व: "v",
     श: "sh",
     ष: "sh",
@@ -645,39 +652,32 @@ export class ScriptConverter {
   /**
    * Convert text to IAST (International Alphabet of Sanskrit Transliteration)
    */
+  private static glyphMap(script: Script): Record<string, string> {
+    if (script === "Grantha") return GRANTHA_GLYPHS;
+    return SCRIPT_MAPPINGS[script];
+  }
+
   private static toIAST(text: string, fromScript: Script): string {
-    if (fromScript === "IAST") return text;
+    if (fromScript === "IAST" || fromScript === "Latin") return text;
 
-    const mapping = SCRIPT_MAPPINGS[fromScript];
-    if (!mapping) return text;
-
-    let result = text;
-    // Reverse mapping for Devanagari to IAST
-    if (fromScript === "Devanagari") {
-      const iastMapping = SCRIPT_MAPPINGS["IAST"];
-      for (const [devanagari, iast] of Object.entries(iastMapping)) {
-        result = result.replace(new RegExp(devanagari, "g"), iast);
-      }
-    }
-
-    return result;
+    const signsForScript = SCRIPT_SIGNS[fromScript];
+    if (!signsForScript) return text;
+    return scriptToIast(text, this.glyphMap(fromScript), signsForScript);
   }
 
   /**
-   * Convert text from IAST to target script
+   * Convert text from IAST to target script.
+   * Consonant clusters keep the inherent vowel unwritten and use virama,
+   * and longer IAST keys such as "dh" and "ai" win over "d"/"h" and "a"/"i".
    */
   private static fromIAST(text: string, toScript: Script): string {
     if (toScript === "IAST") return text;
+    if (toScript === "Latin") return foldIastToLatin(text);
 
-    const mapping = SCRIPT_MAPPINGS[toScript];
-    if (!mapping) return text;
+    const signsForScript = SCRIPT_SIGNS[toScript];
+    if (!signsForScript) return text;
 
-    let result = text;
-    for (const [iast, target] of Object.entries(mapping)) {
-      result = result.replace(new RegExp(iast, "g"), target);
-    }
-
-    return result;
+    return iastToScript(text, this.glyphMap(toScript), signsForScript);
   }
 
   /**

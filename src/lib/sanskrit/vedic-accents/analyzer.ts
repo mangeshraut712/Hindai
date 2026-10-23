@@ -30,20 +30,15 @@ export class VedicAccentAnalyzer {
     const wordLower = word.toLowerCase();
 
     // Check if word is in known accented words database
-    if (KNOWN_ACCENTED_WORDS[wordLower]) {
-      const known = KNOWN_ACCENTED_WORDS[wordLower];
-      const syllables = this.splitIntoSyllables(word);
-
-      known.type.forEach((type, index) => {
-        if (index < syllables.length) {
-          accents.push({
-            syllable: syllables[index],
-            accent: type,
-            position: index,
-          });
-        }
+    const known = KNOWN_ACCENTED_WORDS[wordLower];
+    if (known && known.accents.join("") === wordLower) {
+      known.accents.forEach((syllable, index) => {
+        accents.push({
+          syllable,
+          accent: known.type[index] ?? "Anudatta",
+          position: index,
+        });
       });
-
       return accents;
     }
 
@@ -71,104 +66,84 @@ export class VedicAccentAnalyzer {
    * Split a word into syllables
    */
   private static splitIntoSyllables(word: string): string[] {
+    const vowels = ["ai", "au", "ā", "ī", "ū", "ṛ", "ṝ", "e", "o", "a", "i", "u"];
+    const consonants = [
+      "kh",
+      "gh",
+      "ch",
+      "jh",
+      "ṭh",
+      "ḍh",
+      "th",
+      "dh",
+      "ph",
+      "bh",
+      "ṅ",
+      "ñ",
+      "ṇ",
+      "ś",
+      "ṣ",
+      "k",
+      "g",
+      "c",
+      "j",
+      "ṭ",
+      "ḍ",
+      "t",
+      "d",
+      "n",
+      "p",
+      "b",
+      "m",
+      "y",
+      "r",
+      "l",
+      "v",
+      "s",
+      "h",
+    ];
     const syllables: string[] = [];
-    let current = "";
+    let index = 0;
 
-    for (let i = 0; i < word.length; i++) {
-      current += word[i];
-
-      // Simple syllable boundary detection
-      if (this.isSyllableBoundary(current, word[i + 1])) {
-        syllables.push(current);
-        current = "";
+    while (index < word.length) {
+      let cluster = "";
+      while (index < word.length) {
+        const consonant = consonants.find((item) => word.startsWith(item, index));
+        if (!consonant) break;
+        cluster += consonant;
+        index += consonant.length;
       }
-    }
 
-    if (current.length > 0) {
-      syllables.push(current);
+      const vowel = vowels.find((item) => word.startsWith(item, index));
+      if (vowel) {
+        syllables.push(cluster + vowel);
+        index += vowel.length;
+        continue;
+      }
+
+      if (cluster) {
+        syllables.push(cluster);
+        continue;
+      }
+
+      syllables.push(word[index] ?? "");
+      index += 1;
     }
 
     return syllables.length > 0 ? syllables : [word];
   }
 
   /**
-   * Check if we have a syllable boundary
-   */
-  private static isSyllableBoundary(current: string, nextChar: string): boolean {
-    const vowels = ["a", "ā", "i", "ī", "u", "ū", "ṛ", "ṝ", "ḷ", "ḷ", "e", "ai", "o", "au"];
-    const consonants = [
-      "k",
-      "kh",
-      "g",
-      "gh",
-      "ṅ",
-      "c",
-      "ch",
-      "j",
-      "jh",
-      "ñ",
-      "ṭ",
-      "ṭh",
-      "ḍ",
-      "ḍh",
-      "ṇ",
-      "t",
-      "th",
-      "d",
-      "dh",
-      "n",
-      "p",
-      "ph",
-      "b",
-      "bh",
-      "m",
-      "y",
-      "r",
-      "l",
-      "v",
-      "ś",
-      "ṣ",
-      "s",
-      "h",
-    ];
-
-    // If next char is a vowel and current ends with consonant, likely boundary
-    if (nextChar && vowels.includes(nextChar) && current.length > 0) {
-      const lastChar = current.slice(-1);
-      if (consonants.includes(lastChar)) {
-        return true;
-      }
-    }
-
-    // If current ends with vowel and next is consonant, likely boundary
-    if (nextChar && consonants.includes(nextChar) && current.length > 0) {
-      const lastChar = current.slice(-1);
-      if (vowels.includes(lastChar)) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  /**
    * Apply accent marks to the word
    */
   private static applyAccents(word: string, accents: AccentPattern[]): string {
-    let result = word;
-    const syllables = this.splitIntoSyllables(word);
+    if (accents.length === 0) return word;
+    const unmarked = accents.map((accent) => accent.syllable).join("");
+    if (unmarked.toLowerCase() !== word.toLowerCase()) return word;
 
-    accents.forEach((accent) => {
-      const symbol = ACCENT_SYMBOLS[accent.accent];
-      if (symbol && accent.position < syllables.length) {
-        // Replace the syllable with accented version
-        const syllable = syllables[accent.position];
-        const accentedSyllable = syllable + symbol;
-        result = result.replace(syllable, accentedSyllable);
-      }
-    });
-
-    return result;
+    return accents
+      .map((accent) => `${accent.syllable}${ACCENT_SYMBOLS[accent.accent] ?? ""}`)
+      .join("");
   }
 
   /**

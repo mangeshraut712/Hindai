@@ -73,9 +73,14 @@ export class SpacedRepetitionSystem {
    * Get cards due for review
    */
   static getDueCards(allProgress: LearningProgress[], userId: string): string[] {
-    const now = new Date();
+    const now = Date.now();
     return allProgress
-      .filter((progress) => progress.userId === userId && progress.nextReview <= now)
+      .filter((progress) => {
+        if (progress.userId !== userId) return false;
+        // JSON round-trips store nextReview as an ISO string. Compare instants, not objects.
+        const nextReview = new Date(progress.nextReview).getTime();
+        return !Number.isNaN(nextReview) && nextReview <= now;
+      })
       .map((progress) => progress.flashcardId);
   }
 

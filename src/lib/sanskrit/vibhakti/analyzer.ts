@@ -25,11 +25,15 @@ export class VibhaktiAnalyzer {
   /**
    * Detect the vibhakti (case ending) of a word based on its ending
    */
+  private static patternsBySpecificity() {
+    return [...VIBHAKTI_PATTERNS].sort((left, right) => right.ending.length - left.ending.length);
+  }
+
   private static detectVibhakti(word: string): Vibhakti {
     const wordLower = word.toLowerCase();
 
-    // Check for known endings
-    for (const pattern of VIBHAKTI_PATTERNS) {
+    // Longest ending wins so instrumental "eṇa" is not read as vocative "a".
+    for (const pattern of this.patternsBySpecificity()) {
       if (wordLower.endsWith(pattern.ending)) {
         return pattern.vibhakti;
       }
@@ -88,7 +92,7 @@ export class VibhaktiAnalyzer {
     const wordLower = word.toLowerCase();
 
     // Check if ending matches known pattern
-    for (const pattern of VIBHAKTI_PATTERNS) {
+    for (const pattern of this.patternsBySpecificity()) {
       if (wordLower.endsWith(pattern.ending)) {
         return 0.9; // High confidence for known patterns
       }

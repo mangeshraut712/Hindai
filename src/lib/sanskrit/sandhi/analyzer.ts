@@ -10,9 +10,8 @@ export class SandhiAnalyzer {
    * consider using a morphological analyzer or ML-based approach
    */
   static analyze(text: string): SandhiResult {
-    const rules: SandhiRule[] = [];
     const split = this.splitCompound(text);
-    const reconstructed = this.reconstructFromSplit(split);
+    const { reconstructed, rules } = this.reconstructFromSplit(split);
 
     return {
       original: text,
@@ -147,31 +146,104 @@ export class SandhiAnalyzer {
   /**
    * Reconstruct the compound from split words
    */
-  private static reconstructFromSplit(words: string[]): string {
-    if (words.length < 2) return words.join("");
+  private static reconstructFromSplit(words: string[]): {
+    reconstructed: string;
+    rules: SandhiRule[];
+  } {
+    const rules: SandhiRule[] = [];
+    if (words.length < 2) return { reconstructed: words.join(""), rules };
 
-    let reconstructed = words[0];
+    let reconstructed = words[0] ?? "";
     for (let i = 1; i < words.length; i++) {
-      reconstructed = this.applySandhi(reconstructed, words[i]);
+      const next = words[i] ?? "";
+      const joined = this.applySandhi(reconstructed, next);
+      reconstructed = joined.text;
+      if (joined.rule) rules.push(joined.rule);
     }
-    return reconstructed;
+    return { reconstructed, rules };
   }
 
   /**
-   * Apply sandhi rules between two words
+   * Apply one sandhi rule at the boundary between two words.
+   * Global replacement of every vowel pair corrupts a + i into āe.
    */
-  private static applySandhi(word1: string, word2: string): string {
-    let combined = word1 + word2;
+  private static applySandhi(
+    word1: string,
+    word2: string
+  ): { text: string; rule: SandhiRule | null } {
+    const left = this.takeVowel(word1, "end");
+    const right = this.takeVowel(word2, "start");
+    if (!left || !right) return { text: word1 + word2, rule: null };
 
-    // Apply sandhi patterns
-    for (const pattern of SANDHI_PATTERNS) {
-      const matches = combined.match(pattern.pattern);
-      if (matches) {
-        combined = combined.replace(pattern.pattern, pattern.replacement);
+    const joined = this.joinVowels(left.vowel, right.vowel);
+    if (!joined) return { text: word1 + word2, rule: null };
+
+    return {
+      text: `${left.rest}${joined.vowel}${right.rest}`,
+      rule: {
+        type: joined.type,
+        description: joined.description,
+        from: `${left.vowel}+${right.vowel}`,
+        to: joined.vowel,
+        position: left.rest.length,
+      },
+    };
+  }
+
+  private static takeVowel(
+    word: string,
+    edge: "start" | "end"
+  ): { vowel: string; rest: string } | null {
+    const vowels = ["ai", "au", "ā", "ī", "ū", "ṛ", "ṝ", "ḷ", "ḹ", "e", "o", "a", "i", "u"].sort(
+      (left, right) => right.length - left.length
+    );
+    for (const vowel of vowels) {
+      if (edge === "end" && word.endsWith(vowel)) {
+        return { vowel, rest: word.slice(0, -vowel.length) };
+      }
+      if (edge === "start" && word.startsWith(vowel)) {
+        return { vowel, rest: word.slice(vowel.length) };
       }
     }
+    return null;
+  }
 
-    return combined;
+  private static joinVowels(
+    left: string,
+    right: string
+  ): { vowel: string; type: SandhiRule["type"]; description: string } | null {
+    const aLike = left === "a" || left === "ā";
+    if (aLike && (right === "a" || right === "ā")) {
+      return { vowel: "ā", type: "VowelSandhi", description: "a/ā + a/ā → ā" };
+    }
+    if (aLike && (right === "i" || right === "ī")) {
+      return { vowel: "e", type: "GunSandhi", description: "a/ā + i/ī → e" };
+    }
+    if (aLike && (right === "u" || right === "ū")) {
+      return { vowel: "o", type: "GunSandhi", description: "a/ā + u/ū → o" };
+    }
+    if (aLike && (right === "ṛ" || right === "ṝ")) {
+      return { vowel: "ar", type: "GunSandhi", description: "a/ā + ṛ/ṝ → ar" };
+    }
+    if (aLike && (right === "e" || right === "ai")) {
+      return { vowel: "ai", type: "VriddhiSandhi", description: "a/ā + e/ai → ai" };
+    }
+    if (aLike && (right === "o" || right === "au")) {
+      return { vowel: "au", type: "VriddhiSandhi", description: "a/ā + o/au → au" };
+    }
+    if ((left === "i" || left === "ī") && (right === "i" || right === "ī")) {
+      return { vowel: "ī", type: "VowelSandhi", description: "i/ī + i/ī → ī" };
+    }
+    if ((left === "u" || left === "ū") && (right === "u" || right === "ū")) {
+      return { vowel: "ū", type: "VowelSandhi", description: "u/ū + u/ū → ū" };
+    }
+    if (left === "i" || left === "ī") {
+      return { vowel: `y${right}`, type: "VowelSandhi", description: "i/ī + vowel → y + vowel" };
+    }
+    if (left === "u" || left === "ū") {
+      return { vowel: `v${right}`, type: "VowelSandhi", description: "u/ū + vowel → v + vowel" };
+    }
+    return null;
   }
 
   /**
