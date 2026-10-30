@@ -18,8 +18,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { triggerHapticOnPress, triggerHapticOnSuccess } from "@/lib/haptics";
-import { ServerFeatureNotice } from "@/components/ai/server-feature-notice";
+import { imageUploadError } from "@/lib/ai/model-guard";
 import { appFetch } from "@/lib/runtime/app-fetch";
+import { isServerApiRouteAvailable } from "@/lib/runtime/capabilities";
 
 interface AnalysisResult {
   analysis: string;
@@ -36,6 +37,8 @@ const SAMPLE_QUERIES = [
   "Analyze the sacred geometry or yantra patterns",
 ];
 
+const VISION_API_PATH = "/api/ai/vision";
+
 export function ScripturalAnalysis() {
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -44,33 +47,45 @@ export function ScripturalAnalysis() {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [copied, setCopied] = useState(false);
   const [showSampleQueries, setShowSampleQueries] = useState(true);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const setSelectedImage = (file: File) => {
+    const validationError = imageUploadError(file);
+    if (validationError) {
+      setUploadError(validationError);
+      setImage(null);
+      setPreview(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+      return;
+    }
+
+    triggerHapticOnPress();
+    setUploadError(null);
+    setImage(file);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreview(reader.result as string);
+    };
+    reader.onerror = () => {
+      setImage(null);
+      setPreview(null);
+      setUploadError("The image could not be read. Please choose another file.");
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      triggerHapticOnPress();
-      setImage(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
+    if (file) setSelectedImage(file);
   };
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     const file = e.dataTransfer.files?.[0];
-    if (file && file.type.startsWith("image/")) {
-      triggerHapticOnPress();
-      setImage(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
+    if (file) setSelectedImage(file);
   };
 
   const handleAnalyze = async () => {
@@ -79,13 +94,14 @@ export function ScripturalAnalysis() {
     triggerHapticOnPress();
     setIsAnalyzing(true);
     setResult(null);
+    setUploadError(null);
 
     const formData = new FormData();
     formData.append("image", image);
     formData.append("query", query);
 
     try {
-      const response = await appFetch("/api/ai/vision", {
+      const response = await appFetch(VISION_API_PATH, {
         method: "POST",
         body: formData,
       });
@@ -97,9 +113,8 @@ export function ScripturalAnalysis() {
       const data: AnalysisResult = await response.json();
       setResult(data);
       triggerHapticOnSuccess();
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Failed to analyze image. Please try again.");
+    } catch {
+      setUploadError("Image analysis is temporarily unavailable. Please try again later.");
     } finally {
       setIsAnalyzing(false);
     }
@@ -121,6 +136,7 @@ export function ScripturalAnalysis() {
     setPreview(null);
     setQuery("");
     setResult(null);
+    setUploadError(null);
     setShowSampleQueries(true);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -132,11 +148,29 @@ export function ScripturalAnalysis() {
     setShowSampleQueries(false);
   };
 
+  if (!isServerApiRouteAvailable(VISION_API_PATH)) {
+    return (
+      <div className="mx-auto max-w-5xl px-4 py-8">
+        <Card className="border-primary/20 from-background via-background to-primary/5 border-2 bg-linear-to-br">
+          <CardHeader className="border-border/50 border-b">
+            <CardTitle className="flex items-center gap-2 text-2xl">
+              <Sparkles className="text-primary size-5" />
+              Scriptural Vision Analysis
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-6">
+            <p role="status" className="text-muted-foreground text-sm">
+              Manuscript vision analysis is currently unavailable on this site. Image files stay on
+              your device and are not uploaded.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
-      <div className="mb-4">
-        <ServerFeatureNotice feature="Manuscript vision analysis" />
-      </div>
       <Card className="border-primary/20 from-background via-background to-primary/5 border-2 bg-linear-to-br">
         <CardHeader className="border-border/50 border-b">
           <div className="flex items-center gap-3">
@@ -163,6 +197,11 @@ export function ScripturalAnalysis() {
         </CardHeader>
 
         <CardContent className="p-6">
+          {uploadError ? (
+            <p role="alert" className="text-muted-foreground mb-4 text-sm">
+              {uploadError}
+            </p>
+          ) : null}
           <div className="grid gap-6 lg:grid-cols-2">
             {/* Upload Section */}
             <div className="space-y-4">
@@ -221,7 +260,7 @@ export function ScripturalAnalysis() {
                       <p className="text-muted-foreground text-sm">or click to browse</p>
                     </div>
                     <p className="text-muted-foreground text-xs">
-                      Supports: PNG, JPG, WEBP (Max 10MB)
+                      Supports: PNG, JPG, WEBP (Max 4MB)
                     </p>
                   </div>
                 )}

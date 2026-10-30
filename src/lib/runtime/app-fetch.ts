@@ -2,6 +2,7 @@ import {
   API_BASE,
   HAS_SERVER_API,
   SERVER_API_UNAVAILABLE_MESSAGE,
+  isServerApiRouteAvailable,
 } from "@/lib/runtime/capabilities";
 import { BASE_PATH } from "@/lib/site";
 
@@ -21,7 +22,14 @@ export function assertServerApiAvailable(feature = "This feature"): void {
   }
 }
 
+export function assertServerApiRouteAvailable(path: string, feature = "This feature"): void {
+  assertServerApiAvailable(feature);
+  if (!isServerApiRouteAvailable(path)) {
+    throw new Error(`${feature} is unavailable from the configured public Worker.`);
+  }
+}
+
 export function appFetch(path: string, init?: RequestInit): Promise<Response> {
-  assertServerApiAvailable();
+  assertServerApiRouteAvailable(path);
   return fetch(appUrl(path), init);
 }
