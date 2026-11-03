@@ -699,7 +699,7 @@ npm run start            # Start production server
 npm run lint             # Run TypeScript, Prettier, and basic quality checks
 npm run type-check       # TypeScript strict mode check
 npm run format           # Prettier formatting
-npm run test             # Placeholder until unit tests are configured
+npm run test             # Node.js unit tests (node:test)
 npm run test:e2e         # Run Playwright E2E tests on port 3100
 npm run analyze          # Bundle analysis
 npm run security         # Security audit
@@ -710,7 +710,7 @@ npm run security         # Security audit
 - ✅ TypeScript: 0 errors, strict mode passing
 - ✅ Lint: Custom `lint-check` script validates TypeScript, Prettier, and basic code quality
 - ✅ Build: 66 app routes generated successfully
-- ✅ Tests: No unit test suite configured yet; E2E coverage is handled by Playwright
+- ✅ Tests: Unit suite via `npm test` (92 cases); E2E coverage via Playwright
 - ✅ E2E Tests: Playwright coverage for critical user flows across 7 spec files
 - ✅ Prettier: All files formatted with Tailwind plugin
 - ✅ Security: Audit available via `npm run security`
