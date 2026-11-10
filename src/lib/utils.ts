@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export { slugify } from "./slugify";
+export { formatDate } from "./format-date";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -41,12 +42,4 @@ export function removeLocalStorageItem(key: string): void {
   } catch {
     // Ignore storage errors
   }
-}
-
-export function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat("en-IN", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(date);
 }
