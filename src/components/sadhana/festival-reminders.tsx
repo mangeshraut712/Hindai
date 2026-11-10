@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { getUpcomingFestivals } from "@/lib/panchanga/festivals";
 import { Festival } from "@/lib/panchanga/types";
 import { trackEvent } from "@/lib/analytics";
+import { formatDate } from "@/lib/format-date";
 
 type ReminderMap = Record<string, boolean>;
 
@@ -100,14 +101,6 @@ export function FestivalReminders() {
     if (counterEl) {
       counterEl.scrollIntoView({ behavior: "smooth" });
     }
-  };
-
-  const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat("en-IN", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }).format(new Date(date));
   };
 
   if (upcomingFestivals.length === 0) return null;
