@@ -17,6 +17,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
+import { formatDateTime } from "@/lib/format-date";
 
 type MantraPreset = {
   id: string;
@@ -82,17 +83,6 @@ function readJson<T>(key: string, fallback: T): T {
   } catch {
     return fallback;
   }
-}
-
-const indianDateTimeFormat = new Intl.DateTimeFormat("en-IN", {
-  day: "numeric",
-  month: "short",
-  hour: "numeric",
-  minute: "2-digit",
-});
-
-function formatDate(value: string) {
-  return indianDateTimeFormat.format(new Date(value));
 }
 
 export function MantraCounter() {
@@ -421,7 +411,7 @@ export function MantraCounter() {
                       <CalendarDays className="text-primary size-4" />
                     </div>
                     <p className="text-muted-foreground mt-3 text-xs">
-                      {formatDate(session.completedAt)}
+                      {formatDateTime(session.completedAt)}
                     </p>
                   </div>
                 ))}
