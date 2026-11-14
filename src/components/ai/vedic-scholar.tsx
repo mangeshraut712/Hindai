@@ -19,6 +19,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { triggerHapticOnPress, triggerHapticOnSuccess } from "@/lib/haptics";
+import { readSseContent } from "@/lib/ai/model-guard";
 import { ServerFeatureNotice } from "@/components/ai/server-feature-notice";
 import { SiteRichResults } from "@/components/ai/site-rich-results";
 import { retrieveSitePages, siteGroundingBlock, type SiteRetrieval } from "@/lib/ai/site-knowledge";
@@ -101,8 +102,6 @@ export function VedicScholar() {
           throw new Error("Failed to get response");
         }
 
-        const reader = response.body?.getReader();
-        const decoder = new TextDecoder();
         let assistantContent = "";
 
         const assistantMessage: Message = {
@@ -114,38 +113,17 @@ export function VedicScholar() {
 
         setMessages((prev) => [...prev, assistantMessage]);
 
-        if (reader) {
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-
-            const chunk = decoder.decode(value);
-            const lines = chunk.split("\n");
-
-            for (const line of lines) {
-              if (line.startsWith("data: ")) {
-                const data = line.slice(6);
-                if (data === "[DONE]") break;
-
-                try {
-                  const parsed = JSON.parse(data);
-                  const content = parsed.content;
-                  if (content) {
-                    assistantContent += content;
-                    setMessages((prev) => {
-                      const updated = [...prev];
-                      updated[updated.length - 1] = {
-                        ...updated[updated.length - 1],
-                        content: assistantContent,
-                      };
-                      return updated;
-                    });
-                  }
-                } catch {
-                  // Skip invalid JSON
-                }
-              }
-            }
+        if (response.body) {
+          for await (const content of readSseContent(response.body)) {
+            assistantContent += content;
+            setMessages((prev) => {
+              const updated = [...prev];
+              updated[updated.length - 1] = {
+                ...updated[updated.length - 1],
+                content: assistantContent,
+              };
+              return updated;
+            });
           }
         }
 

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { trackEvent } from "@/lib/analytics";
 import { ServerFeatureNotice } from "@/components/ai/server-feature-notice";
+import { readSseContent } from "@/lib/ai/model-guard";
 import { appFetch } from "@/lib/runtime/app-fetch";
 
 type DeityOption = {
@@ -151,35 +152,11 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
         );
       }
 
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
-
-      if (reader) {
+      if (response.body) {
         let textBuffer = "";
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          const chunk = decoder.decode(value);
-          const lines = chunk.split("\n");
-
-          for (const line of lines) {
-            if (line.startsWith("data: ")) {
-              const data = line.slice(6);
-              if (data === "[DONE]") break;
-
-              try {
-                const parsed = JSON.parse(data);
-                const content = parsed.content;
-                if (content) {
-                  textBuffer += content;
-                  setRoutine(textBuffer);
-                }
-              } catch {
-                // Ignore parsing errors
-              }
-            }
-          }
+        for await (const content of readSseContent(response.body)) {
+          textBuffer += content;
+          setRoutine(textBuffer);
         }
       }
     } catch (err: unknown) {

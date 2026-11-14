@@ -65,6 +65,38 @@ Return ONLY one valid JSON object:
 
 Rules: exactly 4 options; correctAnswer is 0-3; difficulty is easy, medium, or hard; no markdown.`;
 
+type QuizQuestion = {
+  question: string;
+  options: [string, string, string, string];
+  correctAnswer: number;
+  explanation: string;
+  scripture: string;
+  difficulty: "easy" | "medium" | "hard";
+};
+
+function isNonEmptyString(value: unknown): value is string {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+function isQuizQuestion(value: unknown): value is QuizQuestion {
+  if (!value || typeof value !== "object") return false;
+  const question = value as Record<string, unknown>;
+  return (
+    isNonEmptyString(question.question) &&
+    Array.isArray(question.options) &&
+    question.options.length === 4 &&
+    question.options.every(isNonEmptyString) &&
+    Number.isInteger(question.correctAnswer) &&
+    (question.correctAnswer as number) >= 0 &&
+    (question.correctAnswer as number) <= 3 &&
+    isNonEmptyString(question.explanation) &&
+    isNonEmptyString(question.scripture) &&
+    (question.difficulty === "easy" ||
+      question.difficulty === "medium" ||
+      question.difficulty === "hard")
+  );
+}
+
 function corsHeaders(origin: string | null): HeadersInit {
   const allowed = origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
   return {
@@ -485,7 +517,7 @@ const worker = {
           }
           messages.push({ role: "user", content: userText });
         }
-        return streamAsSse(env, messages, origin);
+        return await streamAsSse(env, messages, origin);
       }
 
       if (path === "/api/ai/stream") {
@@ -498,7 +530,7 @@ const worker = {
           { role: "system", content: `${HINDAI_SYSTEM}\nMode: ${mode}. Audience: ${audience}.` },
           { role: "user", content: userText },
         ];
-        return streamAsPlain(env, messages, origin);
+        return await streamAsPlain(env, messages, origin);
       }
 
       if (path === "/api/ai/dharma") {
@@ -512,7 +544,7 @@ const worker = {
             content: context ? `Context: ${context}\n\nQuery: ${userText}` : userText,
           },
         ];
-        return streamAsSse(env, messages, origin);
+        return await streamAsSse(env, messages, origin);
       }
 
       if (path === "/api/ai/translate") {
@@ -570,7 +602,10 @@ const worker = {
         if (!parsed) {
           throw new Error("Gemma did not return a valid quiz question payload.");
         }
-        const question = JSON.parse(parsed);
+        const question: unknown = JSON.parse(parsed);
+        if (!isQuizQuestion(question)) {
+          throw new Error("Gemma did not return a valid quiz question payload.");
+        }
         return json(
           {
             question,
@@ -607,7 +642,7 @@ const worker = {
 
       return json({ error: `Unknown endpoint: ${path}` }, { status: 404 }, origin);
     } catch (error) {
-      console.error("Gemma gateway failed", error);
+      console.error("Gemma gateway failed");
       const message =
         error instanceof Error && error.message.startsWith("Upstream model request failed")
           ? error.message
