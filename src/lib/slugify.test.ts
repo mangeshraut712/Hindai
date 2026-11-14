@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { slugify } from "./slugify.ts";
+import { slugify } from "./slugify";
 
 test("slugify trims leading and trailing hyphens", () => {
   assert.equal(slugify("  Hello World!  "), "hello-world");
