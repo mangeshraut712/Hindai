@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { formatDate, formatDateTime } from "./format-date.ts";
+import { formatDate, formatDateTime } from "./format-date";
 
 test("formatDate renders a valid date in en-IN", () => {
   // Local midnight so the calendar day does not depend on the runner's zone.
