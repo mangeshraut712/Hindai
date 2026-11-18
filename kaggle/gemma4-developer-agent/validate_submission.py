@@ -56,6 +56,7 @@ SKIP_FROM_SOURCE = {
     "README.md",
     "build_submission.py",
     "validate_submission.py",
+    "test_agent_package.py",
 }
 
 TOOL_LINE = re.compile(r"^\s*-\s+([A-Za-z_][A-Za-z0-9_]*)\s*$")
