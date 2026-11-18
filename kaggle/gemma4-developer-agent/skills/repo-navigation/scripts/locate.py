@@ -23,9 +23,13 @@ SKIP_DIRS = {
     "dist",
     "build",
 }
-ALLOWED_SUFFIXES = {
+PRIMARY_CODE_SUFFIXES = {
     ".py",
     ".pyi",
+    ".pyx",
+    ".pxd",
+}
+SECONDARY_SUFFIXES = {
     ".toml",
     ".cfg",
     ".ini",
@@ -34,7 +38,10 @@ ALLOWED_SUFFIXES = {
     ".json",
     ".txt",
     ".md",
+    ".rst",
 }
+ALLOWED_SUFFIXES = PRIMARY_CODE_SUFFIXES | SECONDARY_SUFFIXES
+LOW_PRIORITY_DIRS = {".github", "benchmarks", "doc", "docs", "examples"}
 MAX_HITS = 40
 MAX_FILE_HITS = 8
 
@@ -47,14 +54,25 @@ def should_skip_dir(name: str) -> bool:
     return name in SKIP_DIRS or name.endswith(".egg-info")
 
 
+def _dir_sort_key(name: str) -> tuple[int, str]:
+    return (1 if name.lower() in LOW_PRIORITY_DIRS else 0, name)
+
+
 def iter_candidate_files(root: Path):
+    secondary: list[Path] = []
     for dirpath, dirnames, filenames in os.walk(root):
-        dirnames[:] = sorted(d for d in dirnames if not should_skip_dir(d))
+        dirnames[:] = sorted((d for d in dirnames if not should_skip_dir(d)), key=_dir_sort_key)
         base = Path(dirpath)
         for fname in sorted(filenames):
             candidate = base / fname
-            if candidate.suffix in ALLOWED_SUFFIXES and candidate.is_file():
+            suffix = candidate.suffix.lower()
+            if suffix not in ALLOWED_SUFFIXES or not candidate.is_file():
+                continue
+            if suffix in PRIMARY_CODE_SUFFIXES:
                 yield candidate
+            else:
+                secondary.append(candidate)
+    yield from secondary
 
 
 def search(needles: list[str], root: Path | None = None) -> None:

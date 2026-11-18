@@ -82,6 +82,24 @@ class AgentPackageTests(unittest.TestCase):
             out = buf.getvalue().strip().splitlines()
             self.assertEqual(out, ["src/solver.py:1:def target_symbol(x):"])
 
+    def test_locate_prioritizes_python_sources_ahead_of_docs_and_ci(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            docs = root / "docs"
+            docs.mkdir()
+            for idx in range(12):
+                content = "\n".join(f"needle_token doc line {j}" for j in range(6))
+                (docs / f"guide_{idx:02d}.md").write_text(content + "\n", encoding="utf-8")
+            pkg = root / "zebrapkg"
+            pkg.mkdir()
+            (pkg / "core.py").write_text("def needle_token():\n    return True\n", encoding="utf-8")
+
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                locate_mod.search(["needle_token"], root=root)
+            lines = buf.getvalue().strip().splitlines()
+            self.assertEqual(lines[0], "zebrapkg/core.py:1:def needle_token():")
+
     def test_run_pytest_builds_pythonpath_with_src_and_root(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -96,13 +114,16 @@ class AgentPackageTests(unittest.TestCase):
                 " M pkg/module.py",
                 "?? repro_tmp.py",
                 " M tests/conftest.py",
+                "R  tests/sub/conftest.py -> tests/sub/helpers.py",
+                "R  pytest.ini -> pytest.bak",
                 "?? pkg/module.py.orig",
             ]
         )
         warnings = hygiene_mod.inspect_status_lines(porcelain)
-        self.assertEqual(len(warnings), 4)
+        self.assertEqual(len(warnings), 6)
         self.assertTrue(any("repro_tmp.py" in w for w in warnings))
-        self.assertTrue(any("conftest.py" in w for w in warnings))
+        self.assertEqual(sum(1 for w in warnings if "conftest.py" in w), 2)
+        self.assertTrue(any("pytest.ini" in w for w in warnings))
         self.assertTrue(any("module.py.orig" in w for w in warnings))
 
         with tempfile.TemporaryDirectory() as tmp:

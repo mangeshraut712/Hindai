@@ -16,14 +16,23 @@ def inspect_status_lines(porcelain: str) -> list[str]:
         if len(raw) < 4:
             continue
         code = raw[:2]
-        rel = raw[3:].strip().strip('"')
-        if " -> " in rel:
-            rel = rel.split(" -> ", 1)[1].strip()
+        raw_rel = raw[3:].strip()
+        if " -> " in raw_rel:
+            old_rel, rel = (part.strip().strip('"') for part in raw_rel.split(" -> ", 1))
+            touched_paths = [old_rel, rel]
+        else:
+            rel = raw_rel.strip('"')
+            touched_paths = [rel]
+
         name = Path(rel).name
         if code == "??":
             warnings.append(f"untracked scratch file must be removed before submit_patch: {rel}")
-        if name in PROTECTED_BASENAMES:
-            warnings.append(f"harness configuration modified ({name}): {rel}")
+        seen_protected: set[str] = set()
+        for candidate in touched_paths:
+            cand_name = Path(candidate).name
+            if cand_name in PROTECTED_BASENAMES and cand_name not in seen_protected:
+                seen_protected.add(cand_name)
+                warnings.append(f"harness configuration modified ({cand_name}): {raw_rel}")
         if name.endswith((".pyc", ".pyo", ".orig", ".rej")):
             warnings.append(f"artifact/backup file present in workspace: {rel}")
     return warnings
