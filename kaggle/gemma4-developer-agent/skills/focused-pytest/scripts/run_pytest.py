@@ -39,7 +39,6 @@ def main(argv: list[str] | None = None) -> int:
         "-m",
         "pytest",
         "-q",
-        "--no-header",
         "--tb=short",
         "-r",
         "fE",

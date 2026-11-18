@@ -107,6 +107,8 @@ class AgentPackageTests(unittest.TestCase):
             pp = pytest_mod.build_pythonpath(root, "/existing/path")
             parts = pp.split(os.pathsep)
             self.assertEqual(parts[:3], [str(root / "src"), str(root), "/existing/path"])
+            src_text = (PACK_ROOT / "skills/focused-pytest/scripts/run_pytest.py").read_text(encoding="utf-8")
+            self.assertNotIn("--no-header", src_text)
 
     def test_hygiene_flags_untracked_scratch_and_protected_files(self) -> None:
         porcelain = "\n".join(
