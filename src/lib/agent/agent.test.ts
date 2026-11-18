@@ -81,3 +81,13 @@ test("build_submission.py writes a contract-valid zip at the package dist root",
   });
   assert.equal(checked.status, 0, checked.stderr || checked.stdout);
 });
+
+test("Python skill scripts and package validator pass unit tests", () => {
+  const packRoot = join(process.cwd(), "kaggle/gemma4-developer-agent");
+  const suite = join(packRoot, "test_agent_package.py");
+  const run = spawnSync("python3", [suite], {
+    encoding: "utf8",
+    cwd: packRoot,
+  });
+  assert.equal(run.status, 0, run.stderr || run.stdout);
+});
