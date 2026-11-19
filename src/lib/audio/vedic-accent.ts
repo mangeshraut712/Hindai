@@ -57,20 +57,18 @@ export class VedicAccentEngine {
    * Apply accent marks to text
    */
   private static applyAccentMarks(text: string, accents: VedicAccent[]): string {
-    let result = text;
     const syllables = this.splitIntoSyllables(text);
-
-    accents.forEach((accent) => {
-      if (accent.position < syllables.length) {
-        const mark = this.ACCENT_MARKS[accent.accent];
-        // Insert accent mark after the syllable
-        const before = syllables.slice(0, accent.position + 1).join("");
-        const after = syllables.slice(accent.position + 1).join("");
-        result = before + mark + after;
+    // Collect every mark first; rebuilding from `syllables` per accent kept only the last one.
+    const marks = new Map<number, string>();
+    for (const accent of accents) {
+      if (accent.position >= 0 && accent.position < syllables.length) {
+        marks.set(accent.position, this.ACCENT_MARKS[accent.accent]);
       }
-    });
+    }
+    if (marks.size === 0) return text;
 
-    return result;
+    // Insert each accent mark after its syllable
+    return syllables.map((syllable, index) => syllable + (marks.get(index) ?? "")).join("");
   }
 
   /**
