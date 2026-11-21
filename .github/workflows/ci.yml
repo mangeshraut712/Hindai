@@ -79,7 +79,6 @@ jobs:
   test:
     name: Tests
     runs-on: ubuntu-latest
-    needs: quality
     timeout-minutes: 10
     permissions:
       contents: read
@@ -108,7 +107,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: quality
     timeout-minutes: 20
     permissions:
       contents: read
@@ -144,7 +142,6 @@ jobs:
   e2e:
     name: E2E Tests
     runs-on: ubuntu-24.04
-    needs: build
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
     timeout-minutes: 30
     permissions:
