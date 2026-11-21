@@ -154,7 +154,11 @@ function walkTests(node, acc = []) {
         acc.push({
           title: [...(spec.titlePath || []), spec.title].filter(Boolean).join(" > ") || spec.title,
           file: spec.file || node.file,
-          ok: test.status === "expected" || test.status === "skipped" || test.ok === true,
+          ok:
+            test.status === "expected" ||
+            test.status === "skipped" ||
+            test.status === "flaky" ||
+            test.ok === true,
           status: test.status || (test.ok ? "expected" : "unexpected"),
           results: test.results || [],
         });
@@ -168,7 +172,7 @@ function walkTests(node, acc = []) {
       acc.push({
         title: test.title,
         file: node.fileName || node.file,
-        ok: test.ok !== false && status !== "unexpected",
+        ok: status === "expected" || status === "skipped" || status === "flaky",
         status,
         results: test.results || [],
       });
