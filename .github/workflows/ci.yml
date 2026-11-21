@@ -79,7 +79,6 @@ jobs:
   test:
     name: Tests
     runs-on: ubuntu-latest
-    needs: quality
     timeout-minutes: 10
     permissions:
       contents: read
@@ -108,7 +107,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: quality
     timeout-minutes: 20
     permissions:
       contents: read
@@ -142,9 +140,8 @@ jobs:
   # E2E Tests (runs on pull requests and main branch)
   # ==========================================
   e2e:
-    name: E2E Tests
+    name: E2E Tests (${{ matrix.shard }})
     runs-on: ubuntu-24.04
-    needs: build
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
     timeout-minutes: 30
     permissions:
@@ -152,6 +149,10 @@ jobs:
     continue-on-error: false
     env:
       PLAYWRIGHT_CHROMIUM_CHANNEL: chrome
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
 
     steps:
       - name: Checkout repository
@@ -175,18 +176,104 @@ jobs:
         timeout-minutes: 5
         run: npx playwright install chromium
 
+      - name: Check shard plan covers every spec
+        run: node scripts/e2e-shard.js --check
+
+      - name: Resolve shard ${{ matrix.shard }}
+        run: node scripts/e2e-shard.js --shard ${{ matrix.shard }}
+
       - name: Run E2E tests
         timeout-minutes: 20
-        run: npm run test:e2e
+        run: |
+          mapfile -t FILES < e2e-shard-files.txt
+          npx playwright test "${FILES[@]}" --reporter=line,blob,html
 
-      - name: Upload test results
-        uses: actions/upload-artifact@v5
+      - name: Upload blob report
         if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: blob-report-shard-${{ matrix.shard }}
+          path: blob-report/
+          retention-days: 30
+          if-no-files-found: error
+
+      - name: Upload shard spec list
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: e2e-specs-shard-${{ matrix.shard }}
+          path: e2e-shard-specs.txt
+          retention-days: 30
+          if-no-files-found: ignore
+
+  e2e-report:
+    name: E2E report
+    needs: e2e
+    if: always() && (github.event_name == 'pull_request' || github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        timeout-minutes: 10
+        run: npm ci --legacy-peer-deps
+
+      - name: Download shard blob reports
+        if: always()
+        uses: actions/download-artifact@v5
+        with:
+          pattern: blob-report-shard-*
+          path: all-blob-reports
+          merge-multiple: true
+
+      - name: Download shard spec lists
+        if: always()
+        uses: actions/download-artifact@v5
+        with:
+          pattern: e2e-specs-shard-*
+          path: all-shard-specs
+          merge-multiple: false
+
+      - name: Merge Playwright reports
+        if: always()
+        run: |
+          mkdir -p test-results
+          npx playwright merge-reports --config playwright.merge.config.ts ./all-blob-reports
+
+      - name: List every failure
+        if: always()
+        run: node scripts/e2e-shard.js --print-failures test-results/merged.json
+
+      - name: Prove every spec ran once
+        if: always()
+        run: node scripts/e2e-shard.js --verify all-shard-specs
+
+      - name: Upload merged report
+        if: always()
+        uses: actions/upload-artifact@v5
         with:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
           if-no-files-found: ignore
+
+      - name: Fail if a shard failed
+        if: always()
+        run: |
+          if [ "${{ needs.e2e.result }}" != "success" ]; then
+            echo "One or more e2e shards did not succeed (result=${{ needs.e2e.result }})."
+            exit 1
+          fi
 
   # ==========================================
   # Deploy (GitHub Pages)
