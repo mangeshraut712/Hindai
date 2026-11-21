@@ -103,7 +103,7 @@ function verify(plan, dir) {
   const lists = collectSpecLists(dir);
   if (lists.length !== plan.shards.length) {
     throw new Error(
-      `Expected spec lists for ${plan.shards.length} shards, found ${lists.length} under ${dir}.`,
+      `Expected spec lists for ${plan.shards.length} shards, found ${lists.length} under ${dir}.`
     );
   }
   const seen = new Map();
@@ -113,7 +113,9 @@ function verify(plan, dir) {
     for (const file of list.files) {
       console.log(`  ${file}`);
       if (seen.has(file)) {
-        throw new Error(`Spec ${file} ran in more than one shard (${seen.get(file)} and ${list.path}).`);
+        throw new Error(
+          `Spec ${file} ran in more than one shard (${seen.get(file)} and ${list.path}).`
+        );
       }
       seen.set(file, list.path);
       total += 1;
@@ -129,10 +131,12 @@ function verify(plan, dir) {
         extra.length ? `unexpected: ${extra.join(", ")}` : null,
       ]
         .filter(Boolean)
-        .join("\n"),
+        .join("\n")
     );
   }
-  console.log(`Coverage OK: ${total} specs across ${lists.length} shards = ${specs.length} total, no overlap.`);
+  console.log(
+    `Coverage OK: ${total} specs across ${lists.length} shards = ${specs.length} total, no overlap.`
+  );
 }
 
 function walkTests(node, acc = []) {
@@ -203,7 +207,7 @@ function printFailures(reportPath) {
 
 function usage() {
   console.error(
-    "Usage: node scripts/e2e-shard.js --check | --shard <id> | --verify <dir> | --print-failures <json>",
+    "Usage: node scripts/e2e-shard.js --check | --shard <id> | --verify <dir> | --print-failures <json>"
   );
   process.exit(2);
 }

@@ -186,7 +186,7 @@ jobs:
         timeout-minutes: 20
         run: |
           mapfile -t FILES < e2e-shard-files.txt
-          npx playwright test "${FILES[@]}" --reporter=line --reporter=blob --reporter=html --reporter=json:test-results/shard-results.json
+          npx playwright test "${FILES[@]}" --reporter=line --reporter=blob --reporter=html
 
       - name: Upload blob report
         if: always()
@@ -248,7 +248,7 @@ jobs:
         if: always()
         run: |
           mkdir -p test-results
-          npx playwright merge-reports ./all-blob-reports --reporter html --reporter json:test-results/merged.json
+          npx playwright merge-reports --config playwright.merge.config.ts ./all-blob-reports
 
       - name: List every failure
         if: always()
