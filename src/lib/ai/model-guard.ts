@@ -74,20 +74,22 @@ export function clampMaxTokens(value: unknown): number {
 
 export function sanitizeChatTurns(input: unknown, systemPrompt: string): ChatTurn[] {
   const messages = Array.isArray(input) ? input : [];
-  const turns: ChatTurn[] = [{ role: "system", content: systemPrompt }];
+  const history: ChatTurn[] = [];
 
-  for (const message of messages) {
+  // Walk back from the newest message so a long history drops its oldest turns,
+  // never the question the user just asked.
+  for (let i = messages.length - 1; i >= 0 && history.length < MODEL_LIMITS.maxMessages; i--) {
+    const message: unknown = messages[i];
     if (!message || typeof message !== "object") continue;
     const record = message as { role?: unknown; content?: unknown };
     if (record.role !== "user" && record.role !== "assistant") continue;
     if (typeof record.content !== "string") continue;
     const content = clampPlainText(record.content, MODEL_LIMITS.maxMessageChars);
     if (!content) continue;
-    turns.push({ role: record.role, content });
-    if (turns.length > MODEL_LIMITS.maxMessages) break;
+    history.push({ role: record.role, content });
   }
 
-  return turns;
+  return [{ role: "system", content: systemPrompt }, ...history.reverse()];
 }
 
 export function publicModelError(status: number): string {
