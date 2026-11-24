@@ -123,19 +123,20 @@ async function collectLayoutFindings(page: Page, route: string): Promise<LayoutF
   );
 }
 
-test.describe("Layout audit", () => {
-  for (const viewport of VIEWPORTS) {
-    test(`${viewport.name} pages stay inside the viewport`, async ({ page }) => {
-      test.setTimeout(240000);
-      await page.setViewportSize({ width: viewport.width, height: viewport.height });
-      const all: LayoutFinding[] = [];
-      for (const route of ROUTES) {
+// One test per viewport and route: Playwright spreads them across workers
+// (fullyParallel), and a failure names the exact page instead of the whole sweep.
+for (const viewport of VIEWPORTS) {
+  test.describe(`Layout audit (${viewport.name})`, () => {
+    test.use({ viewport: { width: viewport.width, height: viewport.height } });
+
+    for (const route of ROUTES) {
+      test(`${route} stays inside the viewport`, async ({ page }) => {
         const response = await page.goto(route, { waitUntil: "domcontentloaded" });
         expect(response?.ok() ?? false, `${route} HTTP`).toBeTruthy();
         await page.waitForTimeout(200);
-        all.push(...(await collectLayoutFindings(page, route)));
-      }
-      expect(all, JSON.stringify(all, null, 2)).toEqual([]);
-    });
-  }
-});
+        const findings = await collectLayoutFindings(page, route);
+        expect(findings, JSON.stringify(findings, null, 2)).toEqual([]);
+      });
+    }
+  });
+}
