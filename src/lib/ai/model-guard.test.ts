@@ -31,6 +31,18 @@ test("chat turns drop a client system prompt and cap length", () => {
   assert.equal(turns.length, 2);
 });
 
+test("chat turns keep the newest messages when history exceeds the cap", () => {
+  const input = Array.from({ length: 20 }, (_, i) => ({
+    role: i % 2 === 0 ? "user" : "assistant",
+    content: `m${i}`,
+  }));
+  const turns = sanitizeChatTurns(input, "SERVER");
+  assert.equal(turns.length, 13);
+  assert.equal(turns[0]?.role, "system");
+  assert.equal(turns[1]?.content, "m8");
+  assert.equal(turns[turns.length - 1]?.content, "m19");
+});
+
 test("max tokens cannot be raised by the client", () => {
   assert.equal(clampMaxTokens(8000), 1600);
   assert.equal(clampMaxTokens(undefined), 1600);
