@@ -630,7 +630,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Krishna Janmashtami",
     sanskrit: "कृष्ण जन्माष्टमी",
     dateISO: "2026-09-04",
-    nextDateISO: "2027-08-24",
+    nextDateISO: "2027-08-25",
     lunarHint: "Bhadrapada Krishna Ashtami (Nishita / midnight birth observance)",
     kind: "jayanti",
     tradition: "vaishnava",
