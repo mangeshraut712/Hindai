@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { createLatestRequest } from "./latest-request";
 
-test("a slower earlier request does not replace later results or clear a newer loading flag", async () => {
+test("a slower earlier request does not replace later results", async () => {
   const latest = createLatestRequest();
   let results = "";
   let loading = false;
