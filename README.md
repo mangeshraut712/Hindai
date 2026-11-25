@@ -3,7 +3,7 @@
 <div align="center">
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue?style=for-the-badge&logo=typescript)
-![Next.js](https://img.shields.io/badge/Next.js-15.5.15-saffron?style=for-the-badge&logo=next.js)
+![Next.js](https://img.shields.io/badge/Next.js-15.5.29-saffron?style=for-the-badge&logo=next.js)
 ![React](https://img.shields.io/badge/React-19.2.5-blue?style=for-the-badge&logo=react)
 ![OpenRouter](https://img.shields.io/badge/OpenRouter-Gemma%204-gold?style=for-the-badge&logo=openrouter)
 ![Node.js](https://img.shields.io/badge/Node.js-%3E%3D22-green?style=for-the-badge&logo=node.js)
@@ -220,7 +220,7 @@ Hosting moved off paused Vercel onto **GitHub Pages + Cloudflare Worker** (2026)
 
 | Technology     | Version | Purpose                                       |
 | -------------- | ------- | --------------------------------------------- |
-| **Next.js**    | 15.5.15 | React framework with App Router & RSC         |
+| **Next.js**    | 15.5.29 | React framework with App Router & RSC         |
 | **React**      | 19.2.5  | UI library with concurrent features & Actions |
 | **TypeScript** | 5.9.3   | Type-safe JavaScript development              |
 | **Node.js**    | >=22    | JavaScript runtime with ESM support           |
