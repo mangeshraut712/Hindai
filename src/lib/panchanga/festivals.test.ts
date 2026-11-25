@@ -13,3 +13,12 @@ test("upcoming festivals list each festival once", () => {
   const ids = list.map((festival) => festival.id);
   assert.equal(new Set(ids).size, ids.length);
 });
+
+test("a festival moved to next year does not show this year's date in its blurb", () => {
+  const list = getUpcomingFestivals(40, new Date("2026-11-25T00:00:00"));
+  for (const festival of list) {
+    if (festival.date.getFullYear() === 2027) {
+      assert.doesNotMatch(festival.description, /2026/, festival.id);
+    }
+  }
+});

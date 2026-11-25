@@ -25,6 +25,8 @@ export interface UtsavEntry {
   dateISO: string;
   /** The following year's civil date, so upcoming lists keep working after `dateISO` passes */
   nextDateISO?: string;
+  /** Card blurb for the `nextDateISO` year, when `summary` names this year's date */
+  nextSummary?: string;
   lunarHint: string;
   kind: UtsavKind;
   tradition: UtsavTradition;
@@ -335,6 +337,8 @@ export const UTSAVS: UtsavEntry[] = [
     tagline: "Strength that serves — Hanuman’s birth full moon",
     summary:
       "North Indian calendars often mark Hanuman’s jayanti on Chaitra Purnima. Tamil and other southern lineages may keep Margazhi / other local dates — ask your temple. Civil listings for 2026 commonly give 2 April for New Delhi–style observance.",
+    nextSummary:
+      "North Indian calendars often mark Hanuman’s jayanti on Chaitra Purnima. Tamil and other southern lineages may keep Margazhi / other local dates — ask your temple. Drik Panchang gives 20 April 2027 for New Delhi.",
     katha:
       "The Rāmāyaṇa and later Hanumān-centred poetry tell of Anjaneya’s birth to Anjana, his leap for the sun, and his service to Rama. These are itihāsa and bhakti narrative — devotion shaped as biography, not a modern birth certificate.",
     livingPractice:
@@ -905,6 +909,8 @@ export const UTSAVS: UtsavEntry[] = [
     tagline: "Food-mountain and the hill — Krishna’s Braj ethic",
     summary:
       "Govardhan / Annakut follows Diwali’s amavasya night in many North Indian and Pushtimarg calendars. 2026 civil listings commonly give 10 November.",
+    nextSummary:
+      "Govardhan / Annakut follows Diwali’s amavasya night in many North Indian and Pushtimarg calendars. Drik Panchang gives 30 October 2027 for New Delhi.",
     katha:
       "The Bhāgavata Purāṇa tells of Krishna lifting Govardhan to shelter villagers from Indra’s storm. That is Purāṇic theology of care over cosmic ego — not a meteorology report.",
     livingPractice:
