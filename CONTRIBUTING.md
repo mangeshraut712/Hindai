@@ -63,7 +63,7 @@ npm install
 cp .env.example .env.local
 ```
 
-Fill in the required values (most importantly `OPENROUTER_API_KEY`).
+The dev server and the static pages run without secrets. `OPENROUTER_API_KEY` is only for local `/api` model routes; GitHub Pages calls the Cloudflare Worker instead.
 
 ### 5. Start the Development Server
 
