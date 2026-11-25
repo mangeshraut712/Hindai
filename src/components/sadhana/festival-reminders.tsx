@@ -12,7 +12,7 @@ import { formatDate } from "@/lib/format-date";
 type ReminderMap = Record<string, boolean>;
 
 export function FestivalReminders() {
-  const [upcomingFestivals, setUpcomingFestivals] = useState<Festival[]>([]);
+  const [upcomingFestivals, setUpcomingFestivals] = useState<Festival[] | null>(null);
   const [reminders, setReminders] = useState<ReminderMap>({});
   const [activeDialog, setActiveDialog] = useState<string | null>(null);
 
@@ -103,7 +103,8 @@ export function FestivalReminders() {
     }
   };
 
-  if (upcomingFestivals.length === 0) return null;
+  // Wait for the client-side date check before rendering.
+  if (upcomingFestivals === null) return null;
 
   return (
     <Card className="border-border/70 shadow-md">
@@ -120,106 +121,119 @@ export function FestivalReminders() {
       </CardHeader>
 
       <CardContent className="p-6">
-        <div className="space-y-5">
-          {upcomingFestivals.map((fest) => {
-            const hasReminder = !!reminders[fest.id];
+        {upcomingFestivals.length === 0 ? (
+          <p className="text-muted-foreground text-sm leading-6">
+            No upcoming festivals are in the calendar yet. Check your local panchang for the next
+            vrat dates.
+          </p>
+        ) : (
+          <div className="space-y-5">
+            {upcomingFestivals.map((fest) => {
+              const hasReminder = !!reminders[fest.id];
 
-            return (
-              <div
-                key={fest.id}
-                className="border-border/60 bg-background/50 hover:border-primary/20 hover:bg-background/80 rounded-2xl border p-4 transition-all"
-              >
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-foreground text-sm font-semibold sm:text-base">
-                        {fest.name}
-                      </span>
-                      <span className="font-devanagari text-primary text-xs font-bold">
-                        {fest.sanskrit}
-                      </span>
-                      <span className="bg-secondary/30 text-muted-foreground rounded-full px-2 py-0.5 text-[10px] tracking-wider uppercase">
-                        {fest.type}
-                      </span>
+              return (
+                <div
+                  key={fest.id}
+                  className="border-border/60 bg-background/50 hover:border-primary/20 hover:bg-background/80 rounded-2xl border p-4 transition-all"
+                >
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-foreground text-sm font-semibold sm:text-base">
+                          {fest.name}
+                        </span>
+                        <span className="font-devanagari text-primary text-xs font-bold">
+                          {fest.sanskrit}
+                        </span>
+                        <span className="bg-secondary/30 text-muted-foreground rounded-full px-2 py-0.5 text-[10px] tracking-wider uppercase">
+                          {fest.type}
+                        </span>
+                      </div>
+
+                      <p className="text-muted-foreground mt-1 text-xs font-medium">
+                        {formatDate(fest.date)}
+                      </p>
+
+                      <p className="text-foreground/80 mt-2 text-xs leading-5">
+                        {fest.description}
+                      </p>
                     </div>
 
-                    <p className="text-muted-foreground mt-1 text-xs font-medium">
-                      {formatDate(fest.date)}
-                    </p>
-
-                    <p className="text-foreground/80 mt-2 text-xs leading-5">{fest.description}</p>
+                    <div className="flex shrink-0 flex-row gap-2 self-end sm:flex-col sm:self-start">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => toggleReminder(fest.id, fest.name)}
+                        className={`h-8 rounded-xl px-3 text-xs ${
+                          hasReminder ? "border-primary/40 bg-primary/10 text-primary" : ""
+                        }`}
+                      >
+                        {hasReminder ? (
+                          <Bell className="size-3.5" />
+                        ) : (
+                          <BellOff className="size-3.5" />
+                        )}
+                        <span className="ml-1.5">
+                          {hasReminder ? "Reminder On" : "Set Reminder"}
+                        </span>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleApplyMantra(fest.id, fest.name)}
+                        className="border-primary/20 text-primary hover:bg-primary/5 h-8 rounded-xl px-3 text-xs"
+                      >
+                        <Sparkles className="size-3.5" />
+                        <span className="ml-1.5">Add Mantra</span>
+                      </Button>
+                    </div>
                   </div>
 
-                  <div className="flex shrink-0 flex-row gap-2 self-end sm:flex-col sm:self-start">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => toggleReminder(fest.id, fest.name)}
-                      className={`h-8 rounded-xl px-3 text-xs ${
-                        hasReminder ? "border-primary/40 bg-primary/10 text-primary" : ""
-                      }`}
+                  {/* Puja Vidhi Drawer/Accordeon */}
+                  <div className="border-border/40 mt-3 flex items-center justify-between border-t pt-3">
+                    <button
+                      type="button"
+                      onClick={() => setActiveDialog(activeDialog === fest.id ? null : fest.id)}
+                      className="text-primary inline-flex items-center gap-1 text-[11px] font-semibold hover:underline focus:outline-hidden"
                     >
-                      {hasReminder ? (
-                        <Bell className="size-3.5" />
-                      ) : (
-                        <BellOff className="size-3.5" />
-                      )}
-                      <span className="ml-1.5">{hasReminder ? "Reminder On" : "Set Reminder"}</span>
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleApplyMantra(fest.id, fest.name)}
-                      className="border-primary/20 text-primary hover:bg-primary/5 h-8 rounded-xl px-3 text-xs"
-                    >
-                      <Sparkles className="size-3.5" />
-                      <span className="ml-1.5">Add Mantra</span>
-                    </Button>
+                      <Info className="size-3.5" />
+                      <span>
+                        {activeDialog === fest.id
+                          ? "Hide Details"
+                          : "View Puja Vidhi & Significance"}
+                      </span>
+                    </button>
                   </div>
-                </div>
 
-                {/* Puja Vidhi Drawer/Accordeon */}
-                <div className="border-border/40 mt-3 flex items-center justify-between border-t pt-3">
-                  <button
-                    type="button"
-                    onClick={() => setActiveDialog(activeDialog === fest.id ? null : fest.id)}
-                    className="text-primary inline-flex items-center gap-1 text-[11px] font-semibold hover:underline focus:outline-hidden"
-                  >
-                    <Info className="size-3.5" />
-                    <span>
-                      {activeDialog === fest.id ? "Hide Details" : "View Puja Vidhi & Significance"}
-                    </span>
-                  </button>
-                </div>
-
-                {activeDialog === fest.id && (
-                  <div className="border-border/40 bg-secondary/10 text-muted-foreground animate-in fade-in slide-in-from-top-1 mt-3 space-y-3.5 rounded-xl border p-3.5 text-xs duration-200">
-                    <div>
-                      <span className="text-foreground mb-1 block text-[10px] font-semibold tracking-wider uppercase">
-                        Puja Vidhi (Method of Worship)
-                      </span>
-                      <p className="leading-5">{fest.pujaVidhi}</p>
-                    </div>
-                    <div>
-                      <span className="text-foreground mb-1 block text-[10px] font-semibold tracking-wider uppercase">
-                        Significance
-                      </span>
-                      <p className="leading-5">{fest.significance}</p>
-                    </div>
-                    {fest.regional && fest.regional.length > 0 && (
+                  {activeDialog === fest.id && (
+                    <div className="border-border/40 bg-secondary/10 text-muted-foreground animate-in fade-in slide-in-from-top-1 mt-3 space-y-3.5 rounded-xl border p-3.5 text-xs duration-200">
                       <div>
                         <span className="text-foreground mb-1 block text-[10px] font-semibold tracking-wider uppercase">
-                          Regional Celebrations
+                          Puja Vidhi (Method of Worship)
                         </span>
-                        <p className="leading-5">{fest.regional.join(", ")}</p>
+                        <p className="leading-5">{fest.pujaVidhi}</p>
                       </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
+                      <div>
+                        <span className="text-foreground mb-1 block text-[10px] font-semibold tracking-wider uppercase">
+                          Significance
+                        </span>
+                        <p className="leading-5">{fest.significance}</p>
+                      </div>
+                      {fest.regional && fest.regional.length > 0 && (
+                        <div>
+                          <span className="text-foreground mb-1 block text-[10px] font-semibold tracking-wider uppercase">
+                            Regional Celebrations
+                          </span>
+                          <p className="leading-5">{fest.regional.join(", ")}</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </CardContent>
     </Card>
   );
