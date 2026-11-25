@@ -1091,7 +1091,20 @@ export function upcomingUtsavs(from: Date = new Date(), count = 6): UtsavEntry[]
   const start = new Date(from);
   start.setHours(0, 0, 0, 0);
   return [...UTSAVS]
-    .filter((item) => new Date(`${item.dateISO}T12:00:00`) >= start)
+    .map((item) => {
+      const primary = new Date(`${item.dateISO}T12:00:00`);
+      if (primary >= start) return item;
+      if (!item.nextDateISO) return null;
+      return {
+        ...item,
+        dateISO: item.nextDateISO,
+        summary: item.nextSummary ?? item.summary,
+      };
+    })
+    .filter((item): item is UtsavEntry => {
+      if (!item) return false;
+      return new Date(`${item.dateISO}T12:00:00`) >= start;
+    })
     .sort((a, b) => a.dateISO.localeCompare(b.dateISO))
     .slice(0, count);
 }

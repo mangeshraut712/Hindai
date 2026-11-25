@@ -31,7 +31,7 @@ function formatCivil(iso: string): string {
 
 export function FestivalHome() {
   const byMonth = utsavsByMonth();
-  const upcoming = upcomingUtsavs(new Date("2026-09-08T00:00:00"), 4);
+  const upcoming = upcomingUtsavs(new Date(), 4);
 
   return (
     <div>
@@ -60,7 +60,7 @@ export function FestivalHome() {
       />
 
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <h2 className="font-serif text-3xl">Coming next on the 2026 civil calendar</h2>
+        <h2 className="font-serif text-3xl">Coming next on the civil calendar</h2>
         <p className="text-muted-foreground mt-3 max-w-2xl text-sm leading-7">
           Deep articles — katha labelled as tradition, temple etiquette as living custom.
         </p>
