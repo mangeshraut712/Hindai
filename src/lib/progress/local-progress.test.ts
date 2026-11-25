@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import { test } from "node:test";
 import { getLocalStreak, toLocalDateKey } from "./local-progress";
 
@@ -14,6 +15,37 @@ test("computes a consecutive local study streak", () => {
 test("resets the streak when the newest review is older than yesterday", () => {
   assert.equal(getLocalStreak(["2020-01-01"]), 0);
   assert.equal(getLocalStreak([]), 0);
+});
+
+test("keeps yesterday's review when the local day lasts 25 hours", () => {
+  const result = spawnSync(
+    process.execPath,
+    [
+      "--import",
+      "tsx",
+      "--eval",
+      `
+        import assert from "node:assert/strict";
+        import { getLocalStreak } from "./src/lib/progress/local-progress.ts";
+        const now = new Date(2026, 10, 2, 12, 0, 0);
+        const newest = new Date(2026, 10, 1, 0, 0, 0);
+        const today = new Date(now);
+        today.setHours(0, 0, 0, 0);
+        assert.ok(
+          today.getTime() - newest.getTime() > 86_400_000,
+          "this zone did not produce a 25-hour fallback day"
+        );
+        assert.equal(getLocalStreak(["2026-11-01"], now), 1);
+        assert.equal(getLocalStreak(["2026-11-01", "2026-11-02"], now), 2);
+      `,
+    ],
+    {
+      cwd: process.cwd(),
+      env: { ...process.env, TZ: "America/New_York" },
+      encoding: "utf8",
+    }
+  );
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
 });
 
 test("toLocalDateKey uses the local calendar day, not the UTC date", () => {
