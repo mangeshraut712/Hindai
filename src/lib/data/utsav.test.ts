@@ -63,12 +63,13 @@ test("each utsav's next civil date falls in the following year", () => {
   assert.equal(getUtsavBySlug("chhath-puja")?.nextDateISO, "2027-11-04");
 });
 
-
 test("upcoming utsavs continue past the last 2026 catalog date", () => {
   const list = upcomingUtsavs(new Date("2026-11-25T00:00:00"), 4);
   assert.equal(list.length, 4);
   assert.ok(list.every((item) => item.dateISO >= "2026-11-25"));
-  assert.ok(!list.some((item) => item.slug === "ganesh-chaturthi" && item.dateISO.startsWith("2026")));
+  assert.ok(
+    !list.some((item) => item.slug === "ganesh-chaturthi" && item.dateISO.startsWith("2026"))
+  );
   assert.equal(list[0]?.slug, "makar-sankranti");
   assert.equal(list[0]?.dateISO, "2027-01-15");
 });
