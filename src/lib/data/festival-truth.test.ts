@@ -3,6 +3,14 @@ import { test } from "node:test";
 import { FESTIVALS, getFestivalById } from "../panchanga/festivals";
 import { UTSAVS, deepFestivalHref, getUtsavBySlug } from "./utsav";
 
+/** Civil date of a local-noon festival instant. UTC ISO dates shift in UTC+13 and later. */
+function localCivilDate(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 test("panchanga festivals derive dates from utsav without miracle claims", () => {
   for (const utsav of UTSAVS) {
     assert.equal(deepFestivalHref(utsav.slug), `/festivals/${utsav.slug}`);
@@ -15,12 +23,12 @@ test("panchanga festivals derive dates from utsav without miracle claims", () =>
 
   const hanuman = getFestivalById("hanuman-jayanti");
   assert.ok(hanuman);
-  assert.equal(hanuman.date.toISOString().slice(0, 10), "2026-04-02");
+  assert.equal(localCivilDate(hanuman.date), "2026-04-02");
   assert.equal(getUtsavBySlug("hanuman-jayanti")?.dateISO, "2026-04-02");
 
   const govardhan = getFestivalById("govardhan-puja");
   assert.ok(govardhan);
-  assert.equal(govardhan.date.toISOString().slice(0, 10), "2026-11-10");
+  assert.equal(localCivilDate(govardhan.date), "2026-11-10");
   assert.equal(getUtsavBySlug("govardhan-puja")?.dateISO, "2026-11-10");
   assert.equal(getUtsavBySlug("buddha-purnima")?.dateISO, "2026-05-01");
   assert.equal(getUtsavBySlug("buddha-purnima")?.tradition, "buddhist");
@@ -43,6 +51,6 @@ test("panchanga festivals derive dates from utsav without miracle claims", () =>
             : utsav.slug;
     const thin = getFestivalById(id);
     assert.ok(thin, utsav.slug);
-    assert.equal(thin.date.toISOString().slice(0, 10), utsav.dateISO, utsav.slug);
+    assert.equal(localCivilDate(thin.date), utsav.dateISO, utsav.slug);
   }
 });
