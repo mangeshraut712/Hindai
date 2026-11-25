@@ -79,18 +79,18 @@ Open <http://localhost:3000> in your browser.
 
 ### Available Scripts
 
-| Script                 | Description                                        |
-| ---------------------- | -------------------------------------------------- |
-| `npm run dev`          | Start the local dev server on port 3000            |
-| `npm run build`        | Produce a production build (verifies types + lint) |
-| `npm run start`        | Serve the production build                         |
-| `npm run lint`         | Run TypeScript, Prettier, and quality checks       |
-| `npm run type-check`   | Strict TypeScript check (`tsc --noEmit`)           |
-| `npm run format`       | Format all files with Prettier                     |
-| `npm run format:check` | Verify formatting without writing                  |
-| `npm run test`         | Run all `src/**/*.test.ts` unit tests              |
-| `npm run test:e2e`     | Run Playwright E2E tests                           |
-| `npm run security`     | Run an `npm audit`                                 |
+| Script                 | Description                                  |
+| ---------------------- | -------------------------------------------- |
+| `npm run dev`          | Start the local dev server on port 3000      |
+| `npm run build`        | Produce a production build (verifies types)  |
+| `npm run start`        | Serve the production build                   |
+| `npm run lint`         | Run TypeScript, Prettier, and quality checks |
+| `npm run type-check`   | Strict TypeScript check (`tsc --noEmit`)     |
+| `npm run format`       | Format all files with Prettier               |
+| `npm run format:check` | Verify formatting without writing            |
+| `npm run test`         | Run all `src/**/*.test.ts` unit tests        |
+| `npm run test:e2e`     | Run Playwright E2E tests                     |
+| `npm run security`     | Run an `npm audit`                           |
 
 ### Recommended Branch Naming
 
@@ -130,7 +130,7 @@ For a deeper tour, see the [README](./README.md). Architecture and coding contra
 ## 📏 Coding Standards
 
 - **TypeScript strict mode is required** — no `any` unless absolutely justified.
-- Use **ESLint + Prettier** — they are enforced at build time. Run `npm run lint`
+- Use **ESLint + Prettier** — `npm run lint` checks both; the build skips ESLint. Run it
   before opening a PR.
 - Prefer **functional, declarative React** — hooks over class components when possible.
 - Use **`cn(...)`** from `@/lib/utils` for conditional class names.
