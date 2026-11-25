@@ -46,6 +46,10 @@ test.describe("Sadhana page", () => {
     await expect(page.getByText(/Today's Astrological Guide/i)).toBeVisible();
     await expect(page.getByText(/Upcoming Vrats & Festivals/i)).toBeVisible();
     await expect(page.getByText(/Guru AI Daily Routine Generator/i)).toBeVisible();
+    await expect(page.locator("option", { hasText: "Lord Hanuman (हनुमान)" })).toHaveCount(1);
+    await expect(page.locator("option", { hasText: "Sun God (Surya) (सूर्य)" })).toHaveCount(1);
+    await expect(page.locator("option", { hasText: "(जी)" })).toHaveCount(0);
+    await expect(page.locator("option", { hasText: "(देव)" })).toHaveCount(0);
 
     // Verify presence of options in routine generator
     const selectElements = page.locator("select");

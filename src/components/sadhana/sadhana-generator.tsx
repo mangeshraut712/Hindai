@@ -5,6 +5,7 @@ import { Sparkles, Play, Check, Copy, AlertCircle, RefreshCw } from "lucide-reac
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { trackEvent } from "@/lib/analytics";
+import { deityOptionLabel } from "@/lib/sadhana/deity-option-label";
 import { ServerFeatureNotice } from "@/components/ai/server-feature-notice";
 import { readSseContent } from "@/lib/ai/model-guard";
 import { appFetch } from "@/lib/runtime/app-fetch";
@@ -226,7 +227,7 @@ Provide the response in a beautiful, readable format. Do not add metadata or con
             >
               {deities.map((d) => (
                 <option key={d.id} value={d.id}>
-                  {d.name} ({d.sanskrit.split(" ")[1] || d.name})
+                  {deityOptionLabel(d.name, d.sanskrit)}
                 </option>
               ))}
             </select>
