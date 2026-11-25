@@ -1,6 +1,18 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Homepage Layout Tests", () => {
+  test("Bhagavad Gita roadmap opens the scripture page", async ({ page }) => {
+    await page.goto("/");
+    const heading = page.getByRole("heading", { name: "Bhagavad Gita Core Shlokas" });
+    const study = heading
+      .locator("xpath=ancestor::div[contains(@class,'rounded-[24px]')][1]")
+      .getByRole("link", { name: "Study" });
+    await expect(study).toHaveAttribute("href", "/bhagavad-gita");
+    await study.click();
+    await expect(page).toHaveURL(/\/bhagavad-gita$/);
+    await expect(page.getByRole("heading", { level: 1, name: "Bhagavad Gita" })).toBeVisible();
+  });
+
   test("should load homepage successfully", async ({ page }) => {
     await page.goto("/");
     await expect(page).toHaveTitle(/Hind AI/);
