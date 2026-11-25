@@ -48,3 +48,17 @@ test("upcoming utsavs respect a civil from-date", () => {
   assert.equal(list[0]?.slug, "janmashtami");
   assert.ok(list.every((item) => item.dateISO >= "2026-09-01"));
 });
+
+test("each utsav's next civil date falls in the following year", () => {
+  for (const item of UTSAVS) {
+    assert.ok(item.nextDateISO, item.slug);
+    assert.match(item.nextDateISO, /^\d{4}-\d{2}-\d{2}$/);
+    assert.equal(
+      Number(item.nextDateISO.slice(0, 4)),
+      Number(item.dateISO.slice(0, 4)) + 1,
+      item.slug
+    );
+  }
+  assert.equal(getUtsavBySlug("diwali")?.nextDateISO, "2027-10-29");
+  assert.equal(getUtsavBySlug("chhath-puja")?.nextDateISO, "2027-11-04");
+});

@@ -23,6 +23,10 @@ export interface UtsavEntry {
   sanskrit: string;
   /** ISO date YYYY-MM-DD for primary 2026 civil date in India */
   dateISO: string;
+  /** The following year's civil date, so upcoming lists keep working after `dateISO` passes */
+  nextDateISO?: string;
+  /** Card blurb for the `nextDateISO` year, when `summary` names this year's date */
+  nextSummary?: string;
   lunarHint: string;
   kind: UtsavKind;
   tradition: UtsavTradition;
@@ -54,6 +58,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Makar Sankranti",
     sanskrit: "मकर संक्रांति",
     dateISO: "2026-01-14",
+    nextDateISO: "2027-01-15",
     lunarHint: "Solar transit of the Sun into Makara (Capricorn)",
     kind: "sankranti",
     tradition: "saura",
@@ -98,6 +103,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Vasant Panchami",
     sanskrit: "वसंत पंचमी",
     dateISO: "2026-01-23",
+    nextDateISO: "2027-02-11",
     lunarHint: "Magha Shukla Panchami",
     kind: "major",
     tradition: "shakta",
@@ -141,6 +147,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Maha Shivaratri",
     sanskrit: "महाशिवरात्रि",
     dateISO: "2026-02-15",
+    nextDateISO: "2027-03-06",
     lunarHint: "Phalguna Krishna Chaturdashi (naming varies Amanta/Purnimanta)",
     kind: "vrat",
     tradition: "shaiva",
@@ -186,6 +193,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Holi",
     sanskrit: "होली",
     dateISO: "2026-03-04",
+    nextDateISO: "2027-03-22",
     lunarHint: "After Holika Dahan on Phalguna Purnima evening (2026-03-03)",
     kind: "major",
     tradition: "vaishnava",
@@ -230,6 +238,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Ugadi / Gudi Padwa",
     sanskrit: "युगादि / गुढी पाडवा",
     dateISO: "2026-03-19",
+    nextDateISO: "2027-04-07",
     lunarHint: "Chaitra Shukla Pratipada — lunisolar New Year for many regions",
     kind: "regional",
     tradition: "pan-hindu",
@@ -273,6 +282,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Rama Navami",
     sanskrit: "राम नवमी",
     dateISO: "2026-03-26",
+    nextDateISO: "2027-04-15",
     lunarHint: "Chaitra Shukla Navami",
     kind: "jayanti",
     tradition: "vaishnava",
@@ -318,6 +328,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Hanuman Jayanti",
     sanskrit: "हनुमान जयंती",
     dateISO: "2026-04-02",
+    nextDateISO: "2027-04-20",
     lunarHint:
       "Chaitra Purnima (North India) — 2026 Purnima spans 1–2 Apr; many Delhi calendars favour 2 Apr sunrise. South Indian dates often differ.",
     kind: "jayanti",
@@ -326,6 +337,8 @@ export const UTSAVS: UtsavEntry[] = [
     tagline: "Strength that serves — Hanuman’s birth full moon",
     summary:
       "North Indian calendars often mark Hanuman’s jayanti on Chaitra Purnima. Tamil and other southern lineages may keep Margazhi / other local dates — ask your temple. Civil listings for 2026 commonly give 2 April for New Delhi–style observance.",
+    nextSummary:
+      "North Indian calendars often mark Hanuman’s jayanti on Chaitra Purnima. Tamil and other southern lineages may keep Margazhi / other local dates — ask your temple. Drik Panchang gives 20 April 2027 for New Delhi.",
     katha:
       "The Rāmāyaṇa and later Hanumān-centred poetry tell of Anjaneya’s birth to Anjana, his leap for the sun, and his service to Rama. These are itihāsa and bhakti narrative — devotion shaped as biography, not a modern birth certificate.",
     livingPractice:
@@ -362,6 +375,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Solar New Year",
     sanskrit: "मेष संक्रांति",
     dateISO: "2026-04-14",
+    nextDateISO: "2027-04-14",
     lunarHint: "Mesha Sankranti — Puthandu, Vishu, Vaisakhi, Poila Boishakh cousins",
     kind: "sankranti",
     tradition: "saura",
@@ -403,6 +417,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Akshaya Tritiya",
     sanskrit: "अक्षय तृतीया",
     dateISO: "2026-04-19",
+    nextDateISO: "2027-05-09",
     lunarHint: "Vaishakha Shukla Tritiya (local sunrise rules can shift the civil day)",
     kind: "major",
     tradition: "pan-hindu",
@@ -444,6 +459,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Buddha Purnima",
     sanskrit: "बुद्ध पूर्णिमा",
     dateISO: "2026-05-01",
+    nextDateISO: "2027-05-20",
     lunarHint:
       "Vaishakha Purnima in many Indian Hindu/Buddhist calendars (1 May 2026 common). Theravada Vesak and some national calendars can differ — ask a local sangha.",
     kind: "major",
@@ -488,6 +504,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Guru Purnima",
     sanskrit: "गुरु पूर्णिमा",
     dateISO: "2026-07-29",
+    nextDateISO: "2027-07-18",
     lunarHint: "Ashadha Purnima",
     kind: "major",
     tradition: "pan-hindu",
@@ -530,6 +547,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Onam",
     sanskrit: "ओणम",
     dateISO: "2026-08-26",
+    nextDateISO: "2027-09-12",
     lunarHint: "Chingam month — Thiruvonam peak day in the Kerala calendar",
     kind: "regional",
     tradition: "pan-hindu",
@@ -572,6 +590,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Raksha Bandhan",
     sanskrit: "रक्षा बंधन",
     dateISO: "2026-08-28",
+    nextDateISO: "2027-08-17",
     lunarHint: "Shravana Purnima (also Upakarma in many Vedic lineages; 2026 tithi spans 27–28)",
     kind: "major",
     tradition: "pan-hindu",
@@ -615,6 +634,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Krishna Janmashtami",
     sanskrit: "कृष्ण जन्माष्टमी",
     dateISO: "2026-09-04",
+    nextDateISO: "2027-08-25",
     lunarHint: "Bhadrapada Krishna Ashtami (Nishita / midnight birth observance)",
     kind: "jayanti",
     tradition: "vaishnava",
@@ -658,6 +678,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Ganesh Chaturthi",
     sanskrit: "गणेश चतुर्थी",
     dateISO: "2026-09-14",
+    nextDateISO: "2027-09-04",
     lunarHint: "Bhadrapada Shukla Chaturthi; visarjan often Anant Chaturdashi",
     kind: "major",
     tradition: "ganapatya",
@@ -703,6 +724,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Sharad Navaratri",
     sanskrit: "शारदीय नवरात्रि",
     dateISO: "2026-10-11",
+    nextDateISO: "2027-09-30",
     lunarHint: "Ashvina Shukla Pratipada through Navami; Vijayadashami follows",
     kind: "cluster",
     tradition: "shakta",
@@ -748,6 +770,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Vijayadashami / Dussehra",
     sanskrit: "विजयादशमी",
     dateISO: "2026-10-20",
+    nextDateISO: "2027-10-09",
     lunarHint: "Ashvina Shukla Dashami — closes Sharad Navaratri",
     kind: "major",
     tradition: "pan-hindu",
@@ -791,6 +814,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Karwa Chauth",
     sanskrit: "करवा चौथ",
     dateISO: "2026-10-29",
+    nextDateISO: "2027-10-18",
     lunarHint: "Kartik Krishna Chaturthi — moonrise fast-breaking",
     kind: "vrat",
     tradition: "pan-hindu",
@@ -832,6 +856,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Diwali",
     sanskrit: "दीपावली",
     dateISO: "2026-11-08",
+    nextDateISO: "2027-10-29",
     lunarHint: "Kartik Amavasya Lakshmi Puja; five-day cluster ~6–10 Nov 2026",
     kind: "cluster",
     tradition: "pan-hindu",
@@ -876,6 +901,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Govardhan Puja",
     sanskrit: "गोवर्धन पूजा",
     dateISO: "2026-11-10",
+    nextDateISO: "2027-10-30",
     lunarHint: "Kartik Shukla Pratipada — Annakut day after many Diwali Lakshmi Puja listings",
     kind: "major",
     tradition: "vaishnava",
@@ -883,6 +909,8 @@ export const UTSAVS: UtsavEntry[] = [
     tagline: "Food-mountain and the hill — Krishna’s Braj ethic",
     summary:
       "Govardhan / Annakut follows Diwali’s amavasya night in many North Indian and Pushtimarg calendars. 2026 civil listings commonly give 10 November.",
+    nextSummary:
+      "Govardhan / Annakut follows Diwali’s amavasya night in many North Indian and Pushtimarg calendars. Drik Panchang gives 30 October 2027 for New Delhi.",
     katha:
       "The Bhāgavata Purāṇa tells of Krishna lifting Govardhan to shelter villagers from Indra’s storm. That is Purāṇic theology of care over cosmic ego — not a meteorology report.",
     livingPractice:
@@ -919,6 +947,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Bhai Dooj",
     sanskrit: "भाई दूज",
     dateISO: "2026-11-11",
+    nextDateISO: "2027-10-31",
     lunarHint: "Kartik Shukla Dwitiya — Yama Dwitiya in many almanacs",
     kind: "major",
     tradition: "pan-hindu",
@@ -960,6 +989,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Chhath Puja",
     sanskrit: "छठ पूजा",
     dateISO: "2026-11-18",
+    nextDateISO: "2027-11-04",
     lunarHint: "Kartik Shukla Shashthi peak — four-day arc often 15–18 Nov 2026",
     kind: "vrat",
     tradition: "saura",
@@ -1003,6 +1033,7 @@ export const UTSAVS: UtsavEntry[] = [
     name: "Kartik Purnima",
     sanskrit: "कार्तिक पूर्णिमा",
     dateISO: "2026-11-24",
+    nextDateISO: "2027-11-14",
     lunarHint: "Kartik Purnima — Dev Deepawali / Tripuri Purnima motifs",
     kind: "major",
     tradition: "pan-hindu",
