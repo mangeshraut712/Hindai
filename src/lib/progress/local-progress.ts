@@ -112,21 +112,37 @@ export function toLocalDateKey(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
-export function getLocalStreak(reviewDates = loadStore().reviewDates): number {
+const DAY_MS = 86_400_000;
+
+/** Local calendar days from earlier to later. A 23- or 25-hour DST day counts as one. */
+export function localCalendarDaySpan(earlier: Date, later: Date): number {
+  const start = Date.UTC(earlier.getFullYear(), earlier.getMonth(), earlier.getDate());
+  const end = Date.UTC(later.getFullYear(), later.getMonth(), later.getDate());
+  return Math.round((end - start) / DAY_MS);
+}
+
+export function getLocalStreak(reviewDates = loadStore().reviewDates, now = new Date()): number {
   if (!reviewDates.length) {
     return 0;
   }
 
   const dates = [...reviewDates].sort().reverse();
-  const cursor = new Date(`${dates[0]}T00:00:00`);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const newest = new Date(`${dates[0]}T00:00:00`);
-  const dayMs = 86_400_000;
-  if (today.getTime() - newest.getTime() > dayMs) {
+  const newestKey = dates[0];
+  if (!newestKey) {
     return 0;
   }
+  const newest = new Date(`${newestKey}T00:00:00`);
+  if (Number.isNaN(newest.getTime())) {
+    return 0;
+  }
+
+  const today = new Date(now);
+  today.setHours(0, 0, 0, 0);
+  if (localCalendarDaySpan(newest, today) > 1) {
+    return 0;
+  }
+
+  const cursor = new Date(newest);
 
   let streak = 0;
   for (const value of dates) {

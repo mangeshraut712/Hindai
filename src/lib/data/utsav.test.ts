@@ -48,3 +48,37 @@ test("upcoming utsavs respect a civil from-date", () => {
   assert.equal(list[0]?.slug, "janmashtami");
   assert.ok(list.every((item) => item.dateISO >= "2026-09-01"));
 });
+
+test("each utsav's next civil date falls in the following year", () => {
+  for (const item of UTSAVS) {
+    assert.ok(item.nextDateISO, item.slug);
+    assert.match(item.nextDateISO, /^\d{4}-\d{2}-\d{2}$/);
+    assert.equal(
+      Number(item.nextDateISO.slice(0, 4)),
+      Number(item.dateISO.slice(0, 4)) + 1,
+      item.slug
+    );
+  }
+  assert.equal(getUtsavBySlug("diwali")?.nextDateISO, "2027-10-29");
+  assert.equal(getUtsavBySlug("chhath-puja")?.nextDateISO, "2027-11-04");
+});
+
+test("upcoming utsavs continue past the last 2026 catalog date", () => {
+  const list = upcomingUtsavs(new Date("2026-11-25T00:00:00"), 4);
+  assert.equal(list.length, 4);
+  assert.ok(list.every((item) => item.dateISO >= "2026-11-25"));
+  assert.ok(
+    !list.some((item) => item.slug === "ganesh-chaturthi" && item.dateISO.startsWith("2026"))
+  );
+  assert.equal(list[0]?.slug, "makar-sankranti");
+  assert.equal(list[0]?.dateISO, "2027-01-15");
+});
+
+test("a rolled-forward utsav does not keep this year's date in its summary", () => {
+  const list = upcomingUtsavs(new Date("2026-11-25T00:00:00"), 40);
+  const rolled = list.filter((item) => item.dateISO.startsWith("2027") && item.nextSummary);
+  assert.ok(rolled.length > 0);
+  for (const item of rolled) {
+    assert.doesNotMatch(item.summary, /2026/, item.slug);
+  }
+});

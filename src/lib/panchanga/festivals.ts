@@ -34,8 +34,12 @@ function mapKind(kind: UtsavKind): FestivalType {
   }
 }
 
+function panchangaId(entry: UtsavEntry): string {
+  return UTSAV_SLUG_TO_PANCHANGA_ID[entry.slug] ?? entry.slug;
+}
+
 function fromUtsav(entry: UtsavEntry): Festival {
-  const id = UTSAV_SLUG_TO_PANCHANGA_ID[entry.slug] ?? entry.slug;
+  const id = panchangaId(entry);
   return {
     id,
     name: entry.name,
@@ -56,6 +60,23 @@ function byDate(a: Festival, b: Festival): number {
 /** Single source: deep utsav encyclopedia. No parallel EXTRA list. */
 export const FESTIVALS: Festival[] = UTSAVS.map(fromUtsav).sort(byDate);
 
+/** Next year's civil date (and blurb, when this year's names a date) per festival id. */
+const NEXT_OCCURRENCES = new Map<string, Pick<Festival, "date" | "description">>(
+  UTSAVS.flatMap((entry) =>
+    entry.nextDateISO
+      ? [
+          [
+            panchangaId(entry),
+            {
+              date: new Date(`${entry.nextDateISO}T12:00:00`),
+              description: entry.nextSummary ?? entry.summary,
+            },
+          ] as const,
+        ]
+      : []
+  )
+);
+
 export function getFestivalsForMonth(year: number, month: number): Festival[] {
   return FESTIVALS.filter((festival) => {
     const festivalDate = new Date(festival.date);
@@ -63,10 +84,14 @@ export function getFestivalsForMonth(year: number, month: number): Festival[] {
   }).sort(byDate);
 }
 
-export function getUpcomingFestivals(count: number = 5): Festival[] {
-  const today = new Date();
+export function getUpcomingFestivals(count: number = 5, from: Date = new Date()): Festival[] {
+  const today = new Date(from);
   today.setHours(0, 0, 0, 0);
-  return FESTIVALS.filter((festival) => festival.date >= today)
+  return FESTIVALS.map((festival) => {
+    const next = NEXT_OCCURRENCES.get(festival.id);
+    return festival.date < today && next ? { ...festival, ...next } : festival;
+  })
+    .filter((festival) => festival.date >= today)
     .sort(byDate)
     .slice(0, count);
 }

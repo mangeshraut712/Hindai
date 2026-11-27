@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Play, Pause, SkipBack, SkipForward, Volume2, Settings, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -15,6 +15,7 @@ import { catalogVerseText } from "@/lib/audio/catalog-verse";
 import { VedicAccentEngine, VedicAccentResult } from "@/lib/audio/vedic-accent";
 import { VedicHeritagePortal, VedicAudio } from "@/lib/audio/vedic-heritage";
 import { scriptureCatalog } from "@/lib/scripture-catalog";
+import { createLatestRequest } from "@/lib/latest-request";
 
 interface AudioVerse {
   scripture: string;
@@ -35,6 +36,8 @@ export function AudioExplorer() {
   const [selectedReciter, setSelectedReciter] = useState<string>("");
   const [availableReciters, setAvailableReciters] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const latestVerse = useRef(createLatestRequest());
+  const latestReciters = useRef(createLatestRequest());
 
   // Filter scriptures that have audio support
   const audioSupportedScriptures = scriptureCatalog.filter((item) =>
@@ -42,20 +45,24 @@ export function AudioExplorer() {
   );
 
   const loadAvailableReciters = useCallback(async () => {
+    const request = latestReciters.current.begin();
     try {
       const reciters = await VedicAccentEngine.getReciters(
         selectedScripture as "rigveda" | "samaveda"
       );
+      if (!request.isCurrent()) return;
       setAvailableReciters(reciters);
       if (reciters.length > 0 && !selectedReciter) {
         setSelectedReciter(reciters[0]);
       }
     } catch (error) {
+      if (!request.isCurrent() || request.signal.aborted) return;
       console.error("Failed to load reciters:", error);
     }
   }, [selectedReciter, selectedScripture]);
 
   const loadVerse = useCallback(async () => {
+    const request = latestVerse.current.begin();
     setIsLoading(true);
     try {
       const text = catalogVerseText(selectedScripture, selectedChapter, selectedVerse) ?? "";
@@ -73,6 +80,7 @@ export function AudioExplorer() {
         selectedChapter,
         selectedVerse
       );
+      if (!request.isCurrent()) return;
       verse.audio = audio || undefined;
 
       // Load accent analysis
@@ -81,14 +89,17 @@ export function AudioExplorer() {
           text,
           selectedScripture as "rigveda" | "samaveda"
         );
+        if (!request.isCurrent()) return;
         verse.accents = accents;
       }
 
+      if (!request.isCurrent()) return;
       setCurrentVerse(verse);
     } catch (error) {
+      if (!request.isCurrent() || request.signal.aborted) return;
       console.error("Failed to load verse:", error);
     } finally {
-      setIsLoading(false);
+      if (request.isCurrent()) setIsLoading(false);
     }
   }, [selectedChapter, selectedScripture, selectedVerse]);
 

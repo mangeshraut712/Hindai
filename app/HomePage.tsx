@@ -593,7 +593,7 @@ const milestones = [
     subtitle: "भगवद्गीता मुख्य श्लोक",
     desc: "Study Karma Yoga, Jnana Yoga, and Bhakti Yoga through canonical verses, translations, and word meanings.",
     status: "current",
-    href: "/contents/bhagavad-gita",
+    href: "/bhagavad-gita",
     badge: "Active Study",
   },
   {
