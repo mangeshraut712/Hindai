@@ -389,7 +389,10 @@ Hindai/
 
 ```env
 # ==========================================
-# REQUIRED: OpenRouter API for Gemma 4
+# OPTIONAL: local OpenRouter for next dev
+# GitHub Pages does not read this key. Production Gemma is the
+# Cloudflare Worker (Workers AI by default; this key is an optional
+# Worker secret for the 31B model).
 # ==========================================
 OPENROUTER_API_KEY=your_openrouter_api_key
 OPENROUTER_MODEL=google/gemma-4-31b-it:free
@@ -427,7 +430,7 @@ The public site is a Next.js static export on GitHub Pages:
 - App Router `/api/*` Route Handlers (Node/serverless only). The Pages build stashes `app/api` so `next build` can export HTML. Use `next dev` for local API work.
 - `next.config.js` `headers()` (unsupported with `output: 'export'`)
 - Next.js image optimization (Pages uses `images.unoptimized: true`)
-- AI streaming, chat, quiz, panchanga JSON, and similar `/api` features return 404 on Pages
+- The static site does not run `app/api`. Chat, quiz, dharma, translation, the developer agent, Sanskrit chat, and pothi speech go to `workers/hindai-gemma`. Routes that worker does not serve, such as vision, stay unavailable.
 
 ```bash
 npm run build:pages
