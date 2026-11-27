@@ -1,8 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { UTSAV_NOTE, UTSAVS, upcomingUtsavs, utsavsByMonth } from "@/lib/data/utsav";
 import { GurukulHero } from "@/components/gurukul/gurukul-media";
 import { publicUrl } from "@/lib/site";
+import { formatCivil } from "./upcoming";
+import { UpcomingFestivals } from "./upcoming-festivals";
 
 const MONTH_ORDER = [
   "January",
@@ -19,18 +20,10 @@ const MONTH_ORDER = [
   "December",
 ] as const;
 
-function formatCivil(iso: string): string {
-  const date = new Date(`${iso}T12:00:00`);
-  return date.toLocaleDateString("en-IN", {
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-}
-
 export function FestivalHome() {
   const byMonth = utsavsByMonth();
+  // Evaluated at build time on purpose: this is what the static HTML ships, and
+  // <UpcomingFestivals> re-derives it from the visitor's clock after mount.
   const upcoming = upcomingUtsavs(new Date(), 4);
 
   return (
@@ -64,40 +57,7 @@ export function FestivalHome() {
         <p className="text-muted-foreground mt-3 max-w-2xl text-sm leading-7">
           Deep articles — katha labelled as tradition, temple etiquette as living custom.
         </p>
-        <ul className="mt-8 grid list-none grid-cols-1 gap-0 p-0 md:grid-cols-2 md:gap-x-10">
-          {upcoming.map((item) => (
-            <li key={item.slug}>
-              <Link
-                href={`/festivals/${item.slug}`}
-                className="group border-border/70 grid grid-cols-[7rem_minmax(0,1fr)] gap-4 border-b py-5"
-              >
-                {item.image ? (
-                  <Image
-                    src={publicUrl(item.image)}
-                    alt={`Artist impression for ${item.name}`}
-                    width={280}
-                    height={200}
-                    className="h-24 w-28 rounded-lg object-cover"
-                    sizes="112px"
-                  />
-                ) : (
-                  <div className="bg-muted flex h-24 w-28 items-center justify-center rounded-lg">
-                    <p className="font-devanagari text-primary text-lg">{item.sanskrit}</p>
-                  </div>
-                )}
-                <div>
-                  <p className="text-primary text-[11px] font-semibold tracking-[0.16em] uppercase">
-                    {formatCivil(item.dateISO)}
-                  </p>
-                  <h3 className="group-hover:text-primary mt-1 font-serif text-xl">{item.name}</h3>
-                  <p className="text-muted-foreground mt-2 line-clamp-2 text-sm leading-6">
-                    {item.tagline}
-                  </p>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <UpcomingFestivals built={upcoming} />
       </section>
 
       <section className="border-border/60 bg-muted/20 border-y">
