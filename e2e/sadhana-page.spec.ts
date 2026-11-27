@@ -46,6 +46,19 @@ test.describe("Sadhana page", () => {
     await expect(page.getByText(/Today's Astrological Guide/i)).toBeVisible();
     await expect(page.getByText(/Upcoming Vrats & Festivals/i)).toBeVisible();
     await expect(page.getByText(/Guru AI Daily Routine Generator/i)).toBeVisible();
+    await expect(page.locator("option", { hasText: "Lord Hanuman (हनुमान)" })).toHaveCount(1);
+    await expect(page.locator("option", { hasText: "Sun God (Surya) (सूर्य)" })).toHaveCount(1);
+
+    // Every deity option is "Name (Sanskrit)", and the Sanskrit part is a name, never one of
+    // the trailing honorifics the label helper strips. Checked for the whole deity list, so it
+    // survives a deity being added or renamed. Only the first select holds deities; the
+    // duration, time-of-day and language selects use plain labels.
+    const deityOptions = await page.locator("select").first().locator("option").allTextContents();
+    expect(deityOptions.length).toBeGreaterThan(0);
+    for (const option of deityOptions) {
+      expect(option).toMatch(/.+ \(.+\)/);
+      expect(option).not.toMatch(/\((जी|देव|देवी)\)/);
+    }
 
     // Verify presence of options in routine generator
     const selectElements = page.locator("select");
